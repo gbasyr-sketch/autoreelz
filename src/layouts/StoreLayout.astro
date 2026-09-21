@@ -1,9 +1,13 @@
 ---
 import Icon from '../components/Icon.astro';
-import {categories} from '../lib/demo';
+import {getCatalog} from '../server/catalog';
+import type {CatalogSnapshot} from '../lib/catalog-types';
 import '../styles/global.css';
-interface Props {title:string;description?:string;active?:'home'|'catalog'|'product'}
-const{title,description='Демонстрационная витрина AUTO REELZ: детали автомобильного интерьера.',active='home'}=Astro.props;
+interface Props {title:string;description?:string;active?:'home'|'catalog'|'product';catalog?:CatalogSnapshot}
+const{title,description='AUTO REELZ: детали автомобильного интерьера.',active='home'}=Astro.props;
+const catalog=Astro.props.catalog??await getCatalog();
+const {categories}=catalog;
+const csrfToken=Astro.locals.shopSession?.csrfToken;
 const query=Astro.url.searchParams.get('q')??'';
 ---
 <!doctype html>
@@ -11,12 +15,12 @@ const query=Astro.url.searchParams.get('q')??'';
 <head>
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="robots" content="noindex,nofollow"/><meta name="description" content={description}/>
-  <meta name="theme-color" content="#CB181A"/><title>{title} · AUTO REELZ</title>
+  <meta name="csrf-token" content={csrfToken??''}/><meta name="theme-color" content="#CB181A"/><title>{title} · AUTO REELZ</title>
   <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml"/>
 </head>
 <body>
   <a class="skip-link" href="#main">К содержимому</a>
-  <div class="demo-strip"><div class="container"><span><i></i>Демонстрационная витрина</span><span>Цены и наличие — примеры. Заказы пока не оформляются.</span></div></div>
+  <div class="demo-strip"><div class="container"><span><i></i>Тестовый магазин: оплата и доставка — имитация</span><span>Локальная версия</span></div></div>
   <div class="utility"><div class="container"><span>Детали автомобильного интерьера</span><nav aria-label="Информация"><a href="/info/delivery">Доставка и оплата</a><a href="/info/contacts">Контакты</a><span>Россия · ₽</span></nav></div></div>
   <header class="site-header">
     <div class="container header-row">
@@ -26,25 +30,25 @@ const query=Astro.url.searchParams.get('q')??'';
       <form class="header-search" action="/catalog" role="search"><input name="q" type="search" value={query} maxlength="100" placeholder="Деталь, категория или артикул" aria-label="Поиск по каталогу"/><button aria-label="Найти"><Icon name="search"/></button></form>
       <div class="header-actions">
         <a class="nav-action" href="/favorites"><Icon name="heart"/><span>Избранное</span></a>
-        <a class="nav-action" href="/info/account"><Icon name="user"/><span>Кабинет</span></a>
-        <a class="nav-action" href="/demo-cart"><Icon name="cart"/><span>Корзина <b data-cart-count>0</b></span></a>
+        <a class="nav-action" href="/account"><Icon name="user"/><span>Кабинет</span></a>
+        <a class="nav-action" href="/cart"><Icon name="cart"/><span>Корзина <b data-cart-count>0</b></span></a>
       </div>
     </div>
-    <nav class="container category-nav" aria-label="Популярные категории">{categories.slice(0,5).map(c=><a href={`/catalog?category=${c.slug}`}>{c.name}{c.slug==='bundles'&&<Icon name="arrow" size={15}/>}</a>)}</nav>
+    <nav class="container category-nav" aria-label="Популярные категории">{categories.filter(c=>c.depth===0).slice(0,5).map(c=><a href={`/catalog?category=${c.slug}`}>{c.name}{c.slug==='bundles'&&<Icon name="arrow" size={15}/>}</a>)}</nav>
   </header>
   <slot/>
-  <footer class="site-footer"><div class="container footer-top"><a class="logo" href="/" aria-label="AUTO REELZ — главная"><img src="/brand/logo.svg" width="244" height="34" alt="AUTO REELZ"/></a><p>Детали для вашего интерьера.</p><nav><a href="/catalog">Каталог</a><a href="/info/delivery">Доставка и оплата</a><a href="/info/contacts">Контакты</a></nav></div><div class="container footer-bottom"><span>© AUTO REELZ · autoreelz.ru</span><span>Локальная версия · демонстрационные данные</span></div></footer>
+  <footer class="site-footer"><div class="container footer-top"><a class="logo" href="/" aria-label="AUTO REELZ — главная"><img src="/brand/logo.svg" width="244" height="34" alt="AUTO REELZ"/></a><p>Детали для вашего интерьера.</p><nav><a href="/catalog">Каталог</a><a href="/info/delivery">Доставка и оплата</a><a href="/info/contacts">Контакты</a></nav></div><div class="container footer-bottom"><span>© AUTO REELZ · autoreelz.ru</span><span>Локальная тестовая версия</span></div></footer>
   <nav class="mobile-nav" aria-label="Основная навигация">
     <a href="/catalog" class:list={[active==='catalog'&&'active']}><Icon name="grid" size={20}/>Каталог</a>
     <a href="/catalog#catalog-search" data-open-search><Icon name="search" size={20}/>Поиск</a>
-    <a href="/demo-cart"><Icon name="cart" size={20}/>Корзина</a>
+    <a href="/cart"><Icon name="cart" size={20}/>Корзина</a>
     <a href="/favorites"><Icon name="heart" size={20}/>Избранное</a>
-    <a href="/info/account"><Icon name="user" size={20}/>Кабинет</a>
+    <a href="/account"><Icon name="user" size={20}/>Кабинет</a>
   </nav>
-  <dialog id="menu-dialog" class="menu-dialog" aria-labelledby="menu-title"><div class="dialog-heading"><div><p class="eyebrow">AUTO REELZ</p><h2 id="menu-title">Каталог деталей</h2></div><button class="icon-button" data-close-dialog aria-label="Закрыть каталог"><Icon name="close"/></button></div><div class="menu-categories">{categories.map((c,i)=><a href={`/catalog?category=${c.slug}`}><span class="menu-number">{String(i+1).padStart(2,'0')}</span><Icon name={c.icon}/><span>{c.name}</span><Icon name="arrow" size={18}/></a>)}</div><a class="button-secondary" href="/catalog">Все товары <Icon name="arrow"/></a></dialog>
+  <dialog id="menu-dialog" class="menu-dialog" aria-labelledby="menu-title"><div class="dialog-heading"><div><p class="eyebrow">AUTO REELZ</p><h2 id="menu-title">Каталог деталей</h2></div><button class="icon-button" data-close-dialog aria-label="Закрыть каталог"><Icon name="close"/></button></div><div class="menu-categories">{categories.map((c,i)=><a href={`/catalog?category=${c.slug}`}><span class="menu-number">{String(i+1).padStart(2,'0')}</span><Icon name={c.icon}/><span style={`padding-left:${c.depth*16}px`}>{c.name}</span><Icon name="arrow" size={18}/></a>)}</div><a class="button-secondary" href="/catalog">Все товары <Icon name="arrow"/></a></dialog>
   <dialog id="search-dialog" class="search-dialog" aria-labelledby="search-title"><div class="dialog-heading"><h2 id="search-title">Найти деталь</h2><button class="icon-button" data-close-dialog aria-label="Закрыть поиск"><Icon name="close"/></button></div><form action="/catalog"><label class="field">Название или артикул<input name="q" type="search" required maxlength="100" placeholder="Например, блок отопителя"/></label><button class="button">Найти <Icon name="search"/></button></form><p class="muted">Попробуйте «отопитель», «консоль» или DEMO-HEATER-R.</p></dialog>
   <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
-  <noscript><div class="no-js-note">Поиск, фильтры и выбор исполнения работают без JavaScript. Для демонстрации избранного и корзины включите JavaScript.</div></noscript>
+  <noscript><div class="no-js-note">Поиск, фильтры и выбор исполнения работают без JavaScript. Для избранного и оформления заказа включите JavaScript.</div></noscript>
   <script>import '../scripts/store.ts';</script>
 </body>
 </html>

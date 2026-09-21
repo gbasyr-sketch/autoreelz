@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-09-21T21:17:24.531Z",
+  "cmsPropagation": true,
+  "restored": true,
+  "media": true,
+  "health": true,
+  "cms": {
+    "licenseStatus": "active",
+    "collections": 25,
+    "limit": 25
+  }
+}

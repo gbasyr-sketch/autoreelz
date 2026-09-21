@@ -2,39 +2,46 @@
 import StoreLayout from '../layouts/StoreLayout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import Icon from '../components/Icon.astro';
-import { categories, vehicles, attributeDefinitions, type AttributeKey } from '../lib/demo';
+import {getCatalog} from '../server/catalog';
+import {attributeParam,attributeValue} from '../lib/format';
+const catalog=await getCatalog();
+const {categories,vehicles,attributeDefinitions}=catalog;
+const currentYear=new Date().getFullYear();
 import { queryCatalog, catalogUrl } from '../lib/catalog';
 import '../styles/catalog.css';
 
 const params = Astro.url.searchParams;
-const result = queryCatalog(params);
-const { items, category, query, attributeKeys, activeFilters, error, unknownFitment, includeUnknown, selectedVehicle, sort } = result;
+const result = queryCatalog(params,catalog);
+const { items, category, query, attributeKeys, activeFilters, error, unknownFitment, includeUnknown, selectedVehicle, selectedVersion, sort } = result;
 if (error) Astro.response.status = 400;
 const pageTitle = category?.name ?? 'Каталог деталей';
 const priceError = error.includes('цену') || error.includes('цена');
 const activeCount = activeFilters.filter(item => item.key !== 'q').length;
-const allAttributeKeys = Object.keys(attributeDefinitions) as AttributeKey[];
+const allAttributeKeys = Object.keys(attributeDefinitions);
 const retainedFields = (except: string[]) => Array.from(params.entries()).filter(([key]) => !except.includes(key));
 const categoryHref = (slug: string) => {
   const nextCategory = categories.find(item => item.slug === slug);
   const changes: Record<string, string | null> = { category: slug || null };
-  for (const key of allAttributeKeys) if (nextCategory && !nextCategory.attributes.includes(key)) changes[key] = null;
+  for (const key of allAttributeKeys) if (nextCategory && !nextCategory.attributes.includes(key)) changes[attributeParam(key)] = null;
   return catalogUrl(params, changes);
 };
-const removeFilterHref = (key: string) => catalogUrl(params, key === 'vehicle' ? { vehicle: null, year: null, ac: null, include_unknown: null } : { [key]: null });
+const removeFilterHref = (key: string) => {
+  if(key.startsWith('attr.')){const next=new URLSearchParams(params);next.delete(key);const code=key.slice(5);if(attributeValue(next,code)!==null)next.delete(code);return catalogUrl(next);}
+  return catalogUrl(params, key === 'vehicle' ? { vehicle: null, year: null, ac: null, version: null, include_unknown: null } : { [key]: null });
+};
 const countLabel = (count: number) => `${count} ${count % 10 === 1 && count % 100 !== 11 ? 'товар' : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 12 || count % 100 > 14) ? 'товара' : 'товаров'}`;
 ---
-<StoreLayout title={pageTitle} description="Демонстрационный каталог AUTO REELZ: детали интерьера и готовые комплекты. Подбор, фильтры и варианты исполнения." active="catalog">
+<StoreLayout catalog={catalog} title={category?.seoTitle??pageTitle} description={category?.metaDescription??"Каталог AUTO REELZ: детали интерьера и готовые комплекты. Подбор, фильтры и варианты исполнения."} active="catalog">
   <main id="main" class="container cat-page" aria-labelledby="cat-title">
     <nav class="breadcrumbs" aria-label="Хлебные крошки">
       <a href="/">Главная</a>
-      {category ? <><a href="/catalog">Каталог</a><span aria-current="page">{category.shortName}</span></> : <span aria-current="page">Каталог</span>}
+      {category ? <><a href="/catalog">Каталог</a>{category.ancestorSlugs.map(slug=><a href={`/catalog?category=${slug}`}>{categories.find(c=>c.slug===slug)?.name}</a>)}<span aria-current="page">{category.shortName}</span></> : <span aria-current="page">Каталог</span>}
     </nav>
     <header class="cat-heading">
       <div><span class="eyebrow">Соберите свой интерьер</span><h1 id="cat-title">{pageTitle}</h1></div>
       <p>От одной детали<br class="cat-desktop-break" /> до готового комплекта.</p>
     </header>
-    <div class="cat-demo-note"><span class="cat-demo-tag">Демокаталог</span><p>Цены, остатки и характеристики — примеры. Совместимость пока не подтверждена.</p></div>
+    {catalog.products.some(p=>p.isDemo)&&<div class="cat-demo-note"><span class="cat-demo-tag">Тестовая версия</span><p>Демотовары подписаны. Их цены, остатки и характеристики — примеры.</p></div>}
 
     <div class="cat-layout" data-catalog>
       <aside class="cat-sidebar" aria-label="Категории и фильтры">
@@ -44,7 +51,7 @@ const countLabel = (count: number) => `${count} ${count % 10 === 1 && count % 10
             <nav class="cat-categories" aria-label="Категории каталога">
               <h2>Категории</h2>
               <a class:list={['cat-category', { 'is-selected': !category }]} href={categoryHref('')} aria-current={!category ? 'page' : undefined}><span>Все детали</span><span aria-hidden="true">↗</span></a>
-              {categories.map(item => <a class:list={['cat-category', { 'is-selected': category?.slug === item.slug }]} href={categoryHref(item.slug)} aria-current={category?.slug === item.slug ? 'page' : undefined}><span>{item.shortName}</span><span aria-hidden="true">›</span></a>)}
+              {categories.map(item => <a class:list={['cat-category', { 'is-selected': category?.slug === item.slug }]} href={categoryHref(item.slug)} aria-current={category?.slug === item.slug ? 'page' : undefined}><span style={`padding-left:${item.depth*14}px`}>{item.shortName}</span><span aria-hidden="true">›</span></a>)}
             </nav>
             <form action="/catalog" method="get" class="cat-filter-form" id="cat-filter-form">
               {query && <input type="hidden" name="q" value={query} />}
@@ -58,11 +65,12 @@ const countLabel = (count: number) => `${count} ${count % 10 === 1 && count % 10
                   <option value="">Выберите автомобиль</option>
                   {vehicles.map(vehicle => <option value={vehicle.slug} selected={selectedVehicle?.slug === vehicle.slug}>{vehicle.name}</option>)}
                 </select>
+                {(selectedVehicle?.versions.length??0)>0&&<label class="cat-label">Модификация<select class="field" name="version"><option value="">Не выбрана</option>{selectedVehicle?.versions.map(v=><option value={v.id} selected={v.id===selectedVersion?.id}>{v.name}</option>)}</select></label>}
                 <div class="cat-vehicle-options">
-                  <div><label class="cat-label" for="cat-year">Год выпуска</label><input class="field" id="cat-year" name="year" type="number" inputmode="numeric" min="1970" max="2026" step="1" value={params.get('year') ?? ''} placeholder="Например, 2019" /></div>
+                  <div><label class="cat-label" for="cat-year">Год выпуска</label><input class="field" id="cat-year" name="year" type="number" inputmode="numeric" min="1970" max={currentYear} step="1" value={params.get('year') ?? ''} placeholder="Например, 2019" /></div>
                   <div><label class="cat-label" for="cat-ac">Кондиционер</label><select class="field" name="ac" id="cat-ac"><option value="">Не выбран</option><option value="yes" selected={params.get('ac') === 'yes'}>Есть</option><option value="no" selected={params.get('ac') === 'no'}>Нет</option><option value="unknown" selected={params.get('ac') === 'unknown'}>Не знаю</option></select></div>
                 </div>
-                <p class="cat-field-help" id="cat-fitment-help">Подбор покажет статус совместимости. Сейчас он неизвестен для всех демотоваров.</p>
+                <p class="cat-field-help" id="cat-fitment-help">Подбор показывает подтверждённую совместимость. Неполные данные требуют уточнения.</p>
               </fieldset>
               <fieldset class="cat-filter-group">
                 <legend>Цена, ₽</legend>
@@ -78,11 +86,13 @@ const countLabel = (count: number) => `${count} ${count % 10 === 1 && count % 10
                 <label class="cat-radio"><input type="radio" name="availability" value="in-stock" checked={params.get('availability') === 'in-stock'} /><span>В наличии</span></label>
                 <label class="cat-radio"><input type="radio" name="availability" value="preorder" checked={params.get('availability') === 'preorder'} /><span>Предзаказ</span></label>
               </fieldset>
-              {attributeKeys.map(key => <fieldset class="cat-filter-group">
-                <legend>{attributeDefinitions[key].label}</legend>
-                <label class="cat-radio"><input type="radio" name={key} value="" checked={!params.get(key)} /><span>{key === 'material' ? 'Любой' : 'Любая'}</span></label>
-                {attributeDefinitions[key].values.map(option => <label class="cat-radio"><input type="radio" name={key} value={option.value} checked={params.get(key) === option.value} />{'color' in option && <span class="cat-color-swatch" style={`--swatch-color:${option.color}`} aria-hidden="true"></span>}<span>{option.label}</span></label>)}
-              </fieldset>)}
+              {attributeKeys.map(key => {const def=attributeDefinitions[key]!;const field=attributeParam(key);const value=attributeValue(params,key)??'';return <fieldset class="cat-filter-group">
+                <legend>{def.label}{def.unit&&` (${def.unit})`}</legend>
+                {def.type==='select'||def.type==='boolean'?<>
+                  <label class="cat-radio"><input type="radio" name={field} value="" checked={!value}/><span>Любое значение</span></label>
+                  {(def.type==='boolean'?[{value:'true',label:'Да'},{value:'false',label:'Нет'}]:def.values).map(option=><label class="cat-radio"><input type="radio" name={field} value={option.value} checked={value===option.value}/>{'color' in option&&<span class="cat-color-swatch" style={`--swatch-color:${option.color}`} aria-hidden="true"/>}<span>{option.label}</span></label>)}
+                </>:<label class="cat-label">Точное значение<input class="field" name={field} type={def.type==='number'?'number':'text'} step={def.type==='number'?'any':undefined} value={value} maxlength="200" placeholder="Любое значение"/></label>}
+              </fieldset>})}
               {error && !priceError && <p class="cat-field-error" id="cat-form-error" role="alert">{error}</p>}
               <div class="cat-filter-actions"><button class="button" type="submit">Применить фильтры <span aria-hidden="true">→</span></button><a href="/catalog" class="cat-reset">Сбросить всё</a></div>
             </form>
@@ -116,12 +126,13 @@ const countLabel = (count: number) => `${count} ${count % 10 === 1 && count % 10
 
         {error ? <section class="cat-empty cat-error-state" aria-labelledby="cat-empty-title">
           <span class="cat-state-icon" aria-hidden="true">!</span><span class="eyebrow">Проверьте условия</span><h2 id="cat-empty-title">Не удалось применить фильтры</h2><p role="alert">{error}</p><div class="cat-empty-actions"><a class="button" href="#cat-filter-form" data-edit-catalog-filters>Исправить фильтры</a><a class="button-secondary" href="/catalog">Сбросить всё</a></div>
-        </section> : unknownFitment && !includeUnknown ? <section class="cat-empty cat-fitment-empty" aria-labelledby="cat-empty-title">
-          <span class="cat-state-icon"><Icon name="car" size={32} /></span><span class="eyebrow">{selectedVehicle?.name}</span><h2 id="cat-empty-title">Подтверждённых совпадений пока нет</h2><p>Данные совместимости ещё не заполнены. Это не означает, что детали не подойдут: применимость нужно проверить по модели и комплектации автомобиля.</p><a class="button" href={catalogUrl(params, { include_unknown: '1' })}>Показать демотовары<br class="cat-mobile-break" /> с неизвестной совместимостью</a><a class="cat-state-link" href={removeFilterHref('vehicle')}>Убрать автомобиль из условий</a>
+        </section> : unknownFitment && !includeUnknown && items.length===0 ? <section class="cat-empty cat-fitment-empty" aria-labelledby="cat-empty-title">
+          <span class="cat-state-icon"><Icon name="car" size={32} /></span><span class="eyebrow">{selectedVehicle?.name}</span><h2 id="cat-empty-title">Подтверждённых совпадений пока нет</h2><p>Для выбранных условий есть товары с неизвестной применимостью. Уточните модель, год и комплектацию автомобиля.</p><a class="button" href={catalogUrl(params, { include_unknown: '1' })}>Показать товары<br class="cat-mobile-break" /> с неизвестной совместимостью</a><a class="cat-state-link" href={removeFilterHref('vehicle')}>Убрать автомобиль из условий</a>
         </section> : <>
-          {unknownFitment && includeUnknown && <div class="cat-fitment-notice"><span class="cat-notice-symbol" aria-hidden="true">i</span><div><strong>Совместимость с {selectedVehicle?.name} не подтверждена</strong><p>Ниже — демотовары с неизвестной применимостью. Выбор автомобиля не гарантирует, что деталь подойдёт.</p></div></div>}
-          {items.length > 0 ? <div class="cat-product-grid">{items.map(({ product, offer }) => <ProductCard product={product} offer={offer} />)}</div> : <section class="cat-empty" aria-labelledby="cat-empty-title">
-            <span class="cat-state-icon"><Icon name="search" size={32} /></span><span class="eyebrow">Попробуем иначе</span><h2 id="cat-empty-title">{query ? `По запросу «${query}» ничего не найдено` : 'Нет товаров с такими условиями'}</h2><p>{query ? 'Проверьте название или артикул. Можно сократить запрос или убрать часть фильтров.' : 'Попробуйте расширить диапазон цены или убрать один из фильтров. В демокаталоге пока небольшой набор товаров.'}</p><div class="cat-empty-actions">{query && <a class="button" href={catalogUrl(params, { q: null })}>Очистить поиск</a>}<a class={query ? 'button-secondary' : 'button'} href="/catalog">Показать весь каталог</a></div>
+          {unknownFitment && includeUnknown && <div class="cat-fitment-notice"><span class="cat-notice-symbol" aria-hidden="true">i</span><div><strong>Есть товары с неподтверждённой совместимостью</strong><p>Среди результатов есть товары с неизвестной применимостью; они подписаны. Выбор автомобиля не гарантирует, что деталь подойдёт.</p></div></div>}
+          {unknownFitment&&!includeUnknown&&items.length>0&&<p class="cat-field-help"><a href={catalogUrl(params,{include_unknown:'1'})}>Также показать товары с неизвестной совместимостью</a></p>}
+          {items.length > 0 ? <div class="cat-product-grid">{items.map(({ product, offer, fitment }) => <ProductCard product={product} offer={offer} catalog={catalog} fitment={fitment}/>)}</div> : <section class="cat-empty" aria-labelledby="cat-empty-title">
+            <span class="cat-state-icon"><Icon name="search" size={32} /></span><span class="eyebrow">Попробуем иначе</span><h2 id="cat-empty-title">{query ? `По запросу «${query}» ничего не найдено` : 'Нет товаров с такими условиями'}</h2><p>{query ? 'Проверьте название или артикул. Можно сократить запрос или убрать часть фильтров.' : 'Попробуйте расширить диапазон цены или убрать один из фильтров. '}</p><div class="cat-empty-actions">{query && <a class="button" href={catalogUrl(params, { q: null })}>Очистить поиск</a>}<a class={query ? 'button-secondary' : 'button'} href="/catalog">Показать весь каталог</a></div>
           </section>}
         </>}
         <div class="cat-bottom-note"><span aria-hidden="true">↗</span><p>Каждая деталь начинается с правильного подбора.<br /><span>Фотографии и точные параметры появятся после наполнения каталога.</span></p></div>

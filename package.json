@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "AUTO REELZ independent storefront \u2014 local demo",
+  "description": "AUTO REELZ independent storefront — local demo",
   "engines": {
     "node": ">=24.21.0 <25",
     "npm": ">=11 <12"
@@ -11,10 +11,12 @@
   "packageManager": "npm@11.19.1",
   "dependencies": {
     "@astrojs/node": "11.1.6",
-    "astro": "7.3.3"
+    "astro": "7.3.3",
+    "pg": "8.23.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
+    "@types/pg": "8.23.1",
     "typescript": "6.0.3"
   },
   "scripts": {

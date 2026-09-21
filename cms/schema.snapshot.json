@@ -256,6 +256,117 @@
       }
     },
     {
+      "collection": "ar_order_components",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_order_components",
+        "color": null,
+        "display_template": "{{sku_id}}",
+        "group": null,
+        "hidden": true,
+        "icon": "view_list",
+        "item_duplication_fields": null,
+        "note": "Только просмотр. Команды выполняются в разделе управления заказами, а не через прямое редактирование записей.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 34,
+        "sort_field": null,
+        "status": "inactive",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Компоненты заказов",
+            "singular": "Компоненты заказов",
+            "translation": "Компоненты заказов"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_order_components"
+      }
+    },
+    {
+      "collection": "ar_order_events",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_order_events",
+        "color": null,
+        "display_template": "{{event_type}}",
+        "group": null,
+        "hidden": false,
+        "icon": "history",
+        "item_duplication_fields": null,
+        "note": "Только просмотр. Команды выполняются в разделе управления заказами, а не через прямое редактирование записей.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 33,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "История заказов",
+            "singular": "История заказов",
+            "translation": "История заказов"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_order_events"
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_orders",
+        "color": null,
+        "display_template": "{{number}}",
+        "group": null,
+        "hidden": false,
+        "icon": "shopping_cart",
+        "item_duplication_fields": null,
+        "note": "Только просмотр. Команды выполняются в разделе управления заказами, а не через прямое редактирование записей.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 30,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Заказы и предзаказы",
+            "singular": "Заказы и предзаказы",
+            "translation": "Заказы и предзаказы"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_orders"
+      }
+    },
+    {
       "collection": "ar_packages",
       "meta": {
         "accountability": "all",
@@ -290,6 +401,80 @@
       },
       "schema": {
         "name": "ar_packages"
+      }
+    },
+    {
+      "collection": "ar_packing_rules",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_packing_rules",
+        "color": null,
+        "display_template": "{{name}}",
+        "group": null,
+        "hidden": false,
+        "icon": "package_2",
+        "item_duplication_fields": null,
+        "note": "Укажите измеренную упаковку и точные количества физических SKU. При отсутствии правила доставка требует ручного расчёта.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 34,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Правила упаковки",
+            "singular": "Правила упаковки",
+            "translation": "Правила упаковки"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_packing_rules"
+      }
+    },
+    {
+      "collection": "ar_payments",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_payments",
+        "color": null,
+        "display_template": "{{id}}",
+        "group": null,
+        "hidden": false,
+        "icon": "payments",
+        "item_duplication_fields": null,
+        "note": "Только просмотр. Команды выполняются в разделе управления заказами, а не через прямое редактирование записей.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 31,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Тестовые платежи",
+            "singular": "Тестовые платежи",
+            "translation": "Тестовые платежи"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_payments"
       }
     },
     {
@@ -653,6 +838,43 @@
       },
       "schema": {
         "name": "ar_stock"
+      }
+    },
+    {
+      "collection": "ar_stock_movements",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_stock_movements",
+        "color": null,
+        "display_template": "{{reason}}",
+        "group": null,
+        "hidden": false,
+        "icon": "inventory",
+        "item_duplication_fields": null,
+        "note": "Только просмотр. Команды выполняются в разделе управления заказами, а не через прямое редактирование записей.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 32,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Движения склада",
+            "singular": "Движения склада",
+            "translation": "Движения склада"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_stock_movements"
       }
     },
     {
@@ -3109,6 +3331,1781 @@
       }
     },
     {
+      "collection": "ar_order_components",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_order_components",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "uuid"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_order_components",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_order_components",
+      "field": "order_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_order_components",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "order_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID заказа"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "order_id",
+        "table": "ar_order_components",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_orders",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_order_components",
+      "field": "sku_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_order_components",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "sku_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Физический SKU"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "sku_id",
+        "table": "ar_order_components",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_skus",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_order_components",
+      "field": "quantity",
+      "type": "integer",
+      "meta": {
+        "collection": "ar_order_components",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "quantity",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Количество"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "quantity",
+        "table": "ar_order_components",
+        "data_type": "integer",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_order_events",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_order_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "uuid"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_order_events",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_order_events",
+      "field": "order_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_order_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "order_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID заказа"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "order_id",
+        "table": "ar_order_events",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_orders",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_order_events",
+      "field": "event_type",
+      "type": "text",
+      "meta": {
+        "collection": "ar_order_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "event_type",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Событие"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "event_type",
+        "table": "ar_order_events",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_order_events",
+      "field": "note",
+      "type": "text",
+      "meta": {
+        "collection": "ar_order_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "note",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Примечание"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "note",
+        "table": "ar_order_events",
+        "data_type": "text",
+        "default_value": "",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_order_events",
+      "field": "actor_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_order_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "actor_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID сотрудника"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "actor_id",
+        "table": "ar_order_events",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_order_events",
+      "field": "created_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_order_events",
+        "conditions": null,
+        "display": "datetime",
+        "display_options": null,
+        "field": "created_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Создано"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "created_at",
+        "table": "ar_order_events",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "uuid"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_orders",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "number",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "number",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Номер заказа"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "number",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": "((('AR-'",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "batch_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "batch_id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "batch_id"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "batch_id",
+        "table": "ar_orders",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_checkout_batches",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "session_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "session_id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "session_id"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "session_id",
+        "table": "ar_orders",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_web_sessions",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "kind",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": "labels",
+        "display_options": {
+          "choices": [
+            {
+              "text": "Обычный заказ",
+              "value": "ordinary"
+            },
+            {
+              "text": "Предзаказ",
+              "value": "preorder"
+            }
+          ]
+        },
+        "field": "kind",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Вид заказа"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "kind",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "status",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": "labels",
+        "display_options": {
+          "choices": [
+            {
+              "text": "Ожидает доставки",
+              "value": "open"
+            },
+            {
+              "text": "Предзаказ: ждёт подтверждения",
+              "value": "preorder_pending"
+            },
+            {
+              "text": "Ожидает оплаты",
+              "value": "awaiting_payment"
+            },
+            {
+              "text": "Оплачен",
+              "value": "paid"
+            },
+            {
+              "text": "Срок истёк",
+              "value": "expired"
+            },
+            {
+              "text": "Отменён",
+              "value": "cancelled"
+            },
+            {
+              "text": "Ручная проверка",
+              "value": "manual_review"
+            },
+            {
+              "text": "Ожидается",
+              "value": "pending"
+            },
+            {
+              "text": "Успешно",
+              "value": "succeeded"
+            },
+            {
+              "text": "Не прошёл",
+              "value": "failed"
+            },
+            {
+              "text": "Проверяется",
+              "value": "review"
+            }
+          ]
+        },
+        "field": "status",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Состояние"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "status",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "payment_status",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "payment_status",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Оплата"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "payment_status",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": "unpaid",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "delivery_status",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "delivery_status",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Доставка"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "delivery_status",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "allocation_state",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "allocation_state",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "allocation_state"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "allocation_state",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": "none",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "customer_name",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "customer_name",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 10,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Покупатель"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "customer_name",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "customer_phone",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "customer_phone",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 11,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Телефон"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "customer_phone",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "customer_email",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "customer_email",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 12,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Email"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "customer_email",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "delivery_snapshot",
+      "type": "json",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "delivery_snapshot",
+        "group": null,
+        "hidden": false,
+        "interface": "input-code",
+        "note": null,
+        "options": {
+          "language": "json"
+        },
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 13,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Адрес и способ доставки"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "delivery_snapshot",
+        "table": "ar_orders",
+        "data_type": "jsonb",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "items_snapshot",
+      "type": "json",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "items_snapshot",
+        "group": null,
+        "hidden": false,
+        "interface": "input-code",
+        "note": null,
+        "options": {
+          "language": "json"
+        },
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 14,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Неизменяемый состав заказа"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "items_snapshot",
+        "table": "ar_orders",
+        "data_type": "jsonb",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "product_total_kopecks",
+      "type": "bigInteger",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "product_total_kopecks",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 15,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Товары, копейки"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "product_total_kopecks",
+        "table": "ar_orders",
+        "data_type": "bigint",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": 64,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "shipping_cost_kopecks",
+      "type": "bigInteger",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "shipping_cost_kopecks",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 16,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Доставка, копейки"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "shipping_cost_kopecks",
+        "table": "ar_orders",
+        "data_type": "bigint",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": 64,
+        "numeric_scale": 0,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "shipping_reason",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "shipping_reason",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 17,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Расчёт доставки"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "shipping_reason",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "shipping_version",
+      "type": "integer",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "shipping_version",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 18,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Версия расчёта"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "shipping_version",
+        "table": "ar_orders",
+        "data_type": "integer",
+        "default_value": 0,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "shipping_package",
+      "type": "json",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "shipping_package",
+        "group": null,
+        "hidden": false,
+        "interface": "input-code",
+        "note": null,
+        "options": {
+          "language": "json"
+        },
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 19,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Упаковка"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "shipping_package",
+        "table": "ar_orders",
+        "data_type": "jsonb",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "terms",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "terms",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 20,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Срок и условия"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "terms",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "review_reason",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "review_reason",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 21,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Причина проверки"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "review_reason",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "expires_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": "datetime",
+        "display_options": null,
+        "field": "expires_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 22,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Оплатить до"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "expires_at",
+        "table": "ar_orders",
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": true,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "created_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": "datetime",
+        "display_options": null,
+        "field": "created_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 23,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Создано"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "created_at",
+        "table": "ar_orders",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "updated_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": "datetime",
+        "display_options": null,
+        "field": "updated_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 24,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Обновлено"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "updated_at",
+        "table": "ar_orders",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "operations",
+      "type": "alias",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "operations",
+        "group": null,
+        "hidden": false,
+        "interface": "presentation-links",
+        "note": null,
+        "options": {
+          "links": [
+            {
+              "actionType": "url",
+              "icon": "open_in_new",
+              "label": "Управление заказами",
+              "type": "primary",
+              "url": "http://127.0.0.1:14323/manager"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 0,
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
       "collection": "ar_packages",
       "field": "id",
       "type": "uuid",
@@ -3443,6 +5440,745 @@
         "numeric_precision": null,
         "numeric_scale": null,
         "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_packing_rules",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_packing_rules",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "uuid"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_packing_rules",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_packing_rules",
+      "field": "name",
+      "type": "text",
+      "meta": {
+        "collection": "ar_packing_rules",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "name",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Название"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "name",
+        "table": "ar_packing_rules",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_packing_rules",
+      "field": "package_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_packing_rules",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "package_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Упаковка"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "package_id",
+        "table": "ar_packing_rules",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_packages",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_packing_rules",
+      "field": "active",
+      "type": "boolean",
+      "meta": {
+        "collection": "ar_packing_rules",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "active",
+        "group": null,
+        "hidden": false,
+        "interface": "boolean",
+        "note": null,
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Активно"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "active",
+        "table": "ar_packing_rules",
+        "data_type": "boolean",
+        "default_value": true,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_packing_rules",
+      "field": "components",
+      "type": "json",
+      "meta": {
+        "collection": "ar_packing_rules",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "components",
+        "group": null,
+        "hidden": false,
+        "interface": "input-code",
+        "note": null,
+        "options": {
+          "language": "json"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Точный состав (SKU → количество)"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "components",
+        "table": "ar_packing_rules",
+        "data_type": "jsonb",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_packing_rules",
+      "field": "is_demo",
+      "type": "boolean",
+      "meta": {
+        "collection": "ar_packing_rules",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "is_demo",
+        "group": null,
+        "hidden": false,
+        "interface": "boolean",
+        "note": null,
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Демонстрационные данные"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "is_demo",
+        "table": "ar_packing_rules",
+        "data_type": "boolean",
+        "default_value": false,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_payments",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_payments",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "uuid"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_payments",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_payments",
+      "field": "order_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_payments",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "order_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID заказа"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "order_id",
+        "table": "ar_payments",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_orders",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_payments",
+      "field": "amount_kopecks",
+      "type": "bigInteger",
+      "meta": {
+        "collection": "ar_payments",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "amount_kopecks",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Сумма, копейки"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "amount_kopecks",
+        "table": "ar_payments",
+        "data_type": "bigint",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": 64,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_payments",
+      "field": "currency",
+      "type": "text",
+      "meta": {
+        "collection": "ar_payments",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "currency",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Валюта"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "currency",
+        "table": "ar_payments",
+        "data_type": "text",
+        "default_value": "RUB",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_payments",
+      "field": "method",
+      "type": "text",
+      "meta": {
+        "collection": "ar_payments",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "method",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Способ оплаты"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "method",
+        "table": "ar_payments",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_payments",
+      "field": "status",
+      "type": "text",
+      "meta": {
+        "collection": "ar_payments",
+        "conditions": null,
+        "display": "labels",
+        "display_options": {
+          "choices": [
+            {
+              "text": "Ожидает доставки",
+              "value": "open"
+            },
+            {
+              "text": "Предзаказ: ждёт подтверждения",
+              "value": "preorder_pending"
+            },
+            {
+              "text": "Ожидает оплаты",
+              "value": "awaiting_payment"
+            },
+            {
+              "text": "Оплачен",
+              "value": "paid"
+            },
+            {
+              "text": "Срок истёк",
+              "value": "expired"
+            },
+            {
+              "text": "Отменён",
+              "value": "cancelled"
+            },
+            {
+              "text": "Ручная проверка",
+              "value": "manual_review"
+            },
+            {
+              "text": "Ожидается",
+              "value": "pending"
+            },
+            {
+              "text": "Успешно",
+              "value": "succeeded"
+            },
+            {
+              "text": "Не прошёл",
+              "value": "failed"
+            },
+            {
+              "text": "Проверяется",
+              "value": "review"
+            }
+          ]
+        },
+        "field": "status",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Состояние"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "status",
+        "table": "ar_payments",
+        "data_type": "text",
+        "default_value": "pending",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_payments",
+      "field": "shipping_version",
+      "type": "integer",
+      "meta": {
+        "collection": "ar_payments",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "shipping_version",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Версия расчёта"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "shipping_version",
+        "table": "ar_payments",
+        "data_type": "integer",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_payments",
+      "field": "created_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_payments",
+        "conditions": null,
+        "display": "datetime",
+        "display_options": null,
+        "field": "created_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Создано"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "created_at",
+        "table": "ar_payments",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
         "is_unique": false,
         "is_indexed": false,
         "is_primary_key": false,
@@ -6936,6 +9672,449 @@
         "max_length": null,
         "numeric_precision": 32,
         "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_stock_movements",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_stock_movements",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "uuid"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_stock_movements",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_stock_movements",
+      "field": "sku_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_stock_movements",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "sku_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Физический SKU"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "sku_id",
+        "table": "ar_stock_movements",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_skus",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_stock_movements",
+      "field": "order_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_stock_movements",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "order_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID заказа"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "order_id",
+        "table": "ar_stock_movements",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_orders",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_stock_movements",
+      "field": "operation_key",
+      "type": "text",
+      "meta": {
+        "collection": "ar_stock_movements",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "operation_key",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "operation_key"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "operation_key",
+        "table": "ar_stock_movements",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_stock_movements",
+      "field": "stock_delta",
+      "type": "integer",
+      "meta": {
+        "collection": "ar_stock_movements",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "stock_delta",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Изменение физического остатка"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "stock_delta",
+        "table": "ar_stock_movements",
+        "data_type": "integer",
+        "default_value": 0,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_stock_movements",
+      "field": "reserved_delta",
+      "type": "integer",
+      "meta": {
+        "collection": "ar_stock_movements",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "reserved_delta",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Изменение резерва"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "reserved_delta",
+        "table": "ar_stock_movements",
+        "data_type": "integer",
+        "default_value": 0,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_stock_movements",
+      "field": "reason",
+      "type": "text",
+      "meta": {
+        "collection": "ar_stock_movements",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "reason",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Причина"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "reason",
+        "table": "ar_stock_movements",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_stock_movements",
+      "field": "actor_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_stock_movements",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "actor_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID сотрудника"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "actor_id",
+        "table": "ar_stock_movements",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_stock_movements",
+      "field": "created_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_stock_movements",
+        "conditions": null,
+        "display": "datetime",
+        "display_options": null,
+        "field": "created_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Создано"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "created_at",
+        "table": "ar_stock_movements",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
         "is_nullable": false,
         "is_unique": false,
         "is_indexed": false,

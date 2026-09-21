@@ -1,15 +1,20 @@
 ---
 import Icon from './Icon.astro';
-import {categories,money,productHref,attributeDefinitions,type DemoProduct,type Offer} from '../lib/demo';
-interface Props {product:DemoProduct;offer:Offer}
-const{product,offer}=Astro.props;
+import {money,productHref} from '../lib/format';
+import type {CatalogSnapshot,CatalogProduct,Offer,FitmentState} from '../lib/catalog-types';
+interface Props {product:CatalogProduct;offer:Offer;catalog:CatalogSnapshot;fitment?:FitmentState}
+const{product,offer,catalog,fitment}=Astro.props;
+const{categories,attributeDefinitions}=catalog;
+const media=offer.variant?.media??product.media;
+const image=offer.variant?.image??product.image;
+const placeholder=product.isDemo||!media.length;
 const href=productHref(product,offer.variant);
 const color=offer.variant?.attributes.illumination;
 ---
 <article class="product-card" data-product-id={product.id}>
-  <a class:list={['card-media',color&&`light-${color}`]} href={href} aria-label={`Открыть: ${product.name}`}>
-    <img src={product.image} width="720" height="480" loading="lazy" alt={`Изображение-заглушка: ${product.name}`}/>
-    <span class="media-label">Изображение-заглушка</span>
+  <a class:list={['card-media',placeholder&&color&&`light-${color}`]} href={href} aria-label={`Открыть: ${product.name}`}>
+    <img src={image} width="720" height="480" loading="lazy" alt={media[0]?.alt||`${placeholder?'Изображение-заглушка: ':''}${product.name}`}/>
+    {placeholder&&<span class="media-label">Изображение-заглушка</span>}
     {product.kind==='bundle'&&<span class="card-badge">Фиксированный состав</span>}
   </a>
   <button class="card-favorite icon-button js-only" data-favorite={product.id} aria-label={`В избранное: ${product.name}`} aria-pressed="false"><Icon name="heart" size={19}/></button>
@@ -18,8 +23,9 @@ const color=offer.variant?.attributes.illumination;
     <a class="card-title" href={href}>{product.name}</a>
     <p class="card-variant">{offer.variant?.label??'Компоненты выбраны заранее'}</p>
     <div class="card-colors" aria-label="Варианты подсветки">
-      {product.variants.filter(v=>v.attributes.illumination).map(v=><a href={productHref(product,v)} class:list={['card-dot',offer.variant?.id===v.id&&'is-selected']} style={`--dot:${attributeDefinitions.illumination.values.find(o=>o.value===v.attributes.illumination)?.color??'#888'}`} aria-label={v.label}><span></span></a>)}
+      {product.variants.filter(v=>v.attributes.illumination).map(v=><a href={productHref(product,v)} class:list={['card-dot',offer.variant?.id===v.id&&'is-selected']} style={`--dot:${attributeDefinitions.illumination?.values.find(o=>o.value===v.attributes.illumination)?.color??'#888'}`} aria-label={v.label}><span></span></a>)}
     </div>
-    <div class="card-bottom"><div><strong>{money(offer.priceKopecks)}</strong><p class:list={['stock',offer.available===0&&'preorder']}>{offer.available>0?'В наличии · демо':'Предзаказ · демо'}</p></div><a class="card-open" href={href} aria-label={`Выбрать: ${product.name}`}><Icon name="arrow" size={20}/></a></div>
+    {fitment&&<p class="card-variant">{fitment==='compatible'?'Совместимость подтверждена':'Совместимость уточняется'}</p>}
+    <div class="card-bottom"><div><strong>{money(offer.priceKopecks)}</strong><p class:list={['stock',offer.available===0&&'preorder']}>{`${offer.available>0?'В наличии':'Предзаказ'}${product.isDemo?' · демо':''}`}</p></div><a class="card-open" href={href} aria-label={`Выбрать: ${product.name}`}><Icon name="arrow" size={20}/></a></div>
   </div>
 </article>

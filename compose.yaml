@@ -3,7 +3,7 @@ name: autoreelz2026-new
 services:
   web:
     build: .
-    image: autoreelz2026-new-web:stage3
+    image: autoreelz2026-new-web:stage4
     init: true
     ports:
       - 127.0.0.1:${WEB_PORT:-14323}:4321
@@ -11,9 +11,46 @@ services:
       HOST: 0.0.0.0
       PORT: 4321
       NODE_ENV: production
+      AR_DB_HOST: db
+      AR_DB_PORT: 5432
+      AR_DATABASE_NAME: ${POSTGRES_DB:?}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?}
+      APP_SECRET: ${APP_SECRET:?}
+      APP_ORIGIN: ${APP_ORIGIN:-http://127.0.0.1:14323}
+      STORE_MODE: local-test
+      CMS_INTERNAL_URL: http://cms:8055
+      CMS_UPLOADS_PATH: /cms-uploads
+    volumes:
+      - uploads:/cms-uploads:ro
     read_only: true
     tmpfs: [/tmp]
     networks: [backend]
+    restart: unless-stopped
+
+  worker:
+    image: autoreelz2026-new-web:stage4
+    command: [node, scripts/commerce-worker.ts]
+    init: true
+    environment:
+      AR_DB_HOST: db
+      AR_DB_PORT: 5432
+      AR_DATABASE_NAME: ${POSTGRES_DB:?}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?}
+      APP_SECRET: ${APP_SECRET:?}
+      APP_ORIGIN: ${APP_ORIGIN:-http://127.0.0.1:14323}
+      STORE_MODE: local-test
+    read_only: true
+    tmpfs: [/tmp]
+    networks: [backend]
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, node, --input-type=module, -e, "import {query,getPool} from './src/server/db.ts'; const r=await query(\"SELECT 1 FROM ar_worker_heartbeat WHERE name='commerce' AND last_run_at>now()-interval '60 seconds'\"); await getPool().end(); process.exit(r.rowCount?0:1);"]
+      interval: 15s
+      timeout: 5s
+      retries: 4
+      start_period: 20s
     restart: unless-stopped
 
   db:

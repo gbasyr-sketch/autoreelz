@@ -23,9 +23,12 @@ ENV NODE_ENV=production \
     PORT=4321
 COPY --from=production-dependencies --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/dist ./dist
+COPY --chown=node:node src/server ./src/server
+COPY --chown=node:node src/lib ./src/lib
+COPY --chown=node:node scripts/commerce-worker.ts ./scripts/commerce-worker.ts
 COPY --chown=node:node package.json ./
 USER node
 EXPOSE 4321
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD node -e "fetch('http://127.0.0.1:' + (process.env.PORT || '4321') + '/', { signal: AbortSignal.timeout(4000), redirect: 'manual' }).then(response => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))"
+    CMD node -e "fetch('http://127.0.0.1:' + (process.env.PORT || '4321') + '/health', { signal: AbortSignal.timeout(4000), redirect: 'manual' }).then(response => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))"
 CMD ["node", "./dist/server/entry.mjs"]

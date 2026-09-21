@@ -715,7 +715,7 @@
         "hidden": false,
         "icon": "style",
         "item_duplication_fields": null,
-        "note": "Физические исполнения. Сохраняйте существующие артикулы; цены в копейках.",
+        "note": "Физические исполнения. Сохраняйте существующие артикулы; цены в рублях.",
         "preview_url": null,
         "singleton": false,
         "sort": 3,
@@ -4576,19 +4576,25 @@
     },
     {
       "collection": "ar_orders",
-      "field": "product_total_kopecks",
-      "type": "bigInteger",
+      "field": "product_total_rubles",
+      "type": "decimal",
       "meta": {
         "collection": "ar_orders",
         "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "product_total_kopecks",
+        "display": "formatted-value",
+        "display_options": {
+          "suffix": " ₽"
+        },
+        "field": "product_total_rubles",
         "group": null,
         "hidden": false,
         "interface": "input",
         "note": null,
-        "options": {},
+        "options": {
+          "iconRight": "currency_ruble",
+          "min": 0,
+          "step": 0.01
+        },
         "readonly": true,
         "required": false,
         "searchable": true,
@@ -4597,7 +4603,7 @@
         "translations": [
           {
             "language": "ru-RU",
-            "translation": "Товары, копейки"
+            "translation": "Товары, ₽"
           }
         ],
         "validation": null,
@@ -4605,13 +4611,13 @@
         "width": "half"
       },
       "schema": {
-        "name": "product_total_kopecks",
+        "name": "product_total_rubles",
         "table": "ar_orders",
-        "data_type": "bigint",
+        "data_type": "numeric",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 64,
-        "numeric_scale": 0,
+        "numeric_precision": 16,
+        "numeric_scale": 2,
         "is_nullable": false,
         "is_unique": false,
         "is_indexed": false,
@@ -4625,19 +4631,25 @@
     },
     {
       "collection": "ar_orders",
-      "field": "shipping_cost_kopecks",
-      "type": "bigInteger",
+      "field": "shipping_cost_rubles",
+      "type": "decimal",
       "meta": {
         "collection": "ar_orders",
         "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "shipping_cost_kopecks",
+        "display": "formatted-value",
+        "display_options": {
+          "suffix": " ₽"
+        },
+        "field": "shipping_cost_rubles",
         "group": null,
         "hidden": false,
         "interface": "input",
         "note": null,
-        "options": {},
+        "options": {
+          "iconRight": "currency_ruble",
+          "min": 0,
+          "step": 0.01
+        },
         "readonly": true,
         "required": false,
         "searchable": true,
@@ -4646,7 +4658,7 @@
         "translations": [
           {
             "language": "ru-RU",
-            "translation": "Доставка, копейки"
+            "translation": "Доставка, ₽"
           }
         ],
         "validation": null,
@@ -4654,13 +4666,13 @@
         "width": "half"
       },
       "schema": {
-        "name": "shipping_cost_kopecks",
+        "name": "shipping_cost_rubles",
         "table": "ar_orders",
-        "data_type": "bigint",
+        "data_type": "numeric",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 64,
-        "numeric_scale": 0,
+        "numeric_precision": 16,
+        "numeric_scale": 2,
         "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
@@ -5850,19 +5862,25 @@
     },
     {
       "collection": "ar_payments",
-      "field": "amount_kopecks",
-      "type": "bigInteger",
+      "field": "amount_rubles",
+      "type": "decimal",
       "meta": {
         "collection": "ar_payments",
         "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "amount_kopecks",
+        "display": "formatted-value",
+        "display_options": {
+          "suffix": " ₽"
+        },
+        "field": "amount_rubles",
         "group": null,
         "hidden": false,
         "interface": "input",
         "note": null,
-        "options": {},
+        "options": {
+          "iconRight": "currency_ruble",
+          "min": 0,
+          "step": 0.01
+        },
         "readonly": true,
         "required": false,
         "searchable": true,
@@ -5871,7 +5889,7 @@
         "translations": [
           {
             "language": "ru-RU",
-            "translation": "Сумма, копейки"
+            "translation": "Сумма, ₽"
           }
         ],
         "validation": null,
@@ -5879,13 +5897,13 @@
         "width": "half"
       },
       "schema": {
-        "name": "amount_kopecks",
+        "name": "amount_rubles",
         "table": "ar_payments",
-        "data_type": "bigint",
+        "data_type": "numeric",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 64,
-        "numeric_scale": 0,
+        "numeric_precision": 16,
+        "numeric_scale": 2,
         "is_nullable": false,
         "is_unique": false,
         "is_indexed": false,
@@ -8749,28 +8767,34 @@
     },
     {
       "collection": "ar_skus",
-      "field": "price_kopecks",
-      "type": "bigInteger",
+      "field": "price_rubles",
+      "type": "decimal",
       "meta": {
         "collection": "ar_skus",
         "conditions": [],
-        "display": null,
-        "display_options": null,
-        "field": "price_kopecks",
+        "display": "formatted-value",
+        "display_options": {
+          "suffix": " ₽"
+        },
+        "field": "price_rubles",
         "group": null,
         "hidden": false,
         "interface": "input",
-        "note": "Целые копейки: 490000 = 4 900 ₽. Цена комплекта рассчитывается отдельно из состава.",
-        "options": null,
+        "note": "Цена в рублях. Например, 4900 или 4900.50. Цена комплекта рассчитывается из состава.",
+        "options": {
+          "iconRight": "currency_ruble",
+          "min": 0,
+          "step": 0.01
+        },
         "readonly": false,
-        "required": false,
+        "required": true,
         "searchable": true,
         "sort": 5,
         "special": null,
         "translations": [
           {
             "language": "ru-RU",
-            "translation": "Цена, копейки"
+            "translation": "Цена, ₽"
           }
         ],
         "validation": null,
@@ -8778,13 +8802,13 @@
         "width": "half"
       },
       "schema": {
-        "name": "price_kopecks",
+        "name": "price_rubles",
         "table": "ar_skus",
-        "data_type": "bigint",
+        "data_type": "numeric",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 64,
-        "numeric_scale": 0,
+        "numeric_precision": 16,
+        "numeric_scale": 2,
         "is_nullable": false,
         "is_unique": false,
         "is_indexed": false,

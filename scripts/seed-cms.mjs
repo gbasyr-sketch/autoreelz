@@ -45,13 +45,13 @@ await insert('ar_products',[
  {id:id(106),name:'ДЕМО — Комплект интерьера',slug:'interior-kit',category_id:id(5),kind:'bundle',discount_percent:5,status:'published',is_demo:true,description:'Фиксированный демонстрационный состав. Общий склад с отдельными компонентами. Совместимость пока неизвестна.'},
 ]);
 await insert('ar_skus',[
- {id:id(1001),product_id:id(100),article:'DEMO-HEATER-R',name:'Красная подсветка',price_kopecks:490000,status:'published'},
- {id:id(1002),product_id:id(100),article:'DEMO-HEATER-B',name:'Синяя подсветка',price_kopecks:510000,status:'published'},
- {id:id(1003),product_id:id(100),article:'DEMO-HEATER-W',name:'Белая подсветка',price_kopecks:530000,status:'published',media_mode:'replace'},
- {id:id(1011),product_id:id(101),article:'DEMO-CONSOLE-M',name:'Матовая поверхность',price_kopecks:690000,status:'published'},
- {id:id(1012),product_id:id(101),article:'DEMO-CONSOLE-G',name:'Глянцевая поверхность',price_kopecks:720000,status:'published'},
- {id:id(1021),product_id:id(102),article:'DEMO-VENT-R',name:'Красная подсветка',price_kopecks:240000,status:'published'},
- {id:id(1022),product_id:id(102),article:'DEMO-VENT-RGB',name:'RGB',price_kopecks:320000,status:'published'},
+ {id:id(1001),product_id:id(100),article:'DEMO-HEATER-R',name:'Красная подсветка',price_rubles:'4900.00',status:'published'},
+ {id:id(1002),product_id:id(100),article:'DEMO-HEATER-B',name:'Синяя подсветка',price_rubles:'5100.00',status:'published'},
+ {id:id(1003),product_id:id(100),article:'DEMO-HEATER-W',name:'Белая подсветка',price_rubles:'5300.00',status:'published',media_mode:'replace'},
+ {id:id(1011),product_id:id(101),article:'DEMO-CONSOLE-M',name:'Матовая поверхность',price_rubles:'6900.00',status:'published'},
+ {id:id(1012),product_id:id(101),article:'DEMO-CONSOLE-G',name:'Глянцевая поверхность',price_rubles:'7200.00',status:'published'},
+ {id:id(1021),product_id:id(102),article:'DEMO-VENT-R',name:'Красная подсветка',price_rubles:'2400.00',status:'published'},
+ {id:id(1022),product_id:id(102),article:'DEMO-VENT-RGB',name:'RGB',price_rubles:'3200.00',status:'published'},
 ]);
 await insert('ar_product_attributes',[
  {id:id(400),product_id:id(100),attribute_id:id(201),value_id:id(220)},

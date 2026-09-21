@@ -8,6 +8,9 @@ run('python3',['scripts/init-env.py']);
 await import('./cms-client.mjs'); // Verify the independent project/database identity.
 docker(['config','--quiet']); // Never print the resolved configuration with secrets.
 docker(['up','-d','--wait','--wait-timeout','120','db','cms']);
+// Bootstrap Directus system tables first, then prevent writes from the previous
+// app/CMS version while applying a schema or money-denomination migration.
+docker(['stop','web','worker','cms']);
 node('migrate.mjs');
 docker(['restart','cms']);node('wait-cms.mjs');
 node('configure-cms.mjs');

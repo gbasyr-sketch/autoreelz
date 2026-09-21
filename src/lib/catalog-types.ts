@@ -1,28 +1,29 @@
+import {rubles,sumRubles,multiplyRubles,discountRubles,type Rubles} from './money.ts';
 export type AttributeKey = string;
 export type FitmentState = 'compatible' | 'incompatible' | 'unknown';
 export interface FitmentRule { vehicleId:string; versionId:string|null; yearFrom:number|null; yearTo:number|null; airConditioning:'yes'|'no'|'any'|'unknown'; state:FitmentState; note:string|null }
 export interface VehicleSelection { vehicleId:string; versionId?:string; year?:number; ac?:string }
 export interface CatalogMedia { id:string; src:string; alt:string }
-export interface CatalogVariant { id:string; article:string; label:string; priceKopecks:number; stock:number; attributes:Record<string,string>; image:string; media:CatalogMedia[]; fitment:FitmentRule[] }
+export interface CatalogVariant { id:string; article:string; label:string; priceRubles:Rubles; stock:number; attributes:Record<string,string>; image:string; media:CatalogMedia[]; fitment:FitmentRule[] }
 export interface CatalogProduct { id:string; slug:string; name:string; category:string; categorySlugs:string[]; kind:'single'|'bundle'; description:string; image:string; media:CatalogMedia[]; variants:CatalogVariant[]; attributes:Record<string,string>; fitment:FitmentRule[]; components?:{skuId:string;quantity:number}[]; discountBps:number; isDemo:boolean; seoTitle?:string; metaDescription?:string }
 export interface Category { id:string; parentId:string|null; slug:string; name:string; shortName:string; icon:string; attributes:string[]; depth:number; ancestorSlugs:string[]; seoTitle?:string; metaDescription?:string }
 export interface Vehicle { id:string; slug:string; name:string; yearFrom:number|null; yearTo:number|null; versions:{id:string;name:string}[] }
 export interface AttributeDefinition { id:string; label:string; type:'select'|'text'|'number'|'boolean'; unit:string|null; filterable:boolean; values:{value:string;label:string;color?:string}[] }
-export interface Offer {priceKopecks:number;available:number;variant?:CatalogVariant}
+export interface Offer {priceRubles:Rubles;available:number;variant?:CatalogVariant}
 export interface CatalogSnapshot { products:CatalogProduct[]; categories:Category[]; vehicles:Vehicle[]; attributeDefinitions:Record<string,AttributeDefinition>; offerFor:(product:CatalogProduct,skuId?:string|null)=>Offer|null; findSku:(skuId:string)=>{product:CatalogProduct;variant:CatalogVariant}|undefined; attributeLabel:(key:string,value:string)=>string; fitmentFor:(product:CatalogProduct,offer:Offer,selection:VehicleSelection)=>FitmentState }
 /** Build the pure public view from already publication-filtered records. */
 export function createCatalogSnapshot(data:Pick<CatalogSnapshot,'products'|'categories'|'vehicles'|'attributeDefinitions'>):CatalogSnapshot {
  const skuIndex=new Map(data.products.flatMap(product=>product.variants.map(variant=>[variant.id,{product,variant}] as const)));
  const findSku=(id:string)=>skuIndex.get(id);
  const offerFor=(product:CatalogProduct,skuId?:string|null):Offer|null=>{
-  if(product.kind==='single') { const variant=skuId?product.variants.find(v=>v.id===skuId):product.variants[0];return variant?{variant,priceKopecks:variant.priceKopecks,available:variant.stock}:null; }
+  if(product.kind==='single') { const variant=skuId?product.variants.find(v=>v.id===skuId):product.variants[0];return variant?{variant,priceRubles:rubles(variant.priceRubles),available:variant.stock}:null; }
   if(skuId||!product.components?.length)return null;
   const required=new Map<string,number>();for(const c of product.components)required.set(c.skuId,(required.get(c.skuId)??0)+c.quantity);
-  let sum=0n,available=Infinity;
-  for(const[id,quantity]of required){const row=findSku(id);if(!row||quantity<=0)return null;sum+=BigInt(row.variant.priceKopecks)*BigInt(quantity);available=Math.min(available,Math.floor(row.variant.stock/quantity));}
-  const price=(sum*BigInt(10000-product.discountBps)+5000n)/10000n;
-  if(price>BigInt(Number.MAX_SAFE_INTEGER))return null;
-  return{priceKopecks:Number(price),available};
+  const totals:Rubles[]=[];let available=Infinity;
+  try {
+   for(const[id,quantity]of required){const row=findSku(id);if(!row||quantity<=0)return null;totals.push(multiplyRubles(row.variant.priceRubles,quantity));available=Math.min(available,Math.floor(row.variant.stock/quantity));}
+   return{priceRubles:discountRubles(sumRubles(totals),product.discountBps),available};
+  } catch(error) {if(error instanceof RangeError)return null;throw error;}
  };
  const attributeLabel=(key:string,value:string)=>{const def=data.attributeDefinitions[key];return def?.values.find(v=>v.value===value)?.label??(def?.type==='boolean'?(value==='true'?'Да':'Нет'):value)+(def?.unit?` ${def.unit}`:'');};
  const fitmentFor=(product:CatalogProduct,offer:Offer,selection:VehicleSelection):FitmentState=>{

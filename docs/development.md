@@ -42,6 +42,7 @@ npm run build
 AR_AUTH_TESTS=1 node --test tests/auth.test.ts
 AR_COMMERCE_TESTS=1 node --test tests/commerce.test.ts
 node tests/purchase-browser.mjs
+node tests/cms-money-browser.mjs
 ```
 
 `npm test` выполняет быстрые тесты каталога; интеграционные наборы требуют явных флагов. Они создают временные базы `ar_qa_*` в новом кластере и удаляют их после проверки. Браузерный тест требует текущую сборку dist, свободный порт 14325, установленный Chrome и Playwright. Путь к Playwright задаётся PLAYWRIGHT_MODULE; по умолчанию используется библиотека среды Codex. Тест поднимает отдельные web/worker и БД, обращения к основной CMS нужны только для проверки авторизации сотрудников. Отчёты — [stage-4-review.md](stage-4-review.md).
@@ -60,3 +61,5 @@ node tests/purchase-browser.mjs
 ## GitHub
 
 Отдельный remote: git@github.com:gbasyr-sketch/autoreelz.git. На текущем компьютере repo-local core.sshCommand использует отдельный deploy key в игнорируемой папке private и проверенный GitHub known_hosts. Глобальная SSH-конфигурация не менялась. На новом компьютере потребуется собственный разрешённый ключ; приватный ключ не переносить через репозиторий.
+
+Изменение денежной модели описано в [ruble-prices-review.md](ruble-prices-review.md). Миграцию 006 выполнять с остановленными web/worker/CMS и резервной копией новой БД. После неё запускать только версию приложения с рублёвыми полями; старый checkout нужно пересчитать.

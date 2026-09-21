@@ -47,7 +47,7 @@ const rejected = (name, statement, reason) => check(name, () => {
 const equal = (name, statement, expected) => check(name, () => {
   assert.equal(sql(`BEGIN;\n${statement}\nROLLBACK;`), String(expected));
 });
-const skuInsert = (productId, skuId = qaId(101)) => `INSERT INTO ar_skus(id,product_id,article,name,price_kopecks) VALUES(${q(skuId)},${q(productId)},'QA-SKU','QA SKU',100);`;
+const skuInsert = (productId, skuId = qaId(101)) => `INSERT INTO ar_skus(id,product_id,article,name,price_rubles) VALUES(${q(skuId)},${q(productId)},'QA-SKU','QA SKU',1.00);`;
 const productInsert = (productId, slug, kind = 'single') => `INSERT INTO ar_products(id,name,slug,category_id,kind) VALUES(${q(productId)},'QA product',${q(slug)},${q(id(1))},${q(kind)});`;
 
 // Keep an interactive transaction open until the competing connection is
@@ -106,11 +106,16 @@ try {
   // The fixture assertions deliberately fail if the expected new-store seed is
   // absent, instead of silently testing a different dataset.
   await equal('seed: four marked demo products and seven SKUs', `SELECT (SELECT count(*) FROM ar_products WHERE is_demo)=4 AND (SELECT count(*) FROM ar_skus)=7;`, 't');
+  await equal('money: price is a ruble decimal with two fractional digits', `SELECT data_type||':'||numeric_precision||':'||numeric_scale FROM information_schema.columns WHERE table_schema='public' AND table_name='ar_skus' AND column_name='price_rubles';`, 'numeric:16:2');
+  await equal('money: one kopeck is stored as 0.01 ruble without scaling', `UPDATE ar_skus SET price_rubles=0.01 WHERE id=${q(id(1001))}; SELECT price_rubles FROM ar_skus WHERE id=${q(id(1001))};`, '0.01');
+  await equal('money: 7200.50 rubles survives storage and the effective SKU projection', `UPDATE ar_skus SET price_rubles=7200.50 WHERE id=${q(id(1001))}; SELECT price_rubles=7200.50 AND ar_effective_sku(id)->>'price_rubles'='7200.50' FROM ar_skus WHERE id=${q(id(1001))};`, 't');
+  await rejected('money: negative price remains forbidden', `UPDATE ar_skus SET price_rubles=-0.01 WHERE id=${q(id(1001))};`, /check constraint/);
+  await rejected('money: price beyond the supported range remains forbidden', `UPDATE ar_skus SET price_rubles=90071992547409.92 WHERE id=${q(id(1001))};`, /check constraint/);
   await rejected('categories: maximum three levels', `INSERT INTO ar_categories(name,slug,parent_id) VALUES('QA','qa-level-four',${q(id(1))});`, /три уровня/);
   await rejected('categories: descendant cannot be parent', `UPDATE ar_categories SET parent_id=${q(id(1))} WHERE id=${q(id(20))};`, /Цикл/);
   await rejected('categories: self-parent forbidden', `UPDATE ar_categories SET parent_id=id WHERE id=${q(id(20))};`, /своим родителем/);
   await rejected('categories: moving a subtree preserves depth', `UPDATE ar_categories SET parent_id=${q(id(5))} WHERE id=${q(id(20))};`, /три уровня/);
-  await rejected('SKU: article unique ignoring case', `INSERT INTO ar_skus(product_id,article,name,price_kopecks) VALUES(${q(id(100))},'demo-heater-r','QA',100);`, /ar_skus_article_unique/);
+  await rejected('SKU: article unique ignoring case', `INSERT INTO ar_skus(product_id,article,name,price_rubles) VALUES(${q(id(100))},'demo-heater-r','QA',1.00);`, /ar_skus_article_unique/);
   await rejected('SKU: a bundle cannot own physical stock', skuInsert(id(106)), /только отдельному товару/);
   await rejected('SKU: owning product immutable', `UPDATE ar_skus SET product_id=${q(id(101))} WHERE id=${q(id(1001))};`, /фиксируется при создании/);
   await rejected('product: cannot turn a product with SKUs into a bundle', `UPDATE ar_products SET kind='bundle' WHERE id=${q(id(100))};`, /с SKU/);
@@ -134,7 +139,7 @@ try {
   await equal('inheritance: own image replaces product image', `SELECT jsonb_array_length(ar_effective_sku(${q(id(1003))})->'media')=1 AND ar_effective_sku(${q(id(1003))})->'media'->0->>'file_id'=(SELECT file_id::text FROM ar_sku_media WHERE id=${q(id(701))});`, 't');
   await equal('inheritance: unknown compatibility stays unknown', `SELECT jsonb_array_length(ar_effective_sku(${q(id(1001))})->'fitment')=2 AND NOT EXISTS(SELECT 1 FROM jsonb_array_elements(ar_effective_sku(${q(id(1001))})->'fitment') v WHERE v->>'state'<>'unknown');`, 't');
   await equal('inheritance: own compatibility replaces product rules', `UPDATE ar_skus SET fitment_mode='replace' WHERE id=${q(id(1001))}; INSERT INTO ar_fitment(product_id,sku_id,vehicle_id,state) VALUES(${q(id(100))},${q(id(1001))},${q(id(52))},'incompatible'); SELECT jsonb_array_length(ar_effective_sku(${q(id(1001))})->'fitment')=1 AND ar_effective_sku(${q(id(1001))})->'fitment'->0->>'state'='incompatible';`, 't');
-  await equal('bundle: computed discount price and shared stock', `SELECT price_kopecks||':'||available FROM ar_bundle_offer(${q(id(106))});`, '1577000:4');
+  await equal('bundle: computed discount price and shared stock', `SELECT price_rubles||':'||available FROM ar_bundle_offer(${q(id(106))});`, '15770.00:4');
   await equal('bundle: absent component stock makes whole bundle unavailable', `DELETE FROM ar_stock WHERE sku_id=${q(id(1001))}; SELECT available FROM ar_bundle_offer(${q(id(106))});`, 0);
   await equal('bundle: insufficient component quantity makes whole bundle unavailable', `UPDATE ar_stock SET on_hand=1,reserved=0 WHERE sku_id=${q(id(1021))}; SELECT available FROM ar_bundle_offer(${q(id(106))});`, 0);
   await equal('bundle: reserved units reduce shared availability', `UPDATE ar_stock SET on_hand=4,reserved=3 WHERE sku_id=${q(id(1021))}; SELECT available FROM ar_bundle_offer(${q(id(106))});`, 0);

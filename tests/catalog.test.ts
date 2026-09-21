@@ -26,7 +26,7 @@ test('article search selects the requested SKU and respects its own stock',()=>{
  const result=queryCatalog(new URLSearchParams('q=DEMO-HEATER-W'));
  assert.equal(result.items.length,1);
  assert.equal(result.items[0]?.offer.variant?.article,'DEMO-HEATER-W');
- assert.equal(result.items[0]?.offer.priceKopecks,530000);
+ assert.equal(result.items[0]?.offer.priceRubles,'5300.00');
  assert.equal(result.items[0]?.offer.available,0);
  assert.equal(queryCatalog(new URLSearchParams('q=DEMO-HEATER-W&availability=in-stock')).items.length,0);
  assert.equal(queryCatalog(new URLSearchParams('q=DEMO-HEATER-B&max=5000')).items.length,0);
@@ -38,7 +38,7 @@ test('foreign or unknown variant cannot fall back to a default offer',()=>{
 });
 test('a bundle derives price and availability from the fixed components',()=>{
  const kit=products.find(p=>p.slug==='interior-kit')!;
- assert.deepEqual(offerFor(kit),{priceKopecks:1577000,available:4});
+ assert.deepEqual(offerFor(kit),{priceRubles:'15770.00',available:4});
  assert.equal(offerFor(products.find(p=>p.slug==='multimedia-kit')!)?.available,0);
  assert.equal(offerFor(kit,'any-variant'),null);
 });
@@ -96,4 +96,34 @@ test('parent category includes descendants and published secondary categories',(
 test('bundle with a missing unpublished component has no offer',()=>{
  const c=fixture(),kit=c.products.find(p=>p.slug==='interior-kit')!;
  kit.components!.push({skuId:'unpublished-sku',quantity:1});assert.equal(c.offerFor(kit),null);
+});
+
+test('ruble fractions filter one exact SKU without float rounding',()=>{
+ const c=fixture(),p=c.products[0]!;p.variants[0]!.priceRubles='4900.05';p.variants[1]!.priceRubles='4900.10';
+ const result=runQuery(new URLSearchParams('category=heaters&min=4900,05&max=4900.09'),c);
+ assert.equal(result.items.length,1);assert.equal(result.items[0]!.offer.priceRubles,'4900.05');
+ assert.equal(runQuery(new URLSearchParams('q=DEMO-HEATER-B&max=4900.09'),c).items.length,0);
+ assert.equal(runQuery(new URLSearchParams('q=DEMO-HEATER-B&min=4900.10&max=4900.10'),c).items[0]!.offer.priceRubles,'4900.10');
+ assert.ok(runQuery(new URLSearchParams('min=1.001'),c).error);
+});
+test('bundle sums decimal rubles and rounds discount once to two decimals',()=>{
+ const c=fixture(),kit=c.products.find(p=>p.slug==='interior-kit')!;
+ kit.components=kit.components!.slice(0,2);kit.discountBps=0;
+ c.findSku(kit.components[0]!.skuId)!.variant.priceRubles='0.10';
+ c.findSku(kit.components[1]!.skuId)!.variant.priceRubles='0.20';
+ assert.equal(c.offerFor(kit)?.priceRubles,'0.30');
+ kit.discountBps=5000;c.findSku(kit.components[1]!.skuId)!.variant.priceRubles='0.05';
+ assert.equal(c.offerFor(kit)?.priceRubles,'0.08');
+});
+test('sorting preserves a one-hundredth ruble difference near the maximum',()=>{
+ const c=fixture();c.products=c.products.filter(p=>p.kind==='single').slice(0,2);
+ c.products[0]!.variants=c.products[0]!.variants.slice(0,1);c.products[1]!.variants=c.products[1]!.variants.slice(0,1);
+ c.products[0]!.variants[0]!.priceRubles='90071992547409.91';c.products[1]!.variants[0]!.priceRubles='90071992547409.90';
+ assert.deepEqual(runQuery(new URLSearchParams('sort=price-asc'),c).items.map(i=>i.offer.priceRubles),['90071992547409.90','90071992547409.91']);
+ assert.deepEqual(runQuery(new URLSearchParams('sort=price-desc'),c).items.map(i=>i.offer.priceRubles),['90071992547409.91','90071992547409.90']);
+});
+test('bundle amounts outside the permitted ruble range do not produce an offer',()=>{
+ const c=fixture(),kit=c.products.find(p=>p.slug==='interior-kit')!;kit.discountBps=0;
+ c.findSku(kit.components![0]!.skuId)!.variant.priceRubles='90071992547409.91';
+ assert.equal(c.offerFor(kit),null);
 });

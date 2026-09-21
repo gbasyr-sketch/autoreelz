@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-09-21T22:00:44.003Z",
+  "checks": [
+    "admin: decimal rubles saved, reopened, stored exactly and visible in SSR",
+    "editor: decimal rubles saved, reopened, stored exactly and visible in SSR",
+    "SKU table displays prices in rubles with the ₽ currency sign"
+  ],
+  "errors": [],
+  "restored": true,
+  "passed": true
+}

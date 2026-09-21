@@ -1,3 +1,5 @@
+import{sumRubles}from'./pricing.ts';
+import{compareRubles}from'../lib/money.ts';
 import type{PoolClient}from'pg';
 import type{ShopSession,OrderView,CheckoutInput}from'../lib/commerce-types.ts';
 import{query,transaction}from'./db.ts';
@@ -14,8 +16,8 @@ export async function orderRow(c:PoolClient,id:string,session?:ShopSession,lock=
 }
 export async function toOrder(c:PoolClient,row:Record<string,any>):Promise<OrderView>{
  const events=(await c.query('SELECT event_type,note,created_at FROM ar_order_events WHERE order_id=$1 ORDER BY created_at,id',[row.id])).rows;
- const shippingCostKopecks=row.shipping_cost_kopecks===null?null:safeMoney(row.shipping_cost_kopecks),productTotalKopecks=safeMoney(row.product_total_kopecks);
- return{id:row.id,number:row.number,kind:row.kind,status:row.status,paymentStatus:row.payment_status,deliveryStatus:row.delivery_status,createdAt:iso(row.created_at)!,expiresAt:iso(row.expires_at),customer:{name:row.customer_name,phone:row.customer_phone,email:row.customer_email},delivery:row.delivery_snapshot,lines:row.items_snapshot,productTotalKopecks,shippingCostKopecks,totalKopecks:shippingCostKopecks===null?null:safeMoney(productTotalKopecks+shippingCostKopecks),shippingReason:row.shipping_reason,shippingVersion:row.shipping_version,terms:row.terms,canPay:Boolean(row.status==='awaiting_payment'&&row.delivery_status==='quoted'&&row.expires_at&&new Date(row.expires_at).getTime()>Date.now()),canCancel:['open','preorder_pending','awaiting_payment'].includes(row.status),reviewReason:row.review_reason,events:events.map(e=>({type:e.event_type,at:iso(e.created_at)!,note:e.note}))};
+ const shippingCostRubles=row.shipping_cost_rubles===null?null:safeMoney(row.shipping_cost_rubles),productTotalRubles=safeMoney(row.product_total_rubles);
+ return{id:row.id,number:row.number,kind:row.kind,status:row.status,paymentStatus:row.payment_status,deliveryStatus:row.delivery_status,createdAt:iso(row.created_at)!,expiresAt:iso(row.expires_at),customer:{name:row.customer_name,phone:row.customer_phone,email:row.customer_email},delivery:row.delivery_snapshot,lines:row.items_snapshot,productTotalRubles,shippingCostRubles,totalRubles:shippingCostRubles===null?null:sumRubles([productTotalRubles,shippingCostRubles]),shippingReason:row.shipping_reason,shippingVersion:row.shipping_version,terms:row.terms,canPay:Boolean(row.status==='awaiting_payment'&&row.delivery_status==='quoted'&&row.expires_at&&new Date(row.expires_at).getTime()>Date.now()),canCancel:['open','preorder_pending','awaiting_payment'].includes(row.status),reviewReason:row.review_reason,events:events.map(e=>({type:e.event_type,at:iso(e.created_at)!,note:e.note}))};
 }
 export const getOrder=(session:ShopSession,id:string)=>transaction(async c=>toOrder(c,await orderRow(c,uuid(id),session)),false);
 export async function listOrders(session?:ShopSession){return transaction(async c=>{const rows=await c.query(`SELECT * FROM ar_orders ${session?'WHERE session_id=$1 OR ($2::text IS NOT NULL AND customer_email=$2)':''} ORDER BY created_at DESC LIMIT 100`,session?[session.id,session.email]:[]);const orders:OrderView[]=[];for(const r of rows.rows)orders.push(await toOrder(c,r));return orders;},false);}
@@ -56,8 +58,8 @@ export async function checkout(session:ShopSession,body:Record<string,unknown>){
   const batch=(await c.query('INSERT INTO ar_checkout_batches(session_id,quote_id) VALUES($1,$2) RETURNING id',[session.id,quoteId])).rows[0];const orderIds:string[]=[];
   for(const group of groups){
    const ordinary=group.kind==='ordinary',quoted=group.shipping.status==='quoted';
-   const order=(await c.query(`INSERT INTO ar_orders(batch_id,session_id,kind,status,delivery_status,allocation_state,customer_name,customer_phone,customer_email,delivery_snapshot,items_snapshot,product_total_kopecks,shipping_cost_kopecks,shipping_reason,shipping_package,expires_at)
-    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,CASE WHEN $16 THEN now()+interval '30 minutes' ELSE NULL END) RETURNING *`,[batch.id,session.id,group.kind,ordinary?(quoted?'awaiting_payment':'open'):'preorder_pending',group.shipping.status,ordinary?'reserved':'none',input.customer.name,input.customer.phone,input.customer.email,input.delivery,JSON.stringify(group.lines),group.productTotalKopecks,group.shipping.costKopecks,group.shipping.reason,group.shipping.packageSnapshot,ordinary])).rows[0];
+   const order=(await c.query(`INSERT INTO ar_orders(batch_id,session_id,kind,status,delivery_status,allocation_state,customer_name,customer_phone,customer_email,delivery_snapshot,items_snapshot,product_total_rubles,shipping_cost_rubles,shipping_reason,shipping_package,expires_at)
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,CASE WHEN $16 THEN now()+interval '30 minutes' ELSE NULL END) RETURNING *`,[batch.id,session.id,group.kind,ordinary?(quoted?'awaiting_payment':'open'):'preorder_pending',group.shipping.status,ordinary?'reserved':'none',input.customer.name,input.customer.phone,input.customer.email,input.delivery,JSON.stringify(group.lines),group.productTotalRubles,group.shipping.costRubles,group.shipping.reason,group.shipping.packageSnapshot,ordinary])).rows[0];
    const need=requirements(group.lines);for(const[id,quantity]of need)await c.query('INSERT INTO ar_order_components(order_id,sku_id,quantity) VALUES($1,$2,$3)',[order.id,id,quantity]);
    if(ordinary)await stockMove(c,order.id,need,`reserve:${order.id}`,0,1,'Резерв обычного заказа');
    await event(c,order.id,'created',ordinary?'Обычный заказ: резерв на 30 минут.':'Предзаказ: компоненты не резервируются до подтверждения.');
@@ -77,13 +79,14 @@ export async function cancelOrder(session:ShopSession,body:Record<string,unknown
  }));return getOrder(session,id);
 }
 export async function quoteShipping(actor:{id:string},body:Record<string,unknown>){
- const id=uuid(body.orderId),cost=integer(body.costKopecks,'Стоимость доставки',0,100000000),note=text(body.note,'Комментарий к доставке',2,500);
+ const id=uuid(body.orderId),cost=safeMoney(body.costRubles),note=text(body.note,'Комментарий к доставке',2,500);
+ if(compareRubles(cost,'1000000.00')>0)throw new StoreError('PRICE_RANGE','Стоимость доставки превышает допустимую сумму.');
  const result=await transaction(c=>idempotent(c,`shipping:${actor.id}`,body.idempotencyKey,{id,cost,note},async()=>{
   const row=await orderRow(c,id,undefined,true);const expired=await expireLocked(c,row);
   if(expired)return{id,expired:true};
   const pendingPayment=(await c.query("SELECT 1 FROM ar_payments WHERE order_id=$1 AND status='pending'",[id])).rowCount;
   if(!['open','preorder_pending','awaiting_payment'].includes(row.status)||row.payment_status==='pending'||pendingPayment)throw new StoreError('ORDER_STATE','Доставку этого заказа сейчас нельзя изменить.',409);
-  await c.query("UPDATE ar_orders SET shipping_cost_kopecks=$2,shipping_reason=$3,shipping_version=shipping_version+1,delivery_status='quoted',status=CASE WHEN kind='ordinary' THEN 'awaiting_payment' ELSE status END WHERE id=$1",[id,cost,note]);
+  await c.query("UPDATE ar_orders SET shipping_cost_rubles=$2,shipping_reason=$3,shipping_version=shipping_version+1,delivery_status='quoted',status=CASE WHEN kind='ordinary' THEN 'awaiting_payment' ELSE status END WHERE id=$1",[id,cost,note]);
   await event(c,id,'shipping_quoted','Стоимость доставки уточнена менеджером. '+note,actor.id);return{id};
  }));
  if('expired'in result&&result.expired)throw new StoreError('EXPIRED','Срок резерва истёк. Покупателю нужно оформить заказ заново.',409);
@@ -94,7 +97,7 @@ export async function confirmPreorder(actor:{id:string},body:Record<string,unkno
  await transaction(c=>idempotent(c,`confirm:${actor.id}`,body.idempotencyKey,{id,terms},async()=>{
   const row=await orderRow(c,id,undefined,true);
   if(row.kind!=='preorder'||row.status!=='preorder_pending')throw new StoreError('ORDER_STATE','Этот предзаказ уже обработан.',409);
-  if(row.delivery_status!=='quoted'||row.shipping_cost_kopecks===null)throw new StoreError('DELIVERY_PENDING','Сначала уточните стоимость доставки.',409);
+  if(row.delivery_status!=='quoted'||row.shipping_cost_rubles===null)throw new StoreError('DELIVERY_PENDING','Сначала уточните стоимость доставки.',409);
   const need=await componentNeeds(c,id),stocks=await lockStock(c,need);
   if(stocks.some(s=>s.on_hand-s.reserved<(need.get(s.sku_id)??0))||stocks.length!==need.size)throw new StoreError('INSUFFICIENT_STOCK','Для подтверждения нужны все составляющие в необходимом количестве.',409);
   await stockMove(c,id,need,`confirm:${id}`,-1,0,'Подтверждение предзаказа',actor.id);

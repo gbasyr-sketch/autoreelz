@@ -2,7 +2,12 @@ import type{PoolClient}from'pg';
 import type{CheckoutInput,OrderLineSnapshot,QuoteGroup}from'../lib/commerce-types.ts';
 import{StoreError,text,email,integer}from'./errors.ts';
 import{quoteLocalShipping}from'./adapters/shipping.ts';
-export function safeMoney(value:bigint|number|string){const n=typeof value==='bigint'?Number(value):Number(value);if(!Number.isSafeInteger(n)||n<0)throw new StoreError('PRICE_RANGE','Сумма заказа выходит за допустимый диапазон.');return n;}
+import{rubles,sumRubles as sum,multiplyRubles as multiply,discountRubles as discount}from'../lib/money.ts';
+function checkedPrice(fn:()=>string){try{return fn();}catch(error){if(error instanceof RangeError)throw new StoreError('PRICE_RANGE','Сумма выходит за допустимый диапазон или содержит больше двух знаков после запятой.');throw error;}}
+export const sumRubles=(values:Iterable<string>)=>checkedPrice(()=>sum(values));
+export const multiplyRubles=(value:string,quantity:number)=>checkedPrice(()=>multiply(value,quantity));
+export const discountRubles=(value:string,bps:number)=>checkedPrice(()=>discount(value,bps));
+export function safeMoney(value:unknown){try{return rubles(value);}catch{throw new StoreError('PRICE_RANGE','Укажите сумму в рублях, не более двух знаков после запятой.');}}
 export function customerInput(body:Record<string,unknown>):CheckoutInput{
  const customer=body.customer as Record<string,unknown>|undefined,delivery=body.delivery as Record<string,unknown>|undefined;
  if(!customer||!delivery)throw new StoreError('INVALID_INPUT','Заполните контактные данные и доставку.');
@@ -18,22 +23,22 @@ export async function snapshotLine(c:PoolClient,productId:string,skuId:string|nu
  let rows;
  if(product.kind==='single'){
   if(!skuId)throw new StoreError('SKU_REQUIRED','Выберите исполнение товара.');
-  rows=(await c.query("SELECT id,article,name,price_kopecks,1 quantity FROM ar_skus WHERE id=$1 AND product_id=$2 AND status='published'",[skuId,productId])).rows;
+  rows=(await c.query("SELECT id,article,name,price_rubles,1 quantity FROM ar_skus WHERE id=$1 AND product_id=$2 AND status='published'",[skuId,productId])).rows;
   if(rows.length!==1)throw new StoreError('UNAVAILABLE','Выбранное исполнение больше не доступно.',409);
  }else{
   if(skuId)throw new StoreError('FIXED_BUNDLE','У комплекта фиксированный состав.');
-  rows=(await c.query(`SELECT s.id,s.article,s.name,s.price_kopecks,b.quantity,s.status,p.status parent_status,
+  rows=(await c.query(`SELECT s.id,s.article,s.name,s.price_rubles,b.quantity,s.status,p.status parent_status,
    NOT EXISTS(WITH RECURSIVE parents AS (SELECT * FROM ar_categories WHERE id=p.category_id UNION ALL SELECT x.* FROM ar_categories x JOIN parents a ON x.id=a.parent_id) SELECT 1 FROM parents WHERE status<>'published') category_visible
    FROM ar_bundle_components b JOIN ar_skus s ON s.id=b.sku_id JOIN ar_products p ON p.id=s.product_id WHERE b.bundle_id=$1 ORDER BY s.id`,[productId])).rows;
   if(!rows.length||rows.some(r=>r.status!=='published'||r.parent_status!=='published'||!r.category_visible))throw new StoreError('UNAVAILABLE','Состав комплекта временно недоступен.',409);
  }
- const components=rows.map(r=>({skuId:r.id,article:r.article,name:r.name,quantity:Number(r.quantity),unitPriceKopecks:safeMoney(r.price_kopecks)}));
- const sum=components.reduce((n,x)=>n+BigInt(x.unitPriceKopecks)*BigInt(x.quantity),0n);
+ const components=rows.map(r=>({skuId:r.id,article:r.article,name:r.name,quantity:Number(r.quantity),unitPriceRubles:safeMoney(r.price_rubles)}));
+ const sum=sumRubles(components.map(x=>multiplyRubles(x.unitPriceRubles,x.quantity)));
  const bps=Math.round(Number(product.discount_percent)*100);
- const unitPriceKopecks=safeMoney((sum*BigInt(10000-bps)+5000n)/10000n);
+ const unitPriceRubles=discountRubles(sum,bps);
  let image=product.kind==='bundle'?'/images/placeholder-kit.svg':'/images/placeholder-console.svg';
  if(skuId){const r=await c.query("SELECT ar_effective_sku($1)->'media'->0->>'file_id' file_id",[skuId]);if(r.rows[0]?.file_id)image='/media/'+r.rows[0].file_id;}
- return{productId,skuId,name:product.name,article:skuId?components[0]!.article:'',variantLabel:skuId?components[0]!.name:'Фиксированный состав',quantity,unitPriceKopecks,lineTotalKopecks:safeMoney(BigInt(unitPriceKopecks)*BigInt(quantity)),image,components};
+ return{productId,skuId,name:product.name,article:skuId?components[0]!.article:'',variantLabel:skuId?components[0]!.name:'Фиксированный состав',quantity,unitPriceRubles,lineTotalRubles:multiplyRubles(unitPriceRubles,quantity),image,components};
 }
 export function requirements(lines:OrderLineSnapshot[]){const result=new Map<string,number>();for(const l of lines)for(const c of l.components)result.set(c.skuId,(result.get(c.skuId)??0)+l.quantity*c.quantity);return result;}
 export async function lockStock(c:PoolClient,requirementsMap:Map<string,number>){
@@ -50,6 +55,6 @@ export async function shippingQuote(c:PoolClient,lines:OrderLineSnapshot[],deliv
 export async function quoteGroups(c:PoolClient,lines:OrderLineSnapshot[],input:CheckoutInput,lock=false):Promise<QuoteGroup[]>{
  const need=requirements(lines);const stocks=lock?await lockStock(c,need):(await c.query('SELECT sku_id,on_hand,reserved FROM ar_stock WHERE sku_id=ANY($1::uuid[])',[[...need.keys()]])).rows;
  const groups=splitLines(lines,stocks);const result:QuoteGroup[]=[];
- for(const kind of ['ordinary','preorder'] as const){const items=groups[kind];if(!items.length)continue;const productTotalKopecks=safeMoney(items.reduce((a,l)=>a+BigInt(l.lineTotalKopecks),0n));const shipping=await shippingQuote(c,items,input.delivery);result.push({kind,lines:items,productTotalKopecks,shipping,totalKopecks:shipping.costKopecks===null?null:safeMoney(productTotalKopecks+shipping.costKopecks)});}
+ for(const kind of ['ordinary','preorder'] as const){const items=groups[kind];if(!items.length)continue;const productTotalRubles=sumRubles(items.map(l=>l.lineTotalRubles));const shipping=await shippingQuote(c,items,input.delivery);result.push({kind,lines:items,productTotalRubles,shipping,totalRubles:shipping.costRubles===null?null:sumRubles([productTotalRubles,shipping.costRubles])});}
  return result;
 }

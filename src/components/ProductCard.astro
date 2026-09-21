@@ -26,6 +26,6 @@ const color=offer.variant?.attributes.illumination;
       {product.variants.filter(v=>v.attributes.illumination).map(v=><a href={productHref(product,v)} class:list={['card-dot',offer.variant?.id===v.id&&'is-selected']} style={`--dot:${attributeDefinitions.illumination?.values.find(o=>o.value===v.attributes.illumination)?.color??'#888'}`} aria-label={v.label}><span></span></a>)}
     </div>
     {fitment&&<p class="card-variant">{fitment==='compatible'?'Совместимость подтверждена':'Совместимость уточняется'}</p>}
-    <div class="card-bottom"><div><strong>{money(offer.priceKopecks)}</strong><p class:list={['stock',offer.available===0&&'preorder']}>{`${offer.available>0?'В наличии':'Предзаказ'}${product.isDemo?' · демо':''}`}</p></div><a class="card-open" href={href} aria-label={`Выбрать: ${product.name}`}><Icon name="arrow" size={20}/></a></div>
+    <div class="card-bottom"><div><strong>{money(offer.priceRubles)}</strong><p class:list={['stock',offer.available===0&&'preorder']}>{`${offer.available>0?'В наличии':'Предзаказ'}${product.isDemo?' · демо':''}`}</p></div><a class="card-open" href={href} aria-label={`Выбрать: ${product.name}`}><Icon name="arrow" size={20}/></a></div>
   </div>
 </article>

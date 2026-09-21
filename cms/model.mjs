@@ -2,7 +2,7 @@
 export const collections = {
  ar_categories:['Категории','account_tree','{{name}}','Три уровня: раздел → категория → подкатегория.'],
  ar_products:['Товары','inventory_2','{{name}}','Отдельные товары и фиксированные комплекты. Демо-данные отмечены отдельно.'],
- ar_skus:['Исполнения (SKU)','style','{{article}} · {{name}}','Физические исполнения. Сохраняйте существующие артикулы; цены в копейках.'],
+ ar_skus:['Исполнения (SKU)','style','{{article}} · {{name}}','Физические исполнения. Сохраняйте существующие артикулы; цены в рублях.'],
  ar_bundle_components:['Составы комплектов','deployed_code','{{bundle_id.name}} · {{sku_id.article}}','Только конкретные SKU отдельных деталей. Нет собственного остатка комплекта.'],
  ar_vehicles:['Автомобили','directions_car','{{name}}','Приора 1 и Приора 2 — разные записи.'],
  ar_vehicle_versions:['Модификации автомобилей','car_repair','{{vehicle_id.name}} · {{name}}','Заполняйте только подтверждённые модификации.'],
@@ -24,7 +24,7 @@ export const labels={
  make:'Марка',model:'Модель',generation:'Поколение / версия',year_from:'Год от',year_to:'Год до',vehicle_id:'Автомобиль',version_id:'Модификация',note:'Примечание',
  code:'Код',value_type:'Тип значения',unit:'Единица измерения',filterable:'Можно использовать как фильтр',attribute_id:'Характеристика',label:'Подпись',color:'Цвет HEX',
  category_id:'Категория',required:'Обязательное значение',show_filter:'Показывать в фильтрах',kind:'Вид товара',description:'Описание',discount_percent:'Скидка комплекта, %',is_demo:'Демонстрационные данные',created_at:'Создано',updated_at:'Обновлено',
- product_id:'Товар',sku_id:'Исполнение (SKU)',bundle_id:'Комплект',quantity:'Количество',article:'Артикул',price_kopecks:'Цена, копейки',media_mode:'Фотографии',fitment_mode:'Совместимость SKU',package_id:'Упаковка',
+ product_id:'Товар',sku_id:'Исполнение (SKU)',bundle_id:'Комплект',quantity:'Количество',article:'Артикул',price_rubles:'Цена, ₽',media_mode:'Фотографии',fitment_mode:'Совместимость SKU',package_id:'Упаковка',
  file_id:'Файл',alt:'Описание изображения',value_id:'Значение из справочника',text_value:'Текстовое значение',number_value:'Числовое значение',boolean_value:'Логическое значение',
  air_conditioning:'Кондиционер',state:'Статус совместимости',on_hand:'Физический остаток',reserved:'Зарезервировано',entity_type:'Тип страницы',entity_id:'ID страницы',old_slug:'Прежний адрес',
  weight_g:'Масса с упаковкой, г',length_mm:'Длина, мм',width_mm:'Ширина, мм',height_mm:'Высота, мм',

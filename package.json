@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/node": "11.1.6",
     "astro": "7.3.3",
+    "decimal.js": "10.6.0",
     "pg": "8.23.0"
   },
   "devDependencies": {

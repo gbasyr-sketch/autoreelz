@@ -1,10 +1,30 @@
 {
-  "database": "ar_qa_2283_1790016945392",
+  "database": "ar_qa_13822_1790027970773",
   "source": "autoreelz2026_new",
-  "startedAt": "2026-09-21T18:55:45.392Z",
+  "startedAt": "2026-09-21T21:59:30.773Z",
   "checks": [
     {
       "name": "seed: four marked demo products and seven SKUs",
+      "passed": true
+    },
+    {
+      "name": "money: price is a ruble decimal with two fractional digits",
+      "passed": true
+    },
+    {
+      "name": "money: one kopeck is stored as 0.01 ruble without scaling",
+      "passed": true
+    },
+    {
+      "name": "money: 7200.50 rubles survives storage and the effective SKU projection",
+      "passed": true
+    },
+    {
+      "name": "money: negative price remains forbidden",
+      "passed": true
+    },
+    {
+      "name": "money: price beyond the supported range remains forbidden",
       "passed": true
     },
     {
@@ -169,6 +189,6 @@
     }
   ],
   "cleanup": true,
-  "finishedAt": "2026-09-21T18:55:50.949Z",
+  "finishedAt": "2026-09-21T21:59:39.307Z",
   "passed": true
 }

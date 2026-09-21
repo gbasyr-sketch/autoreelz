@@ -19,7 +19,7 @@ for(const [collection,[name,icon,template,note]]of Object.entries(collections)){
   const relation=relations.find(r=>r[0]===collection&&r[1]===key);
   if(relation){meta.interface=relation[2]==='directus_files'?'file-image':'select-dropdown-m2o';meta.special=[relation[2]==='directus_files'?'file':'m2o'];meta.options={template:collections[relation[2]]?.[2]??'{{title}}'};meta.display=relation[2]==='directus_files'?'image':'related-values';meta.display_options={template:collections[relation[2]]?.[2]??'{{title}}'};}
   if(['value_id','text_value','number_value','boolean_value'].includes(key))meta.note='Заполняйте ровно одно поле согласно типу выбранной характеристики.';
-  if(key==='price_kopecks')meta.note='Целые копейки: 490000 = 4 900 ₽. Цена комплекта рассчитывается отдельно из состава.';
+  if(key==='price_rubles'){meta.note='Цена в рублях. Например, 4900 или 4900.50. Цена комплекта рассчитывается из состава.';meta.options={min:0,step:0.01,iconRight:'currency_ruble'};meta.display='formatted-value';meta.display_options={suffix:' ₽'};meta.required=true;}
   if(key==='article')meta.note='Существующий артикул владельца. Не перенумеровывать. Регистр не различает дубли.';
   if(collection==='ar_skus'&&key==='product_id')meta.note='Выбирается при создании. После сохранения SKU перенос к другому товару запрещён базой данных.';
   if(collection==='ar_vehicle_versions'&&key==='vehicle_id')meta.note='Выбирается при создании. После сохранения модификация не переносится к другому автомобилю.';
@@ -66,7 +66,7 @@ if(grants.length)await api('POST','/permissions',grants);
 const users=await api('GET',`/users?filter[email][_eq]=${encodeURIComponent(env.EDITOR_EMAIL)}`);
 if(!users.length)await api('POST','/users',{email:env.EDITOR_EMAIL,password:env.EDITOR_PASSWORD,first_name:'Контент',last_name:'Менеджер',role:role.id,status:'active',language:'ru-RU',appearance:'light'});
 else await api('PATCH',`/users/${users[0].id}`,{appearance:'light'});
-const layouts={ar_products:['name','kind','status','category_id','is_demo'],ar_skus:['article','name','product_id','price_kopecks','status'],ar_categories:['name','parent_id','status','slug'],ar_fitment:['product_id','sku_id','vehicle_id','state','year_from','year_to','air_conditioning'],ar_bundle_components:['bundle_id','sku_id','quantity'],ar_attributes:['name','code','value_type','filterable'],ar_attribute_values:['attribute_id','label','code'],ar_vehicles:['name','make','model','generation'],ar_stock:['sku_id','on_hand','reserved']};
+const layouts={ar_products:['name','kind','status','category_id','is_demo'],ar_skus:['article','name','product_id','price_rubles','status'],ar_categories:['name','parent_id','status','slug'],ar_fitment:['product_id','sku_id','vehicle_id','state','year_from','year_to','air_conditioning'],ar_bundle_components:['bundle_id','sku_id','quantity'],ar_attributes:['name','code','value_type','filterable'],ar_attribute_values:['attribute_id','label','code'],ar_vehicles:['name','make','model','generation'],ar_stock:['sku_id','on_hand','reserved']};
 const presets=await api('GET','/presets?limit=-1');
 for(const[collection,fields]of Object.entries(layouts)){
  const preset=presets.find(p=>p.collection===collection&&!p.user&&!p.role&&!p.bookmark);

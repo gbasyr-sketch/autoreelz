@@ -1,3 +1,4 @@
+import {rubles} from '../lib/money.ts';
 import {transaction} from './db.ts';
 import {createCatalogSnapshot,type CatalogSnapshot,type CatalogProduct,type CatalogVariant,type Category,type CatalogMedia,type FitmentRule,type AttributeDefinition} from '../lib/catalog-types.ts';
 
@@ -29,7 +30,7 @@ export async function getCatalog():Promise<CatalogSnapshot>{
    const variants:CatalogVariant[]=rows.ar_skus.filter(s=>s.product_id===p.id&&s.status==='published').sort(bySort).map(s=>{
     const images=s.media_mode==='replace'?media(rows.ar_sku_media.filter(m=>m.sku_id===s.id)):productMedia;
     const stock=rows.ar_stock.find(st=>st.sku_id===s.id);
-    return{id:s.id,article:s.article,label:s.name,priceKopecks:Number(s.price_kopecks),stock:Math.max(0,(stock?.on_hand??0)-(stock?.reserved??0)),attributes:{...productAttributes,...attributes(rows.ar_sku_attributes.filter(a=>a.sku_id===s.id))},image:images[0]?.src??fallbackImage,media:images,fitment:s.fitment_mode==='replace'?fitment(rows.ar_fitment.filter(f=>f.sku_id===s.id)):productFitment};
+    return{id:s.id,article:s.article,label:s.name,priceRubles:rubles(s.price_rubles),stock:Math.max(0,(stock?.on_hand??0)-(stock?.reserved??0)),attributes:{...productAttributes,...attributes(rows.ar_sku_attributes.filter(a=>a.sku_id===s.id))},image:images[0]?.src??fallbackImage,media:images,fitment:s.fitment_mode==='replace'?fitment(rows.ar_fitment.filter(f=>f.sku_id===s.id)):productFitment};
    });
    return{id:p.id,slug:p.slug,name:p.name,category:category.slug,categorySlugs:[category.slug,...rows.ar_product_categories.filter(c=>c.product_id===p.id).flatMap(c=>categories.filter(cat=>cat.id===c.category_id).map(cat=>cat.slug))],kind:p.kind,description:p.description??'',image:productMedia[0]?.src??fallbackImage,media:productMedia,attributes:productAttributes,fitment:productFitment,variants,components:p.kind==='bundle'?rows.ar_bundle_components.filter(c=>c.bundle_id===p.id).sort(bySort).map(c=>({skuId:c.sku_id,quantity:c.quantity})):undefined,discountBps:Math.round(Number(p.discount_percent)*100),isDemo:p.is_demo,seoTitle:p.seo_title??undefined,metaDescription:p.meta_description??undefined};
   });

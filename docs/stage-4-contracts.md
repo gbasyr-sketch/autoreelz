@@ -14,7 +14,7 @@ src/server/catalog.ts (агент каталога) экспортирует asy
 
 ## HTTP-контракты для клиента
 
-Типы DTO: src/lib/commerce-types.ts. JSON-ошибка всегда {error:{code,message}}. Изменяющий запрос — POST JSON, same-origin, заголовок X-CSRF-Token, уникальный idempotencyKey (crypto.randomUUID). Session endpoint выдаёт csrfToken; cookie HttpOnly, SameSite=Lax. Личные данные никогда не кешируются.
+Типы DTO: src/lib/commerce-types.ts. Денежные поля имеют суффикс Rubles и строковый формат "7200.00"; SQL-колонки *_rubles — numeric(16,2). Расчёты выполняются Decimal в рублях. JSON-ошибка всегда {error:{code,message}}. Изменяющий запрос — POST JSON, same-origin, заголовок X-CSRF-Token, уникальный idempotencyKey (crypto.randomUUID). Session endpoint выдаёт csrfToken; cookie HttpOnly, SameSite=Lax. Личные данные никогда не кешируются.
 
 | Endpoint | Запрос / ответ |
 |---|---|
@@ -33,7 +33,7 @@ src/server/catalog.ts (агент каталога) экспортирует asy
 | POST /api/manager/login | {email,password} → {ok:true}; авторизация через новый Directus, секрет не хранится в браузерном JS |
 | GET /api/manager/orders | {orders:OrderView[]}; только CMS-администратор |
 | GET /api/manager/mail | {messages:[{id,to,subject,body,createdAt}]} — только локально и менеджеру |
-| POST /api/manager/shipping | {orderId,costKopecks,note,idempotencyKey} → OrderView |
+| POST /api/manager/shipping | {orderId,costRubles,note,idempotencyKey} → OrderView |
 | POST /api/manager/confirm | {orderId,terms,idempotencyKey} → OrderView; списать обеспеченный предзаказ, срок 30 минут |
 | POST /api/manager/stock | {skuId,quantity,reason,idempotencyKey} → {ok:true}; приход для обеспечения предзаказа |
 

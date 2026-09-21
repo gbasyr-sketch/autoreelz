@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-09-21T21:57:37.305Z",
+  "checks": [
+    "All existing SKU prices preserve their value",
+    "Stock, reserves and stock identifiers unchanged",
+    "Historical order amounts and nested immutable snapshots converted exactly",
+    "Payments and idempotent cached results converted; null shipping retained",
+    "Cart prices converted; old quotes require a fresh review",
+    "Snapshot immutability guard is enabled after migration",
+    "All 5 persisted money columns are numeric(16,2)",
+    "SQL bundle price is calculated in rubles"
+  ],
+  "passed": true,
+  "cleanup": true
+}

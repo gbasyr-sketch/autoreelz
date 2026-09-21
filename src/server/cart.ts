@@ -1,3 +1,4 @@
+import{sumRubles,multiplyRubles}from'./pricing.ts';
 import type{PoolClient}from'pg';
 import type{ShopSession,CartView,CartLineView,CheckoutQuote,OrderLineSnapshot}from'../lib/commerce-types.ts';
 import{transaction}from'./db.ts';
@@ -20,12 +21,12 @@ export async function cartView(c:PoolClient,session:ShopSession):Promise<CartVie
  const free=new Map(stocks.map(s=>[s.sku_id,Number(s.on_hand)-Number(s.reserved)]));
  const lines:CartLineView[]=rows.map(row=>{
   const l=snapshots.get(row.id);
-  if(!l)return{id:row.id,productId:row.product_id,skuId:row.sku_id,quantity:row.quantity,name:row.last_name,article:'',variantLabel:'Недоступно',image:row.last_image,url:'/catalog',unitPriceKopecks:safeMoney(row.last_price_kopecks),lineTotalKopecks:safeMoney(BigInt(row.last_price_kopecks)*BigInt(row.quantity)),available:0,kind:'preorder',blocked:true,message:'Товар или исполнение больше не опубликованы. Удалите эту позицию.'};
+  if(!l)return{id:row.id,productId:row.product_id,skuId:row.sku_id,quantity:row.quantity,name:row.last_name,article:'',variantLabel:'Недоступно',image:row.last_image,url:'/catalog',unitPriceRubles:safeMoney(row.last_price_rubles),lineTotalRubles:multiplyRubles(row.last_price_rubles,row.quantity),available:0,kind:'preorder',blocked:true,message:'Товар или исполнение больше не опубликованы. Удалите эту позицию.'};
   const available=Math.min(...l.components.map(x=>Math.floor((free.get(x.skuId)??0)/x.quantity)));
-  return{id:row.id,productId:l.productId,skuId:l.skuId,quantity:l.quantity,name:l.name,article:l.article,variantLabel:l.variantLabel,image:l.image,url:`/product/${row.product_slug??''}`,unitPriceKopecks:l.unitPriceKopecks,lineTotalKopecks:l.lineTotalKopecks,available,kind:ordinary.has(l)?'ordinary':'preorder',blocked:false};
+  return{id:row.id,productId:l.productId,skuId:l.skuId,quantity:l.quantity,name:l.name,article:l.article,variantLabel:l.variantLabel,image:l.image,url:`/product/${row.product_slug??''}`,unitPriceRubles:l.unitPriceRubles,lineTotalRubles:l.lineTotalRubles,available,kind:ordinary.has(l)?'ordinary':'preorder',blocked:false};
  });
  if(lines.length){const names=(await c.query('SELECT id,slug FROM ar_products WHERE id=ANY($1::uuid[])',[lines.map(l=>l.productId)])).rows;for(const l of lines){const p=names.find(x=>x.id===l.productId);if(p&&!l.blocked)l.url=`/product/${p.slug}${l.skuId?'?sku='+l.skuId:''}`;}}
- return{version:cart.version,lines,productTotalKopecks:safeMoney(lines.reduce((n,l)=>n+BigInt(l.lineTotalKopecks),0n)),csrfToken:session.csrfToken};
+ return{version:cart.version,lines,productTotalRubles:sumRubles(lines.map(l=>l.lineTotalRubles)),csrfToken:session.csrfToken};
 }
 export const getCart=(session:ShopSession)=>transaction(c=>cartView(c,session));
 export async function changeCart(session:ShopSession,body:Record<string,unknown>){
@@ -40,8 +41,8 @@ export async function changeCart(session:ShopSession,body:Record<string,unknown>
    const qty=mode==='add'?(existing?.quantity??0)+quantity:quantity;integer(qty,'Количество',1,99);
    const snapshot=await snapshotLine(c,productId,skuId,qty);
    if(!existing&&Number((await c.query('SELECT count(*) n FROM ar_cart_lines WHERE cart_id=$1',[cart.id])).rows[0].n)>=100)throw new StoreError('CART_LIMIT','В корзине слишком много разных позиций.');
-   if(existing)await c.query('UPDATE ar_cart_lines SET quantity=$2,last_name=$3,last_price_kopecks=$4,last_image=$5 WHERE id=$1',[existing.id,qty,snapshot.name,snapshot.unitPriceKopecks,snapshot.image]);
-   else await c.query('INSERT INTO ar_cart_lines(cart_id,product_id,sku_id,quantity,last_name,last_price_kopecks,last_image) VALUES($1,$2,$3,$4,$5,$6,$7)',[cart.id,productId,skuId,qty,snapshot.name,snapshot.unitPriceKopecks,snapshot.image]);
+   if(existing)await c.query('UPDATE ar_cart_lines SET quantity=$2,last_name=$3,last_price_rubles=$4,last_image=$5 WHERE id=$1',[existing.id,qty,snapshot.name,snapshot.unitPriceRubles,snapshot.image]);
+   else await c.query('INSERT INTO ar_cart_lines(cart_id,product_id,sku_id,quantity,last_name,last_price_rubles,last_image) VALUES($1,$2,$3,$4,$5,$6,$7)',[cart.id,productId,skuId,qty,snapshot.name,snapshot.unitPriceRubles,snapshot.image]);
   }
   await c.query('UPDATE ar_carts SET version=version+1 WHERE id=$1',[cart.id]);return cartView(c,session);
  }));

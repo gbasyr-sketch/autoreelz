@@ -1,7 +1,7 @@
 {
-  "database": "ar_qa_e2e_11076_1790025406257",
+  "database": "ar_qa_e2e_14365_1790027987598",
   "source": "autoreelz2026_new",
-  "startedAt": "2026-09-21T21:16:46.257Z",
+  "startedAt": "2026-09-21T21:59:47.599Z",
   "browser": "Chrome headless, actual HTTP APIs",
   "checks": [
     {
@@ -73,5 +73,5 @@
   "limitations": [],
   "cleanup": true,
   "passed": true,
-  "finishedAt": "2026-09-21T21:17:28.544Z"
+  "finishedAt": "2026-09-21T22:00:24.770Z"
 }

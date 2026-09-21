@@ -1,7 +1,7 @@
 {
-  "database": "ar_qa_commerce_9445_1790024838664",
+  "database": "ar_qa_commerce_13828_1790027970895",
   "source": "autoreelz2026_new",
-  "startedAt": "2026-09-21T21:07:18.664Z",
+  "startedAt": "2026-09-21T21:59:30.895Z",
   "checks": [
     {
       "name": "isolation: application uses ar_app in the uniquely named QA clone",
@@ -57,6 +57,18 @@
     },
     {
       "name": "money safety: an overflowing line is rejected atomically",
+      "passed": true
+    },
+    {
+      "name": "rubles: database, order snapshot and payment preserve 0.01 and 7200.50 exactly",
+      "passed": true
+    },
+    {
+      "name": "rubles: 0.10 plus 0.20 remains 0.30 through cart, checkout and payment",
+      "passed": true
+    },
+    {
+      "name": "rubles: bundle discount rounds half a kopeck up after the component sum",
       "passed": true
     },
     {
@@ -129,6 +141,6 @@
     }
   ],
   "cleanup": true,
-  "finishedAt": "2026-09-21T21:07:21.549Z",
+  "finishedAt": "2026-09-21T21:59:36.290Z",
   "passed": true
 }

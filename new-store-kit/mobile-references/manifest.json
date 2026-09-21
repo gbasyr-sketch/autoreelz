@@ -1,0 +1,54 @@
+{
+  "capturedAt": "2026-09-21T14:46:04.239Z",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "isMobile": true,
+  "deviceScaleFactor": 1,
+  "entries": [
+    {
+      "name": "01-home",
+      "url": "https://prostore.899themes.ru/",
+      "status": 200,
+      "title": "Ваш магазин",
+      "height": 7983
+    },
+    {
+      "name": "02-catalog",
+      "url": "https://prostore.899themes.ru/jelektronika/telefony-i-smart-chasy/smartfony",
+      "status": 200,
+      "title": "Смартфоны",
+      "height": 8824
+    },
+    {
+      "name": "03-product",
+      "url": "https://prostore.899themes.ru/sony-refurbished-playstation-vr",
+      "status": 200,
+      "title": "Sony - PlayStation VR",
+      "height": 7249
+    },
+    {
+      "name": "04-blog",
+      "url": "https://prostore.899themes.ru/shopblog",
+      "status": 200,
+      "title": "Блог",
+      "height": 6261
+    },
+    {
+      "name": "05-cart-empty",
+      "url": "https://prostore.899themes.ru/cart",
+      "status": 200,
+      "title": "Корзина покупок",
+      "height": 1111
+    },
+    {
+      "name": "06-article",
+      "url": "https://prostore.899themes.ru/Digest-of-interesting-materials-for-mobile-developer",
+      "status": 200,
+      "title": "Дайджест интересных материалов для мобильного разработчика",
+      "height": 5863
+    }
+  ],
+  "notes": "Mobile Chrome emulation, cookie banner accepted in isolated browser context for unobstructed references. Full pages scrolled before capture to trigger lazy images. No orders or forms submitted."
+}

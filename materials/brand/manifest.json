@@ -1,0 +1,59 @@
+{
+  "provided": "2026-09-21",
+  "files": [
+    {
+      "file": "materials/brand/1.pdf",
+      "source": "/Users/magomedrasul/Yandex.Disk.localized/autoreelz/autoreelz/autoreelz/PDF/1.pdf",
+      "sha256": "3c2b08c58ec805e841277d899fe431aa529b28dd6b1faadcf90317f4e1b89a93",
+      "pages": 1
+    },
+    {
+      "file": "materials/brand/2.pdf",
+      "source": "/Users/magomedrasul/Yandex.Disk.localized/autoreelz/autoreelz/autoreelz/PDF/2.pdf",
+      "sha256": "f756830c8de8c15f601714b047391148612456a459229a2881164bfb1c4bae3e",
+      "pages": 1
+    },
+    {
+      "file": "materials/brand/3.pdf",
+      "source": "/Users/magomedrasul/Yandex.Disk.localized/autoreelz/autoreelz/autoreelz/PDF/3.pdf",
+      "sha256": "deaf8819b12d75e067e4478151160c0465b1710bbfd6d8f3b028c76d5fcd7c20",
+      "pages": 1
+    },
+    {
+      "file": "materials/brand/4.pdf",
+      "source": "/Users/magomedrasul/Yandex.Disk.localized/autoreelz/autoreelz/autoreelz/PDF/4.pdf",
+      "sha256": "45bd3548efb68775cc1e9b878967e742a3fef2a45964b27eb213522074f5e1fb",
+      "pages": 1
+    },
+    {
+      "file": "materials/brand/5.pdf",
+      "source": "/Users/magomedrasul/Yandex.Disk.localized/autoreelz/autoreelz/autoreelz/PDF/5.pdf",
+      "sha256": "bb71095ffcd99d4fee8bc15b9f97a84e29718fa18fdd375dbd61b583789fb204",
+      "pages": 1
+    },
+    {
+      "file": "materials/brand/6.pdf",
+      "source": "/Users/magomedrasul/Yandex.Disk.localized/autoreelz/autoreelz/autoreelz/PDF/6.pdf",
+      "sha256": "08a6e1ee971b6c23b2bb27e031fdd5d0ae658155a5c500a0c108cc3ac9b8cebf",
+      "pages": 1
+    },
+    {
+      "file": "materials/brand/7.pdf",
+      "source": "/Users/magomedrasul/Yandex.Disk.localized/autoreelz/autoreelz/autoreelz/PDF/7.pdf",
+      "sha256": "98951f84b43cbe61d43fbde5940cb9110e783d0192f4f154abafe89f68a4abef",
+      "pages": 1
+    },
+    {
+      "file": "materials/brand/8.pdf",
+      "source": "/Users/magomedrasul/Yandex.Disk.localized/autoreelz/autoreelz/autoreelz/PDF/8.pdf",
+      "sha256": "5c19866a9d72cfb67ac251aaf6030d909bd078d6cab884861f0b220f49418d14",
+      "pages": 1
+    },
+    {
+      "file": "materials/brand/9.pdf",
+      "source": "/Users/magomedrasul/Yandex.Disk.localized/autoreelz/autoreelz/autoreelz/PDF/9.pdf",
+      "sha256": "b9b687003601d3de6edbe0c6f629bf89f6a15cd063bc9b55486357ddb3e396c1",
+      "pages": 1
+    }
+  ]
+}

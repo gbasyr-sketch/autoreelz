@@ -1,0 +1,24 @@
+# Local environment and private data
+.DS_Store
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.sql
+*.dump
+*.sqlite*
+/data/
+/backups/
+/uploads/
+/private/
+/secrets/
+*.log
+node_modules/
+dist/
+.astro/
+.playwright/
+playwright-report/
+test-results/
+tmp/

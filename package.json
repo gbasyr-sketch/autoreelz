@@ -1,0 +1,19 @@
+{
+  "name": "autoreelz-new-store",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Preparation only: AUTO REELZ independent store",
+  "engines": {
+    "node": ">=24.21.0 <25",
+    "npm": ">=11 <12"
+  },
+  "packageManager": "npm@11.19.1",
+  "dependencies": {
+    "astro": "7.3.3",
+    "@astrojs/node": "11.1.6"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}

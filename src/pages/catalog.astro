@@ -1,0 +1,135 @@
+---
+import StoreLayout from '../layouts/StoreLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import Icon from '../components/Icon.astro';
+import { categories, vehicles, attributeDefinitions, type AttributeKey } from '../lib/demo';
+import { queryCatalog, catalogUrl } from '../lib/catalog';
+import '../styles/catalog.css';
+
+const params = Astro.url.searchParams;
+const result = queryCatalog(params);
+const { items, category, query, attributeKeys, activeFilters, error, unknownFitment, includeUnknown, selectedVehicle, sort } = result;
+if (error) Astro.response.status = 400;
+const pageTitle = category?.name ?? 'Каталог деталей';
+const priceError = error.includes('цену') || error.includes('цена');
+const activeCount = activeFilters.filter(item => item.key !== 'q').length;
+const allAttributeKeys = Object.keys(attributeDefinitions) as AttributeKey[];
+const retainedFields = (except: string[]) => Array.from(params.entries()).filter(([key]) => !except.includes(key));
+const categoryHref = (slug: string) => {
+  const nextCategory = categories.find(item => item.slug === slug);
+  const changes: Record<string, string | null> = { category: slug || null };
+  for (const key of allAttributeKeys) if (nextCategory && !nextCategory.attributes.includes(key)) changes[key] = null;
+  return catalogUrl(params, changes);
+};
+const removeFilterHref = (key: string) => catalogUrl(params, key === 'vehicle' ? { vehicle: null, year: null, ac: null, include_unknown: null } : { [key]: null });
+const countLabel = (count: number) => `${count} ${count % 10 === 1 && count % 100 !== 11 ? 'товар' : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 12 || count % 100 > 14) ? 'товара' : 'товаров'}`;
+---
+<StoreLayout title={pageTitle} description="Демонстрационный каталог AUTO REELZ: детали интерьера и готовые комплекты. Подбор, фильтры и варианты исполнения." active="catalog">
+  <main id="main" class="container cat-page" aria-labelledby="cat-title">
+    <nav class="breadcrumbs" aria-label="Хлебные крошки">
+      <a href="/">Главная</a>
+      {category ? <><a href="/catalog">Каталог</a><span aria-current="page">{category.shortName}</span></> : <span aria-current="page">Каталог</span>}
+    </nav>
+    <header class="cat-heading">
+      <div><span class="eyebrow">Соберите свой интерьер</span><h1 id="cat-title">{pageTitle}</h1></div>
+      <p>От одной детали<br class="cat-desktop-break" /> до готового комплекта.</p>
+    </header>
+    <div class="cat-demo-note"><span class="cat-demo-tag">Демокаталог</span><p>Цены, остатки и характеристики — примеры. Совместимость пока не подтверждена.</p></div>
+
+    <div class="cat-layout" data-catalog>
+      <aside class="cat-sidebar" aria-label="Категории и фильтры">
+        <details class="cat-filter-disclosure" open>
+          <summary>Категории и фильтры <span aria-hidden="true">⌄</span></summary>
+          <div id="cat-filter-content">
+            <nav class="cat-categories" aria-label="Категории каталога">
+              <h2>Категории</h2>
+              <a class:list={['cat-category', { 'is-selected': !category }]} href={categoryHref('')} aria-current={!category ? 'page' : undefined}><span>Все детали</span><span aria-hidden="true">↗</span></a>
+              {categories.map(item => <a class:list={['cat-category', { 'is-selected': category?.slug === item.slug }]} href={categoryHref(item.slug)} aria-current={category?.slug === item.slug ? 'page' : undefined}><span>{item.shortName}</span><span aria-hidden="true">›</span></a>)}
+            </nav>
+            <form action="/catalog" method="get" class="cat-filter-form" id="cat-filter-form">
+              {query && <input type="hidden" name="q" value={query} />}
+              {category && <input type="hidden" name="category" value={category.slug} />}
+              {sort !== 'default' && <input type="hidden" name="sort" value={sort} />}
+              {includeUnknown && <input type="hidden" name="include_unknown" value="1" />}
+              <fieldset class="cat-filter-group" id="cat-vehicle-filter">
+                <legend>Ваш автомобиль</legend>
+                <label class="cat-label" for="cat-vehicle">Модель</label>
+                <select id="cat-vehicle" class="field" name="vehicle" aria-describedby="cat-fitment-help">
+                  <option value="">Выберите автомобиль</option>
+                  {vehicles.map(vehicle => <option value={vehicle.slug} selected={selectedVehicle?.slug === vehicle.slug}>{vehicle.name}</option>)}
+                </select>
+                <div class="cat-vehicle-options">
+                  <div><label class="cat-label" for="cat-year">Год выпуска</label><input class="field" id="cat-year" name="year" type="number" inputmode="numeric" min="1970" max="2026" step="1" value={params.get('year') ?? ''} placeholder="Например, 2019" /></div>
+                  <div><label class="cat-label" for="cat-ac">Кондиционер</label><select class="field" name="ac" id="cat-ac"><option value="">Не выбран</option><option value="yes" selected={params.get('ac') === 'yes'}>Есть</option><option value="no" selected={params.get('ac') === 'no'}>Нет</option><option value="unknown" selected={params.get('ac') === 'unknown'}>Не знаю</option></select></div>
+                </div>
+                <p class="cat-field-help" id="cat-fitment-help">Подбор покажет статус совместимости. Сейчас он неизвестен для всех демотоваров.</p>
+              </fieldset>
+              <fieldset class="cat-filter-group">
+                <legend>Цена, ₽</legend>
+                <div class="cat-price-fields">
+                  <div><label class="cat-label" for="cat-price-min">От</label><input class="field" id="cat-price-min" name="min" inputmode="decimal" value={params.get('min') ?? ''} placeholder="0" aria-invalid={priceError ? 'true' : undefined} aria-describedby={priceError ? 'cat-price-error' : undefined} /></div>
+                  <div><label class="cat-label" for="cat-price-max">До</label><input class="field" id="cat-price-max" name="max" inputmode="decimal" value={params.get('max') ?? ''} placeholder="Любая" aria-invalid={priceError ? 'true' : undefined} aria-describedby={priceError ? 'cat-price-error' : undefined} /></div>
+                </div>
+                {priceError && <p id="cat-price-error" class="cat-field-error">{error}</p>}
+              </fieldset>
+              <fieldset class="cat-filter-group">
+                <legend>Наличие</legend>
+                <label class="cat-radio"><input type="radio" name="availability" value="" checked={!params.get('availability')} /><span>Любое</span></label>
+                <label class="cat-radio"><input type="radio" name="availability" value="in-stock" checked={params.get('availability') === 'in-stock'} /><span>В наличии</span></label>
+                <label class="cat-radio"><input type="radio" name="availability" value="preorder" checked={params.get('availability') === 'preorder'} /><span>Предзаказ</span></label>
+              </fieldset>
+              {attributeKeys.map(key => <fieldset class="cat-filter-group">
+                <legend>{attributeDefinitions[key].label}</legend>
+                <label class="cat-radio"><input type="radio" name={key} value="" checked={!params.get(key)} /><span>{key === 'material' ? 'Любой' : 'Любая'}</span></label>
+                {attributeDefinitions[key].values.map(option => <label class="cat-radio"><input type="radio" name={key} value={option.value} checked={params.get(key) === option.value} />{'color' in option && <span class="cat-color-swatch" style={`--swatch-color:${option.color}`} aria-hidden="true"></span>}<span>{option.label}</span></label>)}
+              </fieldset>)}
+              {error && !priceError && <p class="cat-field-error" id="cat-form-error" role="alert">{error}</p>}
+              <div class="cat-filter-actions"><button class="button" type="submit">Применить фильтры <span aria-hidden="true">→</span></button><a href="/catalog" class="cat-reset">Сбросить всё</a></div>
+            </form>
+          </div>
+        </details>
+      </aside>
+
+      <div class="cat-results">
+        <div class="cat-toolbar">
+          <form action="/catalog" method="get" role="search" class="cat-search" id="catalog-search">
+            {retainedFields(['q']).map(([key, value]) => <input type="hidden" name={key} value={value} />)}
+            <label class="cat-label" for="cat-search-input">Название или артикул</label>
+            <div class="cat-search-control"><Icon name="search" size={20} /><input id="cat-search-input" type="search" name="q" value={query} maxlength="100" placeholder="Например, блок отопителя" /><button type="submit" aria-label="Найти товары"><span class="cat-search-button-text">Найти</span><span aria-hidden="true">→</span></button></div>
+          </form>
+          <div class="cat-toolbar-bottom">
+            <button type="button" class="button-secondary cat-mobile-filter" data-open-catalog-filters aria-haspopup="dialog" aria-controls="cat-filter-dialog"><Icon name="filter" size={18} /><span>Фильтры</span>{activeCount > 0 && <span class="cat-filter-count">{activeCount}</span>}</button>
+            <p class="cat-result-count" aria-live="polite">{countLabel(items.length)}</p>
+            <form action="/catalog" method="get" class="cat-sort-form">
+              {retainedFields(['sort']).map(([key, value]) => <input type="hidden" name={key} value={value} />)}
+              <label for="cat-sort">Сортировка</label>
+              <div class="cat-sort-control"><select id="cat-sort" name="sort"><option value="default" selected={sort === 'default'}>По умолчанию</option><option value="price-asc" selected={sort === 'price-asc'}>Сначала дешевле</option><option value="price-desc" selected={sort === 'price-desc'}>Сначала дороже</option><option value="name" selected={sort === 'name'}>По названию</option></select><button type="submit" class="cat-sort-submit" aria-label="Применить сортировку">→</button></div>
+            </form>
+          </div>
+        </div>
+
+        {(activeFilters.length > 0 || includeUnknown) && <div class="cat-active-filters" aria-label="Выбранные условия">
+          {activeFilters.map(filter => <a class="cat-chip" href={removeFilterHref(filter.key)} aria-label={`Убрать условие: ${filter.label}`}><span>{filter.label}</span><span aria-hidden="true">×</span></a>)}
+          {includeUnknown && selectedVehicle && <a class="cat-chip" href={catalogUrl(params, { include_unknown: null })} aria-label="Убрать товары с неизвестной совместимостью"><span>Включая неизвестную совместимость</span><span aria-hidden="true">×</span></a>}
+          <a class="cat-clear-filters" href="/catalog">Сбросить всё</a>
+        </div>}
+
+        {error ? <section class="cat-empty cat-error-state" aria-labelledby="cat-empty-title">
+          <span class="cat-state-icon" aria-hidden="true">!</span><span class="eyebrow">Проверьте условия</span><h2 id="cat-empty-title">Не удалось применить фильтры</h2><p role="alert">{error}</p><div class="cat-empty-actions"><a class="button" href="#cat-filter-form" data-edit-catalog-filters>Исправить фильтры</a><a class="button-secondary" href="/catalog">Сбросить всё</a></div>
+        </section> : unknownFitment && !includeUnknown ? <section class="cat-empty cat-fitment-empty" aria-labelledby="cat-empty-title">
+          <span class="cat-state-icon"><Icon name="car" size={32} /></span><span class="eyebrow">{selectedVehicle?.name}</span><h2 id="cat-empty-title">Подтверждённых совпадений пока нет</h2><p>Данные совместимости ещё не заполнены. Это не означает, что детали не подойдут: применимость нужно проверить по модели и комплектации автомобиля.</p><a class="button" href={catalogUrl(params, { include_unknown: '1' })}>Показать демотовары<br class="cat-mobile-break" /> с неизвестной совместимостью</a><a class="cat-state-link" href={removeFilterHref('vehicle')}>Убрать автомобиль из условий</a>
+        </section> : <>
+          {unknownFitment && includeUnknown && <div class="cat-fitment-notice"><span class="cat-notice-symbol" aria-hidden="true">i</span><div><strong>Совместимость с {selectedVehicle?.name} не подтверждена</strong><p>Ниже — демотовары с неизвестной применимостью. Выбор автомобиля не гарантирует, что деталь подойдёт.</p></div></div>}
+          {items.length > 0 ? <div class="cat-product-grid">{items.map(({ product, offer }) => <ProductCard product={product} offer={offer} />)}</div> : <section class="cat-empty" aria-labelledby="cat-empty-title">
+            <span class="cat-state-icon"><Icon name="search" size={32} /></span><span class="eyebrow">Попробуем иначе</span><h2 id="cat-empty-title">{query ? `По запросу «${query}» ничего не найдено` : 'Нет товаров с такими условиями'}</h2><p>{query ? 'Проверьте название или артикул. Можно сократить запрос или убрать часть фильтров.' : 'Попробуйте расширить диапазон цены или убрать один из фильтров. В демокаталоге пока небольшой набор товаров.'}</p><div class="cat-empty-actions">{query && <a class="button" href={catalogUrl(params, { q: null })}>Очистить поиск</a>}<a class={query ? 'button-secondary' : 'button'} href="/catalog">Показать весь каталог</a></div>
+          </section>}
+        </>}
+        <div class="cat-bottom-note"><span aria-hidden="true">↗</span><p>Каждая деталь начинается с правильного подбора.<br /><span>Фотографии и точные параметры появятся после наполнения каталога.</span></p></div>
+      </div>
+    </div>
+  </main>
+  <dialog id="cat-filter-dialog" class="cat-filter-dialog" aria-labelledby="cat-dialog-title"><div class="cat-dialog-top"><h2 id="cat-dialog-title">Фильтры каталога</h2><button type="button" data-close-catalog-filters aria-label="Закрыть фильтры" autofocus>×</button></div><div class="cat-dialog-body" data-catalog-dialog-mount></div><div class="cat-dialog-footer"><button class="button" type="submit" form="cat-filter-form">Применить фильтры <span aria-hidden="true">→</span></button><a href="/catalog">Сбросить всё</a></div></dialog>
+</StoreLayout>
+<script>
+  import '../scripts/catalog';
+</script>

@@ -1,0 +1,6 @@
+---
+import StoreLayout from '../layouts/StoreLayout.astro';
+import Icon from '../components/Icon.astro';
+Astro.response.status=404;
+---
+<StoreLayout title="Страница не найдена"><main id="main" class="container page-pad"><section class="empty-panel"><p class="eyebrow">Ошибка 404</p><h1>Такой страницы нет</h1><p>Возможно, адрес изменился. Найдите нужную деталь в каталоге.</p><a href="/catalog" class="button">Открыть каталог <Icon name="arrow"/></a></section></main></StoreLayout>

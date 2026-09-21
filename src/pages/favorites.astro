@@ -1,0 +1,7 @@
+---
+import StoreLayout from '../layouts/StoreLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import Icon from '../components/Icon.astro';
+import {products,offerFor} from '../lib/demo';
+---
+<StoreLayout title="Избранное"><main id="main" class="container page-pad" data-favorites-page><div class="page-intro"><p class="eyebrow">Ваш выбор</p><h1>Избранное</h1><p>Сохранённые товары в этом браузере. Вход и синхронизация между устройствами появятся на следующем этапе.</p></div><p class="favorite-state js-only" data-favorites-count></p><div class="empty-panel" data-favorites-empty><Icon name="heart" size={40}/><h2>Сохраните то, что нравится</h2><p>Нажмите на сердечко у товара — он появится здесь.</p><a href="/catalog" class="button">Посмотреть каталог <Icon name="arrow"/></a></div><div class="cards-grid">{products.map(p=><div data-product-id={p.id} hidden><ProductCard product={p} offer={offerFor(p)!}/></div>)}</div></main></StoreLayout>

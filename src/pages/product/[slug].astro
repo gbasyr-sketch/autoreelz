@@ -1,0 +1,63 @@
+---
+import StoreLayout from '../../layouts/StoreLayout.astro';
+import Icon from '../../components/Icon.astro';
+import {products,categories,vehicles,offerFor,findSku,money,productHref,attributeLabel,attributeDefinitions,type AttributeKey} from '../../lib/demo';
+import '../../styles/product.css';
+const product=products.find(p=>p.slug===Astro.params.slug);
+const sku=Astro.url.searchParams.get('sku');
+const offer=product?offerFor(product,sku):null;
+if(!product||!offer)Astro.response.status=404;
+const variant=offer?.variant;
+const category=categories.find(c=>c.slug===product?.category);
+const vehicle=vehicles.find(v=>v.slug===Astro.url.searchParams.get('vehicle'));
+const year=Astro.url.searchParams.get('year')??'';
+const ac=Astro.url.searchParams.get('ac')??'';
+let fitmentError='';
+if(Astro.url.searchParams.has('vehicle')&&!vehicle)fitmentError='Выберите автомобиль из списка.';
+else if(vehicle&&(!/^\d{4}$/.test(year)||Number(year)<1970||Number(year)>2026))fitmentError='Укажите год выпуска от 1970 до 2026.';
+else if(vehicle&&!['yes','no','unknown'].includes(ac))fitmentError='Укажите наличие кондиционера.';
+if(fitmentError&&offer)Astro.response.status=400;
+const color=variant?.attributes.illumination;
+const componentRows=product?.components?.map(c=>({...c,...findSku(c.skuId)!}));
+---
+<StoreLayout title={product&&offer?product.name:'Товар не найден'} active="product">
+<main id="main" class="container product-page">
+{product&&offer?<>
+  <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><a href="/catalog">Каталог</a><a href={`/catalog?category=${product.category}`}>{category?.name}</a></nav>
+  <div class="product-layout" data-current-sku={variant?.id??''}>
+    <section class="product-intro"><div class="product-overline"><span>{category?.name} · демо-товар</span><button class="icon-button js-only" data-favorite={product.id} aria-pressed="false" aria-label={`В избранное: ${product.name}`}><Icon name="heart"/></button></div><h1>{product.name}</h1><p>{product.kind==='bundle'?'Готовый состав из конкретных исполнений.':'Выберите исполнение для вашего интерьера.'}</p></section>
+    <section class="product-media" aria-label="Галерея товара">
+      <div class:list={['gallery-stage',color&&`light-${color}`]}><span class="gallery-index" data-gallery-index>01 / 03</span><img id="product-image" src={product.image} width="720" height="480" alt={`Изображение-заглушка: ${product.name}`} fetchpriority="high"/><span class="gallery-caption"><Icon name="info" size={15}/>Изображение-заглушка</span><button class="gallery-zoom icon-button js-only" data-zoom aria-label="Увеличить изображение"><Icon name="search"/></button></div>
+      <div class="gallery-thumbs js-only" aria-label="Виды товара"><button data-gallery="1" aria-label="Основной вид" aria-pressed="true"><img src={product.image} width="720" height="480" alt=""/></button><button data-gallery="2" aria-label="Увеличенный вид — заглушка" aria-pressed="false">Крупнее</button><button data-gallery="3" aria-label="Детали — заглушка" aria-pressed="false">Детали</button></div>
+      <p class="product-demo">Демонстрационный товар. Цена, наличие и характеристики — примеры для проверки интерфейса, не предложение о продаже.</p>
+    </section>
+    <section class="product-purchase" aria-label="Исполнение и покупка">
+      <details class="fitment-box" open={Boolean(vehicle)||Boolean(fitmentError)} id="compatibility"><summary><Icon name="car"/><span><strong>Подойдёт вашему автомобилю?</strong><small>{vehicle?`${vehicle.name} · совместимость уточняется`:'Совместимость пока не подтверждена'}</small></span><span class="fitment-action">Проверить</span></summary><form action={`/product/${product.slug}#compatibility`} class="product-fitment-form">
+        {variant&&<input type="hidden" name="sku" value={variant.id}/>}
+        <label class="field">Автомобиль<select name="vehicle" required><option value="">Выберите модель</option>{vehicles.map(v=><option value={v.slug} selected={v.id===vehicle?.id}>{v.name}</option>)}</select></label>
+        <label class="field">Год<input type="number" inputmode="numeric" name="year" value={year} min="1970" max="2026" required placeholder="2015"/></label>
+        <label class="field">Кондиционер<select name="ac" required><option value="">Выберите</option><option value="yes" selected={ac==='yes'}>Есть</option><option value="no" selected={ac==='no'}>Нет</option><option value="unknown" selected={ac==='unknown'}>Не знаю</option></select></label>
+        <button class="button-secondary">Проверить совместимость</button>
+        {fitmentError&&<p class="field-error" role="alert">{fitmentError}</p>}
+        {vehicle&&!fitmentError&&<p class="fitment-result" role="status"><strong>Совместимость уточняется.</strong> Год: {year}, кондиционер: {ac==='yes'?'есть':ac==='no'?'нет':'неизвестно'}. В каталоге ещё нет фактических данных применимости.</p>}
+      </form></details>
+      {product.variants.length>1&&<section class="variant-picker" aria-labelledby="variant-label"><h2 id="variant-label">{color?'Цвет подсветки':'Исполнение'}: <span>{variant?.label}</span></h2><div class="variant-options">{product.variants.map(v=>{const url=new URL(productHref(product,v),Astro.url);for(const key of ['vehicle','year','ac'])if(Astro.url.searchParams.get(key))url.searchParams.set(key,Astro.url.searchParams.get(key)!);return <a class:list={['variant-option',v.id===variant?.id&&'is-selected']} href={url.pathname+url.search} aria-current={v.id===variant?.id?'true':undefined}>{v.attributes.illumination&&<i style={`--swatch:${attributeDefinitions.illumination.values.find(o=>o.value===v.attributes.illumination)?.color??'#888'}`}/>}<span>{v.attributes.illumination?attributeLabel('illumination',v.attributes.illumination):v.label}</span></a>})}</div></section>}
+      {product.kind==='bundle'&&<div class="bundle-fixed"><Icon name="box"/><p><strong>Фиксированный состав</strong><span>Исполнения уже выбраны. Состав комплекта не меняется.</span></p></div>}
+      <div class="product-facts">{variant?.attributes.surface&&<span>Поверхность: <b>{attributeLabel('surface',variant.attributes.surface).toLowerCase()}</b></span>}<span>Артикул: <b>{variant?.article??'DEMO-KIT'}</b></span></div>
+      <div class="buy-box"><div class="price-row"><strong data-price-kopecks={offer.priceKopecks}>{money(offer.priceKopecks)}</strong><span class:list={['stock',offer.available===0&&'preorder']}>{offer.available>0?'В наличии · демо':'Предзаказ · демо'}</span></div>
+        {offer.available===0&&<p class="preorder-explanation">{product.kind==='bundle'?'Одного из компонентов нет в наличии. Весь комплект оформляется как предзаказ.':'Товара пока нет в наличии.'} Без немедленной оплаты: сначала менеджер подтверждает срок и условия.</p>}
+        <div class="buy-row"><div class="quantity js-only"><button type="button" data-quantity="-1" aria-label="Уменьшить количество">−</button><input id="product-quantity" type="number" min="1" max="99" step="1" value="1" aria-label="Количество"/><button type="button" data-quantity="1" aria-label="Увеличить количество">+</button></div><button class="button buy-button js-only" data-add-product={product.id} data-sku-id={variant?.id}>{offer.available>0?'В демо-корзину':'В демо-предзаказ'}<Icon name="cart"/></button></div>
+        <p id="quantity-error" class="field-error" role="alert" hidden></p><p class="purchase-note">Заказ не создаётся. Цена и наличие — демонстрационные.</p>
+        <p class="delivery-line"><Icon name="box" size={19}/><a href="/info/delivery">СДЭК по России · стоимость при оформлении</a></p>
+      </div>
+    </section>
+  </div>
+  <div class="product-details-layout"><section class="product-description"><div class="product-tabs" aria-label="Разделы товара"><a href="#description">Описание</a><a href="#specifications">Характеристики</a><a href="#delivery">Доставка</a></div><section id="description"><h2>Описание</h2><p>{product.description}</p></section><section id="specifications"><h2>{product.kind==='bundle'?'Что входит в комплект':'Характеристики'}</h2>
+    {componentRows?<><ul class="bundle-components">{componentRows.map(c=><li><a href={productHref(c.product,c.variant)}><img src={c.product.image} width="720" height="480" loading="lazy" alt=""/><span>{c.product.name}<small>{c.variant.label} · {c.quantity} шт.</small></span></a><b>{money(c.variant.priceKopecks*c.quantity)}</b></li>)}</ul><p class="bundle-price-note">Цена примера: сумма компонентов минус {((product.discountBps??0)/100)}% демонстрационной скидки. Остаток общий с отдельными деталями.</p></>:<dl class="spec-list">{Object.entries(variant?.attributes??{}).map(([key,value])=><div><dt>{attributeDefinitions[key as AttributeKey].label}</dt><dd>{attributeLabel(key as AttributeKey,value)}</dd></div>)}<div><dt>Совместимость</dt><dd>Не подтверждена</dd></div><div><dt>Данные товара</dt><dd>Демонстрационные</dd></div></dl>}
+  </section><section id="delivery"><h2>Доставка и предзаказ</h2><p>Отправление из Махачкалы по России: СДЭК до пункта выдачи или курьером. Доставка обычного заказа и предзаказа рассчитывается отдельно. При отсутствии расчёта стоимость уточнит менеджер до оплаты.</p></section></section><aside class="product-help"><Icon name="car"/><h2>Сначала — точный подбор</h2><p>Проверяем модель, год выпуска и наличие кондиционера. Если сведений недостаточно, совместимость уточняется.</p><a href="#compatibility">Указать автомобиль <Icon name="arrow" size={17}/></a></aside></div>
+  <aside class="mobile-purchase js-only" aria-label="Действие покупки"><div><strong>{money(offer.priceKopecks)}</strong><small>{offer.available>0?'Демонстрационная цена':'Предзаказ · без оплаты'}</small></div><button class="button" data-add-product={product.id} data-sku-id={variant?.id}>{offer.available>0?'В корзину':'В предзаказ'}<Icon name="arrow" size={18}/></button></aside>
+  <dialog id="image-dialog" aria-labelledby="image-dialog-title"><div class="dialog-heading"><h2 id="image-dialog-title">Изображение-заглушка</h2><button data-close-dialog class="icon-button" aria-label="Закрыть изображение"><Icon name="close"/></button></div><img src={product.image} width="720" height="480" alt={`Изображение-заглушка: ${product.name}`}/><p class="muted">Реальные фотографии этого исполнения появятся после наполнения каталога.</p></dialog>
+</>:<section class="empty-panel missing-product"><Icon name="search" size={42}/><h1>{product?'Исполнение не найдено':'Товар не найден'}</h1><p>{product?'Такого исполнения у этого товара нет. Выберите доступный вариант в основной карточке.':'Проверьте адрес или найдите деталь в каталоге.'}</p><a class="button" href={product?`/product/${product.slug}`:'/catalog'}>{product?'Открыть товар':'Перейти в каталог'}<Icon name="arrow"/></a></section>}
+</main>
+<script>import '../../scripts/product.ts';</script>
+</StoreLayout>

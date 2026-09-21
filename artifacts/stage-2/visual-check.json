@@ -1,0 +1,134 @@
+[
+  {
+    "name": "home",
+    "width": 375,
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "scroll": 375,
+    "h1": "Ваш автомобиль.Ваш интерьер.",
+    "buttons": 9,
+    "errors": [],
+    "external": []
+  },
+  {
+    "name": "home",
+    "width": 768,
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "scroll": 768,
+    "h1": "Ваш автомобиль.Ваш интерьер.",
+    "buttons": 9,
+    "errors": [],
+    "external": []
+  },
+  {
+    "name": "home",
+    "width": 1024,
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "scroll": 1024,
+    "h1": "Ваш автомобиль.Ваш интерьер.",
+    "buttons": 9,
+    "errors": [],
+    "external": []
+  },
+  {
+    "name": "home",
+    "width": 1440,
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "scroll": 1440,
+    "h1": "Ваш автомобиль.Ваш интерьер.",
+    "buttons": 9,
+    "errors": [],
+    "external": []
+  },
+  {
+    "name": "catalog",
+    "width": 375,
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "scroll": 375,
+    "h1": "Каталог деталей",
+    "buttons": 17,
+    "errors": [],
+    "external": []
+  },
+  {
+    "name": "catalog",
+    "width": 768,
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "scroll": 768,
+    "h1": "Каталог деталей",
+    "buttons": 17,
+    "errors": [],
+    "external": []
+  },
+  {
+    "name": "catalog",
+    "width": 1024,
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "scroll": 1024,
+    "h1": "Каталог деталей",
+    "buttons": 17,
+    "errors": [],
+    "external": []
+  },
+  {
+    "name": "catalog",
+    "width": 1440,
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "scroll": 1440,
+    "h1": "Каталог деталей",
+    "buttons": 17,
+    "errors": [],
+    "external": []
+  },
+  {
+    "name": "product",
+    "width": 375,
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "scroll": 375,
+    "h1": "Блок управления отопителем",
+    "buttons": 15,
+    "errors": [],
+    "external": []
+  },
+  {
+    "name": "product",
+    "width": 768,
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "scroll": 768,
+    "h1": "Блок управления отопителем",
+    "buttons": 15,
+    "errors": [],
+    "external": []
+  },
+  {
+    "name": "product",
+    "width": 1024,
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "scroll": 1024,
+    "h1": "Блок управления отопителем",
+    "buttons": 15,
+    "errors": [],
+    "external": []
+  },
+  {
+    "name": "product",
+    "width": 1440,
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "scroll": 1440,
+    "h1": "Блок управления отопителем",
+    "buttons": 15,
+    "errors": [],
+    "external": []
+  }
+]

@@ -1,0 +1,20 @@
+---
+import StoreLayout from '../layouts/StoreLayout.astro';
+import Icon from '../components/Icon.astro';
+import ProductCard from '../components/ProductCard.astro';
+import {categories,vehicles,products,offerFor} from '../lib/demo';
+import '../styles/home.css';
+---
+<StoreLayout title="Детали автомобильного интерьера" active="home">
+<main id="main" class="container home-main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy"><p class="eyebrow"><i></i>Детали и готовые комплекты</p><h1 id="hero-title">Ваш автомобиль.<br/>Ваш <span>интерьер.</span></h1><p class="hero-text">Консоли, блоки отопителя, магнитолы и детали для обновления салона.</p><a class="button" href="#selection">Подобрать для автомобиля <Icon name="arrow"/></a></div>
+    <div class="hero-visual"><span class="hero-detail">ИНТЕРЬЕР / ДЕТАЛИ<br/>AUTO REELZ</span><img src="/images/placeholder-console.svg" width="720" height="480" fetchpriority="high" alt="Условная иллюстрация блока отопителя — заглушка фотографии"/><span class="hero-image-note">Изображение-заглушка · Фото добавим позже</span></div>
+  </section>
+  <form class="finder" action="/catalog" id="selection"><div class="finder-intro"><h2>Начнём с автомобиля</h2><p>Чтобы найти подходящие детали</p></div><label class="field">Модель<select name="vehicle" required><option value="">Выберите автомобиль</option>{vehicles.map(v=><option value={v.slug}>{v.name}</option>)}</select></label><label class="field">Год выпуска<input name="year" inputmode="numeric" type="number" min="1970" max="2026" placeholder="Например, 2015" required/></label><label class="field">Кондиционер<select name="ac" required><option value="">Выберите</option><option value="yes">Есть</option><option value="no">Нет</option><option value="unknown">Не знаю</option></select></label><button class="button">Подобрать <Icon name="arrow"/></button></form>
+  <p class="finder-note">Таблица совместимости пока не заполнена. Подбор покажет только подтверждённые данные — или предложит уточнение.</p>
+  <section aria-labelledby="categories-title"><div class="section-heading"><h2 id="categories-title">Что хотите обновить?</h2><a href="/catalog">Все категории <Icon name="arrow" size={18}/></a></div><div class="home-categories">{categories.slice(0,4).map((c,i)=><a href={`/catalog?category=${c.slug}`}><div><span>0{i+1} / КАТЕГОРИЯ</span><h3>{c.name}</h3></div><Icon name={c.icon} size={36}/></a>)}</div></section>
+  <section aria-labelledby="products-title"><div class="section-heading"><div><p class="eyebrow">Знакомство с каталогом</p><h2 id="products-title">Детали вашего интерьера</h2></div><a href="/catalog">Смотреть всё <Icon name="arrow" size={18}/></a></div><p class="home-demo-note">Примеры товаров для проверки витрины. Цены, наличие и исполнения демонстрационные.</p><div class="cards-grid">{[products[0]!,products[1]!,products[2]!,products[4]!].map(p=><ProductCard product={p} offer={offerFor(p)!}/>)}</div></section>
+  <section class="bundle-promo" aria-labelledby="bundle-title"><div><p class="eyebrow">Готовые комплекты</p><h2 id="bundle-title">Детали, собранные<br/>в одно решение.</h2><p>Фиксированный состав из конкретных исполнений.<br/>Посмотрите, что входит в комплект.</p><a class="button-secondary" href="/catalog?category=bundles">Выбрать комплект <Icon name="arrow"/></a></div><img src="/images/placeholder-kit.svg" width="720" height="480" loading="lazy" alt="Условная коробка комплекта — изображение-заглушка"/><span class="bundle-image-note">Изображение-заглушка</span></section>
+</main>
+</StoreLayout>

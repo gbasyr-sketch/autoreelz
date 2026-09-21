@@ -1,0 +1,23 @@
+{
+  "checks": [
+    "catalog_has_8_demo_products",
+    "mobile_filters_same_sku_empty_state",
+    "invalid_price_correction",
+    "empty_search",
+    "unknown_fitment_opt_in",
+    "remove_vehicle_clears_related_conditions",
+    "white_variant_preorder_and_demo_cart",
+    "favorite_persists_in_browser",
+    "demo_cart_persists_and_removes",
+    "product_fitment_never_invents_match",
+    "quantity_error",
+    "fixed_bundle_no_variant_switches",
+    "whole_bundle_preorder",
+    "missing_product_and_invalid_sku_404",
+    "keyboard_menu_escape_focus",
+    "reduced_motion",
+    "storage_failure_visible",
+    "no_js_ssr_variant_and_filters"
+  ],
+  "errors": []
+}

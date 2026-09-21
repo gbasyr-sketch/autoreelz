@@ -4,9 +4,12 @@
   "npm": "11.19.1",
   "astro": "7.3.3",
   "astro_node_adapter": "11.1.6",
-  "typescript": "7.0.2",
+  "typescript": "6.0.3",
   "directus": "12.3.1",
   "postgresql": "17.11",
   "container_digests": null,
-  "runtime_verified": false
+  "runtime_verified": false,
+  "astro_check": "0.9.10",
+  "frontend_runtime_verified": true,
+  "directus_postgresql_runtime_verified": false
 }

@@ -22,3 +22,6 @@ dist/
 playwright-report/
 test-results/
 tmp/
+
+# Project-local runtimes
+.tools/

@@ -1,0 +1,22 @@
+{
+  "catalogLayout": [
+    {
+      "width": 375,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "overflow": false
+    }
+  ],
+  "articleSearch": "PASS: matching SKU, price, stock, contradictory stock filter empty",
+  "mobileFilterFooter": "PASS: visible without scrolling, submits GET, Escape restores focus"
+}

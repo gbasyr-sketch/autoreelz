@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "AUTO REELZ independent storefront — local demo",
+  "description": "AUTO REELZ independent storefront \u2014 local demo",
   "engines": {
     "node": ">=24.21.0 <25",
     "npm": ">=11 <12"
@@ -22,6 +22,11 @@
     "build": "astro build",
     "preview": "astro preview --host 127.0.0.1 --port 14322",
     "check": "astro check",
-    "test": "node --test tests/*.test.ts"
+    "test": "node --test tests/*.test.ts",
+    "env:up": "node scripts/setup-local.mjs",
+    "cms:seed": "node scripts/seed-cms.mjs",
+    "cms:export": "node scripts/export-cms.mjs",
+    "test:cms": "node tests/cms-schema.mjs && node tests/cms-permissions.mjs",
+    "test:cms:browser": "node tests/cms-browser.mjs"
   }
 }

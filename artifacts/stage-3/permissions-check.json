@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "Public policy has no domain grants",
+    "Anonymous ar_products CRUD denied",
+    "Anonymous ar_stock CRUD denied",
+    "Anonymous ar_orders CRUD denied",
+    "Editor can read catalog and relationships",
+    "Editor stock writes and schema administration denied",
+    "Domain IDs are UUID; article and slug are strings"
+  ]
+}

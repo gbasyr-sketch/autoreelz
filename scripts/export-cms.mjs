@@ -1,0 +1,6 @@
+import{client,env,root}from'./cms-client.mjs';
+import{writeFileSync}from'node:fs';
+const api=await client();const schema=await api('GET','/schema/snapshot');const text=JSON.stringify(schema,null,2)+'\n';
+for(const[k,v]of Object.entries(env))if((k.endsWith('_PASSWORD')||k==='DIRECTUS_SECRET')&&v&&text.includes(v))throw new Error('Refusing to export a secret');
+writeFileSync(`${root}/cms/schema.snapshot.json`,text);
+console.log(`Saved CMS metadata snapshot (${schema.collections.length} collections). No account data exported.`);

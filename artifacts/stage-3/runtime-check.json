@@ -1,0 +1,32 @@
+{
+  "checked_at": "2026-09-21T19:31:30.361Z",
+  "services": [
+    {
+      "name": "autoreelz2026-new-cms-1",
+      "health": "healthy",
+      "ports": "127.0.0.1:28055->8055/tcp"
+    },
+    {
+      "name": "autoreelz2026-new-db-1",
+      "health": "healthy",
+      "ports": "127.0.0.1:65432->5432/tcp"
+    },
+    {
+      "name": "autoreelz2026-new-web-1",
+      "health": "healthy",
+      "ports": "127.0.0.1:14323->4321/tcp"
+    }
+  ],
+  "counts": {
+    "ar_products": 4,
+    "ar_skus": 7,
+    "ar_vehicles": 2,
+    "ar_bundle_components": 3
+  },
+  "docker_storefront": {
+    "status": 200,
+    "noindex": "noindex, nofollow",
+    "ssr_content": true
+  },
+  "repeat_setup": "passed; existing migrations and demo records unchanged"
+}

@@ -1,0 +1,54 @@
+{
+  "project": "autoreelz2026-bootstrap-qa-3277",
+  "checked_at": "2026-09-21T19:06:22Z",
+  "scope": "fresh PostgreSQL/Directus bootstrap; no migrations or catalog seed; no email sent",
+  "checks": {
+    "resources_absent_before_start": true,
+    "valid_example_com_admin_email": true,
+    "compose_up_wait_exit_code": 0,
+    "db_and_cms_healthy": true,
+    "db_init_completed": true,
+    "ar_cms_role_created": true,
+    "admin_login_http_status": 200,
+    "admin_identity_matches": true,
+    "admin_policy_access": true
+  },
+  "ports": {
+    "CMS_PORT": 28155,
+    "DB_PORT": 65433,
+    "binding": "127.0.0.1"
+  },
+  "service_states": [
+    {
+      "service": "cms",
+      "status": "running",
+      "health": "healthy",
+      "exit_code": 0
+    },
+    {
+      "service": "db",
+      "status": "running",
+      "health": "healthy",
+      "exit_code": 0
+    },
+    {
+      "service": "db-init",
+      "status": "exited",
+      "health": null,
+      "exit_code": 0
+    }
+  ],
+  "roles": [
+    "ar_app",
+    "ar_catalog_reader",
+    "ar_cms"
+  ],
+  "passed": true,
+  "cleanup_exit_code": 0,
+  "resources_remaining_after_cleanup": {
+    "containers": [],
+    "volumes": [],
+    "networks": []
+  },
+  "cleanup_verified": true
+}

@@ -1,0 +1,67 @@
+{
+  "roles": [
+    {
+      "role": "admin",
+      "edit_reopen": true,
+      "product_create": true,
+      "sku_create": true,
+      "fitment_create": true,
+      "bundle_create": true,
+      "component_create": true
+    },
+    {
+      "role": "editor",
+      "edit_reopen": true,
+      "product_create": true,
+      "sku_create": true,
+      "fitment_create": true,
+      "bundle_create": true,
+      "component_create": true
+    }
+  ],
+  "created": [
+    {
+      "collection": "ar_products",
+      "id": "c5d82e20-6f0b-4625-82fc-61f0d655da59"
+    },
+    {
+      "collection": "ar_skus",
+      "id": "25649c18-5b30-4f67-a767-6ce013c3590f"
+    },
+    {
+      "collection": "ar_fitment",
+      "id": "ce40189b-96b5-496f-8476-fd2cc2d84e54"
+    },
+    {
+      "collection": "ar_products",
+      "id": "f0fa8cb7-3949-4908-ac4a-731c9343a02f"
+    },
+    {
+      "collection": "ar_bundle_components",
+      "id": "472cb6a4-68f8-49b0-af6f-7f257e008e08"
+    },
+    {
+      "collection": "ar_products",
+      "id": "bf5ea301-201a-432f-9822-a50c9f534b49"
+    },
+    {
+      "collection": "ar_skus",
+      "id": "1124e75c-d2da-4230-80c3-2a115ef6083c"
+    },
+    {
+      "collection": "ar_fitment",
+      "id": "da69ff67-5cf9-40c9-ae5d-9fe19dd99bd7"
+    },
+    {
+      "collection": "ar_products",
+      "id": "6316ca54-ac3b-4288-8f72-43567113a878"
+    },
+    {
+      "collection": "ar_bundle_components",
+      "id": "5ff4f6d3-cfcb-4fc3-a354-d21038f29508"
+    }
+  ],
+  "errors": [],
+  "cleanup": true,
+  "passed": true
+}

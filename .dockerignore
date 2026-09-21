@@ -1,0 +1,36 @@
+# Deny by default: only the storefront build inputs enter Docker's context.
+# In particular, Git, local tools, fixtures outside src, reference PDFs,
+# prototypes, artifacts, databases, uploads and documentation remain outside.
+**
+!package.json
+!package-lock.json
+!astro.config.mjs
+!tsconfig.json
+!src/
+!src/**
+!public/
+!public/**
+
+# Keep sensitive/local files excluded even if placed in an allowed directory.
+**/.env*
+**/.git
+**/.git/**
+**/.npmrc
+**/node_modules
+**/node_modules/**
+**/.DS_Store
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+**/*.pdf
+**/*.PDF
+**/*.sql
+**/*.sqlite*
+**/*.dump
+**/secrets
+**/secrets/**
+**/.secrets
+**/.secrets/**
+**/tmp
+**/tmp/**

@@ -1,0 +1,100 @@
+name: autoreelz2026-new
+
+services:
+  web:
+    build: .
+    image: autoreelz2026-new-web:stage3
+    init: true
+    ports:
+      - 127.0.0.1:${WEB_PORT:-14323}:4321
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4321
+      NODE_ENV: production
+    read_only: true
+    tmpfs: [/tmp]
+    networks: [backend]
+    restart: unless-stopped
+
+  db:
+    image: postgres:17.11-alpine@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?Generate .env first}
+      POSTGRES_USER: ${POSTGRES_USER:?}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
+      CMS_DB_PASSWORD: ${CMS_DB_PASSWORD:?}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?}
+      READ_DB_PASSWORD: ${READ_DB_PASSWORD:?}
+    ports:
+      - 127.0.0.1:${DB_PORT:-65432}:5432
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks: [backend]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  db-init:
+    image: postgres:17.11-alpine@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
+    entrypoint: [sh, /opt/ar-init.sh]
+    environment:
+      PGHOST: db
+      PGPASSWORD: ${POSTGRES_PASSWORD:?}
+      POSTGRES_DB: ${POSTGRES_DB:?}
+      POSTGRES_USER: ${POSTGRES_USER:?}
+      CMS_DB_PASSWORD: ${CMS_DB_PASSWORD:?}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?}
+      READ_DB_PASSWORD: ${READ_DB_PASSWORD:?}
+    volumes:
+      - ./infra/init-db.sh:/opt/ar-init.sh:ro
+    networks: [backend]
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: 'no'
+
+  cms:
+    image: directus/directus:12.3.1@sha256:8978edf633ae28aa31464bb71c55300c94d8bc771ff3727b5fac485173283869
+    environment:
+      SECRET: ${DIRECTUS_SECRET:?}
+      DB_CLIENT: pg
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: ${POSTGRES_DB:?}
+      DB_USER: ar_cms
+      DB_PASSWORD: ${CMS_DB_PASSWORD:?}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?}
+      PUBLIC_URL: http://127.0.0.1:${CMS_PORT:-28055}
+      SESSION_COOKIE_NAME: autoreelz2026_new_session
+      REFRESH_TOKEN_COOKIE_NAME: autoreelz2026_new_refresh
+      SESSION_COOKIE_SECURE: 'false'
+      SESSION_COOKIE_SAME_SITE: lax
+      TELEMETRY: 'false'
+      CACHE_ENABLED: 'false'
+    ports:
+      - 127.0.0.1:${CMS_PORT:-28055}:8055
+    volumes:
+      - uploads:/directus/uploads
+    networks: [backend]
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:8055/server/ping').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+    restart: unless-stopped
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  database:
+  uploads:

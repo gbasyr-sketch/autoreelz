@@ -1,0 +1,174 @@
+{
+  "database": "ar_qa_2283_1790016945392",
+  "source": "autoreelz2026_new",
+  "startedAt": "2026-09-21T18:55:45.392Z",
+  "checks": [
+    {
+      "name": "seed: four marked demo products and seven SKUs",
+      "passed": true
+    },
+    {
+      "name": "categories: maximum three levels",
+      "passed": true
+    },
+    {
+      "name": "categories: descendant cannot be parent",
+      "passed": true
+    },
+    {
+      "name": "categories: self-parent forbidden",
+      "passed": true
+    },
+    {
+      "name": "categories: moving a subtree preserves depth",
+      "passed": true
+    },
+    {
+      "name": "SKU: article unique ignoring case",
+      "passed": true
+    },
+    {
+      "name": "SKU: a bundle cannot own physical stock",
+      "passed": true
+    },
+    {
+      "name": "SKU: owning product immutable",
+      "passed": true
+    },
+    {
+      "name": "product: cannot turn a product with SKUs into a bundle",
+      "passed": true
+    },
+    {
+      "name": "bundle: cannot turn a composed bundle into a single product",
+      "passed": true
+    },
+    {
+      "name": "bundle: components only belong to bundles",
+      "passed": true
+    },
+    {
+      "name": "bundle: positive component quantity required",
+      "passed": true
+    },
+    {
+      "name": "attributes: exactly one value",
+      "passed": true
+    },
+    {
+      "name": "attributes: typed value required",
+      "passed": true
+    },
+    {
+      "name": "attributes: value must belong to chosen attribute",
+      "passed": true
+    },
+    {
+      "name": "attributes: used type immutable",
+      "passed": true
+    },
+    {
+      "name": "attributes: used value parent immutable",
+      "passed": true
+    },
+    {
+      "name": "attributes: dictionary values only for select types",
+      "passed": true
+    },
+    {
+      "name": "fitment: SKU must belong to selected product",
+      "passed": true
+    },
+    {
+      "name": "fitment: version must belong to selected vehicle",
+      "passed": true
+    },
+    {
+      "name": "fitment: version vehicle immutable",
+      "passed": true
+    },
+    {
+      "name": "fitment: years ordered",
+      "passed": true
+    },
+    {
+      "name": "inheritance: SKU inherits product attribute",
+      "passed": true
+    },
+    {
+      "name": "inheritance: SKU overrides one attribute and preserves others",
+      "passed": true
+    },
+    {
+      "name": "inheritance: SKU uses product image",
+      "passed": true
+    },
+    {
+      "name": "inheritance: own image replaces product image",
+      "passed": true
+    },
+    {
+      "name": "inheritance: unknown compatibility stays unknown",
+      "passed": true
+    },
+    {
+      "name": "inheritance: own compatibility replaces product rules",
+      "passed": true
+    },
+    {
+      "name": "bundle: computed discount price and shared stock",
+      "passed": true
+    },
+    {
+      "name": "bundle: absent component stock makes whole bundle unavailable",
+      "passed": true
+    },
+    {
+      "name": "bundle: insufficient component quantity makes whole bundle unavailable",
+      "passed": true
+    },
+    {
+      "name": "bundle: reserved units reduce shared availability",
+      "passed": true
+    },
+    {
+      "name": "stock: reservations cannot exceed physical units",
+      "passed": true
+    },
+    {
+      "name": "slug: rename records history",
+      "passed": true
+    },
+    {
+      "name": "slug: historical address cannot be reassigned",
+      "passed": true
+    },
+    {
+      "name": "slug: original owner can restore its old address",
+      "passed": true
+    },
+    {
+      "name": "CMS SQL role: stock update forbidden",
+      "passed": true
+    },
+    {
+      "name": "CMS SQL role: catalog schema DDL forbidden",
+      "passed": true
+    },
+    {
+      "name": "concurrency: changing kind blocks creating a SKU",
+      "passed": true
+    },
+    {
+      "name": "concurrency: creating a SKU blocks changing kind",
+      "passed": true
+    },
+    {
+      "name": "concurrency: renamed slug cannot be claimed by another product",
+      "passed": true
+    }
+  ],
+  "cleanup": true,
+  "finishedAt": "2026-09-21T18:55:50.949Z",
+  "passed": true
+}

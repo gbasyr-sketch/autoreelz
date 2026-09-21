@@ -49,8 +49,8 @@ for(const[many,field,one,alias,label]of relations){
  if(result.status!==0)throw new Error(result.stderr);
 }
 for(const collection of ['ar_migrations','ar_slug_registry'])await api('PATCH',`/collections/${collection}`,{meta:{hidden:true,note:'Internal migration/slug integrity; not editable in CMS.'}});
-await api('PATCH','/settings',{project_name:'AUTO REELZ — новый магазин',project_color:'#CB181A',default_language:'ru-RU'});
-const me=await api('GET','/users/me');await api('PATCH',`/users/${me.id}`,{first_name:'Владелец',last_name:'AUTO REELZ',language:'ru-RU'});
+await api('PATCH','/settings',{project_name:'AUTO REELZ — новый магазин',project_color:'#CB181A',default_language:'ru-RU',default_appearance:'light'});
+const me=await api('GET','/users/me');await api('PATCH',`/users/${me.id}`,{first_name:'Владелец',last_name:'AUTO REELZ',language:'ru-RU',appearance:'light'});
 let policies=await api('GET','/policies?filter[name][_eq]=AUTO%20REELZ%20Content');
 const policy=policies[0]??await api('POST','/policies',{name:'AUTO REELZ Content',icon:'edit_note',admin_access:false,app_access:true});
 let roles=await api('GET','/roles?filter[name][_eq]=Контент-менеджер');
@@ -64,7 +64,8 @@ for(const collection of Object.keys(collections))for(const action of ['ar_stock'
 for(const action of ['read','create','update'])if(!existing.some(p=>p.collection==='directus_files'&&p.action===action))grants.push({policy:policy.id,collection:'directus_files',action,permissions:{},fields:['*']});
 if(grants.length)await api('POST','/permissions',grants);
 const users=await api('GET',`/users?filter[email][_eq]=${encodeURIComponent(env.EDITOR_EMAIL)}`);
-if(!users.length)await api('POST','/users',{email:env.EDITOR_EMAIL,password:env.EDITOR_PASSWORD,first_name:'Контент',last_name:'Менеджер',role:role.id,status:'active',language:'ru-RU'});
+if(!users.length)await api('POST','/users',{email:env.EDITOR_EMAIL,password:env.EDITOR_PASSWORD,first_name:'Контент',last_name:'Менеджер',role:role.id,status:'active',language:'ru-RU',appearance:'light'});
+else await api('PATCH',`/users/${users[0].id}`,{appearance:'light'});
 const layouts={ar_products:['name','kind','status','category_id','is_demo'],ar_skus:['article','name','product_id','price_kopecks','status'],ar_categories:['name','parent_id','status','slug'],ar_fitment:['product_id','sku_id','vehicle_id','state','year_from','year_to','air_conditioning'],ar_bundle_components:['bundle_id','sku_id','quantity'],ar_attributes:['name','code','value_type','filterable'],ar_attribute_values:['attribute_id','label','code'],ar_vehicles:['name','make','model','generation'],ar_stock:['sku_id','on_hand','reserved']};
 const presets=await api('GET','/presets?limit=-1');
 for(const[collection,fields]of Object.entries(layouts)){

@@ -110,7 +110,8 @@ services:
       REFRESH_TOKEN_COOKIE_NAME: autoreelz2026_new_refresh
       SESSION_COOKIE_SECURE: 'false'
       SESSION_COOKIE_SAME_SITE: lax
-      TELEMETRY: 'false'
+      # Required by the Open Innovation Grant accepted by the owner.
+      TELEMETRY: 'true'
       CACHE_ENABLED: 'false'
     ports:
       - 127.0.0.1:${CMS_PORT:-28055}:8055

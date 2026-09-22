@@ -1,0 +1,11 @@
+---
+import StoreLayout from '../../layouts/StoreLayout.astro';
+import BlogListing from '../../components/BlogListing.astro';
+import {articlePage} from '../../lib/content';
+import {getContent} from '../../server/content';
+import '../../styles/content.css';
+const content=await getContent();
+const pagination=articlePage(content.articles,Astro.url.searchParams.get('page'));
+if(pagination.error)Astro.response.status=404;
+---
+<StoreLayout content={content} title="Блог" description="Материалы AUTO REELZ: подбор деталей, установка, обзоры и новости магазина."><main id="main" class="container content-page"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span aria-current="page">Блог</span></nav><header class="content-heading"><p class="eyebrow">Детали и знания</p><h1>Блог AUTO REELZ</h1><p class="content-lead">Подбор, установка, обзоры и новости магазина.</p></header><BlogListing content={content} pagination={pagination} basePath="/blog"/></main></StoreLayout>

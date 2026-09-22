@@ -2,11 +2,14 @@
 import Icon from '../components/Icon.astro';
 import {getCatalog} from '../server/catalog';
 import type {CatalogSnapshot} from '../lib/catalog-types';
+import type {ContentSnapshot} from '../lib/content';
+import {getContent} from '../server/content';
 import '../styles/global.css';
-interface Props {title:string;description?:string;active?:'home'|'catalog'|'product';catalog?:CatalogSnapshot}
+interface Props {title:string;description?:string;active?:'home'|'catalog'|'product';catalog?:CatalogSnapshot;content?:ContentSnapshot}
 const{title,description='AUTO REELZ: детали автомобильного интерьера.',active='home'}=Astro.props;
 const catalog=Astro.props.catalog??await getCatalog();
 const {categories}=catalog;
+const content=Astro.props.content??await getContent();
 const csrfToken=Astro.locals.shopSession?.csrfToken;
 const query=Astro.url.searchParams.get('q')??'';
 ---
@@ -21,7 +24,7 @@ const query=Astro.url.searchParams.get('q')??'';
 <body>
   <a class="skip-link" href="#main">К содержимому</a>
   <div class="demo-strip"><div class="container"><span><i></i>Тестовый магазин: оплата и доставка — имитация</span><span>Локальная версия</span></div></div>
-  <div class="utility"><div class="container"><span>Детали автомобильного интерьера</span><nav aria-label="Информация"><a href="/info/delivery">Доставка и оплата</a><a href="/info/contacts">Контакты</a><span>Россия · ₽</span></nav></div></div>
+  <div class="utility"><div class="container"><span>Детали автомобильного интерьера</span><nav aria-label="Информация"><a href="/info/delivery">Доставка и оплата</a><a href="/info/contacts">Контакты</a><a href="/blog">Блог</a><a href="/cars">Автомобили</a><span>Россия · ₽</span></nav></div></div>
   <header class="site-header">
     <div class="container header-row">
       <a class="mobile-menu icon-button" href="/catalog" data-open-menu aria-label="Открыть каталог"><Icon name="menu"/></a>
@@ -37,7 +40,7 @@ const query=Astro.url.searchParams.get('q')??'';
     <nav class="container category-nav" aria-label="Популярные категории">{categories.filter(c=>c.depth===0).slice(0,5).map(c=><a href={`/catalog?category=${c.slug}`}>{c.name}{c.slug==='bundles'&&<Icon name="arrow" size={15}/>}</a>)}</nav>
   </header>
   <slot/>
-  <footer class="site-footer"><div class="container footer-top"><a class="logo" href="/" aria-label="AUTO REELZ — главная"><img src="/brand/logo.svg" width="244" height="34" alt="AUTO REELZ"/></a><p>Детали для вашего интерьера.</p><nav><a href="/catalog">Каталог</a><a href="/info/delivery">Доставка и оплата</a><a href="/info/contacts">Контакты</a></nav></div><div class="container footer-bottom"><span>© AUTO REELZ · autoreelz.ru</span><span>Локальная тестовая версия</span></div></footer>
+  <footer class="site-footer"><div class="container footer-top content-footer-top"><div><a class="logo" href="/" aria-label="AUTO REELZ — главная"><img src="/brand/logo.svg" width="244" height="34" alt="AUTO REELZ"/></a><p>Детали для вашего интерьера.</p></div><nav class="content-footer-nav" aria-label="Разделы магазина"><a href="/catalog">Каталог</a><a href="/cars">Подбор по автомобилю</a><a href="/blog">Блог</a>{content.pages.map(p=><a href={`/info/${p.slug}`}>{p.title}</a>)}</nav></div><div class="container footer-bottom"><span>© AUTO REELZ · autoreelz.ru</span><span>Локальная тестовая версия</span></div></footer>
   <nav class="mobile-nav" aria-label="Основная навигация">
     <a href="/catalog" class:list={[active==='catalog'&&'active']}><Icon name="grid" size={20}/>Каталог</a>
     <a href="/catalog#catalog-search" data-open-search><Icon name="search" size={20}/>Поиск</a>
@@ -45,10 +48,14 @@ const query=Astro.url.searchParams.get('q')??'';
     <a href="/favorites"><Icon name="heart" size={20}/>Избранное</a>
     <a href="/account"><Icon name="user" size={20}/>Кабинет</a>
   </nav>
-  <dialog id="menu-dialog" class="menu-dialog" aria-labelledby="menu-title"><div class="dialog-heading"><div><p class="eyebrow">AUTO REELZ</p><h2 id="menu-title">Каталог деталей</h2></div><button class="icon-button" data-close-dialog aria-label="Закрыть каталог"><Icon name="close"/></button></div><div class="menu-categories">{categories.map((c,i)=><a href={`/catalog?category=${c.slug}`}><span class="menu-number">{String(i+1).padStart(2,'0')}</span><Icon name={c.icon}/><span style={`padding-left:${c.depth*16}px`}>{c.name}</span><Icon name="arrow" size={18}/></a>)}</div><a class="button-secondary" href="/catalog">Все товары <Icon name="arrow"/></a></dialog>
+  <dialog id="menu-dialog" class="menu-dialog" aria-labelledby="menu-title"><div class="dialog-heading"><div><p class="eyebrow">AUTO REELZ</p><h2 id="menu-title">Каталог деталей</h2></div><button class="icon-button" data-close-dialog aria-label="Закрыть каталог"><Icon name="close"/></button></div><div class="menu-categories">{categories.map((c,i)=><a href={`/catalog?category=${c.slug}`}><span class="menu-number">{String(i+1).padStart(2,'0')}</span><Icon name={c.icon}/><span style={`padding-left:${c.depth*16}px`}>{c.name}</span><Icon name="arrow" size={18}/></a>)}</div><a class="button-secondary" href="/catalog">Все товары <Icon name="arrow"/></a><nav class="menu-content-links" aria-label="Подбор и материалы"><a href="/cars">Подбор по автомобилю</a><a href="/blog">Блог</a><a href="/info/about">О нас</a></nav></dialog>
   <dialog id="search-dialog" class="search-dialog" aria-labelledby="search-title"><div class="dialog-heading"><h2 id="search-title">Найти деталь</h2><button class="icon-button" data-close-dialog aria-label="Закрыть поиск"><Icon name="close"/></button></div><form action="/catalog"><label class="field">Название или артикул<input name="q" type="search" required maxlength="100" placeholder="Например, блок отопителя"/></label><button class="button">Найти <Icon name="search"/></button></form><p class="muted">Попробуйте «отопитель», «консоль» или DEMO-HEATER-R.</p></dialog>
   <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
   <noscript><div class="no-js-note">Поиск, фильтры и выбор исполнения работают без JavaScript. Для избранного и оформления заказа включите JavaScript.</div></noscript>
   <script>import '../scripts/store.ts';</script>
 </body>
 </html>
+
+<style>
+.content-footer-top{align-items:flex-start}.content-footer-top>div{flex-shrink:0}.content-footer-top>div p{margin-top:15px}.content-footer-nav{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));max-width:850px;gap:15px 24px!important}.content-footer-nav a{font-size:12px;line-height:1.65;min-height:28px}.menu-content-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:22px;font-size:13px}.menu-content-links a{min-height:36px;padding-top:8px}@media(max-width:1000px){.content-footer-nav{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.content-footer-nav{margin-top:25px;gap:12px 22px!important}.content-footer-nav a{font-size:11px;min-height:36px}.menu-content-links{display:grid;gap:6px}}
+</style>

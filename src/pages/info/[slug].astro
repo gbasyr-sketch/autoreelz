@@ -1,12 +1,15 @@
 ---
 import StoreLayout from '../../layouts/StoreLayout.astro';
 import Icon from '../../components/Icon.astro';
-if(Astro.params.slug==='account')return Astro.redirect('/account',302);
-const pages:Record<string,{title:string;paragraphs:string[]}>= {
- delivery:{title:'Доставка и оплата',paragraphs:['Отправление из Махачкалы по всей России. Планируются СДЭК до пункта выдачи и курьером. Самовывоза нет.','Стоимость доставки рассчитывается для конкретного заказа с учётом упаковки. Если расчёт недоступен, менеджер уточнит стоимость до оплаты.','Товары в наличии и предзаказ оформляются отдельно, с отдельной доставкой. Предзаказ не оплачивается сразу: сначала менеджер подтверждает срок и условия.','Сейчас открыта демонстрационная витрина. Реальные расчёты, платежи картой и СБП пока не подключены.']},
- contacts:{title:'Контакты',paragraphs:['Реквизиты продавца, телефон, email и ссылки на каналы связи ещё не предоставлены. Они появятся здесь после подтверждения владельцем.','AUTO REELZ — детали автомобильного интерьера. География доставки — Россия, город отправления — Махачкала.']},
- account:{title:'Личный кабинет',paragraphs:['В рабочем магазине здесь будут заказы, предзаказы и их статусы. Вход — по одноразовому коду на email, без постоянного пароля.','В демонстрационной витрине вход ещё не подключён. Email и другие персональные данные сейчас не запрашиваются.']},
-};
-const page=pages[Astro.params.slug??''];if(!page)Astro.response.status=404;
+import {getContent} from '../../server/content';
+import {resolveContent,textParagraphs} from '../../lib/content';
+import '../../styles/content.css';
+if(Astro.params.slug==='account')return Astro.redirect('/account',301);
+const content=await getContent(),resolved=resolveContent(content,'page',Astro.params.slug??'');
+if(resolved?.redirect)return Astro.redirect(`/info/${resolved.slug}`,301);
+const page=content.pages.find(p=>p.id===resolved?.id);if(!page)Astro.response.status=404;
 ---
-<StoreLayout title={page?.title??'Страница не найдена'}><main id="main" class="container page-pad"><nav class="breadcrumbs"><a href="/">Главная</a><span>{page?.title??'404'}</span></nav><div class="page-intro"><p class="eyebrow">Демонстрационная версия</p><h1>{page?.title??'Страница не найдена'}</h1>{page?.paragraphs.map(p=><p>{p}</p>)}</div><a class="button-secondary" href="/catalog">Перейти в каталог <Icon name="arrow"/></a></main></StoreLayout>
+<StoreLayout content={content} title={page?.seoTitle??page?.title??'Страница не найдена'} description={page?.metaDescription??page?.summary}>
+<main id="main" class="container content-page"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span aria-current="page">{page?.title??'404'}</span></nav>
+{page?<div class="info-layout"><article class="content-article"><header><p class="eyebrow">AUTO REELZ</p><h1>{page.title}</h1>{page.summary&&<p class="content-lead">{page.summary}</p>}</header>{page.isDraftText&&<p class="notice warning">Проект документа. Текст нужно дополнить и проверить перед началом реальных продаж. Он не является окончательными условиями магазина.</p>}<div class="content-prose">{textParagraphs(page.body).map(text=><p>{text}</p>)}</div></article><aside class="content-sidebar"><h2>Информация</h2><nav aria-label="Информационные страницы">{content.pages.map(item=><a href={`/info/${item.slug}`} aria-current={item.id===page.id?'page':undefined}>{item.title}<Icon name="arrow" size={16}/></a>)}</nav><a class="button-secondary" href="/catalog">В каталог <Icon name="grid" size={18}/></a></aside></div>:<section class="empty-panel"><h1>Страница не найдена</h1><p>Возможно, материал ещё не опубликован или его адрес изменился.</p><a class="button-secondary" href="/catalog">Перейти в каталог <Icon name="arrow"/></a></section>}
+</main></StoreLayout>

@@ -1,6 +1,8 @@
 ---
 import StoreLayout from '../../layouts/StoreLayout.astro';
 import Icon from '../../components/Icon.astro';
+import Reviews from '../../components/Reviews.astro';
+import {getReviews} from '../../server/social';
 import {getCatalog} from '../../server/catalog';
 import {money,productHref} from '../../lib/format';
 import {multiplyRubles} from '../../lib/money';
@@ -32,6 +34,7 @@ const image=variant?.image??product?.image;
 const placeholder=Boolean(product?.isDemo)||!media.length;
 const fitment=product&&offer&&vehicle&&!fitmentError?catalog.fitmentFor(product,offer,{vehicleId:vehicle.id,versionId:version?.id,year:Number(year),ac}):'unknown';
 const fitmentLabel=fitment==='compatible'?'Совместимость подтверждена':fitment==='incompatible'?'Не подходит выбранному автомобилю':'Совместимость уточняется';
+const reviews=product&&offer&&Astro.locals.shopSession?await getReviews(Astro.locals.shopSession,product.id):null;
 ---
 <StoreLayout catalog={catalog} description={product?.metaDescription} title={product&&offer?(product.seoTitle??product.name):'Товар не найден'} active="product">
 <main id="main" class="container product-page">
@@ -66,9 +69,10 @@ const fitmentLabel=fitment==='compatible'?'Совместимость подтв
       </div>
     </section>
   </div>
-  <div class="product-details-layout"><section class="product-description"><div class="product-tabs" aria-label="Разделы товара"><a href="#description">Описание</a><a href="#specifications">Характеристики</a><a href="#delivery">Доставка</a></div><section id="description"><h2>Описание</h2><p>{product.description}</p></section><section id="specifications"><h2>{product.kind==='bundle'?'Что входит в комплект':'Характеристики'}</h2>
+  <div class="product-details-layout"><section class="product-description"><div class="product-tabs" aria-label="Разделы товара"><a href="#description">Описание</a><a href="#specifications">Характеристики</a><a href="#delivery">Доставка</a><a href="#reviews">Отзывы</a></div><section id="description"><h2>Описание</h2><p>{product.description}</p></section><section id="specifications"><h2>{product.kind==='bundle'?'Что входит в комплект':'Характеристики'}</h2>
     {componentRows?<><ul class="bundle-components">{componentRows.map(c=><li><a href={productHref(c.product,c.variant)}><img src={c.variant.image} width="720" height="480" loading="lazy" alt=""/><span>{c.product.name}<small>{c.variant.label} · {c.quantity} шт.</small></span></a><b>{money(multiplyRubles(c.variant.priceRubles,c.quantity))}</b></li>)}</ul><p class="bundle-price-note">Цена: сумма компонентов минус {((product.discountBps??0)/100)}% скидки комплекта. Остаток общий с отдельными деталями.</p></>:<dl class="spec-list">{Object.entries(variant?.attributes??product.attributes).map(([key,value])=><div><dt>{attributeDefinitions[key]?.label??key}</dt><dd>{attributeLabel(key,value)}</dd></div>)}<div><dt>Совместимость</dt><dd>{vehicle?fitmentLabel:'Укажите автомобиль для проверки'}</dd></div>{product.isDemo&&<div><dt>Данные товара</dt><dd>Демонстрационные</dd></div>}</dl>}
   </section><section id="delivery"><h2>Доставка и предзаказ</h2><p>Отправление из Махачкалы по России: СДЭК до пункта выдачи или курьером. Доставка обычного заказа и предзаказа рассчитывается отдельно. При отсутствии расчёта стоимость уточнит менеджер до оплаты.</p></section></section><aside class="product-help"><Icon name="car"/><h2>Сначала — точный подбор</h2><p>Проверяем модель, год выпуска и наличие кондиционера. Если сведений недостаточно, совместимость уточняется.</p><a href="#compatibility">Указать автомобиль <Icon name="arrow" size={17}/></a></aside></div>
+  {reviews&&<Reviews productId={product.id} view={reviews} authenticated={Boolean(Astro.locals.shopSession?.email)}/>}
   <aside class="mobile-purchase js-only" aria-label="Действие покупки"><div><strong>{money(offer.priceRubles)}</strong><small>{offer.available>0?(product.isDemo?'Демонстрационная цена':'Выбранное исполнение'):'Предзаказ · без оплаты'}</small></div><button class="button" data-add-product={product.id} data-sku-id={variant?.id}>{offer.available>0?'В корзину':'В предзаказ'}<Icon name="arrow" size={18}/></button></aside>
   <dialog id="image-dialog" aria-labelledby="image-dialog-title"><div class="dialog-heading"><h2 id="image-dialog-title">{placeholder?'Изображение-заглушка':product.name}</h2><button data-close-dialog class="icon-button" aria-label="Закрыть изображение"><Icon name="close"/></button></div><img src={image} width="720" height="480" alt={media[0]?.alt||`${placeholder?'Изображение-заглушка: ':''}${product.name}`}/>{placeholder&&<p class="muted">Реальные фотографии этого исполнения появятся после наполнения каталога.</p>}</dialog>
 </>:<section class="empty-panel missing-product"><Icon name="search" size={42}/><h1>{product?'Исполнение не найдено':'Товар не найден'}</h1><p>{product?'Такого исполнения у этого товара нет. Выберите доступный вариант в основной карточке.':'Проверьте адрес или найдите деталь в каталоге.'}</p><a class="button" href={product?`/product/${product.slug}`:'/catalog'}>{product?'Открыть товар':'Перейти в каталог'}<Icon name="arrow"/></a></section>}

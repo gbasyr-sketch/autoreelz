@@ -1,0 +1,17 @@
+---
+import StoreLayout from '../../layouts/StoreLayout.astro';
+import Icon from '../../components/Icon.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import {getCatalog} from '../../server/catalog';
+import {queryCatalog} from '../../lib/catalog';
+import '../../styles/content.css';
+const catalog=await getCatalog(),vehicle=catalog.vehicles.find(v=>v.slug===Astro.params.slug);
+const params=new URLSearchParams(Astro.url.searchParams);if(vehicle)params.set('vehicle',vehicle.slug);
+const result=queryCatalog(params,catalog);if(!vehicle)Astro.response.status=404;else if(result.error)Astro.response.status=400;
+const currentYear=new Date().getFullYear();
+---
+<StoreLayout catalog={catalog} title={vehicle?`${vehicle.name} — подбор деталей`:'Автомобиль не найден'}><main id="main" class="container content-page"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><a href="/cars">Автомобили</a><span aria-current="page">{vehicle?.name??'404'}</span></nav>
+{vehicle?<><header class="content-heading"><p class="eyebrow">Подбор деталей</p><h1>{vehicle.name}</h1><p class="content-lead">Уточните автомобиль. В результатах показываем только подтверждённую совместимость, если вы отдельно не включили неизвестную.</p></header><form action={`/cars/${vehicle.slug}`} class="vehicle-finder"><label class="field">Год выпуска<input type="number" name="year" min={vehicle.yearFrom??1970} max={vehicle.yearTo??currentYear} required value={params.get('year')??''} placeholder="Например, 2015"/></label><label class="field">Кондиционер<select name="ac" required><option value="">Выберите</option><option value="yes" selected={params.get('ac')==='yes'}>Есть</option><option value="no" selected={params.get('ac')==='no'}>Нет</option><option value="unknown" selected={params.get('ac')==='unknown'}>Не знаю</option></select></label>{vehicle.versions.length>0&&<label class="field">Модификация<select name="version"><option value="">Не выбрана</option>{vehicle.versions.map(v=><option value={v.id} selected={params.get('version')===v.id}>{v.name}</option>)}</select></label>}<button class="button">Проверить совместимость <Icon name="arrow" size={18}/></button></form>
+{result.error?<p class="notice error" role="alert">{result.error}</p>:<>{result.items.length>0&&<div class="cards-grid vehicle-results">{result.items.map(item=><ProductCard product={item.product} offer={item.offer} fitment={item.fitment} catalog={catalog}/>)}</div>}{result.unknownFitment&&<section class="notice vehicle-note"><h2>Часть данных требует уточнения</h2><p>Неизвестная совместимость не подтверждает, что деталь подойдёт. Проверьте применимость перед покупкой.</p>{!result.includeUnknown&&<a class="button-secondary" href={`/cars/${vehicle.slug}?${new URLSearchParams({...Object.fromEntries(params),include_unknown:'1'})}`}>Показать товары с неизвестной совместимостью</a>}</section>}{!result.items.length&&!result.unknownFitment&&<p class="notice">Для выбранных условий пока нет опубликованных совпадений. Попробуйте уточнить параметры.</p>}</>}
+<a class="content-read-link" href={`/catalog?${params}`}>Открыть фильтры каталога <Icon name="arrow" size={18}/></a></>:<section class="empty-panel"><h1>Автомобиль не найден</h1><p>Выберите модель из списка автомобилей.</p><a class="button-secondary" href="/cars">Все автомобили</a></section>}
+</main></StoreLayout>

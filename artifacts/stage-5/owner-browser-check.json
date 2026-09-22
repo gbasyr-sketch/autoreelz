@@ -1,0 +1,62 @@
+{
+  "database": "ar_qa_owner_24755_1790072468015",
+  "source": "autoreelz2026_new",
+  "startedAt": "2026-09-22T10:21:08.016Z",
+  "browser": "Chrome headless, real HTTP, no API interception",
+  "checks": [
+    {
+      "name": "real admin login and paid order expose owner tools; internal multiline note stays private",
+      "passed": true
+    },
+    {
+      "name": "fulfillment preserves manual override; carrier event is recorded until owner explicitly resumes it",
+      "passed": true
+    },
+    {
+      "name": "stock correction respects reservations; owner cancels an unpaid order with a private reason",
+      "passed": true
+    },
+    {
+      "name": "owner notifications show local MAX/email and retry the same failed row",
+      "passed": true
+    },
+    {
+      "name": "generator previews two editable fields, applies only those fields, and preserves manual title",
+      "passed": true
+    },
+    {
+      "name": "generator rejects a stale draft and shows a simulated failure without overwriting CMS copy",
+      "passed": true
+    },
+    {
+      "name": "received buyer submits a photo review; owner preview is private; publication and rejection use real moderation UI",
+      "passed": true
+    },
+    {
+      "name": "content editor cannot access owner generation, private notes, moderation or notifications",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "artifacts/stage-5/owner-note-1440.png",
+    "artifacts/stage-5/owner-note-375.png",
+    "artifacts/stage-5/owner-delivery-override-1440.png",
+    "artifacts/stage-5/owner-delivery-override-375.png",
+    "artifacts/stage-5/customer-delivered-tracking-1440.png",
+    "artifacts/stage-5/customer-delivered-tracking-375.png",
+    "artifacts/stage-5/owner-notifications-1440.png",
+    "artifacts/stage-5/owner-notifications-375.png",
+    "artifacts/stage-5/description-editable-preview-1440.png",
+    "artifacts/stage-5/description-editable-preview-375.png",
+    "artifacts/stage-5/description-conflict-1440.png",
+    "artifacts/stage-5/description-conflict-375.png",
+    "artifacts/stage-5/review-pending-1440.png",
+    "artifacts/stage-5/review-pending-375.png",
+    "artifacts/stage-5/review-approved-1440.png",
+    "artifacts/stage-5/review-approved-375.png"
+  ],
+  "consoleErrors": [],
+  "cleanup": true,
+  "passed": true,
+  "finishedAt": "2026-09-22T10:21:46.757Z"
+}

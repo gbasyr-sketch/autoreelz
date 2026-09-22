@@ -1,0 +1,219 @@
+{
+  "base": "http://127.0.0.1:14323",
+  "checkedAt": "2026-09-22T10:27:23.557Z",
+  "checks": [
+    {
+      "path": "/info/about",
+      "title": "О нас",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/info/contacts",
+      "title": "Контакты",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/info/delivery",
+      "title": "Доставка и оплата",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/info/returns",
+      "title": "Возврат",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/info/warranty",
+      "title": "Гарантии",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/info/privacy",
+      "title": "Политика конфиденциальности",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/info/personal-data",
+      "title": "Политика обработки персональных данных",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/blog",
+      "title": "Блог AUTO REELZ",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/blog/how-selection-works",
+      "title": "Как пользоваться подбором в тестовом магазине",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/blog/category/selections",
+      "title": "Подборки",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/blog/tag/selection",
+      "title": "Подбор",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/cars",
+      "title": "Начнём с автомобиля",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/cars/priora-2",
+      "title": "Лада Приора 2",
+      "widths": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "path": "/info/not-a-page",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/blog/not-an-article",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/blog/category/not-a-category",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/blog/tag/not-a-tag",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/cars/not-a-car",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/blog?page=999",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/blog?page=0",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/blog/category/selections?page=999",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/blog/tag/selection?page=999",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/cars/priora-2?include_unknown=1",
+      "unknownFitmentLabel": true,
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "artifacts/stage-5/content-ui-info-privacy-1440.png",
+    "artifacts/stage-5/content-ui-info-privacy-375.png",
+    "artifacts/stage-5/content-ui-blog-1440.png",
+    "artifacts/stage-5/content-ui-blog-375.png",
+    "artifacts/stage-5/content-ui-blog-how-selection-works-1440.png",
+    "artifacts/stage-5/content-ui-blog-how-selection-works-375.png",
+    "artifacts/stage-5/content-ui-cars-1440.png",
+    "artifacts/stage-5/content-ui-cars-375.png",
+    "artifacts/stage-5/content-ui-cars-priora-2-1440.png",
+    "artifacts/stage-5/content-ui-cars-priora-2-375.png"
+  ],
+  "consoleErrors": [],
+  "videoSources": [
+    "https://rutube.ru/info/embed/",
+    "https://github.com/VKCOM/vk-api-schema/blob/master/video/objects.json",
+    "https://github.com/VKCOM/vk-api-schema/blob/master/video/responses.json"
+  ],
+  "videoPlayback": "No actual owner video supplied; normalization and deferred player behavior are covered by code/unit tests. External playback not claimed.",
+  "passed": true
+}

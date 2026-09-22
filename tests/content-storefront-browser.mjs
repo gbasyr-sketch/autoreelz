@@ -1,0 +1,22 @@
+// Read-only checks of published starter content on the new local storefront.
+import {createRequire} from 'node:module';
+import {mkdirSync,writeFileSync} from 'node:fs';
+import assert from 'node:assert/strict';
+const require=createRequire(import.meta.url),{chromium}=require(process.env.PLAYWRIGHT_MODULE||(process.env.HOME+'/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'));
+const base=process.env.CONTENT_STOREFRONT_URL||'http://127.0.0.1:14323';assert.ok(['http://127.0.0.1:14323','http://127.0.0.1:14328'].includes(base));
+const report={base,checkedAt:new Date().toISOString(),checks:[],screenshots:[],consoleErrors:[],videoSources:['https://rutube.ru/info/embed/','https://github.com/VKCOM/vk-api-schema/blob/master/video/objects.json','https://github.com/VKCOM/vk-api-schema/blob/master/video/responses.json'],videoPlayback:'No actual owner video supplied; normalization and deferred player behavior are covered by code/unit tests. External playback not claimed.',passed:false};
+mkdirSync('artifacts/stage-5',{recursive:true});const browser=await chromium.launch({channel:'chrome',headless:true}),ctx=await browser.newContext({viewport:{width:1440,height:1000},locale:'ru-RU',reducedMotion:'reduce'}),page=await ctx.newPage();page.setDefaultTimeout(15000);page.on('pageerror',e=>report.consoleErrors.push(e.message));
+const entries=[['/info/about','О нас'],['/info/contacts','Контакты'],['/info/delivery','Доставка и оплата'],['/info/returns','Возврат'],['/info/warranty','Гарантии'],['/info/privacy','Политика конфиденциальности'],['/info/personal-data','Политика обработки персональных данных'],['/blog','Блог AUTO REELZ'],['/blog/how-selection-works','Как пользоваться подбором в тестовом магазине'],['/blog/category/selections','Подборки'],['/blog/tag/selection','Подбор'],['/cars','Начнём с автомобиля'],['/cars/priora-2','Лада Приора 2']];
+try{
+ for(const[path,title]of entries){const response=await page.goto(base+path,{waitUntil:'networkidle'});assert.equal(response.status(),200,path);await page.getByRole('heading',{name:title,level:1,exact:true}).waitFor();
+  if(['/info/returns','/info/warranty','/info/privacy','/info/personal-data'].includes(path))assert.match(await page.locator('.notice.warning').first().innerText(),/Проект документа/);
+  assert.equal(await page.locator('iframe').count(),0,'External video must not load before explicit interaction');
+  for(const width of [1440,1024,768,375]){await page.setViewportSize({width,height:1000});await page.evaluate(()=>{if(document.activeElement instanceof HTMLElement)document.activeElement.blur();window.scrollTo(0,0);});await page.waitForTimeout(100);const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);assert.ok(overflow<=1,`${path} horizontal overflow at ${width}: ${overflow}`);
+   if([1440,375].includes(width)&&['/info/privacy','/blog','/blog/how-selection-works','/cars','/cars/priora-2'].includes(path)){const screenshot=`artifacts/stage-5/content-ui-${path.slice(1).replaceAll('/','-')}-${width}.png`;await page.screenshot({path:screenshot,fullPage:true});report.screenshots.push(screenshot);}
+  }report.checks.push({path,title,widths:[375,768,1024,1440],passed:true});
+ }
+ for(const path of ['/info/not-a-page','/blog/not-an-article','/blog/category/not-a-category','/blog/tag/not-a-tag','/cars/not-a-car','/blog?page=999','/blog?page=0','/blog/category/selections?page=999','/blog/tag/selection?page=999']){const r=await page.goto(base+path,{waitUntil:'networkidle'});assert.equal(r.status(),404,path);report.checks.push({path,status:404,passed:true});}
+ await page.goto(base+'/cars/priora-2',{waitUntil:'networkidle'});await page.getByRole('link',{name:'Показать товары с неизвестной совместимостью',exact:true}).click();await page.locator('.product-card').first().waitFor();assert.match(await page.locator('.vehicle-results').innerText(),/Совместимость уточняется/);report.checks.push({path:'/cars/priora-2?include_unknown=1',unknownFitmentLabel:true,passed:true});
+ assert.deepEqual(report.consoleErrors,[]);report.passed=true;
+}catch(error){report.error=error.message;console.error(error.message);process.exitCode=1;}finally{await browser.close();writeFileSync('artifacts/stage-5/content-storefront-browser.json',JSON.stringify(report,null,2));}
+console.log(JSON.stringify({passed:report.passed,checks:report.checks.length,screenshots:report.screenshots.length,errors:report.consoleErrors.length}));

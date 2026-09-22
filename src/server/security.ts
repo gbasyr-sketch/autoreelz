@@ -21,15 +21,16 @@ export async function getSession(ctx:Pick<APIContext,'cookies'>):Promise<ShopSes
  const session=await transaction(async c=>{const r=await c.query("INSERT INTO ar_web_sessions(token_hash,csrf_token,expires_at) VALUES($1,$2,now()+interval '30 days') RETURNING id,expires_at",[hash(newToken),csrfToken]);await c.query('INSERT INTO ar_carts(session_id) VALUES($1)',[r.rows[0].id]);return{id:r.rows[0].id,csrfToken,email:null,expiresAt:iso(r.rows[0].expires_at)!};});
  setSessionCookie(ctx,newToken);return session;
 }
-export async function readBody(request:Request,session:ShopSession){
+export async function readBody(request:Request,session:ShopSession,maxBytes=16384){
  if(request.headers.get('Origin')!==appConfig().origin||new URL(request.url).host!==new URL(appConfig().origin).host)throw new StoreError('ORIGIN','Источник запроса не разрешён.',403);
  if(!equal(request.headers.get('X-CSRF-Token')??'',session.csrfToken))throw new StoreError('CSRF','Сессия обновилась. Обновите страницу и повторите действие.',403);
- return jsonBody(request);
+ return jsonBody(request,maxBytes);
 }
-export async function jsonBody(request:Request){
+export async function jsonBody(request:Request,maxBytes=16384){
+ if(!Number.isSafeInteger(maxBytes)||maxBytes<1||maxBytes>65536)throw new Error('Invalid JSON body limit');
  if(!request.headers.get('Content-Type')?.startsWith('application/json'))throw new StoreError('CONTENT_TYPE','Ожидается JSON.',415);
  const reader=request.body?.getReader();let length=0;const chunks:Uint8Array[]=[];
- if(reader)for(;;){const{done,value}=await reader.read();if(done)break;length+=value.length;if(length>16384){await reader.cancel();throw new StoreError('TOO_LARGE','Слишком большой запрос.',413);}chunks.push(value);}
+ if(reader)for(;;){const{done,value}=await reader.read();if(done)break;length+=value.length;if(length>maxBytes){await reader.cancel();throw new StoreError('TOO_LARGE','Слишком большой запрос.',413);}chunks.push(value);}
  try{const data=JSON.parse(Buffer.concat(chunks).toString('utf8'));if(!data||typeof data!=='object'||Array.isArray(data))throw Error();return data as Record<string,unknown>;}catch{throw new StoreError('INVALID_JSON','Не удалось прочитать запрос.');}
 }
 export async function idempotent<T>(c:PoolClient,scope:string,key:unknown,payload:unknown,fn:()=>Promise<T>):Promise<T>{

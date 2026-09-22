@@ -1,7 +1,7 @@
 {
-  "database": "ar_qa_commerce_13828_1790027970895",
+  "database": "ar_qa_commerce_19912_1790035154749",
   "source": "autoreelz2026_new",
-  "startedAt": "2026-09-21T21:59:30.895Z",
+  "startedAt": "2026-09-21T23:59:14.749Z",
   "checks": [
     {
       "name": "isolation: application uses ar_app in the uniquely named QA clone",
@@ -141,6 +141,6 @@
     }
   ],
   "cleanup": true,
-  "finishedAt": "2026-09-21T21:59:36.290Z",
+  "finishedAt": "2026-09-22T00:00:59.373Z",
   "passed": true
 }

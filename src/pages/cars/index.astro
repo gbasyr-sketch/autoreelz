@@ -1,0 +1,8 @@
+---
+import StoreLayout from '../../layouts/StoreLayout.astro';
+import Icon from '../../components/Icon.astro';
+import {getCatalog} from '../../server/catalog';
+import '../../styles/content.css';
+const catalog=await getCatalog();
+---
+<StoreLayout catalog={catalog} title="Подбор по автомобилю"><main id="main" class="container content-page"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span aria-current="page">Автомобили</span></nav><header class="content-heading"><p class="eyebrow">Точный подбор</p><h1>Начнём с автомобиля</h1><p class="content-lead">Выберите модель, затем уточните год и комплектацию. Неизвестная применимость требует проверки.</p></header><div class="vehicle-grid">{catalog.vehicles.map(v=><a class="vehicle-card" href={`/cars/${v.slug}`}><Icon name="car" size={35}/><h2>{v.name}</h2><span>Уточнить совместимость <Icon name="arrow" size={18}/></span></a>)}</div>{!catalog.vehicles.length&&<p class="notice">Список автомобилей пока не заполнен. Посмотрите общий каталог.</p>}<a class="button-secondary" href="/catalog">Весь каталог <Icon name="arrow" size={18}/></a></main></StoreLayout>

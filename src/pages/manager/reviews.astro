@@ -1,0 +1,16 @@
+---
+import StoreLayout from '../../layouts/StoreLayout.astro';
+import '../../styles/commerce.css';
+import '../../styles/owner-tools.css';
+Astro.response.headers.set('Cache-Control','private, no-store');
+---
+<StoreLayout title="Модерация отзывов"><main id="main" class="container commerce-page" data-owner-page="reviews">
+<nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/manager">Кабинет владельца</a><span>Модерация отзывов</span></nav>
+<div class="commerce-heading"><div><p class="eyebrow">Отзывы покупателей</p><h1>Модерация отзывов</h1></div><a class="button-secondary" href="/manager">К заказам</a></div>
+<p class="commerce-lead">Отзывы и фотографии появляются в магазине только после одобрения. Оценок и звёзд нет.</p>
+<nav class="owner-page-nav" aria-label="Инструменты владельца"><a href="/manager">Заказы и склад</a><a href="/manager/content">Описания товаров</a><a href="/manager/reviews" aria-current="page">Модерация отзывов</a></nav>
+<div class="notice error" data-owner-error role="alert" tabindex="-1" hidden></div><div class="notice" data-owner-success role="status" hidden></div><div data-owner-loading class="commerce-loading" role="status">Проверяем доступ…</div>
+<section data-owner-login hidden class="commerce-panel manager-login"><h2>Вход для владельца</h2><p class="muted">Отзывы проверяет администратор новой CMS.</p><form id="owner-login-form" class="commerce-form"><label class="field">Email<input name="email" type="email" autocomplete="username" required/></label><label class="field">Пароль<input name="password" type="password" autocomplete="current-password" required/></label><button class="button" type="submit">Войти</button></form></section>
+<div data-owner-content hidden><div class="owner-toolbar"><label class="field">Показать<select data-review-filter><option value="pending">Ожидают проверки</option><option value="approved">Опубликованные</option><option value="rejected">Отклонённые</option><option value="all">Все отзывы</option></select></label><span data-review-count class="muted"></span><button class="button-secondary" type="button" data-reload-reviews>Обновить отзывы</button></div><div data-moderation-list class="order-list"></div></div>
+<noscript><p class="notice warning">Для модерации включите JavaScript.</p></noscript>
+</main><script>import '../../scripts/owner-tools.ts';</script></StoreLayout>

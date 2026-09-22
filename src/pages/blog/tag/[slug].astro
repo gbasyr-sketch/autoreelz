@@ -1,0 +1,13 @@
+---
+import StoreLayout from '../../../layouts/StoreLayout.astro';
+import BlogListing from '../../../components/BlogListing.astro';
+import {getContent} from '../../../server/content';
+import {resolveContent,articlePage} from '../../../lib/content';
+import '../../../styles/content.css';
+const content=await getContent(),resolved=resolveContent(content,'blog_tag',Astro.params.slug??'');
+if(resolved?.redirect)return Astro.redirect(`/blog/tag/${resolved.slug}`,301);
+const item=content.tags.find(i=>i.id===resolved?.id);if(!item)Astro.response.status=404;
+const pagination=articlePage(content.articles.filter(a=>a.tags.some(t=>t.id===item?.id)),Astro.url.searchParams.get('page'));
+if(pagination.error)Astro.response.status=404;
+---
+<StoreLayout content={content} title={item?.name??'Раздел не найден'}><main id="main" class="container content-page"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><a href="/blog">Блог</a><span aria-current="page">{item?.name??'404'}</span></nav>{item?<><header class="content-heading"><p class="eyebrow">Тег блога</p><h1>{item.name}</h1></header><BlogListing content={content} pagination={pagination} tagId={item.id} basePath={`/blog/tag/${item.slug}`}/></>:<section class="empty-panel"><h1>Раздел не найден</h1><p>Выберите другую тему блога.</p><a class="button-secondary" href="/blog">Все материалы</a></section>}</main></StoreLayout>

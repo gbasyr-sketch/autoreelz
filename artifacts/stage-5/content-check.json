@@ -1,0 +1,35 @@
+{
+  "database": "ar_qa_content_19246_1790034851207",
+  "checks": [
+    {
+      "name": "draft pages/articles and their tag associations are absent from the public snapshot",
+      "passed": true
+    },
+    {
+      "name": "publishing takes effect on a fresh request with plain text and legal draft flag preserved",
+      "passed": true
+    },
+    {
+      "name": "unpublished parent hides article, its tags and its cover",
+      "passed": true
+    },
+    {
+      "name": "future publication does not leak article or cover before its date",
+      "passed": true
+    },
+    {
+      "name": "old content addresses redirect to current published addresses and remain claimed",
+      "passed": true
+    },
+    {
+      "name": "only normalized supported video URLs reach public DTOs",
+      "passed": true
+    },
+    {
+      "name": "public SQL role remains read-only for content; existing article/category foreign keys remain enforced",
+      "passed": true
+    }
+  ],
+  "cleanup": true,
+  "passed": true
+}

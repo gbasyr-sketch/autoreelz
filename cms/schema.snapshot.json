@@ -4,6 +4,80 @@
   "vendor": "postgres",
   "collections": [
     {
+      "collection": "ar_article_tags",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_article_tags",
+        "color": null,
+        "display_template": "{{tag_id.name}}",
+        "group": null,
+        "hidden": true,
+        "icon": "label",
+        "item_duplication_fields": null,
+        "note": "Тексты выводятся безопасными абзацами. Черновики не видны на сайте.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 44,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Теги статей",
+            "singular": "Теги статей",
+            "translation": "Теги статей"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_article_tags"
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_articles",
+        "color": null,
+        "display_template": "{{title}}",
+        "group": null,
+        "hidden": false,
+        "icon": "newspaper",
+        "item_duplication_fields": null,
+        "note": "Статья видна после публикации и при опубликованной теме. Видео — только ссылка VK Видео/RUTUBE; видеозагрузка не нужна.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 43,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Статьи блога",
+            "singular": "Статьи блога",
+            "translation": "Статьи блога"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_articles"
+      }
+    },
+    {
       "collection": "ar_attribute_values",
       "meta": {
         "accountability": "all",
@@ -75,6 +149,80 @@
       },
       "schema": {
         "name": "ar_attributes"
+      }
+    },
+    {
+      "collection": "ar_blog_categories",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_blog_categories",
+        "color": null,
+        "display_template": "{{name}}",
+        "group": null,
+        "hidden": false,
+        "icon": "category",
+        "item_duplication_fields": null,
+        "note": "Тексты выводятся безопасными абзацами. Черновики не видны на сайте.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 41,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Темы блога",
+            "singular": "Темы блога",
+            "translation": "Темы блога"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_blog_categories"
+      }
+    },
+    {
+      "collection": "ar_blog_tags",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_blog_tags",
+        "color": null,
+        "display_template": "{{name}}",
+        "group": null,
+        "hidden": false,
+        "icon": "tag",
+        "item_duplication_fields": null,
+        "note": "Тексты выводятся безопасными абзацами. Черновики не видны на сайте.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 42,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Теги блога",
+            "singular": "Теги блога",
+            "translation": "Теги блога"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_blog_tags"
       }
     },
     {
@@ -186,6 +334,110 @@
       },
       "schema": {
         "name": "ar_category_attributes"
+      }
+    },
+    {
+      "collection": "ar_content_slugs",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_content_slugs",
+        "color": null,
+        "display_template": null,
+        "group": null,
+        "hidden": true,
+        "icon": null,
+        "item_duplication_fields": null,
+        "note": "История адресов. Изменяется автоматически; не редактировать.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": null,
+        "sort_field": null,
+        "status": "active",
+        "translations": null,
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_content_slugs"
+      }
+    },
+    {
+      "collection": "ar_delivery_events",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_delivery_events",
+        "color": null,
+        "display_template": "{{status}}",
+        "group": null,
+        "hidden": false,
+        "icon": "local_shipping",
+        "item_duplication_fields": null,
+        "note": "Только просмотр. Безопасные команды доступны в кабинете владельца.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 62,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "История доставки",
+            "singular": "История доставки",
+            "translation": "История доставки"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_delivery_events"
+      }
+    },
+    {
+      "collection": "ar_description_drafts",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_description_drafts",
+        "color": null,
+        "display_template": "{{product_id}}",
+        "group": null,
+        "hidden": false,
+        "icon": "edit_note",
+        "item_duplication_fields": null,
+        "note": "Только просмотр. Безопасные команды доступны в кабинете владельца.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 64,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Черновики описаний",
+            "singular": "Черновики описаний",
+            "translation": "Черновики описаний"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_description_drafts"
       }
     },
     {
@@ -330,6 +582,43 @@
       }
     },
     {
+      "collection": "ar_order_notes",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_order_notes",
+        "color": null,
+        "display_template": "{{body}}",
+        "group": null,
+        "hidden": false,
+        "icon": "sticky_note_2",
+        "item_duplication_fields": null,
+        "note": "Только просмотр. Безопасные команды доступны в кабинете владельца.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 61,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Заметки по заказам",
+            "singular": "Заметки по заказам",
+            "translation": "Заметки по заказам"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_order_notes"
+      }
+    },
+    {
       "collection": "ar_orders",
       "meta": {
         "accountability": "all",
@@ -364,6 +653,43 @@
       },
       "schema": {
         "name": "ar_orders"
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_owner_notifications",
+        "color": null,
+        "display_template": "{{subject}}",
+        "group": null,
+        "hidden": false,
+        "icon": "notifications",
+        "item_duplication_fields": null,
+        "note": "Только просмотр. Безопасные команды доступны в кабинете владельца.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 63,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Тестовые уведомления",
+            "singular": "Тестовые уведомления",
+            "translation": "Тестовые уведомления"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_owner_notifications"
       }
     },
     {
@@ -438,6 +764,43 @@
       },
       "schema": {
         "name": "ar_packing_rules"
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_pages",
+        "color": null,
+        "display_template": "{{title}}",
+        "group": null,
+        "hidden": false,
+        "icon": "article",
+        "item_duplication_fields": null,
+        "note": "Тексты выводятся безопасными абзацами. Черновики не видны на сайте.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 40,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Информационные страницы",
+            "singular": "Информационные страницы",
+            "translation": "Информационные страницы"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_pages"
       }
     },
     {
@@ -623,6 +986,43 @@
       },
       "schema": {
         "name": "ar_products"
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_reviews",
+        "color": null,
+        "display_template": "{{author_name}}",
+        "group": null,
+        "hidden": false,
+        "icon": "rate_review",
+        "item_duplication_fields": null,
+        "note": "Только просмотр. Безопасные команды доступны в кабинете владельца.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 60,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Отзывы — модерация",
+            "singular": "Отзывы — модерация",
+            "translation": "Отзывы — модерация"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_reviews"
       }
     },
     {
@@ -819,7 +1219,7 @@
         "hidden": false,
         "icon": "warehouse",
         "item_duplication_fields": null,
-        "note": "Корректировки через торговые команды появятся на следующем этапе.",
+        "note": "Приход и корректировка выполняются через команды в кабинете владельца.",
         "preview_url": null,
         "singleton": false,
         "sort": 17,
@@ -953,6 +1353,1030 @@
     }
   ],
   "fields": [
+    {
+      "collection": "ar_article_tags",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_article_tags",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "uuid"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_article_tags",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_article_tags",
+      "field": "article_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_article_tags",
+        "conditions": null,
+        "display": "related-values",
+        "display_options": {
+          "template": "{{title}}"
+        },
+        "field": "article_id",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown-m2o",
+        "note": null,
+        "options": {
+          "template": "{{title}}"
+        },
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 2,
+        "special": [
+          "m2o"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Статья"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "article_id",
+        "table": "ar_article_tags",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_articles",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_article_tags",
+      "field": "tag_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_article_tags",
+        "conditions": null,
+        "display": "related-values",
+        "display_options": {
+          "template": "{{name}}"
+        },
+        "field": "tag_id",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown-m2o",
+        "note": null,
+        "options": {
+          "template": "{{name}}"
+        },
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 3,
+        "special": [
+          "m2o"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Тег"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "tag_id",
+        "table": "ar_article_tags",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_blog_tags",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "uuid"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_articles",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "title",
+      "type": "text",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "title",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Заголовок"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "title",
+        "table": "ar_articles",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "slug",
+      "type": "text",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "slug",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "Латиница, цифры и дефисы. После смены адреса старый перенаправляет на новый.",
+        "options": {},
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Адрес"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "slug",
+        "table": "ar_articles",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "category_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": "related-values",
+        "display_options": {
+          "template": "{{name}}"
+        },
+        "field": "category_id",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown-m2o",
+        "note": null,
+        "options": {
+          "template": "{{name}}"
+        },
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 4,
+        "special": [
+          "m2o"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Тема блога"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "category_id",
+        "table": "ar_articles",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_blog_categories",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "excerpt",
+      "type": "text",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "excerpt",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": {
+          "placeholder": ""
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Краткое описание статьи"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "excerpt",
+        "table": "ar_articles",
+        "data_type": "text",
+        "default_value": "",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "body",
+      "type": "text",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "body",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": {
+          "placeholder": "Разделяйте абзацы пустой строкой. HTML отображается как текст."
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Текст"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "body",
+        "table": "ar_articles",
+        "data_type": "text",
+        "default_value": "",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "status",
+      "type": "text",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": "labels",
+        "display_options": {
+          "choices": [
+            {
+              "text": "Черновик",
+              "value": "draft"
+            },
+            {
+              "text": "Опубликовано",
+              "value": "published"
+            },
+            {
+              "text": "Архив",
+              "value": "archived"
+            }
+          ]
+        },
+        "field": "status",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown",
+        "note": null,
+        "options": {
+          "choices": [
+            {
+              "text": "Черновик",
+              "value": "draft"
+            },
+            {
+              "text": "Опубликовано",
+              "value": "published"
+            },
+            {
+              "text": "Архив",
+              "value": "archived"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Публикация"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "status",
+        "table": "ar_articles",
+        "data_type": "text",
+        "default_value": "draft",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "video_url",
+      "type": "text",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "video_url",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "Только HTTPS-ссылка. VK/VK Видео: скопируйте src из кода экспорта video_ext.php с oid, id и hash. RUTUBE: публичная ссылка /video/, /shorts/ или /play/embed/. Не вставляйте HTML. Плеер загрузится по нажатию покупателя.",
+        "options": {
+          "placeholder": "https://rutube.ru/video/…/"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Ссылка на видео"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "video_url",
+        "table": "ar_articles",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "cover_file_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": "image",
+        "display_options": {
+          "template": "{{title}}"
+        },
+        "field": "cover_file_id",
+        "group": null,
+        "hidden": false,
+        "interface": "file-image",
+        "note": null,
+        "options": {
+          "template": "{{title}}"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 9,
+        "special": [
+          "file"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Обложка"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "cover_file_id",
+        "table": "ar_articles",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "seo_title",
+      "type": "text",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "seo_title",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "Ручной SEO-заголовок. Не заполняйте одинаковыми ключевыми словами вместо понятного названия.",
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 10,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "SEO-заголовок"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "seo_title",
+        "table": "ar_articles",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "meta_description",
+      "type": "text",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "meta_description",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": {
+          "placeholder": ""
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 11,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Описание для поиска"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "meta_description",
+        "table": "ar_articles",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "is_demo",
+      "type": "boolean",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "is_demo",
+        "group": null,
+        "hidden": false,
+        "interface": "boolean",
+        "note": null,
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 12,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Демонстрационный материал"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "is_demo",
+        "table": "ar_articles",
+        "data_type": "boolean",
+        "default_value": false,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "published_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": "datetime",
+        "display_options": null,
+        "field": "published_at",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": "Будущая дата скрывает статью до указанного времени; пустая дата не препятствует публикации.",
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 13,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Дата публикации"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "published_at",
+        "table": "ar_articles",
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "created_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": "datetime",
+        "display_options": null,
+        "field": "created_at",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 14,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Создано"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "created_at",
+        "table": "ar_articles",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "updated_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": "datetime",
+        "display_options": null,
+        "field": "updated_at",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 15,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Изменено"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "updated_at",
+        "table": "ar_articles",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "preview",
+      "type": "alias",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "preview",
+        "group": null,
+        "hidden": false,
+        "interface": "presentation-links",
+        "note": null,
+        "options": {
+          "links": [
+            {
+              "actionType": "url",
+              "icon": "open_in_new",
+              "label": "Открыть опубликованный материал",
+              "type": "normal",
+              "url": "http://127.0.0.1:14323/blog/{{slug}}"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 0,
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "tags",
+      "type": "alias",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "tags",
+        "group": null,
+        "hidden": false,
+        "interface": "list-o2m",
+        "note": null,
+        "options": {
+          "enableCreate": true,
+          "enableSelect": true,
+          "template": "{{tag_id.name}}"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 90,
+        "special": [
+          "o2m"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Теги статьи"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
     {
       "collection": "ar_attribute_values",
       "field": "id",
@@ -1673,6 +3097,432 @@
         "validation": null,
         "validation_message": null,
         "width": "full"
+      }
+    },
+    {
+      "collection": "ar_blog_categories",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_blog_categories",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "uuid"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_blog_categories",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_blog_categories",
+      "field": "name",
+      "type": "text",
+      "meta": {
+        "collection": "ar_blog_categories",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "name",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Название"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "name",
+        "table": "ar_blog_categories",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_blog_categories",
+      "field": "slug",
+      "type": "text",
+      "meta": {
+        "collection": "ar_blog_categories",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "slug",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "Латиница, цифры и дефисы. После смены адреса старый перенаправляет на новый.",
+        "options": {},
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Адрес"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "slug",
+        "table": "ar_blog_categories",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_blog_categories",
+      "field": "status",
+      "type": "text",
+      "meta": {
+        "collection": "ar_blog_categories",
+        "conditions": null,
+        "display": "labels",
+        "display_options": {
+          "choices": [
+            {
+              "text": "Черновик",
+              "value": "draft"
+            },
+            {
+              "text": "Опубликовано",
+              "value": "published"
+            },
+            {
+              "text": "Архив",
+              "value": "archived"
+            }
+          ]
+        },
+        "field": "status",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown",
+        "note": null,
+        "options": {
+          "choices": [
+            {
+              "text": "Черновик",
+              "value": "draft"
+            },
+            {
+              "text": "Опубликовано",
+              "value": "published"
+            },
+            {
+              "text": "Архив",
+              "value": "archived"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Публикация"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "status",
+        "table": "ar_blog_categories",
+        "data_type": "text",
+        "default_value": "draft",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_blog_categories",
+      "field": "sort",
+      "type": "integer",
+      "meta": {
+        "collection": "ar_blog_categories",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "sort",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Порядок"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "sort",
+        "table": "ar_blog_categories",
+        "data_type": "integer",
+        "default_value": 0,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_blog_tags",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_blog_tags",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "uuid"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_blog_tags",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_blog_tags",
+      "field": "name",
+      "type": "text",
+      "meta": {
+        "collection": "ar_blog_tags",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "name",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Название"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "name",
+        "table": "ar_blog_tags",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_blog_tags",
+      "field": "slug",
+      "type": "text",
+      "meta": {
+        "collection": "ar_blog_tags",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "slug",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "Латиница, цифры и дефисы. После смены адреса старый перенаправляет на новый.",
+        "options": {},
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Адрес"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "slug",
+        "table": "ar_blog_tags",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
       }
     },
     {
@@ -2747,6 +4597,986 @@
       }
     },
     {
+      "collection": "ar_delivery_events",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_delivery_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_delivery_events",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_delivery_events",
+      "field": "order_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_delivery_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "order_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Заказ"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "order_id",
+        "table": "ar_delivery_events",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_orders",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_delivery_events",
+      "field": "provider_event_id",
+      "type": "text",
+      "meta": {
+        "collection": "ar_delivery_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "provider_event_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID события"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "provider_event_id",
+        "table": "ar_delivery_events",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_delivery_events",
+      "field": "payload_hash",
+      "type": "text",
+      "meta": {
+        "collection": "ar_delivery_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "payload_hash",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Хеш события"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "payload_hash",
+        "table": "ar_delivery_events",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_delivery_events",
+      "field": "status",
+      "type": "text",
+      "meta": {
+        "collection": "ar_delivery_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "status",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Состояние"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "status",
+        "table": "ar_delivery_events",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_delivery_events",
+      "field": "occurred_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_delivery_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "occurred_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Время у источника"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "occurred_at",
+        "table": "ar_delivery_events",
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_delivery_events",
+      "field": "source",
+      "type": "text",
+      "meta": {
+        "collection": "ar_delivery_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "source",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Источник"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "source",
+        "table": "ar_delivery_events",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_delivery_events",
+      "field": "actor_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_delivery_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "actor_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Сотрудник"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "actor_id",
+        "table": "ar_delivery_events",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_delivery_events",
+      "field": "reason",
+      "type": "text",
+      "meta": {
+        "collection": "ar_delivery_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "reason",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Причина"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "reason",
+        "table": "ar_delivery_events",
+        "data_type": "text",
+        "default_value": "",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_delivery_events",
+      "field": "applied",
+      "type": "boolean",
+      "meta": {
+        "collection": "ar_delivery_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "applied",
+        "group": null,
+        "hidden": false,
+        "interface": "boolean",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 10,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Применено"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "applied",
+        "table": "ar_delivery_events",
+        "data_type": "boolean",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_delivery_events",
+      "field": "created_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_delivery_events",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "created_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 11,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Создано"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "created_at",
+        "table": "ar_delivery_events",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_description_drafts",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_description_drafts",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_description_drafts",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_description_drafts",
+      "field": "product_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_description_drafts",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "product_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Товар"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "product_id",
+        "table": "ar_description_drafts",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_products",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_description_drafts",
+      "field": "actor_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_description_drafts",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "actor_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Сотрудник"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "actor_id",
+        "table": "ar_description_drafts",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_description_drafts",
+      "field": "source_fingerprint",
+      "type": "text",
+      "meta": {
+        "collection": "ar_description_drafts",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "source_fingerprint",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Версия исходных фактов"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "source_fingerprint",
+        "table": "ar_description_drafts",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_description_drafts",
+      "field": "description",
+      "type": "text",
+      "meta": {
+        "collection": "ar_description_drafts",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "description",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Описание"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "description",
+        "table": "ar_description_drafts",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_description_drafts",
+      "field": "meta_description",
+      "type": "text",
+      "meta": {
+        "collection": "ar_description_drafts",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "meta_description",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Meta description"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "meta_description",
+        "table": "ar_description_drafts",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_description_drafts",
+      "field": "state",
+      "type": "text",
+      "meta": {
+        "collection": "ar_description_drafts",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "state",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Состояние черновика"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "state",
+        "table": "ar_description_drafts",
+        "data_type": "text",
+        "default_value": "preview",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_description_drafts",
+      "field": "created_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_description_drafts",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "created_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Создано"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "created_at",
+        "table": "ar_description_drafts",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_description_drafts",
+      "field": "applied_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_description_drafts",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "applied_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Применено"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "applied_at",
+        "table": "ar_description_drafts",
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
       "collection": "ar_fitment",
       "field": "id",
       "type": "uuid",
@@ -3808,6 +6638,251 @@
       "schema": {
         "name": "created_at",
         "table": "ar_order_events",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_order_notes",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_order_notes",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_order_notes",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_order_notes",
+      "field": "order_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_order_notes",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "order_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Заказ"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "order_id",
+        "table": "ar_order_notes",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_orders",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_order_notes",
+      "field": "body",
+      "type": "text",
+      "meta": {
+        "collection": "ar_order_notes",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "body",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Текст"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "body",
+        "table": "ar_order_notes",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_order_notes",
+      "field": "actor_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_order_notes",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "actor_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Сотрудник"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "actor_id",
+        "table": "ar_order_notes",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_order_notes",
+      "field": "created_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_order_notes",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "created_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Создано"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "created_at",
+        "table": "ar_order_notes",
         "data_type": "timestamp with time zone",
         "default_value": "now()",
         "max_length": null,
@@ -5118,6 +8193,976 @@
       }
     },
     {
+      "collection": "ar_orders",
+      "field": "tracking_number",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "tracking_number",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 25,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Трек-номер"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "tracking_number",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "delivery_source",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "delivery_source",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 26,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Источник статуса"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "delivery_source",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": "checkout",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "delivery_override",
+      "type": "boolean",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "delivery_override",
+        "group": null,
+        "hidden": false,
+        "interface": "boolean",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 27,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Ручное управление"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "delivery_override",
+        "table": "ar_orders",
+        "data_type": "boolean",
+        "default_value": false,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "carrier_status",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "carrier_status",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 28,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Последний статус перевозчика"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "carrier_status",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "carrier_updated_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "carrier_updated_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 29,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Время события перевозчика"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "carrier_updated_at",
+        "table": "ar_orders",
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "delivery_updated_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "delivery_updated_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 30,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Статус обновлён"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "delivery_updated_at",
+        "table": "ar_orders",
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "delivered_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "delivered_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 31,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Получение подтверждено"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "delivered_at",
+        "table": "ar_orders",
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_orders",
+      "field": "carrier_tracking_number",
+      "type": "text",
+      "meta": {
+        "collection": "ar_orders",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "carrier_tracking_number",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 32,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Трек перевозчика"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "carrier_tracking_number",
+        "table": "ar_orders",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_owner_notifications",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_owner_notifications",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "field": "order_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_owner_notifications",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "order_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Заказ"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "order_id",
+        "table": "ar_owner_notifications",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_orders",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "field": "event_key",
+      "type": "text",
+      "meta": {
+        "collection": "ar_owner_notifications",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "event_key",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Ключ события"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "event_key",
+        "table": "ar_owner_notifications",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "field": "channel",
+      "type": "text",
+      "meta": {
+        "collection": "ar_owner_notifications",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "channel",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Канал"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "channel",
+        "table": "ar_owner_notifications",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "field": "subject",
+      "type": "text",
+      "meta": {
+        "collection": "ar_owner_notifications",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "subject",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Тема"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "subject",
+        "table": "ar_owner_notifications",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "field": "body",
+      "type": "text",
+      "meta": {
+        "collection": "ar_owner_notifications",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "body",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Текст"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "body",
+        "table": "ar_owner_notifications",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "field": "status",
+      "type": "text",
+      "meta": {
+        "collection": "ar_owner_notifications",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "status",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Состояние"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "status",
+        "table": "ar_owner_notifications",
+        "data_type": "text",
+        "default_value": "pending",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "field": "attempts",
+      "type": "integer",
+      "meta": {
+        "collection": "ar_owner_notifications",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "attempts",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Попытки"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "attempts",
+        "table": "ar_owner_notifications",
+        "data_type": "integer",
+        "default_value": 0,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "field": "last_error",
+      "type": "text",
+      "meta": {
+        "collection": "ar_owner_notifications",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "last_error",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Последняя ошибка"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "last_error",
+        "table": "ar_owner_notifications",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "field": "created_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_owner_notifications",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "created_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 10,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Создано"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "created_at",
+        "table": "ar_owner_notifications",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "field": "delivered_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_owner_notifications",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "delivered_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 11,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Тестовая доставка"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "delivered_at",
+        "table": "ar_owner_notifications",
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_owner_notifications",
+      "field": "notification_tools",
+      "type": "alias",
+      "meta": {
+        "collection": "ar_owner_notifications",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "notification_tools",
+        "group": null,
+        "hidden": false,
+        "interface": "presentation-links",
+        "note": null,
+        "options": {
+          "links": [
+            {
+              "actionType": "url",
+              "icon": "open_in_new",
+              "label": "Уведомления владельца",
+              "type": "primary",
+              "url": "http://127.0.0.1:14323/manager#manager-notifications"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 85,
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
       "collection": "ar_packages",
       "field": "id",
       "type": "uuid",
@@ -5758,6 +9803,720 @@
         "has_auto_increment": false,
         "foreign_key_table": null,
         "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "uuid"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_pages",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "slug",
+      "type": "text",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "slug",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "Латиница, цифры и дефисы. После смены адреса старый перенаправляет на новый.",
+        "options": {},
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Адрес"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "slug",
+        "table": "ar_pages",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "title",
+      "type": "text",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "title",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Заголовок"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "title",
+        "table": "ar_pages",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "body",
+      "type": "text",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "body",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": {
+          "placeholder": "Разделяйте абзацы пустой строкой. HTML отображается как текст."
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Текст"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "body",
+        "table": "ar_pages",
+        "data_type": "text",
+        "default_value": "",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "summary",
+      "type": "text",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "summary",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": {
+          "placeholder": ""
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Краткое вступление"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "summary",
+        "table": "ar_pages",
+        "data_type": "text",
+        "default_value": "",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "status",
+      "type": "text",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": "labels",
+        "display_options": {
+          "choices": [
+            {
+              "text": "Черновик",
+              "value": "draft"
+            },
+            {
+              "text": "Опубликовано",
+              "value": "published"
+            },
+            {
+              "text": "Архив",
+              "value": "archived"
+            }
+          ]
+        },
+        "field": "status",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown",
+        "note": null,
+        "options": {
+          "choices": [
+            {
+              "text": "Черновик",
+              "value": "draft"
+            },
+            {
+              "text": "Опубликовано",
+              "value": "published"
+            },
+            {
+              "text": "Архив",
+              "value": "archived"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Публикация"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "status",
+        "table": "ar_pages",
+        "data_type": "text",
+        "default_value": "draft",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "seo_title",
+      "type": "text",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "seo_title",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "Ручной SEO-заголовок. Не заполняйте одинаковыми ключевыми словами вместо понятного названия.",
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "SEO-заголовок"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "seo_title",
+        "table": "ar_pages",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "meta_description",
+      "type": "text",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "meta_description",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": {
+          "placeholder": ""
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Описание для поиска"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "meta_description",
+        "table": "ar_pages",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "is_legal",
+      "type": "boolean",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "is_legal",
+        "group": null,
+        "hidden": false,
+        "interface": "boolean",
+        "note": null,
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Юридический документ"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "is_legal",
+        "table": "ar_pages",
+        "data_type": "boolean",
+        "default_value": false,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "is_draft_text",
+      "type": "boolean",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "is_draft_text",
+        "group": null,
+        "hidden": false,
+        "interface": "boolean",
+        "note": "На странице появится заметное предупреждение: это проект, а не окончательные условия.",
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 10,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Текст — проект документа"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "is_draft_text",
+        "table": "ar_pages",
+        "data_type": "boolean",
+        "default_value": false,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "sort",
+      "type": "integer",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "sort",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 11,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Порядок"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "sort",
+        "table": "ar_pages",
+        "data_type": "integer",
+        "default_value": 0,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "created_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": "datetime",
+        "display_options": null,
+        "field": "created_at",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 12,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Создано"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "created_at",
+        "table": "ar_pages",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "updated_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": "datetime",
+        "display_options": null,
+        "field": "updated_at",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 13,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Изменено"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "updated_at",
+        "table": "ar_pages",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_pages",
+      "field": "preview",
+      "type": "alias",
+      "meta": {
+        "collection": "ar_pages",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "preview",
+        "group": null,
+        "hidden": false,
+        "interface": "presentation-links",
+        "note": null,
+        "options": {
+          "links": [
+            {
+              "actionType": "url",
+              "icon": "open_in_new",
+              "label": "Открыть опубликованный материал",
+              "type": "normal",
+              "url": "http://127.0.0.1:14323/info/{{slug}}"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 0,
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
       }
     },
     {
@@ -7934,6 +12693,672 @@
             "translation": "Дополнительные категории"
           }
         ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "ar_products",
+      "field": "description_tools",
+      "type": "alias",
+      "meta": {
+        "collection": "ar_products",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "description_tools",
+        "group": null,
+        "hidden": false,
+        "interface": "presentation-links",
+        "note": null,
+        "options": {
+          "links": [
+            {
+              "actionType": "url",
+              "icon": "open_in_new",
+              "label": "Сгенерировать описание",
+              "type": "primary",
+              "url": "http://127.0.0.1:14323/manager/content?product={{id}}"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 85,
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_reviews",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "customer_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "customer_id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Покупатель"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "customer_id",
+        "table": "ar_reviews",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_customers",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "product_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "product_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Товар"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "product_id",
+        "table": "ar_reviews",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_products",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "order_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "order_id",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Заказ"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "order_id",
+        "table": "ar_reviews",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_orders",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "author_name",
+      "type": "text",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "author_name",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Имя автора"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "author_name",
+        "table": "ar_reviews",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "body",
+      "type": "text",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "body",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Текст"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "body",
+        "table": "ar_reviews",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "status",
+      "type": "text",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "status",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Состояние"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "status",
+        "table": "ar_reviews",
+        "data_type": "text",
+        "default_value": "pending",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "moderation_note",
+      "type": "text",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "moderation_note",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Комментарий модератора"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "moderation_note",
+        "table": "ar_reviews",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "moderated_by",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "moderated_by",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Сотрудник"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "moderated_by",
+        "table": "ar_reviews",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "moderated_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "moderated_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 10,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Рассмотрено"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "moderated_at",
+        "table": "ar_reviews",
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "created_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "created_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 11,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Создано"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "created_at",
+        "table": "ar_reviews",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "updated_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "updated_at",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 12,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Обновлено"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "updated_at",
+        "table": "ar_reviews",
+        "data_type": "timestamp with time zone",
+        "default_value": "now()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_reviews",
+      "field": "moderation_tools",
+      "type": "alias",
+      "meta": {
+        "collection": "ar_reviews",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "moderation_tools",
+        "group": null,
+        "hidden": false,
+        "interface": "presentation-links",
+        "note": null,
+        "options": {
+          "links": [
+            {
+              "actionType": "url",
+              "icon": "open_in_new",
+              "label": "Рассмотреть отзывы",
+              "type": "primary",
+              "url": "http://127.0.0.1:14323/manager/reviews"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 85,
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": null,
         "validation": null,
         "validation_message": null,
         "width": "full"
@@ -10873,6 +16298,97 @@
     }
   ],
   "relations": [
+    {
+      "collection": "ar_article_tags",
+      "field": "article_id",
+      "related_collection": "ar_articles",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "ar_article_tags",
+        "many_field": "article_id",
+        "one_allowed_collections": null,
+        "one_collection": "ar_articles",
+        "one_collection_field": null,
+        "one_deselect_action": "delete",
+        "one_field": "tags",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "ar_article_tags",
+        "column": "article_id",
+        "foreign_key_table": "ar_articles",
+        "foreign_key_column": "id",
+        "constraint_name": "ar_article_tags_article_id_fkey",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE"
+      }
+    },
+    {
+      "collection": "ar_article_tags",
+      "field": "tag_id",
+      "related_collection": "ar_blog_tags",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "ar_article_tags",
+        "many_field": "tag_id",
+        "one_allowed_collections": null,
+        "one_collection": "ar_blog_tags",
+        "one_collection_field": null,
+        "one_deselect_action": "delete",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "ar_article_tags",
+        "column": "tag_id",
+        "foreign_key_table": "ar_blog_tags",
+        "foreign_key_column": "id",
+        "constraint_name": "ar_article_tags_tag_id_fkey",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE"
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "category_id",
+      "related_collection": "ar_blog_categories",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "ar_articles",
+        "many_field": "category_id",
+        "one_allowed_collections": null,
+        "one_collection": "ar_blog_categories",
+        "one_collection_field": null,
+        "one_deselect_action": "delete",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "ar_articles",
+        "column": "category_id",
+        "foreign_key_table": "ar_blog_categories",
+        "foreign_key_column": "id",
+        "constraint_name": "ar_articles_category_id_fkey",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION"
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "cover_file_id",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "ar_articles",
+        "many_field": "cover_file_id",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "delete",
+        "one_field": null,
+        "sort_field": null
+      }
+    },
     {
       "collection": "ar_attribute_values",
       "field": "attribute_id",

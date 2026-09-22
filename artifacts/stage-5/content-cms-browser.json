@@ -1,0 +1,70 @@
+{
+  "roles": [
+    {
+      "role": "admin",
+      "pageCreateEditReopen": true,
+      "categoryCreate": true,
+      "tagCreate": true,
+      "articleCreateEditReopen": true,
+      "relationTag": true,
+      "liveRepository": true,
+      "slugHistory": true
+    },
+    {
+      "role": "editor",
+      "pageCreateEditReopen": true,
+      "categoryCreate": true,
+      "tagCreate": true,
+      "articleCreateEditReopen": true,
+      "relationTag": true,
+      "liveRepository": true,
+      "slugHistory": true
+    }
+  ],
+  "created": [
+    {
+      "collection": "ar_pages",
+      "id": "7c35c88c-19b4-4e40-9249-95d9f30bcc53"
+    },
+    {
+      "collection": "ar_blog_categories",
+      "id": "dbd56a59-19ca-4e52-a1c0-a4b2c27d365e"
+    },
+    {
+      "collection": "ar_blog_tags",
+      "id": "8e2044d4-60d2-45d8-a7db-84c603233341"
+    },
+    {
+      "collection": "ar_articles",
+      "id": "e60a573c-365c-47ff-a329-d3a1aadce337"
+    },
+    {
+      "collection": "ar_article_tags",
+      "id": "fc84e5d1-11a1-407b-b450-0ea8768c9a76"
+    },
+    {
+      "collection": "ar_pages",
+      "id": "f8159571-ca7a-4446-acea-458db2f85ce9"
+    },
+    {
+      "collection": "ar_blog_categories",
+      "id": "0429f4e2-6ed8-4a6d-8684-99f597eb1cdd"
+    },
+    {
+      "collection": "ar_blog_tags",
+      "id": "2ff69a96-a073-4385-b6fc-f9a093b1bc8b"
+    },
+    {
+      "collection": "ar_articles",
+      "id": "03c5c200-4b11-4bdb-8282-198811d11b3f"
+    },
+    {
+      "collection": "ar_article_tags",
+      "id": "ec41dd6c-d97f-48e5-b362-68aaa0182d3d"
+    }
+  ],
+  "checks": [],
+  "errors": [],
+  "cleanup": true,
+  "passed": true
+}

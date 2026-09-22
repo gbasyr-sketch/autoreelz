@@ -1,0 +1,12 @@
+---
+import type {ContentSnapshot} from '../lib/content';
+import {articlePage,contentDate} from '../lib/content';
+import Icon from './Icon.astro';
+interface Props {content:ContentSnapshot;categoryId?:string;tagId?:string;basePath:string;pagination:ReturnType<typeof articlePage>}
+const{content,categoryId,tagId,basePath,pagination:result}=Astro.props;
+
+---
+<nav class="content-chips" aria-label="Темы блога"><a href="/blog" aria-current={!categoryId&&!tagId?'page':undefined}>Все материалы</a>{content.categories.map(c=><a href={`/blog/category/${c.slug}`} aria-current={categoryId===c.id?'page':undefined}>{c.name}</a>)}</nav>
+{content.tags.length>0&&<nav class="content-tags" aria-label="Теги блога">{content.tags.map(t=><a href={`/blog/tag/${t.slug}`} aria-current={tagId===t.id?'page':undefined}>#{t.name}</a>)}</nav>}
+{result.items.length&&!result.error?<div class="article-grid">{result.items.map(a=><article class="article-card">{a.coverUrl&&<a href={`/blog/${a.slug}`} tabindex="-1" aria-hidden="true"><img src={a.coverUrl} alt="" width="720" height="480" loading="lazy"/></a>}<div class="article-card-copy"><div class="article-meta"><a href={`/blog/category/${a.category.slug}`}>{a.category.name}</a>{a.publishedAt&&<time datetime={a.publishedAt}>{contentDate(a.publishedAt)}</time>}</div>{a.isDemo&&<p class="content-demo-label">Демонстрационный материал</p>}<h2><a href={`/blog/${a.slug}`}>{a.title}</a></h2><p>{a.excerpt}</p><a class="content-read-link" href={`/blog/${a.slug}`}>Читать материал <Icon name="arrow" size={18}/></a></div></article>)}</div>:<section class="empty-panel"><Icon name="info" size={36}/><h2>{result.error?'Страница не найдена':'Материалы готовятся'}</h2><p>{result.error?'Проверьте номер страницы или откройте первую.':'Опубликованные статьи этой темы появятся здесь.'}</p><a class="button-secondary" href="/blog">Все материалы</a></section>}
+{result.totalPages>1&&!result.error&&<nav class="content-pagination" aria-label="Страницы блога">{result.page>1&&<a class="button-secondary" href={result.page===2?basePath:`${basePath}?page=${result.page-1}`}>Назад</a>}<span>Страница {result.page} из {result.totalPages}</span>{result.page<result.totalPages&&<a class="button-secondary" href={`${basePath}?page=${result.page+1}`}>Далее</a>}</nav>}

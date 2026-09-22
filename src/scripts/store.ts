@@ -1,18 +1,12 @@
 import {commerceGet,commerceCommand,CommerceError,updateCartBadges} from './commerce';
 import type {CartView} from '../lib/commerce-types';
+import {initFavorites} from './social-favorites';
 
 document.documentElement.classList.add('has-js');
-const FAVORITES_KEY='autoreelz-new-demo-favorites-v1';
 const $=<T extends Element=HTMLElement>(selector:string)=>document.querySelector<T>(selector);
 const $$=<T extends Element=HTMLElement>(selector:string)=>[...document.querySelectorAll<T>(selector)];
 let toastTimer:ReturnType<typeof setTimeout>;
 export function notify(message:string){const toast=$('#toast');if(!toast)return;toast.textContent=message;toast.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.hidden=true,6000);}
-function favorites(){try{const value=JSON.parse(localStorage.getItem(FAVORITES_KEY)??'[]');return new Set<string>(Array.isArray(value)?value.filter((id):id is string=>typeof id==='string'&&/^[a-f0-9-]{36}$/i.test(id)):[]);}catch{return new Set<string>();}}
-function saveFavorites(ids:Set<string>){try{localStorage.setItem(FAVORITES_KEY,JSON.stringify([...ids]));return true;}catch{notify('Не удалось сохранить избранное. Проверьте доступ к хранилищу браузера.');return false;}}
-function refreshFavorites(){
- const ids=favorites();$$<HTMLButtonElement>('[data-favorite]').forEach(button=>{const selected=ids.has(button.dataset.favorite!);button.setAttribute('aria-pressed',String(selected));const name=button.closest('[data-product-id]')?.querySelector('.card-title')?.textContent??document.querySelector('h1')?.textContent??'товар';button.setAttribute('aria-label',`${selected?'Убрать из избранного':'В избранное'}: ${name.trim()}`);});
- if($('[data-favorites-page]')){let count=0;$$('[data-product-id]').forEach(card=>{const selected=ids.has(card.dataset.productId!);card.hidden=!selected;if(selected)count++;});const empty=$('[data-favorites-empty]');if(empty)empty.hidden=count>0;const label=$('[data-favorites-count]');if(label)label.textContent=`Сохранено товаров: ${count}`;}
-}
 function openDialog(id:string){const dialog=$<HTMLDialogElement>(id);if(dialog&&!dialog.open)dialog.showModal();}
 // One in-flight cart write per page; the server additionally checks the cart version.
 let adding=false;
@@ -27,9 +21,8 @@ document.addEventListener('click',event=>{if(!(event.target instanceof Element))
  if(target.hasAttribute('data-open-menu')){event.preventDefault();openDialog('#menu-dialog');}
  if(target.hasAttribute('data-open-search')){event.preventDefault();openDialog('#search-dialog');}
  if(target.hasAttribute('data-close-dialog'))target.closest('dialog')?.close();
- if(target.dataset.favorite){const id=target.dataset.favorite;if(!/^[a-f0-9-]{36}$/i.test(id))return;const ids=favorites();if(ids.has(id))ids.delete(id);else ids.add(id);if(saveFavorites(ids)){refreshFavorites();notify(ids.has(id)?'Сохранено в избранном этого браузера.':'Товар удалён из избранного.');}}
  if(target.dataset.addProduct&&target instanceof HTMLButtonElement)void add(target);
 });
 $$<HTMLDialogElement>('dialog').forEach(dialog=>dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)dialog.close();}));
-window.addEventListener('storage',refreshFavorites);refreshFavorites();
+initFavorites(notify);
 if(!$('[data-commerce="cart"]')&&!$('[data-commerce="checkout"]'))void commerceGet<CartView>('/api/commerce/cart').then(updateCartBadges).catch(()=>{const count=$('[data-cart-count]');if(count){count.textContent='—';count.setAttribute('aria-label','Корзина временно недоступна');}});

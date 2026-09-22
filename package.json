@@ -13,7 +13,8 @@
     "@astrojs/node": "11.1.6",
     "astro": "7.3.3",
     "decimal.js": "10.6.0",
-    "pg": "8.23.0"
+    "pg": "8.23.0",
+    "sharp": "0.35.4"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",

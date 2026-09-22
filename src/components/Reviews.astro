@@ -1,0 +1,25 @@
+---
+import type {ReviewsView} from '../lib/social-types';
+import '../styles/reviews.css';
+interface Props {productId:string;view:ReviewsView;authenticated:boolean}
+const {productId,view,authenticated}=Astro.props;
+const date=(value:string)=>new Intl.DateTimeFormat('ru-RU',{dateStyle:'long'}).format(new Date(value));
+---
+<section class="reviews-section" id="reviews" aria-labelledby="reviews-title" data-reviews data-product={productId}>
+ <div class="reviews-heading"><div><p class="eyebrow">Опыт покупателей</p><h2 id="reviews-title">Отзывы о товаре</h2></div><span>После покупки и получения</span></div>
+ <p class="reviews-intro">Здесь покупатели делятся опытом установки и использования. Отзывы и фотографии появляются после проверки.</p>
+ <div class="reviews-list">
+  {view.reviews.length?view.reviews.map(review=><article class="review-card"><header><h3>{review.authorName}</h3><time datetime={review.createdAt}>{date(review.createdAt)}</time></header>{review.status!=='approved'&&<p class="review-status">{review.status==='pending'?'Ваш отзыв на проверке':'Ваш отзыв не опубликован'}{review.moderationNote&&` · ${review.moderationNote}`}</p>}<p class="review-copy">{review.body}</p>{review.media.length>0&&<div class="review-photos">{review.media.map((media,i)=><a href={media.url} target="_blank" rel="noopener" aria-label={`Открыть фото ${i+1} к отзыву ${review.authorName}`}><img src={media.url} alt={`Фото ${i+1} покупателя ${review.authorName}`} width={media.width} height={media.height} loading="lazy"/></a>)}</div>}</article>):<p class="review-empty">Отзывов пока нет. Ваш опыт поможет другим покупателям сделать выбор.</p>}
+ </div>
+ {view.canReview?<div class="review-compose"><h3>Поделитесь своим опытом</h3><form class="review-form js-review-form" enctype="multipart/form-data" action="/api/social/reviews" method="post">
+  <div class="notice error" role="alert" tabindex="-1" data-review-error hidden></div>
+  <input type="hidden" name="productId" value={productId}/>
+  <label class="field">Полученный заказ<select name="orderId" required>{view.eligibleOrders.map(order=><option value={order.id}>{order.number}</option>)}</select></label>
+  <label class="field">Ваше имя<input name="authorName" autocomplete="given-name" minlength="2" maxlength="80" required aria-describedby="review-name-help"/></label><p id="review-name-help" class="review-help">Это имя будет видно вместе с отзывом. Не указывайте телефон или email.</p>
+  <label class="field">Отзыв<textarea name="body" rows="5" minlength="20" maxlength="5000" required aria-describedby="review-body-help"></textarea></label><p id="review-body-help" class="review-help">От 20 до 5000 символов. Расскажите об установке, удобстве и результате.</p>
+  <label class="field">Фотографии <span class="muted">необязательно</span><input name="files" type="file" multiple accept="image/jpeg,image/png,image/webp" aria-describedby="review-files-help"/></label><p id="review-files-help" class="review-help">До 5 фото JPEG, PNG или WebP. Каждое до 10 МБ и 24 мегапикселей. Без анимации. Перед сохранением удаляем метаданные.</p>
+  <p class="review-selected" data-review-selected aria-live="polite"></p><button class="button js-only" type="submit">Отправить на проверку</button><p class="review-help">Фотографии и текст отзыва будут опубликованы только после одобрения.</p>
+  <noscript><p class="notice">Для отправки отзыва и безопасной загрузки фотографий включите JavaScript.</p></noscript>
+ </form><p class="notice" data-review-success role="status" tabindex="-1" hidden></p></div>:<p class="review-access">{authenticated?'Оставить отзыв можно после оплаты и получения товара. Для одного товара доступен один отзыв.':<>Уже получили этот товар? <a class="text-link" href="/account">Войдите по email</a> из заказа, чтобы оставить отзыв.</>}</p>}
+</section>
+<script>import '../scripts/reviews';</script>

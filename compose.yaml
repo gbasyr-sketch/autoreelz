@@ -3,8 +3,10 @@ name: autoreelz2026-new
 services:
   web:
     build: .
-    image: autoreelz2026-new-web:stage4
+    image: autoreelz2026-new-web:stage5
     init: true
+    mem_limit: 1g
+    cpus: 2
     ports:
       - 127.0.0.1:${WEB_PORT:-14323}:4321
     environment:
@@ -28,7 +30,7 @@ services:
     restart: unless-stopped
 
   worker:
-    image: autoreelz2026-new-web:stage4
+    image: autoreelz2026-new-web:stage5
     command: [node, scripts/commerce-worker.ts]
     init: true
     environment:

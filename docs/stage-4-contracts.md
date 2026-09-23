@@ -1,5 +1,7 @@
 # Этап 4 — контракты реализации
 
+> Исторический базовый контракт этапа4. Актуальный checkout дополнен подтверждением условий и провайдерами: [architecture.md](architecture.md), [yookassa-checkout-contract.md](yookassa-checkout-contract.md), [cdek-checkout-contract.md](cdek-checkout-contract.md).
+
 Разрешён владельцем. Только локальные адаптеры, без реальных платежей/писем/публикации. Стиль A и светлая CMS сохраняются.
 
 ## Владение кодом

@@ -1,23 +1,20 @@
-# AUTO REELZ — независимый магазин
+# AUTO REELZ
 
-Домен: autoreelz.ru. Выбрано направление A. Этап 6 завершён локально: Astro SSR, PostgreSQL и светлая Directus CMS в отдельной Docker-среде; серверная торговля, управляемые страницы/блог, избранное, отзывы, кабинет владельца и SEO.
+Независимый магазин для [autoreelz.ru](https://autoreelz.ru). Astro SSR / TypeScript / PostgreSQL / Directus. Публичная тестовая версия работает на собственном сервере; реальные деньги и отправления не включены.
 
-- [Бриф](docs/brief.md) — точная копия предоставленного заполненного брифа.
-- [План и объём первой версии](docs/plan.md).
-- [Архитектура](docs/architecture.md).
-- [Короткая памятка следующей сессии](docs/next-session.md).
-- [Состояние, вопросы и следующий шаг](docs/status.md).
-- [Проверки этапа 5](docs/stage-5-review.md) и [инструкция владельца](docs/manager-guide.md).
-- [Полная приёмка этапа 6](docs/stage-6-review.md), [SEO](docs/seo.md), [мобильные замеры](docs/stage-6-mobile-review.md).
-- [Этап 7 — текущая подготовка](docs/stage-7-review.md), [данные для запуска](docs/launch.md), [backup/restore и эксплуатация](docs/operations.md).
-- [Серверная staging-версия](https://autoreelz.ru), [CMS](https://autoreelz.ru/cms/admin), [размещение и SFTP](docs/server-staging.md). Доступы — локальный private/server-access.md; реальные интеграции пока не включены.
-- [Материалы и инструменты](docs/readiness.md).
-- [Версии и ограничения проверки](docs/versions.md).
-- [Два визуальных направления](docs/design-directions.md) и [запуск прототипов](prototypes/README.md).
-- [Подтверждённые дополнения владельца](docs/decisions.md).
-- [Запуск Astro-витрины](docs/development.md), [дизайн-система](design-system/MASTER.md), [проверка этапа 2](docs/stage-2-review.md).
-- [Docker/CMS и работа с формами](docs/cms.md), [проверка этапа 3](docs/stage-3-review.md).
-- [Тестовая покупка и проверки этапа 4](docs/stage-4-review.md), [контракты API](docs/stage-4-contracts.md).
-- [Управление заказами и тестовая почта](http://127.0.0.1:14323/manager).
+**Начать работу:** [памятка следующей сессии](docs/next-session.md) → [текущее состояние](docs/status.md) → [навигатор документации](docs/README.md).
 
-Docker-витрина: http://127.0.0.1:14323/. CMS: http://127.0.0.1:28055/admin. Локальная Astro-разработка: http://127.0.0.1:14322/. Архив прототипов: http://127.0.0.1:14321/. Исходный new-store-kit сохранён. Реальная торговля не подключена. [GitHub](https://github.com/gbasyr-sketch/autoreelz) подключён через SSH.
+| Задача | Документ |
+|---|---|
+| Понять требования и решения владельца | [Бриф](docs/brief.md), [дополнения](docs/decisions.md) |
+| Найти нужный код | [Карта кода](docs/code-map.md), [архитектура](docs/architecture.md) |
+| Запустить локально | [Разработка](docs/development.md) |
+| Выбрать проверки | [Матрица проверок](docs/testing.md) |
+| Выпустить или откатить приложение | [Серверный регламент](docs/server-staging.md) |
+| Найти доступы и исходные материалы | [Реестр приватных материалов](docs/private-materials.md) — только пути, без секретов |
+| Выбрать следующую задачу | [Очередь работ](docs/backlog.md), [запуск реальных продаж](docs/launch.md) |
+| Работать с товарами и заказами | [CMS](docs/cms.md), [руководство владельца](docs/manager-guide.md), [импорт WB](docs/wb-catalog-import.md) |
+
+[GitHub](https://github.com/gbasyr-sketch/autoreelz) · [CMS](https://autoreelz.ru/cms/admin) · [Кабинет владельца](https://autoreelz.ru/manager).
+
+Рабочая БД находится на сервере. Git хранит код, миграции и документацию, **но не каталог, фотографии CMS, секреты или заказы**. Клонирование репозитория не восстанавливает магазин целиком. Не заменять серверные данные локальными сидами.

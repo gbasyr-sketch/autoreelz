@@ -1,5 +1,7 @@
 # Локальная CMS и Docker-среда
 
+> Область документа — локальная среда и формы CMS. Рабочий сервер уже существует: его данные не заменять setup/seed из этой инструкции. Текущий запуск — [development.md](development.md), сервер — [server-staging.md](server-staging.md), состояние — [status.md](status.md).
+
 Этапы 3–5. Только новый проект AUTO REELZ. Старые базы, контейнеры и Directus MCP не используются.
 
 ## Адреса

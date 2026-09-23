@@ -1,103 +1,82 @@
 # Локальная разработка
 
-Основной адрес этапа 5: http://127.0.0.1:14323/. Каталог читается из новой CMS, корзина и заказы сохраняются в PostgreSQL. Оплата, доставка и письма работают только в локальном тестовом режиме.
+Актуально на24.09.2026. Серверный каталог и локальная среда независимы; после клонирования Git не ожидайте увидеть35 серверных товаров. Приватные файлы/медиа отсутствуют в репозитории.
 
-## Docker
-
-Нужны Docker Compose, Node 24.21.0, npm 11.19.1 и Python 3. Из корня нового репозитория:
+## Проверить среду до запуска
 
 ```sh
-node scripts/setup-local.mjs --seed-demo
-```
-
-Скрипт создаёт отсутствующие локальные настройки, применяет миграции, настраивает CMS, собирает web и запускает worker. На заполненной базе `--seed-demo` не заменяет изменённые записи. Подробности и границы прав — [cms.md](cms.md).
-
-```sh
+git status --short
+git branch --show-current
+node --version
+npm --version
 docker compose -p autoreelz2026-new ps
-docker compose -p autoreelz2026-new up -d --build --wait web worker
 ```
 
-Все команды относятся только к новому Compose-проекту. `.env`, ключ SSH и тома не хранятся в Git.
+Pins: Node24.21.0, npm11.19.1, Astro7.3.3, TypeScript6.0.3, PostgreSQL17.11, Directus12.3.1. Источники — `.node-version`, package.json/lock и Compose/Dockerfile. Не обновлять версии просто потому, что прошёл месяц.
 
-## Astro без контейнера
-
-Сначала запустите новую БД/CMS через setup. На этом компьютере Node установлен только в папке проекта:
+На текущем Mac можно использовать уже установленный Node:
 
 ```sh
 export PATH="$PWD/.tools/node-v24.21.0-darwin-arm64/bin:$PATH"
-node /opt/homebrew/lib/node_modules/npm/bin/npm-cli.js ci
-APP_ORIGIN=http://127.0.0.1:14322 node /opt/homebrew/lib/node_modules/npm/bin/npm-cli.js run dev
+node --version
+node /opt/homebrew/lib/node_modules/npm/bin/npm-cli.js --version
 ```
 
-На другом компьютере используйте Node из `.node-version`, npm 11.19.1 и обычные `npm ci` / `npm run dev`. Перед запуском проверьте свободный порт 14322. Старые процессы других проектов не останавливать. APP_ORIGIN должен совпадать с адресом браузера, иначе защита Origin отклонит команды.
+Если команда npm в PATH недоступна/другой версии, заменять `npm` ниже на `node /opt/homebrew/lib/node_modules/npm/bin/npm-cli.js`. На новом компьютере установить совместимые pinned версии, выполнить `npm ci`; `.tools/` в Git нет.
 
-В dev-режиме файлы CMS проксируются через Docker-витрину 14323, если CMS_UPLOADS_PATH не задан. Worker из Docker обслуживает ту же новую БД. Для отдельной тестовой базы нужны свои процесс worker, APP_ORIGIN и секрет.
+## Уже существующая локальная среда
 
-## Проверки
+Не запускать bootstrap/seed для обычной правки. Проверить наличие своего `.env`, свободные порты и поднятые сервисы. При необходимости запустить существующие:
 
 ```sh
-npm run check
-npm test
-npm run build
-AR_AUTH_TESTS=1 node --test tests/auth.test.ts
-AR_COMMERCE_TESTS=1 node --test tests/commerce.test.ts
-node tests/purchase-browser.mjs
-node tests/cms-money-browser.mjs
-AR_STAGE5_TESTS=1 node --test tests/management.test.ts
-AR_SOCIAL_TESTS=1 node --test tests/social.test.ts
-AR_CONTENT_TESTS=1 node --test tests/content-integration.test.ts
-node tests/owner-browser.mjs
-node tests/social-browser.mjs
-node tests/content-storefront-browser.mjs
-node tests/content-browser.mjs
-node tests/cms-owner-links.mjs
+docker compose -p autoreelz2026-new start db cms web worker
 ```
 
-`npm test` выполняет быстрые тесты каталога, денег, контента и обработки фото; интеграционные наборы требуют явных флагов. Они создают временные базы `ar_qa_*` в новом кластере и удаляют их после проверки. Браузерный тест требует текущую сборку dist, свободный порт 14325, установленный Chrome и Playwright. Путь к Playwright задаётся PLAYWRIGHT_MODULE; по умолчанию используется библиотека среды Codex. Тест поднимает отдельные web/worker и БД, обращения к основной CMS нужны только для проверки авторизации сотрудников. Отчёты — [stage-4-review.md](stage-4-review.md).
+| Назначение | Адрес |
+|---|---|
+| Astro dev | http://127.0.0.1:14322 |
+| Docker web | http://127.0.0.1:14323 |
+| CMS | http://127.0.0.1:28055/admin |
+| PostgreSQL локально | 127.0.0.1:65432 |
 
-## Основные файлы
+Порты выше — настройки проекта по умолчанию; значения могут быть переопределены локальным `.env`. Не останавливать чужой процесс ради освобождения порта.
 
-- `src/server/catalog.ts` — свежий опубликованный каталог и наследование данных CMS; `src/lib/catalog.ts` — фильтрация одного SKU.
-- `src/server/cart.ts`, `orders.ts`, `payments.ts` — серверные команды и транзакции; `adapters/` — тестовые оплата и доставка.
-- `src/server/auth.ts`, `security.ts` — email-коды, сессии, права, CSRF и идемпотентность.
-- `scripts/commerce-worker.ts` — истечение резервов и приватная тестовая почта каждые 5 секунд.
-- `src/pages/cart.astro`, `checkout.astro`, `orders/`, `account.astro`, `manager/` — покупка и управление.
-- `migrations/` — неизменяемые после применения SQL-файлы; `cms/schema.snapshot.json` — метаданные CMS без учётных записей.
-
-`src/lib/demo.ts` сохранён для изолированных тестов и истории этапа 2; рабочая витрина его не импортирует. Гостевое избранное хранится в браузере; после входа объединяется с серверным списком аккаунта. Архив прототипов — порт 14321.
-
-## GitHub
-
-Отдельный remote: git@github.com:gbasyr-sketch/autoreelz.git. На текущем компьютере repo-local core.sshCommand использует отдельный deploy key в игнорируемой папке private и проверенный GitHub known_hosts. Глобальная SSH-конфигурация не менялась. На новом компьютере потребуется собственный разрешённый ключ; приватный ключ не переносить через репозиторий.
-
-Изменение денежной модели описано в [ruble-prices-review.md](ruble-prices-review.md). Миграцию 006 выполнять с остановленными web/worker/CMS и резервной копией новой БД. После неё запускать только версию приложения с рублёвыми полями; старый checkout нужно пересчитать.
-
-## Дополнения этапа 5
-
-Контракты — [stage-5-contracts.md](stage-5-contracts.md), приёмка — [stage-5-review.md](stage-5-review.md). Owner browser использует отдельный QA-порт14326, social browser14327; контентный read-only тест — текущую Docker-витрину14323. CMS content test создаёт помеченные временные записи и удаляет их после проверки. Тяжёлую Docker-сборку и браузерные приёмки лучше выполнять последовательно, чтобы тайм-аут CMS не маскировал результат.
-
-Фото отзывов после проверки перекодируются в WebP и хранятся приватно в bytea новой БД. Docker web ограничен1GiB RAM/2CPU; Sharp — один поток обработки и ограниченный кеш, одновременно не более двух upload-запросов. Эти пределы не являются нагрузочной аттестацией production.
-
-## Проверки этапа 6
+Для разработки с горячим обновлением:
 
 ```sh
-node --test tests/seo.test.ts
-AR_STAGE6_TESTS=1 node --test tests/stage-6-commerce.test.ts
-node tests/seo-browser.mjs
-node tests/stage6-cms-browser.mjs
-node tests/stage6-cms-schema-browser.mjs
-node tests/mobile-acceptance.mjs
-AR_PURCHASE_VIEWPORT=1440 AR_PURCHASE_OUTPUT=artifacts/stage-6/purchase-desktop node tests/purchase-browser.mjs
-AR_PURCHASE_VIEWPORT=375 AR_PURCHASE_OUTPUT=artifacts/stage-6/purchase-mobile node tests/purchase-browser.mjs
-node scripts/mobile-lab.mjs
+APP_ORIGIN=http://127.0.0.1:14322 npm run dev
 ```
 
-SEO-browser использует отдельную QA-базу/порт14329 и удаляет их после проверки. CMS-тесты временно создают собственные помеченные записи в новой CMS, затем удаляют их; их не запускать одновременно с редактированием схемы. Браузер покупки сохраняет указанную ширину после адаптивных снимков: это два полных пути покупки, а не только resize финального экрана.
+`APP_ORIGIN` обязан совпадать с адресом браузера. `localhost` и `127.0.0.1` не смешивать в сессии. `src/server/config.ts` сначала читает process.env, затем локальный `.env`; файлы `private/*.env` сами в runtime не подмешиваются.
 
-Lighthouse13.5.0 устанавливается локально в ignored `tmp/stage-6-tools` по комментарию scripts/mobile-lab.mjs; приложению он не нужен. Во время замеров не выполнять Docker-сборку и тяжёлые проверки. Условия/результаты — [stage-6-mobile-review.md](stage-6-mobile-review.md). В Git только обезличенные компактные отчёты; полные Lighthouse trace и DB-дампы приватны.
+Без заданного CMS_UPLOADS_PATH dev-сервер при отсутствии файлов проксирует медиа на собственную Docker-витрину14323. Если локального медиа нет и там — это не ошибка публичного сервера. Worker Docker обслуживает локальную БД, а не серверную.
 
-Новые настройки SEO по умолчанию выключены; правила — [seo.md](seo.md). Не включать STORE_MODE=production ради проверки sitemap: в текущем приложении платежи разрешены лишь локальному имитатору, реальные адаптеры ещё не подключены. Применённые миграции001–009 неизменяемы.
+Пересборка только локальных web/worker после проверок:
 
-## Подготовка этапа 7
+```sh
+docker compose -p autoreelz2026-new up -d --build --wait web worker
+```
 
-Ветка codex/stage7-launch-prep. Основные команды — [operations.md](operations.md); недостающие данные — [launch.md](launch.md). `node tests/release-proxy.mjs` использует текущий dist, порт14330 и удаляемую QA-базу. `node tests/release-config.mjs` проверяет только конфигурацию будущего сервера, без запуска Compose. После коммита `node scripts/build-release.mjs` создаёт локальный образ с полным SHA; не размещает его.
+## Новая пустая среда — отдельная операция
+
+Только убедившись, что это независимый пустой проект:
+
+```sh
+npm ci
+node scripts/setup-local.mjs --seed-demo
+```
+
+Это bootstrap, не обычный запуск. Он генерирует отсутствующий `.env`, поднимает БД/CMS, останавливает свои web/worker/CMS, применяет миграции, настраивает CMS и **всегда запускает seed-content**; с флагом ещё и seed-cms. Поэтому его не выполнять на рабочем сервере или для восстановления заполненного каталога. Лицензию OIG на одноразовые QA-клоны не активировать.
+
+Скрипт `scripts/migrate.mjs` жёстко привязан к локальным проекту/БД. Новая миграция добавляется следующим номером; уже применённые001–011 не редактировать. Для серверной схемы действуют отдельные шаги [регламента выпуска](server-staging.md).
+
+## Проверить изменение и закончить работу
+
+Обычный код: `npm run check`, соответствующие тесты и `npm run build`. Конкретные команды/флаги/порты — [testing.md](testing.md). Для Markdown-правки достаточно проверить ссылки, факты, команды и diff; торговые тесты/деплой не нужны.
+
+- Не записывать тестовые заказы/остатки в серверную БД ради локальной проверки.
+- Не запускать браузерные наборы с одним портом одновременно.
+- Проверить `git diff --check` и изменения старых отчётов: многие harness пишут в фиксированный artifacts-каталог.
+- Обновить [status.md](status.md), [next-session.md](next-session.md) и профильные документы, затем осмысленный коммит. Выпуск — [server-staging.md](server-staging.md).
+
+GitHub подключён repo-local SSH. Ветка указана в status.md; глобальную SSH-конфигурацию не менять. На другом компьютере нужен разрешённый ключ и trusted known_hosts, а не копия секретов через Git.

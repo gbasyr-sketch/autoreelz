@@ -1,0 +1,63 @@
+{
+  "checkedAt": "2026-09-23T21:55:21.613Z",
+  "markdownFiles": 48,
+  "localLinksChecked": 234,
+  "missingLinks": [],
+  "health": {
+    "ok": true,
+    "revision": "eadb8a9e9f89d3395657f2cd33976d59f59be1ce"
+  },
+  "paths": {
+    "/": 200,
+    "/cms/users/me": 401,
+    "/api/manager/orders": 401,
+    "/muzey/": 200,
+    "/cookies": 404
+  },
+  "migrationHashes": {
+    "001_catalog.sql": "127903d14d39b672de30d66f37b4fb10b79399bf97b6e27f21f630e2f7db008c",
+    "002_catalog_integrity.sql": "0b21f38e7c87a740d2268d1f3d2d800ed7039f906e4de41c5014c6b41bec482b",
+    "003_catalog_concurrency.sql": "0c92790dc994a93fb72b92af5fde887fd2684b0211d437de4e42fab9edc8c911",
+    "004_commerce.sql": "ed66c3867d5c29a2238b8f7bfb9bb72dd5861c19af7e2a5398c75dd36b771d7f",
+    "005_auth_limits.sql": "8e7a40e3e12685e811efd860700c915eab7e95bb2e776e6b1332f54b5dcc0ee8",
+    "006_ruble_money.sql": "02739027c9170a770673cbf8974f9a2d83f47b35dd0a0fffba10cafee3cb4663",
+    "007_store_expansion.sql": "97cbca44dcec84d923313d8ef9b08e01f78b94ae1c4d2125458bccd29d3daa7f",
+    "008_carrier_tracking.sql": "a22cc319a353a6c2a120ef732b63875c94ea8b3ec7bb8e0d2636d9852a820e15",
+    "009_seo_content.sql": "8bbe161f46c94d3166cb4ef36eb6c6e5ab62e4713a54ea713d552035f5d661c6",
+    "010_yookassa_payments.sql": "299a91e12ef5ac6d9a331f09e4db18c5191a4afbc21bbb90354e769611d8ae2f",
+    "011_checkout_confirmations.sql": "4fc1e275dd86364a321452e45213f04235206efa0901908f44bcd5ebd0fcb892"
+  },
+  "privatePathsCheckedByExistenceOnly": true,
+  "missingPrivatePaths": [],
+  "applicationDeployed": false,
+  "shellBlocksSyntaxChecked": 13,
+  "catalogOrOrderDataChanged": false,
+  "serverReadOnlySnapshot": {
+    "date": "2026-09-24",
+    "revision": "eadb8a9e9f89d3395657f2cd33976d59f59be1ce",
+    "composeProject": "autoreelz2026-release",
+    "servicesRunning": [
+      "web",
+      "worker",
+      "cms",
+      "db",
+      "edge"
+    ],
+    "healthyServices": [
+      "web",
+      "worker",
+      "cms",
+      "db"
+    ],
+    "settings": {
+      "STORE_MODE": "staging",
+      "PAYMENT_PROVIDER": "yookassa-sandbox",
+      "SHIPPING_PROVIDER": "cdek",
+      "PICKUP_MAP_PROVIDER": "yandex",
+      "SEO_INDEXING_ENABLED": "false"
+    },
+    "publishedProducts": 35,
+    "publishedSkus": 38,
+    "appliedMigrationRange": "001-011"
+  }
+}

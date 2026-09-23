@@ -20,6 +20,14 @@
     {
       "name": "placeholder product still opens and closes its single image",
       "passed": true
+    },
+    {
+      "name": "guest favorite label and personal badges persist and synchronize across tabs",
+      "passed": true
+    },
+    {
+      "name": "account favorite merge/removal updates count; failed request never marks a favorite as saved",
+      "passed": true
     }
   ],
   "cleanup": true

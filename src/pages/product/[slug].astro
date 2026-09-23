@@ -2,6 +2,7 @@
 import StoreLayout from '../../layouts/StoreLayout.astro';
 import {catalogAlias} from '../../server/seo';
 import Icon from '../../components/Icon.astro';
+import FavoriteButton from '../../components/FavoriteButton.astro';
 import Reviews from '../../components/Reviews.astro';
 import {getReviews} from '../../server/social';
 import {getCatalog} from '../../server/catalog';
@@ -43,7 +44,7 @@ const reviews=product&&offer&&Astro.locals.shopSession?await getReviews(Astro.lo
 {product&&offer?<>
   <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><a href="/catalog">Каталог</a>{category?.ancestorSlugs.map(slug=><a href={`/catalog?category=${slug}`}>{categories.find(c=>c.slug===slug)?.name}</a>)}<a href={`/catalog?category=${product.category}`}>{category?.name}</a></nav>
   <div class="product-layout" data-current-sku={variant?.id??''}>
-    <section class="product-intro"><div class="product-overline"><span>{category?.name}{product.isDemo?' · демо-товар':''}</span><button class="icon-button js-only" data-favorite={product.id} aria-pressed="false" aria-label={`В избранное: ${product.name}`}><Icon name="heart"/></button></div><h1>{product.name}</h1><p>{product.kind==='bundle'?'Готовый состав из конкретных исполнений.':'Выберите исполнение для вашего интерьера.'}</p></section>
+    <section class="product-intro"><div class="product-overline"><span>{category?.name}{product.isDemo?' · демо-товар':''}</span><FavoriteButton productId={product.id} name={product.name}/></div><h1>{product.name}</h1><p>{product.kind==='bundle'?'Готовый состав из конкретных исполнений.':'Выберите исполнение для вашего интерьера.'}</p></section>
     <section class="product-media" aria-label="Галерея товара">
       <div class:list={['gallery-stage',placeholder&&color&&`light-${color}`]}><span class="gallery-index" data-gallery-index>{media.length?`01 / ${String(media.length).padStart(2,'0')}`:'01 / 01'}</span><img id="product-image" src={image} width="720" height="480" alt={media[0]?.alt||`${placeholder?'Изображение-заглушка: ':''}${product.name}`} fetchpriority="high"/>{placeholder&&<span class="gallery-caption"><Icon name="info" size={15}/>Изображение-заглушка</span>}<button class="gallery-zoom icon-button js-only" data-zoom aria-label="Увеличить изображение"><Icon name="search"/></button></div>
       {media.length>1&&<div class="gallery-thumbs js-only" role="group" aria-label="Фотографии товара">{media.map((m,i)=><button type="button" data-gallery-src={m.src} data-gallery-alt={m.alt||`${product.name} — фото ${i+1}`} aria-label={`Показать фотографию ${i+1}`} aria-pressed={i===0?"true":"false"} aria-controls="product-image"><img src={m.src} width="720" height="480" loading="lazy" alt=""/></button>)}</div>}

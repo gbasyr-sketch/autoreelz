@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import FavoriteButton from './FavoriteButton.astro';
 import {money,productHref} from '../lib/format';
 import type {CatalogSnapshot,CatalogProduct,Offer,FitmentState} from '../lib/catalog-types';
 interface Props {product:CatalogProduct;offer:Offer;catalog:CatalogSnapshot;fitment?:FitmentState;priority?:boolean}
@@ -17,7 +18,7 @@ const color=offer.variant?.attributes.illumination;
     {placeholder&&<span class="media-label">Изображение-заглушка</span>}
     {product.kind==='bundle'&&<span class="card-badge">Фиксированный состав</span>}
   </a>
-  <button class="card-favorite icon-button js-only" data-favorite={product.id} aria-label={`В избранное: ${product.name}`} aria-pressed="false"><Icon name="heart" size={19}/></button>
+  <FavoriteButton productId={product.id} name={product.name} compact/>
   <div class="card-copy">
     <p class="card-category">{categories.find(c=>c.slug===product.category)?.name}</p>
     <a class="card-title" href={href}>{product.name}</a>

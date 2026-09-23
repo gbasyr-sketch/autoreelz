@@ -1,0 +1,9 @@
+---
+import Icon from './Icon.astro';
+interface Props {productId:string;name:string;compact?:boolean}
+const{productId,name,compact=false}=Astro.props;
+---
+<button type="button" class:list={['favorite-button','js-only',compact&&'card-favorite']} data-favorite={productId} data-favorite-name={name} aria-label={`В избранное: ${name}`} aria-pressed="false" title="В избранное">
+  <span class="favorite-icon" aria-hidden="true"><Icon name="heart" size={compact?20:24}/><Icon name="check" size={13} class="favorite-check"/></span>
+  {!compact&&<span data-favorite-label>В избранное</span>}
+</button>

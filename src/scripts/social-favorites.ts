@@ -26,7 +26,17 @@ export function initFavorites(notify:(text:string)=>void){
  const channel=typeof BroadcastChannel!=='undefined'?new BroadcastChannel('autoreelz-social'):null;
  function render(view:FavoritesView){
   ids=new Set(view.productIds);
-  buttons().forEach(button=>{const selected=ids.has(button.dataset.favorite!);button.setAttribute('aria-pressed',String(selected));const name=button.closest('[data-product-id]')?.querySelector('.card-title')?.textContent??document.querySelector('h1')?.textContent??'товар';button.setAttribute('aria-label',`${selected?'Убрать из избранного':'В избранное'}: ${name.trim()}`);});
+  buttons().forEach(button=>{
+   const selected=ids.has(button.dataset.favorite!);button.setAttribute('aria-pressed',String(selected));
+   const name=button.dataset.favoriteName??button.closest('[data-product-id]')?.querySelector('.card-title')?.textContent??document.querySelector('h1')?.textContent??'товар';
+   button.setAttribute('aria-label',`${selected?'В избранном. Убрать из избранного':'В избранное'}: ${name.trim()}`);
+   button.title=selected?'Убрать из избранного':'В избранное';
+   const label=button.querySelector('[data-favorite-label]');if(label)label.textContent=selected?'В избранном':'В избранное';
+  });
+  document.querySelectorAll<HTMLAnchorElement>('[data-favorites-link]').forEach(link=>{
+   link.setAttribute('aria-label',ids.size?`Избранное: сохранено товаров — ${ids.size}`:'Избранное');
+   const badge=link.querySelector<HTMLElement>('[data-favorites-badge]');if(badge){badge.textContent=String(ids.size);badge.hidden=ids.size===0;}
+  });
   const page=document.querySelector('[data-favorites-page]');if(!page)return;
   let count=0;page.querySelectorAll<HTMLElement>('.cards-grid>[data-product-id]').forEach(card=>{card.hidden=!ids.has(card.dataset.productId!);if(!card.hidden)count++;});
   const empty=page.querySelector<HTMLElement>('[data-favorites-empty]');if(empty)empty.hidden=count>0;

@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-09-23T17:58:52.170Z",
+  "passed": true,
+  "city": {
+    "code": 44,
+    "name": "Москва",
+    "region": "Москва",
+    "subRegion": "Москва"
+  },
+  "point": {
+    "code": "MSK2",
+    "name": "MSK2, Москва, ул. Международная",
+    "cityCode": 44,
+    "city": "Москва",
+    "address": "ул. Международная, 15",
+    "workTime": "Пн-Пт 10:00-21:00, Сб-Вс 10:00-20:00",
+    "reception": true,
+    "handout": true,
+    "latitude": 55.74564,
+    "longitude": 37.68482
+  },
+  "fromPoint": "MKHCH13",
+  "tariff": {
+    "provider": "cdek",
+    "tariffCode": 136,
+    "tariffName": "Посылка склад–склад",
+    "costRubles": "390.00",
+    "currency": "RUB",
+    "periodMin": 3,
+    "periodMax": 3,
+    "quotedAt": "2026-09-23T17:58:52.157Z",
+    "originPointCode": "MKHCH13",
+    "originCityCode": 442
+  },
+  "shipmentsCreated": 0
+}

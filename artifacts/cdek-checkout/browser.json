@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "cleanup": true,
+  "checks": [
+    {
+      "name": "real city/point selection, map keyboard popup and synchronized readonly fields",
+      "passed": true
+    },
+    {
+      "name": "CDEK quote, per-order tariff snapshot and existing test payment work together",
+      "passed": true
+    },
+    {
+      "name": "courier uses selected city and a street address, without a stale pickup code",
+      "passed": true
+    },
+    {
+      "name": "directory failure permits manual entry with unknown cost and no premature payment",
+      "passed": true
+    }
+  ],
+  "realCarrierApi": true,
+  "shipmentsCreated": 0
+}

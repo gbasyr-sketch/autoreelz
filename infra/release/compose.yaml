@@ -32,6 +32,11 @@ services:
     environment:
       <<: *app-env
       CMS_INTERNAL_URL: http://cms:8055
+      SHIPPING_PROVIDER: ${SHIPPING_PROVIDER:-simulation}
+      CDEK_CLIENT_ID: ${CDEK_CLIENT_ID:-}
+      CDEK_CLIENT_SECRET: ${CDEK_CLIENT_SECRET:-}
+      CDEK_FROM_PVZ: ${CDEK_FROM_PVZ:-}
+      CDEK_FROM_CITY_CODE: ${CDEK_FROM_CITY_CODE:-}
       CMS_UPLOADS_PATH: /cms-uploads
       SEO_INDEXING_ENABLED: ${SEO_INDEXING_ENABLED:-false}
       YML_COMPANY_NAME: ${YML_COMPANY_NAME:-}

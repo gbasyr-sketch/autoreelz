@@ -1,6 +1,8 @@
 import{yooPayments}from'../../../server/yookassa-payments';
 import type{APIRoute}from'astro';
-import{sessionFor,json,failure}from'../../../server/http';
+import{sessionFor,json,failure,peer}from'../../../server/http';
+import{shippingRateLimit}from'../../../server/shipping-rate-limit';
+import{shippingProvider}from'../../../server/shipping-policy';
 import{readBody,jsonBody}from'../../../server/security';
 import{requireTestEnvironment,appConfig}from'../../../server/config';
 import{StoreError}from'../../../server/errors';
@@ -27,7 +29,7 @@ export const POST:APIRoute=async ctx=>{try{
  const session=await sessionFor(ctx),body=await readBody(ctx.request,session);
  switch(ctx.params.action){
   case'cart':return json(await changeCart(session,body));
-  case'quote':return json(await createQuote(session,body));
+  case'quote':if(shippingProvider()==='cdek')await shippingRateLimit(peer(ctx));return json(await createQuote(session,body));
   case'checkout':return json(await checkout(session,body));
   case'pay':return json(await payOrder(session,body));
   case'payment-status':return json(await yooPayments.refresh(session,String(body.orderId??'')));

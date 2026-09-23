@@ -1,0 +1,20 @@
+▶ CDEK checkout on an isolated PostgreSQL clone
+  ✔ server resolves point identity and snapshots actual rate; checkout and repeats never call CDEK under SQL locks (169.512833ms)
+  ✔ unknown package and multiple units need a packing rule; no guessed dimension or tariff (45.659833ms)
+  ✔ ordinary and preorder get independent quotes, and preorder has no early reserve (66.829208ms)
+  ✔ provider failure keeps total unknown and manager can complete shipping safely (49.853958ms)
+  ✔ manual address stays manual even when the API works (27.572916ms)
+  ✔ invalid city or wrong-city point cannot become a paid delivery quote (25.355417ms)
+  ✔ no cart/stock locks during carrier request; price changes during network invalidate the quote (29.414583ms)
+  ✔ package changes after a quote force review without reserving anything (35.990792ms)
+  ✔ stock repartition or origin changes invalidate confirmed rates (50.352666ms)
+  ✔ expired and foreign-session quotes are rejected (37.716417ms)
+✔ CDEK checkout on an isolated PostgreSQL clone (6739.568ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6915.738084

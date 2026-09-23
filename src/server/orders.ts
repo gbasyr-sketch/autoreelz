@@ -2,12 +2,12 @@ import{paymentProvider}from'./payment-policy.ts';
 import{sumRubles}from'./pricing.ts';
 import{compareRubles}from'../lib/money.ts';
 import type{PoolClient}from'pg';
-import type{ShopSession,OrderView,CheckoutInput}from'../lib/commerce-types.ts';
+import type{ShopSession,OrderView,CheckoutInput,QuoteGroup}from'../lib/commerce-types.ts';
 import{query,transaction}from'./db.ts';
 import{StoreError,uuid,integer,text,iso}from'./errors.ts';
-import{idempotent,hash,canonical}from'./security.ts';
+import{idempotent}from'./security.ts';
 import{cartRecord,completeLines}from'./cart.ts';
-import{requirements,quoteGroups,lockStock,safeMoney}from'./pricing.ts';
+import{requirements,quoteGroups,quoteFingerprint,lockStock,safeMoney}from'./pricing.ts';
 
 export async function orderRow(c:PoolClient,id:string,session?:ShopSession,lock=false){
  const row=(await c.query(`SELECT * FROM ar_orders WHERE id=$1 ${lock?'FOR UPDATE':''}`,[id])).rows[0];
@@ -59,13 +59,14 @@ export async function checkout(session:ShopSession,body:Record<string,unknown>){
   if(new Date(quote.expires_at).getTime()<=Date.now())throw new StoreError('QUOTE_EXPIRED','Расчёт устарел. Повторно проверьте заказ.',409);
   const cart=await cartRecord(c,session,true);if(cart.version!==version||quote.cart_version!==version)throw new StoreError('CART_CHANGED','Корзина изменилась. Проверьте заказ снова.',409);
   const lines=await completeLines(c,cart.id);const input=quote.input as CheckoutInput;
-  const groups=await quoteGroups(c,lines,input,true);
-  if(hash(canonical(groups))!==quote.fingerprint)throw new StoreError('QUOTE_CHANGED','Цена, состав или наличие изменились. Обновите расчёт и подтвердите его снова.',409);
+  const current=await quoteGroups(c,lines,input,true);
+  if(quoteFingerprint(current)!==quote.fingerprint)throw new StoreError('QUOTE_CHANGED','Цена, состав, наличие или упаковка изменились. Обновите расчёт и подтвердите его снова.',409);
+  const groups:QuoteGroup[]=input.delivery.provider?quote.snapshot:current;
   const batch=(await c.query('INSERT INTO ar_checkout_batches(session_id,quote_id) VALUES($1,$2) RETURNING id',[session.id,quoteId])).rows[0];const orderIds:string[]=[];
   for(const group of groups){
    const ordinary=group.kind==='ordinary',quoted=group.shipping.status==='quoted';
    const order=(await c.query(`INSERT INTO ar_orders(batch_id,session_id,kind,status,delivery_status,allocation_state,customer_name,customer_phone,customer_email,delivery_snapshot,items_snapshot,product_total_rubles,shipping_cost_rubles,shipping_reason,shipping_package,expires_at)
-    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,CASE WHEN $16 THEN now()+interval '30 minutes' ELSE NULL END) RETURNING *`,[batch.id,session.id,group.kind,ordinary?(quoted?'awaiting_payment':'open'):'preorder_pending',group.shipping.status,ordinary?'reserved':'none',input.customer.name,input.customer.phone,input.customer.email,input.delivery,JSON.stringify(group.lines),group.productTotalRubles,group.shipping.costRubles,group.shipping.reason,group.shipping.packageSnapshot,ordinary])).rows[0];
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,CASE WHEN $16 THEN now()+interval '30 minutes' ELSE NULL END) RETURNING *`,[batch.id,session.id,group.kind,ordinary?(quoted?'awaiting_payment':'open'):'preorder_pending',group.shipping.status,ordinary?'reserved':'none',input.customer.name,input.customer.phone,input.customer.email,{...input.delivery,...(group.shipping.carrier?{carrier:group.shipping.carrier}:{})},JSON.stringify(group.lines),group.productTotalRubles,group.shipping.costRubles,group.shipping.reason,group.shipping.packageSnapshot,ordinary])).rows[0];
    const need=requirements(group.lines);for(const[id,quantity]of need)await c.query('INSERT INTO ar_order_components(order_id,sku_id,quantity) VALUES($1,$2,$3)',[order.id,id,quantity]);
    if(ordinary)await stockMove(c,order.id,need,`reserve:${order.id}`,0,1,'Резерв обычного заказа');
    await event(c,order.id,'created',ordinary?'Обычный заказ: резерв на 30 минут.':'Предзаказ: компоненты не резервируются до подтверждения.');

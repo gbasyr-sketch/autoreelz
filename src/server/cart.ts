@@ -3,8 +3,10 @@ import type{PoolClient}from'pg';
 import type{ShopSession,CartView,CartLineView,CheckoutQuote,OrderLineSnapshot}from'../lib/commerce-types.ts';
 import{transaction}from'./db.ts';
 import{StoreError,uuid,integer,iso}from'./errors.ts';
-import{idempotent,hash,canonical}from'./security.ts';
-import{snapshotLine,requirements,splitLines,safeMoney,customerInput,quoteGroups}from'./pricing.ts';
+import{idempotent}from'./security.ts';
+import{snapshotLine,requirements,splitLines,safeMoney,customerInput,quoteGroups,quoteFingerprint}from'./pricing.ts';
+import{shippingProvider}from'./shipping-policy.ts';
+import{cdekShipping}from'./cdek-shipping.ts';
 
 export async function cartRecord(c:PoolClient,session:ShopSession,lock=false){
  await c.query('INSERT INTO ar_carts(session_id) VALUES($1) ON CONFLICT(session_id) DO NOTHING',[session.id]);
@@ -47,12 +49,26 @@ export async function changeCart(session:ShopSession,body:Record<string,unknown>
   await c.query('UPDATE ar_carts SET version=version+1 WHERE id=$1',[cart.id]);return cartView(c,session);
  }));
 }
-export async function createQuote(session:ShopSession,body:Record<string,unknown>):Promise<CheckoutQuote>{
+export async function createQuote(session:ShopSession,body:Record<string,unknown>,shipping=cdekShipping):Promise<CheckoutQuote>{
  const input=customerInput(body);
+ if(shippingProvider()==='cdek'){
+  input.delivery=await shipping.normalize(input.delivery);
+  const basis=await transaction(async c=>{const cart=await cartRecord(c,session,true);if(cart.version!==input.cartVersion)throw new StoreError('CART_CHANGED','Корзина изменилась. Обновите состав.',409);return quoteGroups(c,await completeLines(c,cart.id),input);});
+  const fingerprint=quoteFingerprint(basis),startedAt=Date.now();
+  const groups=await shipping.enrich(basis,input.delivery);
+  return transaction(async c=>{
+   const cart=await cartRecord(c,session,true);if(cart.version!==input.cartVersion)throw new StoreError('CART_CHANGED','Корзина изменилась. Повторите расчёт.',409);
+   const current=await quoteGroups(c,await completeLines(c,cart.id),input);
+   if(quoteFingerprint(current)!==fingerprint)throw new StoreError('QUOTE_CHANGED','Цена, наличие или упаковка изменились. Повторите расчёт.',409);
+   if(Date.now()-startedAt>=5*60_000)throw new StoreError('QUOTE_EXPIRED','Расчёт устарел. Повторите его.',409);
+   const row=(await c.query('INSERT INTO ar_cart_quotes(session_id,cart_version,input,snapshot,fingerprint,expires_at) VALUES($1,$2,$3,$4,$5,$6) RETURNING id,expires_at',[session.id,cart.version,input,JSON.stringify(groups),fingerprint,new Date(startedAt+5*60_000)])).rows[0];
+   return{id:row.id,cartVersion:cart.version,expiresAt:iso(row.expires_at)!,customer:input.customer,delivery:input.delivery,groups,csrfToken:session.csrfToken};
+  });
+ }
  return transaction(async c=>{
   const cart=await cartRecord(c,session,true);if(cart.version!==input.cartVersion)throw new StoreError('CART_CHANGED','Корзина изменилась. Обновите состав.',409);
   const lines=await completeLines(c,cart.id);const groups=await quoteGroups(c,lines,input);
-  const row=(await c.query("INSERT INTO ar_cart_quotes(session_id,cart_version,input,snapshot,fingerprint,expires_at) VALUES($1,$2,$3,$4,$5,now()+interval '10 minutes') RETURNING id,expires_at",[session.id,cart.version,input,JSON.stringify(groups),hash(canonical(groups))])).rows[0];
+  const row=(await c.query("INSERT INTO ar_cart_quotes(session_id,cart_version,input,snapshot,fingerprint,expires_at) VALUES($1,$2,$3,$4,$5,now()+interval '10 minutes') RETURNING id,expires_at",[session.id,cart.version,input,JSON.stringify(groups),quoteFingerprint(groups)])).rows[0];
   return{id:row.id,cartVersion:cart.version,expiresAt:iso(row.expires_at)!,customer:input.customer,delivery:input.delivery,groups,csrfToken:session.csrfToken};
  });
 }

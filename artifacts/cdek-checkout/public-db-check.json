@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "orderNumber": "AR-26-010004",
+  "status": "paid",
+  "productRubles": "1800.00",
+  "shippingRubles": "390.00",
+  "paymentRubles": "2190.00",
+  "providerStatus": "succeeded",
+  "pointCode": "MSK2",
+  "tariffCode": "136",
+  "attemptCount": 1,
+  "stockDebits": 1
+}

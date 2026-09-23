@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-09-23T19:19:44.908Z",
+  "passed": true,
+  "appSha": "a908f83708e06b2d0bff4700df8f3f6afca77b15",
+  "publicAccess": true,
+  "noContactsRequired": true,
+  "oldPriceClearedImmediately": true,
+  "manualDeliveryHasNoGuessedPrice": true,
+  "mapFailureInjected": true,
+  "ordersCreated": 0,
+  "results": [
+    {
+      "city": "Москва",
+      "point": "MSK2",
+      "shippingRubles": "390.00",
+      "totalRubles": "2190.00"
+    },
+    {
+      "city": "Москва",
+      "point": "MSK3",
+      "shippingRubles": "390.00",
+      "totalRubles": "2190.00"
+    },
+    {
+      "method": "courier",
+      "shippingRubles": "640.00",
+      "totalRubles": "2440.00"
+    },
+    {
+      "city": "Махачкала",
+      "point": "MKHCH13",
+      "shippingRubles": "185.00",
+      "totalRubles": "1985.00"
+    }
+  ]
+}

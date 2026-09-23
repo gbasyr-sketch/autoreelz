@@ -1,0 +1,16 @@
+{
+  "appSha": "a908f83708e06b2d0bff4700df8f3f6afca77b15",
+  "imageId": "sha256:e070e7db804efdb868a849f8fb4459f01a9585e19aa04e3df7f5fa20dbe62287",
+  "server": "91.200.150.79",
+  "project": "autoreelz2026-release",
+  "publicStorefront": true,
+  "nativeAdminAuth": true,
+  "noindex": true,
+  "shippingProvider": "cdek",
+  "pickupMapProvider": "yandex",
+  "paymentProvider": "yookassa-sandbox",
+  "schemaMigrations": "001-010 (unchanged)",
+  "databaseBackup": "/srv/autoreelz2026/backups/before-cdek-checkout-20260923T181009Z.dump",
+  "realMoney": false,
+  "shipmentsCreated": 0
+}

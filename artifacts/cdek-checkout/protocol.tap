@@ -1,11 +1,11 @@
-✔ CDEK uses a fixed TLS API, private bearer auth, one shared token and bounded directory cache (50.614541ms)
-✔ CDEK refreshes an expired authorization once, without retaining provider errors (0.574084ms)
-✔ CDEK filters foreign cities and points, preserves coordinates and verifies the requested identity (0.872125ms)
-✔ CDEK sends grams, upward-rounded centimeters and exact pickup point codes; trusts total_sum not base delivery_sum (8.512458ms)
-✔ CDEK checks package limits via the exact point filter (0.537625ms)
-✔ CDEK rejects warnings, foreign currency and invalid or overprecise amounts (0.907375ms)
-✔ CDEK failure messages do not expose secrets or provider payload and reject unsafe inputs (0.178834ms)
-✔ CDEK rejects malformed and oversized directory responses (4.101459ms)
+✔ CDEK uses a fixed TLS API, private bearer auth, one shared token and bounded directory cache (65.049ms)
+✔ CDEK refreshes an expired authorization once, without retaining provider errors (0.563667ms)
+✔ CDEK filters foreign cities and points, preserves coordinates and verifies the requested identity (0.831667ms)
+✔ CDEK sends grams, upward-rounded centimeters and exact pickup point codes; trusts total_sum not base delivery_sum (11.33675ms)
+✔ CDEK checks package limits via the exact point filter (0.824666ms)
+✔ CDEK rejects warnings, foreign currency and invalid or overprecise amounts (1.106791ms)
+✔ CDEK failure messages do not expose secrets or provider payload and reject unsafe inputs (0.384708ms)
+✔ CDEK rejects malformed and oversized directory responses (3.454291ms)
 ℹ tests 8
 ℹ suites 0
 ℹ pass 8
@@ -13,4 +13,4 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 215.481584
+ℹ duration_ms 247.3925

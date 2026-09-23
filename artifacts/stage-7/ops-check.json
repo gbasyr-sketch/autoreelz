@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-09-23T14:15:55.642Z",
+  "ok": true,
+  "services": [
+    {
+      "service": "cms",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "db",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "web",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "worker",
+      "state": "running",
+      "health": "healthy"
+    }
+  ],
+  "counters": {
+    "workerAgeSeconds": 2,
+    "expiredAllocations": 0,
+    "paymentReviews": 0,
+    "oldPendingMail": 0,
+    "failedNotifications": 0,
+    "oldPendingNotifications": 0
+  },
+  "backupAgeHours": 0.17243833333333333,
+  "issues": []
+}

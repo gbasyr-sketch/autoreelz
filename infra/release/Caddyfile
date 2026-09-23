@@ -1,0 +1,21 @@
+{
+	email {$TLS_EMAIL}
+	admin off
+}
+
+autoreelz.ru {
+	# Dynamic pages carry session/CSRF data and are not compressed here.
+	@static path /_astro/* /fonts/* /brand/* /images/*
+	encode @static zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Content-Security-Policy "frame-ancestors 'none'"
+	}
+	reverse_proxy web:4321 {
+		header_up Host autoreelz.ru
+		header_up X-Forwarded-Host autoreelz.ru
+		header_up X-Forwarded-Proto https
+	}
+}

@@ -1,0 +1,28 @@
+{
+  "startedAt": "2026-09-23T14:10:07.231Z",
+  "checks": [
+    {
+      "name": "health exposes a bounded revision without private operational metrics",
+      "passed": true
+    },
+    {
+      "name": "trusted HTTPS proxy creates Secure HttpOnly SameSite cookie; staged SEO stays disabled",
+      "passed": true
+    },
+    {
+      "name": "valid proxy Origin and CSRF reach the normal authentication check",
+      "passed": true
+    },
+    {
+      "name": "foreign forwarded host and foreign Origin cannot pass CSRF checks",
+      "passed": true
+    },
+    {
+      "name": "production mode cannot invoke local test payments or issue simulated login mail",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "cleanup": true,
+  "finishedAt": "2026-09-23T14:10:08.830Z"
+}

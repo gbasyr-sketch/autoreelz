@@ -5,6 +5,7 @@ export default defineConfig({
   site: 'https://autoreelz.ru',
   output: 'server',
   adapter: node({ mode: 'standalone' }),
+  security: { allowedDomains: [{ hostname: 'autoreelz.ru', protocol: 'https' }] },
   server: { host: '127.0.0.1', port: 14322 },
   vite: { server: { strictPort: true } },
 });

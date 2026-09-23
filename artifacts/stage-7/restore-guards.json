@@ -1,0 +1,8 @@
+{
+  "checkedAt": "2026-09-23T14:15:54.708Z",
+  "passed": true,
+  "corruptDumpRejectedBeforeRestore": true,
+  "outsidePathRejected": true,
+  "symlinkEscapeRejected": true,
+  "concurrentBackupRejected": true
+}

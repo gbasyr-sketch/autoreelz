@@ -18,9 +18,13 @@ FROM npm-base AS production-dependencies
 RUN npm ci --omit=dev --no-audit --no-fund
 
 FROM base AS runtime
+ARG VCS_REF=development
+RUN node -e "if(!/^(development|[a-f0-9]{40})$/.test(process.argv[1]))process.exit(1)" "$VCS_REF"
+LABEL org.opencontainers.image.revision=$VCS_REF
 ENV NODE_ENV=production \
     HOST=0.0.0.0 \
-    PORT=4321
+    PORT=4321 \
+    APP_REVISION=$VCS_REF
 COPY --from=production-dependencies --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/dist ./dist
 COPY --chown=node:node src/server ./src/server

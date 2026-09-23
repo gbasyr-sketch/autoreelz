@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-09-23T14:10:43.160Z",
+  "passed": true,
+  "composeValidated": true,
+  "noPublicDbOrAppPorts": true,
+  "cmsLoopbackOnly": true,
+  "indexingDisabled": true,
+  "caddyValidatedOffline": true,
+  "caddyImage": "caddy:2.11.4-alpine@sha256:6aeddd44c3078b0f9a35206472a11420648a79c184603ef95957d0a20044cb2b",
+  "publicTlsCertificateIssued": false,
+  "serverDeployed": false,
+  "limitations": [
+    "Template only; production adapters and final server/credentials are not configured",
+    "No DNS, public ports or ACME certificate activation performed"
+  ]
+}

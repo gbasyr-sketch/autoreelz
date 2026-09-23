@@ -97,3 +97,7 @@ SEO-browser использует отдельную QA-базу/порт14329 и
 Lighthouse13.5.0 устанавливается локально в ignored `tmp/stage-6-tools` по комментарию scripts/mobile-lab.mjs; приложению он не нужен. Во время замеров не выполнять Docker-сборку и тяжёлые проверки. Условия/результаты — [stage-6-mobile-review.md](stage-6-mobile-review.md). В Git только обезличенные компактные отчёты; полные Lighthouse trace и DB-дампы приватны.
 
 Новые настройки SEO по умолчанию выключены; правила — [seo.md](seo.md). Не включать STORE_MODE=production ради проверки sitemap: в текущем приложении платежи разрешены лишь локальному имитатору, реальные адаптеры ещё не подключены. Применённые миграции001–009 неизменяемы.
+
+## Подготовка этапа 7
+
+Ветка codex/stage7-launch-prep. Основные команды — [operations.md](operations.md); недостающие данные — [launch.md](launch.md). `node tests/release-proxy.mjs` использует текущий dist, порт14330 и удаляемую QA-базу. `node tests/release-config.mjs` проверяет только конфигурацию будущего сервера, без запуска Compose. После коммита `node scripts/build-release.mjs` создаёт локальный образ с полным SHA; не размещает его.

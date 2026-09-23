@@ -1,0 +1,17 @@
+# Template only. Create a new 0600 private file on the selected server.
+# Do not reuse local passwords or activate this before stage-7 integration acceptance.
+RELEASE_IMAGE=
+POSTGRES_DB=autoreelz2026_new
+POSTGRES_USER=ar_migrator
+POSTGRES_PASSWORD=
+CMS_DB_PASSWORD=
+APP_DB_PASSWORD=
+READ_DB_PASSWORD=
+DIRECTUS_SECRET=
+APP_SECRET=
+ADMIN_EMAIL=
+ADMIN_PASSWORD=
+CMS_PUBLIC_URL=
+TLS_EMAIL=
+SEO_INDEXING_ENABLED=false
+YML_COMPANY_NAME=

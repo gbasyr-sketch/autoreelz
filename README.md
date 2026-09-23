@@ -9,6 +9,7 @@
 - [Состояние, вопросы и следующий шаг](docs/status.md).
 - [Проверки этапа 5](docs/stage-5-review.md) и [инструкция владельца](docs/manager-guide.md).
 - [Полная приёмка этапа 6](docs/stage-6-review.md), [SEO](docs/seo.md), [мобильные замеры](docs/stage-6-mobile-review.md).
+- [Этап 7 — текущая подготовка](docs/stage-7-review.md), [данные для запуска](docs/launch.md), [backup/restore и эксплуатация](docs/operations.md).
 - [Материалы и инструменты](docs/readiness.md).
 - [Версии и ограничения проверки](docs/versions.md).
 - [Два визуальных направления](docs/design-directions.md) и [запуск прототипов](prototypes/README.md).

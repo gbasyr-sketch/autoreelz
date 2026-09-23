@@ -1,51 +1,50 @@
-name: autoreelz2026-new
-
+# Preparation template. Not deployed; adapters/credentials/content must pass stage 7 first.
+name: autoreelz2026-release
+x-app-env: &app-env
+  AR_DB_HOST: db
+  AR_DB_PORT: 5432
+  AR_DATABASE_NAME: ${POSTGRES_DB:?}
+  APP_DB_PASSWORD: ${APP_DB_PASSWORD:?}
+  APP_SECRET: ${APP_SECRET:?}
+  APP_ORIGIN: https://autoreelz.ru
+  STORE_MODE: production
 services:
+  edge:
+    image: caddy:2.11.4-alpine@sha256:6aeddd44c3078b0f9a35206472a11420648a79c184603ef95957d0a20044cb2b
+    environment:
+      TLS_EMAIL: ${TLS_EMAIL:?}
+    ports: ['80:80', '443:443', '443:443/udp']
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - edge_data:/data
+      - edge_config:/config
+    networks: [frontend]
+    depends_on: [web]
+    restart: unless-stopped
   web:
-    build:
-      context: .
-      args:
-        VCS_REF: ${APP_REVISION:-development}
-    image: autoreelz2026-new-web:stage7-prep
+    image: ${RELEASE_IMAGE:?Use a verified immutable image digest}
     init: true
     mem_limit: 1g
     cpus: 2
-    ports:
-      - 127.0.0.1:${WEB_PORT:-14323}:4321
     environment:
-      HOST: 0.0.0.0
-      PORT: 4321
-      NODE_ENV: production
-      AR_DB_HOST: db
-      AR_DB_PORT: 5432
-      AR_DATABASE_NAME: ${POSTGRES_DB:?}
-      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?}
-      APP_SECRET: ${APP_SECRET:?}
-      APP_ORIGIN: ${APP_ORIGIN:-http://127.0.0.1:14323}
-      STORE_MODE: local-test
-      SEO_INDEXING_ENABLED: ${SEO_INDEXING_ENABLED:-false}
-      YML_COMPANY_NAME: ${YML_COMPANY_NAME:-}
+      <<: *app-env
       CMS_INTERNAL_URL: http://cms:8055
       CMS_UPLOADS_PATH: /cms-uploads
-    volumes:
-      - uploads:/cms-uploads:ro
+      SEO_INDEXING_ENABLED: ${SEO_INDEXING_ENABLED:-false}
+      YML_COMPANY_NAME: ${YML_COMPANY_NAME:-}
+    volumes: [uploads:/cms-uploads:ro]
     read_only: true
     tmpfs: [/tmp]
-    networks: [backend]
+    networks: [frontend, backend]
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
-
   worker:
-    image: autoreelz2026-new-web:stage7-prep
+    image: ${RELEASE_IMAGE:?}
     command: [node, scripts/commerce-worker.ts]
     init: true
-    environment:
-      AR_DB_HOST: db
-      AR_DB_PORT: 5432
-      AR_DATABASE_NAME: ${POSTGRES_DB:?}
-      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?}
-      APP_SECRET: ${APP_SECRET:?}
-      APP_ORIGIN: ${APP_ORIGIN:-http://127.0.0.1:14323}
-      STORE_MODE: local-test
+    environment: *app-env
     read_only: true
     tmpfs: [/tmp]
     networks: [backend]
@@ -53,26 +52,18 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: [CMD, node, --input-type=module, -e, "import {query,getPool} from './src/server/db.ts'; const r=await query(\"SELECT 1 FROM ar_worker_heartbeat WHERE name='commerce' AND last_run_at>now()-interval '60 seconds'\"); await getPool().end(); process.exit(r.rowCount?0:1);"]
+      test: [CMD, node, --input-type=module, -e, "import {query,getPool} from './src/server/db.ts';const r=await query(\"SELECT 1 FROM ar_worker_heartbeat WHERE name='commerce' AND last_run_at>now()-interval '60 seconds'\");await getPool().end();process.exit(r.rowCount?0:1);"]
       interval: 15s
       timeout: 5s
       retries: 4
-      start_period: 20s
     restart: unless-stopped
-
   db:
     image: postgres:17.11-alpine@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:?Generate .env first}
+      POSTGRES_DB: ${POSTGRES_DB:?}
       POSTGRES_USER: ${POSTGRES_USER:?}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?}
-      CMS_DB_PASSWORD: ${CMS_DB_PASSWORD:?}
-      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?}
-      READ_DB_PASSWORD: ${READ_DB_PASSWORD:?}
-    ports:
-      - 127.0.0.1:${DB_PORT:-65432}:5432
-    volumes:
-      - database:/var/lib/postgresql/data
+    volumes: [database:/var/lib/postgresql/data]
     networks: [backend]
     healthcheck:
       test: [CMD-SHELL, 'pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB']
@@ -80,8 +71,8 @@ services:
       timeout: 3s
       retries: 20
     restart: unless-stopped
-
   db-init:
+    profiles: [bootstrap]
     image: postgres:17.11-alpine@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
     entrypoint: [sh, /opt/ar-init.sh]
     environment:
@@ -92,14 +83,12 @@ services:
       CMS_DB_PASSWORD: ${CMS_DB_PASSWORD:?}
       APP_DB_PASSWORD: ${APP_DB_PASSWORD:?}
       READ_DB_PASSWORD: ${READ_DB_PASSWORD:?}
-    volumes:
-      - ./infra/init-db.sh:/opt/ar-init.sh:ro
+    volumes: [../init-db.sh:/opt/ar-init.sh:ro]
     networks: [backend]
     depends_on:
       db:
         condition: service_healthy
     restart: 'no'
-
   cms:
     image: directus/directus:12.3.1@sha256:8978edf633ae28aa31464bb71c55300c94d8bc771ff3727b5fac485173283869
     environment:
@@ -112,34 +101,31 @@ services:
       DB_PASSWORD: ${CMS_DB_PASSWORD:?}
       ADMIN_EMAIL: ${ADMIN_EMAIL:?}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:?}
-      PUBLIC_URL: http://127.0.0.1:${CMS_PORT:-28055}
+      PUBLIC_URL: ${CMS_PUBLIC_URL:?Agree the production license binding first}
       SESSION_COOKIE_NAME: autoreelz2026_new_session
       REFRESH_TOKEN_COOKIE_NAME: autoreelz2026_new_refresh
-      SESSION_COOKIE_SECURE: 'false'
+      SESSION_COOKIE_SECURE: 'true'
       SESSION_COOKIE_SAME_SITE: lax
-      # Required by the Open Innovation Grant accepted by the owner.
       TELEMETRY: 'true'
       CACHE_ENABLED: 'false'
-    ports:
-      - 127.0.0.1:${CMS_PORT:-28055}:8055
-    volumes:
-      - uploads:/directus/uploads
+    # Access through a separately approved secure admin connection, never public port 8055.
+    ports: ['127.0.0.1:28055:8055']
+    volumes: [uploads:/directus/uploads]
     networks: [backend]
-    depends_on:
-      db-init:
-        condition: service_completed_successfully
     healthcheck:
       test: [CMD, node, -e, "fetch('http://127.0.0.1:8055/server/ping').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 10s
       timeout: 5s
       retries: 20
-      start_period: 30s
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
-
 networks:
-  backend:
-    driver: bridge
-
+  frontend: {}
+  backend: {}
 volumes:
-  database:
-  uploads:
+  database: {}
+  uploads: {}
+  edge_data: {}
+  edge_config: {}

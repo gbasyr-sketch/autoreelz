@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "thumbnail and enlarged selection at 1440px",
+      "passed": true
+    },
+    {
+      "name": "thumbnail and enlarged selection at 375px",
+      "passed": true
+    },
+    {
+      "name": "failed photograph preserves current image and allows retry",
+      "passed": true
+    },
+    {
+      "name": "rapid selection cannot be overwritten by an older response",
+      "passed": true
+    },
+    {
+      "name": "placeholder product still opens and closes its single image",
+      "passed": true
+    }
+  ],
+  "cleanup": true
+}

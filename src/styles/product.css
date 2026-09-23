@@ -6,3 +6,8 @@
 .gallery-stage,.gallery-thumbs a,.gallery-thumbs button{grid-template-rows:minmax(0,1fr)}
 .gallery-stage>img,.gallery-thumbs img{min-height:0;min-width:0;max-height:100%}
 .gallery-thumbs img{height:100%;object-fit:contain}
+.gallery-thumbs button{padding:0}.gallery-thumbs button[aria-pressed=true]{border:2px solid var(--red)}
+.gallery-stage>img{cursor:zoom-in}.gallery-status{min-height:1.75em;margin:8px 0 0}
+.gallery-navigation{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px;font-size:13px}
+.gallery-navigation button{min-width:44px;min-height:44px;padding:8px 14px}
+#image-dialog [data-gallery-enlarged]{width:100%;height:min(68vh,750px);object-fit:contain}

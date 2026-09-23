@@ -1,0 +1,10 @@
+{
+  "revision": "256d81aa85d91987e5dc284e9d28c4c8f93209f6",
+  "imageId": "sha256:1f51b568560794aba66ed453761d68a88175e0454c6de4bcfece9f01eef54226",
+  "checkedAt": "2026-09-23T20:53:53.493Z",
+  "backupBeforeImport": "/srv/autoreelz2026/backups/before-wb-catalog-20260923T203959Z.dump",
+  "schemaChanged": false,
+  "catalogImport": "import.json",
+  "verification": "public-check.json",
+  "passed": true
+}

@@ -1,0 +1,194 @@
+{
+  "passed": true,
+  "products": [
+    {
+      "wbId": "231842545",
+      "article": "KPP1GRN0",
+      "priceRubles": "2350.00",
+      "passed": true
+    },
+    {
+      "wbId": "211243623",
+      "article": "KPP2RED0",
+      "priceRubles": "2350.00",
+      "passed": true
+    },
+    {
+      "wbId": "225680024",
+      "article": "OBL-GRANT-BLU",
+      "priceRubles": "3250.00",
+      "passed": true
+    },
+    {
+      "wbId": "285153689",
+      "article": "П2_ЛАДА_КРАСНЫЙ",
+      "priceRubles": "2250.00",
+      "passed": true
+    },
+    {
+      "wbId": "235488550",
+      "article": "OBL-GRANT-WHT2",
+      "priceRubles": "3250.00",
+      "passed": true
+    },
+    {
+      "wbId": "285165379",
+      "article": "П2_ПРИОРА_БЕЛАЯ",
+      "priceRubles": "2200.00",
+      "passed": true
+    },
+    {
+      "wbId": "285178488",
+      "article": "П2_ВЕСТА_БЕЛАЯ",
+      "priceRubles": "2250.00",
+      "passed": true
+    },
+    {
+      "wbId": "286025314",
+      "article": "П2_НЕКСТ_Красный",
+      "priceRubles": "2250.00",
+      "passed": true
+    },
+    {
+      "wbId": "286355487",
+      "article": "П2_Газель_Синий",
+      "priceRubles": "2200.00",
+      "passed": true
+    },
+    {
+      "wbId": "287796872",
+      "article": "П2_ГРАНТА_СИНИЙ",
+      "priceRubles": "2200.00",
+      "passed": true
+    },
+    {
+      "wbId": "287995949",
+      "article": "П2_КАЛИНА_БЕЛЫЙ",
+      "priceRubles": "2200.00",
+      "passed": true
+    },
+    {
+      "wbId": "311024526",
+      "article": "п1_краснстрочка_красный",
+      "priceRubles": "2820.00",
+      "passed": true
+    },
+    {
+      "wbId": "311902127",
+      "article": "п1_синяястрочка_синий",
+      "priceRubles": "2820.00",
+      "passed": true
+    },
+    {
+      "wbId": "311896585",
+      "article": "п1_зеленстрочка_зеленая",
+      "priceRubles": "2820.00",
+      "passed": true
+    },
+    {
+      "wbId": "311906666",
+      "article": "п1_зеленаястрочка_лада_зеленая",
+      "priceRubles": "2820.00",
+      "passed": true
+    },
+    {
+      "wbId": "317868927",
+      "article": "2110-евро-белая",
+      "priceRubles": "3300.00",
+      "passed": true
+    },
+    {
+      "wbId": "312802689",
+      "article": "п2_краснаястрочка_красная",
+      "priceRubles": "2700.00",
+      "passed": true
+    },
+    {
+      "wbId": "317890736",
+      "article": "2114-синий",
+      "priceRubles": "3300.00",
+      "passed": true
+    },
+    {
+      "wbId": "317895736",
+      "article": "2114-зеленый",
+      "priceRubles": "3300.00",
+      "passed": true
+    },
+    {
+      "wbId": "318314120",
+      "article": "приора1-белый",
+      "priceRubles": "2500.00",
+      "passed": true
+    },
+    {
+      "wbId": "318315068",
+      "article": "приора1-зеленый",
+      "priceRubles": "2500.00",
+      "passed": true
+    },
+    {
+      "wbId": "369550232",
+      "article": "УголкиRGB",
+      "priceRubles": "3250.00",
+      "passed": true
+    },
+    {
+      "wbId": "370342386",
+      "article": "козырек приора",
+      "priceRubles": "5000.00",
+      "passed": true
+    },
+    {
+      "wbId": "374318052",
+      "article": "2107-глянец-черный",
+      "priceRubles": "5000.00",
+      "passed": true
+    },
+    {
+      "wbId": "396690457",
+      "article": "Газель-глянец",
+      "priceRubles": "4800.00",
+      "passed": true
+    },
+    {
+      "wbId": "458975530",
+      "article": "УголкиRGB-глянец",
+      "priceRubles": "3250.00",
+      "passed": true
+    },
+    {
+      "wbId": "484391631",
+      "article": "ГАЗЕЛЬ-СИНИЙ",
+      "priceRubles": "10200.00",
+      "passed": true
+    },
+    {
+      "wbId": "485798327",
+      "article": "2114-консоль-глянец",
+      "priceRubles": "11700.00",
+      "passed": true
+    },
+    {
+      "wbId": "485809095",
+      "article": "амг-хром-приора-1-белый",
+      "priceRubles": "6500.00",
+      "passed": true
+    },
+    {
+      "wbId": "485819247",
+      "article": "маг-хром-приора2-синий",
+      "priceRubles": "6500.00",
+      "passed": true
+    }
+  ],
+  "images": 60,
+  "ordersCreated": 0,
+  "catalogProducts": 35,
+  "catalogPages": 3,
+  "cartArticle": "OBL-GRANT-BLU",
+  "cartPriceRubles": "3250.00",
+  "categoryAndColorFilter": true,
+  "mobileFilters": true,
+  "checkedAt": "2026-09-23T20:53:04.330Z"
+}

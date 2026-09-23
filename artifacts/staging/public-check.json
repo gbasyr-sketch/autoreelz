@@ -1,0 +1,26 @@
+{
+  "startedAt": "2026-09-23T15:30:24.843Z",
+  "base": "https://autoreelz.ru",
+  "expectedAppSha": "6ab6bea4f0cb16fbd2dea2c23711b3783611d017",
+  "passed": true,
+  "checks": [
+    {
+      "name": "public HTTPS requires authentication and health matches the approved revision",
+      "passed": true
+    },
+    {
+      "name": "storefront, selected SKU and media render on the public host at desktop and mobile widths",
+      "passed": true
+    },
+    {
+      "name": "Directus Studio loads through /cms and accepts the new owner credentials",
+      "passed": true
+    },
+    {
+      "name": "manager signs in via the public HTTPS origin and reads an empty migrated order list",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "finishedAt": "2026-09-23T15:30:50.581Z"
+}

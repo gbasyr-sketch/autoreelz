@@ -1,0 +1,77 @@
+{
+  "verifiedAt": "2026-09-23T15:32:47.091693+00:00",
+  "host": "91.200.150.79",
+  "storeUrl": "https://autoreelz.ru",
+  "cmsUrl": "https://autoreelz.ru/cms/admin",
+  "mode": "staging",
+  "gitAppSha": "6ab6bea4f0cb16fbd2dea2c23711b3783611d017",
+  "runtimeImageId": "sha256:20367466d4a771674849e85e80cce60eaf7fb35ea82e50456d342dcec65a1f86",
+  "webLimits": {
+    "memoryBytes": 1073741824,
+    "nanoCpus": 2000000000
+  },
+  "rootless": true,
+  "services": [
+    {
+      "service": "cms",
+      "running": true,
+      "health": "healthy",
+      "imageId": "sha256:8978edf633ae28aa31464bb71c55300c94d8bc771ff3727b5fac485173283869"
+    },
+    {
+      "service": "edge",
+      "running": true,
+      "health": "not_defined",
+      "imageId": "sha256:6aeddd44c3078b0f9a35206472a11420648a79c184603ef95957d0a20044cb2b"
+    },
+    {
+      "service": "web",
+      "running": true,
+      "health": "healthy",
+      "imageId": "sha256:20367466d4a771674849e85e80cce60eaf7fb35ea82e50456d342dcec65a1f86"
+    },
+    {
+      "service": "worker",
+      "running": true,
+      "health": "healthy",
+      "imageId": "sha256:20367466d4a771674849e85e80cce60eaf7fb35ea82e50456d342dcec65a1f86"
+    },
+    {
+      "service": "db",
+      "running": true,
+      "health": "healthy",
+      "imageId": "sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24"
+    }
+  ],
+  "license": {
+    "name": "Open Innovation Grant",
+    "status": "active",
+    "usage": {
+      "seats": 2,
+      "collections": 37,
+      "flows": 0
+    },
+    "publicUrl": "https://autoreelz.ru/cms"
+  },
+  "counts": {
+    "migrations": 9,
+    "orders": 0,
+    "products": 4,
+    "skus": 7,
+    "workerRecent": true
+  },
+  "nginxConfig": "/etc/nginx/conf.d/autoreelz2026.conf",
+  "nginxSha256": "59ee664981684307ab08c8bee37e8ca80efe6b0b9e4104320ee3f5b9b905c1ce",
+  "existingSiteRemovedBy": "owner confirmed ISPmanager deletion",
+  "indexingEnabled": false,
+  "realIntegrationsEnabled": false,
+  "originCertificateExpires": "2027-03-10",
+  "credentialsCommitted": false,
+  "runtimeConfigHashes": {
+    "infra/release/compose.yaml": "d9cd696946c898f246dd492f758e9273268ab87d68fdb77be03bba080481bde7",
+    "infra/release/ispmanager.yaml": "02a96cfc300fae5a778aa415884b89e12ab80ac83e52bea0e8901a7cbcf94bf5",
+    "infra/release/Caddyfile.ispmanager": "208667aa38d1153f271ad76261c3d24ed1f4b682763e590216e76e4e9166bb7e",
+    "infra/release/nginx-ispmanager.conf": "59ee664981684307ab08c8bee37e8ca80efe6b0b9e4104320ee3f5b9b905c1ce",
+    "infra/release/user-service-delegation.conf": "fcea16835e9c1fb5ac72f3d7fe930cee3b195310f7b0647b3569afde7918d6c0"
+  }
+}

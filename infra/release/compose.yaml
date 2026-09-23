@@ -106,6 +106,8 @@ services:
       REFRESH_TOKEN_COOKIE_NAME: autoreelz2026_new_refresh
       SESSION_COOKIE_SECURE: 'true'
       SESSION_COOKIE_SAME_SITE: lax
+      REFRESH_TOKEN_COOKIE_SECURE: 'true'
+      REFRESH_TOKEN_COOKIE_SAME_SITE: lax
       TELEMETRY: 'true'
       CACHE_ENABLED: 'false'
     # Access through a separately approved secure admin connection, never public port 8055.

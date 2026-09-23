@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-09-23T18:36:27.618Z",
+  "passed": true,
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "noindex": true
+    },
+    {
+      "path": "/api/manager/orders",
+      "status": 401,
+      "noindex": true
+    },
+    {
+      "path": "/cms/users/me",
+      "status": 401,
+      "noindex": true
+    },
+    {
+      "path": "/muzey/",
+      "status": 200,
+      "noindex": true
+    }
+  ]
+}

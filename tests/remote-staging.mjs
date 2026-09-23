@@ -5,12 +5,12 @@ const require=createRequire(import.meta.url),{chromium}=require(process.env.PLAY
 const path=resolve(process.argv[2]??'');assert.ok(path.startsWith(resolve('private')+'/'),'Private access file required');
 const access=JSON.parse(readFileSync(path,'utf8')),base='https://autoreelz.ru',expected=process.env.AR_EXPECTED_SHA||'6ab6bea4f0cb16fbd2dea2c23711b3783611d017';assert.equal(access.store.url,base);assert.match(expected,/^[a-f0-9]{40}$/);
 const auth='Basic '+Buffer.from(access.store.username+':'+access.store.password).toString('base64');
-const cmsOnly=process.argv.includes('--cms-only');
-const report={startedAt:new Date().toISOString(),base,expectedAppSha:expected,passed:false,checks:[],errors:[]};let browser;
+const cmsOnly=process.argv.includes('--cms-only'),publicAccess=process.env.AR_PUBLIC_ACCESS==='1';
+const report={startedAt:new Date().toISOString(),base,publicAccess,expectedAppSha:expected,passed:false,checks:[],errors:[]};let browser;
 const check=async(name,fn)=>{await fn();report.checks.push({name,passed:true});console.log('PASS '+name);};
 mkdirSync('artifacts/staging',{recursive:true});
 try{
- await check('public HTTPS requires authentication and health matches the approved revision',async()=>{const anonymous=await fetch(base+'/',{redirect:'manual'});assert.equal(anonymous.status,401);assert.match(anonymous.headers.get('x-robots-tag'),/noindex/);const r=await fetch(base+'/health',{headers:{Authorization:auth},redirect:'error'});assert.equal(r.status,200);assert.deepEqual(await r.json(),{ok:true,revision:expected});});
+ await check('public HTTPS matches the configured access policy and approved revision',async()=>{const anonymous=await fetch(base+'/',{redirect:'manual'});assert.equal(anonymous.status,publicAccess?200:401);assert.match(anonymous.headers.get('x-robots-tag'),/noindex/);const r=await fetch(base+'/health',{headers:{Authorization:auth},redirect:'error'});assert.equal(r.status,200);assert.deepEqual(await r.json(),{ok:true,revision:expected});});
  browser=await chromium.launch({channel:'chrome',headless:true});
  const context=await browser.newContext({viewport:{width:1440,height:1000},locale:'ru-RU',httpCredentials:{username:access.store.username,password:access.store.password,origin:base}}),page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
  if(!cmsOnly)await check('storefront, selected SKU and media render on the public host at desktop and mobile widths',async()=>{

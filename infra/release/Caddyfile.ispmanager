@@ -31,10 +31,8 @@
    header_up -Authorization
   }
  }
+ # Owner explicitly opened the storefront to visitors; CMS retains its own login.
  handle {
-  basic_auth {
-   {$TEST_GATE_USER} {$TEST_GATE_HASH}
-  }
   @static path /_astro/* /fonts/* /brand/* /images/*
   encode @static zstd gzip
   reverse_proxy web:4321 {

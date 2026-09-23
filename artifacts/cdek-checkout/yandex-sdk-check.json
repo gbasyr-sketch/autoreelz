@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-09-23T18:41:13.203Z",
+  "passed": true,
+  "origin": "https://autoreelz.ru",
+  "keyVerified": true,
+  "realYandexSdk": true,
+  "baseTileResponses": 22,
+  "pointCode": "MSK2",
+  "selectionCallback": true,
+  "ownModuleServedByHarness": true,
+  "rawMapImagesCommitted": false
+}

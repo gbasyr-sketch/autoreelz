@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-09-23T18:30:14.802Z",
+  "appSha": "7e27c3d59fb48d3d4e4ebcbca3922041ed104479",
+  "passed": true,
+  "orderNumber": "AR-26-010004",
+  "productRubles": "1800.00",
+  "shippingRubles": "390.00",
+  "totalRubles": "2190.00",
+  "tariffCode": 136,
+  "pointCode": "MSK2",
+  "providerPayment": "yookassa-sandbox",
+  "orderStatus": "paid",
+  "stockRestored": true,
+  "stock": 10,
+  "realMoney": false,
+  "realShipments": 0,
+  "realMessages": false
+}

@@ -2,6 +2,9 @@
 import StoreLayout from '../layouts/StoreLayout.astro';
 import '../styles/commerce.css';
 import {shippingProvider} from '../server/shipping-policy';
+import {setting} from '../server/config';
+const mapProvider=setting('PICKUP_MAP_PROVIDER','osm');
+const mapKey=mapProvider==='yandex'?setting('YANDEX_MAPS_API_KEY'):'';
 const deliveryProvider=shippingProvider();
 Astro.response.headers.set('Cache-Control','private, no-store');
 ---
@@ -27,7 +30,7 @@ Astro.response.headers.set('Cache-Control','private, no-store');
 <div class="cdek-controls" data-point-controls hidden>
 <label class="field">Поиск ПВЗ по улице или коду<input name="pointSearch" type="search" autocomplete="off"/></label>
 <button class="text-link pickup-list-link" type="button" data-select-from-list>Выбрать ПВЗ из списка</button>
-<div class="pickup-map" data-pickup-map role="region" aria-label="Карта пунктов выдачи СДЭК"><p class="field-help">Карта появится после выбора города.</p></div><p class="field-help" data-map-status role="status" aria-live="polite"></p>
+<div class="pickup-map" data-pickup-map data-map-provider={mapProvider} data-yandex-api-key={mapKey||undefined} role="region" aria-label="Карта пунктов выдачи СДЭК"><p class="field-help">Карта появится после выбора города.</p></div><p class="field-help" data-map-status role="status" aria-live="polite"></p>
 <label class="field">Пункт выдачи СДЭК<select name="pointCode" required><option value="">Сначала выберите город</option></select></label>
 <div class="form-pair"><label class="field">Код ПВЗ<input name="selectedPointCode" readonly placeholder="Выберите пункт выдачи"/></label><label class="field">Адрес пункта выдачи<input name="selectedPointAddress" readonly placeholder="Выберите пункт выдачи"/></label></div>
 <p class="field-help" data-point-details></p>

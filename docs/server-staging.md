@@ -12,7 +12,7 @@ Compose-проект `autoreelz2026-release`, файлы `infra/release/compose.
 
 ## Данные и доступы
 
-Файловый доступ по SFTP:91.200.150.79,порт 22,пользовательroot, ключ локального проекта `private/ssh_server_ed25519` (без .pub). Корень магазина `/srv/autoreelz2026/`; исходники — `releases/3e4c2bc16f8bbbebc050cec8854d3b4104e3f77a/`, конфигурация/перенос — `shared/`. Изменение исходника через SFTP само по себе не меняет работающий Docker-образ: нужна проверенная сборка и замена web/worker.
+Файловый доступ по SFTP:91.200.150.79,порт 22,пользовательroot, ключ локального проекта `private/ssh_server_ed25519` (без .pub). Корень магазина `/srv/autoreelz2026/`; исходники — `releases/5dcbe1efd92020f2c465746bb0bede81bb6b7dda/`, конфигурация/перенос — `shared/`. Изменение исходника через SFTP само по себе не меняет работающий Docker-образ: нужна проверенная сборка и замена web/worker.
 
 Живые файлы CMS находятся в rootless-томе `/srv/autoreelz2026/.local/share/docker/volumes/autoreelz2026-release_uploads/_data`. Обычно добавлять их через Directus: он создаёт нужную запись/метаданные и связь с товаром. `shared/bootstrap/uploads` — первоначальная копия, не рабочий каталог медиа.
 
@@ -32,7 +32,7 @@ Compose-проект `autoreelz2026-release`, файлы `infra/release/compose.
 
 Сайт работает: https://autoreelz.ru; CMS: https://autoreelz.ru/cms/admin; менеджер: https://autoreelz.ru/manager. Данные входа — локальный `private/server-access.md` (0600, вне Git). Витрина открыта; CMS и менеджер требуют собственного входа. Тема CMS светлая.
 
-Текущий app SHA: `3e4c2bc16f8bbbebc050cec8854d3b4104e3f77a`; серверный image ID: `sha256:c51b5768c0403b13376ec394dc9458cae4fccfceb6d76b6d902aad007efeaec1`. Проверены HTTP health и OCI-label. Runtime-конфигурация/отчёты фиксируются последующим инфраструктурным коммитом; это не другой бинарный образ приложения. Локальная Docker-витрина остаётся отдельной средой.
+Текущий app SHA: `5dcbe1efd92020f2c465746bb0bede81bb6b7dda`; серверный image ID: `sha256:75977cd97d77344cc0cbd46768d7282cdf2d8e2bedd29168414ab30852fc7c3f`. Проверены HTTP health и OCI-label. Runtime-конфигурация/отчёты фиксируются последующим инфраструктурным коммитом; это не другой бинарный образ приложения. Локальная Docker-витрина остаётся отдельной средой.
 
 DB/CMS/web/worker healthy; edge отвечает на HTTP-проверки. Ограничения web реально применены:1 ГБ/2CPU. Для этого добавлено делегирование контроллеров только новому user@1018.service; его Docker перезапущен, прежние службы не останавливались. Применены миграции 001–010; при первоначальном переносе сохранены 4 демотовара/7SKU, старые тестовые заказы/сессии исключены. OIG active,37 коллекций/2 пользователя; локальная OIG также сохранена.
 
@@ -71,3 +71,7 @@ DB/CMS/web/worker healthy; edge отвечает на HTTP-проверки. О�
 Backup: `/srv/autoreelz2026/backups/before-checkout-confirmations-20260923T201713Z.dump`, 0600; pg_restore --list проверен. Обновлена только RELEASE_IMAGE в сохранённом серверном окружении, пересозданы web/worker/edge. БД/CMS/старые службы не пересоздавались. Публичный доступ, /muzey/, CDEK, Yandex и sandbox сохранены. Новых заказов публичный smoke не создавал. Проверка/образ — artifacts/checkout-ux/deployment.json и public-check.json.
 
 Миграция добавочная; откат приложения к a908f83 сохраняет БД/оплаты, но уберёт новые подтверждения и защиту от загрузки карты до согласия. Откат БД/повторный начальный импорт не выполнять.
+
+## Удаление страницы cookies — 23.09.2026
+
+По поручению владельца опубликован app `5dcbe1efd92020f2c465746bb0bede81bb6b7dda`: удалены маршрут /cookies, уведомление и ссылка на него. /cookies и /cookies/ возвращают404, основные страницы и /muzey/200. Подтверждения checkout/Яндекса, механика cookies и БД не менялись; миграций нет. Образ/проверка — artifacts/remove-cookies/public-check.json.

@@ -1,0 +1,44 @@
+{
+  "revision": "5dcbe1efd92020f2c465746bb0bede81bb6b7dda",
+  "imageId": "sha256:75977cd97d77344cc0cbd46768d7282cdf2d8e2bedd29168414ab30852fc7c3f",
+  "passed": true,
+  "checkedAt": "2026-09-23T20:27:15.273Z",
+  "databaseChanged": false,
+  "checks": [
+    {
+      "path": "/cookies",
+      "status": 404,
+      "noCookiesLink": true
+    },
+    {
+      "path": "/cookies/",
+      "status": 404,
+      "noCookiesLink": true
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "noCookiesLink": true
+    },
+    {
+      "path": "/cart",
+      "status": 200,
+      "noCookiesLink": true
+    },
+    {
+      "path": "/checkout",
+      "status": 200,
+      "noCookiesLink": true
+    },
+    {
+      "path": "/info/privacy",
+      "status": 200,
+      "noCookiesLink": true
+    },
+    {
+      "path": "/muzey/",
+      "status": 200,
+      "noCookiesLink": true
+    }
+  ]
+}

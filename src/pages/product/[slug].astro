@@ -1,5 +1,6 @@
 ---
 import StoreLayout from '../../layouts/StoreLayout.astro';
+import {catalogAlias} from '../../server/seo';
 import Icon from '../../components/Icon.astro';
 import Reviews from '../../components/Reviews.astro';
 import {getReviews} from '../../server/social';
@@ -11,6 +12,7 @@ const {products,categories,vehicles,offerFor,findSku,attributeLabel,attributeDef
 const currentYear=new Date().getFullYear();
 import '../../styles/product.css';
 const product=products.find(p=>p.slug===Astro.params.slug);
+if(!product){const slug=await catalogAlias('product',Astro.params.slug??'',catalog);if(slug)return Astro.redirect('/product/'+encodeURIComponent(slug)+Astro.url.search,301);}
 const sku=Astro.url.searchParams.get('sku');
 const offer=product?offerFor(product,sku):null;
 if(!product||!offer)Astro.response.status=404;

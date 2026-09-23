@@ -1,0 +1,19 @@
+▶ OTP and staff auth in isolated PostgreSQL
+  ✔ request normalizes email, stores HMAC and returns no code (84.2425ms)
+  ✔ challenge cannot be used from another browser session (17.879333ms)
+  ✔ five incorrect attempts commit and exhaust even the correct code (32.196125ms)
+  ✔ successful verification rotates credentials, keeps ownership, blocks replay and logs out cleanly (30.733458ms)
+  ✔ concurrent resend across browsers sends one code; a session cannot change email to bypass cooldown (35.24375ms)
+  ✔ expired challenges and superseded codes cannot authenticate (17.880333ms)
+  ✔ persistent email daily and IP hourly limits reject without creating mail (9.067584ms)
+  ✔ staff login forwards only the configured cookie, preserves password and persists failed rate counts (52.466458ms)
+  ✔ test mail generation is blocked outside the local adapter mode (2.860584ms)
+✔ OTP and staff auth in isolated PostgreSQL (4304.37825ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4523.433042

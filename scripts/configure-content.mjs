@@ -7,13 +7,14 @@ const definitions={
  ar_blog_categories:['Темы блога','category','{{name}}'],
  ar_blog_tags:['Теги блога','tag','{{name}}'],
  ar_articles:['Статьи блога','newspaper','{{title}}'],
+ ar_article_products:['Товары в статьях','shopping_bag','{{product_id.name}}'],
  ar_article_tags:['Теги статей','label','{{tag_id.name}}'],
 };
-const labels={id:'ID',slug:'Адрес',title:'Заголовок',name:'Название',body:'Текст',summary:'Краткое вступление',excerpt:'Краткое описание статьи',status:'Публикация',seo_title:'SEO-заголовок',meta_description:'Описание для поиска',is_legal:'Юридический документ',is_draft_text:'Текст — проект документа',is_demo:'Демонстрационный материал',sort:'Порядок',created_at:'Создано',updated_at:'Изменено',category_id:'Тема блога',video_url:'Ссылка на видео',cover_file_id:'Обложка',published_at:'Дата публикации',article_id:'Статья',tag_id:'Тег'};
-const relations=[['ar_articles','category_id','ar_blog_categories',null],['ar_articles','cover_file_id','directus_files',null],['ar_article_tags','article_id','ar_articles','tags'],['ar_article_tags','tag_id','ar_blog_tags',null]];
+const labels={product_id:'Связанный товар',video_title:'Название ролика',video_description:'Описание ролика',video_thumbnail_id:'Превью ролика',video_uploaded_at:'Дата загрузки ролика',video_duration_seconds:'Длительность, секунд',id:'ID',slug:'Адрес',title:'Заголовок',name:'Название',body:'Текст',summary:'Краткое вступление',excerpt:'Краткое описание статьи',status:'Публикация',seo_title:'SEO-заголовок',meta_description:'Описание для поиска',is_legal:'Юридический документ',is_draft_text:'Текст — проект документа',is_demo:'Демонстрационный материал',sort:'Порядок',created_at:'Создано',updated_at:'Изменено',category_id:'Тема блога',video_url:'Ссылка на видео',cover_file_id:'Обложка',published_at:'Дата публикации',article_id:'Статья',tag_id:'Тег'};
+const relations=[['ar_article_products','article_id','ar_articles','products'],['ar_article_products','product_id','ar_products',null],['ar_articles','video_thumbnail_id','directus_files',null],['ar_articles','category_id','ar_blog_categories',null],['ar_articles','cover_file_id','directus_files',null],['ar_article_tags','article_id','ar_articles','tags'],['ar_article_tags','tag_id','ar_blog_tags',null]];
 let collectionSort=40;
 for(const[collection,[label,icon,template]]of Object.entries(definitions)){
- await api('PATCH',`/collections/${collection}`,{meta:{status:'active',icon,display_template:template,sort:collectionSort++,hidden:collection==='ar_article_tags',note:collection==='ar_articles'?'Статья видна после публикации и при опубликованной теме. Видео — только ссылка VK Видео/RUTUBE; видеозагрузка не нужна.':'Тексты выводятся безопасными абзацами. Черновики не видны на сайте.',translations:[{language:'ru-RU',translation:label,singular:label,plural:label}]}});
+ await api('PATCH',`/collections/${collection}`,{meta:{status:'active',icon,display_template:template,sort:collectionSort++,hidden:['ar_article_tags','ar_article_products'].includes(collection),note:collection==='ar_articles'?'Статья видна после публикации и при опубликованной теме. Видео — только ссылка VK Видео/RUTUBE; видеозагрузка не нужна.':'Тексты выводятся безопасными абзацами. Черновики не видны на сайте.',translations:[{language:'ru-RU',translation:label,singular:label,plural:label}]}});
  const fields=await api('GET',`/fields/${collection}`);let sort=1;
  for(const field of fields){if(field.type==='alias')continue;const key=field.field;
   const meta={interface:'input',options:{},width:['body','summary','excerpt','seo_title','meta_description','video_url','cover_file_id'].includes(key)?'full':'half',sort:sort++,translations:translate(labels[key]??key),hidden:key==='id',readonly:['id','created_at','updated_at'].includes(key),required:['title','name','slug','category_id','article_id','tag_id'].includes(key)};
@@ -25,10 +26,11 @@ for(const[collection,[label,icon,template]]of Object.entries(definitions)){
   if(key==='slug')meta.note='Латиница, цифры и дефисы. После смены адреса старый перенаправляет на новый.';
   if(key==='is_draft_text')meta.note='На странице появится заметное предупреждение: это проект, а не окончательные условия.';
   if(key==='video_url'){meta.note='Только HTTPS-ссылка. VK/VK Видео: скопируйте src из кода экспорта video_ext.php с oid, id и hash. RUTUBE: публичная ссылка /video/, /shorts/ или /play/embed/. Не вставляйте HTML. Плеер загрузится по нажатию покупателя.';meta.options={placeholder:'https://rutube.ru/video/…/'};}
-  if(['published_at','created_at','updated_at'].includes(key)){meta.interface='datetime';meta.display='datetime';}
+  if(['published_at','created_at','updated_at','video_uploaded_at'].includes(key)){meta.interface='datetime';meta.display='datetime';}
+  if(key.startsWith('video_')&&key!=='video_url')meta.note='Только подтверждённые данные ролика. Если неизвестны — оставьте пустым; разметка VideoObject не будет выдумана.';
   if(key==='published_at')meta.note='Будущая дата скрывает статью до указанного времени; пустая дата не препятствует публикации.';
   const relation=relations.find(r=>r[0]===collection&&r[1]===key);
-  if(relation){const image=relation[2]==='directus_files';meta.interface=image?'file-image':'select-dropdown-m2o';meta.special=[image?'file':'m2o'];meta.options={template:image?'{{title}}':definitions[relation[2]][2]};meta.display=image?'image':'related-values';meta.display_options={template:meta.options.template};}
+  if(relation){const image=relation[2]==='directus_files';meta.interface=image?'file-image':'select-dropdown-m2o';meta.special=[image?'file':'m2o'];meta.options={template:image?'{{title}}':definitions[relation[2]]?.[2]??'{{name}}'};meta.display=image?'image':'related-values';meta.display_options={template:meta.options.template};}
   await api('PATCH',`/fields/${collection}/${key}`,{meta});
  }
  if(['ar_pages','ar_articles'].includes(collection)){
@@ -37,7 +39,7 @@ for(const[collection,[label,icon,template]]of Object.entries(definitions)){
  }
 }
 for(const[many,field,one,alias]of relations){
- if(alias){const fields=await api('GET',`/fields/${one}`),meta={special:['o2m'],interface:'list-o2m',translations:translate('Теги статьи'),width:'full',sort:90,options:{template:'{{tag_id.name}}',enableCreate:true,enableSelect:true}};if(fields.some(f=>f.field===alias))await api('PATCH',`/fields/${one}/${alias}`,{meta});else await api('POST',`/fields/${one}`,{field:alias,type:'alias',meta});}
+ if(alias){const fields=await api('GET',`/fields/${one}`),meta={special:['o2m'],interface:'list-o2m',translations:translate(alias==='products'?'Связанные товары':'Теги статьи'),width:'full',sort:90,options:{template:alias==='products'?'{{product_id.name}}':'{{tag_id.name}}',enableCreate:true,enableSelect:true}};if(fields.some(f=>f.field===alias))await api('PATCH',`/fields/${one}/${alias}`,{meta});else await api('POST',`/fields/${one}`,{field:alias,type:'alias',meta});}
  const lit=value=>value===null?'NULL':`'${String(value).replaceAll("'","''")}'`;
  const statement=`UPDATE directus_relations SET one_collection=${lit(one)},one_field=${lit(alias)},one_deselect_action='delete' WHERE many_collection=${lit(many)} AND many_field=${lit(field)};
  INSERT INTO directus_relations(many_collection,many_field,one_collection,one_field,one_deselect_action) SELECT ${lit(many)},${lit(field)},${lit(one)},${lit(alias)},'delete' WHERE NOT EXISTS(SELECT 1 FROM directus_relations WHERE many_collection=${lit(many)} AND many_field=${lit(field)});`;
@@ -46,7 +48,7 @@ for(const[many,field,one,alias]of relations){
 await api('PATCH','/collections/ar_content_slugs',{meta:{hidden:true,note:'История адресов. Изменяется автоматически; не редактировать.'}});
 const policies=await api('GET','/policies?filter[name][_eq]=AUTO%20REELZ%20Content');if(!policies[0])throw new Error('Run configure-cms before configure-content');
 const policy=policies[0].id,permissions=await api('GET',`/permissions?filter[policy][_eq]=${policy}&limit=-1`),grants=[];
-for(const collection of Object.keys(definitions))for(const action of ['read','create','update',...(collection==='ar_article_tags'?['delete']:[])])if(!permissions.some(p=>p.collection===collection&&p.action===action))grants.push({policy,collection,action,permissions:{},validation:{},fields:['*']});
+for(const collection of Object.keys(definitions))for(const action of ['read','create','update',...(['ar_article_tags','ar_article_products'].includes(collection)?['delete']:[])])if(!permissions.some(p=>p.collection===collection&&p.action===action))grants.push({policy,collection,action,permissions:{},validation:{},fields:['*']});
 if(grants.length)await api('POST','/permissions',grants);
 const presets=await api('GET','/presets?limit=-1');
 for(const[collection,fields]of Object.entries({ar_pages:['title','status','is_draft_text','slug'],ar_articles:['title','category_id','status','is_demo','published_at'],ar_blog_categories:['name','status','slug'],ar_blog_tags:['name','slug']})){

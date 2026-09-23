@@ -1,6 +1,8 @@
 ---
 import StoreLayout from '../layouts/StoreLayout.astro';
 import ProductCard from '../components/ProductCard.astro';
+import {paginate} from '../lib/pagination';
+import {catalogAlias} from '../server/seo';
 import Icon from '../components/Icon.astro';
 import {getCatalog} from '../server/catalog';
 import {attributeParam,attributeValue} from '../lib/format';
@@ -11,14 +13,18 @@ import { queryCatalog, catalogUrl } from '../lib/catalog';
 import '../styles/catalog.css';
 
 const params = Astro.url.searchParams;
+if(params.has('category')&&!categories.some(c=>c.slug===params.get('category'))){const slug=await catalogAlias('category',params.get('category')!,catalog);if(slug){const next=new URLSearchParams(params);next.set('category',slug);return Astro.redirect('/catalog?'+next,301);}}
 const result = queryCatalog(params,catalog);
-const { items, category, query, attributeKeys, activeFilters, error, unknownFitment, includeUnknown, selectedVehicle, selectedVersion, sort } = result;
-if (error) Astro.response.status = 400;
+const pagination=paginate(result.items,params.get('page'));
+const items=pagination.items;
+const { category, query, attributeKeys, activeFilters, error:queryError, unknownFitment, includeUnknown, selectedVehicle, selectedVersion, sort } = result;
+const error=queryError||(pagination.invalid?'Такой страницы каталога нет. Откройте первую страницу.':'');
+if(error)Astro.response.status=pagination.invalid||(params.has('category')&&!category)?404:400;
 const pageTitle = category?.name ?? 'Каталог деталей';
 const priceError = error.includes('цену') || error.includes('цена');
 const activeCount = activeFilters.filter(item => item.key !== 'q').length;
 const allAttributeKeys = Object.keys(attributeDefinitions);
-const retainedFields = (except: string[]) => Array.from(params.entries()).filter(([key]) => !except.includes(key));
+const retainedFields = (except: string[]) => Array.from(params.entries()).filter(([key]) => !except.includes(key)&&key!=='page');
 const categoryHref = (slug: string) => {
   const nextCategory = categories.find(item => item.slug === slug);
   const changes: Record<string, string | null> = { category: slug || null };
@@ -26,7 +32,7 @@ const categoryHref = (slug: string) => {
   return catalogUrl(params, changes);
 };
 const removeFilterHref = (key: string) => {
-  if(key.startsWith('attr.')){const next=new URLSearchParams(params);next.delete(key);const code=key.slice(5);if(attributeValue(next,code)!==null)next.delete(code);return catalogUrl(next);}
+  if(key.startsWith('attr.')){const next=new URLSearchParams(params);next.delete(key);next.delete('page');const code=key.slice(5);if(attributeValue(next,code)!==null)next.delete(code);return catalogUrl(next);}
   return catalogUrl(params, key === 'vehicle' ? { vehicle: null, year: null, ac: null, version: null, include_unknown: null } : { [key]: null });
 };
 const countLabel = (count: number) => `${count} ${count % 10 === 1 && count % 100 !== 11 ? 'товар' : count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 12 || count % 100 > 14) ? 'товара' : 'товаров'}`;
@@ -109,11 +115,11 @@ const countLabel = (count: number) => `${count} ${count % 10 === 1 && count % 10
           </form>
           <div class="cat-toolbar-bottom">
             <button type="button" class="button-secondary cat-mobile-filter" data-open-catalog-filters aria-haspopup="dialog" aria-controls="cat-filter-dialog"><Icon name="filter" size={18} /><span>Фильтры</span>{activeCount > 0 && <span class="cat-filter-count">{activeCount}</span>}</button>
-            <p class="cat-result-count" aria-live="polite">{countLabel(items.length)}</p>
+            <p class="cat-result-count" aria-live="polite">{countLabel(result.items.length)}</p>
             <form action="/catalog" method="get" class="cat-sort-form">
               {retainedFields(['sort']).map(([key, value]) => <input type="hidden" name={key} value={value} />)}
               <label for="cat-sort">Сортировка</label>
-              <div class="cat-sort-control"><select id="cat-sort" name="sort"><option value="default" selected={sort === 'default'}>По умолчанию</option><option value="price-asc" selected={sort === 'price-asc'}>Сначала дешевле</option><option value="price-desc" selected={sort === 'price-desc'}>Сначала дороже</option><option value="name" selected={sort === 'name'}>По названию</option></select><button type="submit" class="cat-sort-submit" aria-label="Применить сортировку">→</button></div>
+              <div class="cat-sort-control"><select id="cat-sort" name="sort" aria-label="Сортировка"><option value="default" selected={sort === 'default'}>По умолчанию</option><option value="price-asc" selected={sort === 'price-asc'}>Сначала дешевле</option><option value="price-desc" selected={sort === 'price-desc'}>Сначала дороже</option><option value="name" selected={sort === 'name'}>По названию</option></select><button type="submit" class="cat-sort-submit" aria-label="Применить сортировку">→</button></div>
             </form>
           </div>
         </div>
@@ -131,10 +137,11 @@ const countLabel = (count: number) => `${count} ${count % 10 === 1 && count % 10
         </section> : <>
           {unknownFitment && includeUnknown && <div class="cat-fitment-notice"><span class="cat-notice-symbol" aria-hidden="true">i</span><div><strong>Есть товары с неподтверждённой совместимостью</strong><p>Среди результатов есть товары с неизвестной применимостью; они подписаны. Выбор автомобиля не гарантирует, что деталь подойдёт.</p></div></div>}
           {unknownFitment&&!includeUnknown&&items.length>0&&<p class="cat-field-help"><a href={catalogUrl(params,{include_unknown:'1'})}>Также показать товары с неизвестной совместимостью</a></p>}
-          {items.length > 0 ? <div class="cat-product-grid">{items.map(({ product, offer, fitment }) => <ProductCard product={product} offer={offer} catalog={catalog} fitment={fitment}/>)}</div> : <section class="cat-empty" aria-labelledby="cat-empty-title">
+          {items.length > 0 ? <div class="cat-product-grid">{items.map(({ product, offer, fitment }, index) => <ProductCard product={product} offer={offer} catalog={catalog} fitment={fitment} priority={index===0}/>)}</div> : <section class="cat-empty" aria-labelledby="cat-empty-title">
             <span class="cat-state-icon"><Icon name="search" size={32} /></span><span class="eyebrow">Попробуем иначе</span><h2 id="cat-empty-title">{query ? `По запросу «${query}» ничего не найдено` : 'Нет товаров с такими условиями'}</h2><p>{query ? 'Проверьте название или артикул. Можно сократить запрос или убрать часть фильтров.' : 'Попробуйте расширить диапазон цены или убрать один из фильтров. '}</p><div class="cat-empty-actions">{query && <a class="button" href={catalogUrl(params, { q: null })}>Очистить поиск</a>}<a class={query ? 'button-secondary' : 'button'} href="/catalog">Показать весь каталог</a></div>
           </section>}
         </>}
+        {!error&&pagination.totalPages>1&&<nav class="cat-pagination" aria-label="Страницы каталога">{pagination.page>1&&<a class="button-secondary" href={catalogUrl(params,{page:pagination.page===2?null:String(pagination.page-1)})}>Назад</a>}<span>Страница {pagination.page} из {pagination.totalPages}</span>{pagination.page<pagination.totalPages&&<a class="button-secondary" href={catalogUrl(params,{page:String(pagination.page+1)})}>Далее</a>}</nav>}
         <div class="cat-bottom-note"><span aria-hidden="true">↗</span><p>Каждая деталь начинается с правильного подбора.<br /><span>Фотографии и точные параметры появятся после наполнения каталога.</span></p></div>
       </div>
     </div>

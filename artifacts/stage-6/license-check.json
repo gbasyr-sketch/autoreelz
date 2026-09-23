@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-09-23T13:47:40.544Z",
+  "name": "Open Innovation Grant",
+  "status": "active",
+  "source": "settings",
+  "expires_at": -1,
+  "usage": {
+    "seats": 2,
+    "collections": 37,
+    "flows": 0
+  }
+}

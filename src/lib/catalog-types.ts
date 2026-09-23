@@ -6,7 +6,7 @@ export interface VehicleSelection { vehicleId:string; versionId?:string; year?:n
 export interface CatalogMedia { id:string; src:string; alt:string }
 export interface CatalogVariant { id:string; article:string; label:string; priceRubles:Rubles; stock:number; attributes:Record<string,string>; image:string; media:CatalogMedia[]; fitment:FitmentRule[] }
 export interface CatalogProduct { id:string; slug:string; name:string; category:string; categorySlugs:string[]; kind:'single'|'bundle'; description:string; image:string; media:CatalogMedia[]; variants:CatalogVariant[]; attributes:Record<string,string>; fitment:FitmentRule[]; components?:{skuId:string;quantity:number}[]; discountBps:number; isDemo:boolean; seoTitle?:string; metaDescription?:string }
-export interface Category { id:string; parentId:string|null; slug:string; name:string; shortName:string; icon:string; attributes:string[]; depth:number; ancestorSlugs:string[]; seoTitle?:string; metaDescription?:string }
+export interface Category { feedId?:string; id:string; parentId:string|null; slug:string; name:string; shortName:string; icon:string; attributes:string[]; depth:number; ancestorSlugs:string[]; seoTitle?:string; metaDescription?:string }
 export interface Vehicle { id:string; slug:string; name:string; yearFrom:number|null; yearTo:number|null; versions:{id:string;name:string}[] }
 export interface AttributeDefinition { id:string; label:string; type:'select'|'text'|'number'|'boolean'; unit:string|null; filterable:boolean; values:{value:string;label:string;color?:string}[] }
 export interface Offer {priceRubles:Rubles;available:number;variant?:CatalogVariant}

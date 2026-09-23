@@ -1,0 +1,18 @@
+▶ social functions use only an isolated PostgreSQL clone
+  ✔ guest writes denied and favorites isolated by confirmed customer (79.221625ms)
+  ✔ concurrent merges preserve union and replay cannot resurrect a removed favorite (154.590916ms)
+  ✔ the 500-favorite limit applies to the stored union across devices (417.43025ms)
+  ✔ review requires verified email, the exact purchaser and paid delivered status (64.57925ms)
+  ✔ review creates one pending record; retry and file digest protect idempotency (59.5215ms)
+  ✔ pending/rejected photos stay private; moderation publishes only with a visible product (61.952292ms)
+  ✔ a bundle purchase does not authorize a review of its individual component (131.544709ms)
+  ✔ empty review validation, persistent upload limit and revoked session (36.19825ms)
+✔ social functions use only an isolated PostgreSQL clone (3930.863833ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4454.456916

@@ -22,7 +22,7 @@ export function textParagraphs(body:string):string[]{return body.replace(/\r\n?/
 export interface ContentPage {id:string;slug:string;title:string;body:string;summary:string;seoTitle:string|null;metaDescription:string|null;isLegal:boolean;isDraftText:boolean}
 export interface BlogCategory {id:string;slug:string;name:string}
 export interface BlogTag {id:string;slug:string;name:string}
-export interface Article {id:string;slug:string;title:string;excerpt:string;body:string;category:BlogCategory;tags:BlogTag[];video:VideoEmbed|null;invalidVideo:boolean;coverUrl:string|null;seoTitle:string|null;metaDescription:string|null;isDemo:boolean;publishedAt:string|null}
+export interface Article {relatedProductIds?:string[];videoMetadata?:{title:string;description:string;thumbnailUrl:string|null;uploadedAt:string|null;durationSeconds:number|null};id:string;slug:string;title:string;excerpt:string;body:string;category:BlogCategory;tags:BlogTag[];video:VideoEmbed|null;invalidVideo:boolean;coverUrl:string|null;seoTitle:string|null;metaDescription:string|null;isDemo:boolean;publishedAt:string|null}
 export type ContentEntity='page'|'article'|'blog_category'|'blog_tag';
 export interface ContentSnapshot {pages:ContentPage[];articles:Article[];categories:BlogCategory[];tags:BlogTag[];slugs:{entity_type:ContentEntity;entity_id:string;slug:string}[]}
 export function resolveContent(content:ContentSnapshot,type:ContentEntity,slug:string){

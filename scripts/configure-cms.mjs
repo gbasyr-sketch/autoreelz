@@ -11,7 +11,7 @@ for(const [collection,[name,icon,template,note]]of Object.entries(collections)){
  for(const field of fields){
   if(field.type==='alias')continue;
   const key=field.field;
-  const meta={translations:translate(labels[key]??key),sort:sort++,width:['description','note','seo_title','meta_description'].includes(key)?'full':'half',interface:'input',hidden:key==='id',conditions:[],readonly:['id','created_at','updated_at'].includes(key)||['ar_stock','ar_slug_history'].includes(collection)};
+  const meta={translations:translate(labels[key]??key),sort:sort++,width:['description','note','seo_title','meta_description'].includes(key)?'full':'half',interface:'input',hidden:['id','feed_id'].includes(key),conditions:[],readonly:['id','feed_id','created_at','updated_at'].includes(key)||['ar_stock','ar_slug_history'].includes(collection)};
   if(key==='id')meta.special=['uuid'];
   if(['description','note','meta_description','alt'].includes(key))meta.interface='input-multiline';
   if(field.type==='boolean')meta.interface='boolean';

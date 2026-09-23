@@ -1,0 +1,205 @@
+{
+  "timestamp": "2026-09-23T13:08:58.623Z",
+  "baselineCommit": "c6b93bc593c552d7cddcc6f6042d8281bcdf1854",
+  "label": "diagnostic",
+  "base": "http://127.0.0.1:14323",
+  "runs": 1,
+  "lighthouse": "13.5.0",
+  "platform": "darwin arm64 25.6.0",
+  "cpu": "Apple M2",
+  "settings": {
+    "formFactor": "mobile",
+    "throttlingMethod": "simulate",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "cpuSlowdownMultiplier": 4
+    },
+    "screenEmulation": {
+      "mobile": true,
+      "width": 375,
+      "height": 812,
+      "deviceScaleFactor": 2,
+      "disabled": false
+    },
+    "disableStorageReset": false,
+    "onlyCategories": [
+      "performance",
+      "accessibility",
+      "best-practices"
+    ]
+  },
+  "cache": "Fresh Chrome process/profile for every run; storage reset; cold browser cache; server/DB may be warm.",
+  "limitations": [
+    "localhost lab, not real-user measurements",
+    "TBT is a lab metric, not field INP",
+    "No public CDN/TLS/network route or production content load",
+    "CPU slowdown relative to this host; not physical-device calibration"
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "runs": [
+        {
+          "run": 1,
+          "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "benchmarkIndex": 2593.5,
+          "metrics": {
+            "first-contentful-paint": 2918.49555,
+            "largest-contentful-paint": 3443.49555,
+            "total-blocking-time": 24.5,
+            "cumulative-layout-shift": 0,
+            "speed-index": 4309.029765976281
+          },
+          "scores": {
+            "performance": 0.84,
+            "accessibility": 0.91,
+            "best-practices": 1
+          },
+          "transfer": 425028,
+          "warnings": [],
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "title": "First Contentful Paint",
+              "score": 0.52,
+              "display": "2.9 s"
+            },
+            {
+              "id": "largest-contentful-paint",
+              "title": "Largest Contentful Paint",
+              "score": 0.65,
+              "display": "3.4 s"
+            },
+            {
+              "id": "speed-index",
+              "title": "Speed Index",
+              "score": 0.76,
+              "display": "4.3 s"
+            },
+            {
+              "id": "interactive",
+              "title": "Time to Interactive",
+              "score": 0.92,
+              "display": "3.5 s"
+            },
+            {
+              "id": "aria-prohibited-attr",
+              "title": "Elements use prohibited ARIA attributes",
+              "score": 0
+            },
+            {
+              "id": "label-content-name-mismatch",
+              "title": "Elements with visible text labels do not have matching accessible names.",
+              "score": 0
+            },
+            {
+              "id": "link-name",
+              "title": "Links do not have a discernible name",
+              "score": 0
+            },
+            {
+              "id": "unused-javascript",
+              "title": "Reduce unused JavaScript",
+              "score": 0,
+              "display": "Est savings of 47 KiB"
+            },
+            {
+              "id": "bf-cache",
+              "title": "Page prevented back/forward cache restoration",
+              "score": 0,
+              "display": "2 failure reasons"
+            },
+            {
+              "id": "document-latency-insight",
+              "title": "Document request latency",
+              "score": 0.5,
+              "display": "Est savings of 18 KiB"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "title": "Network dependency tree",
+              "score": 0
+            },
+            {
+              "id": "render-blocking-insight",
+              "title": "Render-blocking requests",
+              "score": 0,
+              "display": "Est savings of 1,820 ms"
+            }
+          ],
+          "resources": [
+            {
+              "resourceType": "total",
+              "label": "Total",
+              "requestCount": 17,
+              "transferSize": 425028
+            },
+            {
+              "resourceType": "font",
+              "label": "Font",
+              "requestCount": 3,
+              "transferSize": 285893
+            },
+            {
+              "resourceType": "script",
+              "label": "Script",
+              "requestCount": 2,
+              "transferSize": 68181
+            },
+            {
+              "resourceType": "document",
+              "label": "Document",
+              "requestCount": 1,
+              "transferSize": 28575
+            },
+            {
+              "resourceType": "stylesheet",
+              "label": "Stylesheet",
+              "requestCount": 2,
+              "transferSize": 21628
+            },
+            {
+              "resourceType": "image",
+              "label": "Image",
+              "requestCount": 4,
+              "transferSize": 12971
+            },
+            {
+              "resourceType": "other",
+              "label": "Other",
+              "requestCount": 5,
+              "transferSize": 7780
+            },
+            {
+              "resourceType": "media",
+              "label": "Media",
+              "requestCount": 0,
+              "transferSize": 0
+            },
+            {
+              "resourceType": "third-party",
+              "label": "Third-party",
+              "requestCount": 0,
+              "transferSize": 0
+            }
+          ]
+        }
+      ],
+      "median": {
+        "metrics": {
+          "first-contentful-paint": 2918.49555,
+          "largest-contentful-paint": 3443.49555,
+          "total-blocking-time": 24.5,
+          "cumulative-layout-shift": 0,
+          "speed-index": 4309.029765976281
+        },
+        "scores": {
+          "performance": 0.84,
+          "accessibility": 0.91,
+          "best-practices": 1
+        }
+      }
+    }
+  ]
+}

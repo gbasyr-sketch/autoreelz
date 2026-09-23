@@ -4,6 +4,43 @@
   "vendor": "postgres",
   "collections": [
     {
+      "collection": "ar_article_products",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "ar_article_products",
+        "color": null,
+        "display_template": "{{product_id.name}}",
+        "group": null,
+        "hidden": true,
+        "icon": "shopping_bag",
+        "item_duplication_fields": null,
+        "note": "Тексты выводятся безопасными абзацами. Черновики не видны на сайте.",
+        "preview_url": null,
+        "singleton": false,
+        "sort": 44,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "plural": "Товары в статьях",
+            "singular": "Товары в статьях",
+            "translation": "Товары в статьях"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "ar_article_products"
+      }
+    },
+    {
       "collection": "ar_article_tags",
       "meta": {
         "accountability": "all",
@@ -22,7 +59,7 @@
         "note": "Тексты выводятся безопасными абзацами. Черновики не видны на сайте.",
         "preview_url": null,
         "singleton": false,
-        "sort": 44,
+        "sort": 45,
         "sort_field": null,
         "status": "active",
         "translations": [
@@ -1354,6 +1391,167 @@
   ],
   "fields": [
     {
+      "collection": "ar_article_products",
+      "field": "id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_article_products",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": {},
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": [
+          "uuid"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "ID"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "id",
+        "table": "ar_article_products",
+        "data_type": "uuid",
+        "default_value": "gen_random_uuid()",
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_article_products",
+      "field": "article_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_article_products",
+        "conditions": null,
+        "display": "related-values",
+        "display_options": {
+          "template": "{{title}}"
+        },
+        "field": "article_id",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown-m2o",
+        "note": null,
+        "options": {
+          "template": "{{title}}"
+        },
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 2,
+        "special": [
+          "m2o"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Статья"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "article_id",
+        "table": "ar_article_products",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_articles",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "ar_article_products",
+      "field": "product_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_article_products",
+        "conditions": null,
+        "display": "related-values",
+        "display_options": {
+          "template": "{{name}}"
+        },
+        "field": "product_id",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown-m2o",
+        "note": null,
+        "options": {
+          "template": "{{name}}"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": [
+          "m2o"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Связанный товар"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "product_id",
+        "table": "ar_article_products",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "ar_products",
+        "foreign_key_column": "id"
+      }
+    },
+    {
       "collection": "ar_article_tags",
       "field": "id",
       "type": "uuid",
@@ -2370,6 +2568,294 @@
           {
             "language": "ru-RU",
             "translation": "Теги статьи"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "video_title",
+      "type": "text",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "video_title",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "Только подтверждённые данные ролика. Если неизвестны — оставьте пустым; разметка VideoObject не будет выдумана.",
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 16,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Название ролика"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "video_title",
+        "table": "ar_articles",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "video_description",
+      "type": "text",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "video_description",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "Только подтверждённые данные ролика. Если неизвестны — оставьте пустым; разметка VideoObject не будет выдумана.",
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 17,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Описание ролика"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "video_description",
+        "table": "ar_articles",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "video_thumbnail_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": "image",
+        "display_options": {
+          "template": "{{title}}"
+        },
+        "field": "video_thumbnail_id",
+        "group": null,
+        "hidden": false,
+        "interface": "file-image",
+        "note": "Только подтверждённые данные ролика. Если неизвестны — оставьте пустым; разметка VideoObject не будет выдумана.",
+        "options": {
+          "template": "{{title}}"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 18,
+        "special": [
+          "file"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Превью ролика"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "video_thumbnail_id",
+        "table": "ar_articles",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "video_uploaded_at",
+      "type": "timestamp",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": "datetime",
+        "display_options": null,
+        "field": "video_uploaded_at",
+        "group": null,
+        "hidden": false,
+        "interface": "datetime",
+        "note": "Только подтверждённые данные ролика. Если неизвестны — оставьте пустым; разметка VideoObject не будет выдумана.",
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 19,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Дата загрузки ролика"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "video_uploaded_at",
+        "table": "ar_articles",
+        "data_type": "timestamp with time zone",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "video_duration_seconds",
+      "type": "integer",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "video_duration_seconds",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "Только подтверждённые данные ролика. Если неизвестны — оставьте пустым; разметка VideoObject не будет выдумана.",
+        "options": {},
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 20,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Длительность, секунд"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "video_duration_seconds",
+        "table": "ar_articles",
+        "data_type": "integer",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "products",
+      "type": "alias",
+      "meta": {
+        "collection": "ar_articles",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "products",
+        "group": null,
+        "hidden": false,
+        "interface": "list-o2m",
+        "note": null,
+        "options": {
+          "enableCreate": true,
+          "enableSelect": true,
+          "template": "{{product_id.name}}"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 90,
+        "special": [
+          "o2m"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Связанные товары"
           }
         ],
         "validation": null,
@@ -4286,6 +4772,55 @@
         "validation": null,
         "validation_message": null,
         "width": "full"
+      }
+    },
+    {
+      "collection": "ar_categories",
+      "field": "feed_id",
+      "type": "bigInteger",
+      "meta": {
+        "collection": "ar_categories",
+        "conditions": [],
+        "display": null,
+        "display_options": null,
+        "field": "feed_id",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "feed_id"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "feed_id",
+        "table": "ar_categories",
+        "data_type": "bigint",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": 64,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
       }
     },
     {
@@ -16299,6 +16834,56 @@
   ],
   "relations": [
     {
+      "collection": "ar_article_products",
+      "field": "article_id",
+      "related_collection": "ar_articles",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "ar_article_products",
+        "many_field": "article_id",
+        "one_allowed_collections": null,
+        "one_collection": "ar_articles",
+        "one_collection_field": null,
+        "one_deselect_action": "delete",
+        "one_field": "products",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "ar_article_products",
+        "column": "article_id",
+        "foreign_key_table": "ar_articles",
+        "foreign_key_column": "id",
+        "constraint_name": "ar_article_products_article_id_fkey",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE"
+      }
+    },
+    {
+      "collection": "ar_article_products",
+      "field": "product_id",
+      "related_collection": "ar_products",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "ar_article_products",
+        "many_field": "product_id",
+        "one_allowed_collections": null,
+        "one_collection": "ar_products",
+        "one_collection_field": null,
+        "one_deselect_action": "delete",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "ar_article_products",
+        "column": "product_id",
+        "foreign_key_table": "ar_products",
+        "foreign_key_column": "id",
+        "constraint_name": "ar_article_products_product_id_fkey",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE"
+      }
+    },
+    {
       "collection": "ar_article_tags",
       "field": "article_id",
       "related_collection": "ar_articles",
@@ -16381,6 +16966,22 @@
         "junction_field": null,
         "many_collection": "ar_articles",
         "many_field": "cover_file_id",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "delete",
+        "one_field": null,
+        "sort_field": null
+      }
+    },
+    {
+      "collection": "ar_articles",
+      "field": "video_thumbnail_id",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "ar_articles",
+        "many_field": "video_thumbnail_id",
         "one_allowed_collections": null,
         "one_collection": "directus_files",
         "one_collection_field": null,

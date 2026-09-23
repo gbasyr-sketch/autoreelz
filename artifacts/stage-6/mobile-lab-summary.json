@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-09-23T13:47:17.481Z",
+  "browserChecks": {
+    "count": 49,
+    "passed": true,
+    "source": "mobile-browser.json"
+  },
+  "selectedFinalPages": [
+    {
+      "path": "/",
+      "source": "mobile-lab-final.json",
+      "runningWebImage": "sha256:b32d1b9dafe8488468da9369a8c24d4f1d09ff1365a8d132e73056b3ab4edd02",
+      "runs": 3,
+      "median": {
+        "metrics": {
+          "first-contentful-paint": 1214.2081,
+          "largest-contentful-paint": 2421.31215,
+          "total-blocking-time": 0,
+          "cumulative-layout-shift": 0.008200789321855226,
+          "speed-index": 1214.2081
+        },
+        "scores": {
+          "performance": 0.97,
+          "accessibility": 1,
+          "best-practices": 1
+        }
+      },
+      "lcpRangeMs": [
+        2418.3455999999996,
+        2477.2862000000005
+      ]
+    },
+    {
+      "path": "/catalog",
+      "source": "mobile-lab-catalog-priority.json",
+      "runningWebImage": "sha256:e788ed6503f4586f8fbf2fb5d23bd7f9af0a222444b97dbe1bb4f6db91bc8ac2",
+      "runs": 3,
+      "median": {
+        "metrics": {
+          "first-contentful-paint": 1136.2177,
+          "largest-contentful-paint": 2404.3638499999997,
+          "total-blocking-time": 0,
+          "cumulative-layout-shift": 0.005444708680142687,
+          "speed-index": 1136.2177
+        },
+        "scores": {
+          "performance": 0.98,
+          "accessibility": 1,
+          "best-practices": 1
+        }
+      },
+      "lcpRangeMs": [
+        1902.32655,
+        2425.60455
+      ]
+    },
+    {
+      "path": "/product/heater-control?sku=00000000-0000-4000-8000-000000001001",
+      "source": "mobile-lab-final.json",
+      "runningWebImage": "sha256:b32d1b9dafe8488468da9369a8c24d4f1d09ff1365a8d132e73056b3ab4edd02",
+      "runs": 3,
+      "median": {
+        "metrics": {
+          "first-contentful-paint": 1362.1405,
+          "largest-contentful-paint": 2572.9382,
+          "total-blocking-time": 0,
+          "cumulative-layout-shift": 0.02419486894044181,
+          "speed-index": 1362.1405
+        },
+        "scores": {
+          "performance": 0.97,
+          "accessibility": 1,
+          "best-practices": 1
+        }
+      },
+      "lcpRangeMs": [
+        2418.21075,
+        2726.5474
+      ]
+    }
+  ],
+  "selectionReason": "After the final catalog-only first-image priority change, repeat its three measurements; home and SKU props/output unchanged. Browser checks rerun on final image.",
+  "limitations": [
+    "localhost lab, not real-user measurements",
+    "TBT is a lab metric, not field INP",
+    "No public CDN/TLS/network route or production content load",
+    "CPU slowdown relative to this host; not physical-device calibration"
+  ],
+  "openLabConcern": "SKU median LCP 2572.94 ms, above the recommended 2500 ms; measured range 2418.21–2726.55 ms. Retain openly and remeasure production with real content, compression and network."
+}

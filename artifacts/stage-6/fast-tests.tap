@@ -1,0 +1,60 @@
+﹣ OTP and staff auth in isolated PostgreSQL (0.4045ms) # SKIP
+✔ price and color must match the same SKU, not different variants (28.132125ms)
+✔ stock and color cannot be satisfied by separate variants (0.592834ms)
+✔ article search selects the requested SKU and respects its own stock (0.593417ms)
+✔ foreign or unknown variant cannot fall back to a default offer (0.329542ms)
+✔ a bundle derives price and availability from the fixed components (1.1635ms)
+✔ missing compatibility never becomes an implicit fitment match (0.674333ms)
+✔ invalid price or vehicle inputs return a visible error (2.769917ms)
+✔ fitment needs complete conditions and never promotes conflicts or unknown data (0.257083ms)
+✔ bundle fitment is the conjunction of the exact component SKU rules (0.219458ms)
+✔ confirmed and unknown fitment can coexist, incompatible never included (0.807666ms)
+✔ CMS can add text, number and boolean filters without a code whitelist (0.949583ms)
+✔ parent category includes descendants and published secondary categories (0.20475ms)
+✔ bundle with a missing unpublished component has no offer (0.081417ms)
+✔ ruble fractions filter one exact SKU without float rounding (0.843417ms)
+✔ bundle sums decimal rubles and rounds discount once to two decimals (0.397125ms)
+✔ sorting preserves a one-hundredth ruble difference near the maximum (0.538542ms)
+✔ bundle amounts outside the permitted ruble range do not produce an offer (0.17675ms)
+﹣ commerce integration in isolated PostgreSQL (0.422208ms) # SKIP
+﹣ content publication, aliases and media in isolated PostgreSQL (0.520375ms) # SKIP
+✔ Rutube public video, shorts and embed normalize to the documented HTTPS player (8.068167ms)
+✔ VK accepts export URLs on exact provider hosts and removes unexpected parameters (1.256791ms)
+✔ video rejects executable schemes, pasted HTML, credentials, ports and lookalike hosts (0.168083ms)
+✔ VK requires a full player URL and unique identifiers; invalid provider paths stay closed (0.156917ms)
+✔ plain text paragraph conversion never treats markup as HTML or executable data (4.318ms)
+✔ slug aliases redirect only to currently published entities of the same kind (0.26775ms)
+✔ article pagination has stable slices and rejects invalid or absent pages (0.672292ms)
+﹣ stage 5 management in isolated PostgreSQL (0.612959ms) # SKIP
+✔ ruble values preserve exact cents and use a canonical two-digit fraction (1.971208ms)
+✔ decimal addition and multiplication do not introduce binary floating-point errors (2.203167ms)
+✔ bundle discounts round half a kopeck up once after summing the components (0.746959ms)
+✔ comparison and display retain exact ruble values including the upper boundary (33.768708ms)
+✔ human input accepts rubles with a decimal comma and conventional grouping (0.3725ms)
+✔ invalid amounts, excessive precision and unsafe ranges are rejected (0.463167ms)
+✔ indexing requires all explicit production safeguards; local never enabled (1.323125ms)
+✔ SKU canonical stays at base product while SSR schema retains exact selected offer (1.218875ms)
+✔ pagination has its own canonical and page one is normalized (2.394625ms)
+✔ search, sorting, arbitrary facets, utility params and private pages are noindex (1.173125ms)
+✔ draft documents, empty archives and demo products never enter the sitemap (5.12525ms)
+✔ catalog links preserve filters between pages and reset page after filter changes (0.525958ms)
+✔ JSON-LD and XML escape hostile content and invalid XML controls (0.221ms)
+✔ VideoObject requires actual video metadata; article has no fictional author (0.312792ms)
+✔ YML uses stable numeric category IDs and exact RUB per SKU without guessed delivery or brands (2.619625ms)
+✔ fixed bundles have a derived product offer and no invented SKU or rating (1.781459ms)
+✔ review photos are resized, oriented, re-encoded as WebP and stripped of EXIF/ICC (107.666625ms)
+✔ real PNG and WebP accepted; declared MIME cannot disguise another format (5.841542ms)
+✔ oversized, empty, animated and excessive-resolution images are rejected (58.177667ms)
+✔ multipart requires same origin and CSRF before accepting bytes (17.125292ms)
+✔ multipart enforces total byte limit even without a Content-Length header (0.870209ms)
+✔ only two review uploads can process concurrently and slots release after failure (0.13525ms)
+﹣ social functions use only an isolated PostgreSQL clone (0.375ms) # SKIP
+﹣ stage 6 bundle repricing, atomic preorder and separate delivery payments (0.891458ms) # SKIP
+ℹ tests 52
+ℹ suites 0
+ℹ pass 46
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 6
+ℹ todo 0
+ℹ duration_ms 843.692959

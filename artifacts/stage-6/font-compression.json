@@ -1,0 +1,38 @@
+{
+  "fontTools": "4.60.1",
+  "brotli": "1.1.0",
+  "files": [
+    {
+      "source": "manrope-0.ttf",
+      "sourceBytes": 94972,
+      "output": "manrope-0.woff2",
+      "outputBytes": 30316,
+      "glyphCount": 737,
+      "sameCmapMetricsAndOutlines": true
+    },
+    {
+      "source": "manrope-1.ttf",
+      "sourceBytes": 95060,
+      "output": "manrope-1.woff2",
+      "outputBytes": 30052,
+      "glyphCount": 737,
+      "sameCmapMetricsAndOutlines": true
+    },
+    {
+      "source": "manrope-2.ttf",
+      "sourceBytes": 95096,
+      "output": "manrope-2.woff2",
+      "outputBytes": 30404,
+      "glyphCount": 737,
+      "sameCmapMetricsAndOutlines": true
+    },
+    {
+      "source": "manrope-3.ttf",
+      "sourceBytes": 94928,
+      "output": "manrope-3.woff2",
+      "outputBytes": 30620,
+      "glyphCount": 737,
+      "sameCmapMetricsAndOutlines": true
+    }
+  ]
+}

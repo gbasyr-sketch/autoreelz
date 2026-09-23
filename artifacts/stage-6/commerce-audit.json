@@ -1,0 +1,127 @@
+{
+  "recordedAtUtc": "2026-09-23T13:10:33.247563+00:00",
+  "baselineCommit": "c6b93bc593c552d7cddcc6f6042d8281bcdf1854",
+  "scope": "Independent stage 6 commerce, authentication, management and social acceptance; no production integrations",
+  "nodeVersion": "v24.21.0",
+  "passed": true,
+  "scenarioCount": 75,
+  "nodeTestCount": 80,
+  "runs": [
+    {
+      "name": "commerce",
+      "command": "AR_COMMERCE_TESTS=1 .tools/node-v24.21.0-darwin-arm64/bin/node --test tests/commerce.test.ts",
+      "scenarios": 34,
+      "nodeTests": 35,
+      "passed": 35,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "artifacts/stage-6/commerce-tests.tap",
+      "evidenceLastModifiedUtc": "2026-09-22T10:45:28.553293+00:00",
+      "testSha256": "393f0c28fef433a4bce935f7b12fda7cda37cebd408affac63ff821ba281ee0f"
+    },
+    {
+      "name": "auth",
+      "command": "AR_AUTH_TESTS=1 .tools/node-v24.21.0-darwin-arm64/bin/node --test tests/auth.test.ts",
+      "scenarios": 9,
+      "nodeTests": 10,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "artifacts/stage-6/auth-tests.tap",
+      "evidenceLastModifiedUtc": "2026-09-23T13:06:15.849552+00:00",
+      "testSha256": "bb2498e7c79e60c1095c8af4d9b9c1eee026735941771ed6ccc4d46eadfa80d2"
+    },
+    {
+      "name": "management",
+      "command": "AR_STAGE5_TESTS=1 .tools/node-v24.21.0-darwin-arm64/bin/node --test tests/management.test.ts",
+      "scenarios": 16,
+      "nodeTests": 17,
+      "passed": 17,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "artifacts/stage-6/management-tests.tap",
+      "evidenceLastModifiedUtc": "2026-09-23T13:06:36.935847+00:00",
+      "testSha256": "a0ae1433e26ff286ded3a834dc20d033a27cf96b63a5987597a7c8f2b038835e"
+    },
+    {
+      "name": "social",
+      "command": "AR_SOCIAL_TESTS=1 .tools/node-v24.21.0-darwin-arm64/bin/node --test tests/social.test.ts",
+      "scenarios": 8,
+      "nodeTests": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "artifacts/stage-6/social-tests.tap",
+      "evidenceLastModifiedUtc": "2026-09-23T13:06:49.023107+00:00",
+      "testSha256": "422fca413cf0de26c3649447355ab7b241e5e29bc7f3ce9572cd23efdea53302"
+    },
+    {
+      "name": "social-photos",
+      "command": ".tools/node-v24.21.0-darwin-arm64/bin/node --test tests/social-photos.test.ts",
+      "scenarios": 6,
+      "nodeTests": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "artifacts/stage-6/social-photos-tests.tap",
+      "evidenceLastModifiedUtc": "2026-09-23T13:08:01.073928+00:00",
+      "testSha256": "873aa4e3c059ccd6a052acbe78259b66e2029f83bc7951cb5299102ba4219d16"
+    },
+    {
+      "name": "supplemental-commerce",
+      "command": "AR_STAGE6_TESTS=1 .tools/node-v24.21.0-darwin-arm64/bin/node --test tests/stage-6-commerce.test.ts",
+      "scenarios": 2,
+      "nodeTests": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "artifacts/stage-6/supplemental-commerce-tests.tap",
+      "evidenceLastModifiedUtc": "2026-09-23T13:08:31.924660+00:00",
+      "testSha256": "1109577f2449a063cd0823c03ae6fa11cf2f51d3230bb1a54da6babc59c89b47"
+    }
+  ],
+  "sourceHashes": {
+    "src/server/auth.ts": "a5d6f170210da6bf94368eaf1d73d8df40e315895633f43ef2af7581bcc576f0",
+    "src/server/cart.ts": "4fe8a5841d43324ebe198ba15469d6d451c2822552d4efd11f3ee03a37ddaf1d",
+    "src/server/orders.ts": "56c34359b1a8e89139ce77e8d6668eac61e9a4f2a22800831299ce8bb09a2120",
+    "src/server/payments.ts": "b58926bd75a67fa4bd33156463953a15b3eb1cb9284799050659dbae981bb4ae",
+    "src/server/pricing.ts": "5d288f05d8351ed4abe99268ddf7334f5e80cdf3d2b50329df9d15bbc4467049",
+    "src/server/security.ts": "8278b2f2a107ac9c9b1404b508d72239c8fffb5166b612a874246a4fec6b7668",
+    "src/server/management.ts": "164987ebfca37172dc0e48f03cc5c886d747dd81b43aabca870746138f4ffd15",
+    "src/server/description-generation.ts": "55dbb5b7eb8766d97aa8e64128b9144ceb5a53d471852341bdf454be01e36578",
+    "src/server/social.ts": "5290a88359c2999c1a4b8f40713187037384cca6f201fd0adaae0acba17d6298",
+    "src/server/social-photos.ts": "e06e41527815bb009d8fe57a4423e2fadbabbdb340d2614957e4fdaa779687a7",
+    "src/server/notifications.ts": "953758e9743db024b342c5e6a409a18b71f00b9b807cdf2c6bc039f72c6b1477",
+    "src/server/db.ts": "068c4fac73719e0fe0c2a126d58139ca800797bfaf6368c459f0b7501b7b46dd"
+  },
+  "isolation": {
+    "source": "autoreelz2026_new",
+    "sourceBusinessDataWrites": false,
+    "dockerProject": "autoreelz2026-new",
+    "qaPrefixes": [
+      "ar_qa_commerce_",
+      "ar_qa_auth_",
+      "ar_qa_management_",
+      "ar_qa_social_",
+      "ar_qa_acceptance_commerce_"
+    ],
+    "sequentialSqlSuites": true,
+    "directusStartedOnClones": false,
+    "cleanupVerified": true,
+    "cleanupEvidence": "Fresh pg_database query after final run returned zero databases matching these prefixes."
+  },
+  "matrix": "docs/stage-6-commerce-review.md",
+  "applicationDefects": [],
+  "testCorrections": [
+    {
+      "file": "tests/stage-6-commerce.test.ts",
+      "reason": "Before checking INSUFFICIENT_STOCK, satisfy and separately assert the earlier DELIVERY_PENDING guard. Application did not require modification.",
+      "finalRunPassed": true
+    }
+  ],
+  "limitations": [
+    "Staff-login cookie test mocks Directus; live admin/editor API permissions require CMS acceptance.",
+    "No fresh browser purchase/fitment/video acceptance in this audit; handled by other stage 6 reviews.",
+    "Providers remain local test adapters; no real OpenAI, payment, carrier or notification requests."
+  ]
+}

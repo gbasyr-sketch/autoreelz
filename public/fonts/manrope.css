@@ -3,26 +3,26 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(manrope-0.ttf) format('truetype');
+  src: url(manrope-0.woff2) format('woff2');
 }
 @font-face {
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(manrope-1.ttf) format('truetype');
+  src: url(manrope-1.woff2) format('woff2');
 }
 @font-face {
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(manrope-2.ttf) format('truetype');
+  src: url(manrope-2.woff2) format('woff2');
 }
 @font-face {
   font-family: 'Manrope';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(manrope-3.ttf) format('truetype');
+  src: url(manrope-3.woff2) format('woff2');
 }

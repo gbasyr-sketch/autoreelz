@@ -3,7 +3,7 @@ name: autoreelz2026-new
 services:
   web:
     build: .
-    image: autoreelz2026-new-web:stage5
+    image: autoreelz2026-new-web:stage6
     init: true
     mem_limit: 1g
     cpus: 2
@@ -20,6 +20,8 @@ services:
       APP_SECRET: ${APP_SECRET:?}
       APP_ORIGIN: ${APP_ORIGIN:-http://127.0.0.1:14323}
       STORE_MODE: local-test
+      SEO_INDEXING_ENABLED: ${SEO_INDEXING_ENABLED:-false}
+      YML_COMPANY_NAME: ${YML_COMPANY_NAME:-}
       CMS_INTERNAL_URL: http://cms:8055
       CMS_UPLOADS_PATH: /cms-uploads
     volumes:
@@ -30,7 +32,7 @@ services:
     restart: unless-stopped
 
   worker:
-    image: autoreelz2026-new-web:stage5
+    image: autoreelz2026-new-web:stage6
     command: [node, scripts/commerce-worker.ts]
     init: true
     environment:

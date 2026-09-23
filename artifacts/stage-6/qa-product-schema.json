@@ -1,0 +1,79 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Главная",
+        "item": "https://autoreelz.ru/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Каталог",
+        "item": "https://autoreelz.ru/catalog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "QA SEO категория",
+        "item": "https://autoreelz.ru/catalog?category=qa-seo-86391284-f5fd-4a0b-8ca0-2351a926abcb"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "QA SEO товар 0",
+        "item": "https://autoreelz.ru/product/qa-seo-product-d0408d4d-8fa7-41de-af77-545ab8651d9c"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ProductGroup",
+    "@id": "https://autoreelz.ru/product/qa-seo-product-d0408d4d-8fa7-41de-af77-545ab8651d9c#group",
+    "url": "https://autoreelz.ru/product/qa-seo-product-d0408d4d-8fa7-41de-af77-545ab8651d9c",
+    "name": "QA SEO товар 0",
+    "productGroupID": "d0408d4d-8fa7-41de-af77-545ab8651d9c",
+    "description": "QA описание 0",
+    "hasVariant": [
+      {
+        "@type": "Product",
+        "@id": "https://autoreelz.ru/product/qa-seo-product-d0408d4d-8fa7-41de-af77-545ab8651d9c?sku=a219e6a0-8acb-4ec1-a56f-2289465b3141#product",
+        "name": "QA SEO товар 0 — QA второе исполнение",
+        "url": "https://autoreelz.ru/product/qa-seo-product-d0408d4d-8fa7-41de-af77-545ab8651d9c?sku=a219e6a0-8acb-4ec1-a56f-2289465b3141",
+        "productID": "a219e6a0-8acb-4ec1-a56f-2289465b3141",
+        "sku": "QA-SEO-EXTRA",
+        "description": "QA описание 0",
+        "image": "https://autoreelz.ru/media/083f16ed-e562-4471-bf2d-e619293a2270",
+        "offers": {
+          "@type": "Offer",
+          "@id": "https://autoreelz.ru/product/qa-seo-product-d0408d4d-8fa7-41de-af77-545ab8651d9c?sku=a219e6a0-8acb-4ec1-a56f-2289465b3141#offer",
+          "url": "https://autoreelz.ru/product/qa-seo-product-d0408d4d-8fa7-41de-af77-545ab8651d9c?sku=a219e6a0-8acb-4ec1-a56f-2289465b3141",
+          "price": "5300.01",
+          "priceCurrency": "RUB",
+          "availability": "https://schema.org/InStock"
+        }
+      },
+      {
+        "@type": "Product",
+        "@id": "https://autoreelz.ru/product/qa-seo-product-d0408d4d-8fa7-41de-af77-545ab8651d9c?sku=de315d1c-40b0-4377-b7d3-b25929e8d25a#product",
+        "name": "QA SEO товар 0 — QA исполнение",
+        "url": "https://autoreelz.ru/product/qa-seo-product-d0408d4d-8fa7-41de-af77-545ab8651d9c?sku=de315d1c-40b0-4377-b7d3-b25929e8d25a",
+        "productID": "de315d1c-40b0-4377-b7d3-b25929e8d25a",
+        "sku": "QA-SEO-0",
+        "description": "QA описание 0",
+        "image": "https://autoreelz.ru/media/083f16ed-e562-4471-bf2d-e619293a2270",
+        "offers": {
+          "@type": "Offer",
+          "@id": "https://autoreelz.ru/product/qa-seo-product-d0408d4d-8fa7-41de-af77-545ab8651d9c?sku=de315d1c-40b0-4377-b7d3-b25929e8d25a#offer",
+          "url": "https://autoreelz.ru/product/qa-seo-product-d0408d4d-8fa7-41de-af77-545ab8651d9c?sku=de315d1c-40b0-4377-b7d3-b25929e8d25a",
+          "price": "7200.50",
+          "priceCurrency": "RUB",
+          "availability": "https://schema.org/BackOrder"
+        }
+      }
+    ]
+  }
+]

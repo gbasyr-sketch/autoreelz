@@ -1,0 +1,26 @@
+▶ stage 5 management in isolated PostgreSQL
+  ✔ stock adjustments preserve reservations and deduplicate (169.059583ms)
+  ✔ internal notes are idempotent and absent from the buyer response (59.642917ms)
+  ✔ manager cancellation releases unpaid stock once and rejects paid cancellation (148.289833ms)
+  ✔ fulfillment requires payment, sequence and tracking, records delivered receipt (220.049541ms)
+  ✔ carrier events cannot overwrite manual status and retain tracking for resuming (74.541666ms)
+  ✔ signed carrier event duplicate is safe and changed payload is rejected (71.334209ms)
+  ✔ older, regressive, unpaid and future carrier events cannot change delivery (110.072334ms)
+  ✔ carrier simulator protects the manager command key (53.643542ms)
+  ✔ generation preview and provider errors preserve both current texts and manual title (21.571708ms)
+  ✔ apply changes exactly two text fields and is idempotent (15.532875ms)
+  ✔ concurrent CMS edit and another actor cannot be overwritten with a draft (16.7605ms)
+  ✔ store SQL role cannot overwrite SEO title (4.713292ms)
+  ✔ owner MAX/email outbox is local and duplicate delivery does not repeat (103.271542ms)
+  ✔ notification failure and repeated retry preserve one outbox item (58.391208ms)
+  ✔ unmodified multi-paragraph generator output can be applied (20.188458ms)
+  ✔ a completed generation retry bypasses quota without generating twice (19.522625ms)
+✔ stage 5 management in isolated PostgreSQL (4562.543166ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4772.077167

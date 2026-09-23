@@ -1,0 +1,70 @@
+{
+  "checks": [
+    {
+      "name": "stock adjustments preserve reservations and deduplicate",
+      "passed": true
+    },
+    {
+      "name": "internal notes are idempotent and absent from the buyer response",
+      "passed": true
+    },
+    {
+      "name": "manager cancellation releases unpaid stock once and rejects paid cancellation",
+      "passed": true
+    },
+    {
+      "name": "fulfillment requires payment, sequence and tracking, records delivered receipt",
+      "passed": true
+    },
+    {
+      "name": "carrier events cannot overwrite manual status and retain tracking for resuming",
+      "passed": true
+    },
+    {
+      "name": "signed carrier event duplicate is safe and changed payload is rejected",
+      "passed": true
+    },
+    {
+      "name": "older, regressive, unpaid and future carrier events cannot change delivery",
+      "passed": true
+    },
+    {
+      "name": "carrier simulator protects the manager command key",
+      "passed": true
+    },
+    {
+      "name": "generation preview and provider errors preserve both current texts and manual title",
+      "passed": true
+    },
+    {
+      "name": "apply changes exactly two text fields and is idempotent",
+      "passed": true
+    },
+    {
+      "name": "concurrent CMS edit and another actor cannot be overwritten with a draft",
+      "passed": true
+    },
+    {
+      "name": "store SQL role cannot overwrite SEO title",
+      "passed": true
+    },
+    {
+      "name": "owner MAX/email outbox is local and duplicate delivery does not repeat",
+      "passed": true
+    },
+    {
+      "name": "notification failure and repeated retry preserve one outbox item",
+      "passed": true
+    },
+    {
+      "name": "unmodified multi-paragraph generator output can be applied",
+      "passed": true
+    },
+    {
+      "name": "a completed generation retry bypasses quota without generating twice",
+      "passed": true
+    }
+  ],
+  "cleanup": true,
+  "passed": true
+}

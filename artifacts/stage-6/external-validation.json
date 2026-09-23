@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-23",
+  "scope": "Only already public local demo product JSON-LD, pasted as code; no localhost exposure or URL submission",
+  "googleRichResults": {
+    "url": "https://search.google.com/test/rich-results",
+    "status": "not_verified",
+    "observed": "Произошла ошибка. Войдите в аккаунт и повторите попытку."
+  },
+  "schemaOrg": {
+    "url": "https://validator.schema.org/",
+    "status": "not_verified",
+    "observed": "ERR_SOCKET_NOT_CONNECTED"
+  },
+  "localValidation": "JSON parse/unit contracts, SSR browser comparison and XML parsing completed separately",
+  "followUp": "Repeat external validators with access and final actual product/content data before publication; merchant account acceptance not tested"
+}

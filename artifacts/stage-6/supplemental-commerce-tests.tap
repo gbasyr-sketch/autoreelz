@@ -1,0 +1,12 @@
+▶ stage 6 bundle repricing, atomic preorder and separate delivery payments
+  ✔ each kit keeps its discount and reprices on component change; stale checkout changes nothing (292.621458ms)
+  ✔ whole kit waits for every component; ordinary/preorder shipping and payment stay separate (174.683958ms)
+✔ stage 6 bundle repricing, atomic preorder and separate delivery payments (3581.521584ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3755.793333

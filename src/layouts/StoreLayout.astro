@@ -1,4 +1,6 @@
 ---
+import {pageSeo,safeJsonLd} from '../lib/seo';
+import {seoSettings} from '../server/seo';
 import Icon from '../components/Icon.astro';
 import {getCatalog} from '../server/catalog';
 import type {CatalogSnapshot} from '../lib/catalog-types';
@@ -10,6 +12,10 @@ const{title,description='AUTO REELZ: детали автомобильного �
 const catalog=Astro.props.catalog??await getCatalog();
 const {categories}=catalog;
 const content=Astro.props.content??await getContent();
+const seo=pageSeo(Astro.url,catalog,content,seoSettings(Astro.url));
+Astro.locals.seoIndexable=seo.indexable;
+const documentTitle=seo.title??(title.includes('AUTO REELZ')?title:title+' · AUTO REELZ');
+const documentDescription=seo.description||description;
 const csrfToken=Astro.locals.shopSession?.csrfToken;
 const query=Astro.url.searchParams.get('q')??'';
 ---
@@ -17,8 +23,16 @@ const query=Astro.url.searchParams.get('q')??'';
 <html lang="ru">
 <head>
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="robots" content="noindex,nofollow"/><meta name="description" content={description}/>
-  <meta name="csrf-token" content={csrfToken??''}/><meta name="theme-color" content="#CB181A"/><title>{title} · AUTO REELZ</title>
+  <meta name="robots" content={seo.indexable?'index,follow':'noindex,follow'}/><meta name="description" content={documentDescription}/>
+  {seo.canonical&&<link rel="canonical" href={seo.canonical}/>}
+  {seo.structuredData.length>0&&<script type="application/ld+json" set:html={safeJsonLd(seo.structuredData)}/>}
+  <meta name="csrf-token" content={csrfToken??''}/><meta name="theme-color" content="#CB181A"/><title>{documentTitle}</title>
+  {Astro.url.pathname === '/catalog' && <script is:inline>
+    // Decide the mobile filter layout before paint; no-JS keeps the inline form.
+    if (typeof HTMLDialogElement !== 'undefined' && typeof HTMLDialogElement.prototype.showModal === 'function') {
+      document.documentElement.classList.add('catalog-dialog-supported');
+    }
+  </script>}
   <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml"/>
 </head>
 <body>
@@ -32,9 +46,9 @@ const query=Astro.url.searchParams.get('q')??'';
       <a class="button catalog-button" href="/catalog" data-open-menu><Icon name="grid"/>Каталог</a>
       <form class="header-search" action="/catalog" role="search"><input name="q" type="search" value={query} maxlength="100" placeholder="Деталь, категория или артикул" aria-label="Поиск по каталогу"/><button aria-label="Найти"><Icon name="search"/></button></form>
       <div class="header-actions">
-        <a class="nav-action" href="/favorites"><Icon name="heart"/><span>Избранное</span></a>
-        <a class="nav-action" href="/account"><Icon name="user"/><span>Кабинет</span></a>
-        <a class="nav-action" href="/cart"><Icon name="cart"/><span>Корзина <b data-cart-count>0</b></span></a>
+        <a class="nav-action" href="/favorites" aria-label="Избранное"><Icon name="heart"/><span>Избранное</span></a>
+        <a class="nav-action" href="/account" aria-label="Кабинет"><Icon name="user"/><span>Кабинет</span></a>
+        <a class="nav-action" href="/cart" aria-label="Корзина 0"><Icon name="cart"/><span>Корзина <b data-cart-count>0</b></span></a>
       </div>
     </div>
     <nav class="container category-nav" aria-label="Популярные категории">{categories.filter(c=>c.depth===0).slice(0,5).map(c=><a href={`/catalog?category=${c.slug}`}>{c.name}{c.slug==='bundles'&&<Icon name="arrow" size={15}/>}</a>)}</nav>

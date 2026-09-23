@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-23T13:10:46.682Z",
+  "cms": "http://127.0.0.1:28055",
+  "store": "http://127.0.0.1:14323",
+  "checks": [
+    "admin: real CMS login",
+    "admin: created section → category → subcategory through CMS forms",
+    "admin: real HTML navigation and inherited filter, matching/nonmatching values",
+    "admin: moved category with child using CMS form; SSR ancestry/results/filters changed without rebuild",
+    "admin: unknown fitment hidden by default and explicitly marked when included",
+    "admin: draft ancestor hides descendant navigation and product route",
+    "editor: real CMS login",
+    "editor: created section → category → subcategory through CMS forms",
+    "editor: real HTML navigation and inherited filter, matching/nonmatching values",
+    "editor: moved category with child using CMS form; SSR ancestry/results/filters changed without rebuild",
+    "editor: unknown fitment hidden by default and explicitly marked when included",
+    "editor: draft ancestor hides descendant navigation and product route",
+    "editor: private collections, schema and stock writes denied",
+    "public: catalog API and all checked private collections denied"
+  ],
+  "errors": [],
+  "cleanup": true,
+  "browser": "153.0.8010.53",
+  "passed": true,
+  "fixtureCount": 24
+}

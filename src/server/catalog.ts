@@ -14,7 +14,7 @@ export async function getCatalog():Promise<CatalogSnapshot>{
   const categories:Category[]=[];
   const categorySource=rows.ar_categories.filter(r=>r.status==='published');
   const visit=(parentId:string|null,ancestors:string[])=>{if(ancestors.length>=3)return;for(const r of categorySource.filter(r=>r.parent_id===parentId).sort(bySort)){
-   categories.push({id:r.id,parentId:r.parent_id,slug:r.slug,name:r.name,shortName:r.name,icon:'box',depth:ancestors.length,ancestorSlugs:ancestors,attributes:[],seoTitle:r.seo_title??undefined,metaDescription:r.meta_description??undefined});visit(r.id,[...ancestors,r.slug]);
+   categories.push({feedId:r.feed_id?String(r.feed_id):undefined,id:r.id,parentId:r.parent_id,slug:r.slug,name:r.name,shortName:r.name,icon:'box',depth:ancestors.length,ancestorSlugs:ancestors,attributes:[],seoTitle:r.seo_title??undefined,metaDescription:r.meta_description??undefined});visit(r.id,[...ancestors,r.slug]);
   }};visit(null,[]);
   const attributeDefinitions:Record<string,AttributeDefinition>=Object.create(null);
   for(const r of rows.ar_attributes.sort(bySort))attributeDefinitions[r.code]={id:r.id,label:r.name,type:r.value_type,unit:r.unit,filterable:r.filterable,values:rows.ar_attribute_values.filter(v=>v.attribute_id===r.id).sort(bySort).map(v=>({value:v.code,label:v.label,...(v.color?{color:v.color}:{})}))};

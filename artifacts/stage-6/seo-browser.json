@@ -1,0 +1,35 @@
+{
+  "startedAt": "2026-09-23T13:31:13.690Z",
+  "checks": [
+    {
+      "name": "13 published QA products are reachable through HTML pagination with JavaScript disabled",
+      "passed": true
+    },
+    {
+      "name": "selected SKU has exact SSR money, availability, manual title and canonical ProductGroup",
+      "passed": true
+    },
+    {
+      "name": "old product and category slugs redirect directly to their current published destination",
+      "passed": true
+    },
+    {
+      "name": "invalid SKU, category and page return 404; empty search remains 200",
+      "passed": true
+    },
+    {
+      "name": "local guards survive a mistakenly enabled SEO flag; robots, sitemap and feed stay safe",
+      "passed": true
+    },
+    {
+      "name": "Article and conditional VideoObject match visible metadata and related product links",
+      "passed": true
+    },
+    {
+      "name": "public export builders use the current database facts and exclude demo/private URLs",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "cleanup": true
+}

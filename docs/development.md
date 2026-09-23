@@ -77,3 +77,23 @@ node tests/cms-owner-links.mjs
 Контракты — [stage-5-contracts.md](stage-5-contracts.md), приёмка — [stage-5-review.md](stage-5-review.md). Owner browser использует отдельный QA-порт14326, social browser14327; контентный read-only тест — текущую Docker-витрину14323. CMS content test создаёт помеченные временные записи и удаляет их после проверки. Тяжёлую Docker-сборку и браузерные приёмки лучше выполнять последовательно, чтобы тайм-аут CMS не маскировал результат.
 
 Фото отзывов после проверки перекодируются в WebP и хранятся приватно в bytea новой БД. Docker web ограничен1GiB RAM/2CPU; Sharp — один поток обработки и ограниченный кеш, одновременно не более двух upload-запросов. Эти пределы не являются нагрузочной аттестацией production.
+
+## Проверки этапа 6
+
+```sh
+node --test tests/seo.test.ts
+AR_STAGE6_TESTS=1 node --test tests/stage-6-commerce.test.ts
+node tests/seo-browser.mjs
+node tests/stage6-cms-browser.mjs
+node tests/stage6-cms-schema-browser.mjs
+node tests/mobile-acceptance.mjs
+AR_PURCHASE_VIEWPORT=1440 AR_PURCHASE_OUTPUT=artifacts/stage-6/purchase-desktop node tests/purchase-browser.mjs
+AR_PURCHASE_VIEWPORT=375 AR_PURCHASE_OUTPUT=artifacts/stage-6/purchase-mobile node tests/purchase-browser.mjs
+node scripts/mobile-lab.mjs
+```
+
+SEO-browser использует отдельную QA-базу/порт14329 и удаляет их после проверки. CMS-тесты временно создают собственные помеченные записи в новой CMS, затем удаляют их; их не запускать одновременно с редактированием схемы. Браузер покупки сохраняет указанную ширину после адаптивных снимков: это два полных пути покупки, а не только resize финального экрана.
+
+Lighthouse13.5.0 устанавливается локально в ignored `tmp/stage-6-tools` по комментарию scripts/mobile-lab.mjs; приложению он не нужен. Во время замеров не выполнять Docker-сборку и тяжёлые проверки. Условия/результаты — [stage-6-mobile-review.md](stage-6-mobile-review.md). В Git только обезличенные компактные отчёты; полные Lighthouse trace и DB-дампы приватны.
+
+Новые настройки SEO по умолчанию выключены; правила — [seo.md](seo.md). Не включать STORE_MODE=production ради проверки sitemap: в текущем приложении платежи разрешены лишь локальному имитатору, реальные адаптеры ещё не подключены. Применённые миграции001–009 неизменяемы.

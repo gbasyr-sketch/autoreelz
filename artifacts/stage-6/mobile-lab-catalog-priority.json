@@ -1,0 +1,475 @@
+{
+  "timestamp": "2026-09-23T13:46:12.164Z",
+  "baselineCommit": "c6b93bc593c552d7cddcc6f6042d8281bcdf1854",
+  "label": "catalog-priority",
+  "base": "http://127.0.0.1:14323",
+  "runs": 3,
+  "lighthouse": "13.5.0",
+  "platform": "darwin arm64 25.6.0",
+  "cpu": "Apple M2",
+  "settings": {
+    "formFactor": "mobile",
+    "throttlingMethod": "simulate",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "cpuSlowdownMultiplier": 4
+    },
+    "screenEmulation": {
+      "mobile": true,
+      "width": 375,
+      "height": 812,
+      "deviceScaleFactor": 2,
+      "disabled": false
+    },
+    "disableStorageReset": false,
+    "onlyCategories": [
+      "performance",
+      "accessibility",
+      "best-practices"
+    ]
+  },
+  "cache": "Fresh Chrome process/profile for every run; storage reset; cold browser cache; server/DB may be warm.",
+  "limitations": [
+    "localhost lab, not real-user measurements",
+    "TBT is a lab metric, not field INP",
+    "No public CDN/TLS/network route or production content load",
+    "CPU slowdown relative to this host; not physical-device calibration"
+  ],
+  "pages": [
+    {
+      "path": "/catalog",
+      "runs": [
+        {
+          "run": 1,
+          "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36",
+          "actualThrottling": {
+            "rttMs": 150,
+            "throughputKbps": 1638.4,
+            "requestLatencyMs": 562.5,
+            "downloadThroughputKbps": 1474.5600000000002,
+            "uploadThroughputKbps": 675,
+            "cpuSlowdownMultiplier": 4
+          },
+          "actualViewport": {
+            "mobile": true,
+            "width": 375,
+            "height": 812,
+            "deviceScaleFactor": 2,
+            "disabled": false
+          },
+          "benchmarkIndex": 2982,
+          "metrics": {
+            "first-contentful-paint": 1124.5759,
+            "largest-contentful-paint": 2404.3638499999997,
+            "total-blocking-time": 0,
+            "cumulative-layout-shift": 0.0018056292820338605,
+            "speed-index": 1124.5759
+          },
+          "scores": {
+            "performance": 0.98,
+            "accessibility": 1,
+            "best-practices": 1
+          },
+          "transfer": 243085,
+          "warnings": [],
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "title": "First Contentful Paint",
+              "score": 0.99,
+              "display": "1.1 s"
+            },
+            {
+              "id": "largest-contentful-paint",
+              "title": "Largest Contentful Paint",
+              "score": 0.91,
+              "display": "2.4 s"
+            },
+            {
+              "id": "interactive",
+              "title": "Time to Interactive",
+              "score": 0.98,
+              "display": "2.4 s"
+            },
+            {
+              "id": "unused-javascript",
+              "title": "Reduce unused JavaScript",
+              "score": 0,
+              "display": "Est savings of 47 KiB"
+            },
+            {
+              "id": "bf-cache",
+              "title": "Page prevented back/forward cache restoration",
+              "score": 0,
+              "display": "2 failure reasons"
+            },
+            {
+              "id": "document-latency-insight",
+              "title": "Document request latency",
+              "score": 0.5,
+              "display": "Est savings of 21 KiB"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "title": "Network dependency tree",
+              "score": 0
+            },
+            {
+              "id": "render-blocking-insight",
+              "title": "Render-blocking requests",
+              "score": 0,
+              "display": "Est savings of 130 ms"
+            }
+          ],
+          "resources": [
+            {
+              "resourceType": "total",
+              "label": "Total",
+              "requestCount": 16,
+              "transferSize": 243085
+            },
+            {
+              "resourceType": "font",
+              "label": "Font",
+              "requestCount": 3,
+              "transferSize": 92240
+            },
+            {
+              "resourceType": "script",
+              "label": "Script",
+              "requestCount": 2,
+              "transferSize": 68248
+            },
+            {
+              "resourceType": "document",
+              "label": "Document",
+              "requestCount": 1,
+              "transferSize": 32956
+            },
+            {
+              "resourceType": "stylesheet",
+              "label": "Stylesheet",
+              "requestCount": 2,
+              "transferSize": 29639
+            },
+            {
+              "resourceType": "image",
+              "label": "Image",
+              "requestCount": 3,
+              "transferSize": 12194
+            },
+            {
+              "resourceType": "other",
+              "label": "Other",
+              "requestCount": 5,
+              "transferSize": 7808
+            },
+            {
+              "resourceType": "media",
+              "label": "Media",
+              "requestCount": 0,
+              "transferSize": 0
+            },
+            {
+              "resourceType": "third-party",
+              "label": "Third-party",
+              "requestCount": 0,
+              "transferSize": 0
+            }
+          ]
+        },
+        {
+          "run": 2,
+          "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36",
+          "actualThrottling": {
+            "rttMs": 150,
+            "throughputKbps": 1638.4,
+            "requestLatencyMs": 562.5,
+            "downloadThroughputKbps": 1474.5600000000002,
+            "uploadThroughputKbps": 675,
+            "cpuSlowdownMultiplier": 4
+          },
+          "actualViewport": {
+            "mobile": true,
+            "width": 375,
+            "height": 812,
+            "deviceScaleFactor": 2,
+            "disabled": false
+          },
+          "benchmarkIndex": 3039.5,
+          "metrics": {
+            "first-contentful-paint": 1217.0697,
+            "largest-contentful-paint": 2425.60455,
+            "total-blocking-time": 0,
+            "cumulative-layout-shift": 0.005444708680142687,
+            "speed-index": 1217.0697
+          },
+          "scores": {
+            "performance": 0.98,
+            "accessibility": 1,
+            "best-practices": 1
+          },
+          "transfer": 243085,
+          "warnings": [],
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "title": "First Contentful Paint",
+              "score": 0.99,
+              "display": "1.2 s"
+            },
+            {
+              "id": "largest-contentful-paint",
+              "title": "Largest Contentful Paint",
+              "score": 0.91,
+              "display": "2.4 s"
+            },
+            {
+              "id": "interactive",
+              "title": "Time to Interactive",
+              "score": 0.98,
+              "display": "2.4 s"
+            },
+            {
+              "id": "unused-javascript",
+              "title": "Reduce unused JavaScript",
+              "score": 0,
+              "display": "Est savings of 47 KiB"
+            },
+            {
+              "id": "bf-cache",
+              "title": "Page prevented back/forward cache restoration",
+              "score": 0,
+              "display": "2 failure reasons"
+            },
+            {
+              "id": "document-latency-insight",
+              "title": "Document request latency",
+              "score": 0.5,
+              "display": "Est savings of 21 KiB"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "title": "Network dependency tree",
+              "score": 0
+            },
+            {
+              "id": "render-blocking-insight",
+              "title": "Render-blocking requests",
+              "score": 0,
+              "display": "Est savings of 300 ms"
+            }
+          ],
+          "resources": [
+            {
+              "resourceType": "total",
+              "label": "Total",
+              "requestCount": 16,
+              "transferSize": 243085
+            },
+            {
+              "resourceType": "font",
+              "label": "Font",
+              "requestCount": 3,
+              "transferSize": 92240
+            },
+            {
+              "resourceType": "script",
+              "label": "Script",
+              "requestCount": 2,
+              "transferSize": 68248
+            },
+            {
+              "resourceType": "document",
+              "label": "Document",
+              "requestCount": 1,
+              "transferSize": 32956
+            },
+            {
+              "resourceType": "stylesheet",
+              "label": "Stylesheet",
+              "requestCount": 2,
+              "transferSize": 29639
+            },
+            {
+              "resourceType": "image",
+              "label": "Image",
+              "requestCount": 3,
+              "transferSize": 12194
+            },
+            {
+              "resourceType": "other",
+              "label": "Other",
+              "requestCount": 5,
+              "transferSize": 7808
+            },
+            {
+              "resourceType": "media",
+              "label": "Media",
+              "requestCount": 0,
+              "transferSize": 0
+            },
+            {
+              "resourceType": "third-party",
+              "label": "Third-party",
+              "requestCount": 0,
+              "transferSize": 0
+            }
+          ]
+        },
+        {
+          "run": 3,
+          "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36",
+          "actualThrottling": {
+            "rttMs": 150,
+            "throughputKbps": 1638.4,
+            "requestLatencyMs": 562.5,
+            "downloadThroughputKbps": 1474.5600000000002,
+            "uploadThroughputKbps": 675,
+            "cpuSlowdownMultiplier": 4
+          },
+          "actualViewport": {
+            "mobile": true,
+            "width": 375,
+            "height": 812,
+            "deviceScaleFactor": 2,
+            "disabled": false
+          },
+          "benchmarkIndex": 2973,
+          "metrics": {
+            "first-contentful-paint": 1136.2177,
+            "largest-contentful-paint": 1902.32655,
+            "total-blocking-time": 0,
+            "cumulative-layout-shift": 0.005444708680142687,
+            "speed-index": 1136.2177
+          },
+          "scores": {
+            "performance": 0.99,
+            "accessibility": 1,
+            "best-practices": 1
+          },
+          "transfer": 243085,
+          "warnings": [],
+          "failedAudits": [
+            {
+              "id": "first-contentful-paint",
+              "title": "First Contentful Paint",
+              "score": 0.99,
+              "display": "1.1 s"
+            },
+            {
+              "id": "largest-contentful-paint",
+              "title": "Largest Contentful Paint",
+              "score": 0.98,
+              "display": "1.9 s"
+            },
+            {
+              "id": "unused-javascript",
+              "title": "Reduce unused JavaScript",
+              "score": 0,
+              "display": "Est savings of 47 KiB"
+            },
+            {
+              "id": "bf-cache",
+              "title": "Page prevented back/forward cache restoration",
+              "score": 0,
+              "display": "2 failure reasons"
+            },
+            {
+              "id": "document-latency-insight",
+              "title": "Document request latency",
+              "score": 0.5,
+              "display": "Est savings of 21 KiB"
+            },
+            {
+              "id": "network-dependency-tree-insight",
+              "title": "Network dependency tree",
+              "score": 0
+            },
+            {
+              "id": "render-blocking-insight",
+              "title": "Render-blocking requests",
+              "score": 0,
+              "display": "Est savings of 150 ms"
+            }
+          ],
+          "resources": [
+            {
+              "resourceType": "total",
+              "label": "Total",
+              "requestCount": 16,
+              "transferSize": 243085
+            },
+            {
+              "resourceType": "font",
+              "label": "Font",
+              "requestCount": 3,
+              "transferSize": 92240
+            },
+            {
+              "resourceType": "script",
+              "label": "Script",
+              "requestCount": 2,
+              "transferSize": 68248
+            },
+            {
+              "resourceType": "document",
+              "label": "Document",
+              "requestCount": 1,
+              "transferSize": 32956
+            },
+            {
+              "resourceType": "stylesheet",
+              "label": "Stylesheet",
+              "requestCount": 2,
+              "transferSize": 29639
+            },
+            {
+              "resourceType": "image",
+              "label": "Image",
+              "requestCount": 3,
+              "transferSize": 12194
+            },
+            {
+              "resourceType": "other",
+              "label": "Other",
+              "requestCount": 5,
+              "transferSize": 7808
+            },
+            {
+              "resourceType": "media",
+              "label": "Media",
+              "requestCount": 0,
+              "transferSize": 0
+            },
+            {
+              "resourceType": "third-party",
+              "label": "Third-party",
+              "requestCount": 0,
+              "transferSize": 0
+            }
+          ]
+        }
+      ],
+      "median": {
+        "metrics": {
+          "first-contentful-paint": 1136.2177,
+          "largest-contentful-paint": 2404.3638499999997,
+          "total-blocking-time": 0,
+          "cumulative-layout-shift": 0.005444708680142687,
+          "speed-index": 1136.2177
+        },
+        "scores": {
+          "performance": 0.98,
+          "accessibility": 1,
+          "best-practices": 1
+        }
+      }
+    }
+  ],
+  "runningWebImage": "sha256:e788ed6503f4586f8fbf2fb5d23bd7f9af0a222444b97dbe1bb4f6db91bc8ac2"
+}

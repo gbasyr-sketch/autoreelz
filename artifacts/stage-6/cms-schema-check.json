@@ -1,0 +1,13 @@
+{
+  "date": "2026-09-23T13:28:24.238Z",
+  "checks": [
+    "Editor creates category through form; numeric feed_id assigned automatically and hidden",
+    "Editor saves and reopens video title/description/date/duration and own QA thumbnail",
+    "Editor creates article-product relationship through new form; reopened article alias renders product name"
+  ],
+  "errors": [],
+  "cleanup": true,
+  "browser": "153.0.8010.53",
+  "passed": true,
+  "fixtureCount": 5
+}

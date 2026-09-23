@@ -4,7 +4,7 @@ import {attributeParam,attributeValue} from './format.ts';
 export interface CatalogItem {product:CatalogProduct;offer:Offer;fitment?:FitmentState}
 export interface ActiveFilter {key:string;label:string}
 export function catalogUrl(params:URLSearchParams,changes:Record<string,string|null>={}){
- const next=new URLSearchParams(params);for(const[k,v]of Object.entries(changes)){if(v===null||v==='')next.delete(k);else next.set(k,v);}const query=next.toString();return `/catalog${query?`?${query}`:''}`;
+ const next=new URLSearchParams(params);if(Object.keys(changes).some(key=>key!=='page'))next.delete('page');for(const[k,v]of Object.entries(changes)){if(v===null||v==='')next.delete(k);else next.set(k,v);}const query=next.toString();return `/catalog${query?`?${query}`:''}`;
 }
 export function queryCatalog(params:URLSearchParams,catalog:CatalogSnapshot){
  const{products,categories,vehicles,attributeDefinitions,offerFor}=catalog;

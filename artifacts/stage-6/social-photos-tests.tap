@@ -1,0 +1,14 @@
+✔ review photos are resized, oriented, re-encoded as WebP and stripped of EXIF/ICC (159.8135ms)
+✔ real PNG and WebP accepted; declared MIME cannot disguise another format (9.927916ms)
+✔ oversized, empty, animated and excessive-resolution images are rejected (74.874292ms)
+✔ multipart requires same origin and CSRF before accepting bytes (40.902084ms)
+✔ multipart enforces total byte limit even without a Content-Length header (1.323458ms)
+✔ only two review uploads can process concurrently and slots release after failure (0.159584ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 734.376667

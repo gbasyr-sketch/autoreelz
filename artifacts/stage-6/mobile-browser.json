@@ -1,0 +1,214 @@
+{
+  "timestamp": "2026-09-23T13:45:34.854Z",
+  "base": "http://127.0.0.1:14323",
+  "browser": "153.0.8010.53",
+  "checks": [
+    {
+      "name": "375px / layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /catalog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /product/heater-control?sku=00000000-0000-4000-8000-000000001001 layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /cart layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /account layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /favorites layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /blog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /cars layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px reduced motion",
+      "passed": true
+    },
+    {
+      "name": "#menu-dialog focus trap, Escape, restore",
+      "passed": true
+    },
+    {
+      "name": "#search-dialog focus trap, Escape, restore",
+      "passed": true
+    },
+    {
+      "name": "mobile catalog filter dialog Escape restores opener",
+      "passed": true
+    },
+    {
+      "name": "empty search, favorites and cart explain state",
+      "passed": true
+    },
+    {
+      "name": "email invalid form is rejected locally",
+      "passed": true
+    },
+    {
+      "name": "keyboard focus remains visible above sticky navigation",
+      "passed": true
+    },
+    {
+      "name": "skip link keyboard focus visible",
+      "passed": true
+    },
+    {
+      "name": "375px no uncaught JS errors",
+      "passed": true
+    },
+    {
+      "name": "768px / layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /catalog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /product/heater-control?sku=00000000-0000-4000-8000-000000001001 layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /cart layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /account layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /favorites layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /blog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /cars layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px reduced motion",
+      "passed": true
+    },
+    {
+      "name": "768px no uncaught JS errors",
+      "passed": true
+    },
+    {
+      "name": "1024px / layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1024px /catalog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1024px /product/heater-control?sku=00000000-0000-4000-8000-000000001001 layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1024px /cart layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1024px /account layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1024px /favorites layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1024px /blog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1024px /cars layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1024px reduced motion",
+      "passed": true
+    },
+    {
+      "name": "1024px no uncaught JS errors",
+      "passed": true
+    },
+    {
+      "name": "1440px / layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /catalog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /product/heater-control?sku=00000000-0000-4000-8000-000000001001 layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /cart layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /account layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /favorites layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /blog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /cars layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px reduced motion",
+      "passed": true
+    },
+    {
+      "name": "1440px no uncaught JS errors",
+      "passed": true
+    },
+    {
+      "name": "slow modules do not flash the mobile sidebar or shift catalog results",
+      "passed": true
+    },
+    {
+      "name": "no-JS catalog retains native search and filters",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "artifacts/stage-6/mobile-home.png",
+    "artifacts/stage-6/mobile-catalog.png",
+    "artifacts/stage-6/mobile-cart.png"
+  ],
+  "limits": [
+    "No screen-reader or physical-device audit; browser keyboard and DOM checks only.",
+    "No real payments, emails or mutations."
+  ],
+  "passed": true
+}

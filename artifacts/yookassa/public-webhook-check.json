@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-09-23T17:06:39.225Z",
+  "passed": true,
+  "rootGate": 401,
+  "museum": 200,
+  "simulationEventGate": 401,
+  "unknownWebhook": 200,
+  "invalidWebhook": 400,
+  "oversizeWebhook": 413,
+  "noShopSessionCookie": true,
+  "actualProviderDelivery": false
+}

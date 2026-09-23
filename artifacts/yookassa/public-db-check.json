@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "orderNumber": "AR-26-010002",
+  "orderStatus": "paid",
+  "paymentStatus": "succeeded",
+  "providerStatus": "succeeded",
+  "amountRubles": "4900.00",
+  "currency": "RUB",
+  "attemptCount": 1,
+  "settlementEvents": 1,
+  "stockDebits": 1,
+  "stockRestored": 7,
+  "pendingError": null,
+  "migrationCount": 10
+}

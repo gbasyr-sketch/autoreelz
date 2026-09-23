@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-09-23T17:08:53.883Z",
+  "appSha": "440ac827f5cc9c109bd8be21553171611eeb72b5",
+  "passed": true,
+  "orderNumber": "AR-26-010002",
+  "amountRubles": "4900.00",
+  "currency": "RUB",
+  "officialTestCard": true,
+  "providerSuccess": true,
+  "returnToOrder": true,
+  "workerReconciled": true,
+  "orderStatus": "paid",
+  "stockDebitedOnce": true,
+  "stockRestoredWithJournal": true,
+  "viewports": [
+    375,
+    1440
+  ],
+  "realMoney": false,
+  "realMessages": false,
+  "webhookRegistrationPending": true
+}

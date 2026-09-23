@@ -1,0 +1,21 @@
+{
+  "appSha": "440ac827f5cc9c109bd8be21553171611eeb72b5",
+  "imageId": "sha256:ca4484622d02829e5a0bb60d3af04e7377adf88121af3708ff10f1db0af09a77",
+  "migration": "010_yookassa_payments.sql",
+  "server": "91.200.150.79",
+  "project": "autoreelz2026-release",
+  "databaseBackup": "/srv/autoreelz2026/backups/before-yookassa-010-20260923T165806Z.dump",
+  "healthy": [
+    "db",
+    "cms",
+    "web",
+    "worker"
+  ],
+  "edgeHttpVerified": true,
+  "museumPublic": true,
+  "cmsReadOnlyPaymentFields": 13,
+  "paymentProvider": "yookassa-sandbox",
+  "livePayments": false,
+  "webhookDeliveryConfirmed": true,
+  "webhookIsolationWorkerRestarted": true
+}

@@ -1,0 +1,581 @@
+{
+  "sourceHash": "5e220161ff290a311607060914b15aaf359134dfe9a771589c1dc1ce02db0d8c",
+  "priceSourceHash": "d6b79105c39257b35c7f019e6b0b4361f8e241762d10eb8bf37fa04fa62aff10",
+  "startedAt": "2026-09-23T20:42:07.581Z",
+  "passed": true,
+  "items": [
+    {
+      "article": "KPP2RED0",
+      "wbId": "211243623",
+      "name": "Ручка КПП с подсветкой",
+      "productId": "e5dc2a4d-7602-593d-afa3-1794de09b3fb",
+      "skuId": "abdba3e1-73aa-556c-abb7-a1a282a1ee94",
+      "sourceRow": 5,
+      "priceSourceRow": 95,
+      "basePrice": "5000.00",
+      "sellerDiscount": "53",
+      "priceRubles": "2350.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-211243623?sku=abdba3e1-73aa-556c-abb7-a1a282a1ee94",
+      "photos": [
+        "24aa56ec-ea36-5ba3-a1ce-fc2e15460945",
+        "1ca87985-e849-5041-a152-94ac836da2c3"
+      ]
+    },
+    {
+      "article": "OBL-GRANT-BLU",
+      "wbId": "225680024",
+      "name": "Ручки блока отопителя с подсветкой",
+      "productId": "d7d4ec0d-4639-5ebd-afe9-85640da7d667",
+      "skuId": "42321fa2-f5aa-5a6d-aebf-043df85e898e",
+      "sourceRow": 11,
+      "priceSourceRow": 57,
+      "basePrice": "5000.00",
+      "sellerDiscount": "35",
+      "priceRubles": "3250.00",
+      "sellerStock": 8,
+      "wbStockExcluded": 1,
+      "url": "https://autoreelz.ru/product/wb-225680024?sku=42321fa2-f5aa-5a6d-aebf-043df85e898e",
+      "photos": [
+        "e650b2cc-b9a2-54d5-a43a-8371df5a8dde",
+        "e1d16fd2-dece-544c-aee4-f48290871b54"
+      ]
+    },
+    {
+      "article": "KPP1GRN0",
+      "wbId": "231842545",
+      "name": "Ручка КПП с подсветкой",
+      "productId": "d53ed2a2-0e9c-5cf1-aedf-d8ec0d43c608",
+      "skuId": "4bccd285-31ae-5341-a172-437de00c06b3",
+      "sourceRow": 12,
+      "priceSourceRow": 114,
+      "basePrice": "5000.00",
+      "sellerDiscount": "53",
+      "priceRubles": "2350.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-231842545?sku=4bccd285-31ae-5341-a172-437de00c06b3",
+      "photos": [
+        "1a6da55d-92b7-5c4b-aaf7-4e78effd6af4",
+        "bfb220d1-c1b6-5f10-a81d-46c3d403e7ce"
+      ]
+    },
+    {
+      "article": "OBL-GRANT-WHT2",
+      "wbId": "235488550",
+      "name": "Ручки блока отопителя с подсветкой",
+      "productId": "914da3ba-221b-548d-a112-7e6235731487",
+      "skuId": "8d8b7edc-c9fe-597a-a6df-d25b99366047",
+      "sourceRow": 18,
+      "priceSourceRow": 59,
+      "basePrice": "5000.00",
+      "sellerDiscount": "35",
+      "priceRubles": "3250.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 1,
+      "url": "https://autoreelz.ru/product/wb-235488550?sku=8d8b7edc-c9fe-597a-a6df-d25b99366047",
+      "photos": [
+        "a38ed364-4236-516e-aeea-3f56fa5d521f",
+        "c2b59d2e-22cc-5b51-ac30-0988333901e5"
+      ]
+    },
+    {
+      "article": "П2_ЛАДА_КРАСНЫЙ",
+      "wbId": "285153689",
+      "name": "Ручка КПП ЛАДА с LED подсветкой",
+      "productId": "fdcb2aff-fa85-5e92-a754-9f8c37df356f",
+      "skuId": "0e34282a-5d6f-5c1f-a5a6-aba0985793dd",
+      "sourceRow": 20,
+      "priceSourceRow": 97,
+      "basePrice": "5000.00",
+      "sellerDiscount": "55",
+      "priceRubles": "2250.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-285153689?sku=0e34282a-5d6f-5c1f-a5a6-aba0985793dd",
+      "photos": [
+        "0c75be79-5c6c-5678-a26b-6779faddef90",
+        "c504234d-784e-51fc-a6de-a361f390f80e"
+      ]
+    },
+    {
+      "article": "П2_ПРИОРА_БЕЛАЯ",
+      "wbId": "285165379",
+      "name": "Ручка КПП Приора с LED подсветкой",
+      "productId": "36240a7e-bf1b-5935-a67e-725ea5c949f0",
+      "skuId": "6846f7d2-7987-511b-a7bc-1335324f95ad",
+      "sourceRow": 25,
+      "priceSourceRow": 112,
+      "basePrice": "5000.00",
+      "sellerDiscount": "56",
+      "priceRubles": "2200.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-285165379?sku=6846f7d2-7987-511b-a7bc-1335324f95ad",
+      "photos": [
+        "6d48453d-53fa-577c-a77f-afcda51f4200",
+        "3c0a01ed-19bb-5832-a917-d637f7867db4"
+      ]
+    },
+    {
+      "article": "П2_ВЕСТА_БЕЛАЯ",
+      "wbId": "285178488",
+      "name": "Ручка КПП с LED подсветкой",
+      "productId": "33589c91-428b-59c0-afdd-95e1abb91076",
+      "skuId": "6d99383d-3d3c-5ba6-adc6-ef6009a8532f",
+      "sourceRow": 29,
+      "priceSourceRow": 102,
+      "basePrice": "5000.00",
+      "sellerDiscount": "55",
+      "priceRubles": "2250.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-285178488?sku=6d99383d-3d3c-5ba6-adc6-ef6009a8532f",
+      "photos": [
+        "5a1a6702-1854-53ec-a9d7-70436df477e9",
+        "9d0a6d48-5d43-5801-a118-f28cae2f70e5"
+      ]
+    },
+    {
+      "article": "П2_НЕКСТ_Красный",
+      "wbId": "286025314",
+      "name": "Ручка КПП Некст",
+      "productId": "8ffffd14-d07f-5cf8-a396-e1913a87d342",
+      "skuId": "5415ff09-27a2-5764-afa7-154c159b0d51",
+      "sourceRow": 34,
+      "priceSourceRow": 22,
+      "basePrice": "5000.00",
+      "sellerDiscount": "55",
+      "priceRubles": "2250.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-286025314?sku=5415ff09-27a2-5764-afa7-154c159b0d51",
+      "photos": [
+        "6180fd47-b17a-5d54-a688-69567ba8ce26",
+        "c48c6c73-23b5-597a-a394-85ea74a0d83d"
+      ]
+    },
+    {
+      "article": "П2_Газель_Синий",
+      "wbId": "286355487",
+      "name": "Ручка КПП для тюнинга Газель",
+      "productId": "2cf29739-3f45-580c-a0da-7da33e2ecb7b",
+      "skuId": "9e309957-9020-5b93-a290-42aa07c5132f",
+      "sourceRow": 35,
+      "priceSourceRow": 116,
+      "basePrice": "5000.00",
+      "sellerDiscount": "56",
+      "priceRubles": "2200.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-286355487?sku=9e309957-9020-5b93-a290-42aa07c5132f",
+      "photos": [
+        "7440efa0-9168-5dc4-a906-01355d96c25c",
+        "8c82efe2-a19c-5cfa-acc9-5b91e2616037"
+      ]
+    },
+    {
+      "article": "П2_ГРАНТА_СИНИЙ",
+      "wbId": "287796872",
+      "name": "Ручка КПП Гранта с подсветкой",
+      "productId": "c2a0f9a7-a4d7-5371-a3c6-251c19713db5",
+      "skuId": "64a93109-8834-5296-ad7a-cc74d10dedbd",
+      "sourceRow": 43,
+      "priceSourceRow": 96,
+      "basePrice": "5000.00",
+      "sellerDiscount": "56",
+      "priceRubles": "2200.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-287796872?sku=64a93109-8834-5296-ad7a-cc74d10dedbd",
+      "photos": [
+        "3c0cd863-7ca6-5d8d-a8bd-92d17eded05f",
+        "c30ab912-4544-522a-aefc-5506475de6bd"
+      ]
+    },
+    {
+      "article": "П2_КАЛИНА_БЕЛЫЙ",
+      "wbId": "287995949",
+      "name": "Ручка КПП Калина с подсветкой",
+      "productId": "543252b6-abdf-5634-a87f-013f796b7e46",
+      "skuId": "c1505bcb-f447-5b0c-a13f-13e24dbfcdb2",
+      "sourceRow": 48,
+      "priceSourceRow": 92,
+      "basePrice": "5000.00",
+      "sellerDiscount": "56",
+      "priceRubles": "2200.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-287995949?sku=c1505bcb-f447-5b0c-a13f-13e24dbfcdb2",
+      "photos": [
+        "228f4a32-dde8-5189-a9f9-72d5beae6449",
+        "0fb7ba25-4b19-5471-a7f1-169dec2dee5d"
+      ]
+    },
+    {
+      "article": "п1_краснстрочка_красный",
+      "wbId": "311024526",
+      "name": "Ручка КПП стиль веста ВАЗ 2113,2114,2115",
+      "productId": "4e5b24f1-1cad-572b-a160-f9fc709ae897",
+      "skuId": "b5f46a05-3e70-57db-a2d7-4fcd03381184",
+      "sourceRow": 57,
+      "priceSourceRow": 121,
+      "basePrice": "6000.00",
+      "sellerDiscount": "53",
+      "priceRubles": "2820.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-311024526?sku=b5f46a05-3e70-57db-a2d7-4fcd03381184",
+      "photos": [
+        "0142afa9-7270-58e0-a947-7a9cfe550891",
+        "e80aa9ef-897c-51b1-a75a-695e959c410b"
+      ]
+    },
+    {
+      "article": "п1_зеленстрочка_зеленая",
+      "wbId": "311896585",
+      "name": "Ручка КПП стиль веста ВАЗ 2113,2114,2115",
+      "productId": "b9f25533-9d3e-573a-a668-6b70d0beb2d7",
+      "skuId": "a23cf761-5342-5e75-a8b2-66120c8d4d16",
+      "sourceRow": 61,
+      "priceSourceRow": 83,
+      "basePrice": "6000.00",
+      "sellerDiscount": "53",
+      "priceRubles": "2820.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-311896585?sku=a23cf761-5342-5e75-a8b2-66120c8d4d16",
+      "photos": [
+        "735533e7-be4b-57e9-a823-4df63adbd627",
+        "cf98f711-1a4d-52ac-a669-59a10f990a2a"
+      ]
+    },
+    {
+      "article": "п1_синяястрочка_синий",
+      "wbId": "311902127",
+      "name": "Ручка КПП стиль веста ВАЗ 2113,2114,2115",
+      "productId": "f3fc740b-083a-5ebd-a995-38354cbda33e",
+      "skuId": "43ad2388-4fb2-5e03-aee0-e301b5775a51",
+      "sourceRow": 65,
+      "priceSourceRow": 88,
+      "basePrice": "6000.00",
+      "sellerDiscount": "53",
+      "priceRubles": "2820.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-311902127?sku=43ad2388-4fb2-5e03-aee0-e301b5775a51",
+      "photos": [
+        "7a7b7842-f0f0-518a-a93e-663b52eca2d2",
+        "30439af3-ddba-5b72-a655-6e51d23c9f1b"
+      ]
+    },
+    {
+      "article": "п1_зеленаястрочка_лада_зеленая",
+      "wbId": "311906666",
+      "name": "Ручка КПП Лада стиль веста",
+      "productId": "ed447ba0-4512-53c3-aaa9-9e5ba3f33e4c",
+      "skuId": "a1962dc5-e86e-5b4c-a6a7-d8f62928bff7",
+      "sourceRow": 69,
+      "priceSourceRow": 85,
+      "basePrice": "6000.00",
+      "sellerDiscount": "53",
+      "priceRubles": "2820.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-311906666?sku=a1962dc5-e86e-5b4c-a6a7-d8f62928bff7",
+      "photos": [
+        "f4e12585-79ed-5f51-aed7-2a33acf72137",
+        "1a7a97de-a0cd-5f23-af64-9fe351c359bd"
+      ]
+    },
+    {
+      "article": "п2_краснаястрочка_красная",
+      "wbId": "312802689",
+      "name": "Ручка КПП Приора 2",
+      "productId": "c7c66a55-e903-5865-ab37-a21017076bfa",
+      "skuId": "9ccd477d-1a7c-59f3-a6fc-04faf1345372",
+      "sourceRow": 72,
+      "priceSourceRow": 35,
+      "basePrice": "6000.00",
+      "sellerDiscount": "55",
+      "priceRubles": "2700.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-312802689?sku=9ccd477d-1a7c-59f3-a6fc-04faf1345372",
+      "photos": [
+        "41751ff1-5bf1-5cca-af9c-c1152eae370c",
+        "893f21e5-1b03-5416-a1e0-5aeabada44ae"
+      ]
+    },
+    {
+      "article": "2110-евро-белая",
+      "wbId": "317868927",
+      "name": "LED-панель отопителя на Ваз 2110 белая",
+      "productId": "f59beb83-9a76-5f50-ac1b-1b0facb0fd04",
+      "skuId": "a006e9e9-aa33-5fd1-a364-2d90a0db95cc",
+      "sourceRow": 75,
+      "priceSourceRow": 49,
+      "basePrice": "6000.00",
+      "sellerDiscount": "45",
+      "priceRubles": "3300.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-317868927?sku=a006e9e9-aa33-5fd1-a364-2d90a0db95cc",
+      "photos": [
+        "cc4849e7-8dea-5512-ae58-3743fc45d037",
+        "0f412633-87de-5a05-a0f3-33ca9a14c942"
+      ]
+    },
+    {
+      "article": "2114-синий",
+      "wbId": "317890736",
+      "name": "аксессуар печки для ВАЗ 2114 2113 2115",
+      "productId": "6f927dfc-6d9b-5177-aef3-c4262a13e2ce",
+      "skuId": "4eded112-bf45-54c2-a546-0d2c7675cf50",
+      "sourceRow": 76,
+      "priceSourceRow": 48,
+      "basePrice": "6000.00",
+      "sellerDiscount": "45",
+      "priceRubles": "3300.00",
+      "sellerStock": 10,
+      "wbStockExcluded": 4,
+      "url": "https://autoreelz.ru/product/wb-317890736?sku=4eded112-bf45-54c2-a546-0d2c7675cf50",
+      "photos": [
+        "a630a3d1-5cea-56f0-ab8d-f0d67092d0da",
+        "01401125-32b8-5a09-a115-322977dbd425"
+      ]
+    },
+    {
+      "article": "2114-зеленый",
+      "wbId": "317895736",
+      "name": "панель отопителя с подсветкой для 2113 2114 2115",
+      "productId": "3a537585-18c4-5fff-a5c8-78784e54e407",
+      "skuId": "b6304150-8994-5827-ab6a-b44f94ad5495",
+      "sourceRow": 77,
+      "priceSourceRow": 148,
+      "basePrice": "6000.00",
+      "sellerDiscount": "45",
+      "priceRubles": "3300.00",
+      "sellerStock": 10,
+      "wbStockExcluded": 2,
+      "url": "https://autoreelz.ru/product/wb-317895736?sku=b6304150-8994-5827-ab6a-b44f94ad5495",
+      "photos": [
+        "74381dc1-9a1d-514e-a9dc-15b0efc3358a",
+        "34d4f3bc-9f83-50e6-a25b-3b4bf6d29928"
+      ]
+    },
+    {
+      "article": "приора1-белый",
+      "wbId": "318314120",
+      "name": "Блок отопителя Лада Приора",
+      "productId": "09aeee5d-58e0-517b-a282-80853087b83e",
+      "skuId": "87e69ca5-d6c6-559c-a977-ef00a4294aab",
+      "sourceRow": 80,
+      "priceSourceRow": 54,
+      "basePrice": "5000.00",
+      "sellerDiscount": "50",
+      "priceRubles": "2500.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-318314120?sku=87e69ca5-d6c6-559c-a977-ef00a4294aab",
+      "photos": [
+        "c0903a97-beca-5f5d-a92d-d8ecba138a79",
+        "7bdb0c8b-3994-5ad8-a863-a873e3b166f2"
+      ]
+    },
+    {
+      "article": "приора1-зеленый",
+      "wbId": "318315068",
+      "name": "LED панель управления отопителем Лада Приора",
+      "productId": "0f11bcb0-8edf-59b0-af0a-5e366b29df9e",
+      "skuId": "b73e0f23-8799-5cd8-ab17-e262cdaf8b22",
+      "sourceRow": 81,
+      "priceSourceRow": 42,
+      "basePrice": "5000.00",
+      "sellerDiscount": "50",
+      "priceRubles": "2500.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-318315068?sku=b73e0f23-8799-5cd8-ab17-e262cdaf8b22",
+      "photos": [
+        "85d3cfcd-0ffe-5441-a6ca-46d9e5728bff",
+        "4beed613-71f1-5825-aff1-d0e50355b80e"
+      ]
+    },
+    {
+      "article": "УголкиRGB",
+      "wbId": "369550232",
+      "name": "Уголки зеркал приора RGB",
+      "productId": "259df9a3-bd5c-51a6-a90a-51d58f7fa0f9",
+      "skuId": "f0fe945e-7af7-50ac-ad14-811cf52431fc",
+      "sourceRow": 87,
+      "priceSourceRow": 25,
+      "basePrice": "5000.00",
+      "sellerDiscount": "35",
+      "priceRubles": "3250.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-369550232?sku=f0fe945e-7af7-50ac-ad14-811cf52431fc",
+      "photos": [
+        "5363e500-ad41-58c6-a6d9-ecb30f3a0185",
+        "770c032e-37cc-50f1-ac58-18b7f366143d"
+      ]
+    },
+    {
+      "article": "козырек приора",
+      "wbId": "370342386",
+      "name": "Рамка козырек на панель Приора 1",
+      "productId": "cc51415f-c9b9-5a7b-acbb-d15db446c304",
+      "skuId": "e3497642-00f1-513e-a1c8-1898f81bffe5",
+      "sourceRow": 88,
+      "priceSourceRow": 32,
+      "basePrice": "5000.00",
+      "sellerDiscount": "0",
+      "priceRubles": "5000.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-370342386?sku=e3497642-00f1-513e-a1c8-1898f81bffe5",
+      "photos": [
+        "c4637871-8132-5be7-a86d-029d7e69ae1f",
+        "0168132d-40f6-59c4-a88a-ea03bd9ada92"
+      ]
+    },
+    {
+      "article": "2107-глянец-черный",
+      "wbId": "374318052",
+      "name": "Дефлекторы AMG ВАЗ 2107 черный глянец",
+      "productId": "e69f3679-8f7b-5990-a59f-944f0b22f7f2",
+      "skuId": "5e8079f6-36d0-5134-abe1-370fabe78959",
+      "sourceRow": 90,
+      "priceSourceRow": 139,
+      "basePrice": "10000.00",
+      "sellerDiscount": "50",
+      "priceRubles": "5000.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-374318052?sku=5e8079f6-36d0-5134-abe1-370fabe78959",
+      "photos": [
+        "2a4886e9-6630-54f4-a746-efde0aabcd1f",
+        "e55a9bea-cb68-5d7a-a340-62ce78efed3e"
+      ]
+    },
+    {
+      "article": "Газель-глянец",
+      "wbId": "396690457",
+      "name": "Рамка под андройд на Газель Бизнес",
+      "productId": "72765b36-4a4d-59e1-a804-d08323c48060",
+      "skuId": "01197cf8-3327-51ff-a3e2-5e1a1c124fd1",
+      "sourceRow": 96,
+      "priceSourceRow": 43,
+      "basePrice": "10000.00",
+      "sellerDiscount": "52",
+      "priceRubles": "4800.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-396690457?sku=01197cf8-3327-51ff-a3e2-5e1a1c124fd1",
+      "photos": [
+        "90975b1f-b421-52f1-a583-cadd4845fffa",
+        "d5a3fb54-9361-56e5-a7e2-337b59f1fe39"
+      ]
+    },
+    {
+      "article": "УголкиRGB-глянец",
+      "wbId": "458975530",
+      "name": "Уголки зеркал приора RGB",
+      "productId": "25211255-7681-58b6-a31f-170e65ad9f05",
+      "skuId": "a9aad918-9199-5d54-ac57-13f32136e6cd",
+      "sourceRow": 114,
+      "priceSourceRow": 18,
+      "basePrice": "5000.00",
+      "sellerDiscount": "35",
+      "priceRubles": "3250.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-458975530?sku=a9aad918-9199-5d54-ac57-13f32136e6cd",
+      "photos": [
+        "e4a6f1ec-8f21-5f2e-a7e8-aa32ad60f1b1",
+        "dfb3afb5-6b55-5a02-a4f3-0b0830eaaa4b"
+      ]
+    },
+    {
+      "article": "ГАЗЕЛЬ-СИНИЙ",
+      "wbId": "484391631",
+      "name": "Сопло воздуховода AMG (АМГ)",
+      "productId": "5f3589f4-4218-5631-a8dd-9faec2ec3ee1",
+      "skuId": "de49fcb4-f00f-5c7d-a7c3-7efd9e58e68b",
+      "sourceRow": 117,
+      "priceSourceRow": 72,
+      "basePrice": "12000.00",
+      "sellerDiscount": "15",
+      "priceRubles": "10200.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-484391631?sku=de49fcb4-f00f-5c7d-a7c3-7efd9e58e68b",
+      "photos": [
+        "4e569bfb-9b0b-59e8-af00-184333ff0ceb",
+        "8e98e422-255a-5488-a655-6bb16d79270f"
+      ]
+    },
+    {
+      "article": "2114-консоль-глянец",
+      "wbId": "485798327",
+      "name": "Консоль панель на ваз 2114 под 9 дюймов",
+      "productId": "11861903-1102-5344-a05d-efc4fff92fd1",
+      "skuId": "de59e05b-968d-5de2-a62c-ca53c6e13ae4",
+      "sourceRow": 133,
+      "priceSourceRow": 38,
+      "basePrice": "13000.00",
+      "sellerDiscount": "10",
+      "priceRubles": "11700.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-485798327?sku=de59e05b-968d-5de2-a62c-ca53c6e13ae4",
+      "photos": [
+        "40821287-4a46-5286-adbf-2642a0d3943c",
+        "b6a0f699-5747-55d5-afd8-9171f24aa9b0"
+      ]
+    },
+    {
+      "article": "амг-хром-приора-1-белый",
+      "wbId": "485809095",
+      "name": "Сопло воздуховода AMG (АМГ) для Приора 1",
+      "productId": "4b75216c-8316-54b8-a395-a727e674a8c6",
+      "skuId": "db0471b7-02e1-5299-a1bb-c67d3133fb3c",
+      "sourceRow": 136,
+      "priceSourceRow": 2,
+      "basePrice": "10000.00",
+      "sellerDiscount": "35",
+      "priceRubles": "6500.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-485809095?sku=db0471b7-02e1-5299-a1bb-c67d3133fb3c",
+      "photos": [
+        "76f6ef49-5ac3-5e17-a2f3-5105888c585b",
+        "5f700fc7-73aa-5664-a4ba-1315ade7d977"
+      ]
+    },
+    {
+      "article": "маг-хром-приора2-синий",
+      "wbId": "485819247",
+      "name": "Сопло воздуховода AMG (АМГ) для Приора 2",
+      "productId": "f64120c4-5889-5ee6-ae43-c003b143d357",
+      "skuId": "18ef2ad6-6339-5c0d-ac8e-b277d5f3227c",
+      "sourceRow": 147,
+      "priceSourceRow": 7,
+      "basePrice": "10000.00",
+      "sellerDiscount": "35",
+      "priceRubles": "6500.00",
+      "sellerStock": 0,
+      "wbStockExcluded": 0,
+      "url": "https://autoreelz.ru/product/wb-485819247?sku=18ef2ad6-6339-5c0d-ac8e-b277d5f3227c",
+      "photos": [
+        "a1ad9225-2a79-52a1-a309-7e6366308eee",
+        "707b1d34-4b6e-5272-a155-54a488a17473"
+      ]
+    }
+  ],
+  "oldGrantaPreserved": true,
+  "photos": 62,
+  "finishedAt": "2026-09-23T20:44:08.129Z"
+}

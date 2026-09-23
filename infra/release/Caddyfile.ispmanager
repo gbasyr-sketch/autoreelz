@@ -23,6 +23,14 @@
    header_down X-Robots-Tag "noindex, nofollow, noarchive"
   }
  }
+ handle /api/payments/yookassa {
+  reverse_proxy web:4321 {
+   header_up Host autoreelz.ru
+   header_up X-Forwarded-Host autoreelz.ru
+   header_up X-Forwarded-Proto https
+   header_up -Authorization
+  }
+ }
  handle {
   basic_auth {
    {$TEST_GATE_USER} {$TEST_GATE_HASH}

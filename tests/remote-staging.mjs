@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';import {createRequire} from 'node:module
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';import {resolve} from 'node:path';
 const require=createRequire(import.meta.url),{chromium}=require(process.env.PLAYWRIGHT_MODULE||(process.env.HOME+'/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'));
 const path=resolve(process.argv[2]??'');assert.ok(path.startsWith(resolve('private')+'/'),'Private access file required');
-const access=JSON.parse(readFileSync(path,'utf8')),base='https://autoreelz.ru',expected='6ab6bea4f0cb16fbd2dea2c23711b3783611d017';assert.equal(access.store.url,base);
+const access=JSON.parse(readFileSync(path,'utf8')),base='https://autoreelz.ru',expected=process.env.AR_EXPECTED_SHA||'6ab6bea4f0cb16fbd2dea2c23711b3783611d017';assert.equal(access.store.url,base);assert.match(expected,/^[a-f0-9]{40}$/);
 const auth='Basic '+Buffer.from(access.store.username+':'+access.store.password).toString('base64');
 const cmsOnly=process.argv.includes('--cms-only');
 const report={startedAt:new Date().toISOString(),base,expectedAppSha:expected,passed:false,checks:[],errors:[]};let browser;

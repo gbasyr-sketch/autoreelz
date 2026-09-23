@@ -1,3 +1,4 @@
+import{yooPayments}from'../../../server/yookassa-payments';
 import type{APIRoute}from'astro';
 import{sessionFor,json,failure}from'../../../server/http';
 import{readBody,jsonBody}from'../../../server/security';
@@ -29,6 +30,7 @@ export const POST:APIRoute=async ctx=>{try{
   case'quote':return json(await createQuote(session,body));
   case'checkout':return json(await checkout(session,body));
   case'pay':return json(await payOrder(session,body));
+  case'payment-status':return json(await yooPayments.refresh(session,String(body.orderId??'')));
   case'cancel':return json(await cancelOrder(session,body));
   default:return json({error:{code:'NOT_FOUND',message:'Действие не найдено.'}},404);
  }

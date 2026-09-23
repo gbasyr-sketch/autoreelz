@@ -1,0 +1,78 @@
+{
+  "database": "ar_qa_e2e_55244_1790182650468",
+  "source": "autoreelz2026_new",
+  "startedAt": "2026-09-23T16:57:30.470Z",
+  "browser": "Chrome headless, actual HTTP APIs",
+  "viewportWidth": 375,
+  "checks": [
+    {
+      "name": "browser selects vehicle, exposes unknown fitment honestly and adds two exact SKU",
+      "passed": true
+    },
+    {
+      "name": "browser checkout splits ordinary and preorder; unknown shipping blocks both payments",
+      "passed": true
+    },
+    {
+      "name": "unauthenticated browser cannot read an order or the private test mailbox; CSRF and Origin enforced",
+      "passed": true
+    },
+    {
+      "name": "real Directus editor login succeeds but trading commands and private mailbox are forbidden",
+      "passed": true
+    },
+    {
+      "name": "real admin UI quotes ordinary delivery; buyer completes card test payment",
+      "passed": true
+    },
+    {
+      "name": "manager receives stock and confirms whole preorder; SBP does not debit components twice",
+      "passed": true
+    },
+    {
+      "name": "OTP arrives in private manager UI; wrong and reused code rejected; new browser gains exact email history",
+      "passed": true
+    },
+    {
+      "name": "background worker expires an unpaid order without a page visit and releases its reservation once",
+      "passed": true
+    },
+    {
+      "name": "logout removes the confirmed email identity and access to its order history",
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    "artifacts/yookassa/simulation-browser/home-1440.png",
+    "artifacts/yookassa/simulation-browser/home-375.png",
+    "artifacts/yookassa/simulation-browser/cart-mixed-1440.png",
+    "artifacts/yookassa/simulation-browser/cart-mixed-375.png",
+    "artifacts/yookassa/simulation-browser/checkout-form-1440.png",
+    "artifacts/yookassa/simulation-browser/checkout-form-375.png",
+    "artifacts/yookassa/simulation-browser/checkout-review-1440.png",
+    "artifacts/yookassa/simulation-browser/checkout-review-375.png",
+    "artifacts/yookassa/simulation-browser/order-delivery-pending-1440.png",
+    "artifacts/yookassa/simulation-browser/order-delivery-pending-375.png",
+    "artifacts/yookassa/simulation-browser/order-ready-to-pay-1440.png",
+    "artifacts/yookassa/simulation-browser/order-ready-to-pay-375.png",
+    "artifacts/yookassa/simulation-browser/order-paid-card-1440.png",
+    "artifacts/yookassa/simulation-browser/order-paid-card-375.png",
+    "artifacts/yookassa/simulation-browser/order-paid-preorder-1440.png",
+    "artifacts/yookassa/simulation-browser/order-paid-preorder-375.png",
+    "artifacts/yookassa/simulation-browser/manager-orders-1440.png",
+    "artifacts/yookassa/simulation-browser/manager-orders-375.png",
+    "artifacts/yookassa/simulation-browser/account-verified-1440.png",
+    "artifacts/yookassa/simulation-browser/account-verified-375.png",
+    "artifacts/yookassa/simulation-browser/manager-private-mail-1440.png",
+    "artifacts/yookassa/simulation-browser/manager-private-mail-375.png",
+    "artifacts/yookassa/simulation-browser/order-expired-1440.png",
+    "artifacts/yookassa/simulation-browser/order-expired-375.png",
+    "artifacts/yookassa/simulation-browser/account-guest-1440.png",
+    "artifacts/yookassa/simulation-browser/account-guest-375.png"
+  ],
+  "consoleErrors": [],
+  "limitations": [],
+  "cleanup": true,
+  "passed": true,
+  "finishedAt": "2026-09-23T16:58:38.516Z"
+}

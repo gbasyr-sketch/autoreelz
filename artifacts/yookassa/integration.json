@@ -1,0 +1,50 @@
+{
+  "checks": [
+    {
+      "name": "parallel browser commands share one attempt and one leased provider request",
+      "passed": true
+    },
+    {
+      "name": "lost POST response reuses the same key/body and never creates a second provider object",
+      "passed": true
+    },
+    {
+      "name": "callback body cannot declare success; authenticated provider state settles once",
+      "passed": true
+    },
+    {
+      "name": "a correctly signed simulation event cannot settle a YooKassa attempt",
+      "passed": true
+    },
+    {
+      "name": "cancel during a slow provider request is not blocked by a DB transaction; late success goes to review",
+      "passed": true
+    },
+    {
+      "name": "callback recovers an unknown provider ID after expiry without a new POST",
+      "passed": true
+    },
+    {
+      "name": "confirmed preorder is not debited again when YooKassa succeeds",
+      "passed": true
+    },
+    {
+      "name": "unknown callbacks and foreign sessions cannot read or mutate another payment",
+      "passed": true
+    },
+    {
+      "name": "mismatched verified amount is rejected without stock debit",
+      "passed": true
+    },
+    {
+      "name": "payment snapshot fields cannot be rewritten and no new POST is sent after the idempotence window",
+      "passed": true
+    },
+    {
+      "name": "a delayed pending response cannot regress a payment settled by a recovered lease",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "cleanup": true
+}

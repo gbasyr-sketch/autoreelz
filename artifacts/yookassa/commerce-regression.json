@@ -1,0 +1,146 @@
+{
+  "database": "ar_qa_commerce_54456_1790182301540",
+  "source": "autoreelz2026_new",
+  "startedAt": "2026-09-23T16:51:41.540Z",
+  "checks": [
+    {
+      "name": "isolation: application uses ar_app in the uniquely named QA clone",
+      "passed": true
+    },
+    {
+      "name": "cart: same key replays once; changed payload and stale version rejected",
+      "passed": true
+    },
+    {
+      "name": "cart: concurrent distinct commands on one version have one winner",
+      "passed": true
+    },
+    {
+      "name": "checkout: concurrent same key and later different key return the same order",
+      "passed": true
+    },
+    {
+      "name": "split: partial shortage moves the whole line to preorder without a reserve",
+      "passed": true
+    },
+    {
+      "name": "split: insertion priority, fixed bundle shortage, and separate shipping",
+      "passed": true
+    },
+    {
+      "name": "bundle plus standalone component: one shared stock requirement and exact discounted price",
+      "passed": true
+    },
+    {
+      "name": "two bundles share the same physical stock and the later one becomes preorder",
+      "passed": true
+    },
+    {
+      "name": "bundle cannot be sold when a component category is unpublished",
+      "passed": true
+    },
+    {
+      "name": "two buyers compete for the last SKU: one order and one QUOTE_CHANGED",
+      "passed": true
+    },
+    {
+      "name": "unknown delivery stays null and blocks payment; revised delivery rejects stale total",
+      "passed": true
+    },
+    {
+      "name": "snapshot: catalog edits cannot change purchased name, article, price or components",
+      "passed": true
+    },
+    {
+      "name": "bundle snapshot and physical requirements remain fixed after a CMS composition edit",
+      "passed": true
+    },
+    {
+      "name": "money safety: an overflowing line is rejected atomically",
+      "passed": true
+    },
+    {
+      "name": "rubles: database, order snapshot and payment preserve 0.01 and 7200.50 exactly",
+      "passed": true
+    },
+    {
+      "name": "rubles: 0.10 plus 0.20 remains 0.30 through cart, checkout and payment",
+      "passed": true
+    },
+    {
+      "name": "rubles: bundle discount rounds half a kopeck up after the component sum",
+      "passed": true
+    },
+    {
+      "name": "packaging: known unit package, exact multi-unit rule, and provider fallback",
+      "passed": true
+    },
+    {
+      "name": "ordinary payment: pending idempotency, duplicate events and repeated pay do not redebit",
+      "passed": true
+    },
+    {
+      "name": "payment signature and wrong amount: invalid event denied; signed mismatch goes to review",
+      "passed": true
+    },
+    {
+      "name": "failed payment can be retried and does not downgrade a completed payment",
+      "passed": true
+    },
+    {
+      "name": "a repeated failure of payment A cannot clear pending payment B or unlock delivery",
+      "passed": true
+    },
+    {
+      "name": "ordinary cancellation and duplicate worker return a reserve exactly once",
+      "passed": true
+    },
+    {
+      "name": "ordinary expiration under concurrent workers releases once and cannot be paid",
+      "passed": true
+    },
+    {
+      "name": "stock receipt is idempotent; insufficient preorder cannot confirm; confirmation debits once",
+      "passed": true
+    },
+    {
+      "name": "confirmed preorder expiration restores physical stock exactly once",
+      "passed": true
+    },
+    {
+      "name": "confirmed preorder cancellation restores stock once; unconfirmed cancel never moves it",
+      "passed": true
+    },
+    {
+      "name": "preorder confirmation competes with a new ordinary buyer for the same last SKU",
+      "passed": true
+    },
+    {
+      "name": "delivery cannot change while a payment is pending; stale amounts never silently update",
+      "passed": true
+    },
+    {
+      "name": "late ordinary payment racing expiration cannot debit released stock",
+      "passed": true
+    },
+    {
+      "name": "late preorder payment racing expiration restores once and requires manual review",
+      "passed": true
+    },
+    {
+      "name": "late payment after cancellation goes to review without changing available stock",
+      "passed": true
+    },
+    {
+      "name": "access: order UUID, number and unconfirmed matching email never expose another session",
+      "passed": true
+    },
+    {
+      "name": "worker outbox: duplicate ticks deliver each test message once with a heartbeat",
+      "passed": true
+    }
+  ],
+  "cleanup": true,
+  "finishedAt": "2026-09-23T16:51:51.333Z",
+  "passed": true
+}

@@ -8,6 +8,9 @@ x-app-env: &app-env
   APP_SECRET: ${APP_SECRET:?}
   APP_ORIGIN: https://autoreelz.ru
   STORE_MODE: production
+  PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-simulation}
+  YOOKASSA_SHOP_ID: ${YOOKASSA_SHOP_ID:-}
+  YOOKASSA_SECRET_KEY: ${YOOKASSA_SECRET_KEY:-}
 services:
   edge:
     image: caddy:2.11.4-alpine@sha256:6aeddd44c3078b0f9a35206472a11420648a79c184603ef95957d0a20044cb2b

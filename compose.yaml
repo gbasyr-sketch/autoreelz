@@ -23,6 +23,9 @@ services:
       APP_SECRET: ${APP_SECRET:?}
       APP_ORIGIN: ${APP_ORIGIN:-http://127.0.0.1:14323}
       STORE_MODE: local-test
+      PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-simulation}
+      YOOKASSA_SHOP_ID: ${YOOKASSA_SHOP_ID:-}
+      YOOKASSA_SECRET_KEY: ${YOOKASSA_SECRET_KEY:-}
       SEO_INDEXING_ENABLED: ${SEO_INDEXING_ENABLED:-false}
       YML_COMPANY_NAME: ${YML_COMPANY_NAME:-}
       CMS_INTERNAL_URL: http://cms:8055
@@ -46,6 +49,9 @@ services:
       APP_SECRET: ${APP_SECRET:?}
       APP_ORIGIN: ${APP_ORIGIN:-http://127.0.0.1:14323}
       STORE_MODE: local-test
+      PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-simulation}
+      YOOKASSA_SHOP_ID: ${YOOKASSA_SHOP_ID:-}
+      YOOKASSA_SECRET_KEY: ${YOOKASSA_SECRET_KEY:-}
     read_only: true
     tmpfs: [/tmp]
     networks: [backend]

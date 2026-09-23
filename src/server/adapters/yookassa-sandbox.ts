@@ -1,4 +1,4 @@
-// Protocol client only. Not connected to checkout or public webhook routes yet.
+// Test-only protocol client; payment orchestration lives in yookassa-payments.ts.
 import {rubles,compareRubles} from '../../lib/money.ts';
 const API='https://api.yookassa.ru/v3';
 const uuid=/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;

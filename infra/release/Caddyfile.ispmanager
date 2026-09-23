@@ -1,0 +1,32 @@
+{
+ admin off
+ auto_https off
+}
+
+:8080 {
+ header X-Robots-Tag "noindex, nofollow, noarchive"
+ redir /cms /cms/admin 302
+ handle_path /cms/* {
+  # Studio uses its own login and Bearer/session auth; a second Basic challenge breaks its API.
+  reverse_proxy cms:8055 {
+   header_up Host autoreelz.ru
+   header_up X-Forwarded-Host autoreelz.ru
+   header_up X-Forwarded-Proto https
+   header_down X-Robots-Tag "noindex, nofollow, noarchive"
+  }
+ }
+ handle {
+  basic_auth {
+   {$TEST_GATE_USER} {$TEST_GATE_HASH}
+  }
+  @static path /_astro/* /fonts/* /brand/* /images/*
+  encode @static zstd gzip
+  reverse_proxy web:4321 {
+   header_up Host autoreelz.ru
+   header_up X-Forwarded-Host autoreelz.ru
+   header_up X-Forwarded-Proto https
+   header_up -Authorization
+   header_down X-Robots-Tag "noindex, nofollow, noarchive"
+  }
+ }
+}

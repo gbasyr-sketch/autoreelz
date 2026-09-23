@@ -1,0 +1,24 @@
+# Rootless containers behind the existing ISPmanager Nginx for autoreelz.ru.
+services:
+  edge:
+    ports: !override ['127.0.0.1:14324:8080']
+    environment:
+      TEST_GATE_USER: ${TEST_GATE_USER:?}
+      TEST_GATE_HASH: ${TEST_GATE_HASH:?}
+    volumes:
+      - ./Caddyfile.ispmanager:/etc/caddy/Caddyfile:ro
+    networks: [frontend, backend]
+  web:
+    environment:
+      STORE_MODE: staging
+      SEO_INDEXING_ENABLED: 'false'
+  worker:
+    environment:
+      STORE_MODE: staging
+  cms:
+    ports: !reset []
+    environment:
+      PUBLIC_URL: https://autoreelz.ru/cms
+      RATE_LIMITER_ENABLED: 'true'
+      RATE_LIMITER_POINTS: '100'
+      RATE_LIMITER_DURATION: '1'

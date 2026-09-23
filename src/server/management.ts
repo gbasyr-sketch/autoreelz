@@ -5,7 +5,7 @@ import {StoreError,uuid,text,multilineText,integer,iso} from './errors.ts';
 import {idempotent,canonical,hash,equal,sign} from './security.ts';
 import {orderRow,toOrder,event,releaseAllocation,expireLocked,stockMove} from './orders.ts';
 import {lockStock} from './pricing.ts';
-import {requireLocalTest} from './config.ts';
+import {requireTestEnvironment} from './config.ts';
 
 type Actor={id:string};
 const states=['quoted','packing','shipped','delivered'];
@@ -91,7 +91,7 @@ export async function overrideDelivery(actor:Actor,body:Record<string,unknown>){
 }
 export interface CarrierEvent {eventId:string;orderId:string;status:'packing'|'shipped'|'delivered';occurredAt:string;trackingNumber?:string}
 export async function applyCarrierEvent(input:CarrierEvent,signature:string){
- requireLocalTest();if(!equal(sign('delivery:'+canonical(input)),signature))throw new StoreError('DELIVERY_SIGNATURE','Подпись события неверна.',403);
+ requireTestEnvironment();if(!equal(sign('delivery:'+canonical(input)),signature))throw new StoreError('DELIVERY_SIGNATURE','Подпись события неверна.',403);
  const id=uuid(input.orderId),eventId=text(input.eventId,'Событие',1,160),status=text(input.status,'Статус',1,30);
  if(!['packing','shipped','delivered'].includes(status))throw new StoreError('DELIVERY_STATE','Неизвестный статус перевозчика.');
  const at=new Date(input.occurredAt);if(!Number.isFinite(at.getTime())||at.getTime()>Date.now()+300000)throw new StoreError('EVENT_TIME','Некорректное время события.');
@@ -119,7 +119,7 @@ export async function applyCarrierEvent(input:CarrierEvent,signature:string){
  });
 }
 export async function simulateCarrier(actor:Actor,body:Record<string,unknown>){
- requireLocalTest();const id=uuid(body.orderId);
+ requireTestEnvironment();const id=uuid(body.orderId);
  const input:CarrierEvent={eventId:'test-cdek:'+text(body.providerEventId,'ID события',1,100),orderId:id,status:String(body.status) as CarrierEvent['status'],occurredAt:text(body.occurredAt,'Время события',10,60),...(body.trackingNumber?{trackingNumber:tracking(body.trackingNumber,null)!}:{})};
  // The event itself is idempotent by provider ID. No external carrier is contacted.
  const prepared=await transaction(c=>idempotent(c,`carrier-test:${actor.id}`,body.idempotencyKey,input,async()=>input));

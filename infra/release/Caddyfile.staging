@@ -1,0 +1,27 @@
+{
+ email {$TLS_EMAIL}
+ admin off
+}
+
+autoreelz.ru {
+ header X-Robots-Tag "noindex, nofollow, noarchive"
+ basic_auth {
+  {$TEST_GATE_USER} {$TEST_GATE_HASH}
+ }
+ @static path /_astro/* /fonts/* /brand/* /images/*
+ encode @static zstd gzip
+ header {
+  Strict-Transport-Security "max-age=31536000"
+  X-Content-Type-Options "nosniff"
+  Referrer-Policy "strict-origin-when-cross-origin"
+  Content-Security-Policy "frame-ancestors 'none'"
+ }
+ reverse_proxy web:4321 {
+  header_up Host autoreelz.ru
+  header_up X-Forwarded-Host autoreelz.ru
+  header_up X-Forwarded-Proto https
+  # Never expose the test site's gateway credential to upstream application logs.
+  header_up -Authorization
+  header_down X-Robots-Tag "noindex, nofollow, noarchive"
+ }
+}

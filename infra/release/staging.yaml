@@ -1,0 +1,15 @@
+# Overlay on compose.yaml. Use only for the owner-authorized main-domain integration checks.
+services:
+  edge:
+    environment:
+      TEST_GATE_USER: ${TEST_GATE_USER:?}
+      TEST_GATE_HASH: ${TEST_GATE_HASH:?Generate a password hash, never a plaintext password}
+    volumes:
+      - ./Caddyfile.staging:/etc/caddy/Caddyfile:ro
+  web:
+    environment:
+      STORE_MODE: staging
+      SEO_INDEXING_ENABLED: 'false'
+  worker:
+    environment:
+      STORE_MODE: staging

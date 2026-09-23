@@ -37,7 +37,7 @@ const query=Astro.url.searchParams.get('q')??'';
 </head>
 <body>
   <a class="skip-link" href="#main">К содержимому</a>
-  <div class="demo-strip"><div class="container"><span><i></i>Тестовый магазин: оплата и доставка — имитация</span><span>Локальная версия</span></div></div>
+  <div class="demo-strip"><div class="container"><span><i></i>Тестовый магазин: оплата и доставка — имитация</span><span>Тестовая версия</span></div></div>
   <div class="utility"><div class="container"><span>Детали автомобильного интерьера</span><nav aria-label="Информация"><a href="/info/delivery">Доставка и оплата</a><a href="/info/contacts">Контакты</a><a href="/blog">Блог</a><a href="/cars">Автомобили</a><span>Россия · ₽</span></nav></div></div>
   <header class="site-header">
     <div class="container header-row">
@@ -54,7 +54,7 @@ const query=Astro.url.searchParams.get('q')??'';
     <nav class="container category-nav" aria-label="Популярные категории">{categories.filter(c=>c.depth===0).slice(0,5).map(c=><a href={`/catalog?category=${c.slug}`}>{c.name}{c.slug==='bundles'&&<Icon name="arrow" size={15}/>}</a>)}</nav>
   </header>
   <slot/>
-  <footer class="site-footer"><div class="container footer-top content-footer-top"><div><a class="logo" href="/" aria-label="AUTO REELZ — главная"><img src="/brand/logo.svg" width="244" height="34" alt="AUTO REELZ"/></a><p>Детали для вашего интерьера.</p></div><nav class="content-footer-nav" aria-label="Разделы магазина"><a href="/catalog">Каталог</a><a href="/cars">Подбор по автомобилю</a><a href="/blog">Блог</a>{content.pages.map(p=><a href={`/info/${p.slug}`}>{p.title}</a>)}</nav></div><div class="container footer-bottom"><span>© AUTO REELZ · autoreelz.ru</span><span>Локальная тестовая версия</span></div></footer>
+  <footer class="site-footer"><div class="container footer-top content-footer-top"><div><a class="logo" href="/" aria-label="AUTO REELZ — главная"><img src="/brand/logo.svg" width="244" height="34" alt="AUTO REELZ"/></a><p>Детали для вашего интерьера.</p></div><nav class="content-footer-nav" aria-label="Разделы магазина"><a href="/catalog">Каталог</a><a href="/cars">Подбор по автомобилю</a><a href="/blog">Блог</a>{content.pages.map(p=><a href={`/info/${p.slug}`}>{p.title}</a>)}</nav></div><div class="container footer-bottom"><span>© AUTO REELZ · autoreelz.ru</span><span>Тестовая версия</span></div></footer>
   <nav class="mobile-nav" aria-label="Основная навигация">
     <a href="/catalog" class:list={[active==='catalog'&&'active']}><Icon name="grid" size={20}/>Каталог</a>
     <a href="/catalog#catalog-search" data-open-search><Icon name="search" size={20}/>Поиск</a>

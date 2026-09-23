@@ -3,7 +3,7 @@ import type {APIContext} from 'astro';
 import type {PoolClient} from 'pg';
 import type {ShopSession} from '../lib/commerce-types.ts';
 import {transaction} from './db.ts';
-import {appConfig,requireLocalTest} from './config.ts';
+import {appConfig,requireTestEnvironment} from './config.ts';
 import {COOKIE,equal,getSession,hash,setSessionCookie,sign} from './security.ts';
 import {StoreError,email,iso,uuid} from './errors.ts';
 
@@ -25,7 +25,7 @@ async function takeRate(client:PoolClient,key:string,limit:number,seconds:number
 }
 
 export async function requestCode(session:ShopSession,emailInput:unknown,ip:string):Promise<{challengeId:string;expiresAt:string}>{
- requireLocalTest();
+ requireTestEnvironment();
  const address=email(emailInput),challengeId=randomUUID(),code=String(randomInt(0,1000000)).padStart(6,'0');
  const ipHash=sign(`ip:${ip}`);
  return transaction(async client=>{

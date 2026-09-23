@@ -1,0 +1,72 @@
+﹣ OTP and staff auth in isolated PostgreSQL (0.612375ms) # SKIP
+✔ price and color must match the same SKU, not different variants (77.573875ms)
+✔ stock and color cannot be satisfied by separate variants (0.52525ms)
+✔ article search selects the requested SKU and respects its own stock (0.563125ms)
+✔ foreign or unknown variant cannot fall back to a default offer (0.259417ms)
+✔ a bundle derives price and availability from the fixed components (1.1785ms)
+✔ missing compatibility never becomes an implicit fitment match (2.163875ms)
+✔ invalid price or vehicle inputs return a visible error (2.412167ms)
+✔ fitment needs complete conditions and never promotes conflicts or unknown data (0.162375ms)
+✔ bundle fitment is the conjunction of the exact component SKU rules (0.22675ms)
+✔ confirmed and unknown fitment can coexist, incompatible never included (0.494791ms)
+✔ CMS can add text, number and boolean filters without a code whitelist (2.628084ms)
+✔ parent category includes descendants and published secondary categories (0.213875ms)
+✔ bundle with a missing unpublished component has no offer (0.090833ms)
+✔ ruble fractions filter one exact SKU without float rounding (0.784709ms)
+✔ bundle sums decimal rubles and rounds discount once to two decimals (1.334541ms)
+✔ sorting preserves a one-hundredth ruble difference near the maximum (0.237167ms)
+✔ bundle amounts outside the permitted ruble range do not produce an offer (0.130333ms)
+﹣ commerce integration in isolated PostgreSQL (3.275167ms) # SKIP
+﹣ content publication, aliases and media in isolated PostgreSQL (0.674875ms) # SKIP
+✔ Rutube public video, shorts and embed normalize to the documented HTTPS player (2.534458ms)
+✔ VK accepts export URLs on exact provider hosts and removes unexpected parameters (6.265292ms)
+✔ video rejects executable schemes, pasted HTML, credentials, ports and lookalike hosts (0.156375ms)
+✔ VK requires a full player URL and unique identifiers; invalid provider paths stay closed (0.241375ms)
+✔ plain text paragraph conversion never treats markup as HTML or executable data (14.038291ms)
+✔ slug aliases redirect only to currently published entities of the same kind (0.193291ms)
+✔ article pagination has stable slices and rejects invalid or absent pages (0.201833ms)
+﹣ stage 5 management in isolated PostgreSQL (0.505375ms) # SKIP
+✔ ruble values preserve exact cents and use a canonical two-digit fraction (5.843334ms)
+✔ decimal addition and multiplication do not introduce binary floating-point errors (0.825417ms)
+✔ bundle discounts round half a kopeck up once after summing the components (0.874541ms)
+✔ comparison and display retain exact ruble values including the upper boundary (76.064333ms)
+✔ human input accepts rubles with a decimal comma and conventional grouping (3.822625ms)
+✔ invalid amounts, excessive precision and unsafe ranges are rejected (0.957458ms)
+✔ health revision exposes only a complete Git SHA, never arbitrary environment content (33.077708ms)
+✔ indexing requires all explicit production safeguards; local never enabled (2.513416ms)
+✔ SKU canonical stays at base product while SSR schema retains exact selected offer (2.940167ms)
+✔ pagination has its own canonical and page one is normalized (6.69525ms)
+✔ search, sorting, arbitrary facets, utility params and private pages are noindex (1.070458ms)
+✔ draft documents, empty archives and demo products never enter the sitemap (7.72675ms)
+✔ catalog links preserve filters between pages and reset page after filter changes (0.7065ms)
+✔ JSON-LD and XML escape hostile content and invalid XML controls (0.465791ms)
+✔ VideoObject requires actual video metadata; article has no fictional author (0.348541ms)
+✔ YML uses stable numeric category IDs and exact RUB per SKU without guessed delivery or brands (13.418417ms)
+✔ fixed bundles have a derived product offer and no invented SKU or rating (1.696ms)
+✔ review photos are resized, oriented, re-encoded as WebP and stripped of EXIF/ICC (192.724584ms)
+✔ real PNG and WebP accepted; declared MIME cannot disguise another format (17.968458ms)
+✔ oversized, empty, animated and excessive-resolution images are rejected (133.777708ms)
+✔ multipart requires same origin and CSRF before accepting bytes (18.370708ms)
+✔ multipart enforces total byte limit even without a Content-Length header (2.240166ms)
+✔ only two review uploads can process concurrently and slots release after failure (0.17475ms)
+﹣ social functions use only an isolated PostgreSQL clone (0.474709ms) # SKIP
+﹣ stage 6 bundle repricing, atomic preorder and separate delivery payments (1.007792ms) # SKIP
+✔ simulation is permitted locally or on the explicitly selected HTTPS staging origin (0.701167ms)
+✔ production, non-HTTPS staging, unknown hosts and origin tricks never enable simulations (0.361708ms)
+✔ YooKassa request uses exact RUB, card redirect, fixed API and stable caller idempotence key (89.330583ms)
+✔ live shop, wrong account, missing test flag and missing receipt setup never cause POST (1.179959ms)
+✔ invalid amounts, missing idempotence key and hostile return URL rejected before network (0.267ms)
+✔ payment test/account/id/metadata/currency/amount mismatches fail closed (1.443709ms)
+✔ callback status is only a hint; authenticated GET state wins (0.309334ms)
+✔ successful state requires paid and matching immutable facts; status is never inferred from redirect (0.201916ms)
+✔ network and HTTP500 after POST mean unknown outcome, with no automatic second POST (0.593417ms)
+✔ errors redact provider bodies/credentials and unsafe confirmation URLs are rejected (0.725291ms)
+✔ oversized or malformed provider responses are rejected without retaining private payload (0.350542ms)
+ℹ tests 64
+ℹ suites 0
+ℹ pass 58
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 6
+ℹ todo 0
+ℹ duration_ms 2011.017625

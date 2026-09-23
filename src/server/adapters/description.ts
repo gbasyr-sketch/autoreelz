@@ -1,4 +1,4 @@
-import {requireLocalTest} from '../config.ts';
+import {requireTestEnvironment} from '../config.ts';
 /** Explicit fact whitelist. Customer data and manual SEO title never enter the adapter. */
 export interface DescriptionFacts {
  name:string;kind:'single'|'bundle';isDemo:boolean;category:string;
@@ -8,7 +8,7 @@ export interface DescriptionFacts {
 }
 export interface DescriptionResult {description:string;metaDescription:string}
 export function generateLocalDescription(data:DescriptionFacts):DescriptionResult{
- requireLocalTest();const paragraphs=[data.name+'.'];
+ requireTestEnvironment();const paragraphs=[data.name+'.'];
  if(data.isDemo)paragraphs.push('Демонстрационный образец каталога AUTO REELZ. Сведения требуют проверки перед продажей.');
  if(data.category)paragraphs.push('Категория: '+data.category+'.');
  if(data.variants.length)paragraphs.push('Исполнения: '+data.variants.map(v=>v.name+' ('+v.article+')').join('; ')+'.');

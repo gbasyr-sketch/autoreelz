@@ -1,7 +1,7 @@
 import type{APIRoute}from'astro';
 import{sessionFor,json,failure}from'../../../server/http';
 import{readBody,jsonBody}from'../../../server/security';
-import{requireLocalTest,appConfig}from'../../../server/config';
+import{requireTestEnvironment,appConfig}from'../../../server/config';
 import{StoreError}from'../../../server/errors';
 import{getCart,changeCart,createQuote}from'../../../server/cart';
 import{checkout,getOrder,listOrders,cancelOrder}from'../../../server/orders';
@@ -18,7 +18,7 @@ export const GET:APIRoute=async ctx=>{try{
  }
 }catch(e){return failure(e);}};
 export const POST:APIRoute=async ctx=>{try{
- requireLocalTest();
+ requireTestEnvironment();
  if(ctx.params.action==='payment-event'){
   if(ctx.url.host!==new URL(appConfig().origin).host)throw new StoreError('ORIGIN','Источник запроса не разрешён.',403);
   const event=await jsonBody(ctx.request);return json(await applyPaymentEvent(event as unknown as PaymentEvent,ctx.request.headers.get('X-Payment-Signature')??''));

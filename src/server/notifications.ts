@@ -1,7 +1,7 @@
 import{sendLocalOwnerNotification}from'./adapters/owner-notification.ts';
 import type {OwnerNotification} from '../lib/management-types.ts';
 import {transaction,query} from './db.ts';
-import {requireLocalTest} from './config.ts';
+import {requireTestEnvironment} from './config.ts';
 import {StoreError,uuid,iso} from './errors.ts';
 import {idempotent} from './security.ts';
 export async function ownerNotifications():Promise<OwnerNotification[]>{
@@ -9,7 +9,7 @@ export async function ownerNotifications():Promise<OwnerNotification[]>{
  return rows.map(r=>({id:r.id,orderId:r.order_id,channel:r.channel,subject:r.subject,body:r.body,status:r.status,attempts:r.attempts,lastError:r.last_error,createdAt:iso(r.created_at)!,deliveredAt:iso(r.delivered_at)}));
 }
 export async function deliverOwnerNotifications(fail=false){
- requireLocalTest();return transaction(async c=>{
+ requireTestEnvironment();return transaction(async c=>{
   const rows=(await c.query("SELECT id,channel,subject,body FROM ar_owner_notifications WHERE status='pending' ORDER BY created_at,id FOR UPDATE SKIP LOCKED LIMIT 100")).rows;
   for(const row of rows){
    // Local outbox only. Real MAX/email adapters require separately configured recipients and approval.
@@ -21,7 +21,7 @@ export async function deliverOwnerNotifications(fail=false){
  });
 }
 export async function retryNotification(actor:{id:string},body:Record<string,unknown>){
- requireLocalTest();const id=uuid(body.notificationId);
+ requireTestEnvironment();const id=uuid(body.notificationId);
  return transaction(c=>idempotent(c,`notification-retry:${actor.id}`,body.idempotencyKey,{id},async()=>{
   const row=(await c.query('SELECT * FROM ar_owner_notifications WHERE id=$1 FOR UPDATE',[id])).rows[0];
   if(!row)throw new StoreError('NOT_FOUND','Уведомление не найдено.',404);

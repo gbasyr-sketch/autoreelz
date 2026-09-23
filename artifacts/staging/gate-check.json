@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-09-23T14:44:56.444Z",
+  "passed": true,
+  "stagingOverlayValidated": true,
+  "caddyConfigValidated": true,
+  "anonymousDenied": true,
+  "wrongPasswordDenied": true,
+  "authorizedAccess": true,
+  "gatewayCredentialStripped": true,
+  "noindexHeader": true,
+  "network": "none",
+  "publicTlsTested": false
+}

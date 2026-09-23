@@ -8,7 +8,7 @@ import{staffLogin}from'../../../server/auth';
 import{stockList,quoteShipping,confirmPreorder,receiveStock}from'../../../server/orders';
 import{query}from'../../../server/db';
 import{iso}from'../../../server/errors';
-import{requireLocalTest}from'../../../server/config';
+import{requireTestEnvironment}from'../../../server/config';
 export const GET:APIRoute=async ctx=>{try{
  await staff(ctx.request);
  switch(ctx.params.action){
@@ -16,12 +16,12 @@ export const GET:APIRoute=async ctx=>{try{
   case'notifications':return json({notifications:await ownerNotifications()});
   case'products':return json({products:await generationProducts()});
   case'stock':return json(await stockList());
-  case'mail':requireLocalTest();return json({messages:(await query("SELECT id,recipient,subject,body,created_at FROM ar_mail_outbox WHERE status='delivered' ORDER BY created_at DESC LIMIT 100")).rows.map(r=>({id:r.id,to:r.recipient,subject:r.subject,body:r.body,createdAt:iso(r.created_at)}))});
+  case'mail':requireTestEnvironment();return json({messages:(await query("SELECT id,recipient,subject,body,created_at FROM ar_mail_outbox WHERE status='delivered' ORDER BY created_at DESC LIMIT 100")).rows.map(r=>({id:r.id,to:r.recipient,subject:r.subject,body:r.body,createdAt:iso(r.created_at)}))});
   default:return json({error:{code:'NOT_FOUND',message:'Раздел не найден.'}},404);
  }
 }catch(e){return failure(e);}};
 export const POST:APIRoute=async ctx=>{try{
- requireLocalTest();const session=await sessionFor(ctx),body=await readBody(ctx.request,session,ctx.params.action==='apply-description'?49152:16384);
+ requireTestEnvironment();const session=await sessionFor(ctx),body=await readBody(ctx.request,session,ctx.params.action==='apply-description'?49152:16384);
  if(ctx.params.action==='login'){const{cookie}=await staffLogin(session,body.email,body.password,peer(ctx));return json({ok:true},200,{'Set-Cookie':cookie});}
  const actor=await staff(ctx.request);
  switch(ctx.params.action){

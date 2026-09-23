@@ -2,7 +2,7 @@ import{generateLocalDescription}from'./adapters/description.ts';
 import type {PoolClient} from 'pg';
 import type {DescriptionDraft,GenerationProduct} from '../lib/management-types.ts';
 import {query,transaction} from './db.ts';
-import {requireLocalTest} from './config.ts';
+import {requireTestEnvironment} from './config.ts';
 import {StoreError,uuid,text,multilineText,iso} from './errors.ts';
 import {idempotent,canonical,hash,sign} from './security.ts';
 function productView(r:Record<string,any>):GenerationProduct{return{id:r.id,name:r.name,isDemo:r.is_demo,description:r.description??'',metaDescription:r.meta_description??'',seoTitle:r.seo_title??''};}
@@ -25,7 +25,7 @@ async function rate(actor:string){
  });
 }
 export async function generateDescription(actor:{id:string},body:Record<string,unknown>){
- requireLocalTest();const id=uuid(body.productId),fail=body.simulateFailure===true;
+ requireTestEnvironment();const id=uuid(body.productId),fail=body.simulateFailure===true;
  const requestKey=uuid(body.idempotencyKey),payloadHash=hash(canonical({id,fail}));
  const cached=(await query('SELECT request_hash,result FROM ar_command_results WHERE scope=$1 AND request_key=$2',[`generate:${actor.id}`,requestKey])).rows[0];
  if(cached){if(cached.request_hash!==payloadHash)throw new StoreError('KEY_REUSED','Этот запрос уже использован с другими данными.',409);if(cached.result!==null)return cached.result as DescriptionDraft;}
@@ -39,7 +39,7 @@ export async function generateDescription(actor:{id:string},body:Record<string,u
  }));
 }
 export async function applyDescription(actor:{id:string},body:Record<string,unknown>){
- requireLocalTest();const draftId=uuid(body.draftId),description=multilineText(body.description,'Описание',10,10000),metaDescription=text(body.metaDescription,'Meta description',10,320);
+ requireTestEnvironment();const draftId=uuid(body.draftId),description=multilineText(body.description,'Описание',10,10000),metaDescription=text(body.metaDescription,'Meta description',10,320);
  return transaction(c=>idempotent(c,`apply-description:${actor.id}`,body.idempotencyKey,{draftId,description,metaDescription},async()=>{
   const draft=(await c.query('SELECT * FROM ar_description_drafts WHERE id=$1 AND actor_id=$2 FOR UPDATE',[draftId,actor.id])).rows[0];
   if(!draft)throw new StoreError('NOT_FOUND','Черновик не найден.',404);

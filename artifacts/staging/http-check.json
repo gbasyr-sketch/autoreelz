@@ -1,0 +1,32 @@
+{
+  "startedAt": "2026-09-23T14:41:21.431Z",
+  "checks": [
+    {
+      "name": "approved HTTPS staging creates a real QA cart and order with manual shipping",
+      "passed": true
+    },
+    {
+      "name": "manager login and shipping correction work behind the approved HTTPS proxy",
+      "passed": true
+    },
+    {
+      "name": "staging test payment settles the QA order once without any PSP call",
+      "passed": true
+    },
+    {
+      "name": "staging worker processes simulated mail; no email transport is involved",
+      "passed": true
+    },
+    {
+      "name": "staging stays noindex despite a mistakenly enabled SEO switch",
+      "passed": true
+    },
+    {
+      "name": "foreign Origin is rejected in staging too",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "cleanup": true,
+  "finishedAt": "2026-09-23T14:41:32.161Z"
+}

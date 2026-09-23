@@ -3,13 +3,13 @@ import type{ShopSession}from'../lib/commerce-types.ts';
 import{transaction}from'./db.ts';
 import{StoreError,uuid,integer,text}from'./errors.ts';
 import{idempotent,canonical,hash,sign,equal}from'./security.ts';
-import{requireLocalTest}from'./config.ts';
+import{requireTestEnvironment}from'./config.ts';
 import{testPaymentAdapter,type PaymentEvent}from'./adapters/payment.ts';
 import{orderRow,getOrder,expireLocked,componentNeeds,stockMove,event as orderEvent,outbox}from'./orders.ts';
 import{safeMoney,lockStock}from'./pricing.ts';
 
 export async function applyPaymentEvent(input:PaymentEvent,signature:string){
- requireLocalTest();
+ requireTestEnvironment();
  if(!equal(sign(canonical(input)),signature))throw new StoreError('PAYMENT_SIGNATURE','Подпись платёжного события неверна.',403);
  const paymentId=uuid(input.paymentId),eventId=text(input.eventId,'Событие',1,160),amount=safeMoney(input.amountRubles);
  if(!['succeeded','failed'].includes(input.status)||typeof input.currency!=='string')throw new StoreError('PAYMENT_EVENT','Некорректное событие оплаты.');
@@ -52,7 +52,7 @@ export async function applyPaymentEvent(input:PaymentEvent,signature:string){
  });
 }
 export async function initiatePayment(session:ShopSession,body:Record<string,unknown>){
- requireLocalTest();const id=uuid(body.orderId),version=integer(body.shippingVersion,'Версия доставки');
+ requireTestEnvironment();const id=uuid(body.orderId),version=integer(body.shippingVersion,'Версия доставки');
  const method=String(body.method);if(!['card','sbp'].includes(method))throw new StoreError('PAYMENT_METHOD','Выберите карту или СБП.');
  const result=await transaction(c=>idempotent(c,`pay:${session.id}`,body.idempotencyKey,{id,version,method},async()=>{
   const order=await orderRow(c,id,session,true);

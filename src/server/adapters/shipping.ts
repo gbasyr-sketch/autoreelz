@@ -1,10 +1,10 @@
 import type{PoolClient}from'pg';
 import type{CheckoutInput,ShippingQuote}from'../../lib/commerce-types.ts';
-import{requireLocalTest}from'../config.ts';
+import{requireTestEnvironment}from'../config.ts';
 
 // Test rates only; dimensions always come from an explicit package/rule.
 export async function quoteLocalShipping(c:PoolClient,need:Map<string,number>,delivery:CheckoutInput['delivery'],fail=false):Promise<ShippingQuote>{
- requireLocalTest();
+ requireTestEnvironment();
  const pending=(reason:string):ShippingQuote=>({status:'pending_quote',costRubles:null,label:'Стоимость уточнит менеджер',reason,packageSnapshot:null});
  try{
   if(fail)throw Error('Test provider outage');

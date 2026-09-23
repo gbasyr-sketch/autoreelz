@@ -1,0 +1,59 @@
+{
+  "sourceRevision": "3e4c2bc16f8bbbebc050cec8854d3b4104e3f77a",
+  "passed": true,
+  "ordersCreated": 0,
+  "cartAutoSave": true,
+  "russianValidation": true,
+  "cdekShippingRubles": "185.00",
+  "totalRubles": "1985.00",
+  "noYandexBeforeConsent": true,
+  "mapConsentSavedBeforeSdk": true,
+  "mapSdkFaultInjected": true,
+  "unconfirmedCheckoutRejected": true,
+  "cookies": [
+    {
+      "name": "__ddg9_",
+      "domain": ".autoreelz.ru",
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax",
+      "remainingSeconds": 1217
+    },
+    {
+      "name": "__ddg1_",
+      "domain": ".autoreelz.ru",
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax",
+      "remainingSeconds": 31535981
+    },
+    {
+      "name": "autoreelz2026_shop",
+      "domain": "autoreelz.ru",
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax",
+      "remainingSeconds": 2591981
+    },
+    {
+      "name": "__ddg10_",
+      "domain": ".autoreelz.ru",
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax",
+      "remainingSeconds": 1217
+    },
+    {
+      "name": "__ddg8_",
+      "domain": ".autoreelz.ru",
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax",
+      "remainingSeconds": 1217
+    }
+  ],
+  "public": 200,
+  "museum": 200,
+  "manager": 401,
+  "cms": 401
+}

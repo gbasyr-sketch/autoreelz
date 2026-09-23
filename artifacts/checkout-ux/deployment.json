@@ -1,0 +1,18 @@
+{
+  "revision": "3e4c2bc16f8bbbebc050cec8854d3b4104e3f77a",
+  "imageId": "sha256:c51b5768c0403b13376ec394dc9458cae4fccfceb6d76b6d902aad007efeaec1",
+  "migration": "011_checkout_confirmations.sql",
+  "migrationSha256": "4fc1e275dd86364a321452e45213f04235206efa0901908f44bcd5ebd0fcb892",
+  "backup": "/srv/autoreelz2026/backups/before-checkout-confirmations-20260923T201713Z.dump",
+  "backupListVerified": true,
+  "containersChanged": [
+    "web",
+    "worker",
+    "edge"
+  ],
+  "dbAndCmsRecreated": false,
+  "storeMode": "staging",
+  "publicStorefront": true,
+  "publicVerification": "public-check.json",
+  "recordedAt": "2026-09-23T20:20:33.024618+00:00"
+}

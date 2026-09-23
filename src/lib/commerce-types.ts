@@ -16,3 +16,5 @@ export interface OrderView {paymentAction?:PaymentAction;id:string;number:string
 export interface CheckoutResult {orderIds:string[];orders:OrderView[]}
 export interface ApiError {error:{code:string;message:string}}
 export interface PaymentAction {provider:'simulation'|'yookassa-sandbox';pending:boolean;confirmationUrl:string|null;canCheck:boolean;message:string|null}
+
+export interface DeliveryEstimate {cartVersion:number;delivery:DeliveryInput;groups:QuoteGroup[];productTotalRubles:Rubles;shippingCostRubles:Rubles|null;totalRubles:Rubles|null;expiresAt:string}

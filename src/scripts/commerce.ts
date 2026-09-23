@@ -1,7 +1,7 @@
 import{initShippingForm}from'./shipping-form';
 import {formatRubles as money,parseRublesInput,type Rubles} from '../lib/money';
 import type {ManagerOrderView} from '../lib/management-types';
-import type {ShopSession,CartView,CartLineView,CheckoutInput,CheckoutQuote,CheckoutResult,OrderView,OrderLineSnapshot,QuoteGroup} from '../lib/commerce-types';
+import type {ShopSession,CartView,CartLineView,CheckoutInput,CheckoutQuote,CheckoutResult,OrderView,OrderLineSnapshot,QuoteGroup,DeliveryEstimate} from '../lib/commerce-types';
 
 const root=document.querySelector<HTMLElement>('[data-commerce]');
 const q=<T extends Element=HTMLElement>(selector:string,context:ParentNode=document)=>context.querySelector<T>(selector);
@@ -22,7 +22,7 @@ export class CommerceError extends Error{constructor(message:string,public statu
 let sessionPromise:Promise<ShopSession>|null=null;
 async function request<T>(path:string,options:RequestInit={}):Promise<T>{
  let response:Response;
- try{response=await fetch(path,{credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(path==='/api/commerce/quote'?40000:20000),...options});}catch{throw new CommerceError('Не удалось связаться с магазином. Проверьте соединение и повторите действие.');}
+ try{response=await fetch(path,{credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(['/api/commerce/quote','/api/commerce/delivery-estimate'].includes(path)?40000:20000),...options});}catch{throw new CommerceError('Не удалось связаться с магазином. Проверьте соединение и повторите действие.');}
  const payload=await response.json().catch(()=>null);
  if(!response.ok)throw new CommerceError(payload?.error?.message??'Не удалось выполнить действие. Попробуйте ещё раз.',response.status,payload?.error?.code??'http');
  return payload as T;
@@ -69,13 +69,38 @@ async function initCheckout(){
  const form=q<HTMLFormElement>('#checkout-form')!,content=q<HTMLElement>('[data-checkout-content]')!,review=q<HTMLElement>('[data-quote-review]')!,confirm=q<HTMLButtonElement>('[data-confirm-checkout]')!;let cart:CartView;let quote:CheckoutQuote|null=null;
  const input=(name:string)=>form.elements.namedItem(name) as HTMLInputElement|HTMLSelectElement;
  function showForm(){quote=null;review.hidden=true;content.hidden=false;q('[data-step-contact]')?.setAttribute('aria-current','step');q('[data-step-review]')?.removeAttribute('aria-current');}
- async function load(){cart=await commerceGet<CartView>('/api/commerce/cart');updateCartBadges(cart);q<HTMLElement>('[data-checkout-empty]')!.hidden=cart.lines.length>0;content.hidden=!cart.lines.length;const box=q<HTMLElement>('[data-checkout-summary]')!;box.replaceChildren();for(const line of cart.lines){const p=el('p',`${line.name} × ${line.quantity}`);p.append(el('span',` · ${money(line.lineTotalRubles)}`,'muted'));box.append(p);}box.append(el('div','','commerce-totals'));box.lastElementChild!.append(totalRow('Товары',money(cart.productTotalRubles),true));}
- const deliveryInput=initShippingForm(form);
- form.addEventListener('submit',event=>{event.preventDefault();void busy(form,async()=>{const data:CheckoutInput={customer:{name:input('name').value.trim(),phone:input('phone').value.trim(),email:input('email').value.trim()},delivery:deliveryInput(),cartVersion:cart.version};try{quote=await commerceCommand<CheckoutQuote>('/api/commerce/quote',data);}catch(error){if(error instanceof CommerceError&&error.status===409){await load();throw new Error('Состав, цены или наличие изменились. Корзина обновлена — проверьте её и повторите расчёт.');}throw error;}
+ let estimateSequence=0,estimateTimer:ReturnType<typeof setTimeout>|undefined,estimateExpires:ReturnType<typeof setTimeout>|undefined,estimateRequest:AbortController|undefined;
+ const summaryLines=el('div'),totalsBox=el('div','','commerce-totals'),estimateStatus=el('p','','field-help'),estimateRetry=button('Повторить расчёт доставки');estimateRetry.hidden=true;estimateStatus.setAttribute('role','status');estimateStatus.setAttribute('aria-live','polite');
+ function renderSummaryLines(lines:Pick<CartLineView,'name'|'quantity'|'lineTotalRubles'>[]){summaryLines.replaceChildren();for(const line of lines){const p=el('p',`${line.name} × ${line.quantity}`);p.append(el('span',` · ${money(line.lineTotalRubles)}`,'muted'));summaryLines.append(p);}}
+ function estimateView(message:string,value?:DeliveryEstimate){
+  if(value){cart.productTotalRubles=value.productTotalRubles;renderSummaryLines(value.groups.flatMap(g=>g.lines));}
+  totalsBox.replaceChildren(totalRow('Товары',money(value?.productTotalRubles??cart.productTotalRubles)),totalRow('Доставка',value?(value.shippingCostRubles===null?'Уточнит менеджер':money(value.shippingCostRubles)):message),totalRow('Итого',value?.totalRubles?money(value.totalRubles):'После расчёта доставки',true));
+  totalsBox.dataset.deliveryTotal=value?.shippingCostRubles??'';estimateStatus.textContent=value?(value.shippingCostRubles===null?'До уточнения стоимости доставки оплата недоступна.':'Предварительный расчёт. Окончательный итог проверьте перед оформлением.'):'';
+  const cost=value?(value.shippingCostRubles===null?'Доставка: стоимость уточнит менеджер.':`Доставка ${money(value.shippingCostRubles)} · Итого ${money(value.totalRubles!)}.`):message;
+  form.querySelectorAll<HTMLElement>('[data-delivery-cost-preview]').forEach(n=>n.textContent=cost);
+  if(value?.groups.length&&value.groups.length>1)estimateStatus.textContent=value.groups.map(g=>`${kindLabel(g.kind)}: ${g.shipping.costRubles===null?'стоимость уточнит менеджер':money(g.shipping.costRubles)}.`).join(' ');
+ }
+ function cancelEstimate(){estimateSequence++;clearTimeout(estimateTimer);clearTimeout(estimateExpires);estimateRequest?.abort();estimateRequest=undefined;}
+ const deliveryInput=initShippingForm(form,()=>scheduleEstimate());
+ function scheduleEstimate(){
+  cancelEstimate();if(!cart)return;estimateRetry.hidden=true;
+  if((form.elements.namedItem('manualDelivery') as HTMLInputElement|null)?.checked){estimateView('Уточнит менеджер');return;}
+  let delivery:ReturnType<typeof deliveryInput>;try{delivery=deliveryInput();if(delivery.city.length<2||delivery.address.length<3)throw Error();}catch{estimateView('Выберите ПВЗ или укажите адрес');return;}
+  const sequence=estimateSequence;estimateView('Рассчитываем…');
+  estimateTimer=setTimeout(()=>void(async()=>{
+   const controller=new AbortController();estimateRequest=controller;const timeout=setTimeout(()=>controller.abort(),40000);
+   try{const session=await getSession();const value=await request<DeliveryEstimate>('/api/commerce/delivery-estimate',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':session.csrfToken},body:JSON.stringify({delivery,cartVersion:cart.version}),signal:controller.signal});if(sequence!==estimateSequence)return;estimateView('',value);estimateRetry.hidden=value.shippingCostRubles!==null;
+    estimateExpires=setTimeout(()=>{if(sequence===estimateSequence){estimateView('Расчёт устарел');estimateRetry.hidden=false;}},Math.max(0,new Date(value.expiresAt).getTime()-Date.now()));
+   }catch(e){if(sequence!==estimateSequence)return;estimateView('Уточнит менеджер');estimateStatus.textContent=e instanceof CommerceError&&e.status===409?'Корзина изменилась. Обновите её перед расчётом.':'Расчёт временно недоступен. Можно повторить его или оформить заказ для уточнения доставки.';estimateRetry.hidden=false;}finally{clearTimeout(timeout);if(estimateRequest===controller)estimateRequest=undefined;}
+  })(),400);
+ }
+ estimateRetry.addEventListener('click',()=>void busy(estimateRetry,async()=>{await load();scheduleEstimate();}));
+ async function load(){cart=await commerceGet<CartView>('/api/commerce/cart');updateCartBadges(cart);q<HTMLElement>('[data-checkout-empty]')!.hidden=cart.lines.length>0;content.hidden=!cart.lines.length;const box=q<HTMLElement>('[data-checkout-summary]')!;box.replaceChildren();renderSummaryLines(cart.lines);box.append(summaryLines,totalsBox,estimateStatus,estimateRetry);estimateView('Выберите ПВЗ или укажите адрес');}
+ form.addEventListener('submit',event=>{event.preventDefault();cancelEstimate();void busy(form,async()=>{const data:CheckoutInput={customer:{name:input('name').value.trim(),phone:input('phone').value.trim(),email:input('email').value.trim()},delivery:deliveryInput(),cartVersion:cart.version};try{quote=await commerceCommand<CheckoutQuote>('/api/commerce/quote',data);}catch(error){if(error instanceof CommerceError&&error.status===409){await load();throw new Error('Состав, цены или наличие изменились. Корзина обновлена — проверьте её и повторите расчёт.');}throw error;}
    q<HTMLElement>('[data-quote-contact]')!.textContent=`${quote.customer.name} · ${quote.customer.phone} · ${quote.customer.email}. ${deliveryLabel(quote.delivery.method)}: ${quote.delivery.city}, ${quote.delivery.address}${quote.delivery.pointCode?` · ПВЗ ${quote.delivery.pointCode}`:''}.`;
    const groups=q<HTMLElement>('[data-quote-groups]')!;groups.replaceChildren();for(const group of quote.groups)groups.append(quoteGroup(group));content.hidden=true;review.hidden=false;q('[data-step-contact]')?.removeAttribute('aria-current');q('[data-step-review]')?.setAttribute('aria-current','step');q<HTMLElement>('[data-quote-validity]')!.textContent=`Расчёт действует до ${date(quote.expiresAt)}. После этого потребуется проверить стоимость снова.`;confirm.textContent=quote.groups.length>1?'Оформить 2 тестовых заказа':'Оформить тестовый заказ';q<HTMLElement>('#review-title')!.focus();
   });});
- q<HTMLButtonElement>('[data-edit-checkout]')!.addEventListener('click',()=>{showForm();input('name').focus();});
+ q<HTMLButtonElement>('[data-edit-checkout]')!.addEventListener('click',()=>{showForm();scheduleEstimate();input('name').focus();});
  confirm.addEventListener('click',()=>void busy(confirm,async()=>{if(!quote)return;try{const result=await commerceCommand<CheckoutResult>('/api/commerce/checkout',{quoteId:quote.id,cartVersion:quote.cartVersion});if(!result.orderIds.length)throw new Error('Заказ не подтверждён. Обновите корзину и попробуйте ещё раз.');window.location.assign(`/orders/${encodeURIComponent(result.orderIds[0]!)}${result.orderIds.length>1?`?related=${result.orderIds.map(encodeURIComponent).join(',')}`:''}`);}catch(error){if(error instanceof CommerceError&&error.status===409){showForm();await load();throw new Error('За время оформления изменились цены, наличие или состав. Повторите расчёт и проверьте обновлённый заказ.');}throw error;}}));
  try{await load();const session=await getSession();if(session.email)input('email').value=session.email;}catch(error){pageError(error);}finally{loading();}
 }

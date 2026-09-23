@@ -1,10 +1,10 @@
 import{sumRubles,multiplyRubles}from'./pricing.ts';
 import type{PoolClient}from'pg';
-import type{ShopSession,CartView,CartLineView,CheckoutQuote,OrderLineSnapshot}from'../lib/commerce-types.ts';
+import type{ShopSession,CartView,CartLineView,CheckoutQuote,OrderLineSnapshot,DeliveryInput,DeliveryEstimate}from'../lib/commerce-types.ts';
 import{transaction}from'./db.ts';
 import{StoreError,uuid,integer,iso}from'./errors.ts';
 import{idempotent}from'./security.ts';
-import{snapshotLine,requirements,splitLines,safeMoney,customerInput,quoteGroups,quoteFingerprint}from'./pricing.ts';
+import{snapshotLine,requirements,splitLines,safeMoney,customerInput,deliveryInput,quoteGroups,quoteFingerprint}from'./pricing.ts';
 import{shippingProvider}from'./shipping-policy.ts';
 import{cdekShipping}from'./cdek-shipping.ts';
 
@@ -49,22 +49,41 @@ export async function changeCart(session:ShopSession,body:Record<string,unknown>
   await c.query('UPDATE ar_carts SET version=version+1 WHERE id=$1',[cart.id]);return cartView(c,session);
  }));
 }
+async function readDeliveryBasis(c:PoolClient,session:ShopSession,version:number,delivery:DeliveryInput){
+ const cart=await cartRecord(c,session,true);if(cart.version!==version)throw new StoreError('CART_CHANGED','Корзина изменилась. Повторите расчёт.',409);
+ return quoteGroups(c,await completeLines(c,cart.id),{delivery});
+}
+async function prepareCarrierQuote(session:ShopSession,version:number,delivery:DeliveryInput,shipping:typeof cdekShipping){
+ delivery=await shipping.normalize(delivery);
+ const basis=await transaction(c=>readDeliveryBasis(c,session,version,delivery));
+ const fingerprint=quoteFingerprint(basis),startedAt=Date.now(),groups=await shipping.enrich(basis,delivery);
+ return{delivery,fingerprint,startedAt,groups};
+}
+async function verifyCarrierQuote(c:PoolClient,session:ShopSession,version:number,prepared:Awaited<ReturnType<typeof prepareCarrierQuote>>){
+ const current=await readDeliveryBasis(c,session,version,prepared.delivery);
+ if(quoteFingerprint(current)!==prepared.fingerprint)throw new StoreError('QUOTE_CHANGED','Цена, наличие или упаковка изменились. Повторите расчёт.',409);
+ if(Date.now()-prepared.startedAt>=5*60_000)throw new StoreError('QUOTE_EXPIRED','Расчёт устарел. Повторите его.',409);
+}
+export async function estimateDelivery(session:ShopSession,body:Record<string,unknown>,shipping=cdekShipping):Promise<DeliveryEstimate>{
+ const version=integer(body.cartVersion,'Версия корзины');let delivery=deliveryInput(body.delivery),groups,startedAt=Date.now();
+ if(shippingProvider()==='cdek'){
+  const prepared=await prepareCarrierQuote(session,version,delivery,shipping);await transaction(c=>verifyCarrierQuote(c,session,version,prepared));
+  delivery=prepared.delivery;groups=prepared.groups;startedAt=prepared.startedAt;
+ }else groups=await transaction(c=>readDeliveryBasis(c,session,version,delivery));
+ const productTotalRubles=sumRubles(groups.map(g=>g.productTotalRubles)),shippingCostRubles=groups.some(g=>g.shipping.costRubles===null)?null:sumRubles(groups.map(g=>g.shipping.costRubles!));
+ return{cartVersion:version,delivery,groups,productTotalRubles,shippingCostRubles,totalRubles:shippingCostRubles===null?null:sumRubles([productTotalRubles,shippingCostRubles]),expiresAt:new Date(startedAt+5*60_000).toISOString()};
+}
 export async function createQuote(session:ShopSession,body:Record<string,unknown>,shipping=cdekShipping):Promise<CheckoutQuote>{
  const input=customerInput(body);
  if(shippingProvider()==='cdek'){
-  input.delivery=await shipping.normalize(input.delivery);
-  const basis=await transaction(async c=>{const cart=await cartRecord(c,session,true);if(cart.version!==input.cartVersion)throw new StoreError('CART_CHANGED','Корзина изменилась. Обновите состав.',409);return quoteGroups(c,await completeLines(c,cart.id),input);});
-  const fingerprint=quoteFingerprint(basis),startedAt=Date.now();
-  const groups=await shipping.enrich(basis,input.delivery);
+  const prepared=await prepareCarrierQuote(session,input.cartVersion,input.delivery,shipping);input.delivery=prepared.delivery;
   return transaction(async c=>{
-   const cart=await cartRecord(c,session,true);if(cart.version!==input.cartVersion)throw new StoreError('CART_CHANGED','Корзина изменилась. Повторите расчёт.',409);
-   const current=await quoteGroups(c,await completeLines(c,cart.id),input);
-   if(quoteFingerprint(current)!==fingerprint)throw new StoreError('QUOTE_CHANGED','Цена, наличие или упаковка изменились. Повторите расчёт.',409);
-   if(Date.now()-startedAt>=5*60_000)throw new StoreError('QUOTE_EXPIRED','Расчёт устарел. Повторите его.',409);
-   const row=(await c.query('INSERT INTO ar_cart_quotes(session_id,cart_version,input,snapshot,fingerprint,expires_at) VALUES($1,$2,$3,$4,$5,$6) RETURNING id,expires_at',[session.id,cart.version,input,JSON.stringify(groups),fingerprint,new Date(startedAt+5*60_000)])).rows[0];
-   return{id:row.id,cartVersion:cart.version,expiresAt:iso(row.expires_at)!,customer:input.customer,delivery:input.delivery,groups,csrfToken:session.csrfToken};
+   await verifyCarrierQuote(c,session,input.cartVersion,prepared);
+   const row=(await c.query('INSERT INTO ar_cart_quotes(session_id,cart_version,input,snapshot,fingerprint,expires_at) VALUES($1,$2,$3,$4,$5,$6) RETURNING id,expires_at',[session.id,input.cartVersion,input,JSON.stringify(prepared.groups),prepared.fingerprint,new Date(prepared.startedAt+5*60_000)])).rows[0];
+   return{id:row.id,cartVersion:input.cartVersion,expiresAt:iso(row.expires_at)!,customer:input.customer,delivery:input.delivery,groups:prepared.groups,csrfToken:session.csrfToken};
   });
  }
+
  return transaction(async c=>{
   const cart=await cartRecord(c,session,true);if(cart.version!==input.cartVersion)throw new StoreError('CART_CHANGED','Корзина изменилась. Обновите состав.',409);
   const lines=await completeLines(c,cart.id);const groups=await quoteGroups(c,lines,input);

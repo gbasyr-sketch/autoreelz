@@ -6,7 +6,7 @@ import{shippingProvider}from'../../../server/shipping-policy';
 import{readBody,jsonBody}from'../../../server/security';
 import{requireTestEnvironment,appConfig}from'../../../server/config';
 import{StoreError}from'../../../server/errors';
-import{getCart,changeCart,createQuote}from'../../../server/cart';
+import{getCart,changeCart,createQuote,estimateDelivery}from'../../../server/cart';
 import{checkout,getOrder,listOrders,cancelOrder}from'../../../server/orders';
 import{payOrder,applyPaymentEvent}from'../../../server/payments';
 import type{PaymentEvent}from'../../../server/adapters/payment';
@@ -29,6 +29,7 @@ export const POST:APIRoute=async ctx=>{try{
  const session=await sessionFor(ctx),body=await readBody(ctx.request,session);
  switch(ctx.params.action){
   case'cart':return json(await changeCart(session,body));
+  case'delivery-estimate':if(shippingProvider()==='cdek')await shippingRateLimit(peer(ctx));return json(await estimateDelivery(session,body));
   case'quote':if(shippingProvider()==='cdek')await shippingRateLimit(peer(ctx));return json(await createQuote(session,body));
   case'checkout':return json(await checkout(session,body));
   case'pay':return json(await payOrder(session,body));

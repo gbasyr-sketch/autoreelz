@@ -3,7 +3,7 @@
   "cleanup": true,
   "checks": [
     {
-      "name": "real city/point selection, map keyboard popup and synchronized readonly fields",
+      "name": "pickup selection shows the shipping price before contact details, with map and synchronized fields",
       "passed": true
     },
     {

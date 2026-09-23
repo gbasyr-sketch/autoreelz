@@ -1,0 +1,44 @@
+▶ commerce integration in isolated PostgreSQL
+  ✔ isolation: application uses ar_app in the uniquely named QA clone (48.806083ms)
+  ✔ cart: same key replays once; changed payload and stale version rejected (222.880791ms)
+  ✔ cart: concurrent distinct commands on one version have one winner (91.05125ms)
+  ✔ checkout: concurrent same key and later different key return the same order (167.298458ms)
+  ✔ split: partial shortage moves the whole line to preorder without a reserve (54.712209ms)
+  ✔ split: insertion priority, fixed bundle shortage, and separate shipping (307.040416ms)
+  ✔ bundle plus standalone component: one shared stock requirement and exact discounted price (160.716875ms)
+  ✔ two bundles share the same physical stock and the later one becomes preorder (89.686875ms)
+  ✔ bundle cannot be sold when a component category is unpublished (53.385417ms)
+  ✔ two buyers compete for the last SKU: one order and one QUOTE_CHANGED (150.609708ms)
+  ✔ unknown delivery stays null and blocks payment; revised delivery rejects stale total (150.749417ms)
+  ✔ snapshot: catalog edits cannot change purchased name, article, price or components (118.110167ms)
+  ✔ bundle snapshot and physical requirements remain fixed after a CMS composition edit (293.464458ms)
+  ✔ money safety: an overflowing line is rejected atomically (30.202708ms)
+  ✔ rubles: database, order snapshot and payment preserve 0.01 and 7200.50 exactly (212.047167ms)
+  ✔ rubles: 0.10 plus 0.20 remains 0.30 through cart, checkout and payment (185.626584ms)
+  ✔ rubles: bundle discount rounds half a kopeck up after the component sum (173.849958ms)
+  ✔ packaging: known unit package, exact multi-unit rule, and provider fallback (27.231333ms)
+  ✔ ordinary payment: pending idempotency, duplicate events and repeated pay do not redebit (76.529ms)
+  ✔ payment signature and wrong amount: invalid event denied; signed mismatch goes to review (146.199458ms)
+  ✔ failed payment can be retried and does not downgrade a completed payment (85.532125ms)
+  ✔ a repeated failure of payment A cannot clear pending payment B or unlock delivery (125.792167ms)
+  ✔ ordinary cancellation and duplicate worker return a reserve exactly once (65.054333ms)
+  ✔ ordinary expiration under concurrent workers releases once and cannot be paid (229.056834ms)
+  ✔ stock receipt is idempotent; insufficient preorder cannot confirm; confirmation debits once (314.964583ms)
+  ✔ confirmed preorder expiration restores physical stock exactly once (239.011708ms)
+  ✔ confirmed preorder cancellation restores stock once; unconfirmed cancel never moves it (221.167625ms)
+  ✔ preorder confirmation competes with a new ordinary buyer for the same last SKU (152.191959ms)
+  ✔ delivery cannot change while a payment is pending; stale amounts never silently update (159.471042ms)
+  ✔ late ordinary payment racing expiration cannot debit released stock (135.898958ms)
+  ✔ late preorder payment racing expiration restores once and requires manual review (203.484292ms)
+  ✔ late payment after cancellation goes to review without changing available stock (107.566708ms)
+  ✔ access: order UUID, number and unconfirmed matching email never expose another session (141.321875ms)
+  ✔ worker outbox: duplicate ticks deliver each test message once with a heartbeat (26.574125ms)
+✔ commerce integration in isolated PostgreSQL (17035.853875ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17664.251958

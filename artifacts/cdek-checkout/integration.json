@@ -39,6 +39,14 @@
     {
       "name": "expired and foreign-session quotes are rejected",
       "passed": true
+    },
+    {
+      "name": "pickup preview requires no contacts, persists no checkout quote and reserves no stock",
+      "passed": true
+    },
+    {
+      "name": "preview sums two deliveries and preserves unknown totals for unmeasured packaging",
+      "passed": true
     }
   ],
   "passed": true,

@@ -2,7 +2,7 @@ import type{DeliveryInput}from'../lib/commerce-types';
 type City={code:number;name:string;region:string;subRegion:string};
 type Point={code:string;name:string;cityCode:number;city:string;address:string;workTime:string;latitude:number|null;longitude:number|null};
 type PickupMap=ReturnType<typeof import('./pickup-map')['createPickupMap']>;
-export function initShippingForm(form:HTMLFormElement){
+export function initShippingForm(form:HTMLFormElement,onChange:()=>void=()=>{}){
  const field=<T extends HTMLInputElement|HTMLSelectElement>(name:string)=>form.elements.namedItem(name) as T;
  const q=<T extends HTMLElement>(selector:string)=>form.querySelector<T>(selector)!;
  const method=form.elements.namedItem('method') as HTMLSelectElement|RadioNodeList;const onMethod=(fn:()=>void)=>form.querySelectorAll('[name=method]').forEach(n=>n.addEventListener('change',fn));const city=field<HTMLInputElement>('city'),address=field<HTMLInputElement>('address');
@@ -13,7 +13,7 @@ export function initShippingForm(form:HTMLFormElement){
  const cityMap=new Map<string,City>(),pointMap=new Map<string,Point>();let generation=0,page=0,hasMore=false;let map:PickupMap|undefined,mapPromise:Promise<PickupMap>|undefined;
  function mapPoints(items:Point[],fit=false){
   const current=generation,host=q<HTMLElement>('[data-pickup-map]'),notice=q<HTMLElement>('[data-map-status]');
-  const choose=(code:string)=>{points.value=code;details();map?.select(code);status.textContent='Выбран ПВЗ '+code;requestAnimationFrame(()=>field<HTMLInputElement>('selectedPointCode').focus({preventScroll:true}));};
+  const choose=(code:string)=>{points.value=code;details();map?.select(code);status.textContent='Выбран ПВЗ '+code;onChange();requestAnimationFrame(()=>field<HTMLInputElement>('selectedPointCode').focus({preventScroll:true}));};
   if(!mapPromise)mapPromise=(host.dataset.mapProvider==='yandex'?import('./yandex-pickup-map').then(m=>m.createYandexPickupMap(host,notice,choose,host.dataset.yandexApiKey??'')):import('./pickup-map').then(m=>m.createPickupMap(host,notice,choose))).then(value=>map=value);
   void mapPromise.then(m=>{if(current===generation){m.show(items,points.value,fit);if(points.value)m.select(points.value);}}).catch(()=>{notice.textContent='Карта не загрузилась. Выберите ПВЗ из списка ниже.';mapPromise=undefined;});
  }
@@ -30,12 +30,13 @@ export function initShippingForm(form:HTMLFormElement){
   try{const task=work();trackedGeneration=generation;await task;}catch(e){if(trackedGeneration!==generation||requests.get(control)!==id)return;status.textContent='';error.textContent=e instanceof Error?e.message:'СДЭК временно недоступен. Укажите адрес вручную.';error.hidden=false;error.focus({preventScroll:true});}finally{if(requests.get(control)===id){control.removeAttribute('aria-busy');if(control instanceof HTMLButtonElement)control.disabled=false;}}
  }
  async function loadPoints(nextPage:number){const current=generation,code=cities.value;if(!code||manual.checked||method.value!=='pickup_point')return;const data=await get(`/api/shipping/points?cityCode=${encodeURIComponent(code)}&page=${nextPage}`);if(current!==generation)return;for(const p of data.items as Point[])pointMap.set(p.code,p);page=nextPage;hasMore=Boolean(data.hasMore);renderPoints(nextPage===0);status.textContent=pointMap.size?`Найдено пунктов: ${pointMap.size}. Выберите подходящий адрес.`:'В этом городе пункты не найдены. Можно выбрать курьера или указать адрес вручную.';}
- city.addEventListener('input',()=>{generation++;cityMap.clear();cities.replaceChildren(option('','Найдите город заново'));resetPoints();mode();});
+ city.addEventListener('input',()=>{generation++;cityMap.clear();cities.replaceChildren(option('','Найдите город заново'));resetPoints();mode();onChange();});
+ address.addEventListener('input',onChange);
  search.addEventListener('click',()=>void run(search,async()=>{if(city.value.trim().length<2){city.focus();throw Error('Введите полное название населённого пункта.');}const current=++generation;cityMap.clear();cities.replaceChildren(option('','Ищем…'));resetPoints();mode();const data=await get('/api/shipping/cities?q='+encodeURIComponent(city.value.trim()));if(current!==generation)return;cities.replaceChildren(option('',data.items.length?'Выберите населённый пункт':'Ничего не найдено'));for(const c of data.items as City[]){cityMap.set(String(c.code),c);cities.append(option(String(c.code),[...new Set([c.name,c.region,c.subRegion].filter(Boolean))].join(' · ')));}status.textContent=data.items.length?'Выберите населённый пункт и регион из списка.':'Населённый пункт не найден. Проверьте название или укажите адрес вручную.';cities.focus();}));
- cities.addEventListener('change',()=>{generation++;resetPoints();mode();if(method.value==='pickup_point')void run(q('[data-point-controls]'),()=>loadPoints(0));});
- onMethod(()=>{generation++;mode();if(method.value==='pickup_point'&&cities.value&&!manual.checked)void run(q('[data-point-controls]'),()=>loadPoints(0));});
- manual.addEventListener('change',()=>{generation++;mode();status.textContent=manual.checked?'Заказ можно оформить. Стоимость доставки уточнит менеджер до оплаты.':'';if(!manual.checked&&method.value==='pickup_point'&&cities.value)void run(q('[data-point-controls]'),()=>loadPoints(0));});
- q('[data-select-from-list]').addEventListener('click',()=>points.focus());filter.addEventListener('input',()=>renderPoints(true));points.addEventListener('change',()=>{details();map?.select(points.value);});more.addEventListener('click',()=>void run(more,()=>loadPoints(page+1)));mode();
+ cities.addEventListener('change',()=>{generation++;resetPoints();mode();onChange();if(method.value==='pickup_point')void run(q('[data-point-controls]'),()=>loadPoints(0));});
+ onMethod(()=>{generation++;mode();onChange();if(method.value==='pickup_point'&&cities.value&&!manual.checked)void run(q('[data-point-controls]'),()=>loadPoints(0));});
+ manual.addEventListener('change',()=>{generation++;mode();onChange();status.textContent=manual.checked?'Заказ можно оформить. Стоимость доставки уточнит менеджер до оплаты.':'';if(!manual.checked&&method.value==='pickup_point'&&cities.value)void run(q('[data-point-controls]'),()=>loadPoints(0));});
+ q('[data-select-from-list]').addEventListener('click',()=>points.focus());filter.addEventListener('input',()=>{const before=points.value;renderPoints(true);if(before!==points.value)onChange();});points.addEventListener('change',()=>{details();map?.select(points.value);onChange();});more.addEventListener('click',()=>void run(more,()=>loadPoints(page+1)));mode();
  return():DeliveryInput=>{
   if(manual.checked)return{method:method.value as DeliveryInput['method'],city:city.value.trim(),address:address.value.trim(),manual:true};
   const c=cityMap.get(cities.value),p=pointMap.get(points.value);if(!c)throw Error('Выберите населённый пункт СДЭК.');if(method.value==='pickup_point'&&!p)throw Error('Выберите пункт выдачи СДЭК.');

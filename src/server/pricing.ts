@@ -1,5 +1,5 @@
 import type{PoolClient}from'pg';
-import type{CheckoutInput,OrderLineSnapshot,QuoteGroup}from'../lib/commerce-types.ts';
+import type{CheckoutInput,OrderLineSnapshot,QuoteGroup,DeliveryInput}from'../lib/commerce-types.ts';
 import{StoreError,text,email,integer}from'./errors.ts';
 import{prepareShipping}from'./adapters/shipping.ts';
 import{shippingProvider,shippingContext}from'./shipping-policy.ts';
@@ -10,13 +10,17 @@ export const sumRubles=(values:Iterable<string>)=>checkedPrice(()=>sum(values));
 export const multiplyRubles=(value:string,quantity:number)=>checkedPrice(()=>multiply(value,quantity));
 export const discountRubles=(value:string,bps:number)=>checkedPrice(()=>discount(value,bps));
 export function safeMoney(value:unknown){try{return rubles(value);}catch{throw new StoreError('PRICE_RANGE','Укажите сумму в рублях, не более двух знаков после запятой.');}}
-export function customerInput(body:Record<string,unknown>):CheckoutInput{
- const customer=body.customer as Record<string,unknown>|undefined,delivery=body.delivery as Record<string,unknown>|undefined;
- if(!customer||!delivery)throw new StoreError('INVALID_INPUT','Заполните контактные данные и доставку.');
- const phone=text(customer.phone,'Телефон',10,25);if(!/^[+0-9 ()-]+$/.test(phone)||phone.replace(/\D/g,'').length<10||phone.replace(/\D/g,'').length>15)throw new StoreError('PHONE','Укажите корректный телефон.');
- if(!['pickup_point','courier'].includes(String(delivery.method)))throw new StoreError('DELIVERY','Выберите способ доставки.');
+export function deliveryInput(value:unknown):DeliveryInput{
+ const delivery=value as Record<string,unknown>|undefined;
+ if(!delivery||!['pickup_point','courier'].includes(String(delivery.method)))throw new StoreError('DELIVERY','Выберите способ доставки.');
  const cdek=shippingProvider()==='cdek',manual=cdek&&delivery.manual===true;
- return{customer:{name:text(customer.name,'Имя',2,100),phone,email:email(customer.email)},delivery:{method:delivery.method as 'pickup_point'|'courier',city:text(delivery.city,'Город',2,100),address:text(delivery.address,'Адрес / пункт выдачи',3,300),...(cdek?{manual,provider:manual?'manual' as const:'cdek' as const,...(!manual?{cityCode:integer(delivery.cityCode,'Город СДЭК',1,2147483647),...(delivery.method==='pickup_point'?{pointCode:text(delivery.pointCode,'Пункт СДЭК',1,64)}:{})}:{})}:{})},cartVersion:integer(body.cartVersion,'Версия корзины')};
+ return{method:delivery.method as 'pickup_point'|'courier',city:text(delivery.city,'Город',2,100),address:text(delivery.address,'Адрес / пункт выдачи',3,300),...(cdek?{manual,provider:manual?'manual' as const:'cdek' as const,...(!manual?{cityCode:integer(delivery.cityCode,'Город СДЭК',1,2147483647),...(delivery.method==='pickup_point'?{pointCode:text(delivery.pointCode,'Пункт СДЭК',1,64)}:{})}:{})}:{})};
+}
+export function customerInput(body:Record<string,unknown>):CheckoutInput{
+ const customer=body.customer as Record<string,unknown>|undefined;
+ if(!customer)throw new StoreError('INVALID_INPUT','Заполните контактные данные.');
+ const phone=text(customer.phone,'Телефон',10,25);if(!/^[+0-9 ()-]+$/.test(phone)||phone.replace(/\D/g,'').length<10||phone.replace(/\D/g,'').length>15)throw new StoreError('PHONE','Укажите корректный телефон.');
+ return{customer:{name:text(customer.name,'Имя',2,100),phone,email:email(customer.email)},delivery:deliveryInput(body.delivery),cartVersion:integer(body.cartVersion,'Версия корзины')};
 }
 export async function snapshotLine(c:PoolClient,productId:string,skuId:string|null,quantity:number):Promise<OrderLineSnapshot>{
  const product=(await c.query(`SELECT p.* FROM ar_products p WHERE p.id=$1 AND p.status='published' AND NOT EXISTS (
@@ -56,7 +60,7 @@ export function splitLines(lines:OrderLineSnapshot[],stocks:{sku_id:string;on_ha
 }
 export async function shippingQuote(c:PoolClient,lines:OrderLineSnapshot[],delivery:CheckoutInput['delivery'],fail=false){return prepareShipping(c,requirements(lines),delivery,fail);}
 export const quoteFingerprint=(groups:QuoteGroup[])=>hash(canonical(shippingProvider()==='cdek'?{groups,context:shippingContext()}:groups));
-export async function quoteGroups(c:PoolClient,lines:OrderLineSnapshot[],input:CheckoutInput,lock=false):Promise<QuoteGroup[]>{
+export async function quoteGroups(c:PoolClient,lines:OrderLineSnapshot[],input:Pick<CheckoutInput,'delivery'>,lock=false):Promise<QuoteGroup[]>{
  const need=requirements(lines);const stocks=lock?await lockStock(c,need):(await c.query('SELECT sku_id,on_hand,reserved FROM ar_stock WHERE sku_id=ANY($1::uuid[])',[[...need.keys()]])).rows;
  const groups=splitLines(lines,stocks);const result:QuoteGroup[]=[];
  for(const kind of ['ordinary','preorder'] as const){const items=groups[kind];if(!items.length)continue;const productTotalRubles=sumRubles(items.map(l=>l.lineTotalRubles));const shipping=await shippingQuote(c,items,input.delivery);result.push({kind,lines:items,productTotalRubles,shipping,totalRubles:shipping.costRubles===null?null:sumRubles([productTotalRubles,shipping.costRubles])});}

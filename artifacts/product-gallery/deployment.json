@@ -1,0 +1,8 @@
+{
+  "revision": "eadb8a9e9f89d3395657f2cd33976d59f59be1ce",
+  "imageId": "sha256:c0d7844141c1e32783b556cff5e715fbe5558282971a4e2b7837964c8aaf5b91",
+  "schemaChanged": false,
+  "catalogChanged": false,
+  "publicCheck": "public-check.json",
+  "passed": true
+}

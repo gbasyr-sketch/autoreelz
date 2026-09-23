@@ -78,8 +78,8 @@ try{
   await assert.rejects(()=>qa.query("UPDATE ar_checkout_batches SET confirmation=confirmation || '{\"version\":\"tampered\"}'::jsonb WHERE quote_id=$1",[quote.id]),/immutable/);
   const repeat=await api('/api/commerce/checkout',{quoteId:quote.id,cartVersion:quote.cartVersion,confirmation:{accepted:true,version:testOrderTerms.version}});assert.deepEqual(repeat.body.orderIds,result.orderIds);
  });
- await check('mobile layout and cookie information remain readable',async()=>{
-  await page.setViewportSize({width:375,height:812});await add(sku);await page.goto(base+'/cart');await page.locator('.commerce-line').waitFor();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:out+'/cart-mobile.png',fullPage:true});await page.goto(base+'/cookies');await page.getByRole('heading',{name:'Cookies и внешние сервисы',exact:true}).waitFor();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.equal(await page.locator('.cookie-information').count(),1);
+ await check('mobile layout remains readable without the removed cookies page',async()=>{
+  await page.setViewportSize({width:375,height:812});await add(sku);await page.goto(base+'/cart');await page.locator('.commerce-line').waitFor();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:out+'/cart-mobile.png',fullPage:true});assert.equal(await page.locator('a[href="/cookies"]').count(),0);assert.equal((await page.goto(base+'/cookies')).status(),404);
  });
  assert.deepEqual(errors,[]);report.passed=true;
 }catch(error){report.error=String(error.stack||error);process.exitCode=1;console.error(report.error);}

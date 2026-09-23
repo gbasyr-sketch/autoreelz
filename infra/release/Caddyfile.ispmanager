@@ -5,6 +5,14 @@
 
 :8080 {
  header X-Robots-Tag "noindex, nofollow, noarchive"
+ redir /muzey /muzey/ 301
+ handle /muzey/* {
+  root * /srv/static
+  encode zstd gzip
+  file_server {
+   hide .DS_Store
+  }
+ }
  redir /cms /cms/admin 302
  handle_path /cms/* {
   # Studio uses its own login and Bearer/session auth; a second Basic challenge breaks its API.

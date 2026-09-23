@@ -19,6 +19,7 @@
 - Серверная витрина: https://autoreelz.ru (пароль тестового доступа).
 - Серверная CMS: https://autoreelz.ru/cms/admin; менеджер: https://autoreelz.ru/manager.
 - Данные входа — private/server-access.md, вне Git. Размещение и SFTP — [server-staging.md](server-staging.md).
+- Публичный виртуальный тур: https://autoreelz.ru/muzey/ — загружен по отдельному поручению, открыт без пароля. Файлы и проверки — [muzey.md](muzey.md).
 - Магазин: http://127.0.0.1:14323/; блог: /blog; автомобили: /cars.
 - Заказы и склад: http://127.0.0.1:14323/manager.
 - Описания: /manager/content; модерация: /manager/reviews.

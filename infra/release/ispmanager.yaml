@@ -7,6 +7,7 @@ services:
       TEST_GATE_HASH: ${TEST_GATE_HASH:?}
     volumes:
       - ./Caddyfile.ispmanager:/etc/caddy/Caddyfile:ro
+      - /srv/autoreelz2026/public:/srv/static:ro
     networks: [frontend, backend]
   web:
     environment:

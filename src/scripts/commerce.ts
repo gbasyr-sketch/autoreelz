@@ -1,4 +1,6 @@
+import{yandexMapConsent}from'../lib/checkout-confirmations';
 import{initShippingForm}from'./shipping-form';
+import{russianValidation}from'./russian-validation';
 import {formatRubles as money,parseRublesInput,type Rubles} from '../lib/money';
 import type {ManagerOrderView} from '../lib/management-types';
 import type {ShopSession,CartView,CartLineView,CheckoutInput,CheckoutQuote,CheckoutResult,OrderView,OrderLineSnapshot,QuoteGroup,DeliveryEstimate} from '../lib/commerce-types';
@@ -49,24 +51,92 @@ function announce(message:string){const toast=q<HTMLElement>('#toast');if(toast)
 
 async function initCart(){
  const content=q<HTMLElement>('[data-cart-content]')!;let cart:CartView;
+ type Intent={quantity:string;mode:'set'|'remove';ready:boolean};
+ const pending=new Map<string,Intent>(),timers=new Map<string,ReturnType<typeof setTimeout>>();
+ const rows=new Map<string,{row:HTMLElement;input:HTMLInputElement;remove:HTMLButtonElement;price:HTMLElement;unit:HTMLElement;kind:HTMLElement;message:HTMLElement;status:HTMLElement;form:HTMLFormElement}>();
+ let running=false,failed=false,navigate=false;
+ const grid=el('div','','commerce-grid'),list=el('div','','commerce-lines'),summary=el('aside','','commerce-panel commerce-summary');
+ grid.append(list,summary);
+ const retry=button('Повторить сохранение');retry.hidden=true;retry.addEventListener('click',()=>{failed=false;clearError();if(pending.size)void pump();else void load().catch(error=>{failed=true;pageError(error);render();});});
+ const cost=el('div','','commerce-totals'),saveHint=el('p','','field-help'),preorderNote=notice('Предзаказ оформляется отдельно и оплачивается после подтверждения менеджером.','warning'),blockedNote=notice('Удалите недоступные товары, чтобы продолжить.','error'),checkoutLink=link('Перейти к оформлению','/checkout','button');
+ summary.append(el('h2','Ваш заказ'),cost,saveHint,preorderNote,blockedNote,checkoutLink,retry,el('p','Доставку рассчитаем на следующем шаге. Тестовый режим: реальные деньги не списываются.','field-help'));
+ checkoutLink.addEventListener('click',event=>{
+  if(!pending.size&&!failed)return;event.preventDefault();
+  if(failed){pageError(new Error('Сначала повторите сохранение изменений корзины.'));return;}
+  for(const[id,intent]of pending){if(!valid(intent)){rows.get(id)?.form.requestSubmit();return;}clearTimeout(timers.get(id));intent.ready=true;}
+  navigate=true;void pump();
+ });
  async function load(){cart=await commerceGet<CartView>('/api/commerce/cart');updateCartBadges(cart);render();}
- async function change(line:CartLineView,mode:'set'|'remove',quantity:number){
-  try{cart=await commerceCommand<CartView>('/api/commerce/cart',{productId:line.productId,skuId:line.skuId,quantity,mode,cartVersion:cart.version});updateCartBadges(cart);render();announce(mode==='remove'?'Товар удалён из корзины.':'Количество обновлено.');}
-  catch(error){if(error instanceof CommerceError&&error.status===409){await load();throw new Error('Корзина была изменена. Мы обновили её — проверьте количество и повторите действие.');}throw error;}
+ function valid(intent:Intent){const n=Number(intent.quantity);return intent.mode==='remove'||intent.quantity.trim()!==''&&Number.isInteger(n)&&n>=1&&n<=99;}
+ function schedule(line:CartLineView,value:string,mode:'set'|'remove'='set',immediate=false){
+  if(mode==='set'&&!pending.has(line.id)&&value.trim()!==''&&Number(value)===cart.lines.find(item=>item.id===line.id)?.quantity)return;
+  clearTimeout(timers.get(line.id));
+  pending.set(line.id,{quantity:value,mode,ready:immediate});
+  navigate=false;render();
+  if(immediate)void pump();else timers.set(line.id,setTimeout(()=>{const intent=pending.get(line.id);if(intent){intent.ready=true;void pump();}},400));
  }
- function render(){content.replaceChildren();if(!cart.lines.length){content.append(empty('Корзина пока пуста','Выберите детали и нужные исполнения в каталоге.','/catalog'));return;}
-  const grid=el('div','','commerce-grid'),list=el('div','','commerce-lines');
-  for(const line of cart.lines){const row=el('article','','commerce-line');const img=el('img');img.src=safePath(line.image,'/brand/favicon.svg');img.alt=line.name;img.width=100;img.height=77;const copy=el('div');const h=el('h2');h.append(link(line.name,safePath(line.url)));copy.append(h,el('p',[line.article,line.variantLabel].filter(Boolean).join(' · ')),el('p',`${money(line.unitPriceRubles)} / шт.`),el('span',line.blocked?'Товар недоступен':kindLabel(line.kind),`commerce-kind ${line.kind}`));if(line.message)copy.append(el('p',line.message,line.blocked?'line-error':''));row.append(img,copy,el('strong',money(line.lineTotalRubles),'line-price'));
-   const actions=el('div','','line-actions');const form=el('form','','quantity-form');const amount=field('Количество','quantity','number',String(line.quantity));amount.input.min='1';amount.input.max='99';amount.input.step='1';amount.input.required=true;amount.input.setAttribute('aria-label',`Количество: ${line.name}`);const update=button('Обновить');update.type='submit';form.append(amount.node,update);form.addEventListener('submit',event=>{event.preventDefault();const quantity=Number(amount.input.value);if(!Number.isInteger(quantity)||quantity<1||quantity>99)return;void busy(form,()=>change(line,'set',quantity));});const remove=button('Удалить');remove.setAttribute('aria-label',`Удалить: ${line.name}`);remove.addEventListener('click',()=>void busy(remove,()=>change(line,'remove',0)));actions.append(form,remove);row.append(actions);list.append(row);
+ async function pump(){
+  if(running||failed)return;
+  const next=[...pending].find(([,intent])=>intent.ready&&valid(intent));
+  if(!next){if(navigate&&!pending.size){navigate=false;location.assign('/checkout');}return;}
+  const[id,intent]=next,line=cart.lines.find(line=>line.id===id);if(!line){pending.delete(id);void pump();return;}
+  running=true;clearError();render();
+  try{
+   cart=await commerceCommand<CartView>('/api/commerce/cart',{productId:line.productId,skuId:line.skuId,quantity:intent.mode==='remove'?0:Number(intent.quantity),mode:intent.mode,cartVersion:cart.version});
+   if(pending.get(id)===intent)pending.delete(id);
+   updateCartBadges(cart);announce(intent.mode==='remove'?'Товар удалён из корзины.':'Количество и сумма обновлены.');
+  }catch(error){
+   navigate=false;
+   if(error instanceof CommerceError&&error.status===409){
+    // A different tab or a previous uncertain request changed this version.
+    // Show the authoritative cart; never overwrite it with an obsolete draft.
+    pending.clear();timers.forEach(clearTimeout);timers.clear();
+    try{await load();}catch{failed=true;}
+    pageError(new Error('Корзина изменилась. Проверьте актуальные количество и сумму, затем повторите действие.'));
+   }else{failed=true;pageError(error);}
+  }finally{running=false;render();}
+  if(!failed)void pump();
+ }
+ function render(){
+  retry.hidden=!failed;
+  if(!cart.lines.length){content.replaceChildren(empty('Корзина пока пуста','Выберите детали и нужные исполнения в каталоге.','/catalog'));return;}
+  if(!grid.isConnected)content.replaceChildren(grid);
+  for(const[id,view]of rows)if(!cart.lines.some(line=>line.id===id)){view.row.remove();rows.delete(id);pending.delete(id);clearTimeout(timers.get(id));}
+  for(const line of cart.lines){
+   let view=rows.get(line.id);
+   if(!view){
+    const row=el('article','','commerce-line');row.dataset.cartLine=line.id;
+    const img=el('img');img.src=safePath(line.image,'/brand/favicon.svg');img.alt=line.name;img.width=100;img.height=77;
+    const copy=el('div'),heading=el('h2');heading.append(link(line.name,safePath(line.url)));
+    const kind=el('span'),message=el('p'),price=el('strong','','line-price'),unit=el('p');
+    copy.append(heading,el('p',[line.article,line.variantLabel].filter(Boolean).join(' · ')),unit,kind,message);row.append(img,copy,price);
+    const actions=el('div','','line-actions'),form=el('form','','quantity-form'),amount=field('Количество','quantity','number',String(line.quantity));
+    amount.input.min='1';amount.input.max='99';amount.input.step='1';amount.input.required=true;amount.input.setAttribute('aria-label',`Количество: ${line.name}`);
+    form.append(amount.node);const validation=russianValidation(form);
+    amount.input.addEventListener('input',()=>schedule(line,amount.input.value));
+    amount.input.addEventListener('change',()=>schedule(line,amount.input.value,'set',true));
+    form.addEventListener('submit',event=>{event.preventDefault();if(validation.report())schedule(line,amount.input.value,'set',true);});
+    const remove=button('Удалить');remove.setAttribute('aria-label',`Удалить: ${line.name}`);remove.addEventListener('click',()=>schedule(line,'0','remove',true));
+    const status=el('p','','cart-save-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');
+    actions.append(form,remove,status);row.append(actions);list.append(row);
+    view={row,input:amount.input,remove,price,unit,kind,message,status,form};rows.set(line.id,view);
+   }
+   const intent=pending.get(line.id);
+   if(!intent&&document.activeElement!==view.input)view.input.value=String(line.quantity);
+   if(!intent&&document.activeElement===view.input&&Number(view.input.value)!==line.quantity)view.input.value=String(line.quantity);
+   view.unit.textContent=`${money(line.unitPriceRubles)} / шт.`;view.price.textContent=money(line.lineTotalRubles);view.kind.textContent=line.blocked?'Товар недоступен':kindLabel(line.kind);view.kind.className=`commerce-kind ${line.kind}`;
+   view.message.textContent=line.message??'';view.message.hidden=!line.message;view.message.className=line.blocked?'line-error':'';
+   view.remove.disabled=intent?.mode==='remove';view.input.disabled=intent?.mode==='remove';
+   view.status.textContent=intent?(!valid(intent)?'Укажите целое количество от 1 до 99.':failed?'Изменения не сохранены.':intent.mode==='remove'?'Удаляем…':'Сохраняем количество…'):'';
   }
-  const summary=el('aside','','commerce-panel commerce-summary');summary.append(el('h2','Ваш заказ'));const cost=el('div','','commerce-totals');cost.append(totalRow('Товары',money(cart.productTotalRubles),true));summary.append(cost,el('p','Доставку рассчитаем на следующем шаге.','field-help'));if(cart.lines.some(line=>line.kind==='preorder'))summary.append(notice('Предзаказ оформляется отдельно и оплачивается после подтверждения менеджером.','warning'));
-  if(cart.lines.some(line=>line.blocked))summary.append(notice('Удалите недоступные товары, чтобы продолжить.','error'));else summary.append(link('Перейти к оформлению','/checkout','button'));summary.append(el('p','Тестовый режим: реальные деньги не списываются.','field-help'));grid.append(list,summary);content.append(grid);
+  cost.replaceChildren(totalRow('Товары',money(cart.productTotalRubles),true));saveHint.textContent=pending.size?'Сумма обновится после сохранения количества.':'Количество и сумма сохраняются автоматически.';
+  preorderNote.hidden=!cart.lines.some(line=>line.kind==='preorder');blockedNote.hidden=!cart.lines.some(line=>line.blocked);checkoutLink.hidden=!blockedNote.hidden;checkoutLink.setAttribute('aria-busy',String(pending.size>0));
  }
- try{await load();}catch(error){pageError(error);const retry=button('Повторить загрузку');retry.classList.add('commerce-error-retry');retry.addEventListener('click',()=>void busy(retry,async()=>{await load();retry.remove();}));content.append(retry);}finally{loading();}
+ try{await load();}catch(error){pageError(error);const reload=button('Повторить загрузку');reload.addEventListener('click',()=>void busy(reload,async()=>{await load();reload.remove();}));content.append(reload);}finally{loading();}
 }
 
 async function initCheckout(){
- const form=q<HTMLFormElement>('#checkout-form')!,content=q<HTMLElement>('[data-checkout-content]')!,review=q<HTMLElement>('[data-quote-review]')!,confirm=q<HTMLButtonElement>('[data-confirm-checkout]')!;let cart:CartView;let quote:CheckoutQuote|null=null;
+ const form=q<HTMLFormElement>('#checkout-form')!,content=q<HTMLElement>('[data-checkout-content]')!,review=q<HTMLElement>('[data-quote-review]')!,confirm=q<HTMLButtonElement>('[data-confirm-checkout]')!;let cart:CartView;let quote:CheckoutQuote|null=null;let confirmationInput:HTMLInputElement|undefined;
  const input=(name:string)=>form.elements.namedItem(name) as HTMLInputElement|HTMLSelectElement;
  function showForm(){quote=null;review.hidden=true;content.hidden=false;q('[data-step-contact]')?.setAttribute('aria-current','step');q('[data-step-review]')?.removeAttribute('aria-current');}
  let estimateSequence=0,estimateTimer:ReturnType<typeof setTimeout>|undefined,estimateExpires:ReturnType<typeof setTimeout>|undefined,estimateRequest:AbortController|undefined;
@@ -81,7 +151,8 @@ async function initCheckout(){
   if(value?.groups.length&&value.groups.length>1)estimateStatus.textContent=value.groups.map(g=>`${kindLabel(g.kind)}: ${g.shipping.costRubles===null?'стоимость уточнит менеджер':money(g.shipping.costRubles)}.`).join(' ');
  }
  function cancelEstimate(){estimateSequence++;clearTimeout(estimateTimer);clearTimeout(estimateExpires);estimateRequest?.abort();estimateRequest=undefined;}
- const deliveryInput=initShippingForm(form,()=>scheduleEstimate());
+ const validation=russianValidation(form);
+ const deliveryInput=initShippingForm(form,()=>{validation.refresh();scheduleEstimate();},()=>commerceCommand('/api/commerce/map-consent',{accepted:true,version:yandexMapConsent.version}));
  function scheduleEstimate(){
   cancelEstimate();if(!cart)return;estimateRetry.hidden=true;
   if((form.elements.namedItem('manualDelivery') as HTMLInputElement|null)?.checked){estimateView('Уточнит менеджер');return;}
@@ -98,17 +169,23 @@ async function initCheckout(){
  async function load(){cart=await commerceGet<CartView>('/api/commerce/cart');updateCartBadges(cart);q<HTMLElement>('[data-checkout-empty]')!.hidden=cart.lines.length>0;content.hidden=!cart.lines.length;const box=q<HTMLElement>('[data-checkout-summary]')!;box.replaceChildren();renderSummaryLines(cart.lines);box.append(summaryLines,totalsBox,estimateStatus,estimateRetry);estimateView('Выберите ПВЗ или укажите адрес');}
  form.addEventListener('submit',event=>{event.preventDefault();cancelEstimate();void busy(form,async()=>{const data:CheckoutInput={customer:{name:input('name').value.trim(),phone:input('phone').value.trim(),email:input('email').value.trim()},delivery:deliveryInput(),cartVersion:cart.version};try{quote=await commerceCommand<CheckoutQuote>('/api/commerce/quote',data);}catch(error){if(error instanceof CommerceError&&error.status===409){await load();throw new Error('Состав, цены или наличие изменились. Корзина обновлена — проверьте её и повторите расчёт.');}throw error;}
    q<HTMLElement>('[data-quote-contact]')!.textContent=`${quote.customer.name} · ${quote.customer.phone} · ${quote.customer.email}. ${deliveryLabel(quote.delivery.method)}: ${quote.delivery.city}, ${quote.delivery.address}${quote.delivery.pointCode?` · ПВЗ ${quote.delivery.pointCode}`:''}.`;
+   const confirmations=q<HTMLElement>('[data-checkout-confirmations]')!,details=el('details'),terms=quote.confirmation;
+   details.append(el('summary',terms.title),el('p',terms.body));
+   const label=el('label','','confirmation-choice');confirmationInput=el('input');confirmationInput.type='checkbox';confirmationInput.required=true;confirmationInput.dataset.acceptCheckout='';
+   const confirmError=el('p','Подтвердите условия оформления заказа.','line-error');confirmError.hidden=true;confirmError.id='checkout-confirmation-error';confirmError.setAttribute('role','alert');confirmationInput.setAttribute('aria-describedby',confirmError.id);
+   confirmationInput.addEventListener('change',()=>{confirmError.hidden=confirmationInput!.checked;confirmationInput!.setAttribute('aria-invalid',String(!confirmationInput!.checked));});
+   label.append(confirmationInput,el('span',terms.label));confirmations.replaceChildren(details,label,confirmError);
    const groups=q<HTMLElement>('[data-quote-groups]')!;groups.replaceChildren();for(const group of quote.groups)groups.append(quoteGroup(group));content.hidden=true;review.hidden=false;q('[data-step-contact]')?.removeAttribute('aria-current');q('[data-step-review]')?.setAttribute('aria-current','step');q<HTMLElement>('[data-quote-validity]')!.textContent=`Расчёт действует до ${date(quote.expiresAt)}. После этого потребуется проверить стоимость снова.`;confirm.textContent=quote.groups.length>1?'Оформить 2 тестовых заказа':'Оформить тестовый заказ';q<HTMLElement>('#review-title')!.focus();
   });});
  q<HTMLButtonElement>('[data-edit-checkout]')!.addEventListener('click',()=>{showForm();scheduleEstimate();input('name').focus();});
- confirm.addEventListener('click',()=>void busy(confirm,async()=>{if(!quote)return;try{const result=await commerceCommand<CheckoutResult>('/api/commerce/checkout',{quoteId:quote.id,cartVersion:quote.cartVersion});if(!result.orderIds.length)throw new Error('Заказ не подтверждён. Обновите корзину и попробуйте ещё раз.');window.location.assign(`/orders/${encodeURIComponent(result.orderIds[0]!)}${result.orderIds.length>1?`?related=${result.orderIds.map(encodeURIComponent).join(',')}`:''}`);}catch(error){if(error instanceof CommerceError&&error.status===409){showForm();await load();throw new Error('За время оформления изменились цены, наличие или состав. Повторите расчёт и проверьте обновлённый заказ.');}throw error;}}));
+ confirm.addEventListener('click',()=>{if(!confirmationInput?.checked){q<HTMLElement>('#checkout-confirmation-error')!.hidden=false;confirmationInput?.setAttribute('aria-invalid','true');confirmationInput?.focus();return;}void busy(confirm,async()=>{if(!quote)return;try{const result=await commerceCommand<CheckoutResult>('/api/commerce/checkout',{quoteId:quote.id,cartVersion:quote.cartVersion,confirmation:{accepted:true,version:quote.confirmation.version}});if(!result.orderIds.length)throw new Error('Заказ не подтверждён. Обновите корзину и попробуйте ещё раз.');window.location.assign(`/orders/${encodeURIComponent(result.orderIds[0]!)}${result.orderIds.length>1?`?related=${result.orderIds.map(encodeURIComponent).join(',')}`:''}`);}catch(error){if(error instanceof CommerceError&&error.status===409){showForm();await load();throw new Error('За время оформления изменились цены, наличие или состав. Повторите расчёт и проверьте обновлённый заказ.');}throw error;}});});
  try{await load();const session=await getSession();if(session.email)input('email').value=session.email;}catch(error){pageError(error);}finally{loading();}
 }
 function quoteGroup(group:QuoteGroup){const box=el('article','','commerce-panel');box.append(el('h2',kindLabel(group.kind)),snapshots(group.lines),totals(group.productTotalRubles,group.shipping.costRubles,group.totalRubles));if(group.shipping.costRubles===null)box.append(notice(group.shipping.reason??'Стоимость доставки уточнит менеджер. До расчёта доставка не включена в итог и оплата недоступна.','warning'));else box.append(el('p',group.shipping.carrier?`${group.shipping.label}. Ориентир СДЭК: ${group.shipping.carrier.periodMin===group.shipping.carrier.periodMax?group.shipping.carrier.periodMin:group.shipping.carrier.periodMin+'–'+group.shipping.carrier.periodMax} дн. после передачи посылки.`:`${group.shipping.label}. Расчёт в тестовом режиме.`,'field-help'));if(group.kind==='preorder')box.append(el('p','Менеджер согласует срок и условия. Оплата будет доступна после подтверждения.','field-help'));else box.append(el('p','После оформления товары резервируются на 30 минут. Если доставка требует уточнения, дождитесь расчёта менеджера.','field-help'));return box;}
 
 function orderCard(order:OrderView,manager=false){const card=el('article','','order-card');const top=el('div','','order-card-top');const name=el('div');name.append(el('h3',`Заказ ${order.number}`),el('p',date(order.createdAt)));top.append(name,el('span',kindLabel(order.kind),`commerce-kind ${order.kind}`));card.append(top,el('span',statusLabels[order.status]??order.status,`status-pill ${order.status}`),el('p',order.lines.map(line=>`${line.name} × ${line.quantity}`).join(', ')),el('p',order.totalRubles===null?`Товары ${money(order.productTotalRubles)} · доставка уточняется`:`Итого ${money(order.totalRubles)}`));if(!manager){card.append(el('p',`Доставка: ${deliveryLabels[order.deliveryStatus]??order.deliveryStatus}`));if(order.trackingNumber)card.append(el('p',`Трек-номер: ${order.trackingNumber}`));card.append(link('Посмотреть заказ',`/orders/${encodeURIComponent(order.id)}`,'button-secondary'));}return card;}
 function orderHistory(order:OrderView){const details=el('details','','order-history');details.append(el('summary','История заказа'));const list=el('ol');for(const event of order.events){const li=el('li',event.note||'Статус заказа обновлён');const time=el('time',date(event.at));time.dateTime=event.at;li.append(time);list.append(li);}details.append(list);return details;}
-function orderMeta(order:OrderView){const meta=el('div','','order-meta');const customer=el('section');customer.append(el('h3','Получатель'),el('p',order.customer.name),el('p',order.customer.phone),el('p',order.customer.email));const delivery=el('section');delivery.append(el('h3','Доставка'),el('p',deliveryLabel(order.delivery.method)),el('p',`${order.delivery.city}, ${order.delivery.address}`),el('p',deliveryLabels[order.deliveryStatus]??order.deliveryStatus));if(order.delivery.pointCode)delivery.append(el('p',`ПВЗ: ${order.delivery.pointCode}`));if(order.delivery.carrier)delivery.append(el('p',`Расчёт СДЭК: ${order.delivery.carrier.tariffName}, ориентир ${order.delivery.carrier.periodMin===order.delivery.carrier.periodMax?order.delivery.carrier.periodMin:order.delivery.carrier.periodMin+'–'+order.delivery.carrier.periodMax} дн. после передачи.`));if(order.trackingNumber)delivery.append(el('p',`Трек-номер: ${order.trackingNumber}`));if(order.deliveredAt)delivery.append(el('p',`Получен: ${date(order.deliveredAt)}`));meta.append(customer,delivery);return meta;}
+function orderMeta(order:OrderView){const meta=el('div','','order-meta');const customer=el('section');customer.append(el('h3','Получатель'),el('p',order.customer.name),el('p',order.customer.phone),el('p',order.customer.email));const delivery=el('section');delivery.append(el('h3','Доставка'),el('p',deliveryLabel(order.delivery.method)),el('p',`${order.delivery.city}, ${order.delivery.address}`),el('p',deliveryLabels[order.deliveryStatus]??order.deliveryStatus));if(order.delivery.pointCode)delivery.append(el('p',`ПВЗ: ${order.delivery.pointCode}`));if(order.delivery.carrier)delivery.append(el('p',`Расчёт СДЭК: ${order.delivery.carrier.tariffName}, ориентир ${order.delivery.carrier.periodMin===order.delivery.carrier.periodMax?order.delivery.carrier.periodMin:order.delivery.carrier.periodMin+'–'+order.delivery.carrier.periodMax} дн. после передачи.`));if(order.trackingNumber)delivery.append(el('p',`Трек-номер: ${order.trackingNumber}`));if(order.deliveredAt)delivery.append(el('p',`Получен: ${date(order.deliveredAt)}`));meta.append(customer,delivery);if(order.confirmation){const proof=el('details','','order-history');proof.append(el('summary','Подтверждение оформления'),el('p',`Принято ${date(order.confirmation.acceptedAt)} · ${order.confirmation.version}`),el('p',order.confirmation.label),el('p',order.confirmation.body));meta.append(proof);}return meta;}
 async function initOrder(){
  const id=root!.dataset.orderId??'',content=q<HTMLElement>('[data-order-content]')!,reload=q<HTMLButtonElement>('[data-reload-order]')!;let order:OrderView;let deadlineTimer:ReturnType<typeof setTimeout>|undefined;
  async function load(){order=await commerceGet<OrderView>(`/api/commerce/order?id=${encodeURIComponent(id)}`);render();}

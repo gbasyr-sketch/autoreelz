@@ -1,3 +1,4 @@
+import {verifyCheckoutConfirmation} from './confirmations.ts';
 import{paymentProvider}from'./payment-policy.ts';
 import{sumRubles}from'./pricing.ts';
 import{compareRubles}from'../lib/money.ts';
@@ -16,6 +17,7 @@ export async function orderRow(c:PoolClient,id:string,session?:ShopSession,lock=
  return row;
 }
 export async function toOrder(c:PoolClient,row:Record<string,any>):Promise<OrderView>{
+ const confirmation=(await c.query('SELECT confirmation FROM ar_checkout_batches WHERE id=$1',[row.batch_id])).rows[0]?.confirmation??null;
  const events=(await c.query('SELECT event_type,note,created_at FROM ar_order_events WHERE order_id=$1 ORDER BY created_at,id',[row.id])).rows;
  const payment=(await c.query('SELECT provider,status,provider_id,provider_confirmation_url,provider_last_error FROM ar_payments WHERE order_id=$1 ORDER BY created_at DESC,id DESC LIMIT 1',[row.id])).rows[0];
  const provider=payment&&['pending','succeeded','review'].includes(payment.status)?payment.provider:paymentProvider();
@@ -23,7 +25,7 @@ export async function toOrder(c:PoolClient,row:Record<string,any>):Promise<Order
  const payable=row.status==='awaiting_payment'&&row.delivery_status==='quoted'&&row.expires_at&&new Date(row.expires_at).getTime()>Date.now();
  const paymentAction={provider,pending:Boolean(pending),confirmationUrl:pending&&payable?payment.provider_confirmation_url:null,canCheck:Boolean(pending&&(payment.provider_id||payable)),message:pending?(payment.provider_last_error?'Статус оплаты требует повторной проверки. Новый платёж не создавайте.':'Ожидаем подтверждение тестовой оплаты ЮKassa.'):null};
  const shippingCostRubles=row.shipping_cost_rubles===null?null:safeMoney(row.shipping_cost_rubles),productTotalRubles=safeMoney(row.product_total_rubles);
- return{paymentAction,id:row.id,number:row.number,kind:row.kind,status:row.status,paymentStatus:row.payment_status,deliveryStatus:row.delivery_status,createdAt:iso(row.created_at)!,expiresAt:iso(row.expires_at),customer:{name:row.customer_name,phone:row.customer_phone,email:row.customer_email},delivery:row.delivery_snapshot,lines:row.items_snapshot,productTotalRubles,shippingCostRubles,totalRubles:shippingCostRubles===null?null:sumRubles([productTotalRubles,shippingCostRubles]),shippingReason:row.shipping_reason,shippingVersion:row.shipping_version,terms:row.terms,canPay:Boolean(row.status==='awaiting_payment'&&row.delivery_status==='quoted'&&row.expires_at&&new Date(row.expires_at).getTime()>Date.now()),canCancel:['open','preorder_pending','awaiting_payment'].includes(row.status),reviewReason:row.review_reason,trackingNumber:row.tracking_number??null,deliverySource:row.delivery_source??'checkout',deliveryOverride:row.delivery_override??false,deliveredAt:iso(row.delivered_at),events:events.map(e=>({type:e.event_type,at:iso(e.created_at)!,note:e.note}))};
+ return{confirmation,paymentAction,id:row.id,number:row.number,kind:row.kind,status:row.status,paymentStatus:row.payment_status,deliveryStatus:row.delivery_status,createdAt:iso(row.created_at)!,expiresAt:iso(row.expires_at),customer:{name:row.customer_name,phone:row.customer_phone,email:row.customer_email},delivery:row.delivery_snapshot,lines:row.items_snapshot,productTotalRubles,shippingCostRubles,totalRubles:shippingCostRubles===null?null:sumRubles([productTotalRubles,shippingCostRubles]),shippingReason:row.shipping_reason,shippingVersion:row.shipping_version,terms:row.terms,canPay:Boolean(row.status==='awaiting_payment'&&row.delivery_status==='quoted'&&row.expires_at&&new Date(row.expires_at).getTime()>Date.now()),canCancel:['open','preorder_pending','awaiting_payment'].includes(row.status),reviewReason:row.review_reason,trackingNumber:row.tracking_number??null,deliverySource:row.delivery_source??'checkout',deliveryOverride:row.delivery_override??false,deliveredAt:iso(row.delivered_at),events:events.map(e=>({type:e.event_type,at:iso(e.created_at)!,note:e.note}))};
 }
 export const getOrder=(session:ShopSession,id:string)=>transaction(async c=>toOrder(c,await orderRow(c,uuid(id),session)),false);
 export async function listOrders(session?:ShopSession){return transaction(async c=>{const rows=await c.query(`SELECT * FROM ar_orders ${session?'WHERE session_id=$1 OR ($2::text IS NOT NULL AND customer_email=$2)':''} ORDER BY created_at DESC LIMIT 100`,session?[session.id,session.email]:[]);const orders:OrderView[]=[];for(const r of rows.rows)orders.push(await toOrder(c,r));return orders;},false);}
@@ -50,8 +52,8 @@ export async function expireLocked(c:PoolClient,row:Record<string,any>){
  await event(c,row.id,'expired','Срок оплаты истёк. Остаток освобождён один раз.');return true;
 }
 export async function checkout(session:ShopSession,body:Record<string,unknown>){
- const quoteId=uuid(body.quoteId),version=integer(body.cartVersion,'Версия корзины');
- const result=await transaction(c=>idempotent(c,`checkout:${session.id}`,body.idempotencyKey,{quoteId,version},async()=>{
+ const quoteId=uuid(body.quoteId),version=integer(body.cartVersion,'Версия корзины'),confirmation=verifyCheckoutConfirmation(body.confirmation);
+ const result=await transaction(c=>idempotent(c,`checkout:${session.id}`,body.idempotencyKey,{quoteId,version,confirmation},async()=>{
   const quote=(await c.query('SELECT * FROM ar_cart_quotes WHERE id=$1 AND session_id=$2 FOR UPDATE',[quoteId,session.id])).rows[0];
   if(!quote)throw new StoreError('QUOTE_NOT_FOUND','Сначала проверьте состав и доставку заказа.',404);
   const existing=(await c.query('SELECT id FROM ar_checkout_batches WHERE quote_id=$1',[quoteId])).rows[0];
@@ -62,7 +64,7 @@ export async function checkout(session:ShopSession,body:Record<string,unknown>){
   const current=await quoteGroups(c,lines,input,true);
   if(quoteFingerprint(current)!==quote.fingerprint)throw new StoreError('QUOTE_CHANGED','Цена, состав, наличие или упаковка изменились. Обновите расчёт и подтвердите его снова.',409);
   const groups:QuoteGroup[]=input.delivery.provider?quote.snapshot:current;
-  const batch=(await c.query('INSERT INTO ar_checkout_batches(session_id,quote_id) VALUES($1,$2) RETURNING id',[session.id,quoteId])).rows[0];const orderIds:string[]=[];
+  const batch=(await c.query("INSERT INTO ar_checkout_batches(session_id,quote_id,confirmation) VALUES($1,$2,$3::jsonb || jsonb_build_object('acceptedAt',now())) RETURNING id",[session.id,quoteId,confirmation])).rows[0];const orderIds:string[]=[];
   for(const group of groups){
    const ordinary=group.kind==='ordinary',quoted=group.shipping.status==='quoted';
    const order=(await c.query(`INSERT INTO ar_orders(batch_id,session_id,kind,status,delivery_status,allocation_state,customer_name,customer_phone,customer_email,delivery_snapshot,items_snapshot,product_total_rubles,shipping_cost_rubles,shipping_reason,shipping_package,expires_at)

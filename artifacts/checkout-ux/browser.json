@@ -1,0 +1,38 @@
+{
+  "checks": [
+    {
+      "name": "rapid edits on two lines are serialized; latest quantity and focus survive delayed responses",
+      "passed": true
+    },
+    {
+      "name": "checkout flushes a pending quantity; removal cancels its unsent draft",
+      "passed": true
+    },
+    {
+      "name": "failed save has explicit retry and cannot silently proceed to checkout",
+      "passed": true
+    },
+    {
+      "name": "a competing cart version is reloaded without overwriting the other tab",
+      "passed": true
+    },
+    {
+      "name": "English browser receives Russian required, minlength and email messages",
+      "passed": true
+    },
+    {
+      "name": "Yandex is not requested before explicit separate consent; list remains usable",
+      "passed": true
+    },
+    {
+      "name": "checkout requires active confirmation, stores immutable exact terms and uses server time",
+      "passed": true
+    },
+    {
+      "name": "mobile layout and cookie information remain readable",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "cleanup": true
+}

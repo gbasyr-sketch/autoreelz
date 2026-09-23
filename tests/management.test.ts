@@ -1,3 +1,4 @@
+import {testOrderTerms} from '../src/lib/checkout-confirmations.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
@@ -22,7 +23,7 @@ test('stage 5 management in isolated PostgreSQL',{skip:process.env.AR_STAGE5_TES
   await q("INSERT INTO ar_web_sessions(id,token_hash,csrf_token,expires_at) VALUES($1,$2,$3,now()+interval '1 hour')",[sid,key(),s.csrfToken]);
   const c=await cart.changeCart(s,{...f,quantity:1,mode:'add',cartVersion:0,idempotencyKey:key()});
   const quote=await cart.createQuote(s,{cartVersion:c.version,customer:{name:'QA Покупатель',email:'qa-'+sid+'@example.invalid',phone:'+79990000000'},delivery:{method:'pickup_point',city:'QA Москва',address:'QA адрес проверки'}});
-  let order=(await orders.checkout(s,{quoteId:quote.id,cartVersion:c.version,idempotencyKey:key()})).orders[0];
+  let order=(await orders.checkout(s,{confirmation:{accepted:true,version:testOrderTerms.version},quoteId:quote.id,cartVersion:c.version,idempotencyKey:key()})).orders[0];
   if(paid)order=await payments.payOrder(s,{orderId:order.id,shippingVersion:order.shippingVersion,method:'card',idempotencyKey:key()});
   return{...f,s,order};
  }

@@ -1,0 +1,82 @@
+﹣ OTP and staff auth in isolated PostgreSQL (0.462375ms) # SKIP
+✔ price and color must match the same SKU, not different variants (195.319208ms)
+✔ stock and color cannot be satisfied by separate variants (0.243542ms)
+✔ article search selects the requested SKU and respects its own stock (0.34025ms)
+✔ foreign or unknown variant cannot fall back to a default offer (0.483ms)
+✔ a bundle derives price and availability from the fixed components (1.80675ms)
+✔ missing compatibility never becomes an implicit fitment match (1.337792ms)
+✔ invalid price or vehicle inputs return a visible error (3.075ms)
+✔ fitment needs complete conditions and never promotes conflicts or unknown data (0.364834ms)
+✔ bundle fitment is the conjunction of the exact component SKU rules (0.466459ms)
+✔ confirmed and unknown fitment can coexist, incompatible never included (0.828625ms)
+✔ CMS can add text, number and boolean filters without a code whitelist (1.227917ms)
+✔ parent category includes descendants and published secondary categories (0.423333ms)
+✔ bundle with a missing unpublished component has no offer (0.195167ms)
+✔ ruble fractions filter one exact SKU without float rounding (1.436167ms)
+✔ bundle sums decimal rubles and rounds discount once to two decimals (0.441583ms)
+✔ sorting preserves a one-hundredth ruble difference near the maximum (0.864375ms)
+✔ bundle amounts outside the permitted ruble range do not produce an offer (0.152792ms)
+﹣ CDEK checkout on an isolated PostgreSQL clone (0.829166ms) # SKIP
+✔ CDEK uses a fixed TLS API, private bearer auth, one shared token and bounded directory cache (121.291042ms)
+✔ CDEK refreshes an expired authorization once, without retaining provider errors (0.610625ms)
+✔ CDEK filters foreign cities and points, preserves coordinates and verifies the requested identity (1.541375ms)
+✔ CDEK sends grams, upward-rounded centimeters and exact pickup point codes; trusts total_sum not base delivery_sum (23.329666ms)
+✔ CDEK checks package limits via the exact point filter (0.491959ms)
+✔ CDEK rejects warnings, foreign currency and invalid or overprecise amounts (1.293667ms)
+✔ CDEK failure messages do not expose secrets or provider payload and reject unsafe inputs (0.210166ms)
+✔ CDEK rejects malformed and oversized directory responses (4.677042ms)
+﹣ commerce integration in isolated PostgreSQL (0.429375ms) # SKIP
+﹣ content publication, aliases and media in isolated PostgreSQL (0.742ms) # SKIP
+✔ Rutube public video, shorts and embed normalize to the documented HTTPS player (5.860792ms)
+✔ VK accepts export URLs on exact provider hosts and removes unexpected parameters (1.035125ms)
+✔ video rejects executable schemes, pasted HTML, credentials, ports and lookalike hosts (0.130958ms)
+✔ VK requires a full player URL and unique identifiers; invalid provider paths stay closed (0.11275ms)
+✔ plain text paragraph conversion never treats markup as HTML or executable data (3.03825ms)
+✔ slug aliases redirect only to currently published entities of the same kind (0.248583ms)
+✔ article pagination has stable slices and rejects invalid or absent pages (0.334375ms)
+﹣ stage 5 management in isolated PostgreSQL (0.392083ms) # SKIP
+✔ ruble values preserve exact cents and use a canonical two-digit fraction (1.062166ms)
+✔ decimal addition and multiplication do not introduce binary floating-point errors (1.002541ms)
+✔ bundle discounts round half a kopeck up once after summing the components (0.387292ms)
+✔ comparison and display retain exact ruble values including the upper boundary (31.239625ms)
+✔ human input accepts rubles with a decimal comma and conventional grouping (1.841375ms)
+✔ invalid amounts, excessive precision and unsafe ranges are rejected (0.422041ms)
+✔ health revision exposes only a complete Git SHA, never arbitrary environment content (1.273292ms)
+✔ indexing requires all explicit production safeguards; local never enabled (1.037208ms)
+✔ SKU canonical stays at base product while SSR schema retains exact selected offer (2.563333ms)
+✔ pagination has its own canonical and page one is normalized (2.0625ms)
+✔ search, sorting, arbitrary facets, utility params and private pages are noindex (0.839583ms)
+✔ draft documents, empty archives and demo products never enter the sitemap (4.657959ms)
+✔ catalog links preserve filters between pages and reset page after filter changes (0.185959ms)
+✔ JSON-LD and XML escape hostile content and invalid XML controls (0.349625ms)
+✔ VideoObject requires actual video metadata; article has no fictional author (0.482583ms)
+✔ YML uses stable numeric category IDs and exact RUB per SKU without guessed delivery or brands (2.207125ms)
+✔ fixed bundles have a derived product offer and no invented SKU or rating (1.295375ms)
+✔ review photos are resized, oriented, re-encoded as WebP and stripped of EXIF/ICC (137.562709ms)
+✔ real PNG and WebP accepted; declared MIME cannot disguise another format (10.087625ms)
+✔ oversized, empty, animated and excessive-resolution images are rejected (78.861333ms)
+✔ multipart requires same origin and CSRF before accepting bytes (30.475292ms)
+✔ multipart enforces total byte limit even without a Content-Length header (2.4385ms)
+✔ only two review uploads can process concurrently and slots release after failure (0.377375ms)
+﹣ social functions use only an isolated PostgreSQL clone (0.518792ms) # SKIP
+﹣ stage 6 bundle repricing, atomic preorder and separate delivery payments (0.446542ms) # SKIP
+✔ simulation is permitted locally or on the explicitly selected HTTPS staging origin (1.777584ms)
+✔ production, non-HTTPS staging, unknown hosts and origin tricks never enable simulations (0.600042ms)
+﹣ YooKassa lifecycle on an isolated PostgreSQL clone (0.4665ms) # SKIP
+✔ YooKassa request uses exact RUB, card redirect, fixed API and stable caller idempotence key (23.11575ms)
+✔ live shop, wrong account, missing test flag and missing receipt setup never cause POST (1.615916ms)
+✔ invalid amounts, missing idempotence key and hostile return URL rejected before network (0.460833ms)
+✔ payment test/account/id/metadata/currency/amount mismatches fail closed (1.298375ms)
+✔ callback status is only a hint; authenticated GET state wins (0.350208ms)
+✔ successful state requires paid and matching immutable facts; status is never inferred from redirect (0.553083ms)
+✔ network and HTTP500 after POST mean unknown outcome, with no automatic second POST (0.492667ms)
+✔ errors redact provider bodies/credentials and unsafe confirmation URLs are rejected (0.638875ms)
+✔ oversized or malformed provider responses are rejected without retaining private payload (0.372292ms)
+ℹ tests 74
+ℹ suites 0
+ℹ pass 66
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 8
+ℹ todo 0
+ℹ duration_ms 1299.952959

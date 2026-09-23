@@ -1,0 +1,21 @@
+▶ YooKassa lifecycle on an isolated PostgreSQL clone
+  ✔ parallel browser commands share one attempt and one leased provider request (215.358083ms)
+  ✔ lost POST response reuses the same key/body and never creates a second provider object (74.447125ms)
+  ✔ callback body cannot declare success; authenticated provider state settles once (85.010292ms)
+  ✔ a correctly signed simulation event cannot settle a YooKassa attempt (49.730375ms)
+  ✔ cancel during a slow provider request is not blocked by a DB transaction; late success goes to review (73.416ms)
+  ✔ callback recovers an unknown provider ID after expiry without a new POST (74.001166ms)
+  ✔ confirmed preorder is not debited again when YooKassa succeeds (82.998125ms)
+  ✔ unknown callbacks and foreign sessions cannot read or mutate another payment (45.716709ms)
+  ✔ mismatched verified amount is rejected without stock debit (52.12675ms)
+  ✔ payment snapshot fields cannot be rewritten and no new POST is sent after the idempotence window (106.534459ms)
+  ✔ a delayed pending response cannot regress a payment settled by a recovered lease (69.776584ms)
+✔ YooKassa lifecycle on an isolated PostgreSQL clone (5021.420875ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5164.436

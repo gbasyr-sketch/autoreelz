@@ -1,3 +1,4 @@
+import {testOrderTerms} from '../src/lib/checkout-confirmations.ts';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import {randomBytes,randomUUID} from 'node:crypto';
@@ -23,7 +24,7 @@ try{
   const cart=(await post('/api/commerce/cart',buyer,{productId:'00000000-0000-4000-8000-000000000100',skuId:'00000000-0000-4000-8000-000000001001',quantity:1,mode:'add',cartVersion:0})).value;
   const quote=(await post('/api/commerce/quote',buyer,{cartVersion:cart.version,customer:{name:'QA Staging',phone:'+79990000000',email:'staging@example.invalid'},delivery:{method:'pickup_point',city:'QA City',address:'QA Pickup'}})).value;
   assert.equal(quote.groups[0].shipping.costRubles,null);
-  const result=(await post('/api/commerce/checkout',buyer,{quoteId:quote.id,cartVersion:cart.version})).value;order=result.orders[0];assert.equal(order.kind,'ordinary');assert.equal(order.canPay,false);
+  const result=(await post('/api/commerce/checkout',buyer,{confirmation:{accepted:true,version:testOrderTerms.version},quoteId:quote.id,cartVersion:cart.version})).value;order=result.orders[0];assert.equal(order.kind,'ordinary');assert.equal(order.canPay,false);
  });
  await check('manager login and shipping correction work behind the approved HTTPS proxy',async()=>{
   const login=await post('/api/manager/login',manager,{email:env.ADMIN_EMAIL,password:env.ADMIN_PASSWORD});assert.ok(login.cookie);manager.cookie+='; '+login.cookie.split(';')[0];

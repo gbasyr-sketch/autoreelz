@@ -1,3 +1,4 @@
+import {checkoutTerms} from './confirmations.ts';
 import{sumRubles,multiplyRubles}from'./pricing.ts';
 import type{PoolClient}from'pg';
 import type{ShopSession,CartView,CartLineView,CheckoutQuote,OrderLineSnapshot,DeliveryInput,DeliveryEstimate}from'../lib/commerce-types.ts';
@@ -80,7 +81,7 @@ export async function createQuote(session:ShopSession,body:Record<string,unknown
   return transaction(async c=>{
    await verifyCarrierQuote(c,session,input.cartVersion,prepared);
    const row=(await c.query('INSERT INTO ar_cart_quotes(session_id,cart_version,input,snapshot,fingerprint,expires_at) VALUES($1,$2,$3,$4,$5,$6) RETURNING id,expires_at',[session.id,input.cartVersion,input,JSON.stringify(prepared.groups),prepared.fingerprint,new Date(prepared.startedAt+5*60_000)])).rows[0];
-   return{id:row.id,cartVersion:input.cartVersion,expiresAt:iso(row.expires_at)!,customer:input.customer,delivery:input.delivery,groups:prepared.groups,csrfToken:session.csrfToken};
+   return{confirmation:checkoutTerms(),id:row.id,cartVersion:input.cartVersion,expiresAt:iso(row.expires_at)!,customer:input.customer,delivery:input.delivery,groups:prepared.groups,csrfToken:session.csrfToken};
   });
  }
 
@@ -88,6 +89,6 @@ export async function createQuote(session:ShopSession,body:Record<string,unknown
   const cart=await cartRecord(c,session,true);if(cart.version!==input.cartVersion)throw new StoreError('CART_CHANGED','Корзина изменилась. Обновите состав.',409);
   const lines=await completeLines(c,cart.id);const groups=await quoteGroups(c,lines,input);
   const row=(await c.query("INSERT INTO ar_cart_quotes(session_id,cart_version,input,snapshot,fingerprint,expires_at) VALUES($1,$2,$3,$4,$5,now()+interval '10 minutes') RETURNING id,expires_at",[session.id,cart.version,input,JSON.stringify(groups),quoteFingerprint(groups)])).rows[0];
-  return{id:row.id,cartVersion:cart.version,expiresAt:iso(row.expires_at)!,customer:input.customer,delivery:input.delivery,groups,csrfToken:session.csrfToken};
+  return{confirmation:checkoutTerms(),id:row.id,cartVersion:cart.version,expiresAt:iso(row.expires_at)!,customer:input.customer,delivery:input.delivery,groups,csrfToken:session.csrfToken};
  });
 }

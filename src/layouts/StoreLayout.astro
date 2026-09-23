@@ -54,6 +54,7 @@ const query=Astro.url.searchParams.get('q')??'';
     <nav class="container category-nav" aria-label="Популярные категории">{categories.filter(c=>c.depth===0).slice(0,5).map(c=><a href={`/catalog?category=${c.slug}`}>{c.name}{c.slug==='bundles'&&<Icon name="arrow" size={15}/>}</a>)}</nav>
   </header>
   <slot/>
+  <aside class="cookie-information container" aria-label="Данные браузера">Используем технические cookies для корзины, входа и защиты сайта. <a href="/cookies">Cookies и внешние сервисы</a>.</aside>
   <footer class="site-footer"><div class="container footer-top content-footer-top"><div><a class="logo" href="/" aria-label="AUTO REELZ — главная"><img src="/brand/logo.svg" width="244" height="34" alt="AUTO REELZ"/></a><p>Детали для вашего интерьера.</p></div><nav class="content-footer-nav" aria-label="Разделы магазина"><a href="/catalog">Каталог</a><a href="/cars">Подбор по автомобилю</a><a href="/blog">Блог</a>{content.pages.map(p=><a href={`/info/${p.slug}`}>{p.title}</a>)}</nav></div><div class="container footer-bottom"><span>© AUTO REELZ · autoreelz.ru</span><span>Тестовая версия</span></div></footer>
   <nav class="mobile-nav" aria-label="Основная навигация">
     <a href="/catalog" class:list={[active==='catalog'&&'active']}><Icon name="grid" size={20}/>Каталог</a>

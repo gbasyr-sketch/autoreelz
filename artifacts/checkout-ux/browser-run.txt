@@ -1,0 +1,8 @@
+PASS rapid edits on two lines are serialized; latest quantity and focus survive delayed responses
+PASS checkout flushes a pending quantity; removal cancels its unsent draft
+PASS failed save has explicit retry and cannot silently proceed to checkout
+PASS a competing cart version is reloaded without overwriting the other tab
+PASS English browser receives Russian required, minlength and email messages
+PASS Yandex is not requested before explicit separate consent; list remains usable
+PASS checkout requires active confirmation, stores immutable exact terms and uses server time
+PASS mobile layout and cookie information remain readable

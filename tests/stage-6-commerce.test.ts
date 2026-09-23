@@ -1,3 +1,4 @@
+import {testOrderTerms} from '../src/lib/checkout-confirmations.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
@@ -21,14 +22,14 @@ test('stage 6 bundle repricing, atomic preorder and separate delivery payments',
    const a=await item('100.00',20),b=await item('200.00',20),first=await kit([{skuId:a.skuId,quantity:2},{skuId:b.skuId,quantity:1}],10),second=await kit([{skuId:a.skuId,quantity:2},{skuId:b.skuId,quantity:1}],25),s=await session();
    await add(s,first);await add(s,second);const old=await quote(s);assert.deepEqual(old.groups[0].lines.map(l=>l.unitPriceRubles),['360.00','300.00']);
    await q('UPDATE ar_skus SET price_rubles=150.25 WHERE id=$1',[a.skuId]);
-   await assert.rejects(orders.checkout(s,{quoteId:old.id,cartVersion:old.cartVersion,idempotencyKey:key()}),rejects('QUOTE_CHANGED'));
+   await assert.rejects(orders.checkout(s,{confirmation:{accepted:true,version:testOrderTerms.version},quoteId:old.id,cartVersion:old.cartVersion,idempotencyKey:key()}),rejects('QUOTE_CHANGED'));
    assert.equal((await orders.listOrders(s)).length,0);assert.deepEqual(await balance(a.skuId),{on_hand:20,reserved:0});
    const fresh=await quote(s);assert.deepEqual(fresh.groups[0].lines.map(l=>l.unitPriceRubles),['450.45','375.38']);assert.equal(fresh.groups[0].productTotalRubles,'825.83');
    for(const [k,price]of [[first,'450.45'],[second,'375.38']] as const)assert.equal((await q('SELECT price_rubles FROM ar_bundle_offer($1)',[k.productId])).rows[0].price_rubles,price);
   });
   await t.test('whole kit waits for every component; ordinary/preorder shipping and payment stay separate',async()=>{
    const a=await item('30.00',2),b=await item('40.00',0),single=await item('50.00',1),bundle=await kit([{skuId:a.skuId,quantity:2},{skuId:b.skuId,quantity:1}],10),s=await session();
-   await add(s,single);await add(s,bundle);const quoteResult=await quote(s),body={quoteId:quoteResult.id,cartVersion:quoteResult.cartVersion,idempotencyKey:key()};
+   await add(s,single);await add(s,bundle);const quoteResult=await quote(s),body={confirmation:{accepted:true,version:testOrderTerms.version},quoteId:quoteResult.id,cartVersion:quoteResult.cartVersion,idempotencyKey:key()};
    const result=await orders.checkout(s,body);assert.deepEqual((await orders.checkout(s,body)).orderIds,result.orderIds);assert.equal(result.orders.length,2);
    const ordinary=result.orders.find(o=>o.kind==='ordinary')!,preorder=result.orders.find(o=>o.kind==='preorder')!;
    assert.equal(preorder.shippingCostRubles,null);assert.equal(preorder.canPay,false);assert.deepEqual(await balance(a.skuId),{on_hand:2,reserved:0});

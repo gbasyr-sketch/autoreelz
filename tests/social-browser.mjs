@@ -1,3 +1,4 @@
+import {testOrderTerms} from '../src/lib/checkout-confirmations.ts';
 /** Browser social acceptance against a disposable clone; no live catalog writes. */
 import assert from 'node:assert/strict';
 import {spawn,spawnSync} from 'node:child_process';
@@ -46,7 +47,7 @@ try{
  await check('verified delivered buyer submits actual multipart photos and sees moderation feedback',async()=>{
   const current=await api(buyer,'/api/commerce/cart'),added=await api(buyer,'/api/commerce/cart',{productId:p1,skuId:sku,quantity:1,mode:'add',cartVersion:current.body.version});
   const quote=await api(buyer,'/api/commerce/quote',{cartVersion:added.body.version,customer:{name:'QA покупатель',phone:'+79990000000',email},delivery:{method:'pickup_point',city:'QA Москва',address:'QA ПВЗ 1'}});assert.equal(quote.status,200);
-  const purchase=await api(buyer,'/api/commerce/checkout',{quoteId:quote.body.id,cartVersion:quote.body.cartVersion});order=purchase.body.orders[0];
+  const purchase=await api(buyer,'/api/commerce/checkout',{confirmation:{accepted:true,version:testOrderTerms.version},quoteId:quote.body.id,cartVersion:quote.body.cartVersion});order=purchase.body.orders[0];
   await qa.query("UPDATE ar_orders SET delivery_status='quoted',shipping_cost_rubles=0,status='awaiting_payment' WHERE id=$1",[order.id]);
   const paid=await api(buyer,'/api/commerce/pay',{orderId:order.id,shippingVersion:order.shippingVersion,method:'card'});assert.equal(paid.status,200);
   await qa.query("UPDATE ar_orders SET delivery_status='delivered',delivered_at=now() WHERE id=$1",[order.id]);

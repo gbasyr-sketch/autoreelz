@@ -1,0 +1,106 @@
+{
+  "checkedAt": "2026-09-23T17:35:28.364Z",
+  "passed": true,
+  "article": "гранта зеленая",
+  "origin": {
+    "point": "MKHCH13",
+    "city": "Махачкала",
+    "cityCode": 442
+  },
+  "destination": {
+    "city": "Москва",
+    "cityCode": 44
+  },
+  "package": {
+    "weight": 200,
+    "length": 22,
+    "width": 10,
+    "height": 4
+  },
+  "currency": "RUB",
+  "tariffs": [
+    {
+      "code": 718,
+      "name": "Супер-экспресс до 18.00 склад-дверь",
+      "deliveryMode": 3,
+      "costRubles": "1510.00",
+      "periodMin": 2,
+      "periodMax": 2
+    },
+    {
+      "code": 719,
+      "name": "Супер-экспресс до 18.00 склад-склад",
+      "deliveryMode": 4,
+      "costRubles": "1510.00",
+      "periodMin": 2,
+      "periodMax": 2
+    },
+    {
+      "code": 708,
+      "name": "Супер-экспресс до 16.00 склад-дверь",
+      "deliveryMode": 3,
+      "costRubles": "1510.00",
+      "periodMin": 2,
+      "periodMax": 2
+    },
+    {
+      "code": 709,
+      "name": "Супер-экспресс до 16.00 склад-склад",
+      "deliveryMode": 4,
+      "costRubles": "1510.00",
+      "periodMin": 2,
+      "periodMax": 2
+    },
+    {
+      "code": 137,
+      "name": "Посылка склад-дверь",
+      "deliveryMode": 3,
+      "costRubles": "640.00",
+      "periodMin": 3,
+      "periodMax": 4
+    },
+    {
+      "code": 136,
+      "name": "Посылка склад-склад",
+      "deliveryMode": 4,
+      "costRubles": "390.00",
+      "periodMin": 3,
+      "periodMax": 4
+    },
+    {
+      "code": 122,
+      "name": "Магистральный экспресс склад-дверь",
+      "deliveryMode": 3,
+      "costRubles": "2920.00",
+      "periodMin": 4,
+      "periodMax": 5
+    },
+    {
+      "code": 62,
+      "name": "Магистральный экспресс склад-склад",
+      "deliveryMode": 4,
+      "costRubles": "2370.00",
+      "periodMin": 4,
+      "periodMax": 5
+    },
+    {
+      "code": 482,
+      "name": "Экспресс склад-дверь",
+      "deliveryMode": 3,
+      "costRubles": "910.00",
+      "periodMin": 3,
+      "periodMax": 4
+    },
+    {
+      "code": 483,
+      "name": "Экспресс склад-склад",
+      "deliveryMode": 4,
+      "costRubles": "730.00",
+      "periodMin": 3,
+      "periodMax": 4
+    }
+  ],
+  "shipmentsCreated": 0,
+  "checkoutConnected": false,
+  "scope": "Read-only diagnostic quote; no selected customer destination, no declared-value service"
+}

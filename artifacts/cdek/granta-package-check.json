@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-09-23T17:34:55.294Z",
+  "passed": true,
+  "article": "гранта зеленая",
+  "priceRubles": "1800.00",
+  "stock": 10,
+  "reserved": 0,
+  "weightG": 200,
+  "dimensionsMm": [
+    220,
+    100,
+    40
+  ],
+  "packageForQuantity": 1,
+  "url": "https://autoreelz.ru/product/heater-granta?sku=a7b1a2da-7526-4d39-813f-7c5b1cf18182",
+  "productId": "32761a44-6ee1-4129-b4e5-e500238e5be1",
+  "skuId": "a7b1a2da-7526-4d39-813f-7c5b1cf18182",
+  "packageId": "336ed163-f79f-4fb6-b260-c731fc55587e",
+  "fitment": "not_confirmed",
+  "photo": "placeholder"
+}

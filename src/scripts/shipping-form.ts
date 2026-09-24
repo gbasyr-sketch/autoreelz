@@ -1,9 +1,8 @@
-import {yandexMapConsent} from '../lib/checkout-confirmations';
 import type{DeliveryInput}from'../lib/commerce-types';
 type City={code:number;name:string;region:string;subRegion:string};
 type Point={code:string;name:string;cityCode:number;city:string;address:string;workTime:string;latitude:number|null;longitude:number|null};
 type PickupMap=ReturnType<typeof import('./pickup-map')['createPickupMap']>;
-export function initShippingForm(form:HTMLFormElement,onChange:()=>void=()=>{},acceptMap:()=>Promise<unknown>=async()=>{throw Error('Согласие на карту недоступно.');}){
+export function initShippingForm(form:HTMLFormElement,onChange:()=>void=()=>{}){
  const field=<T extends HTMLInputElement|HTMLSelectElement>(name:string)=>form.elements.namedItem(name) as T;
  const q=<T extends HTMLElement>(selector:string)=>form.querySelector<T>(selector)!;
  const method=form.elements.namedItem('method') as HTMLSelectElement|RadioNodeList;const onMethod=(fn:()=>void)=>form.querySelectorAll('[name=method]').forEach(n=>n.addEventListener('change',fn));const city=field<HTMLInputElement>('city'),address=field<HTMLInputElement>('address');
@@ -12,27 +11,7 @@ export function initShippingForm(form:HTMLFormElement,onChange:()=>void=()=>{},a
  const cities=field<HTMLSelectElement>('cityCode'),points=field<HTMLSelectElement>('pointCode'),filter=field<HTMLInputElement>('pointSearch'),manual=field<HTMLInputElement>('manualDelivery');
  const search=q<HTMLButtonElement>('[data-find-city]'),more=q<HTMLButtonElement>('[data-more-points]'),status=q('[data-shipping-status]'),error=q('[data-shipping-error]');
  const cityMap=new Map<string,City>(),pointMap=new Map<string,Point>();let generation=0,page=0,hasMore=false;let map:PickupMap|undefined,mapPromise:Promise<PickupMap>|undefined;
- let mapAllowed=false,latestMap:{items:Point[];fit:boolean}|undefined;
  function mapPoints(items:Point[],fit=false){
-  latestMap={items,fit};
-  const consentHost=q<HTMLElement>('[data-pickup-map]');
-  if(consentHost.dataset.mapProvider==='yandex'&&!mapAllowed){
-   if(!consentHost.querySelector('[data-enable-map]')){
-    const box=document.createElement('div');box.className='map-consent';
-    const intro=document.createElement('p');intro.textContent='Карта — внешний сервис Яндекса. Выбор из списка и расчёт доставки доступны без её подключения.';
-    const details=document.createElement('details'),summary=document.createElement('summary'),copy=document.createElement('p');summary.textContent=yandexMapConsent.title;copy.textContent=yandexMapConsent.body;details.append(summary,copy);
-    for(const[label,url]of [['Политика Яндекса',yandexMapConsent.policyUrl],['Условия API',yandexMapConsent.termsUrl]]){const a=document.createElement('a');a.textContent=label!;a.href=url!;a.target='_blank';a.rel='noopener noreferrer';details.append(a,document.createTextNode(' · '));}
-    const choice=document.createElement('label');choice.className='confirmation-choice';const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.dataset.mapConsent='';const label=document.createElement('span');label.textContent=yandexMapConsent.label;choice.append(checkbox,label);
-    const enable=document.createElement('button');enable.type='button';enable.className='button-secondary';enable.dataset.enableMap='';enable.textContent='Включить Яндекс.Карту';
-    const feedback=document.createElement('p');feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');
-    enable.addEventListener('click',()=>void(async()=>{
-     if(!checkbox.checked){feedback.textContent='Чтобы включить карту, подтвердите отдельное согласие. Или выберите ПВЗ из списка.';checkbox.focus();return;}
-     enable.disabled=true;checkbox.disabled=true;feedback.textContent='Сохраняем выбор…';
-     try{await acceptMap();mapAllowed=true;consentHost.replaceChildren();if(latestMap)mapPoints(latestMap.items,latestMap.fit);}
-     catch{feedback.textContent='Не удалось сохранить согласие. Повторите или выберите пункт из списка.';enable.disabled=false;checkbox.disabled=false;}
-    })());box.append(intro,details,choice,enable,feedback);consentHost.replaceChildren(box);
-   }return;
-  }
   const current=generation,host=q<HTMLElement>('[data-pickup-map]'),notice=q<HTMLElement>('[data-map-status]');
   const choose=(code:string)=>{points.value=code;details();map?.select(code);status.textContent='Выбран ПВЗ '+code;onChange();requestAnimationFrame(()=>field<HTMLInputElement>('selectedPointCode').focus({preventScroll:true}));};
   if(!mapPromise)mapPromise=(host.dataset.mapProvider==='yandex'?import('./yandex-pickup-map').then(m=>m.createYandexPickupMap(host,notice,choose,host.dataset.yandexApiKey??'')):import('./pickup-map').then(m=>m.createPickupMap(host,notice,choose))).then(value=>map=value);

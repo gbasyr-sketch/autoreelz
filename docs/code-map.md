@@ -15,7 +15,7 @@
 | Заказ/склад/сроки | [orders.ts](../src/server/orders.ts) | Транзакции, одинаковый порядок блокировок, повтор/конкуренция, однократное списание/возврат |
 | ЮKassa | [yookassa-payments.ts](../src/server/yookassa-payments.ts), `adapters/yookassa-sandbox.ts`, `payment-policy.ts`, `src/pages/api/payments/yookassa.ts` | Таймаут/неизвестный исход, повтор с тем же ключом, callback+GET, поздняя оплата |
 | СДЭК/упаковка | [cdek-shipping.ts](../src/server/cdek-shipping.ts), `adapters/cdek.ts`, `adapters/shipping.ts`, `shipping-policy.ts` | Вес г/размер мм→см, упаковка состава, quote5мин, нет сети под складскими блокировками |
-| Карта и ранняя стоимость | [shipping-form.ts](../src/scripts/shipping-form.ts), `yandex-pickup-map.ts`, `commerce.ts` | SDK после согласия, карта/список, устаревший ответ, цена без контактов |
+| Карта и ранняя стоимость | [shipping-form.ts](../src/scripts/shipping-form.ts), `yandex-pickup-map.ts`, `commerce.ts` | Автозагрузка SDK после выбора города, карта/список, устаревший ответ, цена без контактов |
 | Подтверждения | [confirmations.ts](../src/server/confirmations.ts), `src/lib/checkout-confirmations.ts`, миграция011 | Пустое/ложное/устаревшее подтверждение, неизменяемый текст/время. Менять version при изменении смысла текста |
 | Сессия/вход/права | [security.ts](../src/server/security.ts), `auth.ts`, `http.ts`, `src/middleware.ts` | Cookie/CSRF/Origin, OTP, другой клиент, штатная авторизация CMS |
 | Worker/сообщения | [worker.ts](../src/server/worker.ts), `scripts/commerce-worker.ts`, `notifications.ts` | Истечение резервов, сверка PSP, heartbeat; delivered имитатора не означает настоящее письмо |

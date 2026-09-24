@@ -1,0 +1,6 @@
+{
+  "checks": [],
+  "passed": false,
+  "cleanup": true,
+  "error": "Error: failed to connect to the docker API at unix:///Users/magomedrasul/.docker/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /Users/magomedrasul/.docker/run/docker.sock: connect: no such file or directory\n\n    at command (file:///Users/magomedrasul/Documents/autoreelz2026/tests/helpers/qa-db.mjs:10:170)\n    at qaDatabase (file:///Users/magomedrasul/Documents/autoreelz2026/tests/helpers/qa-db.mjs:14:14)\n    at file:///Users/magomedrasul/Documents/autoreelz2026/tests/checkout-ux-browser.mjs:17:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+}

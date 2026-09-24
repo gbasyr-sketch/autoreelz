@@ -1,4 +1,3 @@
-import{yandexMapConsent}from'../lib/checkout-confirmations';
 import{initShippingForm}from'./shipping-form';
 import{russianValidation}from'./russian-validation';
 import {formatRubles as money,parseRublesInput,type Rubles} from '../lib/money';
@@ -152,7 +151,7 @@ async function initCheckout(){
  }
  function cancelEstimate(){estimateSequence++;clearTimeout(estimateTimer);clearTimeout(estimateExpires);estimateRequest?.abort();estimateRequest=undefined;}
  const validation=russianValidation(form);
- const deliveryInput=initShippingForm(form,()=>{validation.refresh();scheduleEstimate();},()=>commerceCommand('/api/commerce/map-consent',{accepted:true,version:yandexMapConsent.version}));
+ const deliveryInput=initShippingForm(form,()=>{validation.refresh();scheduleEstimate();});
  function scheduleEstimate(){
   cancelEstimate();if(!cart)return;estimateRetry.hidden=true;
   if((form.elements.namedItem('manualDelivery') as HTMLInputElement|null)?.checked){estimateView('Уточнит менеджер');return;}

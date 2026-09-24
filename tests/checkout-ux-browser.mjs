@@ -5,10 +5,10 @@ import {randomUUID,randomBytes} from 'node:crypto';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import {qaDatabase} from './helpers/qa-db.mjs';
 import {env} from '../scripts/cms-client.mjs';
-import {testOrderTerms,yandexMapConsent} from '../src/lib/checkout-confirmations.ts';
+import {testOrderTerms} from '../src/lib/checkout-confirmations.ts';
 const {chromium}=createRequire(import.meta.url)(process.env.HOME+'/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 assert.equal(process.env.AR_CHECKOUT_UX_TESTS,'1');
-const base='http://127.0.0.1:14330',out='artifacts/checkout-ux',report={checks:[],passed:false,cleanup:false};let qa,server,browser;
+const base='http://127.0.0.1:14330',out=process.env.AR_CHECKOUT_UX_OUTPUT||'artifacts/checkout-ux',report={checks:[],passed:false,cleanup:false};let qa,server,browser;
 const delay=ms=>new Promise(r=>setTimeout(r,ms));
 const check=async(name,fn)=>{await fn();report.checks.push({name,passed:true});console.log('PASS '+name);};
 mkdirSync(out,{recursive:true});
@@ -56,15 +56,16 @@ try{
   await name.pressSequentially('я');await submit.click();assert.equal(await name.evaluate(n=>n.validationMessage),'Введите не менее 2 символов.');
   await name.fill('QA Покупатель');await page.locator('[name=phone]').fill('+79990000000');await page.locator('[name=email]').fill('wrong');await submit.click();assert.equal(await page.locator('[name=email]').evaluate(n=>n.validationMessage),'Введите корректный адрес электронной почты.');await page.locator('[name=email]').fill('qa@example.invalid');
  });
- await check('Yandex is not requested before explicit separate consent; list remains usable',async()=>{
+ await check('Yandex loads automatically after city selection without consent writes; list survives SDK failure',async()=>{
+  const before=Number((await qa.query('SELECT count(*) n FROM ar_service_consents')).rows[0].n);
   const calls=[];await page.route(/https:\/\/.*yandex\./,async route=>{calls.push(new URL(route.request().url()).hostname);await route.abort();});
   await page.route('**/api/shipping/cities?*',route=>route.fulfill({json:{items:[{code:44,name:'Москва',region:'Москва',subRegion:''}]}}));
   await page.route('**/api/shipping/points?*',route=>route.fulfill({json:{items:[{code:'MSK-QA',name:'QA',cityCode:44,city:'Москва',address:'QA, 1',workTime:'QA',latitude:55.75,longitude:37.61}],hasMore:false}}));
-  await page.locator('[name=city]').fill('Москва');await page.getByRole('button',{name:'Найти город'}).click();await page.locator('[name=cityCode]').selectOption('44');await page.locator('[data-enable-map]').waitFor();await page.locator('[name=pointCode]').selectOption('MSK-QA');assert.deepEqual(calls,[]);
-  assert.equal(await page.locator('[data-map-consent]').isChecked(),false);await page.locator('[data-enable-map]').click();assert.deepEqual(calls,[]);
-  const before=Number((await qa.query('SELECT count(*) n FROM ar_service_consents')).rows[0].n);
-  await page.locator('[data-map-consent]').check();await page.locator('[data-enable-map]').click();await page.waitForFunction(()=>document.querySelector('[data-map-status]').textContent.includes('не загрузилась'));
-  assert.ok(calls.length>0);const records=(await qa.query('SELECT version,snapshot FROM ar_service_consents ORDER BY accepted_at DESC LIMIT 1')).rows;assert.equal(records[0].version,yandexMapConsent.version);assert.equal(records[0].snapshot.body,yandexMapConsent.body);assert.equal(Number((await qa.query('SELECT count(*) n FROM ar_service_consents')).rows[0].n),before+1);
+  await page.locator('[name=city]').fill('Москва');await page.getByRole('button',{name:'Найти город'}).click();assert.deepEqual(calls,[]);await page.locator('[name=cityCode]').selectOption('44');await page.locator('[name=pointCode]').selectOption('MSK-QA');
+  await page.waitForFunction(()=>document.querySelector('[data-map-status]').textContent.includes('не загрузилась'));
+  assert.ok(calls.length>0);assert.equal(await page.locator('[data-map-consent],[data-enable-map],.map-consent').count(),0);
+  assert.equal(Number((await qa.query('SELECT count(*) n FROM ar_service_consents')).rows[0].n),before);
+  const retired=await api('/api/commerce/map-consent',{accepted:true,version:'yandex-pickup-2026-09-23-v1'});assert.equal(retired.status,404);
   await page.locator('[name=manualDelivery]').check();await page.locator('[name=address]').fill('QA адрес, 1');
  });
  let quote,result;

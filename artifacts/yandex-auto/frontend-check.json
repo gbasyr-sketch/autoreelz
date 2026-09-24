@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "localDockerUnavailable": true,
+  "actualSourceTranspiled": true,
+  "externalSdk": "stubbed",
+  "checks": [
+    {
+      "width": 1440,
+      "sdkFailure": false,
+      "automaticLoad": true,
+      "noConsentControls": true,
+      "noConsentPost": true,
+      "pointSelection": true
+    },
+    {
+      "width": 375,
+      "sdkFailure": true,
+      "automaticLoad": true,
+      "noConsentControls": true,
+      "noConsentPost": true,
+      "pointSelection": true
+    }
+  ]
+}

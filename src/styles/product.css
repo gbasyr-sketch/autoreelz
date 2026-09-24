@@ -11,3 +11,4 @@
 .gallery-navigation{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px;font-size:13px}
 .gallery-navigation button{min-width:44px;min-height:44px;padding:8px 14px}
 #image-dialog [data-gallery-enlarged]{width:100%;height:min(68vh,750px);object-fit:contain}
+.button[data-add-product].in-cart{background:#218540;border-color:#218540;color:#fff}.button[data-add-product].in-cart:hover{background:#196b32;border-color:#196b32;color:#fff}

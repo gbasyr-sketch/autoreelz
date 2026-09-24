@@ -11,6 +11,7 @@
 | Избранное | [FavoriteButton.astro](../src/components/FavoriteButton.astro), `src/scripts/social-favorites.ts`, `src/server/social.ts` | Гость/аккаунт/вкладки/merge; личный badge, без популярности «N человек» |
 | Фото каталога | [media/[id].ts](../src/pages/media/[id].ts), таблицы `directus_files`, `ar_product_media`, `ar_sku_media` | Файл опубликованного товара, путь/тип/размер; uploads доступны web только для чтения |
 | Корзина и UI checkout | [commerce.ts](../src/scripts/commerce.ts), `src/pages/cart.astro`, `src/pages/checkout.astro`, `src/scripts/russian-validation.ts` | Очередь автосохранения, версия, быстрые правки, переход после сохранения, русские сообщения |
+| Кнопка «Перейти в корзину» | [store.ts](../src/scripts/store.ts), `src/scripts/commerce.ts`, `src/pages/product/[slug].astro` | Успех/ошибка, точный SKU, обе кнопки, reload/back, смена количества, отсутствие повторного POST |
 | Деньги/снимок/разделение | [pricing.ts](../src/server/pricing.ts), `src/lib/money.ts`, `src/server/cart.ts` | Точные строки RUB, единый спрос компонентов, неизвестная доставка, смена цены/наличия |
 | Заказ/склад/сроки | [orders.ts](../src/server/orders.ts) | Транзакции, одинаковый порядок блокировок, повтор/конкуренция, однократное списание/возврат |
 | ЮKassa | [yookassa-payments.ts](../src/server/yookassa-payments.ts), `adapters/yookassa-sandbox.ts`, `payment-policy.ts`, `src/pages/api/payments/yookassa.ts` | Таймаут/неизвестный исход, повтор с тем же ключом, callback+GET, поздняя оплата |

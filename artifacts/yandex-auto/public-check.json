@@ -1,0 +1,13 @@
+{
+  "revision": "17638d73eb5e9d1864eee7aff37260266662707e",
+  "passed": true,
+  "ordersCreated": 0,
+  "sdkRequests": 4,
+  "consentRequests": 0,
+  "mapStatus": "Нажмите на пункт на карте или выберите его в списке.",
+  "realSdkLoaded": true,
+  "shippingRubles": "185.00",
+  "mobileNoOverflow": true,
+  "noConfirmationControls": true,
+  "checkedAt": "2026-09-24T07:32:36.734Z"
+}

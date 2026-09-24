@@ -37,7 +37,8 @@ export async function commerceCommand<T>(path:string,body:object):Promise<T>{
  try{const result=await request<T>(path,{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':session.csrfToken},body:JSON.stringify({...body,idempotencyKey})});pendingCommands.delete(fingerprint);return result;}
  catch(error){if(error instanceof CommerceError&&error.status>0&&error.status<500)pendingCommands.delete(fingerprint);throw error;}
 }
-export function updateCartBadges(cart:CartView){const count=cart.lines.reduce((sum,line)=>sum+line.quantity,0);document.querySelectorAll('[data-cart-count]').forEach(node=>{node.textContent=String(count);node.closest('a')?.setAttribute('aria-label',`Корзина ${count}`);});}
+let lastCartBadgeSnapshot:Pick<CartView,'version'|'csrfToken'>|undefined;
+export function updateCartBadges(cart:CartView){if(lastCartBadgeSnapshot?.csrfToken===cart.csrfToken&&lastCartBadgeSnapshot.version>cart.version)return;lastCartBadgeSnapshot={version:cart.version,csrfToken:cart.csrfToken};const count=cart.lines.reduce((sum,line)=>sum+line.quantity,0);document.querySelectorAll('[data-cart-count]').forEach(node=>{node.textContent=String(count);node.closest('a')?.setAttribute('aria-label',`Корзина ${count}`);});document.dispatchEvent(new CustomEvent('autoreelz:cart-updated',{detail:cart}));}
 function pageError(error:unknown){if(!root)return;const panel=q<HTMLElement>('[data-page-error]',root);if(!panel)return;panel.textContent=error instanceof Error?error.message:'Не удалось выполнить действие.';panel.hidden=false;panel.focus({preventScroll:true});panel.scrollIntoView({block:'nearest',behavior:'smooth'});}
 function clearError(){const panel=q<HTMLElement>('[data-page-error]');if(panel){panel.hidden=true;panel.textContent='';}}
 function loading(done=true){const node=q<HTMLElement>('[data-page-loading]');if(node)node.hidden=done;}

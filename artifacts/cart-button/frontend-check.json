@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "backend": "stubbed; compiled client bundle",
+  "checks": [
+    {
+      "width": 1440,
+      "successState": true,
+      "repeatedClickNavigatesOnly": true,
+      "reload": true,
+      "skuSpecific": true,
+      "quantityChangeAllowsAnotherAdd": true,
+      "errorRetainsAddState": true,
+      "staleReadIgnored": true
+    },
+    {
+      "width": 375,
+      "successState": true,
+      "repeatedClickNavigatesOnly": true,
+      "reload": true,
+      "skuSpecific": true,
+      "quantityChangeAllowsAnotherAdd": true,
+      "errorRetainsAddState": true,
+      "staleReadIgnored": true
+    }
+  ]
+}

@@ -4,6 +4,7 @@ document.querySelectorAll<HTMLButtonElement>('[data-quantity]').forEach(button=>
   if(!quantity)return;
   const current=Number(quantity.value);
   quantity.value=String(Math.max(1,Math.min(99,(Number.isFinite(current)?Math.trunc(current):1)+Number(button.dataset.quantity))));
+  quantity.dispatchEvent(new Event('input',{bubbles:true}));
   document.querySelector<HTMLElement>('#quantity-error')?.setAttribute('hidden','');
 }));
 const image=document.querySelector<HTMLImageElement>('#product-image');

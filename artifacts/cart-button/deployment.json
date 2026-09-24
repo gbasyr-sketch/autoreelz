@@ -1,0 +1,9 @@
+{
+  "revision": "1787bf0c2636a6d928214e29d326903a1524098c",
+  "imageId": "sha256:57dde6cade15f63ce6279f41d36eeed158a9190b9c31624ebd00af2e7d561760",
+  "schemaChanged": false,
+  "publicCheck": "public-check.json",
+  "localFullDatabaseSuite": "not run: Docker daemon unavailable",
+  "frontendCheck": "frontend-check.json",
+  "passed": true
+}

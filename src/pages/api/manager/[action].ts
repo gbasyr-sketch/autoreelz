@@ -9,10 +9,12 @@ import{stockList,quoteShipping,confirmPreorder,receiveStock}from'../../../server
 import{query}from'../../../server/db';
 import{iso}from'../../../server/errors';
 import{requireTestEnvironment}from'../../../server/config';
+import{getDashboard}from'../../../server/dashboard';
 export const GET:APIRoute=async ctx=>{try{
  await staff(ctx.request);
  switch(ctx.params.action){
-  case'orders':return json({orders:await managerOrders()});
+  case'dashboard':return json(await getDashboard(ctx.url.searchParams));
+  case'orders':return json({orders:await managerOrders(ctx.url.searchParams.get('id'))});
   case'notifications':return json({notifications:await ownerNotifications()});
   case'products':return json({products:await generationProducts()});
   case'stock':return json(await stockList());

@@ -16,7 +16,7 @@ export async function managerView(c:PoolClient,row:Record<string,any>):Promise<M
  return{...order,notes:notes.map(n=>({id:n.id,body:n.body,actorId:n.actor_id,createdAt:iso(n.created_at)!})),deliveryEvents:events.map(e=>({id:e.id,status:e.status,source:e.source,occurredAt:iso(e.occurred_at)!,createdAt:iso(e.created_at)!,applied:e.applied,reason:e.reason}))};
 }
 export const managerOrder=(id:string)=>transaction(async c=>managerView(c,await orderRow(c,uuid(id))),false);
-export async function managerOrders(){return transaction(async c=>{const rows=(await c.query('SELECT * FROM ar_orders ORDER BY created_at DESC LIMIT 100')).rows;const orders:ManagerOrderView[]=[];for(const row of rows)orders.push(await managerView(c,row));return orders;},false);}
+export async function managerOrders(orderId?:string|null){const id=orderId?uuid(orderId):null;return transaction(async c=>{const rows=(await c.query('SELECT * FROM ar_orders WHERE ($1::uuid IS NULL OR id=$1) ORDER BY created_at DESC LIMIT 100',[id])).rows;const orders:ManagerOrderView[]=[];for(const row of rows)orders.push(await managerView(c,row));return orders;},false);}
 export async function addNote(actor:Actor,body:Record<string,unknown>){
  const id=uuid(body.orderId),note=multilineText(body.note,'Заметка',2,2000);
  await transaction(c=>idempotent(c,`note:${actor.id}`,body.idempotencyKey,{id,note},async()=>{

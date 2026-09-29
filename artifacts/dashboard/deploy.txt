@@ -1,0 +1,14 @@
+Environment backup: /srv/autoreelz2026/shared/bootstrap/server.env.before-dashboard-20260929T111726Z
+ Container autoreelz2026-release-worker-1 Recreate
+ Container autoreelz2026-release-web-1 Recreate
+ Container autoreelz2026-release-web-1 Recreated
+ Container autoreelz2026-release-edge-1 Recreate
+ Container autoreelz2026-release-edge-1 Recreated
+ Container autoreelz2026-release-worker-1 Recreated
+ Container autoreelz2026-release-worker-1 Starting
+ Container autoreelz2026-release-web-1 Starting
+ Container autoreelz2026-release-worker-1 Started
+ Container autoreelz2026-release-web-1 Started
+ Container autoreelz2026-release-edge-1 Starting
+ Container autoreelz2026-release-edge-1 Started
+sha256:dd8de06db591e36cd95ed698e15093e85913360ecf5364c768fdd05ea7b72317 2c7f95bb76a95e4ed675795fdd7f3b961d54f769

@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/catalog",
+      "status": 200
+    },
+    {
+      "path": "/product/heater-granta",
+      "status": 200
+    },
+    {
+      "path": "/manager",
+      "status": 200
+    },
+    {
+      "path": "/manager/orders",
+      "status": 200
+    },
+    {
+      "path": "/cms/admin",
+      "status": 200
+    },
+    {
+      "path": "/cms/users/me",
+      "status": 401
+    },
+    {
+      "path": "/api/manager/dashboard",
+      "status": 401
+    },
+    {
+      "path": "/api/manager/orders",
+      "status": 401
+    },
+    {
+      "path": "/muzey/",
+      "status": 200
+    },
+    {
+      "path": "/cookies",
+      "status": 404
+    }
+  ]
+}

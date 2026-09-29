@@ -1,0 +1,11 @@
+✔ fictional reviews remain linked to available public products and never appear in production (0.958458ms)
+✔ home selection favors real products and handles an empty catalog (0.156375ms)
+✔ article formatting keeps HTML inert, distinguishes headings and only links HTTPS without credentials (0.340333ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 78.204083

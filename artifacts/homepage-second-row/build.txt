@@ -1,0 +1,22 @@
+
+> autoreelz-new-store@0.0.0 build
+> astro build
+
+12:39:47 [@astrojs/node] Enabling sessions with filesystem storage
+12:39:47 [types] Generated 21ms
+12:39:47 [build] output: "server"
+12:39:47 [build] mode: "server"
+12:39:47 [build] directory: /Users/magomedrasul/Documents/autoreelz2026/dist/
+12:39:47 [build] adapter: @astrojs/node
+12:39:47 [build] Collecting build info...
+12:39:47 [build] ✓ Completed in 48ms.
+12:39:47 [build] Building server entrypoints...
+12:39:47 [vite] ✓ built in 113ms
+12:39:47 [WARN] [vite] [33m[INEFFECTIVE_DYNAMIC_IMPORT] [0msrc/server/yookassa-payments.ts is dynamically imported by src/server/payments.ts but also statically imported by src/pages/api/commerce/[action].ts, src/pages/api/payments/yookassa.ts, dynamic import will not move module into another chunk.
+
+12:39:47 [vite] ✓ built in 214ms
+12:39:47 [vite] ✓ built in 84ms
+12:39:47 [build] Rearranging server assets...
+12:39:47 [build] ✓ Completed in 435ms.
+12:39:47 [build] Server built in 500ms
+12:39:47 [build] Complete!

@@ -13,6 +13,7 @@ try{
  for(const width of [1440,768,375]){
   const context=await browser.newContext({viewport:{width,height:1000}}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));let gate=401,fail=false,requests=0,delay=false;await page.clock.install();
   await page.route('**/api/manager/dashboard?**',async route=>{requests++;if(gate!==200)return route.fulfill({status:gate,json:{error:{message:gate===403?'Нет прав на торговые операции.':'Войдите в кабинет.'}}});if(fail)return route.fulfill({status:503,json:{error:{message:'Проверочный сбой обновления.'}}});const u=new URL(route.request().url());if(delay&&u.searchParams.get('period')==='today')await new Promise(r=>setTimeout(r,500));return route.fulfill({json:fixture(u.searchParams.get('period'),u.searchParams.get('filter'))}).catch(()=>{});});
+  await page.route('**/api/manager/logout',async route=>{gate=401;return route.fulfill({json:{ok:true}});});
   await page.route('**/api/manager/login',async route=>{gate=200;return route.fulfill({json:{ok:true}});});
   assert.equal((await page.goto(base+'/manager',{waitUntil:'networkidle'})).status(),200);assert.equal(await page.locator('[data-dash-content]').isVisible(),false);assert.equal(await page.locator('[data-dash-login]').isVisible(),true);
   await page.locator('[data-dash-login-form] [name=email]').fill('qa-owner@example.invalid');await page.locator('[data-dash-login-form] [name=password]').fill('QA-only-not-a-real-password');await page.locator('[data-dash-login-form] button').click();await page.locator('[data-dash-content]').waitFor({state:'visible'});assert.equal(await page.locator('[name=password]').inputValue(),'');
@@ -26,8 +27,11 @@ try{
   await page.locator('[data-period]').selectOption('7');await page.locator('[data-filter=all]').click();await page.locator('[data-threshold]').selectOption('3');await page.waitForFunction(()=>document.querySelectorAll('[data-orders] tr').length===2);await page.evaluate(()=>document.activeElement?.blur());
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);assert.deepEqual(await page.locator('img').evaluateAll(imgs=>imgs.filter(img=>!img.complete||img.naturalWidth===0).map(img=>img.src)),[]);
   await page.screenshot({path:`${out}/dashboard-${width}.png`,fullPage:true});
+  assert.equal(await page.getByRole('link',{name:'Открыть CMS',exact:true}).getAttribute('href'),'/cms/admin');
+  await page.locator('[data-staff-logout]').click();await page.waitForURL('**/manager?logged_out=1');await page.locator('[data-dash-login]').waitFor({state:'visible'});assert.equal(await page.locator('[data-dash-content]').isVisible(),false);
+  await page.locator('[name=email]').fill('qa-owner@example.invalid');await page.locator('[name=password]').fill('QA-only-not-a-real-password');await page.locator('[data-dash-login-form] button').click();await page.locator('[data-dash-content]').waitFor({state:'visible'});
   gate=403;await page.locator('[data-refresh]').click();await page.locator('[data-dash-login]').waitFor({state:'visible'});assert.equal(await page.locator('[data-dash-content]').isVisible(),false);assert.equal(await page.locator('[data-orders] tr').count(),0);assert.deepEqual(errors,[]);report.viewports.push({width,passed:true,errors});await context.close();
  }
- report.checks=['login/401/403 and data hidden','order task deep link','stock threshold and search','stale responses ignored','failed refresh retains previous metrics','automatic refresh and filter persistence','reload preferences','responsive layout and logo'];report.passed=true;
+ report.checks=['login/401/403 and data hidden','order task deep link','stock threshold and search','stale responses ignored','failed refresh retains previous metrics','automatic refresh and filter persistence','reload preferences','responsive layout and logo','CMS points to server path','logout hides data and returns to login'];report.passed=true;
 }finally{await browser.close();fs.writeFileSync(out+'/report.json',JSON.stringify(report,null,2));}
 console.log(JSON.stringify(report));

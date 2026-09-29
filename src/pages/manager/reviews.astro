@@ -1,4 +1,5 @@
 ---
+import ManagerLogout from '../../components/ManagerLogout.astro';
 import StoreLayout from '../../layouts/StoreLayout.astro';
 import '../../styles/commerce.css';
 import '../../styles/owner-tools.css';
@@ -6,7 +7,7 @@ Astro.response.headers.set('Cache-Control','private, no-store');
 ---
 <StoreLayout title="Модерация отзывов"><main id="main" class="container commerce-page" data-owner-page="reviews">
 <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/manager">Кабинет владельца</a><span>Модерация отзывов</span></nav>
-<div class="commerce-heading"><div><p class="eyebrow">Отзывы покупателей</p><h1>Модерация отзывов</h1></div><a class="button-secondary" href="/manager">К обзору</a></div>
+<div class="commerce-heading"><div><p class="eyebrow">Отзывы покупателей</p><h1>Модерация отзывов</h1></div><div class="owner-actions"><a class="button-secondary" href="/manager">К обзору</a><ManagerLogout/></div></div>
 <p class="commerce-lead">Отзывы и фотографии появляются в магазине только после одобрения. Оценок и звёзд нет.</p>
 <nav class="owner-page-nav" aria-label="Инструменты владельца"><a href="/manager/orders">Заказы и склад</a><a href="/manager/content">Описания товаров</a><a href="/manager/reviews" aria-current="page">Модерация отзывов</a></nav>
 <div class="notice error" data-owner-error role="alert" tabindex="-1" hidden></div><div class="notice" data-owner-success role="status" hidden></div><div data-owner-loading class="commerce-loading" role="status">Проверяем доступ…</div>

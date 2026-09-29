@@ -96,3 +96,17 @@ export async function staffLogin(session:ShopSession,emailInput:unknown,password
  if(!cookie||cookie.length>8192||/[\r\n]/.test(cookie))throw new StoreError('CMS_SESSION','Админка не выдала сессию. Повторите вход позже.',502);
  return{cookie};
 }
+
+/** Revoke this CMS session, then expire only its HttpOnly cookie. */
+export async function staffLogout(request:Request):Promise<{cookie:string}>{
+ const cfg=appConfig();
+ const cookie=`${cfg.cmsCookie}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${new URL(cfg.origin).protocol==='https:'?'; Secure':''}`;
+ const raw=request.headers.get('Cookie')?.split(';').map(v=>v.trim()).find(v=>v.startsWith(cfg.cmsCookie+'='));
+ if(!raw)return{cookie};
+ if(raw.length>8192||/[\r\n]/.test(raw))throw new StoreError('CMS_SESSION','Не удалось прочитать сессию.',400);
+ let response:Response;
+ try{response=await fetch(cfg.cmsBase+'/auth/logout',{method:'POST',headers:{'Content-Type':'application/json',Cookie:raw},body:JSON.stringify({mode:'session'}),redirect:'error',signal:AbortSignal.timeout(8000)});}
+ catch{throw new StoreError('CMS_LOGOUT','Не удалось завершить сессию. Повторите выход.',503);}
+ if(!response.ok&&response.status!==401)throw new StoreError('CMS_LOGOUT','Не удалось завершить сессию. Повторите выход.',503);
+ return{cookie};
+}

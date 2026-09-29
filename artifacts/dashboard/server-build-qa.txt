@@ -1,9 +1,6 @@
 #0 building with "default" instance using docker driver
 
 #1 [internal] load build definition from Dockerfile
-#1 DONE 0.0s
-
-#1 [internal] load build definition from Dockerfile
 #1 transferring dockerfile: 1.62kB done
 #1 DONE 0.0s
 
@@ -34,54 +31,51 @@
 #9 [build 1/5] RUN npm ci --include=dev --no-audit --no-fund
 #9 CACHED
 
-#10 [production-dependencies 1/1] RUN npm ci --omit=dev --no-audit --no-fund
+#10 [build 2/5] COPY astro.config.mjs tsconfig.json ./
 #10 CACHED
 
-#11 [build 2/5] COPY astro.config.mjs tsconfig.json ./
+#11 [production-dependencies 1/1] RUN npm ci --omit=dev --no-audit --no-fund
 #11 CACHED
 
 #12 [build 3/5] COPY src ./src
 #12 DONE 0.0s
 
-#13 [runtime 1/7] RUN node -e "if(!/^(development|[a-f0-9]{40})$/.test(process.argv[1]))process.exit(1)" "37d2b7dc16d313fc4c3eb682f920ff4e813c83f1"
-#13 ...
-
-#14 [build 4/5] COPY public ./public
-#14 DONE 0.0s
-
-#13 [runtime 1/7] RUN node -e "if(!/^(development|[a-f0-9]{40})$/.test(process.argv[1]))process.exit(1)" "37d2b7dc16d313fc4c3eb682f920ff4e813c83f1"
+#13 [runtime 1/7] RUN node -e "if(!/^(development|[a-f0-9]{40})$/.test(process.argv[1]))process.exit(1)" "3d2755a1a9d0b289076da2082085630a2f1352b4"
 #13 DONE 0.2s
 
+#14 [build 4/5] COPY public ./public
+#14 DONE 0.1s
+
 #15 [build 5/5] RUN npm run build
-#15 0.398
-#15 0.398 > autoreelz-new-store@0.0.0 build
-#15 0.398 > astro build
-#15 0.398
+#15 0.401
+#15 0.401 > autoreelz-new-store@0.0.0 build
+#15 0.401 > astro build
+#15 0.401
 #15 ...
 
 #16 [runtime 2/7] COPY --from=production-dependencies --chown=node:node /app/node_modules ./node_modules
-#16 DONE 1.1s
+#16 DONE 1.2s
 
 #15 [build 5/5] RUN npm run build
-#15 1.591 10:56:28 [@astrojs/node] Enabling sessions with filesystem storage
-#15 1.777 10:56:29 [types] Generated 129ms
-#15 1.777 10:56:29 [build] output: "server"
-#15 1.777 10:56:29 [build] mode: "server"
-#15 1.777 10:56:29 [build] directory: /app/dist/
-#15 1.777 10:56:29 [build] adapter: @astrojs/node
-#15 1.777 10:56:29 [build] Collecting build info...
-#15 1.778 10:56:29 [build] ✓ Completed in 190ms.
-#15 1.779 10:56:29 [build] Building server entrypoints...
-#15 1.953 10:56:29 [vite] ✓ built in 149ms
-#15 2.373 10:56:29 [WARN] [vite] [33m[INEFFECTIVE_DYNAMIC_IMPORT] [0msrc/server/yookassa-payments.ts is dynamically imported by src/server/payments.ts but also statically imported by src/pages/api/commerce/[action].ts, src/pages/api/payments/yookassa.ts, dynamic import will not move module into another chunk.
-#15 2.373
-#15 2.375 10:56:29 [vite] ✓ built in 420ms
-#15 2.573 10:56:29 [vite] ✓ built in 192ms
-#15 2.585 10:56:29 [build] Rearranging server assets...
-#15 2.589 10:56:29 [build] ✓ Completed in 809ms.
-#15 2.590 10:56:29 [build] Server built in 1.00s
-#15 2.590 10:56:29 [build] Complete!
-#15 DONE 2.8s
+#15 1.637 11:01:10 [@astrojs/node] Enabling sessions with filesystem storage
+#15 1.799 11:01:10 [types] Generated 116ms
+#15 1.800 11:01:10 [build] output: "server"
+#15 1.800 11:01:10 [build] mode: "server"
+#15 1.800 11:01:10 [build] directory: /app/dist/
+#15 1.800 11:01:10 [build] adapter: @astrojs/node
+#15 1.800 11:01:10 [build] Collecting build info...
+#15 1.801 11:01:10 [build] ✓ Completed in 167ms.
+#15 1.803 11:01:10 [build] Building server entrypoints...
+#15 1.991 11:01:10 [vite] ✓ built in 161ms
+#15 2.425 11:01:11 [WARN] [vite] [33m[INEFFECTIVE_DYNAMIC_IMPORT] [0msrc/server/yookassa-payments.ts is dynamically imported by src/server/payments.ts but also statically imported by src/pages/api/commerce/[action].ts, src/pages/api/payments/yookassa.ts, dynamic import will not move module into another chunk.
+#15 2.425
+#15 2.428 11:01:11 [vite] ✓ built in 433ms
+#15 2.591 11:01:11 [vite] ✓ built in 159ms
+#15 2.604 11:01:11 [build] Rearranging server assets...
+#15 2.607 11:01:11 [build] ✓ Completed in 804ms.
+#15 2.608 11:01:11 [build] Server built in 974ms
+#15 2.608 11:01:11 [build] Complete!
+#15 DONE 2.7s
 
 #17 [runtime 3/7] COPY --from=build --chown=node:node /app/dist ./dist
 #17 DONE 0.1s
@@ -100,17 +94,18 @@
 
 #22 exporting to image
 #22 exporting layers
-#22 exporting layers 6.6s done
-#22 exporting manifest sha256:c78a20cf5c1041b5010e4a3a4e7a59a1adba06a667be24957159089984406727 done
-#22 exporting config sha256:5a7867f276c386a5d3e26ee829eca2a04e7ca93d3f04296cf97d6d57ba265783 done
-#22 exporting attestation manifest sha256:badfa56e3ef2b58161c5aa6e6112e87c2408e516c6f734904e2bf936aee162ff done
-#22 exporting manifest list sha256:b4791bafd6c8cde20b22944a4221c17702789f859da5e31b33b9578ea6e1583c done
-#22 naming to docker.io/library/autoreelz2026-new-web:37d2b7dc16d313fc4c3eb682f920ff4e813c83f1 done
-#22 unpacking to docker.io/library/autoreelz2026-new-web:37d2b7dc16d313fc4c3eb682f920ff4e813c83f1
-#22 unpacking to docker.io/library/autoreelz2026-new-web:37d2b7dc16d313fc4c3eb682f920ff4e813c83f1 2.7s done
-#22 DONE 9.4s
+#22 exporting layers 6.9s done
+#22 exporting manifest sha256:2bd6f7cceb6452e1a9a9c31da4ea75be728e1cf55221feaf6fce72dfc646e986
+#22 exporting manifest sha256:2bd6f7cceb6452e1a9a9c31da4ea75be728e1cf55221feaf6fce72dfc646e986 done
+#22 exporting config sha256:8c5ec4b1832129fe821c10a2b7e9485bf09a6d78a27dc5d6409b9c5265009c00 done
+#22 exporting attestation manifest sha256:fb0009438923b8cbcdff2bf429e2ab1184712af54cc70cc8a10ba9c17da812af done
+#22 exporting manifest list sha256:d1d80bfe48b1c7cb396d51199c6bc4d983f6402073ec97f0f6d020f91b91b546 done
+#22 naming to docker.io/library/autoreelz2026-new-web:3d2755a1a9d0b289076da2082085630a2f1352b4 done
+#22 unpacking to docker.io/library/autoreelz2026-new-web:3d2755a1a9d0b289076da2082085630a2f1352b4
+#22 unpacking to docker.io/library/autoreelz2026-new-web:3d2755a1a9d0b289076da2082085630a2f1352b4 2.7s done
+#22 DONE 9.7s
 CREATE DATABASE
 {"passed":true,"checks":["accepted payment time instead of order creation","duplicate events and failed retries counted once","test provider only","cancelled/review excluded","exact rubles and kind breakdown","expired waiting orders excluded","stock subtracts reservations","inherit/replace quality rules","demo and archived excluded","bundle availability from components","task filtering and validated periods","no customer contacts in response"]}
  Container autoreelz2026-dashboard-preview Creating
  Container autoreelz2026-dashboard-preview Created
-f82a90110c4d87a7dc5842871db504791c61b9fc57154916e0f8aec8d8ba8a10
+8aa6e79bf6a28e8cdd0ecc7f09327d4822a079d7cdc17c4715ef6c50aa056ae9

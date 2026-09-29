@@ -4,7 +4,7 @@ import{generationProducts,generateDescription,applyDescription}from'../../../ser
 import type{APIRoute}from'astro';
 import{sessionFor,json,failure,peer}from'../../../server/http';
 import{staff,readBody}from'../../../server/security';
-import{staffLogin}from'../../../server/auth';
+import{staffLogin,staffLogout}from'../../../server/auth';
 import{stockList,quoteShipping,confirmPreorder,receiveStock}from'../../../server/orders';
 import{query}from'../../../server/db';
 import{iso}from'../../../server/errors';
@@ -23,7 +23,9 @@ export const GET:APIRoute=async ctx=>{try{
  }
 }catch(e){return failure(e);}};
 export const POST:APIRoute=async ctx=>{try{
- requireTestEnvironment();const session=await sessionFor(ctx),body=await readBody(ctx.request,session,ctx.params.action==='apply-description'?49152:16384);
+ const session=await sessionFor(ctx),body=await readBody(ctx.request,session,ctx.params.action==='apply-description'?49152:16384);
+ if(ctx.params.action==='logout'){const{cookie}=await staffLogout(ctx.request);return json({ok:true},200,{'Set-Cookie':cookie});}
+ requireTestEnvironment();
  if(ctx.params.action==='login'){const{cookie}=await staffLogin(session,body.email,body.password,peer(ctx));return json({ok:true},200,{'Set-Cookie':cookie});}
  const actor=await staff(ctx.request);
  switch(ctx.params.action){

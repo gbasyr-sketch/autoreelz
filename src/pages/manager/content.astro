@@ -1,4 +1,5 @@
 ---
+import ManagerLogout from '../../components/ManagerLogout.astro';
 import StoreLayout from '../../layouts/StoreLayout.astro';
 import '../../styles/commerce.css';
 import '../../styles/owner-tools.css';
@@ -6,7 +7,7 @@ Astro.response.headers.set('Cache-Control','private, no-store');
 ---
 <StoreLayout title="Описания товаров"><main id="main" class="container commerce-page" data-owner-page="content">
 <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="/manager">Кабинет владельца</a><span>Описания товаров</span></nav>
-<div class="commerce-heading"><div><p class="eyebrow">Контент магазина</p><h1>Описания товаров</h1></div><a class="button-secondary" href="/manager">К обзору</a></div>
+<div class="commerce-heading"><div><p class="eyebrow">Контент магазина</p><h1>Описания товаров</h1></div><div class="owner-actions"><a class="button-secondary" href="/manager">К обзору</a><ManagerLogout/></div></div>
 <p class="commerce-lead">Подготовьте текст, проверьте факты и отредактируйте результат перед сохранением.</p>
 <nav class="owner-page-nav" aria-label="Инструменты владельца"><a href="/manager/orders">Заказы и склад</a><a href="/manager/content" aria-current="page">Описания товаров</a><a href="/manager/reviews">Модерация отзывов</a></nav>
 <p class="notice warning">Локальная имитация генерации. Платный API не подключён. Результат сохраняется только после нажатия «Применить два поля».</p>

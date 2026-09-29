@@ -2,10 +2,10 @@
 > autoreelz-new-store@0.0.0 check
 > astro check
 
-13:55:15 [@astrojs/node] Enabling sessions with filesystem storage
-13:55:15 [types] Generated 43ms
-13:55:15 [check] Getting diagnostics for Astro files in /Users/magomedrasul/Documents/autoreelz2026...
-Result (106 files): 
+13:59:53 [@astrojs/node] Enabling sessions with filesystem storage
+13:59:53 [types] Generated 45ms
+13:59:53 [check] Getting diagnostics for Astro files in /Users/magomedrasul/Documents/autoreelz2026...
+Result (106 files):
 - 0 errors
 - 0 warnings
 - 0 hints

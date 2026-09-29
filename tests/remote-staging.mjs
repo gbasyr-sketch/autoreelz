@@ -25,7 +25,7 @@ try{
   assert.match(new URL(page.url()).pathname,/^\/cms\/admin/);await page.goto(base+'/cms/admin/content/ar_products',{waitUntil:'networkidle'});await page.getByText('ДЕМО — Блок управления отопителем',{exact:true}).first().waitFor({state:'visible',timeout:30000});await page.screenshot({path:'artifacts/staging/public-cms.png',fullPage:true,mask:[page.locator('input[type=password]')]});
  });
  if(!cmsOnly)await check('manager signs in via the public HTTPS origin and reads an empty migrated order list',async()=>{
-  await page.goto(base+'/manager',{waitUntil:'networkidle'});
+  await page.goto(base+'/manager/orders',{waitUntil:'networkidle'});
   const form=page.locator('#manager-login-form');if(await form.isVisible()){await form.locator('[name=email]').fill(access.cms.email);await form.locator('[name=password]').fill(access.cms.password);await form.locator('button[type=submit]').click();}
   await page.locator('[data-manager-content]').waitFor({state:'visible'});await page.screenshot({path:'artifacts/staging/public-manager.png',fullPage:true,mask:[page.locator('input[type=password]')]});
  });

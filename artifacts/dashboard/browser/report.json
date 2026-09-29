@@ -2,6 +2,17 @@
   "base": "http://127.0.0.1:14331",
   "fixtureData": true,
   "checks": [],
-  "viewports": [],
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "errors": []
+    }
+  ],
   "passed": false
 }

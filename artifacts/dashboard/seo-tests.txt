@@ -1,0 +1,18 @@
+✔ indexing requires all explicit production safeguards; local never enabled (0.654708ms)
+✔ SKU canonical stays at base product while SSR schema retains exact selected offer (1.177375ms)
+✔ pagination has its own canonical and page one is normalized (1.609875ms)
+✔ search, sorting, arbitrary facets, utility params and private pages are noindex (0.718084ms)
+✔ draft documents, empty archives and demo products never enter the sitemap (1.951959ms)
+✔ catalog links preserve filters between pages and reset page after filter changes (0.149917ms)
+✔ JSON-LD and XML escape hostile content and invalid XML controls (0.082542ms)
+✔ VideoObject requires actual video metadata; article has no fictional author (0.102333ms)
+✔ YML uses stable numeric category IDs and exact RUB per SKU without guessed delivery or brands (0.732208ms)
+✔ fixed bundles have a derived product offer and no invented SKU or rating (0.599333ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 95.795625

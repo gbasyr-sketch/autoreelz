@@ -1,0 +1,2 @@
+CREATE DATABASE
+{"passed":true,"checks":["accepted payment time instead of order creation","duplicate events and failed retries counted once","test provider only","cancelled/review excluded","exact rubles and kind breakdown","expired waiting orders excluded","stock subtracts reservations","inherit/replace quality rules","demo and archived excluded","bundle availability from components","task filtering and validated periods","no customer contacts in response"]}

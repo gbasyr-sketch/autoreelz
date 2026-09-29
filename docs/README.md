@@ -28,6 +28,7 @@
 ## Профильные документы — читать по задаче
 
 - Каталог/владелец: [cms.md](cms.md), [manager-guide.md](manager-guide.md), [wb-catalog-import.md](wb-catalog-import.md).
+- Обзор владельца и правила показателей: [dashboard.md](dashboard.md).
 - Главная, товарные демоотзывы и статьи: [homepage-content.md](homepage-content.md).
 - Торговые контракты: [stage-4-contracts.md](stage-4-contracts.md), [stage-5-contracts.md](stage-5-contracts.md). Это базовые контракты этапов; актуальные изменения checkout и провайдеров перечислены в architecture.md и следующих документах.
 - ЮKassa: [yookassa.md](yookassa.md), [yookassa-checkout-contract.md](yookassa-checkout-contract.md).

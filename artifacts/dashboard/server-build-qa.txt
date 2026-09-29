@@ -1,0 +1,133 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.62kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24.21.0-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1
+#2 DONE 0.9s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 730B done
+#3 DONE 0.0s
+
+#4 [base 1/2] FROM docker.io/library/node:24.21.0-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1
+#4 resolve docker.io/library/node:24.21.0-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1 0.0s done
+#4 DONE 0.0s
+
+#5 [base 2/2] WORKDIR /app
+#5 CACHED
+
+#6 [internal] load build context
+#6 transferring context: 1.33MB 0.0s done
+#6 DONE 0.0s
+
+#7 [npm-base 1/2] RUN npm install --global npm@11.19.1 --no-audit --no-fund
+#7 CACHED
+
+#8 [npm-base 2/2] COPY package.json package-lock.json ./
+#8 CACHED
+
+#9 [build 1/5] RUN npm ci --include=dev --no-audit --no-fund
+#9 CACHED
+
+#10 [build 2/5] COPY astro.config.mjs tsconfig.json ./
+#10 CACHED
+
+#11 [production-dependencies 1/1] RUN npm ci --omit=dev --no-audit --no-fund
+#11 CACHED
+
+#12 [build 3/5] COPY src ./src
+#12 DONE 0.1s
+
+#13 [runtime 1/7] RUN node -e "if(!/^(development|[a-f0-9]{40})$/.test(process.argv[1]))process.exit(1)" "b1201a4a7e023e6334e5426bba6094c532ef9ce6"
+#13 DONE 0.2s
+
+#14 [build 4/5] COPY public ./public
+#14 DONE 0.0s
+
+#15 [runtime 2/7] COPY --from=production-dependencies --chown=node:node /app/node_modules ./node_modules
+#15 DONE 1.2s
+
+#16 [build 5/5] RUN npm run build
+#16 0.370 
+#16 0.370 > autoreelz-new-store@0.0.0 build
+#16 0.370 > astro build
+#16 0.370 
+#16 1.434 10:47:32 [@astrojs/node] Enabling sessions with filesystem storage
+#16 1.657 10:47:32 [types] Generated 163ms
+#16 1.658 10:47:32 [build] output: "server"
+#16 1.658 10:47:32 [build] mode: "server"
+#16 1.658 10:47:32 [build] directory: /app/dist/
+#16 1.658 10:47:32 [build] adapter: @astrojs/node
+#16 1.658 10:47:32 [build] Collecting build info...
+#16 1.659 10:47:32 [build] ✓ Completed in 227ms.
+#16 1.660 10:47:32 [build] Building server entrypoints...
+#16 1.891 10:47:32 [vite] ✓ built in 198ms
+#16 2.353 10:47:33 [WARN] [vite] [33m[INEFFECTIVE_DYNAMIC_IMPORT] [0msrc/server/yookassa-payments.ts is dynamically imported by src/server/payments.ts but also statically imported by src/pages/api/commerce/[action].ts, src/pages/api/payments/yookassa.ts, dynamic import will not move module into another chunk.
+#16 2.353 
+#16 2.356 10:47:33 [vite] ✓ built in 462ms
+#16 2.509 10:47:33 [vite] ✓ built in 149ms
+#16 2.521 10:47:33 [build] Rearranging server assets...
+#16 2.523 10:47:33 [build] ✓ Completed in 863ms.
+#16 2.524 10:47:33 [build] Server built in 1.09s
+#16 2.524 10:47:33 [build] Complete!
+#16 DONE 2.7s
+
+#17 [runtime 3/7] COPY --from=build --chown=node:node /app/dist ./dist
+#17 DONE 0.1s
+
+#18 [runtime 4/7] COPY --chown=node:node src/server ./src/server
+#18 DONE 0.0s
+
+#19 [runtime 5/7] COPY --chown=node:node src/lib ./src/lib
+#19 DONE 0.0s
+
+#20 [runtime 6/7] COPY --chown=node:node scripts/commerce-worker.ts ./scripts/commerce-worker.ts
+#20 DONE 0.0s
+
+#21 [runtime 7/7] COPY --chown=node:node package.json ./
+#21 DONE 0.0s
+
+#22 exporting to image
+#22 exporting layers
+#22 exporting layers 6.6s done
+#22 exporting manifest sha256:5379c5a20ba5901460190583ddbbc4bb7c5596849095a5fb131faefe5e6285f7 done
+#22 exporting config sha256:1fc9d5b55c7b48d2f78ceae10f05b92f29ef6fa8e0fb660bb123dd666619af21 done
+#22 exporting attestation manifest sha256:732eeec7ce072ad57f6b6552c8677c66cf5febe6df7d46c328a45185cd038c22 done
+#22 exporting manifest list sha256:76cdbc86346963d715841f4d90365e75b3837e1bab0b7064fcf6effd00e7009c done
+#22 naming to docker.io/library/autoreelz2026-new-web:b1201a4a7e023e6334e5426bba6094c532ef9ce6 done
+#22 unpacking to docker.io/library/autoreelz2026-new-web:b1201a4a7e023e6334e5426bba6094c532ef9ce6
+#22 unpacking to docker.io/library/autoreelz2026-new-web:b1201a4a7e023e6334e5426bba6094c532ef9ce6 2.6s done
+#22 DONE 9.3s
+CREATE DATABASE
+/app/node_modules/pg/lib/client.js:694
+          Error.captureStackTrace(err)
+                ^
+
+error: syntax error at or near "day"
+    at /app/node_modules/pg/lib/client.js:694:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async readDashboard (file:///app/src/server/dashboard.ts:22:18)
+    at async transaction (file:///app/src/server/db.ts:10:148)
+    at async file:///app/tests/dashboard-database.mjs:6:10 {
+  length: 93,
+  severity: 'ERROR',
+  code: '42601',
+  detail: undefined,
+  hint: undefined,
+  position: '496',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'scan.l',
+  line: '1244',
+  routine: 'scanner_yyerror'
+}
+
+Node.js v24.21.0

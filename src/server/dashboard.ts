@@ -12,9 +12,9 @@ export const dashboardPaidSql=`WITH paid AS (
  WHERE o.status='paid' AND o.payment_status='paid' AND p.status='succeeded'
  AND p.provider IN('simulation','yookassa-sandbox')
  GROUP BY o.id,o.kind,o.product_total_rubles,o.shipping_cost_rubles
-) SELECT to_char(paid_at AT TIME ZONE 'Europe/Moscow','YYYY-MM-DD') day,kind,count(*) orders,
+) SELECT to_char(paid_at AT TIME ZONE 'Europe/Moscow','YYYY-MM-DD') AS "day",kind,count(*) orders,
  sum(product_total_rubles)::text products,coalesce(sum(shipping_cost_rubles),0)::text shipping
- FROM paid WHERE paid_at >= $1::timestamptz AND paid_at <= $2::timestamptz GROUP BY day,kind ORDER BY day`;
+ FROM paid WHERE paid_at >= $1::timestamptz AND paid_at <= $2::timestamptz GROUP BY "day",kind ORDER BY "day"`;
 const live=`(o.expires_at IS NULL OR o.expires_at>now() OR o.status IN('paid','manual_review'))`;
 const filters:Record<DashboardFilter,string>={all:'true',ordinary:"o.kind='ordinary'",preorder:"o.kind='preorder'",packing:`o.status='paid' AND o.payment_status='paid' AND o.delivery_status='quoted'`,quote:`o.status IN('open','preorder_pending','awaiting_payment') AND o.shipping_cost_rubles IS NULL AND ${live}`,confirm:`o.status='preorder_pending' AND ${live}`,review:"(o.status='manual_review' OR o.payment_status='review')"};
 export async function readDashboard(c:PoolClient,period:ReturnType<typeof dashboardPeriod>,filter:DashboardFilter,now=new Date()):Promise<DashboardData>{

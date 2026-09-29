@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-29T09:24:21.602Z",
+  "articles": [
+    {
+      "id": "27e17a79-3da6-45a3-a56f-5100513d2e35",
+      "slug": "priora-1-v-stile-priora-2-video",
+      "title": "Приора 1 в стиле Приоры 2: видео и подготовка к обновлению салона"
+    },
+    {
+      "id": "f7d955fb-216f-4c04-a39d-7144993ed88f",
+      "slug": "obnovlenie-konsoli-priora-plan",
+      "title": "Обновление консоли Приоры: что проверить до покупки деталей"
+    },
+    {
+      "id": "edb17029-663f-4ed1-a190-155e412aca63",
+      "slug": "kak-podobrat-detal-interiera",
+      "title": "Как подобрать деталь интерьера: модель, год и комплектация"
+    },
+    {
+      "id": "c6021937-4484-422b-a712-a25778168b75",
+      "slug": "otdelnaya-detal-ili-komplekt",
+      "title": "Отдельная деталь или готовый комплект: как выбрать состав"
+    },
+    {
+      "id": "22a8fbe7-47fe-4560-af12-2d98e23a4163",
+      "slug": "vybor-tsveta-podsvetki",
+      "title": "Как выбрать исполнение с подсветкой и не перепутать артикул"
+    },
+    {
+      "id": "e2e59454-38ee-4b1e-a78f-bb4e44b0840a",
+      "slug": "matovaya-ili-glyantsevaya-poverhnost",
+      "title": "Матовая или глянцевая поверхность: сравниваем исполнения"
+    },
+    {
+      "id": "e162d706-808a-4c42-a126-753f2c10b657",
+      "slug": "kak-vybrat-pvz-sdek",
+      "title": "Как выбрать пункт СДЭК и увидеть стоимость доставки"
+    },
+    {
+      "id": "a63670c9-8154-40ea-ae1c-12130c9e75d2",
+      "slug": "nalichie-i-predzakaz",
+      "title": "В наличии или предзаказ: что меняется при оформлении"
+    }
+  ],
+  "reviewsCreated": 0,
+  "backup": "/srv/autoreelz2026/backups/before-homepage-20260929T092326Z.dump"
+}

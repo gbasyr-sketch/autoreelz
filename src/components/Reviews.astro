@@ -1,13 +1,15 @@
 ---
 import type {ReviewsView} from '../lib/social-types';
+import type {HomeReview} from '../lib/home';
 import '../styles/reviews.css';
-interface Props {productId:string;view:ReviewsView;authenticated:boolean}
-const {productId,view,authenticated}=Astro.props;
+interface Props {productId:string;view:ReviewsView;authenticated:boolean;demoReviews?:HomeReview[]}
+const {productId,view,authenticated,demoReviews=[]}=Astro.props;
 const date=(value:string)=>new Intl.DateTimeFormat('ru-RU',{dateStyle:'long'}).format(new Date(value));
 ---
 <section class="reviews-section" id="reviews" aria-labelledby="reviews-title" data-reviews data-product={productId}>
  <div class="reviews-heading"><div><p class="eyebrow">Опыт покупателей</p><h2 id="reviews-title">Отзывы о товаре</h2></div><span>После покупки и получения</span></div>
  <p class="reviews-intro">Здесь покупатели делятся опытом установки и использования. Отзывы и фотографии появляются после проверки.</p>
+ {view.reviews.length===0&&demoReviews.length>0&&<div class="reviews-demo"><p class="review-status">Вымышленный пример для оценки оформления. Это не отзыв реального покупателя.</p>{demoReviews.map(review=><article class="review-card" data-demo-product-review><header><h3>{review.authorName}</h3><span class="review-status">Демонстрационный отзыв</span></header><p class="review-copy">{review.body}</p></article>)}</div>}
  <div class="reviews-list">
   {view.reviews.length?view.reviews.map(review=><article class="review-card"><header><h3>{review.authorName}</h3><time datetime={review.createdAt}>{date(review.createdAt)}</time></header>{review.status!=='approved'&&<p class="review-status">{review.status==='pending'?'Ваш отзыв на проверке':'Ваш отзыв не опубликован'}{review.moderationNote&&` · ${review.moderationNote}`}</p>}<p class="review-copy">{review.body}</p>{review.media.length>0&&<div class="review-photos">{review.media.map((media,i)=><a href={media.url} target="_blank" rel="noopener" aria-label={`Открыть фото ${i+1} к отзыву ${review.authorName}`}><img src={media.url} alt={`Фото ${i+1} покупателя ${review.authorName}`} width={media.width} height={media.height} loading="lazy"/></a>)}</div>}</article>):<p class="review-empty">Отзывов пока нет. Ваш опыт поможет другим покупателям сделать выбор.</p>}
  </div>

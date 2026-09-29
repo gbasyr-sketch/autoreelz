@@ -19,6 +19,18 @@ export function normalizeVideoUrl(input:unknown):VideoEmbed|null {
  return null;
 }
 export function textParagraphs(body:string):string[]{return body.replace(/\r\n?/g,'\n').split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);}
+/** Plain-text CMS content: optional standalone ## headings, never raw HTML. */
+export function articleBlocks(body:string){return textParagraphs(body).map(text=>/^## [^\n]+$/.test(text)?{heading:true,text:text.slice(3)}:{heading:false,text});}
+export function textLinks(text:string):{text:string;href?:string}[]{
+ const parts:{text:string;href?:string}[]=[];let cursor=0;
+ for(const match of text.matchAll(/https:\/\/[^\s<>]+/g)){
+  const start=match.index!,raw=match[0],address=raw.replace(/[.,;!?]+$/,'');
+  if(start>cursor)parts.push({text:text.slice(cursor,start)});
+  try{const url=new URL(address);if(url.username||url.password)throw Error();parts.push({text:url.hostname==='auto.ru'?'Auto.ru':url.hostname==='rutube.ru'?'RUTUBE':address,href:url.href});if(address.length<raw.length)parts.push({text:raw.slice(address.length)});}catch{parts.push({text:raw});}
+  cursor=start+raw.length;
+ }
+ if(cursor<text.length)parts.push({text:text.slice(cursor)});return parts;
+}
 export interface ContentPage {id:string;slug:string;title:string;body:string;summary:string;seoTitle:string|null;metaDescription:string|null;isLegal:boolean;isDraftText:boolean}
 export interface BlogCategory {id:string;slug:string;name:string}
 export interface BlogTag {id:string;slug:string;name:string}

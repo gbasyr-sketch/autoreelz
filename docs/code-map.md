@@ -35,3 +35,5 @@
 `src/pages/demo-cart.astro`, `src/lib/demo.ts`, `prototypes/` — наследие прототипа/fixtures, не источник рабочего каталога. Не исправлять их вместо активных cart/catalog/server-модулей.
 
 Точный смысл DTO — в `src/lib/commerce-types.ts`, `catalog-types.ts`, `management-types.ts`, `social-types.ts`; реальная схема — последовательность миграций. `cms/schema.snapshot.json` не содержит рабочих данных и не заменяет миграции/backup.
+
+- Главная, демонстрационные товарные отзывы и статьи: [homepage-content.md](homepage-content.md).

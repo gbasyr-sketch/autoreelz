@@ -1,0 +1,14 @@
+Environment backup: /srv/autoreelz2026/shared/bootstrap/server.env.before-homepage-20260929T092927Z
+ Container autoreelz2026-release-web-1 Recreate 
+ Container autoreelz2026-release-worker-1 Recreate 
+ Container autoreelz2026-release-web-1 Recreated 
+ Container autoreelz2026-release-edge-1 Recreate 
+ Container autoreelz2026-release-edge-1 Recreated 
+ Container autoreelz2026-release-worker-1 Recreated 
+ Container autoreelz2026-release-worker-1 Starting 
+ Container autoreelz2026-release-web-1 Starting 
+ Container autoreelz2026-release-worker-1 Started 
+sha256:54d33fd23fca1a0c3b5e02f5623c12fd3641c0a3ee6fb93c4e2d67235d4c5fc1
+ Container autoreelz2026-release-web-1 Started 
+ Container autoreelz2026-release-edge-1 Starting 
+ Container autoreelz2026-release-edge-1 Started 

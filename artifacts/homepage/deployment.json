@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-09-29T09:31:24.214256+00:00",
+  "appRevision": "29e4746d5efe1c9e627292bf74d4af8174ea4e0f",
+  "imageId": "sha256:54d33fd23fca1a0c3b5e02f5623c12fd3641c0a3ee6fb93c4e2d67235d4c5fc1",
+  "health": true,
+  "mode": "staging",
+  "indexing": false,
+  "previewContainerRemoved": true,
+  "previewTunnelClosed": true,
+  "reviewsInDatabase": 0,
+  "publishedArticles": 9,
+  "addedArticles": 8,
+  "databaseMigrations": "001-011 unchanged",
+  "checks": [
+    "69 tests passed, 8 skipped",
+    "Astro check and build passed",
+    "preview and public browser checks passed at 375/768/1440",
+    "no orders, payments or shipments created"
+  ],
+  "publicReport": "public/report.json"
+}

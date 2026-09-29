@@ -1,0 +1,111 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.62kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24.21.0-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1
+#2 DONE 0.8s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 730B done
+#3 DONE 0.0s
+
+#4 [base 1/2] FROM docker.io/library/node:24.21.0-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1
+#4 resolve docker.io/library/node:24.21.0-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1 0.0s done
+#4 DONE 0.0s
+
+#5 [base 2/2] WORKDIR /app
+#5 CACHED
+
+#6 [internal] load build context
+#6 transferring context: 1.29MB 0.0s done
+#6 DONE 0.1s
+
+#7 [runtime 1/7] RUN node -e "if(!/^(development|[a-f0-9]{40})$/.test(process.argv[1]))process.exit(1)" "29e4746d5efe1c9e627292bf74d4af8174ea4e0f"
+#7 ...
+
+#8 [npm-base 2/2] COPY package.json package-lock.json ./
+#8 CACHED
+
+#9 [npm-base 1/2] RUN npm install --global npm@11.19.1 --no-audit --no-fund
+#9 CACHED
+
+#10 [production-dependencies 1/1] RUN npm ci --omit=dev --no-audit --no-fund
+#10 CACHED
+
+#11 [build 1/5] RUN npm ci --include=dev --no-audit --no-fund
+#11 CACHED
+
+#12 [build 2/5] COPY astro.config.mjs tsconfig.json ./
+#12 CACHED
+
+#13 [build 3/5] COPY src ./src
+#13 DONE 0.0s
+
+#14 [build 4/5] COPY public ./public
+#14 DONE 0.0s
+
+#15 [build 5/5] RUN npm run build
+#15 ...
+
+#7 [runtime 1/7] RUN node -e "if(!/^(development|[a-f0-9]{40})$/.test(process.argv[1]))process.exit(1)" "29e4746d5efe1c9e627292bf74d4af8174ea4e0f"
+#7 DONE 0.3s
+
+#16 [runtime 2/7] COPY --from=production-dependencies --chown=node:node /app/node_modules ./node_modules
+#16 DONE 2.7s
+
+#15 [build 5/5] RUN npm run build
+#15 0.476 
+#15 0.476 > autoreelz-new-store@0.0.0 build
+#15 0.476 > astro build
+#15 0.476 
+#15 2.352 09:27:38 [@astrojs/node] Enabling sessions with filesystem storage
+#15 2.707 09:27:39 [types] Generated 185ms
+#15 2.707 09:27:39 [build] output: "server"
+#15 2.707 09:27:39 [build] mode: "server"
+#15 2.707 09:27:39 [build] directory: /app/dist/
+#15 2.707 09:27:39 [build] adapter: @astrojs/node
+#15 2.707 09:27:39 [build] Collecting build info...
+#15 2.708 09:27:39 [build] ✓ Completed in 360ms.
+#15 2.712 09:27:39 [build] Building server entrypoints...
+#15 2.950 09:27:39 [vite] ✓ built in 211ms
+#15 3.470 09:27:40 [WARN] [vite] [33m[INEFFECTIVE_DYNAMIC_IMPORT] [0msrc/server/yookassa-payments.ts is dynamically imported by src/server/payments.ts but also statically imported by src/pages/api/commerce/[action].ts, src/pages/api/payments/yookassa.ts, dynamic import will not move module into another chunk.
+#15 3.470 
+#15 3.473 09:27:40 [vite] ✓ built in 520ms
+#15 3.647 09:27:40 [vite] ✓ built in 168ms
+#15 3.661 09:27:40 [build] Rearranging server assets...
+#15 3.665 09:27:40 [build] ✓ Completed in 954ms.
+#15 3.665 09:27:40 [build] Server built in 1.32s
+#15 3.665 09:27:40 [build] Complete!
+#15 DONE 3.9s
+
+#17 [runtime 3/7] COPY --from=build --chown=node:node /app/dist ./dist
+#17 DONE 0.1s
+
+#18 [runtime 4/7] COPY --chown=node:node src/server ./src/server
+#18 DONE 0.0s
+
+#19 [runtime 5/7] COPY --chown=node:node src/lib ./src/lib
+#19 DONE 0.0s
+
+#20 [runtime 6/7] COPY --chown=node:node scripts/commerce-worker.ts ./scripts/commerce-worker.ts
+#20 DONE 0.0s
+
+#21 [runtime 7/7] COPY --chown=node:node package.json ./
+#21 DONE 0.0s
+
+#22 exporting to image
+#22 exporting layers
+#22 exporting layers 6.8s done
+#22 exporting manifest sha256:89205089ff1c27cdf7c628851909227238d5e7fe6d21e44e1da3014200b031b3 done
+#22 exporting config sha256:eae304448b5f4c6d0d0ff5050227c503dee1a369bb89b880258825ade0d10977 done
+#22 exporting attestation manifest sha256:df485941b2d12adbe653c05bd38cd4b2c6f5096d5e8dacbff78288db81c6c382 done
+#22 exporting manifest list sha256:54d33fd23fca1a0c3b5e02f5623c12fd3641c0a3ee6fb93c4e2d67235d4c5fc1 done
+#22 naming to docker.io/library/autoreelz2026-new-web:29e4746d5efe1c9e627292bf74d4af8174ea4e0f done
+#22 unpacking to docker.io/library/autoreelz2026-new-web:29e4746d5efe1c9e627292bf74d4af8174ea4e0f
+#22 unpacking to docker.io/library/autoreelz2026-new-web:29e4746d5efe1c9e627292bf74d4af8174ea4e0f 2.9s done
+#22 DONE 9.8s
+ Container autoreelz2026-home-preview Creating 
+ Container autoreelz2026-home-preview Created 
+444196042e9ee05f05108c62a78d5c3aea664fd3eb139886ef7dde07ac318780

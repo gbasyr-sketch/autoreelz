@@ -1,0 +1,25 @@
+{
+  "base": "http://127.0.0.1:14331",
+  "viewports": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "reviewLink": "/product/heater-granta#reviews"
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "reviewLink": "/product/heater-granta#reviews"
+    },
+    {
+      "width": 375,
+      "overflow": false,
+      "reviewLink": "/product/heater-granta#reviews"
+    }
+  ],
+  "checks": [
+    "8 article pages, headings, Auto.ru attribution link, lazy RUTUBE embed"
+  ],
+  "errors": [],
+  "passed": true
+}

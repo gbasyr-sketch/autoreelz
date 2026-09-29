@@ -1,0 +1,7 @@
+{
+  "base": "http://127.0.0.1:14331",
+  "fixtureData": true,
+  "checks": [],
+  "viewports": [],
+  "passed": false
+}

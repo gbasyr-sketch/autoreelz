@@ -2,21 +2,21 @@
 > autoreelz-new-store@0.0.0 build
 > astro build
 
-13:50:43 [@astrojs/node] Enabling sessions with filesystem storage
-13:50:43 [types] Generated 20ms
-13:50:43 [build] output: "server"
-13:50:43 [build] mode: "server"
-13:50:43 [build] directory: /Users/magomedrasul/Documents/autoreelz2026/dist/
-13:50:43 [build] adapter: @astrojs/node
-13:50:43 [build] Collecting build info...
-13:50:43 [build] ✓ Completed in 47ms.
-13:50:43 [build] Building server entrypoints...
-13:50:43 [vite] ✓ built in 96ms
-13:50:43 [WARN] [vite] [33m[INEFFECTIVE_DYNAMIC_IMPORT] [0msrc/server/yookassa-payments.ts is dynamically imported by src/server/payments.ts but also statically imported by src/pages/api/commerce/[action].ts, src/pages/api/payments/yookassa.ts, dynamic import will not move module into another chunk.
+13:55:19 [@astrojs/node] Enabling sessions with filesystem storage
+13:55:19 [types] Generated 20ms
+13:55:19 [build] output: "server"
+13:55:19 [build] mode: "server"
+13:55:19 [build] directory: /Users/magomedrasul/Documents/autoreelz2026/dist/
+13:55:19 [build] adapter: @astrojs/node
+13:55:19 [build] Collecting build info...
+13:55:19 [build] ✓ Completed in 44ms.
+13:55:19 [build] Building server entrypoints...
+13:55:20 [vite] ✓ built in 98ms
+13:55:20 [WARN] [vite] [33m[INEFFECTIVE_DYNAMIC_IMPORT] [0msrc/server/yookassa-payments.ts is dynamically imported by src/server/payments.ts but also statically imported by src/pages/api/commerce/[action].ts, src/pages/api/payments/yookassa.ts, dynamic import will not move module into another chunk.
 
-13:50:43 [vite] ✓ built in 213ms
-13:50:43 [vite] ✓ built in 67ms
-13:50:43 [build] Rearranging server assets...
-13:50:43 [build] ✓ Completed in 395ms.
-13:50:43 [build] Server built in 453ms
-13:50:43 [build] Complete!
+13:55:20 [vite] ✓ built in 192ms
+13:55:20 [vite] ✓ built in 64ms
+13:55:20 [build] Rearranging server assets...
+13:55:20 [build] ✓ Completed in 371ms.
+13:55:20 [build] Server built in 425ms
+13:55:20 [build] Complete!

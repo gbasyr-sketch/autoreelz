@@ -5,7 +5,7 @@
 #1 DONE 0.0s
 
 #2 [internal] load metadata for docker.io/library/node:24.21.0-alpine@sha256:ebfe2f90462722a7a4de65e91990e97fe0d401c70e0e762c5b53302f905ec1c1
-#2 DONE 0.0s
+#2 DONE 0.9s
 
 #3 [internal] load .dockerignore
 #3 transferring context: 730B done
@@ -19,69 +19,69 @@
 #5 CACHED
 
 #6 [internal] load build context
-#6 transferring context: 1.33MB 0.0s done
+#6 transferring context: 1.34MB 0.0s done
 #6 DONE 0.0s
 
-#7 [npm-base 2/2] COPY package.json package-lock.json ./
+#7 [npm-base 1/2] RUN npm install --global npm@11.19.1 --no-audit --no-fund
 #7 CACHED
 
-#8 [npm-base 1/2] RUN npm install --global npm@11.19.1 --no-audit --no-fund
+#8 [npm-base 2/2] COPY package.json package-lock.json ./
 #8 CACHED
 
-#9 [build 1/5] RUN npm ci --include=dev --no-audit --no-fund
+#9 [production-dependencies 1/1] RUN npm ci --omit=dev --no-audit --no-fund
 #9 CACHED
 
-#10 [build 2/5] COPY astro.config.mjs tsconfig.json ./
+#10 [build 1/5] RUN npm ci --include=dev --no-audit --no-fund
 #10 CACHED
 
-#11 [production-dependencies 1/1] RUN npm ci --omit=dev --no-audit --no-fund
+#11 [build 2/5] COPY astro.config.mjs tsconfig.json ./
 #11 CACHED
 
 #12 [build 3/5] COPY src ./src
 #12 DONE 0.0s
 
-#13 [runtime 1/7] RUN node -e "if(!/^(development|[a-f0-9]{40})$/.test(process.argv[1]))process.exit(1)" "3d2755a1a9d0b289076da2082085630a2f1352b4"
-#13 DONE 0.2s
+#13 [build 4/5] COPY public ./public
+#13 DONE 0.0s
 
-#14 [build 4/5] COPY public ./public
-#14 DONE 0.1s
+#14 [runtime 1/7] RUN node -e "if(!/^(development|[a-f0-9]{40})$/.test(process.argv[1]))process.exit(1)" "133f4ac44d916b253cb0b4900316bad212a0eaa3"
+#14 DONE 0.2s
 
 #15 [build 5/5] RUN npm run build
-#15 0.401
-#15 0.401 > autoreelz-new-store@0.0.0 build
-#15 0.401 > astro build
-#15 0.401
+#15 0.358
+#15 0.358 > autoreelz-new-store@0.0.0 build
+#15 0.358 > astro build
+#15 0.358
 #15 ...
 
 #16 [runtime 2/7] COPY --from=production-dependencies --chown=node:node /app/node_modules ./node_modules
 #16 DONE 1.2s
 
 #15 [build 5/5] RUN npm run build
-#15 1.637 11:01:10 [@astrojs/node] Enabling sessions with filesystem storage
-#15 1.799 11:01:10 [types] Generated 116ms
-#15 1.800 11:01:10 [build] output: "server"
-#15 1.800 11:01:10 [build] mode: "server"
-#15 1.800 11:01:10 [build] directory: /app/dist/
-#15 1.800 11:01:10 [build] adapter: @astrojs/node
-#15 1.800 11:01:10 [build] Collecting build info...
-#15 1.801 11:01:10 [build] ✓ Completed in 167ms.
-#15 1.803 11:01:10 [build] Building server entrypoints...
-#15 1.991 11:01:10 [vite] ✓ built in 161ms
-#15 2.425 11:01:11 [WARN] [vite] [33m[INEFFECTIVE_DYNAMIC_IMPORT] [0msrc/server/yookassa-payments.ts is dynamically imported by src/server/payments.ts but also statically imported by src/pages/api/commerce/[action].ts, src/pages/api/payments/yookassa.ts, dynamic import will not move module into another chunk.
-#15 2.425
-#15 2.428 11:01:11 [vite] ✓ built in 433ms
-#15 2.591 11:01:11 [vite] ✓ built in 159ms
-#15 2.604 11:01:11 [build] Rearranging server assets...
-#15 2.607 11:01:11 [build] ✓ Completed in 804ms.
-#15 2.608 11:01:11 [build] Server built in 974ms
-#15 2.608 11:01:11 [build] Complete!
-#15 DONE 2.7s
+#15 1.651 11:08:06 [@astrojs/node] Enabling sessions with filesystem storage
+#15 1.820 11:08:06 [types] Generated 114ms
+#15 1.820 11:08:06 [build] output: "server"
+#15 1.820 11:08:06 [build] mode: "server"
+#15 1.820 11:08:06 [build] directory: /app/dist/
+#15 1.820 11:08:06 [build] adapter: @astrojs/node
+#15 1.820 11:08:06 [build] Collecting build info...
+#15 1.821 11:08:06 [build] ✓ Completed in 173ms.
+#15 1.823 11:08:06 [build] Building server entrypoints...
+#15 2.006 11:08:06 [vite] ✓ built in 154ms
+#15 2.432 11:08:06 [WARN] [vite] [33m[INEFFECTIVE_DYNAMIC_IMPORT] [0msrc/server/yookassa-payments.ts is dynamically imported by src/server/payments.ts but also statically imported by src/pages/api/commerce/[action].ts, src/pages/api/payments/yookassa.ts, dynamic import will not move module into another chunk.
+#15 2.432
+#15 2.434 11:08:06 [vite] ✓ built in 426ms
+#15 2.602 11:08:07 [vite] ✓ built in 137ms
+#15 2.616 11:08:07 [build] Rearranging server assets...
+#15 2.619 11:08:07 [build] ✓ Completed in 797ms.
+#15 2.620 11:08:07 [build] Server built in 973ms
+#15 2.620 11:08:07 [build] Complete!
+#15 DONE 2.8s
 
 #17 [runtime 3/7] COPY --from=build --chown=node:node /app/dist ./dist
 #17 DONE 0.1s
 
 #18 [runtime 4/7] COPY --chown=node:node src/server ./src/server
-#18 DONE 0.0s
+#18 DONE 0.1s
 
 #19 [runtime 5/7] COPY --chown=node:node src/lib ./src/lib
 #19 DONE 0.0s
@@ -94,18 +94,18 @@
 
 #22 exporting to image
 #22 exporting layers
-#22 exporting layers 6.9s done
-#22 exporting manifest sha256:2bd6f7cceb6452e1a9a9c31da4ea75be728e1cf55221feaf6fce72dfc646e986
-#22 exporting manifest sha256:2bd6f7cceb6452e1a9a9c31da4ea75be728e1cf55221feaf6fce72dfc646e986 done
-#22 exporting config sha256:8c5ec4b1832129fe821c10a2b7e9485bf09a6d78a27dc5d6409b9c5265009c00 done
-#22 exporting attestation manifest sha256:fb0009438923b8cbcdff2bf429e2ab1184712af54cc70cc8a10ba9c17da812af done
-#22 exporting manifest list sha256:d1d80bfe48b1c7cb396d51199c6bc4d983f6402073ec97f0f6d020f91b91b546 done
-#22 naming to docker.io/library/autoreelz2026-new-web:3d2755a1a9d0b289076da2082085630a2f1352b4 done
-#22 unpacking to docker.io/library/autoreelz2026-new-web:3d2755a1a9d0b289076da2082085630a2f1352b4
-#22 unpacking to docker.io/library/autoreelz2026-new-web:3d2755a1a9d0b289076da2082085630a2f1352b4 2.7s done
-#22 DONE 9.7s
+#22 exporting layers 6.6s done
+#22 exporting manifest sha256:295ad1b05039977857738eef48b2ad817b9a135d331797ab3d0840ffedfdd8a3
+#22 exporting manifest sha256:295ad1b05039977857738eef48b2ad817b9a135d331797ab3d0840ffedfdd8a3 done
+#22 exporting config sha256:686d0e143237df37fe7ba80ed656cf0f0ba81e3b7df8ca78ab14df2b2bb033fe done
+#22 exporting attestation manifest sha256:c4513bc329f76c74f177c22770cc1a1bab16ee0a190447fc1567f9e0d3043b5e done
+#22 exporting manifest list sha256:1a9c7b0328737ae590a9c47b172a47f139605cd26f45f5f266f0be3b8fe002db done
+#22 naming to docker.io/library/autoreelz2026-new-web:133f4ac44d916b253cb0b4900316bad212a0eaa3 done
+#22 unpacking to docker.io/library/autoreelz2026-new-web:133f4ac44d916b253cb0b4900316bad212a0eaa3
+#22 unpacking to docker.io/library/autoreelz2026-new-web:133f4ac44d916b253cb0b4900316bad212a0eaa3 2.5s done
+#22 DONE 9.2s
 CREATE DATABASE
 {"passed":true,"checks":["accepted payment time instead of order creation","duplicate events and failed retries counted once","test provider only","cancelled/review excluded","exact rubles and kind breakdown","expired waiting orders excluded","stock subtracts reservations","inherit/replace quality rules","demo and archived excluded","bundle availability from components","task filtering and validated periods","no customer contacts in response"]}
  Container autoreelz2026-dashboard-preview Creating
  Container autoreelz2026-dashboard-preview Created
-8aa6e79bf6a28e8cdd0ecc7f09327d4822a079d7cdc17c4715ef6c50aa056ae9
+d48de64c201fe9e077c55155c68ee4bfca859676a95a1962dffdc50fce81106a

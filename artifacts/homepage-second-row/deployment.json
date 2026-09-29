@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-09-29T09:44:42.143659+00:00",
+  "appRevision": "366ea8c94536d895ddec9a0c0d1530c31cfa7978",
+  "imageId": "sha256:aff00718cfc42366b998d52f560dcd52c83274e6784338d2fabbb1d9a025f11b",
+  "previousAppRevision": "29e4746d5efe1c9e627292bf74d4af8174ea4e0f",
+  "health": true,
+  "webWorkerHealthy": true,
+  "mode": "staging",
+  "databaseChanged": false,
+  "cmsChanged": false,
+  "checks": [
+    "Astro check: no errors/warnings",
+    "Build passed",
+    "3 home tests passed",
+    "8 unique product cards: desktop 4+4, mobile 2+2+2+2",
+    "Both account links absent from home reviews"
+  ],
+  "publicReport": "public-check.json",
+  "archiveScope": "Runtime sources, public assets, infra, scripts, migrations, docs and content from the exact Git SHA; historical screenshots excluded"
+}

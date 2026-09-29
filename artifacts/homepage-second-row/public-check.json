@@ -1,0 +1,28 @@
+{
+  "base": "https://autoreelz.ru",
+  "viewports": [
+    {
+      "width": 1440,
+      "cards": 8,
+      "rows": [
+        4,
+        4
+      ],
+      "uniqueProducts": 8,
+      "reviewAccountLinks": 0
+    },
+    {
+      "width": 375,
+      "cards": 8,
+      "rows": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "uniqueProducts": 8,
+      "reviewAccountLinks": 0
+    }
+  ],
+  "passed": true
+}

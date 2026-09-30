@@ -1,0 +1,5 @@
+---
+import ManagerLayout from '../../layouts/ManagerLayout.astro';
+import ManagerAccess from '../../components/ManagerAccess.astro';
+---
+<ManagerLayout title="Служебное" active="service"><section data-workspace="service"><header class="dash-header"><div><p class="dash-eyebrow">Проверка работы магазина</p><h1>Служебное</h1></div><button type="button" class="dash-button" data-workspace-refresh>Обновить</button></header><ManagerAccess/><div data-workspace-content hidden><nav class="dash-tabs mgr-service-tabs" aria-label="Служебные разделы"><a class="dash-button" href="/manager/service?tab=notifications" data-service-tab="notifications">Уведомления</a><a class="dash-button" href="/manager/service?tab=mail" data-service-tab="mail">Тестовая почта</a></nav><p class="mgr-test-note">MAX и email работают через имитатор. Реальные сообщения не отправляются.</p><section class="dash-panel"><h2 data-service-title>Уведомления</h2><div class="owner-notifications" data-service-list></div></section></div></section><script>import '../../scripts/manager-service';</script></ManagerLayout>

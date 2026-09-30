@@ -1,0 +1,7 @@
+---
+import ManagerLayout from '../../../layouts/ManagerLayout.astro';
+import ManagerAccess from '../../../components/ManagerAccess.astro';
+const id=Astro.params.id??'';
+if(!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(id))Astro.response.status=404;
+---
+<ManagerLayout title="Карточка заказа" active="orders"><section data-workspace="order" data-order-id={id}><a class="mgr-back" data-order-back href="/manager/orders">← К списку заказов</a><header class="dash-header"><div><p class="dash-eyebrow">Работа с заказом</p><h1 data-order-title>Карточка заказа</h1></div><button type="button" class="dash-button" data-workspace-refresh>Обновить</button></header><ManagerAccess/><div data-workspace-content hidden><p class="mgr-test-note">Тестовый режим · действия сохраняются в истории заказа</p><div data-order-detail></div></div></section><script>import '../../../scripts/manager-order';</script></ManagerLayout>

@@ -1,4 +1,4 @@
-import{managerOrders,addNote,adjustStock,cancelByManager,fulfill,overrideDelivery,simulateCarrier}from'../../../server/management';
+import{managerOrders,managerOrder,addNote,adjustStock,cancelByManager,fulfill,overrideDelivery,simulateCarrier}from'../../../server/management';
 import{ownerNotifications,retryNotification}from'../../../server/notifications';
 import{generationProducts,generateDescription,applyDescription}from'../../../server/description-generation';
 import type{APIRoute}from'astro';
@@ -9,10 +9,18 @@ import{stockList,quoteShipping,confirmPreorder,receiveStock}from'../../../server
 import{query}from'../../../server/db';
 import{iso}from'../../../server/errors';
 import{requireTestEnvironment}from'../../../server/config';
-import{getDashboard}from'../../../server/dashboard';
+import{getDashboard,managerCatalogReadiness}from'../../../server/dashboard';
+import{listManagerOrders,managerInventory,managerStockHistory}from'../../../server/manager-workspace';
+import{uuid}from'../../../server/errors';
 export const GET:APIRoute=async ctx=>{try{
  await staff(ctx.request);
  switch(ctx.params.action){
+  case'access':return json({ok:true});
+  case'order-list':return json(await listManagerOrders(ctx.url.searchParams));
+  case'order':return json(await managerOrder(uuid(ctx.url.searchParams.get('id'))));
+  case'inventory':return json(await managerInventory());
+  case'stock-history':return json(await managerStockHistory(ctx.url.searchParams));
+  case'catalog-readiness':return json(await managerCatalogReadiness());
   case'dashboard':return json(await getDashboard(ctx.url.searchParams));
   case'orders':return json({orders:await managerOrders(ctx.url.searchParams.get('id'))});
   case'notifications':return json({notifications:await ownerNotifications()});

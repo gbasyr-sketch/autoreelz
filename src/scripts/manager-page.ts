@@ -1,0 +1,17 @@
+import {CommerceError,commerceCommand,commerceGet} from './commerce';
+import {russianValidation} from './russian-validation';
+export function node<K extends keyof HTMLElementTagNameMap>(tag:K,text='',className=''){const el=document.createElement(tag);el.textContent=text;el.className=className;return el;}
+export function link(text:string,href:string,className=''){const a=node('a',text,className);a.href=href;return a;}
+export const managerDate=(value:string)=>new Intl.DateTimeFormat('ru-RU',{timeZone:'Europe/Moscow',dateStyle:'short',timeStyle:'short'}).format(new Date(value));
+export function managerDirty(value:boolean){window.dispatchEvent(new CustomEvent('autoreelz:manager-dirty',{detail:value}));}
+export function managerPage(root:HTMLElement,loader:(signal:AbortSignal)=>Promise<()=>void>){
+ const $=<T extends HTMLElement=HTMLElement>(selector:string)=>root.querySelector<T>(selector)!;
+ const content=$('[data-workspace-content]'),login=$('[data-workspace-login]'),error=$('[data-workspace-error]'),success=$('[data-workspace-success]'),loading=$('[data-workspace-loading]'),form=$<HTMLFormElement>('[data-workspace-login-form]');let serial=0,controller:AbortController|undefined,exiting=false;
+ function showError(e:unknown){error.textContent=e instanceof Error?e.message:'Не удалось выполнить действие.';error.hidden=false;if(e instanceof CommerceError&&(e.status===401||e.status===403)){controller?.abort();content.hidden=true;login.hidden=false;root.querySelectorAll<HTMLDialogElement>('dialog[open]').forEach(d=>d.close());managerDirty(false);}}
+ const notify=(text:string)=>{success.textContent=text;success.hidden=false;};
+ async function reload(){if(exiting)return;const id=++serial;controller?.abort();controller=new AbortController();const current=controller;error.hidden=true;loading.hidden=false;loading.textContent=content.hidden?'Проверяем доступ…':'Обновляем данные…';try{const render=await loader(AbortSignal.any([current.signal,AbortSignal.timeout(20000)]));if(id!==serial||exiting)return;content.hidden=false;login.hidden=true;render();}catch(e){if(id!==serial||current.signal.aborted)return;showError(e instanceof CommerceError?e:new Error('Не удалось обновить данные. Проверьте соединение и повторите попытку.'));}finally{if(id===serial)loading.hidden=true;}}
+ russianValidation(form);form.addEventListener('submit',async event=>{event.preventDefault();const button=form.querySelector<HTMLButtonElement>('button')!;button.disabled=true;error.hidden=true;try{const fields=new FormData(form);await commerceCommand('/api/manager/login',{email:fields.get('email'),password:fields.get('password')});(form.elements.namedItem('password') as HTMLInputElement).value='';await reload();}catch(e){showError(e);}finally{button.disabled=false;}});
+ root.querySelectorAll('[data-workspace-refresh]').forEach(b=>b.addEventListener('click',()=>{if(document.documentElement.dataset.managerDirty==='true'&&!confirm('Обновить страницу и сбросить несохранённые изменения?'))return;managerDirty(false);void reload();}));
+ window.addEventListener('autoreelz:staff-exiting',()=>{exiting=true;serial++;controller?.abort();content.hidden=true;root.querySelectorAll<HTMLDialogElement>('dialog[open]').forEach(d=>d.close());managerDirty(false);});
+ return{reload,showError,notify,get:<T>(path:string,signal:AbortSignal)=>commerceGet<T>(path,{signal})};
+}

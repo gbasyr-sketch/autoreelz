@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-30",
+  "fullSuite": {
+    "passed": 97,
+    "skipped": 8,
+    "stage": "initial paragraph change"
+  },
+  "finalFocusedTests": {
+    "passed": 15,
+    "failed": 0
+  },
+  "astroCheck": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "localBuild": true,
+  "serverBuild": "verified per deployment",
+  "knownBuildWarning": "Existing mixed static/dynamic import of yookassa-payments.ts; unchanged",
+  "databaseMigrations": false,
+  "catalogMutations": false,
+  "sources": [
+    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+    "https://developers.google.com/search/docs/appearance/snippet",
+    "https://yandex.ru/support/webmaster/ru/threat/useless-content"
+  ]
+}

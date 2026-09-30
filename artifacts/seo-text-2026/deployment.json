@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-30",
+  "revision": "fa7a625777c0bff41d20be69ef907b109e289f4f",
+  "imageId": "sha256:63b2f1ecc889cc92bceb17ce0327a3355aa7a41fc4b0d6133a74213453f8b019",
+  "previousRevision": "9f097527702507358d405708ef5877f9589b8b9e",
+  "beforeTaskRevision": "b3e375f09452c2ac978e70932d3a2a7aa1921bbc",
+  "mode": "staging",
+  "noindex": true,
+  "publicStorefront": true,
+  "cmsAndManagerProtected": true,
+  "migrationChanges": false,
+  "catalogApplied": false,
+  "containers": {
+    "web": "healthy",
+    "worker": "healthy",
+    "cms": "healthy",
+    "db": "healthy",
+    "edge": "running"
+  },
+  "publicProof": "public-v6/read-only.json"
+}

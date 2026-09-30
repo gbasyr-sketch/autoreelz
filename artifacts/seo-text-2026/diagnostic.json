@@ -1,0 +1,9 @@
+{
+  "promptVersion": "2026-09-30.5",
+  "name": "Дефлекторы AMG ВАЗ 2107 черный глянец",
+  "state": "failed",
+  "costUpperUsd": "0.00050400",
+  "reason": "В ответе есть неподтверждённое свойство.",
+  "finding": "Advice compared gloss to an absent matte finish; existing conservative lexical guard rejected it. Prompt now excludes unprovided properties even in comparisons. No guard relaxation.",
+  "catalogApplied": false
+}

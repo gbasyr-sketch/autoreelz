@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "revision": "fa7a625777c0bff41d20be69ef907b109e289f4f",
+  "promptVersion": "2026-09-30.6",
+  "provider": "deepseek",
+  "catalogApplied": false,
+  "titleUnchanged": true,
+  "sessionRevoked": true,
+  "samples": [
+    {
+      "productId": "e69f3679-8f7b-5990-a59f-944f0b22f7f2",
+      "name": "Дефлекторы AMG ВАЗ 2107 черный глянец",
+      "requestId": "0c5649d8-f6f9-4be9-9b12-128d21c43ec0",
+      "provider": "deepseek",
+      "state": "completed",
+      "costUpperUsd": "0.00052740",
+      "message": "Тексты готовы к проверке.",
+      "descriptionChars": 221,
+      "metaChars": 65,
+      "paragraphs": 3
+    },
+    {
+      "productId": "11861903-1102-5344-a05d-efc4fff92fd1",
+      "name": "Консоль панель на ваз 2114 под 9 дюймов",
+      "requestId": "97fa42a0-c2b2-4665-b4d8-e07d1e4d3630",
+      "provider": "deepseek",
+      "state": "completed",
+      "costUpperUsd": "0.00052110",
+      "message": "Тексты готовы к проверке.",
+      "descriptionChars": 221,
+      "metaChars": 60,
+      "paragraphs": 3
+    },
+    {
+      "productId": "cc51415f-c9b9-5a7b-acbb-d15db446c304",
+      "name": "Рамка козырек на панель Приора 1",
+      "requestId": "43dabd2e-e488-4643-bcfa-08b619891ebb",
+      "provider": "deepseek",
+      "state": "completed",
+      "costUpperUsd": "0.00052860",
+      "message": "Тексты готовы к проверке.",
+      "descriptionChars": 229,
+      "metaChars": 67,
+      "paragraphs": 3
+    },
+    {
+      "productId": "c2a0f9a7-a4d7-5371-a3c6-251c19713db5",
+      "name": "Ручка КПП Гранта с подсветкой",
+      "requestId": "c246b6dd-f8ed-4c74-933a-67b5d5549a19",
+      "provider": "deepseek",
+      "state": "completed",
+      "costUpperUsd": "0.00052800",
+      "message": "Тексты готовы к проверке.",
+      "descriptionChars": 258,
+      "metaChars": 63,
+      "paragraphs": 3
+    }
+  ],
+  "costUpperUsd": "0.00210510"
+}

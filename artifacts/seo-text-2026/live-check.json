@@ -1,0 +1,45 @@
+{
+  "passed": false,
+  "revision": "b112d64f2b7e293bc42cad2776723e2961dc4348",
+  "promptVersion": "2026-09-30.4",
+  "provider": "deepseek",
+  "catalogApplied": false,
+  "titleUnchanged": true,
+  "sessionRevoked": true,
+  "samples": [
+    {
+      "productId": "0f11bcb0-8edf-59b0-af0a-5e366b29df9e",
+      "name": "LED панель управления отопителем Лада Приора",
+      "requestId": "2f36b6cc-5116-4a94-a424-62d2dce20b0d",
+      "provider": "deepseek",
+      "state": "completed",
+      "costUpperUsd": "0.00061530",
+      "message": "Тексты готовы к проверке.",
+      "descriptionChars": 477,
+      "metaChars": 106,
+      "paragraphs": 3
+    },
+    {
+      "productId": "e69f3679-8f7b-5990-a59f-944f0b22f7f2",
+      "name": "Дефлекторы AMG ВАЗ 2107 черный глянец",
+      "requestId": "2e6eedf9-352b-46c0-9146-2b6068abc873",
+      "provider": "deepseek",
+      "state": "completed",
+      "costUpperUsd": "0.00063240",
+      "message": "Тексты готовы к проверке.",
+      "descriptionChars": 449,
+      "metaChars": 110,
+      "paragraphs": 3
+    },
+    {
+      "productId": "11861903-1102-5344-a05d-efc4fff92fd1",
+      "name": "Консоль панель на ваз 2114 под 9 дюймов",
+      "requestId": "605393a7-e15c-43ad-87a2-4a5db622bca6",
+      "provider": "deepseek",
+      "state": "failed",
+      "costUpperUsd": "0.00063570",
+      "message": "Ответ не прошёл проверку фактов. Добавьте точные характеристики и создайте новый запрос; тексты товара не изменены."
+    }
+  ],
+  "costUpperUsd": "0.00188340"
+}

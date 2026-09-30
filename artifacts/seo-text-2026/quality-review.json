@@ -1,0 +1,38 @@
+{
+  "date": "2026-09-30",
+  "promptVersion": "2026-09-30.6",
+  "revision": "fa7a625777c0bff41d20be69ef907b109e289f4f",
+  "trialsThisTask": 10,
+  "costUpperUsdThisTask": "0.00555420",
+  "finalTrialsCompleted": 4,
+  "catalogApplied": false,
+  "manualReview": {
+    "facts": "Final four samples contain no observed invented product properties; claims remain limited to names, brand and finish/color.",
+    "style": "Paragraphs are preserved; repeated generic color-comparison advice can still need editorial removal.",
+    "length": "Final sparse inputs produced 221-258 characters, not forced 600-1200. Rich factual inputs were not live-tested in this round.",
+    "limits": "Conservative lexical guard can reject legitimate comparisons; it was not weakened. Manual review remains necessary.",
+    "initialTrials": "Prompt .4 padded sparse facts; .5 still made an unsupported comparison. Paid failures were metered, never applied. Hourly rate cap was observed without bypass."
+  },
+  "previews": [
+    {
+      "name": "Дефлекторы AMG ВАЗ 2107 черный глянец",
+      "description": "Дефлекторы AMG ВАЗ 2107 от бренда Spacecraft — чёрное глянцевое исполнение.\n\nПеред заказом сопоставьте цвет и поверхность с остальными деталями салона.\n\nСовместимость уточняйте для выбранного исполнения в карточке товара.",
+      "metaDescription": "Дефлекторы AMG ВАЗ 2107 Spacecraft в чёрном глянцевом исполнении."
+    },
+    {
+      "name": "Консоль панель на ваз 2114 под 9 дюймов",
+      "description": "Консоль панель на ваз 2114 под 9 дюймов — исполнение в чёрном цвете.\n\nПеред выбором стоит сопоставить цветовое исполнение с остальными деталями салона.\n\nСовместимость уточняйте для выбранного исполнения в карточке товара.",
+      "metaDescription": "Консоль панель на ваз 2114 под 9 дюймов в чёрном исполнении."
+    },
+    {
+      "name": "Рамка козырек на панель Приора 1",
+      "description": "Рамка козырек на панель Приора 1 от бренда Spacecraft — исполнение в чёрном цвете.\n\nПеред заказом сопоставьте цветовое исполнение с остальными деталями панели.\n\nСовместимость уточняйте для выбранного исполнения в карточке товара.",
+      "metaDescription": "Рамка козырек на панель Приора 1 от Spacecraft в чёрном исполнении."
+    },
+    {
+      "name": "Ручка КПП Гранта с подсветкой",
+      "description": "Ручка КПП Гранта с подсветкой бренда Spacecraft. В исполнении с синим цветом.\n\nЕсли выбираете между исполнениями, ориентируйтесь на цвет: он должен сочетаться с остальными деталями салона.\n\nСовместимость уточняйте для выбранного исполнения в карточке товара.",
+      "metaDescription": "Ручка КПП Гранта с подсветкой от Spacecraft в синем исполнении."
+    }
+  ]
+}

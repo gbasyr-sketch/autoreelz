@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "revision": "fa7a625777c0bff41d20be69ef907b109e289f4f",
+  "catalogMutations": false,
+  "checks": [
+    "health revision, public storefront/museum, noindex, protected CMS and editor",
+    "DeepSeek enabled; OpenAI disabled; shared 5 USD cap",
+    "owner options/new form/existing catalog read, correct live slug, no repeated initial stock, protected photo and no stray QA drafts",
+    "published product renders 2 escaped paragraphs at 375px without overflow",
+    "published product renders 2 escaped paragraphs at 1440px without overflow",
+    "temporary owner session revoked"
+  ]
+}

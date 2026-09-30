@@ -1,0 +1,16 @@
+[
+  {
+    "sample": 1,
+    "shape_equal": true,
+    "max_alpha_difference": 1,
+    "mean_alpha_difference": 2.8701968134957827e-05,
+    "fraction_equal": 0.999971298031865
+  },
+  {
+    "sample": 2,
+    "shape_equal": true,
+    "max_alpha_difference": 1,
+    "mean_alpha_difference": 9.196344892221181e-05,
+    "fraction_equal": 0.9999080365510777
+  }
+]

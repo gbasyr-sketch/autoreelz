@@ -1,0 +1,79 @@
+{
+  "host_platform": "Linux-5.15.0-119-generic-x86_64-with-glibc2.35",
+  "logical_cpus": "4",
+  "memory": {
+    "MemTotal": 8322994176,
+    "MemAvailable": 5497266176,
+    "SwapTotal": 0
+  },
+  "probes": [
+    {
+      "model": "u2netp",
+      "image": "sha256:57c09e130b4b4d0bb20c1279fd3ffc97ac9e22f4bf42cf92563b2e9659cdd48f",
+      "memory_bytes": 2147483648,
+      "nano_cpus": 1000000000,
+      "network": "none",
+      "read_only": true,
+      "exit_code": 0,
+      "oom_killed": false
+    },
+    {
+      "model": "birefnet-general-lite",
+      "image": "sha256:57c09e130b4b4d0bb20c1279fd3ffc97ac9e22f4bf42cf92563b2e9659cdd48f",
+      "memory_bytes": 2147483648,
+      "nano_cpus": 1000000000,
+      "network": "none",
+      "read_only": true,
+      "exit_code": 137,
+      "oom_killed": true
+    },
+    {
+      "model": "birefnet-general-lite-compact",
+      "image": "sha256:ca60067bd25c597b5c676b1a2aa3cc10f06e51ecb1587ea8f60cac1b2c512552",
+      "memory_bytes": 2147483648,
+      "nano_cpus": 1000000000,
+      "network": "none",
+      "read_only": true,
+      "exit_code": 137,
+      "oom_killed": true
+    },
+    {
+      "model": "birefnet-general-lite-compact-3584m",
+      "image": "sha256:ca60067bd25c597b5c676b1a2aa3cc10f06e51ecb1587ea8f60cac1b2c512552",
+      "memory_bytes": 3758096384,
+      "nano_cpus": 1000000000,
+      "network": "none",
+      "read_only": true,
+      "exit_code": 137,
+      "oom_killed": true
+    },
+    {
+      "model": "birefnet-3cpu-3584m-extended",
+      "image": "sha256:c57e1b68c32ffc5c71654a5d8bbb1adb502093ea64eb2a9358cd6c754db4da17",
+      "memory_bytes": 3758096384,
+      "nano_cpus": 3000000000,
+      "network": "none",
+      "read_only": true,
+      "exit_code": 137,
+      "oom_killed": true
+    },
+    {
+      "model": "u2net-3cpu-3584m",
+      "image": "sha256:298e5a39b8f4f0a0ac0d1435cb20253126caa784579f5cfeaa7631c65ec5304c",
+      "memory_bytes": 3758096384,
+      "nano_cpus": 3000000000,
+      "network": "none",
+      "read_only": true,
+      "exit_code": 0,
+      "oom_killed": false
+    }
+  ],
+  "store_revision": "fa7a625777c0bff41d20be69ef907b109e289f4f",
+  "store_containers": [
+    "autoreelz2026-release-edge-1 Up 3 minutes",
+    "autoreelz2026-release-web-1 Up 3 minutes (healthy)",
+    "autoreelz2026-release-worker-1 Up 3 minutes (healthy)",
+    "autoreelz2026-release-cms-1 Up 6 days (healthy)",
+    "autoreelz2026-release-db-1 Up 6 days (healthy)"
+  ]
+}

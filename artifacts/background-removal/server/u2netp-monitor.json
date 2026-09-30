@@ -1,0 +1,46 @@
+{
+  "model": "u2netp",
+  "stop_reason": null,
+  "samples": [
+    {
+      "elapsed": 0.04,
+      "running": true,
+      "health": {
+        "code": 200,
+        "seconds": 0.01,
+        "body": {
+          "ok": true,
+          "revision": "9f097527702507358d405708ef5877f9589b8b9e"
+        }
+      }
+    },
+    {
+      "elapsed": 4.08,
+      "running": true,
+      "health": {
+        "code": 200,
+        "seconds": 0.006,
+        "body": {
+          "ok": true,
+          "revision": "9f097527702507358d405708ef5877f9589b8b9e"
+        }
+      }
+    },
+    {
+      "elapsed": 8.12,
+      "running": false,
+      "health": {
+        "code": 200,
+        "seconds": 0.005,
+        "body": {
+          "ok": true,
+          "revision": "9f097527702507358d405708ef5877f9589b8b9e"
+        }
+      }
+    }
+  ],
+  "exit_code": 0,
+  "oom_killed": false,
+  "started_at": "2026-09-30T14:23:54.801046196Z",
+  "finished_at": "2026-09-30T14:23:59.935173167Z"
+}

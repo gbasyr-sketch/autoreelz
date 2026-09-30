@@ -1,0 +1,19 @@
+autoreelz2026-bg-probe-u2netp
+autoreelz2026-bg-probe-birefnet-general-lite
+autoreelz2026-bg-probe-birefnet-general-lite-compact
+autoreelz2026-bg-probe-birefnet-general-lite-compact-3584m
+autoreelz2026-bg-probe-birefnet-3cpu-3584m-extended
+autoreelz2026-bg-probe-u2net-3cpu-3584m
+Untagged: autoreelz2026-bg-probe:20260930
+Deleted: sha256:57c09e130b4b4d0bb20c1279fd3ffc97ac9e22f4bf42cf92563b2e9659cdd48f
+Untagged: autoreelz2026-bg-probe:compact-20260930
+Deleted: sha256:ca60067bd25c597b5c676b1a2aa3cc10f06e51ecb1587ea8f60cac1b2c512552
+Untagged: autoreelz2026-bg-probe:extended-20260930
+Deleted: sha256:c57e1b68c32ffc5c71654a5d8bbb1adb502093ea64eb2a9358cd6c754db4da17
+Untagged: autoreelz2026-bg-probe:u2net-20260930
+Deleted: sha256:298e5a39b8f4f0a0ac0d1435cb20253126caa784579f5cfeaa7631c65ec5304c
+autoreelz2026-release-edge-1 Up 4 minutes
+autoreelz2026-release-web-1 Up 4 minutes (healthy)
+autoreelz2026-release-worker-1 Up 4 minutes (healthy)
+autoreelz2026-release-cms-1 Up 6 days (healthy)
+autoreelz2026-release-db-1 Up 6 days (healthy)

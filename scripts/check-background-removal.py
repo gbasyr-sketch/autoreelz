@@ -23,10 +23,11 @@ import onnxruntime as ort
 MODELS = {
     "birefnet-general-lite": (1024, "4fab47adc4ff364be1713e97b7e66334"),
     "u2netp": (320, "8e83ca70e441ab06c318d82300c84806"),
+    "u2net": (320, "60024c5c889badc19c04ad937298a77b"),
 }
 
 
-def load_model(name):
+def load_model(name, compact=False, graph_optimization="all"):
     path = Path(os.environ["U2NET_HOME"]) / f"{name}.onnx"
     # No automatic network access: download and verify the explicit model first.
     if not path.is_file() or hashlib.md5(path.read_bytes()).hexdigest() != MODELS[name][1]:
@@ -34,6 +35,11 @@ def load_model(name):
     options = ort.SessionOptions()
     options.intra_op_num_threads = int(os.environ["OMP_NUM_THREADS"])
     options.inter_op_num_threads = 1
+    if compact:
+        options.enable_cpu_mem_arena = False
+        options.enable_mem_pattern = False
+    if graph_optimization == "extended":
+        options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_EXTENDED
     return ort.InferenceSession(str(path), sess_options=options, providers=["CPUExecutionProvider"])
 
 
@@ -69,15 +75,22 @@ def main():
     parser.add_argument("images", nargs="+", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--model", choices=list(MODELS), default="birefnet-general-lite")
+    parser.add_argument("--compact-memory", action="store_true", help="Disable ORT allocation caching for a constrained CPU worker")
+    parser.add_argument("--graph-optimization", choices=["all", "extended"], default="all")
     args = parser.parse_args()
     # Deliberately fail instead of overwriting an earlier experiment.
     args.output.mkdir(parents=True, exist_ok=False)
     Image.MAX_IMAGE_PIXELS = 24_000_000
     report = {"platform": platform.platform(), "processor": platform.machine(),
               "provider": "CPUExecutionProvider", "threads": os.environ["OMP_NUM_THREADS"],
-              "model": args.model, "max_edge": 1600,
+              "model": args.model, "compact_memory": args.compact_memory,
+              "graph_optimization": args.graph_optimization, "max_edge": 1600,
               "versions": {p: importlib.metadata.version(p) for p in ["onnxruntime", "pillow", "numpy"]},
               "results": []}
+    if platform.system() == "Linux":
+        report["cgroup_limits"] = {name: (Path("/sys/fs/cgroup") / name).read_text().strip()
+                                  for name in ["memory.max", "memory.swap.max", "cpu.max", "pids.max"]
+                                  if (Path("/sys/fs/cgroup") / name).is_file()}
     session = None
     sheet = Image.new("RGB", (1920, 490 * len(args.images)), "#f4f3ef")
     draw = ImageDraw.Draw(sheet)
@@ -98,7 +111,7 @@ def main():
         else:
             if session is None:
                 session_start = time.perf_counter()
-                session = load_model(args.model)
+                session = load_model(args.model, args.compact_memory, args.graph_optimization)
                 report["model_load_seconds"] = round(time.perf_counter() - session_start, 3)
                 start = time.perf_counter()
             mask = predict_mask(session, original, args.model)
@@ -128,6 +141,9 @@ def main():
             draw.text((x+14, y+12), f"{index+1}. {label}", fill="#222222", font=font)
             sheet.paste(preview, (x + (640-preview.width)//2, y+48+(430-preview.height)//2))
     report["process_peak_rss_bytes"] = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * (1 if platform.system() == "Darwin" else 1024)
+    memory_peak = Path("/sys/fs/cgroup/memory.peak")
+    if platform.system() == "Linux" and memory_peak.is_file():
+        report["cgroup_memory_peak_bytes"] = int(memory_peak.read_text().strip())
     report["model_files"] = [{"name": p.name, "bytes": p.stat().st_size, "sha256": digest(p)}
                              for p in Path(os.environ["U2NET_HOME"]).glob(f"{args.model}.onnx")]
     (args.output / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2)+"\n")

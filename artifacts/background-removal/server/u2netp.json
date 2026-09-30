@@ -1,0 +1,60 @@
+{
+  "platform": "Linux-5.15.0-119-generic-x86_64-with-glibc2.41",
+  "processor": "x86_64",
+  "provider": "CPUExecutionProvider",
+  "threads": "1",
+  "model": "u2netp",
+  "max_edge": 1600,
+  "versions": {
+    "onnxruntime": "1.30.0",
+    "pillow": "12.3.0",
+    "numpy": "2.5.3"
+  },
+  "results": [
+    {
+      "sample": "sample-1",
+      "source_name": "front.jpg",
+      "source_sha256": "868bd6acbec5d4aa28d064bfc0593840d4ccd475683112ca02d1e0732837926f",
+      "dimensions": [
+        1600,
+        1067
+      ],
+      "method": "predicted_alpha_only",
+      "inference_seconds": 0.803,
+      "rgb_unchanged_from_resized_source": true,
+      "source_file_unchanged": true,
+      "transparent_fraction": 0.6637,
+      "opaque_fraction": 0.0019
+    },
+    {
+      "sample": "sample-2",
+      "source_name": "side.jpg",
+      "source_sha256": "f3c35d9068d4835efadeee303e8d704f3b80ef7713c9c0578d60d80e280c9736",
+      "dimensions": [
+        1600,
+        1067
+      ],
+      "method": "predicted_alpha_only",
+      "inference_seconds": 0.806,
+      "rgb_unchanged_from_resized_source": true,
+      "source_file_unchanged": true,
+      "transparent_fraction": 0.5882,
+      "opaque_fraction": 0.0017
+    }
+  ],
+  "cgroup_limits": {
+    "memory.max": "2147483648",
+    "memory.swap.max": "0",
+    "cpu.max": "100000 100000",
+    "pids.max": "64"
+  },
+  "model_load_seconds": 0.063,
+  "process_peak_rss_bytes": 667611136,
+  "model_files": [
+    {
+      "name": "u2netp.onnx",
+      "bytes": 4574861,
+      "sha256": "309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8"
+    }
+  ]
+}

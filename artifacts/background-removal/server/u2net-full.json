@@ -1,0 +1,62 @@
+{
+  "platform": "Linux-5.15.0-119-generic-x86_64-with-glibc2.41",
+  "processor": "x86_64",
+  "provider": "CPUExecutionProvider",
+  "threads": "3",
+  "model": "u2net",
+  "compact_memory": true,
+  "graph_optimization": "all",
+  "max_edge": 1600,
+  "versions": {
+    "onnxruntime": "1.30.0",
+    "pillow": "12.3.0",
+    "numpy": "2.5.3"
+  },
+  "results": [
+    {
+      "sample": "sample-1",
+      "source_name": "front.jpg",
+      "source_sha256": "868bd6acbec5d4aa28d064bfc0593840d4ccd475683112ca02d1e0732837926f",
+      "dimensions": [
+        1600,
+        1067
+      ],
+      "method": "predicted_alpha_only",
+      "inference_seconds": 0.638,
+      "rgb_unchanged_from_resized_source": true,
+      "source_file_unchanged": true,
+      "transparent_fraction": 0.6768,
+      "opaque_fraction": 0.0032
+    },
+    {
+      "sample": "sample-2",
+      "source_name": "side.jpg",
+      "source_sha256": "f3c35d9068d4835efadeee303e8d704f3b80ef7713c9c0578d60d80e280c9736",
+      "dimensions": [
+        1600,
+        1067
+      ],
+      "method": "predicted_alpha_only",
+      "inference_seconds": 0.605,
+      "rgb_unchanged_from_resized_source": true,
+      "source_file_unchanged": true,
+      "transparent_fraction": 0.5955,
+      "opaque_fraction": 0.0053
+    }
+  ],
+  "cgroup_limits": {
+    "memory.max": "3758096384",
+    "memory.swap.max": "0",
+    "cpu.max": "300000 100000",
+    "pids.max": "64"
+  },
+  "model_load_seconds": 0.756,
+  "process_peak_rss_bytes": 658296832,
+  "model_files": [
+    {
+      "name": "u2net.onnx",
+      "bytes": 175997641,
+      "sha256": "8d10d2f3bb75ae3b6d527c77944fc5e7dcd94b29809d47a739a7a728a912b491"
+    }
+  ]
+}

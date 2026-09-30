@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "revision": "82fae2165d71beb910c38852f8cd6fc829bbbb31",
+  "url": "https://autoreelz.ru/product/wb-318315068",
+  "method": "Codex in-app browser; screenshots visually reviewed in task",
+  "viewports": [
+    {
+      "width": 1280,
+      "height": 900,
+      "targetTops": [
+        89.09,
+        89.14,
+        110.07,
+        341.3
+      ]
+    },
+    {
+      "width": 768,
+      "height": 900,
+      "targetTops": [
+        89.0,
+        88.97,
+        88.9,
+        146.44
+      ]
+    },
+    {
+      "width": 375,
+      "height": 900,
+      "targetTops": [
+        88.94,
+        89.09,
+        89.11,
+        88.95
+      ]
+    }
+  ],
+  "targetOrder": [
+    "description",
+    "specifications",
+    "delivery",
+    "reviews"
+  ],
+  "allTwelveAnchorsActiveAndUnobscured": true,
+  "stickyTop": 0,
+  "barHeight": 53,
+  "documentOverflow": false,
+  "keyboardEnter": true,
+  "backRestoresReviews": true,
+  "manualPageUpUpdatesActiveDespiteUnchangedHash": true,
+  "consoleErrors": [],
+  "viewportOverrideReset": true,
+  "writesToCatalogOrOrders": false,
+  "initialFindingFixed": "Short delivery section was incorrectly superseded by the reviews highlight when both were visible. Explicit anchor selection now survives scroll clamping until the visitor scrolls."
+}

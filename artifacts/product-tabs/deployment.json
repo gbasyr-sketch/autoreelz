@@ -1,0 +1,23 @@
+{
+  "date": "2026-09-30",
+  "revision": "82fae2165d71beb910c38852f8cd6fc829bbbb31",
+  "imageId": "sha256:b5073209bf6a04ce9002a9205f1d0f8dd6cbe3b3a696e7b9434e39b82a171ee8",
+  "previousRevision": "03d9829ecb16bf5161a9bf98f07e5b9ffb9009c9",
+  "beforeTaskRevision": "6b726b5c4d9c6ff854aa12fe4be75f6d5ff79c6c",
+  "mode": "staging",
+  "migrationsChanged": false,
+  "environmentOnlyChanged": [
+    "RELEASE_IMAGE"
+  ],
+  "check": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0,
+    "files": 136,
+    "isolatedSourceCopy": true
+  },
+  "buildPassed": true,
+  "serverBuildPassed": true,
+  "unrelatedInfographicsWorkExcluded": true,
+  "fullCommerceTestsRerun": false
+}

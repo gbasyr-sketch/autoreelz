@@ -27,6 +27,7 @@
 | Страницы/блог | [content.ts](../src/server/content.ts), `src/lib/content.ts`, `src/pages/info/`, `src/pages/blog/` | Публикация, slug/редирект, экранирование, только разрешённые видео |
 | Отзывы | [social.ts](../src/server/social.ts), `social-photos.ts`, `src/components/Reviews.astro` | Только полученный заказ, модерация, приватность исходников/неодобренных фото |
 | Генератор текстов | [description-generation.ts](../src/server/description-generation.ts), `adapters/description.ts` | Preview/Apply, изменённые исходные данные, ручной title. Сейчас имитатор |
+| Настоящая генерация в форме товара | [product-ai.ts](../src/server/product-ai.ts), `adapters/ai-text.ts`, `src/scripts/product-ai.ts`, `src/lib/ai-text.ts`, миграция013 | Общий бюджет, резерв до внешнего вызова, повторы/неопределённость, вход/CSRF, whitelist фактов, применение только в форму; [контракт](ai-text-generation.md) |
 | SEO/фид | [seo.ts](../src/lib/seo.ts), `src/server/seo.ts`, `src/lib/feed.ts` | SSR SKU, canonical, sitemap/YML, отсутствие ложных свойств; staging остаётся noindex |
 | Схема/CMS | [migrations](../migrations), `cms/model.mjs`, `scripts/configure-*.mjs` | Только новая миграция, SQL и CMS-права, метаданные, совместимость старых заказов |
 | Выпуск/маршрутизация | [server-staging.md](server-staging.md), `Dockerfile`, `infra/release/` | Нужный overlay, SHA web/worker, /cms, /muzey/, webhook, публичная витрина |

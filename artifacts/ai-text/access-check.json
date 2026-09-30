@@ -1,0 +1,14 @@
+{
+  "paidCalls": 0,
+  "deepseek": {
+    "localModels": 200,
+    "serverModels": 200,
+    "balanceAvailable": true
+  },
+  "openai": {
+    "localModel": 200,
+    "serverModel": 403,
+    "serverError": "unsupported_country_region_territory",
+    "serverEnabled": false
+  }
+}

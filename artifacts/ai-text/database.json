@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "isolated": true,
+  "externalCalls": 0,
+  "checks": [
+    "identical concurrent requests call provider once",
+    "shared provider budget",
+    "different concurrent reservations cannot overspend",
+    "uncertain outcome retains reservation and is not retried",
+    "known rejection releases reserve, paid invalid output is metered",
+    "old outstanding requests carry across month boundary",
+    "no catalog/stock/editor draft writes",
+    "usage mismatch stops further generation"
+  ]
+}

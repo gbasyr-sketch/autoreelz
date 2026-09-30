@@ -4,3 +4,5 @@
 @media(max-width:700px){.pe-grid{grid-template-columns:1fr}.pe-preview{grid-template-columns:1fr}.pe-preview-photo{max-height:none}.pe-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.pe-variant{padding:14px}.pe-actions{bottom:0;padding:12px 10px calc(12px + env(safe-area-inset-bottom))}.pe-actions>div{display:grid;grid-template-columns:1fr}.pe-actions .dash-button{width:100%}.pe-field textarea{font-size:16px}.pe-layout{gap:18px}.pe-package input{padding-inline:8px}.pe-photo{padding:7px}.pe-photo-tools{gap:4px}.pe-photo-tools button{padding:6px;min-width:44px}.pe-upload{padding:12px}}
 
 [data-discard-draft]{margin-bottom:18px}.pe-upload .dash-button{margin-top:10px}
+
+.pe-ai-preview{border-top:1px solid var(--dash-line);padding-top:18px}.pe-ai-preview h3{margin:0;font-size:16px}.pe-ai-preview textarea{font-size:14px;line-height:1.6}.pe-ai-preview .dash-message{margin:0!important}@media(max-width:700px){.pe-ai-preview textarea{font-size:16px}}

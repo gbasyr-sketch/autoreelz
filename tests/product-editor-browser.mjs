@@ -10,6 +10,7 @@ try{for(const width of [1440,768,375]){
  await page.route('**/api/**',async route=>{const r=route.request(),u=new URL(r.url()),action=u.pathname.split('/').at(-1),reply=(json,status=200)=>route.fulfill({status,json});
   if(action==='session')return reply({id:randomUUID(),csrfToken:'qa-csrf',email:null,expiresAt:'2030-01-01T00:00:00Z'});
   if(action==='login'){gate=200;return reply({ok:true});}if(action==='logout'){gate=401;return reply({ok:true});}if(gate!==200)return reply({error:{message:'Войдите в кабинет владельца.'}},gate);
+  if(action==='product-ai')return reply({enabled:false,provider:'deepseek',model:'deepseek-flash',providers:[],month:'2026-09',limitUsd:'5',usedUpperUsd:'0',remainingUsd:'5',uncertainCount:0});
   if(action==='product-image'){if(r.method()==='POST')return reply({id:photo,alt:''});return route.fulfill({contentType:'image/svg+xml',body:'<svg xmlns="http://www.w3.org/2000/svg" width="500" height="400"><rect width="500" height="400" fill="#f0f0ea"/><rect x="130" y="120" width="240" height="140" rx="20" fill="#252525"/><circle cx="195" cy="190" r="30" fill="#57a96c"/><circle cx="300" cy="190" r="30" fill="#d3d3ca"/></svg>'});}
   if(action==='product-editor'){
    if(r.method()==='GET'){if(u.searchParams.has('options'))return reply({categories:[{id:category,name:'Блоки отопителя',parentId:null,status:'published'}],attributes:[],vehicles:[]});if(u.searchParams.has('drafts'))return reply({drafts:state.hasDraft?[{id,name:state.data.name}]:[]});return reply(state);}

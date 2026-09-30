@@ -1,4 +1,5 @@
 import {managerPage,managerDirty,node,link} from './manager-page';
+import {productAIPanel} from './product-ai';
 import {CommerceError,getSession} from './commerce';
 import {emptyVariant,productSlug,publicationIssues,hasPackage,packageValues,type EditorData,type EditorState,type EditorOptions,type EditorPhoto,type EditorAttribute,type EditorFitment,type EditorIssue} from '../lib/product-editor';
 import {parseRublesInput,formatRubles,compareRubles} from '../lib/money';
@@ -12,7 +13,7 @@ if(root){
  const imageUrl=(id:string)=>'/api/manager/product-image?id='+encodeURIComponent(id);
  const pathId=(path:string)=>'pe-'+path.replaceAll('.','-');
  function button(label:string,fn:()=>void,css='dash-button'){const b=node('button',label,css);b.type='button';b.addEventListener('click',fn);return b;}
- function changed(){managerDirty(true);$('[data-editor-save-hint]').textContent='Есть несохранённые изменения';updatePreview();if(showValidation)markIssues(publicationIssues(data,state.existingSkuIds),false);}
+ function changed(){managerDirty(true);$('[data-editor-save-hint]').textContent='Есть несохранённые изменения';updatePreview();aiPanel?.changed();if(showValidation)markIssues(publicationIssues(data,state.existingSkuIds),false);}
  function field(label:string,path:string,value:string,set:(value:string)=>void,config:{type?:string;help?:string;choices?:[string,string][];wide?:boolean;max?:number}={}){
   const wrap=node('label','','dash-field pe-field'+(config.wide?' pe-wide':''));wrap.append(node('span',label));let input:HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement;
   if(config.choices){const select=node('select');for(const[value,text]of config.choices){const option=node('option',text);option.value=value;select.append(option);}input=select;}
@@ -88,7 +89,7 @@ if(root){
   gallery($('[data-editor-photos]'),data.photos,'photos');renderVariants();attributeFields($('[data-editor-attributes]'),data.attributes,'attributes');fitmentFields($('[data-editor-fitment]'),data.fitment,'fitment');
   const seo=$('[data-editor-seo]');seo.replaceChildren(field('Адрес страницы','slug',data.slug,value=>{slugManual=true;data.slug=value;},{help:'Предлагается из названия. Латиница, цифры, дефисы; уникальность проверим при публикации.',max:160}),field('SEO-заголовок','seoTitle',data.seoTitle,value=>data.seoTitle=value),field('Краткое описание для поиска','metaDescription',data.metaDescription,value=>data.metaDescription=value,{type:'textarea',max:2000}));const demo=node('label','','dash-checkbox'),toggle=node('input');toggle.type='checkbox';toggle.checked=data.isDemo;toggle.addEventListener('change',()=>{data.isDemo=toggle.checked;changed();});demo.append(toggle,node('span','Демонстрационный товар'));seo.append(demo);
   const preview=$<HTMLAnchorElement>('[data-preview-link]');preview.hidden=!state.live;preview.href='/product/'+(state.liveSlug??data.slug);
-  $('[data-editor-save-hint]').textContent=state.hasDraft?'Черновик сохранён':state.live?'Данные загружены':'Изменения ещё не сохранены';managerDirty(false);updatePreview();setBusy();
+  $('[data-editor-save-hint]').textContent=state.hasDraft?'Черновик сохранён':state.live?'Данные загружены':'Изменения ещё не сохранены';managerDirty(false);updatePreview();setBusy();void aiPanel.load();aiPanel.changed();
  }
  function setBusy(){const locked=busy||uploading>0;fields.disabled=locked;form.setAttribute('aria-busy',String(locked));$<HTMLButtonElement>('[data-save-draft]').disabled=locked;$<HTMLButtonElement>('[data-publish-product]').disabled=locked;$<HTMLButtonElement>('[data-workspace-refresh]').disabled=locked;$<HTMLButtonElement>('[data-discard-draft]').disabled=locked;}
  async function save(action:'draft'|'publish'|'discard'){
@@ -98,10 +99,11 @@ if(root){
   catch(e){page.showError(e instanceof CommerceError?e:new Error('Не удалось связаться с магазином. Проверьте соединение и повторите сохранение.'));$('[data-editor-save-hint]').textContent='Сохранение не подтверждено. Данные остаются в форме; повторите действие.';}
   finally{busy=false;setBusy();}
  }
+ const aiPanel=productAIPanel($('[data-ai-text-panel]'),{id,data:()=>data,apply:(description,meta)=>{data.description=description;data.metaDescription=meta;const d=document.getElementById(pathId('description')) as HTMLTextAreaElement;const m=document.getElementById(pathId('metaDescription')) as HTMLTextAreaElement;d.value=description;m.value=meta;changed();},error:e=>page.showError(e)});
  const page=managerPage(root,async signal=>{const [loaded,settings]=await Promise.all([page.get<EditorState>('/api/manager/product-editor?id='+encodeURIComponent(id),signal),page.get<EditorOptions>('/api/manager/product-editor?options=1',signal)]);return()=>{state=loaded;options=settings;render();};});
  $<HTMLButtonElement>('[data-add-variant]').addEventListener('click',()=>{if(data.variants.length>=20){page.showError(new Error('В одной форме можно добавить до 20 вариантов.'));return;}data.variants.push(emptyVariant(crypto.randomUUID()));renderVariants();changed();document.getElementById(pathId(`variants.${data.variants.length-1}.name`))?.focus();});
  $<HTMLButtonElement>('[data-save-draft]').addEventListener('click',()=>void save('draft'));form.addEventListener('submit',e=>{e.preventDefault();void save('publish');});
  $<HTMLButtonElement>('[data-discard-draft]').addEventListener('click',()=>{if(confirm('Удалить сохранённый черновик и несохранённые изменения? Опубликованный товар и склад останутся без изменений.'))void save('discard');});
- root.addEventListener('autoreelz:manager-locked',()=>{generation++;for(const selector of ['[data-editor-main]','[data-editor-photos]','[data-editor-variants]','[data-editor-attributes]','[data-editor-fitment]','[data-editor-seo]'])$(selector).replaceChildren();$('[data-editor-status]').textContent='';$<HTMLImageElement>('[data-preview-image]').removeAttribute('src');$('[data-preview-name]').textContent='';$('[data-preview-price]').textContent='';$('[data-editor-errors]').hidden=true;});
+ root.addEventListener('autoreelz:manager-locked',()=>{generation++;aiPanel.lock();for(const selector of ['[data-editor-main]','[data-editor-photos]','[data-editor-variants]','[data-editor-attributes]','[data-editor-fitment]','[data-editor-seo]'])$(selector).replaceChildren();$('[data-editor-status]').textContent='';$<HTMLImageElement>('[data-preview-image]').removeAttribute('src');$('[data-preview-name]').textContent='';$('[data-preview-price]').textContent='';$('[data-editor-errors]').hidden=true;});
  void page.reload();
 }

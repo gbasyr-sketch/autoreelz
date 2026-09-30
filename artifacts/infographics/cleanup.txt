@@ -1,0 +1,9 @@
+autoreelz2026-infographics-preview
+autoreelz2026-background-qa
+autoreelz2026-infographics-qa
+autoreelz2026-release-edge-1 Up 2 minutes
+autoreelz2026-release-web-1 Up 2 minutes (healthy)
+autoreelz2026-release-background-1 Up 2 minutes (healthy)
+autoreelz2026-release-worker-1 Up 2 minutes (healthy)
+autoreelz2026-release-cms-1 Up 6 days (healthy)
+autoreelz2026-release-db-1 Up 7 days (healthy)

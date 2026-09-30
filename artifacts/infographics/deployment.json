@@ -1,0 +1,81 @@
+{
+  "revision": "12d1845867eabf9767296bf521b8353c84f912bd",
+  "previousRevision": "82fae2165d71beb910c38852f8cd6fc829bbbb31",
+  "services": [
+    {
+      "image": "sha256:406447e61f7606eb702ceeef75a3467967defd1b76e5f1d6a296d2941b6eee7f",
+      "revision": "12d1845867eabf9767296bf521b8353c84f912bd",
+      "status": "running",
+      "health": "healthy",
+      "memory": 1073741824,
+      "nanoCpus": 2000000000,
+      "service": "web"
+    },
+    {
+      "image": "sha256:406447e61f7606eb702ceeef75a3467967defd1b76e5f1d6a296d2941b6eee7f",
+      "revision": "12d1845867eabf9767296bf521b8353c84f912bd",
+      "status": "running",
+      "health": "healthy",
+      "memory": 0,
+      "nanoCpus": 0,
+      "service": "worker"
+    },
+    {
+      "image": "sha256:6aeddd44c3078b0f9a35206472a11420648a79c184603ef95957d0a20044cb2b",
+      "revision": null,
+      "status": "running",
+      "health": null,
+      "memory": 0,
+      "nanoCpus": 0,
+      "service": "edge"
+    },
+    {
+      "image": "sha256:8978edf633ae28aa31464bb71c55300c94d8bc771ff3727b5fac485173283869",
+      "revision": "973be10df8b0305569dc0dc53e187c648133c8d6",
+      "status": "running",
+      "health": "healthy",
+      "memory": 0,
+      "nanoCpus": 0,
+      "service": "cms"
+    },
+    {
+      "image": "sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+      "revision": null,
+      "status": "running",
+      "health": "healthy",
+      "memory": 0,
+      "nanoCpus": 0,
+      "service": "db"
+    },
+    {
+      "image": "sha256:ab6084c983d3bba0cee87ba64e019d63223d208e520edf9dd49edafc81d3b707",
+      "revision": "12d1845867eabf9767296bf521b8353c84f912bd",
+      "status": "running",
+      "health": "healthy",
+      "memory": 3758096384,
+      "nanoCpus": 3000000000,
+      "service": "background"
+    }
+  ],
+  "workerCgroups": [
+    "3758096384",
+    "300000 100000"
+  ],
+  "migrations": [
+    "001_catalog.sql 127903d14d39b672de30d66f37b4fb10b79399bf97b6e27f21f630e2f7db008c",
+    "002_catalog_integrity.sql 0b21f38e7c87a740d2268d1f3d2d800ed7039f906e4de41c5014c6b41bec482b",
+    "003_catalog_concurrency.sql 0c92790dc994a93fb72b92af5fde887fd2684b0211d437de4e42fab9edc8c911",
+    "004_commerce.sql ed66c3867d5c29a2238b8f7bfb9bb72dd5861c19af7e2a5398c75dd36b771d7f",
+    "005_auth_limits.sql 8e7a40e3e12685e811efd860700c915eab7e95bb2e776e6b1332f54b5dcc0ee8",
+    "006_ruble_money.sql 02739027c9170a770673cbf8974f9a2d83f47b35dd0a0fffba10cafee3cb4663",
+    "007_store_expansion.sql 97cbca44dcec84d923313d8ef9b08e01f78b94ae1c4d2125458bccd29d3daa7f",
+    "008_carrier_tracking.sql a22cc319a353a6c2a120ef732b63875c94ea8b3ec7bb8e0d2636d9852a820e15",
+    "009_seo_content.sql 8bbe161f46c94d3166cb4ef36eb6c6e5ab62e4713a54ea713d552035f5d661c6",
+    "010_yookassa_payments.sql 299a91e12ef5ac6d9a331f09e4db18c5191a4afbc21bbb90354e769611d8ae2f",
+    "011_checkout_confirmations.sql 4fc1e275dd86364a321452e45213f04235206efa0901908f44bcd5ebd0fcb892",
+    "012_product_editor.sql 5a8c9ede9a2744a98f70bbcc6b447edf949f9dcc05a7dd404cc081072326694a",
+    "013_ai_text_generation.sql dd1b6e381037e4bc80e8f205cbe60b971f6712137f1b4bc671de6f8ad2d39d74",
+    "014_product_infographics.sql 71baa0c384ebce0da7c5e7fa115a0a58b3c6ef818f1bc9d9f287c3f89f5ffba3"
+  ],
+  "backup": "/srv/autoreelz2026/backups/before-infographics-12d1845867eabf9767296bf521b8353c84f912bd.dump"
+}

@@ -26,6 +26,7 @@ tmp/
 
 # Project-local runtimes
 .tools/
+__pycache__/
 
 # Local product-photo background-removal experiments
 output/background-removal/

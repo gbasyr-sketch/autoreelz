@@ -1,0 +1,38 @@
+[
+  {
+    "path": "/health",
+    "status": 200,
+    "expected": 200,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/",
+    "status": 200,
+    "expected": 200,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/cms/users/me",
+    "status": 401,
+    "expected": 401,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/api/manager/orders",
+    "status": 401,
+    "expected": 401,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/muzey/",
+    "status": 200,
+    "expected": 200,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/cookies",
+    "status": 404,
+    "expected": 404,
+    "robots": "noindex, nofollow, noarchive"
+  }
+]

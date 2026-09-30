@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "revision": "12d1845867eabf9767296bf521b8353c84f912bd",
+  "readOnlyCatalog": true,
+  "checks": [
+    "public worker call returns PNG without saving a file or modifying a product",
+    "editor state identical before and after; desktop/mobile studio renders; no publication or gallery writes"
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "width": 375,
+      "passed": true
+    }
+  ],
+  "processingRequestSeconds": 2.9220910000000004,
+  "sessionRevoked": true
+}

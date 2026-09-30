@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-30",
+  "revision": "6b726b5c4d9c6ff854aa12fe4be75f6d5ff79c6c",
+  "unitTestsPassed": 16,
+  "astroCheck": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "localBuild": true,
+  "isolatedDatabase": {
+    "passed": true,
+    "checks": 9,
+    "externalCalls": 0,
+    "schemaOnly": true,
+    "databaseAndFilesRemoved": true,
+    "newRegression": "21 additional requests by the same actor within an hour succeed under a 10 USD budget",
+    "preservedChecks": [
+      "concurrent reservation cannot exceed budget",
+      "idempotent retries do not call provider twice",
+      "uncertain requests keep reserve across month boundary",
+      "generation never modifies catalog, stock or editor drafts"
+    ]
+  },
+  "paidGenerationCallsThisTask": 0,
+  "migrationChanges": false
+}

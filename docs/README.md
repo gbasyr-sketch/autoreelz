@@ -33,7 +33,7 @@
 - Печатная инструкция владельцу: [PDF, 6 страниц](../output/pdf/AUTO-REELZ-instruktsiya-dobavlenie-tovarov.pdf). Сборка — `scripts/build-product-guide-pdf.py` с Python/reportlab; после изменения процедуры обновлять текст и проверять все страницы PDF.
 - Каталог/владелец: [cms.md](cms.md), [manager-guide.md](manager-guide.md), [wb-catalog-import.md](wb-catalog-import.md).
 - Структура кабинета: [manager-workspace.md](manager-workspace.md); инструкция — [manager-guide.md](manager-guide.md).
-- Генерация описаний: [руководство и контракт](ai-text-generation.md), [история подготовки](ai-text-generation-plan.md). Общий бюджет до $5/месяц; DeepSeek доступен с сервера, OpenAI отключён из-за ограничения региона.
+- Генерация описаний: [руководство и контракт](ai-text-generation.md), [история подготовки](ai-text-generation-plan.md). Общий бюджет до $10/месяц, часовой квоты нет; DeepSeek доступен с сервера, OpenAI отключён из-за ограничения региона.
 - Обзор владельца и правила показателей: [dashboard.md](dashboard.md).
 - Главная, товарные демоотзывы и статьи: [homepage-content.md](homepage-content.md).
 - Торговые контракты: [stage-4-contracts.md](stage-4-contracts.md), [stage-5-contracts.md](stage-5-contracts.md). Это базовые контракты этапов; актуальные изменения checkout и провайдеров перечислены в architecture.md и следующих документах.

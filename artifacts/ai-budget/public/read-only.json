@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "revision": "6b726b5c4d9c6ff854aa12fe4be75f6d5ff79c6c",
+  "catalogMutations": false,
+  "checks": [
+    "health revision, public storefront/museum, noindex, protected CMS and editor",
+    "DeepSeek enabled; OpenAI disabled; shared 10 USD cap",
+    "owner options/new form/existing catalog read, correct live slug, no repeated initial stock, protected photo and no stray QA drafts",
+    "AI panel displays monthly limit $10.00",
+    "temporary owner session revoked"
+  ]
+}

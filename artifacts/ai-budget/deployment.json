@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-30",
+  "revision": "6b726b5c4d9c6ff854aa12fe4be75f6d5ff79c6c",
+  "imageId": "sha256:6407e5344bc94152cc9846ae144d1b0b5e841eccd1e4bf190aaac9b994c18306",
+  "previousRevision": "fa7a625777c0bff41d20be69ef907b109e289f4f",
+  "monthlyBudgetUsd": "10.00000000",
+  "hourlyQuota": null,
+  "existingLedgerPreserved": true,
+  "migrationsUnchanged": true,
+  "containersHealthy": true,
+  "noindexPreserved": true,
+  "catalogMutations": false,
+  "paidCalls": 0,
+  "publicProof": "public/read-only.json",
+  "serverSecretSourceAndRuntimeUpdated": true,
+  "configurationBackupsRetained": true
+}

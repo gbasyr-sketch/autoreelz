@@ -35,11 +35,11 @@ export async function uploadEditorImage(request:Request,session:ShopSession,acto
   await query('UPDATE ar_product_editor_uploads SET ready=true WHERE file_id=$1',[claim.file_id]);return{id:claim.file_id,alt:''};
  });
 }
-export async function editorImage(request:Request,actor:{id:string},input:unknown){
+export async function editorImage(request:Request,actor:{id:string},input:unknown,thumbnail=false){
  const id=uuid(input);
  const permitted=(await query(`SELECT 1 FROM ar_product_editor_uploads WHERE file_id=$1 AND actor_id=$2 AND ready UNION ALL SELECT 1 FROM ar_product_media WHERE file_id=$1 UNION ALL SELECT 1 FROM ar_sku_media WHERE file_id=$1 UNION ALL SELECT 1 FROM ar_product_editor_drafts d WHERE d.actor_id=$2 AND EXISTS (SELECT 1 FROM jsonb_array_elements(coalesce(d.infographic->'photos','[]'::jsonb)) p WHERE p->>'sourceId'=$1::text OR p->>'cutoutId'=$1::text) LIMIT 1`,[id,actor.id])).rowCount;
  if(!permitted)throw new StoreError('PHOTO_NOT_FOUND','Фотография не найдена.',404);
- const response=await fetch(appConfig().cmsBase+'/assets/'+id,{headers:{Cookie:cmsCookie(request)},redirect:'error',signal:AbortSignal.timeout(15000)});
+ const response=await fetch(appConfig().cmsBase+'/assets/'+id+(thumbnail?'?width=192&height=192&fit=inside&format=webp&quality=75&withoutEnlargement=true':''),{headers:{Cookie:cmsCookie(request)},redirect:'error',signal:AbortSignal.timeout(15000)});
  if(!response.ok)throw new StoreError('PHOTO_NOT_FOUND','Фотография не найдена.',404);
  const type=response.headers.get('Content-Type')?.split(';')[0]??'';
  if(!['image/jpeg','image/png','image/webp','image/avif','image/gif','image/svg+xml'].includes(type))throw new StoreError('PHOTO_TYPE','Неизвестный формат.',415);

@@ -1,3 +1,4 @@
+import {withProductThumbnails} from './manager-product-thumbnails.ts';
 import type {PoolClient} from 'pg';
 import {transaction} from './db.ts';
 import {requireTestEnvironment} from './config.ts';
@@ -42,7 +43,7 @@ export async function getDashboard(params:URLSearchParams){
 
 export async function managerCatalogReadiness(){return transaction(async c=>{
  const quality=await readCatalogQuality(c);
- const products=(await c.query("SELECT id,name,slug,status,kind,is_demo FROM ar_products WHERE status<>'archived' ORDER BY name,id")).rows;return{products,quality};});}
+ const products=(await c.query("SELECT id,name,slug,status,kind,is_demo FROM ar_products WHERE status<>'archived' ORDER BY name,id")).rows;return{products:await withProductThumbnails(c,products),quality};});}
 
 async function readCatalogQuality(c:PoolClient):Promise<DashboardData['quality']>{
  return(await c.query(`WITH checks AS (

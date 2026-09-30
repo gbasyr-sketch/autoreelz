@@ -1,3 +1,4 @@
+import {withProductThumbnails} from './manager-product-thumbnails.ts';
 import {normalizeInfographic,infographicFileIds} from '../lib/product-infographic.ts';
 import {randomUUID} from 'node:crypto';
 import type {PoolClient} from 'pg';
@@ -54,7 +55,7 @@ export async function readProductEditor(input:unknown):Promise<EditorState>{cons
  const stock=(await c.query('SELECT st.sku_id,st.on_hand,st.reserved FROM ar_stock st JOIN ar_skus s ON s.id=st.sku_id WHERE s.product_id=$1',[id])).rows;
  return{archived:current?current.raw.product.status==='archived':!!draft?.archived_at,liveStatus:current?.raw.product.status,id,version:draft?.version??0,baseHash:draft?.payload?draft.base_hash:current?.hash??null,data:{...(draft?.payload??current?.data??{...emptyProduct(),variants:[emptyVariant(randomUUID())]}),infographic:draft?.payload&&Object.hasOwn(draft.payload,'infographic')?draft.payload.infographic:draft?.infographic??null},hasDraft:!!draft?.payload,live:!!current,liveSlug:current?.data.slug,existingSkuIds:current?.data.variants.map(v=>v.id)??[],stock:Object.fromEntries(stock.map(s=>[s.sku_id,{onHand:s.on_hand,reserved:s.reserved}]))};
  });}
-export async function editorDrafts(){return transaction(async c=>(await c.query("SELECT id,coalesce(nullif(payload->>'name',''),'Без названия') name,updated_at FROM ar_product_editor_drafts WHERE payload IS NOT NULL AND archived_at IS NULL AND NOT EXISTS(SELECT 1 FROM ar_products p WHERE p.id=ar_product_editor_drafts.id AND p.status='archived') ORDER BY updated_at DESC LIMIT 200")).rows,false);}
+export async function editorDrafts(){return transaction(async c=>withProductThumbnails(c,(await c.query("SELECT id,coalesce(nullif(payload->>'name',''),'Без названия') name,updated_at FROM ar_product_editor_drafts WHERE payload IS NOT NULL AND archived_at IS NULL AND NOT EXISTS(SELECT 1 FROM ar_products p WHERE p.id=ar_product_editor_drafts.id AND p.status='archived') ORDER BY updated_at DESC LIMIT 200")).rows,true),false);}
 
 async function checkReferences(c:PoolClient,id:string,actorId:string,data:EditorData,current:Awaited<ReturnType<typeof live>>){
  const issues:{path:string;message:string}[]=[];

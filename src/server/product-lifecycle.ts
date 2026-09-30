@@ -1,3 +1,4 @@
+import {withProductThumbnails} from './manager-product-thumbnails.ts';
 import type {PoolClient} from 'pg';
 import {transaction} from './db.ts';
 import {StoreError,uuid} from './errors.ts';
@@ -16,8 +17,8 @@ async function inspect(c:PoolClient,id:string){
  return{view,product,draft,current};
 }
 export const readProductLifecycle=(input:unknown)=>transaction(async c=>(await inspect(c,uuid(input))).view);
-export const archivedProducts=()=>transaction(async c=>(await c.query(`SELECT p.id,p.name,p.slug,p.status,p.kind,p.is_demo FROM ar_products p WHERE p.status='archived'
- UNION ALL SELECT d.id,coalesce(nullif(d.payload->>'name',''),'Без названия'),'','archived','single',coalesce(d.payload->'isDemo'='true'::jsonb,false) FROM ar_product_editor_drafts d WHERE d.archived_at IS NOT NULL AND NOT EXISTS(SELECT 1 FROM ar_products p WHERE p.id=d.id) ORDER BY name,id`)).rows);
+export const archivedProducts=()=>transaction(async c=>withProductThumbnails(c,(await c.query(`SELECT p.id,p.name,p.slug,p.status,p.kind,p.is_demo FROM ar_products p WHERE p.status='archived'
+ UNION ALL SELECT d.id,coalesce(nullif(d.payload->>'name',''),'Без названия'),'','archived','single',coalesce(d.payload->'isDemo'='true'::jsonb,false) FROM ar_product_editor_drafts d WHERE d.archived_at IS NOT NULL AND NOT EXISTS(SELECT 1 FROM ar_products p WHERE p.id=d.id) ORDER BY name,id`)).rows));
 export async function changeProductLifecycle(actor:{id:string},body:Record<string,unknown>){
  const id=uuid(body.id),action=body.action;if(action!=='archive'&&action!=='restore')throw new StoreError('PRODUCT_ACTION','Неизвестное действие.');
  if(typeof body.token!=='string'||!/^[a-f0-9]{64}$/.test(body.token))throw new StoreError('PRODUCT_CONFLICT','Обновите сведения о товаре перед действием.',409);

@@ -1,0 +1,23 @@
+{
+  "date": "2026-09-30",
+  "revision": "9d0a642c44859ef2b76d5d433f67eb68964e098d",
+  "imageId": "sha256:1245f8d2d04842d0f084f9610e8f5efc83500a67eb7e59e50f012535df7acf2f",
+  "previousRevision": "9359421c50559881579e1442207a6545e3890618",
+  "migration": "012_product_editor.sql",
+  "migrationSha256": "5a8c9ede9a2744a98f70bbcc6b447edf949f9dcc05a7dd404cc081072326694a",
+  "backup": "/srv/autoreelz2026/backups/before-product-editor-20260930T114641Z.dump",
+  "storeMode": "staging",
+  "indexing": false,
+  "catalogAndStockMutatedDuringQA": false,
+  "servicesHealthy": true,
+  "qaDatabaseRemoved": true,
+  "qaPreviewRemoved": true,
+  "checks": [
+    "83 unit tests passed, 8 integration suites skipped",
+    "isolated schema-only PostgreSQL, synthetic catalog and stock transactions",
+    "real CMS upload retry and authenticated HTTP operations with isolated catalog; test photo removed",
+    "editor and existing workspace mocked browser regressions at 375/768/1440",
+    "public owner read-only check and session revocation",
+    "public mocked browser check at 375/768/1440"
+  ]
+}

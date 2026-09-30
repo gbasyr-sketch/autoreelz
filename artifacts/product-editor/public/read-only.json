@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "revision": "9d0a642c44859ef2b76d5d433f67eb68964e098d",
+  "catalogMutations": false,
+  "checks": [
+    "health revision, public storefront/museum, noindex, protected CMS and editor",
+    "owner options/new form/existing catalog read, correct live slug, no repeated initial stock, protected photo and no stray QA drafts",
+    "temporary owner session revoked"
+  ]
+}

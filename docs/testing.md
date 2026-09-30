@@ -13,6 +13,8 @@
 
 ## Единая форма товара (30.09.2026)
 
+Инфографика: `node --test tests/product-infographic.test.ts`; `.tools/background-removal/venv/bin/python tests/background-worker.py`; `AR_INFO_URL=<preview> node tests/product-infographic-browser.mjs` (mockAPI). DB-набор редактора требует миграцию014 на отдельной базе и проверяет приватный рецепт после публикации/замены галереи. Реальная связка CMS/API/worker проверяется с временными файлами и их удалением. Доказательства — `artifacts/infographics/`.
+
 Генерация: `node --test tests/ai-text.test.ts`; `tests/ai-text-database.mjs` допускает только отдельную `ar_qa_ai_text_*` с миграцией013, использует подменённые адаптеры, не тратит средства. `AR_AI_URL=<preview> node tests/product-ai-browser.mjs` — подменённыеAPI, ручное применение/конфликт/повтор и mobile. Реальные платные пробы запускать отдельно, с учётом в рабочем журнале расходов и в согласованном месячном лимите. Не применять результаты к рабочим товарам без команды владельца.
 
 `node --test tests/product-editor.test.ts` — единицы, суммы, пустые черновики, ограничения и публикация. `tests/product-editor-database.mjs` — только отдельная PostgreSQL `ar_qa_product_editor_*` с полной схемой и миграцией012: повтор/конкурентная публикация, приход, конфликты CMS, сохранение чужой упаковки, дубли/фотографии/связи. Не запускать на рабочем каталоге; QA-базу удалить после проверки. `AR_EDITOR_URL=<preview> node tests/product-editor-browser.mjs` — интерфейс375/768/1440, подменённыеAPI, черновик/retry/фото/предпросмотр/повторный вход. Настоящие upload/auth/CSRF/API проверены отдельно в изолированной торговой БД; временный файл собственной проверки в CMS удалён, сессия отозвана. Доказательства — `artifacts/product-editor/`.

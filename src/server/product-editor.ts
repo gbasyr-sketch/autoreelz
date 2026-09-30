@@ -1,3 +1,4 @@
+import {normalizeInfographic,infographicFileIds} from '../lib/product-infographic.ts';
 import {randomUUID} from 'node:crypto';
 import type {PoolClient} from 'pg';
 import {transaction} from './db.ts';
@@ -21,7 +22,8 @@ function attributes(value:unknown):EditorAttribute[]{return list(value,40).map(v
 function fitment(value:unknown):EditorFitment[]{return list(value,30).map(v=>{const x=object(v);return{vehicleId:optionalId(x.vehicleId),versionId:optionalId(x.versionId),yearFrom:string(x.yearFrom,4),yearTo:string(x.yearTo,4),ac:choice(x.ac,['unknown','yes','no','any']),state:choice(x.state,['unknown','compatible','incompatible']),note:string(x.note,2000)};});}
 export function normalizeProduct(value:unknown):EditorData{
  const x=object(value);if(typeof x.isDemo!=='boolean')throw new StoreError('PRODUCT_INPUT','Проверьте признак демонстрационного товара.');
- return{name:string(x.name),slug:string(x.slug,160),categoryId:optionalId(x.categoryId),description:string(x.description,12000),seoTitle:string(x.seoTitle,250),metaDescription:string(x.metaDescription,2000),isDemo:x.isDemo,photos:photos(x.photos),attributes:attributes(x.attributes),fitment:fitment(x.fitment),variants:list(x.variants,20).map(value=>{const v=object(value),p=object(v.package);return{id:uuid(v.id),name:string(v.name),article:string(v.article,160),price:string(v.price,40),status:choice(v.status,['draft','published','archived']) as 'draft'|'published'|'archived',package:{weightG:string(p.weightG,15),lengthCm:string(p.lengthCm,15),widthCm:string(p.widthCm,15),heightCm:string(p.heightCm,15)},initialStock:string(v.initialStock,10),stockReason:string(v.stockReason,500),photos:photos(v.photos),mediaMode:choice(v.mediaMode,['inherit','replace']) as 'inherit'|'replace',attributes:attributes(v.attributes),fitment:fitment(v.fitment),fitmentMode:choice(v.fitmentMode,['inherit','replace']) as 'inherit'|'replace'};})};
+ let infographic;try{infographic=normalizeInfographic(x.infographic);}catch(e){throw new StoreError('INFOGRAPHIC_INPUT',e instanceof Error?e.message:'Неверный макет.');}
+ return{...(x.infographic!==undefined?{infographic}:{}),name:string(x.name),slug:string(x.slug,160),categoryId:optionalId(x.categoryId),description:string(x.description,12000),seoTitle:string(x.seoTitle,250),metaDescription:string(x.metaDescription,2000),isDemo:x.isDemo,photos:photos(x.photos),attributes:attributes(x.attributes),fitment:fitment(x.fitment),variants:list(x.variants,20).map(value=>{const v=object(value),p=object(v.package);return{id:uuid(v.id),name:string(v.name),article:string(v.article,160),price:string(v.price,40),status:choice(v.status,['draft','published','archived']) as 'draft'|'published'|'archived',package:{weightG:string(p.weightG,15),lengthCm:string(p.lengthCm,15),widthCm:string(p.widthCm,15),heightCm:string(p.heightCm,15)},initialStock:string(v.initialStock,10),stockReason:string(v.stockReason,500),photos:photos(v.photos),mediaMode:choice(v.mediaMode,['inherit','replace']) as 'inherit'|'replace',attributes:attributes(v.attributes),fitment:fitment(v.fitment),fitmentMode:choice(v.fitmentMode,['inherit','replace']) as 'inherit'|'replace'};})};
 }
 export async function productEditorOptions():Promise<EditorOptions>{return transaction(async c=>{
  const categories=(await c.query('SELECT id,name,parent_id,status FROM ar_categories ORDER BY sort,name')).rows;
@@ -49,7 +51,7 @@ async function live(c:PoolClient,id:string){
 export async function readProductEditor(input:unknown):Promise<EditorState>{const id=uuid(input);return transaction(async c=>{
  const current=await live(c,id),draft=(await c.query('SELECT * FROM ar_product_editor_drafts WHERE id=$1',[id])).rows[0];
  const stock=(await c.query('SELECT st.sku_id,st.on_hand,st.reserved FROM ar_stock st JOIN ar_skus s ON s.id=st.sku_id WHERE s.product_id=$1',[id])).rows;
- return{id,version:draft?.version??0,baseHash:draft?.payload?draft.base_hash:current?.hash??null,data:draft?.payload??current?.data??{...emptyProduct(),variants:[emptyVariant(randomUUID())]},hasDraft:!!draft?.payload,live:!!current,liveSlug:current?.data.slug,existingSkuIds:current?.data.variants.map(v=>v.id)??[],stock:Object.fromEntries(stock.map(s=>[s.sku_id,{onHand:s.on_hand,reserved:s.reserved}]))};
+ return{id,version:draft?.version??0,baseHash:draft?.payload?draft.base_hash:current?.hash??null,data:{...(draft?.payload??current?.data??{...emptyProduct(),variants:[emptyVariant(randomUUID())]}),infographic:draft?.payload&&Object.hasOwn(draft.payload,'infographic')?draft.payload.infographic:draft?.infographic??null},hasDraft:!!draft?.payload,live:!!current,liveSlug:current?.data.slug,existingSkuIds:current?.data.variants.map(v=>v.id)??[],stock:Object.fromEntries(stock.map(s=>[s.sku_id,{onHand:s.on_hand,reserved:s.reserved}]))};
  });}
 export async function editorDrafts(){return transaction(async c=>(await c.query("SELECT id,coalesce(nullif(payload->>'name',''),'Без названия') name,updated_at FROM ar_product_editor_drafts WHERE payload IS NOT NULL ORDER BY updated_at DESC LIMIT 200")).rows,false);}
 
@@ -93,6 +95,14 @@ export async function saveProductEditor(actor:{id:string},body:Record<string,unk
   if(action==='publish')await c.query('LOCK TABLE ar_products,ar_skus,ar_packages,ar_product_media,ar_sku_media,ar_product_attributes,ar_sku_attributes,ar_fitment IN SHARE ROW EXCLUSIVE MODE');
   const current=await live(c,id);
   if(action!=='discard'&&((current?.hash??null)!==baseHash||(prior?.payload&&prior.base_hash!==baseHash)))throw conflict();
+  if(action!=='discard'){
+   const ids=infographicFileIds(data.infographic);
+   if(ids.length){
+    const permitted=(await c.query(`SELECT file_id FROM ar_product_editor_uploads WHERE draft_id=$1 AND actor_id=$2 AND ready UNION SELECT file_id FROM ar_product_media WHERE product_id=$1 UNION SELECT m.file_id FROM ar_sku_media m JOIN ar_skus s ON s.id=m.sku_id WHERE s.product_id=$1`,[id,actor.id])).rows.map(r=>r.file_id);
+    if(prior?.actor_id===actor.id)permitted.push(...infographicFileIds(prior.infographic));
+    if(ids.some(file=>!permitted.includes(file)))throw new StoreError('INFOGRAPHIC_PHOTO','Фотографии макета недоступны. Выберите их заново.',403);
+   }
+  }
   let nextHash=baseHash;
   if(action==='discard')nextHash=current?.hash??null;
   if(action==='publish'){
@@ -117,6 +127,7 @@ export async function saveProductEditor(actor:{id:string},body:Record<string,unk
    nextHash=(await live(c,id))!.hash;
   }
   await c.query(`INSERT INTO ar_product_editor_drafts(id,version,base_hash,payload,actor_id) VALUES($1,$2,$3,$4::jsonb,$5) ON CONFLICT(id) DO UPDATE SET version=excluded.version,base_hash=excluded.base_hash,payload=excluded.payload,actor_id=excluded.actor_id,updated_at=now()`,[id,version+1,nextHash,action==='draft'?JSON.stringify(data):null,actor.id]);
+  if(action!=='discard'&&data.infographic!==undefined)await c.query('UPDATE ar_product_editor_drafts SET infographic=$2::jsonb WHERE id=$1',[id,data.infographic===null?null:JSON.stringify(data.infographic)]);
   await c.query('INSERT INTO ar_product_editor_events(product_id,actor_id,action) VALUES($1,$2,$3)',[id,actor.id,action]);
   return{id,version:version+1,action,slug:data.slug};
  }),false);}catch(error){if(error instanceof StoreError)throw error;const code=(error as{code?:string}).code;if(['23505','23503','23514','P0001'].includes(code??''))throw new StoreError('PRODUCT_RULE','Не удалось сохранить: проверьте уникальность адреса/артикулов, связи и значения характеристик.',409);throw error;}

@@ -37,7 +37,7 @@ export async function uploadEditorImage(request:Request,session:ShopSession,acto
 }
 export async function editorImage(request:Request,actor:{id:string},input:unknown){
  const id=uuid(input);
- const permitted=(await query(`SELECT 1 FROM ar_product_editor_uploads WHERE file_id=$1 AND actor_id=$2 AND ready UNION ALL SELECT 1 FROM ar_product_media WHERE file_id=$1 UNION ALL SELECT 1 FROM ar_sku_media WHERE file_id=$1 LIMIT 1`,[id,actor.id])).rowCount;
+ const permitted=(await query(`SELECT 1 FROM ar_product_editor_uploads WHERE file_id=$1 AND actor_id=$2 AND ready UNION ALL SELECT 1 FROM ar_product_media WHERE file_id=$1 UNION ALL SELECT 1 FROM ar_sku_media WHERE file_id=$1 UNION ALL SELECT 1 FROM ar_product_editor_drafts d WHERE d.actor_id=$2 AND EXISTS (SELECT 1 FROM jsonb_array_elements(coalesce(d.infographic->'photos','[]'::jsonb)) p WHERE p->>'sourceId'=$1::text OR p->>'cutoutId'=$1::text) LIMIT 1`,[id,actor.id])).rowCount;
  if(!permitted)throw new StoreError('PHOTO_NOT_FOUND','Фотография не найдена.',404);
  const response=await fetch(appConfig().cmsBase+'/assets/'+id,{headers:{Cookie:cmsCookie(request)},redirect:'error',signal:AbortSignal.timeout(15000)});
  if(!response.ok)throw new StoreError('PHOTO_NOT_FOUND','Фотография не найдена.',404);

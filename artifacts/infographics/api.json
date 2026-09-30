@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "isolatedDatabase": true,
+  "realCmsUpload": true,
+  "realWorker": true,
+  "requestSeconds": 1.6305687079999989,
+  "checks": [
+    "anonymous 401, missing CSRF 403, unknown image 404 before inference",
+    "actual private CMS photo -> isolated HTTP worker -> PNG, RGB unchanged, transparent background",
+    "original and cutout stored separately; recipe saved only to isolated draft"
+  ],
+  "temporaryFilesRemoved": 2,
+  "sessionRevoked": true
+}

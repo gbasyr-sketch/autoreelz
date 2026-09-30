@@ -32,6 +32,7 @@ services:
     environment:
       <<: *app-env
       CMS_INTERNAL_URL: http://cms:8055
+      BACKGROUND_REMOVAL_URL: ${BACKGROUND_REMOVAL_URL:-}
       AI_TEXT_PROVIDER: ${AI_TEXT_PROVIDER:-disabled}
       AI_TEXT_MONTHLY_BUDGET_USD: ${AI_TEXT_MONTHLY_BUDGET_USD:-0}
       AI_TEXT_ALLOW_DEEPSEEK: ${AI_TEXT_ALLOW_DEEPSEEK:-false}
@@ -51,10 +52,26 @@ services:
     volumes: [uploads:/cms-uploads:ro]
     read_only: true
     tmpfs: [/tmp]
-    networks: [frontend, backend]
+    networks: [frontend, backend, images]
     depends_on:
       db:
         condition: service_healthy
+    restart: unless-stopped
+  background:
+    profiles: [infographics]
+    image: ${BACKGROUND_IMAGE:-autoreelz2026-background:disabled}
+    init: true
+    mem_limit: 3584m
+    memswap_limit: 3584m
+    cpus: 3
+    pids_limit: 64
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ['/tmp:rw,noexec,nosuid,size=64m']
+    volumes:
+      - ${BACKGROUND_MODEL_PATH:-/srv/autoreelz2026/shared/background/u2net.onnx}:/models/u2net.onnx:ro
+    networks: [images]
     restart: unless-stopped
   worker:
     image: ${RELEASE_IMAGE:?}
@@ -142,6 +159,8 @@ services:
 networks:
   frontend: {}
   backend: {}
+  images:
+    internal: true
 volumes:
   database: {}
   uploads: {}

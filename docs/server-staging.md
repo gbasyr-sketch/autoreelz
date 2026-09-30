@@ -128,3 +128,11 @@ ardocker exec -i autoreelz2026-release-db-1 pg_restore --list < "$ar_backup" > /
 Старый app6ab6bea с симулятором нельзя использовать для отката незавершённых ЮKassa-платежей. Старый a908f83 уберёт аудит подтверждений/согласие до SDK; откат до нужной миграции может вообще не стартовать. Совместимость проверять по конкретному diff, не по слову «предыдущий».
 
 Если нужна потеря/замена данных из backup — отдельный план и решение владельца со сверкой заказов/PSP. Удаление томов, `down -v`, повтор initial-transfer и общий seed не способы ремонта.
+
+## Сервис удаления фона
+
+Дополнительный профиль Compose `infographics`: сервис `background` в отдельной внутренней сети `images`, к которой подключён только web. Порт наружу не публикуется. Лимиты3CPU/3584MiB безswap; read-only/no-new-privileges/cap_drop, модель читается из `/srv/autoreelz2026/shared/background/u2net.onnx`. SHA256 весов закреплён в `services/background-removal/worker.py`.
+
+При выпуске собрать отдельный образ с `-f services/background-removal/Dockerfile --build-arg VCS_REF=<SHA>`, закрепить `BACKGROUND_IMAGE`, `BACKGROUND_MODEL_PATH`, `BACKGROUND_REMOVAL_URL=http://background:8090` в текущем env без печати ключей. Применить новую миграцию014 перед web. Запуск: прежние два compose-файла плюс `--profile infographics up -d --no-deps background web worker edge`. Для последующих выпусков web переменные/сеть уже присутствуют в базовом compose; background пересобирать при изменении её кода/зависимостей. Перед выпуском остановить временный QA-worker, чтобы не держать две сессии модели.
+
+Откат web не удаляет рецепты и модель. При недоступном обработчике UI сохраняет исходник и показывает ошибку; публикация товара и обычная галерея от него не зависят. [Контракт](product-infographics.md).

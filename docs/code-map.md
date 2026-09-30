@@ -8,6 +8,7 @@
 | Каталог/фильтры/поиск/страницы | [catalog.ts](../src/lib/catalog.ts), `src/pages/catalog.astro`, `src/lib/pagination.ts`, `src/scripts/catalog.ts` | Все условия совпадают на одном SKU; страницы по12; сброс page при фильтрации |
 | Чтение каталога из CMS | [server/catalog.ts](../src/server/catalog.ts), `src/lib/catalog-types.ts` | Статусы родителей/SKU, наследование фото/атрибутов/совместимости |
 | Товар, миниатюры, увеличение | [product/[slug].astro](../src/pages/product/[slug].astro), `src/scripts/product.ts`, `src/styles/product.css` | Новый снимок/счётчик/modal, клавиатура, ошибка/гонка загрузки, вертикальное фото |
+| Закреплённые разделы товара | `src/scripts/product-sections.ts`, `product/[slug].astro`, `src/styles/product.css` | Панель до конца отзывов; якоря, aria-current, короткие разделы, клавиатура/Back,375/768/1280px; не помещать обратно внутрь левой колонки |
 | Избранное | [FavoriteButton.astro](../src/components/FavoriteButton.astro), `src/scripts/social-favorites.ts`, `src/server/social.ts` | Гость/аккаунт/вкладки/merge; личный badge, без популярности «N человек» |
 | Фото каталога | [media/[id].ts](../src/pages/media/[id].ts), таблицы `directus_files`, `ar_product_media`, `ar_sku_media` | Файл опубликованного товара, путь/тип/размер; uploads доступны web только для чтения |
 | Корзина и UI checkout | [commerce.ts](../src/scripts/commerce.ts), `src/pages/cart.astro`, `src/pages/checkout.astro`, `src/scripts/russian-validation.ts` | Очередь автосохранения, версия, быстрые правки, переход после сохранения, русские сообщения |
@@ -33,6 +34,8 @@
 | Выпуск/маршрутизация | [server-staging.md](server-staging.md), `Dockerfile`, `infra/release/` | Нужный overlay, SHA web/worker, /cms, /muzey/, webhook, публичная витрина |
 
 ## Точки входа HTTP
+
+Генератор инфографики: `src/scripts/product-infographic.ts`, `src/lib/product-infographic.ts`, `src/server/product-background.ts`, `services/background-removal/`, миграция014. Проверять приватность исходников, очередь1+2, кисти/отмену, сохранение рецепта после публикации, retry. [Контракт](product-infographics.md).
 
 Серверные маршруты в `src/pages/api/`: commerce, auth, social, manager, shipping, delivery/event, payments/yookassa. Публичного CRUD торговых таблиц нет.
 

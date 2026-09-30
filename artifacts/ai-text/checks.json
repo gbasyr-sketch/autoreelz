@@ -6,10 +6,11 @@
   },
   "build": "passed; existing Vite mixed static/dynamic import warning unchanged",
   "unit": {
-    "passed": 92,
+    "passed": 96,
     "failed": 0,
     "skipped": 8
   },
   "database": "isolated schema-only copy, synthetic data, externalCalls=0",
-  "browser": "mocked API at 375/768/1440; separate editor regression passed"
+  "browser": "mocked API at 375/768/1440; separate editor regression passed",
+  "latestAdapterTests": 13
 }

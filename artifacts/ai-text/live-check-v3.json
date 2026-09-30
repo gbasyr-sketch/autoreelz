@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "provider": "deepseek",
+  "catalogApplied": false,
+  "titleUnchanged": true,
+  "sessionRevoked": true,
+  "samples": [
+    {
+      "productId": "0f11bcb0-8edf-59b0-af0a-5e366b29df9e",
+      "name": "LED панель управления отопителем Лада Приора",
+      "requestId": "817a65ae-1b1b-42a0-9754-b412ede4037c",
+      "provider": "deepseek",
+      "state": "completed",
+      "costUpperUsd": "0.00035910",
+      "message": "Тексты готовы к проверке."
+    },
+    {
+      "productId": "e69f3679-8f7b-5990-a59f-944f0b22f7f2",
+      "name": "Дефлекторы AMG ВАЗ 2107 черный глянец",
+      "requestId": "dc2e7dc9-78fc-46ce-a4d0-27ef30dc664e",
+      "provider": "deepseek",
+      "state": "completed",
+      "costUpperUsd": "0.00044220",
+      "message": "Тексты готовы к проверке."
+    },
+    {
+      "productId": "11861903-1102-5344-a05d-efc4fff92fd1",
+      "name": "Консоль панель на ваз 2114 под 9 дюймов",
+      "requestId": "4ceb9616-4ddb-4a2d-a19f-e9af76dd4d6c",
+      "provider": "deepseek",
+      "state": "completed",
+      "costUpperUsd": "0.00034710",
+      "message": "Тексты готовы к проверке."
+    },
+    {
+      "productId": "cc51415f-c9b9-5a7b-acbb-d15db446c304",
+      "name": "Рамка козырек на панель Приора 1",
+      "requestId": "d4a99954-ec30-490a-b0c2-2f0a93154de8",
+      "provider": "deepseek",
+      "state": "completed",
+      "costUpperUsd": "0.00037380",
+      "message": "Тексты готовы к проверке."
+    },
+    {
+      "productId": "c2a0f9a7-a4d7-5371-a3c6-251c19713db5",
+      "name": "Ручка КПП Гранта с подсветкой",
+      "requestId": "1451cebc-88c5-488f-a448-816bddb45474",
+      "provider": "deepseek",
+      "state": "completed",
+      "costUpperUsd": "0.00037200",
+      "message": "Тексты готовы к проверке."
+    }
+  ],
+  "costUpperUsd": "0.00189420"
+}

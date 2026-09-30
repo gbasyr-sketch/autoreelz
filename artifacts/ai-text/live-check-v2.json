@@ -1,0 +1,28 @@
+{
+  "passed": false,
+  "provider": "deepseek",
+  "catalogApplied": false,
+  "titleUnchanged": true,
+  "sessionRevoked": true,
+  "samples": [
+    {
+      "productId": "0f11bcb0-8edf-59b0-af0a-5e366b29df9e",
+      "name": "LED панель управления отопителем Лада Приора",
+      "requestId": "00218543-126e-4a91-958e-d1855a5eb301",
+      "provider": "deepseek",
+      "state": "completed",
+      "costUpperUsd": "0.00038670",
+      "message": "Тексты готовы к проверке."
+    },
+    {
+      "productId": "e69f3679-8f7b-5990-a59f-944f0b22f7f2",
+      "name": "Дефлекторы AMG ВАЗ 2107 черный глянец",
+      "requestId": "4217bdcd-2b64-4e68-aa00-f5be3592f314",
+      "provider": "deepseek",
+      "state": "failed",
+      "costUpperUsd": "0.00045300",
+      "message": "Ответ не прошёл проверку фактов. Добавьте точные характеристики и создайте новый запрос; тексты товара не изменены."
+    }
+  ],
+  "costUpperUsd": "0.00083970"
+}

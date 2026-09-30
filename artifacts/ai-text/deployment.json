@@ -1,0 +1,33 @@
+{
+  "date": "2026-09-30",
+  "revision": "b3e375f09452c2ac978e70932d3a2a7aa1921bbc",
+  "imageId": "sha256:c28082a1b2f374599a29c187920e710f1ea1c8b40dfc2d2a8de9620122849f2d",
+  "migration": "013_ai_text_generation.sql",
+  "migrationSha256": "dd1b6e381037e4bc80e8f205cbe60b971f6712137f1b4bc671de6f8ad2d39d74",
+  "backup": "/srv/autoreelz2026/backups/before-ai-text-20260930T132600Z.dump",
+  "archiveScope": [
+    "Dockerfile",
+    "package.json",
+    "package-lock.json",
+    "astro.config.mjs",
+    "tsconfig.json",
+    "src",
+    "public",
+    "infra",
+    "migrations",
+    "scripts",
+    "tests"
+  ],
+  "provider": "deepseek",
+  "openaiEnabled": false,
+  "openaiServerRestriction": "unsupported_country_region_territory",
+  "monthlyBudgetUsd": "5",
+  "testRequests": 12,
+  "testCostUpperUsd": "0.00454710",
+  "latestFivePassed": true,
+  "catalogApplied": false,
+  "tests": "check/build; 96 unit passes, 8 skipped; isolated budget DB; mocked UI375/768/1440; real API and manual review",
+  "qaDatabaseRemoved": true,
+  "qaPreviewRemoved": true,
+  "servicesHealthy": true
+}

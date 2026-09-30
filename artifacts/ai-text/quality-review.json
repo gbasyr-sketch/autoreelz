@@ -1,0 +1,12 @@
+{
+  "promptVersion": "2026-09-30.3",
+  "reviewed": 5,
+  "latestCompleted": 5,
+  "unsupportedFinishRemoved": true,
+  "marketplaceIdsRemoved": true,
+  "manufacturerBrandDistinction": true,
+  "newCompatibilityClaimsBlocked": true,
+  "manualReviewRequired": true,
+  "sparseFactsYieldShortDrafts": true,
+  "notes": "Latest descriptions are factual drafts of 171-279 characters; editorial polish remains for owner. Initial probe found unsupported gloss, leading to a lexical guard; a follow-up false positive on gloss inflection was fixed. No generated copy was applied to the catalog."
+}

@@ -12,6 +12,12 @@
 !public/**
 !scripts/
 !scripts/commerce-worker.ts
+!scripts/background-removal-requirements.txt
+!scripts/background-removal-notices.txt
+!services/
+!services/background-removal/
+!services/background-removal/Dockerfile
+!services/background-removal/worker.py
 
 # Keep sensitive/local files excluded even if placed in an allowed directory.
 **/.env*
@@ -36,3 +42,5 @@
 **/.secrets/**
 **/tmp
 **/tmp/**
+**/__pycache__
+**/__pycache__/**

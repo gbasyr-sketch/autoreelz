@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-30",
+  "check": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "build": "passed; existing Vite ineffective dynamic import warning unchanged",
+  "unit": {
+    "passed": 83,
+    "failed": 0,
+    "skipped": 8
+  },
+  "notes": "DB/API/browser checks have separate reports. Skipped integration suites are not counted as passed."
+}

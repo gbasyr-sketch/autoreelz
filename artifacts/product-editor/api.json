@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "isolatedDatabase": true,
+  "realCmsUpload": true,
+  "temporaryFilesRemoved": 1,
+  "sessionRevoked": true,
+  "checks": [
+    "anonymous 401 and missing CSRF 403; authenticated reads no-store",
+    "real Directus upload with fixed UUID, retry reuses file, protected WebP preview",
+    "real HTTP draft and publication on isolated database; retry retains stock=2"
+  ]
+}

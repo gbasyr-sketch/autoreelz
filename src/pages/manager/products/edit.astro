@@ -1,0 +1,30 @@
+---
+import ManagerLayout from '../../../layouts/ManagerLayout.astro';
+import ManagerAccess from '../../../components/ManagerAccess.astro';
+import '../../../styles/product-editor.css';
+---
+<ManagerLayout title="Редактор товара" active="products">
+ <section data-workspace="product-editor">
+  <header class="dash-header"><div><a class="pe-back" href="/manager/products">← К товарам</a><p class="dash-eyebrow">Каталог без лишних переходов</p><h1 data-editor-title>Добавить товар</h1></div><button type="button" class="dash-button" data-workspace-refresh>Загрузить сохранённое</button></header>
+  <ManagerAccess/>
+  <div data-workspace-content hidden>
+   <p class="dash-message" data-editor-status></p>
+   <button type="button" class="dash-button" data-discard-draft hidden>Сбросить черновик и загрузить карточку</button>
+   <div class="dash-message dash-error" data-editor-errors role="alert" tabindex="-1" hidden></div>
+   <div class="pe-layout">
+    <form data-editor-form novalidate>
+     <fieldset data-editor-fields class="pe-fields">
+      <section class="dash-panel pe-section"><div class="pe-section-title"><span class="pe-step">1</span><div><h2>Основное</h2><p class="dash-help">Как покупатель найдёт ваш товар</p></div></div><div data-editor-main class="pe-grid"></div></section>
+      <section class="dash-panel pe-section"><div class="pe-section-title"><span class="pe-step">2</span><div><h2>Фотографии</h2><p class="dash-help">Первое фото — главное. Перетаскивайте карточки или используйте стрелки.</p></div></div><div data-editor-photos></div></section>
+      <section class="dash-panel pe-section"><div class="pe-section-title"><span class="pe-step">3</span><div><h2>Цена и варианты</h2><p class="dash-help">У каждого цвета или исполнения — свой артикул, цена и остаток.</p></div></div><div data-editor-variants class="pe-stack"></div><button type="button" class="dash-button pe-add" data-add-variant>+ Добавить вариант</button></section>
+      <details class="dash-panel pe-details"><summary>Характеристики и совместимость</summary><p class="dash-help">Заполняйте только подтверждённые сведения. Общие данные применяются ко всем вариантам.</p><div data-editor-attributes></div><div data-editor-fitment></div></details>
+      <details class="dash-panel pe-details"><summary>Адрес страницы и SEO</summary><div data-editor-seo class="pe-stack"></div></details>
+     </fieldset>
+     <div class="pe-actions"><span data-editor-save-hint role="status">Изменения ещё не сохранены</span><div><button type="button" class="dash-button" data-save-draft>Сохранить черновик</button><button type="submit" class="dash-button dash-primary" data-publish-product>Опубликовать</button></div></div>
+    </form>
+    <aside class="pe-preview"><section class="dash-panel"><p class="dash-eyebrow">Предпросмотр карточки</p><div class="pe-preview-photo"><img data-preview-image alt="" hidden/><span data-preview-placeholder>Здесь будет главное фото</span></div><p data-preview-category class="dash-help"></p><h2 data-preview-name>Название товара</h2><strong data-preview-price class="pe-preview-price">Укажите цену</strong><p class="dash-help" data-preview-count></p><a data-preview-link class="dash-button" target="_blank" rel="noopener" hidden>Открыть на сайте</a></section><section class="dash-panel"><h2>Перед публикацией</h2><ul data-preview-checklist class="pe-checklist"></ul><p class="dash-help">Неизвестная совместимость не означает «подходит всем». Без упаковки доставка может потребовать ручного расчёта.</p></section></aside>
+   </div>
+  </div>
+ </section>
+ <script>import '../../../scripts/product-editor';</script>
+</ManagerLayout>

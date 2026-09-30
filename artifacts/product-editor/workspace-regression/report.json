@@ -1,0 +1,34 @@
+{
+  "base": "http://127.0.0.1:14333",
+  "fixtureData": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "width": 768,
+      "passed": true
+    },
+    {
+      "width": 375,
+      "passed": true
+    }
+  ],
+  "checks": [
+    "auth and logout",
+    "server-shaped pagination and literal text rendering",
+    "search resets page and detail return preserves filters",
+    "failed refresh preserves rows",
+    "single order note/shipping forms",
+    "stock dialog reserve boundary and exact commands",
+    "failed stock request retains inputs and idempotency key",
+    "movement history",
+    "legacy stock link",
+    "catalog readiness",
+    "content/reviews/service in common shell",
+    "overview limited to five orders",
+    "mobile menu and no horizontal overflow"
+  ],
+  "passed": true
+}

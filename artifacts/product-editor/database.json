@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "isolated": true,
+  "schema": "schema-only copy plus migration 012; synthetic records only",
+  "checks": [
+    "incomplete draft is durable and invisible to catalog and stock",
+    "invalid publication rolls back without advancing draft version",
+    "concurrent repeat publishes all relations and receives stock exactly once in rubles",
+    "editing draft leaves published price unchanged and prevents repeat initial receipt",
+    "CMS child edits cause a conflict; explicit discard recovers a stale draft",
+    "duplicate article, historical slug, foreign media and missing SKU cannot overwrite catalog",
+    "new variant receives only its own initial stock; package changes leave shared packages intact"
+  ]
+}

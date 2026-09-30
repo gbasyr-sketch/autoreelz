@@ -44,7 +44,8 @@ export async function generateProductText(actor:{id:string},body:Record<string,u
  const config=deps.config??aiConfig(),id=uuid(body.productId),requestKey=uuid(body.idempotencyKey),data=normalizeProduct(body.data),notes=multilineText(body.notes??'','Факты для описания',0,1500);
  const provider=body.provider===undefined?config.provider:body.provider;
  if(provider!=='deepseek'&&provider!=='openai')throw new StoreError('AI_PROVIDER','Неизвестный сервис генерации.');
- const facts=factsForAI(data,deps.options??await productEditorOptions(),notes);promptBody(facts);
+ const facts=factsForAI(data,deps.options??await productEditorOptions(),notes);
+ try{promptBody(facts);}catch(e){if(e instanceof AIProviderError)throw new StoreError(e.code,e.message);throw e;}
  const sourceHash=hash(canonical(aiSource(data,notes))),inputHash=hash(canonical({id,provider,sourceHash,facts,promptVersion:TEXT_PROMPT_VERSION}));
  const reserved=reservationCost(provider,facts);
  const claimed=await transaction(async c=>{

@@ -27,6 +27,8 @@
 
 ## Профильные документы — читать по задаче
 
+- Генератор инфографики: [решения, локальный пилот удаления фона и границы интеграции](product-infographics.md). Ещё не подключён к сайту.
+
 - Добавление товаров: [единая форма и подробная инструкция CMS](product-entry-guide.md); [контракт редактора](product-editor-proposal.md).
 - Печатная инструкция владельцу: [PDF, 6 страниц](../output/pdf/AUTO-REELZ-instruktsiya-dobavlenie-tovarov.pdf). Сборка — `scripts/build-product-guide-pdf.py` с Python/reportlab; после изменения процедуры обновлять текст и проверять все страницы PDF.
 - Каталог/владелец: [cms.md](cms.md), [manager-guide.md](manager-guide.md), [wb-catalog-import.md](wb-catalog-import.md).

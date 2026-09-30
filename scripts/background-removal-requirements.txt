@@ -1,0 +1,4 @@
+# Isolated local experiment only; not dependencies of the storefront.
+numpy==2.5.3
+onnxruntime==1.30.0
+pillow==12.3.0

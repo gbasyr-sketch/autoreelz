@@ -1,0 +1,30 @@
+{
+  "errors": [],
+  "widths": [
+    {
+      "width": 1024,
+      "fits": true
+    },
+    {
+      "width": 768,
+      "fits": true
+    },
+    {
+      "width": 375,
+      "fits": true
+    },
+    {
+      "width": 320,
+      "fits": true
+    }
+  ],
+  "download": "autoreelz-accent.png",
+  "styles": [
+    "light",
+    "graphite",
+    "accent"
+  ],
+  "final_cutouts": "birefnet-general-lite",
+  "final_images_decoded": true,
+  "final_png_export": true
+}

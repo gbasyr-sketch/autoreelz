@@ -1,0 +1,69 @@
+{
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "processor": "arm64",
+  "provider": "CPUExecutionProvider",
+  "threads": "2",
+  "model": "birefnet-general-lite",
+  "max_edge": 1600,
+  "versions": {
+    "onnxruntime": "1.30.0",
+    "pillow": "12.3.0",
+    "numpy": "2.5.3"
+  },
+  "results": [
+    {
+      "sample": "sample-1",
+      "source_name": "IMG_9816.jpg",
+      "source_sha256": "868bd6acbec5d4aa28d064bfc0593840d4ccd475683112ca02d1e0732837926f",
+      "dimensions": [
+        1600,
+        1067
+      ],
+      "method": "predicted_alpha_only",
+      "inference_seconds": 57.184,
+      "rgb_unchanged_from_resized_source": true,
+      "source_file_unchanged": true,
+      "transparent_fraction": 0.6842,
+      "opaque_fraction": 0.084
+    },
+    {
+      "sample": "sample-2",
+      "source_name": "IMG_9827.jpg",
+      "source_sha256": "f3c35d9068d4835efadeee303e8d704f3b80ef7713c9c0578d60d80e280c9736",
+      "dimensions": [
+        1600,
+        1067
+      ],
+      "method": "predicted_alpha_only",
+      "inference_seconds": 128.429,
+      "rgb_unchanged_from_resized_source": true,
+      "source_file_unchanged": true,
+      "transparent_fraction": 0.6061,
+      "opaque_fraction": 0.0679
+    },
+    {
+      "sample": "sample-3",
+      "source_name": "IMG_2240 копия copy.png",
+      "source_sha256": "8234b6c7a21791c9e82d331709ece7ce8acff022f47aa25bb828facc8e5dfee1",
+      "dimensions": [
+        700,
+        900
+      ],
+      "method": "existing_alpha_preserved",
+      "inference_seconds": 0.0,
+      "rgb_unchanged_from_resized_source": true,
+      "source_file_unchanged": true,
+      "transparent_fraction": 0.6757,
+      "opaque_fraction": 0.3154
+    }
+  ],
+  "model_load_seconds": 1.931,
+  "process_peak_rss_bytes": 1391394816,
+  "model_files": [
+    {
+      "name": "birefnet-general-lite.onnx",
+      "bytes": 224005088,
+      "sha256": "5600024376f572a557870a5eb0afb1e5961636bef4e1e22132025467d0f03333"
+    }
+  ]
+}

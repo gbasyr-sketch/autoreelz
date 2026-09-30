@@ -1,0 +1,33 @@
+{
+  "base": "http://127.0.0.1:14331",
+  "fixtureData": true,
+  "checks": [
+    "login/401/403 and data hidden",
+    "order task deep link",
+    "stale responses ignored",
+    "failed refresh retains previous metrics",
+    "automatic refresh and filter persistence",
+    "reload preferences",
+    "responsive layout and logo",
+    "CMS points to server path",
+    "logout hides data and returns to login"
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "errors": []
+    }
+  ],
+  "passed": true
+}

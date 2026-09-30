@@ -1,3 +1,4 @@
+import {backgroundShapes,drawInfographicShape,type BackgroundShape} from '../lib/infographic-background';
 import {node} from './manager-page';
 import {CommerceError,getSession} from './commerce';
 import {newInfographic,type InfographicRecipe,type InfographicPhoto} from '../lib/product-infographic';
@@ -31,7 +32,7 @@ export function infographicStudio(dialog:HTMLDialogElement,hooks:Hooks){
  function draw(){
   if(!recipe)return;const c=card.getContext('2d')!,dark=recipe.style!=='light',ink=dark?'#ffffff':'#1d1d1b',muted=dark?'#c6c6c2':'#62625c';
   c.fillStyle=dark?'#222426':'#f5f4ef';c.fillRect(0,0,1500,1000);
-  if(recipe.style==='accent'){round(c,970,0,620,1000,90,recipe.accent);}else if(recipe.style==='graphite'){c.fillStyle='#303236';c.beginPath();c.moveTo(1160,0);c.lineTo(1500,0);c.lineTo(1500,1000);c.lineTo(750,1000);c.fill();}else{round(c,960,0,540,1000,0,'#e8e7e0');}
+  drawInfographicShape(c,recipe.shape??(recipe.style==='graphite'?'diagonal':'panel'),recipe.style==='accent'?recipe.accent:recipe.style==='graphite'?'#303236':'#e8e7e0');
   const text=(s:string,x:number,y:number,size:number,color:string,weight=500)=>{c.fillStyle=color;c.font=`${weight} ${size}px Manrope, sans-serif`;c.fillText(s,x,y);};
   text('AUTO REELZ',64,78,27,ink,700);
   function lines(value:string,y:number,size:number,maxLines:number,color:string){
@@ -65,7 +66,7 @@ export function infographicStudio(dialog:HTMLDialogElement,hooks:Hooks){
  }
  function positionFields(){const p=recipe.photos[active];for(const key of ['scale','x','y']as const)q<HTMLInputElement>(`[data-studio-${key}]`).value=String(p?.[key]??(key==='scale'?100:0));}
  async function load(){const version=serial;try{await Promise.all(recipe.photos.map(asset));if(version!==serial)return;draw();drawMask();}catch(e){if(version===serial)throw e;}}
- function inputs(){q<HTMLInputElement>('[data-studio-title]').value=recipe.title;q<HTMLInputElement>('[data-studio-subtitle]').value=recipe.subtitle;q<HTMLInputElement>('[data-studio-detail]').value=recipe.detail;q<HTMLInputElement>('[data-studio-color]').value=recipe.accent;q<HTMLSelectElement>('[data-studio-style]').value=recipe.style;selectors();}
+ function inputs(){q<HTMLInputElement>('[data-studio-title]').value=recipe.title;q<HTMLInputElement>('[data-studio-subtitle]').value=recipe.subtitle;q<HTMLInputElement>('[data-studio-detail]').value=recipe.detail;q<HTMLInputElement>('[data-studio-color]').value=recipe.accent;q<HTMLSelectElement>('[data-studio-style]').value=recipe.style;q<HTMLSelectElement>('[data-studio-shape]').value=recipe.shape??(recipe.style==='graphite'?'diagonal':'panel');selectors();}
  function reset(){initialized=false;serial++;controller?.abort();controller=new AbortController();assets.clear();requests.clear();pendingCard=null;recipe=hooks.data().infographic??newInfographic(hooks.data().name);if(dialog.open)dialog.close();}
  async function open(){if(loading)return;initialized=true;recipe=hooks.data().infographic??newInfographic(hooks.data().name);if(!recipe.photos.length&&hooks.data().photos[0])recipe.photos=[{sourceId:hooks.data().photos[0].id,cutoutId:'',scale:100,x:0,y:0}];inputs();message('Выберите фотографии и оформление. Результат появится на сайте только после публикации товара.');dialog.showModal();await document.fonts.load('700 64px Manrope');draw();try{await load();}catch(e){error(e);}}
  function blob(c:HTMLCanvasElement){return new Promise<Blob>((resolve,reject)=>c.toBlob(b=>b?resolve(b):reject(Error('Не удалось собрать изображение.')),'image/png'));}
@@ -73,7 +74,9 @@ export function infographicStudio(dialog:HTMLDialogElement,hooks:Hooks){
  async function action(fn:()=>Promise<void>){if(loading)return;const version=serial;busy(true);try{await fn();}catch(e){if(version===serial)error(e);}finally{busy(false);draw();}}
  q<HTMLButtonElement>('[data-studio-close]').addEventListener('click',()=>dialog.close());
  dialog.querySelectorAll<HTMLInputElement>('[data-studio-text]').forEach(input=>input.addEventListener('input',()=>{recipe[input.dataset.studioText as 'title'|'subtitle'|'detail']=input.value;changed();draw();}));
- q<HTMLSelectElement>('[data-studio-style]').addEventListener('change',e=>{recipe.style=(e.target as HTMLSelectElement).value as InfographicRecipe['style'];changed();draw();});
+ q<HTMLSelectElement>('[data-studio-shape]').replaceChildren(...backgroundShapes.map(s=>new Option(s.label,s.value)));
+ q<HTMLSelectElement>('[data-studio-shape]').addEventListener('change',e=>{recipe.shape=(e.target as HTMLSelectElement).value as BackgroundShape;changed();draw();});
+ q<HTMLSelectElement>('[data-studio-style]').addEventListener('change',e=>{recipe.style=(e.target as HTMLSelectElement).value as InfographicRecipe['style'];q<HTMLSelectElement>('[data-studio-shape]').value=recipe.shape??(recipe.style==='graphite'?'diagonal':'panel');changed();draw();});
  q<HTMLInputElement>('[data-studio-color]').addEventListener('input',e=>{recipe.accent=(e.target as HTMLInputElement).value;changed();draw();});
  dialog.querySelectorAll<HTMLSelectElement>('[data-studio-source]').forEach((select,i)=>select.addEventListener('change',()=>{if(i===0){recipe.photos=select.value?[{sourceId:select.value,cutoutId:'',scale:100,x:0,y:0},...recipe.photos.slice(1)]:[];}else{recipe.photos=recipe.photos.slice(0,1);if(select.value&&recipe.photos.length)recipe.photos.push({sourceId:select.value,cutoutId:'',scale:100,x:0,y:0});}changed();selectors();draw();void load().catch(error);}));
  q<HTMLSelectElement>('[data-studio-active]').addEventListener('change',e=>{active=Number((e.target as HTMLSelectElement).value);positionFields();drawMask();});

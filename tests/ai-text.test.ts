@@ -25,3 +25,8 @@ test('useful paragraphs survive cleanup and the fitment notice remains separate'
  const answer=checkTextFacts({description:paragraphs[0]+'\r\n\r\nДругие характеристики в переданных данных не подтверждены.\r\n\r\n'+paragraphs[1],metaDescription:'Дефлекторы AMG: чёрное глянцевое исполнение.'},facts);
  assert.deepEqual(answer.description.split('\n\n'),[...paragraphs,'Совместимость уточняйте для выбранного исполнения в карточке товара.']);
 });
+test('sparse inputs do not become claims that no other product properties exist',()=>{
+ const facts={name:'Панель',attributes:[{name:'Цвет',value:'зелёный'}]};
+ const answer=checkTextFacts({description:'Панель в зелёном исполнении.\n\nЗелёный цвет — единственное подтверждённое отличие этой версии. Других подтверждённых характеристик для этой позиции нет. Перед заказом сравните цвет с остальными деталями салона.',metaDescription:'Панель в зелёном исполнении.'},facts);
+ assert.equal(answer.description,'Панель в зелёном исполнении.\n\nПеред заказом сравните цвет с остальными деталями салона.\n\nСовместимость уточняйте для выбранного исполнения в карточке товара.');
+});

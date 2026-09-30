@@ -1,6 +1,6 @@
 # Навигатор документации
 
-Обновлено 29.09.2026. Цель — начать конкретную доработку без чтения всей переписки и истории этапов.
+Обновлено 30.09.2026. Цель — начать конкретную доработку без чтения всей переписки и истории этапов.
 
 ## Первые пять минут
 
@@ -28,6 +28,7 @@
 ## Профильные документы — читать по задаче
 
 - Каталог/владелец: [cms.md](cms.md), [manager-guide.md](manager-guide.md), [wb-catalog-import.md](wb-catalog-import.md).
+- Структура кабинета: [manager-workspace.md](manager-workspace.md); инструкция — [manager-guide.md](manager-guide.md).
 - Обзор владельца и правила показателей: [dashboard.md](dashboard.md).
 - Главная, товарные демоотзывы и статьи: [homepage-content.md](homepage-content.md).
 - Торговые контракты: [stage-4-contracts.md](stage-4-contracts.md), [stage-5-contracts.md](stage-5-contracts.md). Это базовые контракты этапов; актуальные изменения checkout и провайдеров перечислены в architecture.md и следующих документах.

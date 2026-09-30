@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "fixtureData": true,
+  "revision": "9359421c50559881579e1442207a6545e3890618",
+  "results": [
+    {
+      "width": 1440,
+      "passed": true,
+      "orderMetadata": true,
+      "clearsOnSessionLoss": true
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "orderMetadata": true,
+      "clearsOnSessionLoss": true
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-09-30T09:21:13.637495+00:00",
+  "appRevision": "9359421c50559881579e1442207a6545e3890618",
+  "imageId": "sha256:8b5bda9d349f84bc9271f20f275450856764895f690433356384182e6489ad74",
+  "initialWorkspaceRevision": "d80d347b0ffd69716a2cdd001e97ff41ccc73dc5",
+  "previousFeatureRevision": "2c7f95bb76a95e4ed675795fdd7f3b961d54f769",
+  "mode": "staging",
+  "schemaMigrations": "001-011 unchanged",
+  "businessDataChanged": false,
+  "health": true,
+  "temporaryQaDatabasesRemaining": 0,
+  "previewRemoved": true,
+  "previewTunnelClosed": true,
+  "checks": {
+    "astro": "123 files; no errors, warnings or hints",
+    "unitPassed": 77,
+    "unitSkipped": 8,
+    "database": "Empty schema clone with synthetic fixtures; real application functions tested, no external providers",
+    "browser": "375/768/1440; mocked API on actual built UI",
+    "publicApi": "real separate owner session, protected GET endpoints and logout",
+    "finalUi": "375/1440 order metadata and clear-on-session-loss"
+  },
+  "artifacts": [
+    "public-api.json",
+    "public-browser/report.json",
+    "final-ui.json",
+    "server-build-qa.txt"
+  ],
+  "limitations": [
+    "Legacy full end-to-end suites were adapted but not rerun locally; Docker is off.",
+    "Browser screenshots contain synthetic QA data."
+  ]
+}

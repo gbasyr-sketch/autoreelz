@@ -27,6 +27,7 @@
 
 ## Профильные документы — читать по задаче
 
+- Добавление товаров: [пошаговая инструкция со скриншотами](product-entry-guide.md); [предложение единой формы](product-editor-proposal.md) пока не реализовано.
 - Каталог/владелец: [cms.md](cms.md), [manager-guide.md](manager-guide.md), [wb-catalog-import.md](wb-catalog-import.md).
 - Структура кабинета: [manager-workspace.md](manager-workspace.md); инструкция — [manager-guide.md](manager-guide.md).
 - Обзор владельца и правила показателей: [dashboard.md](dashboard.md).

@@ -1,0 +1,21 @@
+{
+  "revision": "12aaad5400e4e077fc0c66d6e2510e3c3ee81ac9",
+  "astroCheck": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "build": true,
+  "unit": {
+    "passed": 103,
+    "failed": 0,
+    "skipped": 8
+  },
+  "focusedUnit": {
+    "passed": 4,
+    "failed": 0
+  },
+  "preview": "preview.json",
+  "publicBrowser": "public.json",
+  "databaseChanged": false,
+  "workerChanged": false
+}

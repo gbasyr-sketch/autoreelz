@@ -3,13 +3,13 @@ import Icon from './Icon.astro';
 import FavoriteButton from './FavoriteButton.astro';
 import {money,productHref} from '../lib/format';
 import type {CatalogSnapshot,CatalogProduct,Offer,FitmentState} from '../lib/catalog-types';
-interface Props {product:CatalogProduct;offer:Offer;catalog:CatalogSnapshot;fitment?:FitmentState;priority?:boolean}
+interface Props {product:CatalogProduct;offer:Offer;catalog:CatalogSnapshot;fitment?:FitmentState;priority?:boolean;vehicleQuery?:string}
 const{product,offer,catalog,fitment,priority=false}=Astro.props;
 const{categories,attributeDefinitions}=catalog;
 const media=offer.variant?.media??product.media;
 const image=offer.variant?.image??product.image;
 const placeholder=product.isDemo||!media.length;
-const href=productHref(product,offer.variant);
+const baseHref=productHref(product,offer.variant);const href=baseHref+(Astro.props.vehicleQuery?(baseHref.includes('?')?'&':'?')+Astro.props.vehicleQuery:'');
 const color=offer.variant?.attributes.illumination;
 ---
 <article class="product-card" data-product-id={product.id}>

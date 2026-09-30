@@ -21,10 +21,11 @@ function serial<T>(fn:()=>Promise<T>):Promise<T>{
  const task=queue.then(()=>navigator.locks?navigator.locks.request('autoreelz-favorites',fn):fn());queue=task.then(()=>{},()=>{});return task;
 }
 export function initFavorites(notify:(text:string)=>void){
- let ids=new Set<string>();
+ let ids=new Set<string>(),syncing=false;let lastView:FavoritesView={authenticated:false,productIds:[]};
  const buttons=()=>[...document.querySelectorAll<HTMLButtonElement>('[data-favorite]')];
  const channel=typeof BroadcastChannel!=='undefined'?new BroadcastChannel('autoreelz-social'):null;
  function render(view:FavoritesView){
+  lastView=view;
   ids=new Set(view.productIds);
   buttons().forEach(button=>{
    const selected=ids.has(button.dataset.favorite!);button.setAttribute('aria-pressed',String(selected));
@@ -44,7 +45,7 @@ export function initFavorites(notify:(text:string)=>void){
   const note=page.querySelector('[data-favorites-note]');if(note)note.textContent=view.authenticated?'Избранное сохранено в вашем аккаунте и доступно на других устройствах.':'Избранное сохранено в этом браузере. После входа оно объединится с вашим аккаунтом.';
  }
  async function sync(toggle?:{id:string;selected:boolean}){return serial(async()=>{
-  buttons().forEach(button=>button.disabled=true);
+  syncing=true;buttons().forEach(button=>button.disabled=true);
   const error=document.querySelector<HTMLElement>('[data-favorites-error]');if(error)error.hidden=true;
   try{
    const session=await getSession(true);let remote=await api();let state=read();
@@ -66,9 +67,10 @@ export function initFavorites(notify:(text:string)=>void){
     render({authenticated:false,productIds:state.ids});
    }
   }catch(cause){const message=cause instanceof Error?cause.message:'Не удалось загрузить избранное.';if(error){error.textContent=message;error.hidden=false;}if(toggle)notify(message);}
-  finally{buttons().forEach(button=>button.disabled=false);}
+  finally{syncing=false;buttons().forEach(button=>button.disabled=false);}
  });}
  document.addEventListener('click',event=>{const button=event.target instanceof Element?event.target.closest<HTMLButtonElement>('button[data-favorite]'):null;if(button&&valid(button.dataset.favorite))void sync({id:button.dataset.favorite,selected:!ids.has(button.dataset.favorite)});});
+ window.addEventListener('autoreelz:catalog-cards',()=>{render(lastView);buttons().forEach(button=>button.disabled=syncing);});
  window.addEventListener('focus',()=>void sync());
  window.addEventListener('pageshow',event=>{if(event.persisted)void sync();});
  window.addEventListener('storage',event=>{if(event.key===KEY||event.key===LEGACY)void sync();});

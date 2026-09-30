@@ -7,7 +7,7 @@ const fallbackImage='/images/placeholder-console.svg';
 /** One repeatable-read request snapshot: CMS changes are visible on the next request. */
 export async function getCatalog():Promise<CatalogSnapshot>{
  return transaction(async client=>{
-  const tables=['ar_categories','ar_products','ar_skus','ar_stock','ar_attributes','ar_attribute_values','ar_category_attributes','ar_product_attributes','ar_sku_attributes','ar_product_media','ar_sku_media','ar_fitment','ar_bundle_components','ar_vehicles','ar_vehicle_versions','ar_product_categories'] as const;
+  const tables=['ar_categories','ar_products','ar_skus','ar_stock','ar_attributes','ar_attribute_values','ar_category_attributes','ar_product_attributes','ar_sku_attributes','ar_product_media','ar_sku_media','ar_fitment','ar_bundle_components','ar_vehicles','ar_vehicle_versions','ar_product_categories','ar_product_recommendations'] as const;
   const rows={} as Record<typeof tables[number],Row[]>;
   // One pg client executes sequentially; the transaction keeps all tables consistent.
   for(const table of tables)rows[table]=(await client.query(`SELECT * FROM ${table}`)).rows;
@@ -32,7 +32,7 @@ export async function getCatalog():Promise<CatalogSnapshot>{
     const stock=rows.ar_stock.find(st=>st.sku_id===s.id);
     return{id:s.id,article:s.article,label:s.name,priceRubles:rubles(s.price_rubles),stock:Math.max(0,(stock?.on_hand??0)-(stock?.reserved??0)),attributes:{...productAttributes,...attributes(rows.ar_sku_attributes.filter(a=>a.sku_id===s.id))},image:images[0]?.src??fallbackImage,media:images,fitment:s.fitment_mode==='replace'?fitment(rows.ar_fitment.filter(f=>f.sku_id===s.id)):productFitment};
    });
-   return{id:p.id,slug:p.slug,name:p.name,category:category.slug,categorySlugs:[category.slug,...rows.ar_product_categories.filter(c=>c.product_id===p.id).flatMap(c=>categories.filter(cat=>cat.id===c.category_id).map(cat=>cat.slug))],kind:p.kind,description:p.description??'',image:productMedia[0]?.src??fallbackImage,media:productMedia,attributes:productAttributes,fitment:productFitment,variants,components:p.kind==='bundle'?rows.ar_bundle_components.filter(c=>c.bundle_id===p.id).sort(bySort).map(c=>({skuId:c.sku_id,quantity:c.quantity})):undefined,discountBps:Math.round(Number(p.discount_percent)*100),isDemo:p.is_demo,seoTitle:p.seo_title??undefined,metaDescription:p.meta_description??undefined};
+   return{recommendedIds:rows.ar_product_recommendations.filter(r=>r.product_id===p.id).sort(bySort).map(r=>r.recommended_id),id:p.id,slug:p.slug,name:p.name,category:category.slug,categorySlugs:[category.slug,...rows.ar_product_categories.filter(c=>c.product_id===p.id).flatMap(c=>categories.filter(cat=>cat.id===c.category_id).map(cat=>cat.slug))],kind:p.kind,description:p.description??'',image:productMedia[0]?.src??fallbackImage,media:productMedia,attributes:productAttributes,fitment:productFitment,variants,components:p.kind==='bundle'?rows.ar_bundle_components.filter(c=>c.bundle_id===p.id).sort(bySort).map(c=>({skuId:c.sku_id,quantity:c.quantity})):undefined,discountBps:Math.round(Number(p.discount_percent)*100),isDemo:p.is_demo,seoTitle:p.seo_title??undefined,metaDescription:p.meta_description??undefined};
   });
   const vehicles=rows.ar_vehicles.map(v=>({id:v.id,slug:v.slug,name:v.name,yearFrom:v.year_from,yearTo:v.year_to,versions:rows.ar_vehicle_versions.filter(ver=>ver.vehicle_id===v.id).map(ver=>({id:ver.id,name:ver.name}))}));
   return createCatalogSnapshot({products,categories,attributeDefinitions,vehicles});

@@ -1,0 +1,10 @@
+---
+import Icon from './Icon.astro';
+interface Props {title:string;id:string;recent?:boolean}
+const {title,id,recent=false}=Astro.props;
+---
+<section class="product-discovery" aria-labelledby={id+'-title'} data-product-carousel data-recent-section={recent||undefined} hidden={recent}>
+ <div class="discovery-heading"><h2 id={id+'-title'}>{title}</h2><div class="discovery-actions">{recent&&<button type="button" class="text-link" data-recent-clear>Очистить историю</button>}<button type="button" class="icon-button js-only" data-carousel-step="-1" aria-label={`${title}: предыдущие товары`}><Icon name="arrow" class="discovery-back"/></button><button type="button" class="icon-button js-only" data-carousel-step="1" aria-label={`${title}: следующие товары`}><Icon name="arrow"/></button></div></div>
+ <p class="muted discovery-note">{recent?'История за последние 30 дней в этом браузере.':'Совместимость проверяйте в карточке выбранного исполнения.'}</p>
+ <div class="discovery-rail" data-product-rail tabindex="0" role="group" aria-label={title}><slot/></div>
+</section>

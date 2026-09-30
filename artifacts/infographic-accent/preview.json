@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "mockedApi": true,
+  "compiledCodeOverride": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "canvasAndExport": true,
+      "colorAndEmptyBackground": true,
+      "sixDistinctShapes": true
+    },
+    {
+      "width": 375,
+      "canvasAndExport": true,
+      "colorAndEmptyBackground": true,
+      "sixDistinctShapes": true
+    }
+  ]
+}

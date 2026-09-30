@@ -1,11 +1,16 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import {randomUUID} from 'node:crypto';
 import {emptyProduct,emptyVariant} from '../src/lib/product-editor.ts';import {aiSource,aiSourceSignature} from '../src/lib/ai-text.ts';
 import {TEXT_MAX_OUTPUT,TEXT_PRICES,checkTextFacts,parseAIText,reservationCost,usageCost,requestAIText} from '../src/server/adapters/ai-text.ts';
-import {factsForAI,generateProductText} from '../src/server/product-ai.ts';
+import {aiConfig,factsForAI,generateProductText} from '../src/server/product-ai.ts';
 const category=randomUUID(),car=randomUUID(),attr=randomUUID(),value=randomUUID();
 const options={categories:[{id:category,name:'Блоки отопителя',parentId:null,status:'published'}],attributes:[{id:attr,name:'Подсветка',type:'select',unit:null,categoryIds:[category],values:[{id:value,label:'Зелёная'}]}],vehicles:[{id:car,name:'Лада Гранта',versions:[]}]};
 const data={...emptyProduct(),name:'Блок отопителя',categoryId:category,description:'PRIVATE CURRENT COPY',seoTitle:'MANUAL SEO TITLE',metaDescription:'PRIVATE META',variants:[{...emptyVariant(randomUUID()),name:'Зелёная',article:'QA-GREEN',price:'1800',initialStock:'10',stockReason:'PRIVATE STOCK NOTE'}]};
 const result={description:'Блок отопителя с зелёной подсветкой.',metaDescription:'Блок отопителя с зелёной подсветкой. Информация об исполнении в карточке товара.'};
+test('configured AI budget accepts ten dollars and preserves the approved ceiling',()=>{
+ const previous=process.env.AI_TEXT_MONTHLY_BUDGET_USD;
+ try{for(const [input,expected] of [['10','10.00000000'],['7.5','7.50000000'],['100','10.00000000'],['-1','0.00000000'],['invalid','0.00000000'],['Infinity','0.00000000']]){process.env.AI_TEXT_MONTHLY_BUDGET_USD=input;assert.equal(aiConfig().limitUsd,expected);}}
+ finally{if(previous===undefined)delete process.env.AI_TEXT_MONTHLY_BUDGET_USD;else process.env.AI_TEXT_MONTHLY_BUDGET_USD=previous;}
+});
 test('source allowlist excludes prices, stock, SEO title, existing prose and file IDs',()=>{const source=JSON.stringify(aiSource(data,'Проверенный факт'));for(const text of ['1800','PRIVATE','MANUAL','initialStock','price','photos'])assert.ok(!source.includes(text),text);assert.equal(aiSourceSignature(data,''),aiSourceSignature({...data,description:'changed',seoTitle:'changed'},''));assert.notEqual(aiSourceSignature(data,''),aiSourceSignature({...data,name:'Другой товар'},''));});
 test('facts translate dictionaries and preserve SKU override and unknown fitment',()=>{const d=structuredClone(data);d.attributes=[{attributeId:attr,value}];d.fitment=[{vehicleId:car,versionId:'',yearFrom:'',yearTo:'',ac:'unknown',state:'unknown',note:''}];d.variants[0]!.fitmentMode='replace';const facts=factsForAI(d,options,'Проверенный факт');assert.equal(facts.attributes[0]!.value,'Зелёная');assert.equal(facts.fitment[0]!.state,'unknown');assert.deepEqual(facts.variants[0]!.fitment,[]);assert.ok(!JSON.stringify(facts).includes('PRIVATE'));assert.throws(()=>factsForAI({...d,categoryId:randomUUID()},options,''));});
 test('output requires exactly two bounded text fields and rejects HTML and malformed JSON',()=>{assert.deepEqual(parseAIText(JSON.stringify(result)),result);for(const bad of ['text',JSON.stringify({...result,seoTitle:'overwrite'}),JSON.stringify({...result,description:'<script>alert(1)</script>'}),JSON.stringify({...result,metaDescription:'x'.repeat(321)}),JSON.stringify({...result,description:'https://bad.invalid/payload'})])assert.throws(()=>parseAIText(bad));});

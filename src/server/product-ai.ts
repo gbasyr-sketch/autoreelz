@@ -12,7 +12,7 @@ import {TEXT_PRICES,TEXT_PROMPT_VERSION,AIProviderError,promptBody,reservationCo
 export type AIConfig={provider:AIProvider;keys:Partial<Record<AIProvider,string>>;limitUsd:string;enabled:boolean};
 export function aiConfig():AIConfig{
  const selected=setting('AI_TEXT_PROVIDER','disabled');let amount:Decimal;try{amount=new Decimal(setting('AI_TEXT_MONTHLY_BUDGET_USD','0'));}catch{amount=new Decimal(0);}
- const limitUsd=amount.isFinite()&&amount.gt(0)?Decimal.min(amount,5).toFixed(8):'0.00000000';
+ const limitUsd=amount.isFinite()&&amount.gt(0)?Decimal.min(amount,10).toFixed(8):'0.00000000';
  const keys:AIConfig['keys']={};for(const p of ['deepseek','openai'] as const){const key=setting(p==='deepseek'?'DEEPSEEK_API_KEY':'OPENAI_API_KEY');if(key&&setting(p==='deepseek'?'AI_TEXT_ALLOW_DEEPSEEK':'AI_TEXT_ALLOW_OPENAI','false')==='true')keys[p]=key;}
  return{provider:selected==='openai'?'openai':'deepseek',keys,limitUsd,enabled:['deepseek','openai'].includes(selected)&&!!keys[selected as AIProvider]&&amount.gt(0)};
 }
@@ -55,7 +55,6 @@ export async function generateProductText(actor:{id:string},body:Record<string,u
   if(!config.enabled||!config.keys[provider])throw new StoreError('AI_DISABLED','Этот сервис генерации пока не подключён.',503);
   if((await c.query("SELECT 1 FROM ar_ai_text_requests WHERE error_code='AI_USAGE' AND state='uncertain' LIMIT 1")).rowCount)throw new StoreError('AI_AUDIT','Генерация приостановлена до проверки статистики расходов.',409);
   const spending=await budget(c,config);if(new Decimal(spending.remainingUsd).lt(reserved))throw new StoreError('AI_BUDGET','Месячный лимит генерации исчерпан с учётом ожидающих запросов.',409);
-  const count=(await c.query("SELECT count(*)::integer n FROM ar_ai_text_requests WHERE actor_id=$1 AND created_at>now()-interval '1 hour'",[actor.id])).rows[0].n;if(count>=20)throw new StoreError('AI_RATE','Не более 20 новых генераций в час. Повтор готового запроса доступен.',429);
   const row=(await c.query(`INSERT INTO ar_ai_text_requests(actor_id,request_key,product_id,provider,model,prompt_version,input_hash,source_hash,source_facts,period,reserved_usd) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9::jsonb,${monthSQL},$10) RETURNING id`,[actor.id,requestKey,id,provider,TEXT_PRICES[provider].model,TEXT_PROMPT_VERSION,inputHash,sourceHash,JSON.stringify(facts),reserved])).rows[0];return{created:true,id:row.id};
  },false);
  if(!claimed.created)return readAIRequest(actor,claimed.id,config);

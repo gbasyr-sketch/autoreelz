@@ -31,7 +31,7 @@ export function infographicStudio(dialog:HTMLDialogElement,hooks:Hooks){
  function draw(){
   if(!recipe)return;const c=card.getContext('2d')!,dark=recipe.style!=='light',ink=dark?'#ffffff':'#1d1d1b',muted=dark?'#c6c6c2':'#62625c';
   c.fillStyle=dark?'#222426':'#f5f4ef';c.fillRect(0,0,1500,1000);
-  if(recipe.style==='accent'){round(c,970,-90,620,1180,90,recipe.accent);}else if(recipe.style==='graphite'){c.fillStyle='#303236';c.beginPath();c.moveTo(1160,0);c.lineTo(1500,0);c.lineTo(1500,1000);c.lineTo(750,1000);c.fill();}else{round(c,960,0,540,1000,0,'#e8e7e0');}
+  if(recipe.style==='accent'){round(c,970,0,620,1000,90,recipe.accent);}else if(recipe.style==='graphite'){c.fillStyle='#303236';c.beginPath();c.moveTo(1160,0);c.lineTo(1500,0);c.lineTo(1500,1000);c.lineTo(750,1000);c.fill();}else{round(c,960,0,540,1000,0,'#e8e7e0');}
   const text=(s:string,x:number,y:number,size:number,color:string,weight=500)=>{c.fillStyle=color;c.font=`${weight} ${size}px Manrope, sans-serif`;c.fillText(s,x,y);};
   text('AUTO REELZ',64,78,27,ink,700);
   function lines(value:string,y:number,size:number,maxLines:number,color:string){

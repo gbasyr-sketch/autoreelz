@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "mockedApi": true,
+  "publicCode": false,
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "width": 768,
+      "passed": true
+    },
+    {
+      "width": 375,
+      "passed": true
+    }
+  ]
+}

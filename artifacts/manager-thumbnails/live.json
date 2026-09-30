@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "revision": "7c1edefbb551d5c62ddf1c0ecbd093e8cf91d3b7",
+  "readOnlyCatalog": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "width": 375,
+      "passed": true
+    }
+  ],
+  "thumbnail": {
+    "width": 192,
+    "height": 128,
+    "bytes": 1796
+  },
+  "sessionRevoked": true
+}

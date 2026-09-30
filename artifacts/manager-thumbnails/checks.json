@@ -1,0 +1,16 @@
+{
+  "astroCheck": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "build": true,
+  "unit": {
+    "passed": 107,
+    "failed": 0,
+    "skipped": 8
+  },
+  "sqlReadOnly": "database-read.json",
+  "cmsTransform": "cms-transform.json",
+  "public": "live.json",
+  "ui": "public-ui.json"
+}

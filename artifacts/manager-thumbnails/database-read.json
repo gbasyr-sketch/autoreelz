@@ -1,0 +1,1 @@
+{"passed":true,"readOnly":true,"products":36,"withPhoto":33,"drafts":0,"checks":["one batched lookup","main gallery order preserved","every image UUID exists","draft query succeeds"]}

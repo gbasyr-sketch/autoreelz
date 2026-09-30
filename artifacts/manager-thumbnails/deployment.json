@@ -1,0 +1,50 @@
+{
+  "revision": "7c1edefbb551d5c62ddf1c0ecbd093e8cf91d3b7",
+  "previousRevision": "ab84ee611890ca88f2a3a984170b50cbc64e232c",
+  "databaseChanged": false,
+  "backgroundWorkerChanged": false,
+  "services": [
+    {
+      "image": "sha256:207b7ea770d2a776d8b76d3085edb33e4ffe21e418451300f4710b70a747afd1",
+      "revision": "7c1edefbb551d5c62ddf1c0ecbd093e8cf91d3b7",
+      "status": "running",
+      "health": "healthy",
+      "service": "web"
+    },
+    {
+      "image": "sha256:207b7ea770d2a776d8b76d3085edb33e4ffe21e418451300f4710b70a747afd1",
+      "revision": "7c1edefbb551d5c62ddf1c0ecbd093e8cf91d3b7",
+      "status": "running",
+      "health": "healthy",
+      "service": "worker"
+    },
+    {
+      "image": "sha256:ab6084c983d3bba0cee87ba64e019d63223d208e520edf9dd49edafc81d3b707",
+      "revision": "12d1845867eabf9767296bf521b8353c84f912bd",
+      "status": "running",
+      "health": "healthy",
+      "service": "background"
+    },
+    {
+      "image": "sha256:8978edf633ae28aa31464bb71c55300c94d8bc771ff3727b5fac485173283869",
+      "revision": "973be10df8b0305569dc0dc53e187c648133c8d6",
+      "status": "running",
+      "health": "healthy",
+      "service": "cms"
+    },
+    {
+      "image": "sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+      "revision": null,
+      "status": "running",
+      "health": "healthy",
+      "service": "db"
+    },
+    {
+      "image": "sha256:6aeddd44c3078b0f9a35206472a11420648a79c184603ef95957d0a20044cb2b",
+      "revision": null,
+      "status": "running",
+      "health": null,
+      "service": "edge"
+    }
+  ]
+}

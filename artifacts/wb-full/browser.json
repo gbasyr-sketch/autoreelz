@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "article": "2114-белый",
+      "photos": 3,
+      "price": "3300.00",
+      "gallery": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "article": "2114-белый",
+      "photos": 3,
+      "price": "3300.00",
+      "gallery": true,
+      "noOverflow": true
+    }
+  ],
+  "ordersCreated": 0,
+  "cartMutations": 0,
+  "catalogLabel": "132 товара",
+  "uniqueCatalogCards": 132,
+  "newCategory": true,
+  "checkedAt": "2026-10-03T12:42:56.390Z"
+}

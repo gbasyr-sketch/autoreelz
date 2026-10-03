@@ -32,7 +32,7 @@
 - Добавление товаров: [единая форма и подробная инструкция CMS](product-entry-guide.md); [контракт редактора](product-editor-proposal.md).
 - Подборки «Похожие товары»/«Рекомендуем»/«Вы смотрели», удаление и восстановление: [правила и проверки](product-discovery.md).
 - Печатная инструкция владельцу: [PDF, 6 страниц](../output/pdf/AUTO-REELZ-instruktsiya-dobavlenie-tovarov.pdf). Сборка — `scripts/build-product-guide-pdf.py` с Python/reportlab; после изменения процедуры обновлять текст и проверять все страницы PDF.
-- Каталог/владелец: [cms.md](cms.md), [manager-guide.md](manager-guide.md), [wb-catalog-import.md](wb-catalog-import.md).
+- Каталог/владелец: [cms.md](cms.md), [manager-guide.md](manager-guide.md), [полный перенос03.10 и21 черновик](wb-full-import.md); [первый импорт23.09](wb-catalog-import.md) — история.
 - Структура кабинета: [manager-workspace.md](manager-workspace.md); инструкция — [manager-guide.md](manager-guide.md).
 - Генерация описаний: [руководство и контракт](ai-text-generation.md), [история подготовки](ai-text-generation-plan.md). Общий бюджет до $10/месяц, часовой квоты нет; DeepSeek доступен с сервера, OpenAI отключён из-за ограничения региона.
 - Обзор владельца и правила показателей: [dashboard.md](dashboard.md).

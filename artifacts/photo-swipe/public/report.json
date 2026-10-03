@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "revision": "7b9858e07b37e2c102671c0d2881a4a95b47b829",
+  "productUrl": "https://autoreelz.ru/product/heater-granta?sku=a7b1a2da-7526-4d39-813f-7c5b1cf18182",
+  "nativeChromiumTouchInput": true,
+  "physicalIPhoneTested": false,
+  "catalogMutations": false,
+  "checks": [
+    {
+      "width": 375,
+      "leftRight": true,
+      "swipeDoesNotOpenDialog": true,
+      "tapOpens": true,
+      "zoomButtonTap": true,
+      "enlargedSwipe": true,
+      "selectionSynchronized": true
+    },
+    {
+      "width": 768,
+      "leftRight": true,
+      "swipeDoesNotOpenDialog": true,
+      "tapOpens": true,
+      "zoomButtonTap": true,
+      "enlargedSwipe": true,
+      "selectionSynchronized": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-03",
+  "revision": "7b9858e07b37e2c102671c0d2881a4a95b47b829",
+  "imageId": "sha256:1973ed4d45f4c15dfea29c615bacd5823e87f205c30e759a7ffaed5162f0a129",
+  "previousRevision": "940d7ee158e44fd55a4c6eb175e7cc0c3624292b",
+  "isolatedAstroCheck": {
+    "files": 152,
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "buildPassed": true,
+  "sixServicesHealthy": true,
+  "databaseChanges": false,
+  "catalogChanges": false,
+  "nativeTouchChecks": "browser/report.json",
+  "publicProof": "public/report.json",
+  "physicalIPhoneTested": false,
+  "noindexAndAdminProtectionPreserved": true,
+  "zoomButtonTapVerified": true
+}

@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "nativeChromiumTouchInput": true,
+  "physicalIPhoneTested": false,
+  "checks": [
+    "375: native left/right swipe and no ghost zoom",
+    "375: image/zoom-button taps, enlarged swipe, keyboard and shared selection",
+    "375: vertical scroll remains native",
+    "375: short gestures, multi-touch and zoom do not switch photos",
+    "375: cancellation resets gesture",
+    "375: failed load preserves photo; rapid swipes keep latest selection",
+    "768: native left/right swipe and no ghost zoom",
+    "768: image/zoom-button taps, enlarged swipe, keyboard and shared selection",
+    "768: vertical scroll remains native",
+    "768: short gestures, multi-touch and zoom do not switch photos",
+    "768: cancellation resets gesture",
+    "768: failed load preserves photo; rapid swipes keep latest selection",
+    "desktop thumbnails, click zoom and arrows unchanged"
+  ]
+}

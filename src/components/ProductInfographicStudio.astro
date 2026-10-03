@@ -7,6 +7,7 @@ import {infographicFonts,photoScale,photoOffsetLimit} from '../lib/product-infog
  <fieldset data-studio-fields class="pi-fields">
   <div class="pi-layout">
    <section class="pi-preview" aria-label="Предпросмотр инфографики"><canvas data-studio-card width="1500" height="1000" role="img" aria-label="Карточка товара с выбранными фотографиями и надписями"></canvas><p class="dash-help">Горизонтальный формат 3:2 · 1500 × 1000 пикселей</p><p class="dash-error" data-studio-overflow hidden>Надписи не помещаются. Сократите текст или уменьшите размер перед скачиванием или добавлением.</p></section>
+   <div class="pi-settings" tabindex="0" role="region" aria-label="Настройки инфографики">
    <section class="pi-controls" aria-label="Оформление">
     <label class="dash-field"><span>Оформление</span><select data-studio-style><option value="light">Светлый</option><option value="graphite">Графит</option><option value="accent">Акцент</option></select></label>
     <label class="dash-field"><span>Форма фона</span><select data-studio-shape></select></label>
@@ -21,7 +22,6 @@ import {infographicFonts,photoScale,photoOffsetLimit} from '../lib/product-infog
     <label class="dash-field"><span>Главное фото</span><select data-studio-source="0"></select></label>
     <label class="dash-field"><span>Второй ракурс</span><select data-studio-source="1"></select></label>
    </section>
-  </div>
   <details class="pi-mask-details"><summary>Удаление фона и положение фото</summary>
    <div class="pi-tools"><label class="dash-field"><span>Редактировать</span><select data-studio-active></select></label><button type="button" class="dash-button" data-studio-remove>Удалить фон</button><button type="button" class="dash-button" data-studio-original>Вернуть исходное фото</button></div>
    <div class="pi-position"><label class="dash-field"><span>Масштаб <output data-studio-position-label="scale"></output></span><input type="range" min={photoScale.min} max={photoScale.max} value="100" data-studio-scale /></label><label class="dash-field"><span>По горизонтали <output data-studio-position-label="x"></output></span><input type="range" min={-photoOffsetLimit} max={photoOffsetLimit} value="0" data-studio-x /></label><label class="dash-field"><span>По вертикали <output data-studio-position-label="y"></output></span><input type="range" min={-photoOffsetLimit} max={photoOffsetLimit} value="0" data-studio-y /></label></div>
@@ -29,5 +29,7 @@ import {infographicFonts,photoScale,photoOffsetLimit} from '../lib/product-infog
    <div data-studio-mask-area hidden><div class="pi-tools"><button type="button" class="dash-button" data-studio-mode="erase" aria-pressed="true">Кисть: стереть</button><button type="button" class="dash-button" data-studio-mode="restore" aria-pressed="false">Кисть: вернуть</button><button type="button" class="dash-button" data-studio-undo>Отменить мазок</button><label class="dash-field"><span>Размер кисти</span><input data-studio-brush type="range" min="4" max="100" value="24" /></label></div><p class="dash-help">Проведите кистью по краю. «Вернуть» восстанавливает участок исходного фото. Можно отменить три последних мазка. С клавиатуры: стрелки двигают кисть, пробел наносит мазок.</p><div class="pi-mask-stage"><canvas data-studio-mask tabindex="0" aria-label="Редактирование прозрачности фотографии"></canvas></div></div>
   </details>
   <footer class="pi-tools pi-footer"><p class="dash-help">Настройки сохраняются кнопкой «Сохранить черновик» в форме товара.</p><button type="button" class="dash-button" data-studio-download>Скачать PNG</button><button type="button" class="dash-button dash-primary" data-studio-add>Добавить в галерею</button></footer>
+   </div>
+  </div>
  </fieldset>
 </dialog>

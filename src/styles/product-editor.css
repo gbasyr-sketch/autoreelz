@@ -12,3 +12,45 @@
 
 .pi-mask-stage{position:relative}.pi-brush-cursor{position:absolute;z-index:1;pointer-events:none;box-sizing:border-box;border:1px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #111;transform:translate(-50%,-50%)}.pi-brush-cursor[hidden]{display:none}.pi-brush-cursor[data-mode=restore]{border-style:dashed}
 .pi-mask-stage{overflow:hidden}.pi-mask-stage:focus-within{outline:2px solid var(--dash-red);outline-offset:3px}
+
+/* Keep the complete composition visible while only its settings scroll. */
+.pi-dialog{height:calc(100dvh - 32px);max-height:calc(100dvh - 32px);overflow:hidden}
+.pi-dialog[open]{display:flex;flex-direction:column}
+.pi-header{flex-shrink:0}
+.pi-dialog .dash-message:empty{display:none}
+.pi-dialog .dash-message{flex-shrink:0;max-height:15dvh;overflow:auto}
+.pi-fields{flex:1;min-height:0;margin-top:16px;position:relative}
+.pi-layout{position:absolute;inset:0;height:100%;min-height:0;grid-template-columns:minmax(0,1fr) 320px}
+.pi-preview{height:100%;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto auto}
+.pi-preview>canvas{height:100%;min-height:0;object-fit:contain}
+.pi-settings{height:100%;min-height:0;min-width:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:0 10px 12px 2px;scroll-padding-block:16px}
+.pi-settings:focus-visible{outline:2px solid var(--dash-red);outline-offset:-2px}
+.pi-settings .pi-position{grid-template-columns:1fr}
+.pi-settings .pi-tools .dash-field{min-width:0;width:100%}
+.pi-settings .pi-tools button{max-width:100%}
+.pi-settings .pi-footer{justify-content:stretch}
+.pi-settings .pi-footer button{width:100%}
+@media(max-width:800px){
+ .pi-dialog{height:calc(100dvh - 16px);max-height:calc(100dvh - 16px)}
+ .pi-layout{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:12px}
+ .pi-preview{padding:8px;height:auto}
+ .pi-preview>canvas{height:min(26dvh,210px);max-height:none}
+ .pi-preview .dash-help{font-size:11px;margin-top:4px}
+ .pi-preview .dash-error{font-size:12px;margin-top:4px}
+ .pi-fields{margin-top:10px}
+ .pi-settings{padding-right:8px}
+ .pi-header .dash-eyebrow{display:none}
+ .pi-header h2{font-size:22px}
+}
+@media(max-height:500px) and (min-width:601px){
+ .pi-dialog{padding:12px}
+ .pi-header .dash-eyebrow{display:none}
+ .pi-header h2{font-size:18px}
+ .pi-dialog .dash-message{margin:6px 0;padding:8px;max-height:48px;font-size:11px}
+ .pi-fields{margin-top:8px}
+ .pi-preview .dash-help{font-size:10px}
+ .pi-layout{grid-template-columns:minmax(0,1fr) minmax(260px,1fr);grid-template-rows:minmax(0,1fr)}
+ .pi-preview{height:100%}
+ .pi-preview>canvas{height:100%;max-height:none}
+ .pi-controls{grid-template-columns:1fr}
+}

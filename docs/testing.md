@@ -13,6 +13,8 @@
 
 ## Единая форма товара (30.09.2026)
 
+Библиотека фото03.10: `tests/product-image-library-database.mjs` запускается только на отдельной `ar_qa_product_editor_library_*` со схемой001–016 и синтетическими записями. Проверяет переиспользование, корзину/восстановление, защиту всех ссылок и гонку с сохранением. `AR_LIBRARY_URL=<preview> node tests/product-image-library-browser.mjs` проверяет четыре размера экрана с mockAPI. [Контракт](product-image-library.md). Не использовать рабочий каталог для мутационных QA-наборов.
+
 Инфографика: `node --test tests/product-infographic.test.ts`; `.tools/background-removal/venv/bin/python tests/background-worker.py`; `AR_INFO_URL=<preview> node tests/product-infographic-browser.mjs` (mockAPI). DB-набор редактора требует миграцию014 на отдельной базе и проверяет приватный рецепт после публикации/замены галереи. Реальная связка CMS/API/worker проверяется с временными файлами и их удалением. Доказательства — `artifacts/infographics/`.
 
 Генерация: `node --test tests/ai-text.test.ts`; `tests/ai-text-database.mjs` допускает только отдельную `ar_qa_ai_text_*` с миграцией013, использует подменённые адаптеры, не тратит средства. `AR_AI_URL=<preview> node tests/product-ai-browser.mjs` — подменённыеAPI, ручное применение/конфликт/повтор и mobile. Реальные платные пробы запускать отдельно, с учётом в рабочем журнале расходов и в согласованном месячном лимите. Не применять результаты к рабочим товарам без команды владельца.

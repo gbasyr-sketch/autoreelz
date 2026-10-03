@@ -1,3 +1,5 @@
+import {productImageLibrary} from "./product-image-library";
+import {infographicFileIds} from "../lib/product-infographic";
 import {productLifecycle} from './product-lifecycle';
 import {infographicStudio} from './product-infographic';
 import {managerPage,managerDirty,node,link} from './manager-page';
@@ -11,7 +13,7 @@ if(root){
  const $=<T extends HTMLElement=HTMLElement>(s:string)=>root.querySelector<T>(s)!;
  const form=$<HTMLFormElement>('[data-editor-form]'),fields=$<HTMLFieldSetElement>('[data-editor-fields]');
  const id=new URLSearchParams(location.search).get('id')??crypto.randomUUID();history.replaceState(null,'','?id='+encodeURIComponent(id));
- let state:EditorState,options:EditorOptions,data:EditorData,slugManual=false,busy=false,studioBusy=false,lifecycleBusy=false,uploading=0,generation=0,pending:{fingerprint:string;key:string}|null=null,showValidation=false;
+ let state:EditorState,options:EditorOptions,data:EditorData,slugManual=false,busy=false,studioBusy=false,libraryBusy=false,lifecycleBusy=false,uploading=0,generation=0,pending:{fingerprint:string;key:string}|null=null,showValidation=false;
  const imageUrl=(id:string)=>'/api/manager/product-image?id='+encodeURIComponent(id);
  const pathId=(path:string)=>'pe-'+path.replaceAll('.','-');
  function button(label:string,fn:()=>void,css='dash-button'){const b=node('button',label,css);b.type='button';b.addEventListener('click',fn);return b;}
@@ -44,8 +46,8 @@ if(root){
  }
  function gallery(container:HTMLElement,items:EditorPhoto[],path:string){
   container.replaceChildren();container.id=pathId(path);container.tabIndex=-1;
-  const label=node('label','','pe-upload');label.append(node('strong','Добавить фотографии'),node('p','JPG, PNG или WebP, до 10 МБ и 24 мегапикселей. Не более 12 фото в галерее.','dash-help'));
-  const upload=node('input');upload.type='file';upload.multiple=true;upload.accept='image/jpeg,image/png,image/webp';upload.setAttribute('aria-label','Выбрать фотографии');upload.hidden=true;label.append(upload,button('Выбрать фотографии',()=>upload.click()));
+  const label=node('div','','pe-upload');label.append(node('strong','Добавить фотографии'),node('p','JPG, PNG или WebP, до 10 МБ и 24 мегапикселей. Не более 12 фото в галерее.','dash-help'));
+  const upload=node('input');upload.type='file';upload.multiple=true;upload.accept='image/jpeg,image/png,image/webp';upload.setAttribute('aria-label','Выбрать фотографии');upload.hidden=true;label.append(upload,button('Выбрать фотографии',()=>upload.click()),button('Из библиотеки',()=>library.open(items,photos=>{items.push(...photos);changed();draw();})));
   const status=node('p','','dash-help pe-upload-status');status.setAttribute('role','status');const grid=node('div','','pe-gallery');const err=node('small','','pe-field-error');err.dataset.errorPath=path;
   container.append(label,status,err,grid);
   let drag=-1;
@@ -89,7 +91,7 @@ if(root){
   selected.forEach((productId,index)=>{const row=node('div','','pe-inline-actions');row.append(node('span',`${index+1}. ${choices.find(p=>p.id===productId)?.name??'Недоступный товар — уберите из списка'}`));const up=button('Выше',()=>{[selected[index-1],selected[index]]=[selected[index]!,selected[index-1]!];renderRecommendations();changed();});up.disabled=index===0;row.append(up,button('Убрать',()=>{selected.splice(index,1);renderRecommendations();changed();}));target.append(row);});
   if(selected.length<8){const label=node('label','','dash-field'),select=node('select');label.append(node('span','Добавить товар в рекомендации'),select);select.append(new Option('Выберите товар',''));for(const product of choices.filter(p=>p.id!==id&&!selected.includes(p.id)))select.append(new Option(product.name+(product.status==='published'?'':' — черновик'),product.id));select.addEventListener('change',()=>{if(select.value){selected.push(select.value);renderRecommendations();changed();}});target.append(label);}
  }
- function render(){generation++;data=structuredClone(state.data);studio.reset();slugManual=!!data.slug;showValidation=false;$('[data-editor-errors]').hidden=true;$('[data-discard-draft]').hidden=!state.hasDraft;
+ function render(){generation++;data=structuredClone(state.data);library.lock();studio.reset();slugManual=!!data.slug;showValidation=false;$('[data-editor-errors]').hidden=true;$('[data-discard-draft]').hidden=!state.hasDraft;
   $('[data-editor-title]').textContent=state.archived?'Удалённый товар':state.live?'Редактировать товар':'Добавить товар';
   $('[data-editor-status]').textContent=state.archived?'Товар удалён с сайта. История и остатки сохранены. Чтобы продолжить редактирование, восстановите его в черновик.':state.hasDraft?(state.live?'Открыт сохранённый черновик. На сайте пока остаётся прежняя версия товара.':'Открыт сохранённый черновик. Товар ещё не опубликован.'):(state.live?'Изменения появятся на сайте только после публикации. Склад существующих вариантов здесь не пересчитывается.':'Заполните данные в одной форме. Черновик можно сохранить даже до заполнения всех полей.');
   $('[data-product-archive]').hidden=!!state.archived||!state.live&&!state.hasDraft;$('[data-product-restore]').hidden=!state.archived;renderRecommendations();
@@ -99,9 +101,9 @@ if(root){
   const preview=$<HTMLAnchorElement>('[data-preview-link]');preview.hidden=!state.live||!!state.archived||state.liveStatus==='draft';preview.href='/product/'+(state.liveSlug??data.slug);
   $('[data-editor-save-hint]').textContent=state.hasDraft?'Черновик сохранён':state.live?'Данные загружены':'Изменения ещё не сохранены';managerDirty(false);updatePreview();setBusy();void aiPanel.load();aiPanel.changed();
  }
- function setBusy(){const locked=busy||studioBusy||lifecycleBusy||uploading>0;fields.disabled=locked||!!state?.archived;form.setAttribute('aria-busy',String(locked));$<HTMLButtonElement>('[data-save-draft]').disabled=locked||!!state?.archived;$<HTMLButtonElement>('[data-publish-product]').disabled=locked||!!state?.archived;$<HTMLButtonElement>('[data-workspace-refresh]').disabled=locked;$<HTMLButtonElement>('[data-discard-draft]').disabled=locked||!!state?.archived;$<HTMLButtonElement>('[data-product-archive]').disabled=locked;$<HTMLButtonElement>('[data-product-restore]').disabled=locked;}
+ function setBusy(){const locked=busy||studioBusy||libraryBusy||lifecycleBusy||uploading>0;fields.disabled=locked||!!state?.archived;form.setAttribute('aria-busy',String(locked));$<HTMLButtonElement>('[data-save-draft]').disabled=locked||!!state?.archived;$<HTMLButtonElement>('[data-publish-product]').disabled=locked||!!state?.archived;$<HTMLButtonElement>('[data-workspace-refresh]').disabled=locked;$<HTMLButtonElement>('[data-discard-draft]').disabled=locked||!!state?.archived;$<HTMLButtonElement>('[data-product-archive]').disabled=locked;$<HTMLButtonElement>('[data-product-restore]').disabled=locked;}
  async function save(action:'draft'|'publish'|'discard'){
-  if(busy||studioBusy||lifecycleBusy||uploading||state?.archived)return;$('[data-editor-errors]').hidden=true;if(action==='publish'){showValidation=true;const issues=publicationIssues(data,state.existingSkuIds);if(issues.length){markIssues(issues,true);return;}}
+  if(busy||studioBusy||libraryBusy||lifecycleBusy||uploading||state?.archived)return;$('[data-editor-errors]').hidden=true;if(action==='publish'){showValidation=true;const issues=publicationIssues(data,state.existingSkuIds);if(issues.length){markIssues(issues,true);return;}}
   busy=true;setBusy();try{await studio.flush();}catch(e){page.showError(e);busy=false;setBusy();return;}
   const body={id,version:state.version,baseHash:state.baseHash,data,action},fingerprint=JSON.stringify(body);if(pending?.fingerprint!==fingerprint)pending={fingerprint,key:crypto.randomUUID()};busy=true;setBusy();$('[data-editor-save-hint]').textContent=action==='discard'?'Сбрасываем черновик…':action==='draft'?'Сохраняем черновик…':'Публикуем товар…';
   try{const session=await getSession(),response=await fetch('/api/manager/product-editor',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':session.csrfToken},body:JSON.stringify({...body,idempotencyKey:pending.key}),signal:AbortSignal.timeout(25000)}),payload=await response.json();if(!response.ok){if(payload.error?.issues)markIssues(payload.error.issues,true);throw new CommerceError(payload.error?.message??'Не удалось сохранить товар.',response.status,payload.error?.code);}pending=null;managerDirty(false);page.notify(action==='discard'?'Черновик сброшен. Загружена актуальная карточка.':action==='draft'?'Черновик сохранён. Можно вернуться к нему из списка товаров.':'Товар опубликован. Новые остатки учтены один раз.');await page.reload();}
@@ -109,6 +111,7 @@ if(root){
   finally{busy=false;setBusy();}
  }
  async function uploadStudio(file:File,key:string){const serial=generation,session=await getSession(),body=new FormData();body.append('id',id);body.append('key',key);body.append('file',file);const response=await fetch('/api/manager/product-image',{method:'POST',headers:{'X-CSRF-Token':session.csrfToken},body,signal:AbortSignal.timeout(30000)});const payload=await response.json();if(!response.ok)throw new CommerceError(payload.error?.message??'Не удалось сохранить фотографию.',response.status);if(serial!==generation)throw Error('Форма уже обновилась.');return payload as EditorPhoto;}
+ const library=productImageLibrary($<HTMLDialogElement>('[data-image-library]'),{used:()=>new Set([...data.photos,...data.variants.flatMap(v=>v.photos)].map(p=>p.id).concat(infographicFileIds(data.infographic))),busy:value=>{libraryBusy=value;setBusy();},error:e=>page.showError(e)});
  const studio=infographicStudio($<HTMLDialogElement>('[data-infographic-studio]'),{data:()=>data,changed,upload:uploadStudio,add:photo=>{if(data.photos.some(p=>p.id===photo.id))return;data.photos.push(photo);gallery($('[data-editor-photos]'),data.photos,'photos');changed();},error:e=>page.showError(e),busy:value=>{studioBusy=value;setBusy();}});
  $<HTMLButtonElement>('[data-open-infographic]').addEventListener('click',()=>void studio.open());
  const aiPanel=productAIPanel($('[data-ai-text-panel]'),{id,data:()=>data,apply:(description,meta)=>{data.description=description;data.metaDescription=meta;const d=document.getElementById(pathId('description')) as HTMLTextAreaElement;const m=document.getElementById(pathId('metaDescription')) as HTMLTextAreaElement;d.value=description;m.value=meta;changed();},error:e=>page.showError(e)});
@@ -119,6 +122,6 @@ if(root){
  $<HTMLButtonElement>('[data-product-archive]').addEventListener('click',()=>void lifecycle.open(id,'archive'));
  $<HTMLButtonElement>('[data-product-restore]').addEventListener('click',()=>void lifecycle.open(id,'restore'));
  $<HTMLButtonElement>('[data-discard-draft]').addEventListener('click',()=>{if(confirm('Удалить сохранённый черновик и несохранённые изменения? Опубликованный товар и склад останутся без изменений.'))void save('discard');});
- root.addEventListener('autoreelz:manager-locked',()=>{generation++;studio.lock();aiPanel.lock();for(const selector of ['[data-editor-main]','[data-editor-photos]','[data-editor-variants]','[data-editor-attributes]','[data-editor-fitment]','[data-editor-seo]','[data-editor-recommendations]'])$(selector).replaceChildren();$('[data-editor-status]').textContent='';$<HTMLImageElement>('[data-preview-image]').removeAttribute('src');$('[data-preview-name]').textContent='';$('[data-preview-price]').textContent='';$('[data-editor-errors]').hidden=true;});
+ root.addEventListener('autoreelz:manager-locked',()=>{generation++;library.lock();studio.lock();aiPanel.lock();for(const selector of ['[data-editor-main]','[data-editor-photos]','[data-editor-variants]','[data-editor-attributes]','[data-editor-fitment]','[data-editor-seo]','[data-editor-recommendations]'])$(selector).replaceChildren();$('[data-editor-status]').textContent='';$<HTMLImageElement>('[data-preview-image]').removeAttribute('src');$('[data-preview-name]').textContent='';$('[data-preview-price]').textContent='';$('[data-editor-errors]').hidden=true;});
  void page.reload();
 }

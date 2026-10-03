@@ -30,6 +30,7 @@
 - Генератор инфографики: [контракт, проверки и инструкция](product-infographics.md). Опубликован в редакторе обычного товара.
 
 - Добавление товаров: [единая форма и подробная инструкция CMS](product-entry-guide.md); [контракт редактора](product-editor-proposal.md).
+- Фотографии: [выбор из библиотеки, удаление и восстановление](product-image-library.md).
 - Подборки «Похожие товары»/«Рекомендуем»/«Вы смотрели», удаление и восстановление: [правила и проверки](product-discovery.md).
 - Печатная инструкция владельцу: [PDF, 6 страниц](../output/pdf/AUTO-REELZ-instruktsiya-dobavlenie-tovarov.pdf). Сборка — `scripts/build-product-guide-pdf.py` с Python/reportlab; после изменения процедуры обновлять текст и проверять все страницы PDF.
 - Каталог/владелец: [cms.md](cms.md), [manager-guide.md](manager-guide.md), [полный перенос03.10 и21 черновик](wb-full-import.md); [первый импорт23.09](wb-catalog-import.md) — история.

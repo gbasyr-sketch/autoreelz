@@ -1,0 +1,9 @@
+<dialog class="pl-dialog" data-image-library aria-labelledby="pl-title">
+ <header class="pl-header"><div><h2 id="pl-title">Библиотека фотографий</h2><p class="dash-help">Выберите уже загруженные фото для этой галереи.</p></div><button type="button" class="dash-button" data-pl-close aria-label="Закрыть библиотеку">Закрыть</button></header>
+ <form class="pl-search" data-pl-search><label class="dash-field">Поиск по названию фото, товару или артикулу<input name="q" type="search" maxlength="120" placeholder="Например, Приора"/></label><button class="dash-button" type="submit">Найти</button></form>
+ <div class="pl-tabs" aria-label="Раздел библиотеки"><button type="button" class="dash-button" data-pl-scope="active" aria-pressed="true">Все фото</button><button type="button" class="dash-button" data-pl-scope="trash" aria-pressed="false">Удалённые</button></div>
+ <p class="dash-help" data-pl-status role="status"></p><p class="dash-message dash-error" data-pl-error role="alert" hidden></p>
+ <div class="pl-scroll"><div class="pl-grid" data-pl-grid></div></div>
+ <nav class="pl-pagination" aria-label="Страницы фотографий"><button type="button" class="dash-button" data-pl-prev>Назад</button><span data-pl-page></span><button type="button" class="dash-button" data-pl-next>Далее</button></nav>
+ <footer class="pl-footer"><p class="dash-help" data-pl-selection>Выбрано: 0</p><button type="button" class="dash-button" data-pl-cancel>Отмена</button><button type="button" class="dash-button dash-primary" data-pl-add disabled>Добавить выбранные</button></footer>
+</dialog>

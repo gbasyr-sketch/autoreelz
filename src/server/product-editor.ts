@@ -1,4 +1,5 @@
 import {withProductThumbnails} from './manager-product-thumbnails.ts';
+import {availableLibraryImages,lockImageLibrary} from './product-image-library.ts';
 import {normalizeInfographic,infographicFileIds} from '../lib/product-infographic.ts';
 import {randomUUID} from 'node:crypto';
 import type {PoolClient} from 'pg';
@@ -66,6 +67,7 @@ async function checkReferences(c:PoolClient,id:string,actorId:string,data:Editor
  const mediaIds=[...new Set([...data.photos,...data.variants.flatMap(v=>v.photos)].map(p=>p.id))];
  const allowed=new Set([...(current?.data.photos??[]),...(current?.data.variants.flatMap(v=>v.photos)??[])].map(p=>p.id));
  for(const r of (await c.query('SELECT file_id FROM ar_product_editor_uploads WHERE draft_id=$1 AND actor_id=$2 AND ready',[id,actorId])).rows)allowed.add(r.file_id);
+ for(const file of await availableLibraryImages(c,mediaIds))allowed.add(file);
  const files=(await c.query("SELECT id FROM directus_files WHERE id=ANY($1::uuid[]) AND type IN ('image/jpeg','image/png','image/webp','image/avif','image/gif','image/svg+xml')",[mediaIds])).rows;
  if(mediaIds.some(id=>!allowed.has(id)||!files.some(f=>f.id===id)))issues.push({path:'photos',message:'Некоторые фотографии недоступны. Загрузите их в этой форме заново.'});
  const skuIds=new Set<string>();for(const[i,v]of data.variants.entries()){
@@ -92,6 +94,7 @@ export async function saveProductEditor(actor:{id:string},body:Record<string,unk
  const id=uuid(body.id),version=integer(body.version,'Версия',0),data=normalizeProduct(body.data),action=choice(body.action,['draft','publish','discard']);
  const baseHash=body.baseHash===null?null:string(body.baseHash,64);
  try{return await transaction(c=>idempotent(c,`product-editor:${actor.id}`,body.idempotencyKey,{id,version,baseHash,data,action},async()=>{
+  await lockImageLibrary(c);
   await c.query("SELECT pg_advisory_xact_lock(hashtextextended('product-editor:'||$1,0))",[id]);
   const prior=(await c.query('SELECT * FROM ar_product_editor_drafts WHERE id=$1 FOR UPDATE',[id])).rows[0];if((prior?.version??0)!==version)throw conflict();
   // READ COMMITTED after these locks sees CMS changes committed before publication.
@@ -100,11 +103,17 @@ export async function saveProductEditor(actor:{id:string},body:Record<string,unk
   if(current?current.raw.product.status==='archived':!!prior?.archived_at)throw new StoreError('PRODUCT_ARCHIVED','Сначала восстановите товар из удалённых в черновик.',409);
   if(action!=='discard'&&((current?.hash??null)!==baseHash||(prior?.payload&&prior.base_hash!==baseHash)))throw conflict();
   if(action!=='discard'){
+   const photoIds=[...new Set([...data.photos,...data.variants.flatMap(v=>v.photos)].map(p=>p.id))];
+   const available=await availableLibraryImages(c,photoIds);
+   const legacy=[...(current?.data.photos??[]),...(current?.data.variants.flatMap(v=>v.photos)??[])].map(p=>p.id);
+   if(photoIds.some(file=>!available.includes(file)&&!legacy.includes(file)))throw new EditorError([{path:'photos',message:'Фото удалено или недоступно. Восстановите его в библиотеке либо уберите из галереи.'}]);
    const ids=infographicFileIds(data.infographic);
    if(ids.length){
     const permitted=(await c.query(`SELECT file_id FROM ar_product_editor_uploads WHERE draft_id=$1 AND actor_id=$2 AND ready UNION SELECT file_id FROM ar_product_media WHERE product_id=$1 UNION SELECT m.file_id FROM ar_sku_media m JOIN ar_skus s ON s.id=m.sku_id WHERE s.product_id=$1`,[id,actor.id])).rows.map(r=>r.file_id);
     if(prior?.actor_id===actor.id)permitted.push(...infographicFileIds(prior.infographic));
-    if(ids.some(file=>!permitted.includes(file)))throw new StoreError('INFOGRAPHIC_PHOTO','Фотографии макета недоступны. Выберите их заново.',403);
+    permitted.push(...await availableLibraryImages(c,ids));
+    const trashed=(await c.query('SELECT 1 FROM ar_product_image_trash WHERE file_id=ANY($1::uuid[]) LIMIT 1',[ids])).rowCount;
+    if(trashed||ids.some(file=>!permitted.includes(file)))throw new StoreError('INFOGRAPHIC_PHOTO','Фотографии макета недоступны. Восстановите их в библиотеке или выберите заново.',403);
    }
   }
   let nextHash=baseHash;

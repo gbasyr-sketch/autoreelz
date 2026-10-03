@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "mockedApi": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "passed": true,
+      "multiSelect": true,
+      "cancel": true,
+      "trashRestore": true,
+      "variantGallery": true,
+      "draft": true,
+      "authExpiry": true
+    },
+    {
+      "width": 768,
+      "height": 800,
+      "passed": true,
+      "multiSelect": true,
+      "cancel": true,
+      "trashRestore": true,
+      "variantGallery": true,
+      "draft": true,
+      "authExpiry": true
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "passed": true,
+      "multiSelect": true,
+      "cancel": true,
+      "trashRestore": true,
+      "variantGallery": true,
+      "draft": true,
+      "authExpiry": true
+    },
+    {
+      "width": 812,
+      "height": 375,
+      "passed": true,
+      "multiSelect": true,
+      "cancel": true,
+      "trashRestore": true,
+      "variantGallery": true,
+      "draft": true,
+      "authExpiry": true
+    }
+  ],
+  "checkedAt": "2026-10-03T13:43:15.431Z"
+}

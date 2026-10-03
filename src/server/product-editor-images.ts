@@ -4,6 +4,7 @@ import {appConfig} from './config.ts';
 import {StoreError,uuid} from './errors.ts';
 import {processReviewPhoto,withReviewUpload,assertMultipartOrigin,MAX_PHOTO_BYTES} from './social-photos.ts';
 import type {ShopSession} from '../lib/commerce-types.ts';
+import {libraryTypes} from './product-image-library.ts';
 
 function cmsCookie(request:Request){const cfg=appConfig();return request.headers.get('Cookie')?.split(';').map(v=>v.trim()).find(v=>v.startsWith(cfg.cmsCookie+'='))??'';}
 export async function uploadEditorImage(request:Request,session:ShopSession,actor:{id:string}){
@@ -38,7 +39,8 @@ export async function uploadEditorImage(request:Request,session:ShopSession,acto
 export async function editorImage(request:Request,actor:{id:string},input:unknown,thumbnail=false){
  const id=uuid(input);
  const permitted=(await query(`SELECT 1 FROM ar_product_editor_uploads WHERE file_id=$1 AND actor_id=$2 AND ready UNION ALL SELECT 1 FROM ar_product_media WHERE file_id=$1 UNION ALL SELECT 1 FROM ar_sku_media WHERE file_id=$1 UNION ALL SELECT 1 FROM ar_product_editor_drafts d WHERE d.actor_id=$2 AND EXISTS (SELECT 1 FROM jsonb_array_elements(coalesce(d.infographic->'photos','[]'::jsonb)) p WHERE p->>'sourceId'=$1::text OR p->>'cutoutId'=$1::text) LIMIT 1`,[id,actor.id])).rowCount;
- if(!permitted)throw new StoreError('PHOTO_NOT_FOUND','Фотография не найдена.',404);
+ const libraryFile=(await query(`SELECT 1 FROM directus_files WHERE id=$1 AND type IN ${libraryTypes}`,[id])).rowCount;
+ if(!permitted&&!libraryFile)throw new StoreError('PHOTO_NOT_FOUND','Фотография не найдена.',404);
  const response=await fetch(appConfig().cmsBase+'/assets/'+id+(thumbnail?'?width=192&height=192&fit=inside&format=webp&quality=75&withoutEnlargement=true':''),{headers:{Cookie:cmsCookie(request)},redirect:'error',signal:AbortSignal.timeout(15000)});
  if(!response.ok)throw new StoreError('PHOTO_NOT_FOUND','Фотография не найдена.',404);
  const type=response.headers.get('Content-Type')?.split(';')[0]??'';

@@ -1,0 +1,1777 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-03T15:41:22.877Z",
+  "qaCatalogOnly": false,
+  "groups": 22,
+  "variants": 98,
+  "mergedSources": 76,
+  "skuCount": 139,
+  "publishedProducts": 56,
+  "stockAndReservesPreserved": true,
+  "pricesAndPackagesPreserved": true,
+  "originalProductGalleriesPreserved": true,
+  "variantGalleriesVerified": 98,
+  "aliases": 121,
+  "items": [
+    {
+      "name": "Ручка КПП с подсветкой под резьбовой шток",
+      "productId": "e5dc2a4d-7602-593d-afa3-1794de09b3fb",
+      "slug": "ruchka-kpp-s-podsvetkoy-pod-rezbovoy-shtok",
+      "variants": [
+        {
+          "skuId": "abdba3e1-73aa-556c-abb7-a1a282a1ee94",
+          "article": "KPP2RED0",
+          "label": "Красная подсветка",
+          "price": "2350.00",
+          "sourceProductId": "e5dc2a4d-7602-593d-afa3-1794de09b3fb",
+          "oldSlugs": [
+            "ruchka-kpp-s-podsvetkoy-krasnyy",
+            "wb-211243623"
+          ],
+          "images": [
+            "24aa56ec-ea36-5ba3-a1ce-fc2e15460945",
+            "1ca87985-e849-5041-a152-94ac836da2c3"
+          ]
+        },
+        {
+          "skuId": "09064a60-5204-57cd-a96b-a02630efa021",
+          "article": "RKP2N0WT",
+          "label": "Белая подсветка",
+          "price": "2250.00",
+          "sourceProductId": "97b6f00e-a2d2-5833-a257-48f2f6835fa1",
+          "oldSlugs": [
+            "ruchka-kpp-s-podsvetkoy-belyy"
+          ],
+          "images": [
+            "d9d4485c-ba0e-515e-a2cf-3b49c43c434d",
+            "568a72df-5479-5f19-a706-cf938232c662",
+            "c43e3449-318f-542e-a685-4a8f32272e77",
+            "3f8ede7e-c40c-5f4d-ab4e-0d79ea4af916",
+            "5def9658-ec2a-556c-a37c-4ab870d92113",
+            "a10f04dd-6bb6-54b4-a263-ff378e746b8e",
+            "10853e98-16ca-56fe-a52d-60396aad2269",
+            "770f109b-0582-5a26-ad16-14d9f553bebd",
+            "9413cbac-dfdc-5a7b-abd0-d750507a9d59",
+            "0428fd7d-6ca0-5427-ab53-8cbb230a0d6b"
+          ]
+        },
+        {
+          "skuId": "5fe0d0a3-bbce-5bc4-a1c6-09e79441dea8",
+          "article": "KPP2BLU0",
+          "label": "Синяя подсветка",
+          "price": "2250.00",
+          "sourceProductId": "3fc612e8-3021-5778-a23b-ec2055374c91",
+          "oldSlugs": [
+            "ruchka-kpp-s-podsvetkoy-siniy"
+          ],
+          "images": [
+            "b5891e6f-acfc-59a6-a2a5-a9ccdeb420dd",
+            "bbf6c842-ba31-56f0-ad0b-a9dea82acb52",
+            "12954204-7774-52e4-a7d0-c939c8cbfa84",
+            "ee58da1c-6d99-57d9-ab69-a445d7f648bc",
+            "910d827b-a350-57cc-a1fe-016c1f5ac657",
+            "e8f75702-572c-5eee-a9a7-3a533223f0ab",
+            "dbdb461f-5fbc-500f-a2ff-b68dfd9265e6",
+            "136e09da-fe33-5239-a514-b8b21858ea3b",
+            "577279af-ebb2-5a3c-a24d-fffd2d957e72",
+            "cb6d029f-a869-56f4-a122-cd738a2b3513"
+          ]
+        },
+        {
+          "skuId": "2216b17f-af2b-59f1-a31c-775c122e7d99",
+          "article": "KPP2GRN0",
+          "label": "Зелёная подсветка",
+          "price": "2250.00",
+          "sourceProductId": "aca2a719-a467-590d-a67e-f46d97b987ce",
+          "oldSlugs": [
+            "ruchka-kpp-s-podsvetkoy-zelenyy"
+          ],
+          "images": [
+            "35644297-0d45-5738-a8f3-529caaadd4c3",
+            "daef69e7-14b7-5f4b-a56d-cf29294072f3",
+            "f2e577e7-e819-5a68-acc6-8b358d839ce7",
+            "00d38bc2-d1c1-5b0d-a95f-33b178123d76",
+            "4d1403be-5938-56f1-a4aa-ccc825cd7ebc",
+            "5f170bf8-cc26-59f8-a88e-12e6a7a05978",
+            "4ab058ce-7aa8-5a65-a2a3-40644a1824d3",
+            "796c2d6b-c9d8-56e3-a1af-9263568b8f48"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ручка КПП в стиле Веста с подсветкой под прямоугольный шток",
+      "productId": "d53ed2a2-0e9c-5cf1-aedf-d8ec0d43c608",
+      "slug": "ruchka-kpp-v-stile-vesta-s-podsvetkoy-pod-pryamougolnyy-shtok",
+      "variants": [
+        {
+          "skuId": "4bccd285-31ae-5341-a172-437de00c06b3",
+          "article": "KPP1GRN0",
+          "label": "Зелёная подсветка",
+          "price": "2350.00",
+          "sourceProductId": "d53ed2a2-0e9c-5cf1-aedf-d8ec0d43c608",
+          "oldSlugs": [
+            "ruchka-kpp-s-podsvetkoy-zelenyy-kpp1grn0",
+            "wb-231842545"
+          ],
+          "images": [
+            "1a6da55d-92b7-5c4b-aaf7-4e78effd6af4",
+            "bfb220d1-c1b6-5f10-a81d-46c3d403e7ce"
+          ]
+        },
+        {
+          "skuId": "e509a123-6347-584f-ad85-337001845bfd",
+          "article": "KPP1BLU0",
+          "label": "Синяя подсветка",
+          "price": "2350.00",
+          "sourceProductId": "c1c42b04-ad39-5879-a94c-655be21ea3e0",
+          "oldSlugs": [
+            "ruchka-kpp-s-podsvetkoy-siniy-kpp1blu0"
+          ],
+          "images": [
+            "c8cee92d-9c9b-511b-a777-4036a5c93f52",
+            "9dafe65a-93cb-5c3e-a0e0-f8b49c797f05",
+            "fc66a62f-a605-5ba6-a6fe-65cd2b16ea8b",
+            "ff20641e-73a0-5690-a063-fae5105aa293"
+          ]
+        },
+        {
+          "skuId": "808b4e0d-dc48-50c5-a8a0-d7cca74b823e",
+          "article": "KPP1RED0",
+          "label": "Красная подсветка",
+          "price": "2250.00",
+          "sourceProductId": "3047e3c6-ba22-5e62-a35c-0f2d45c7b661",
+          "oldSlugs": [
+            "ruchka-kpp-s-podsvetkoy-krasnyy-kpp1red0"
+          ],
+          "images": [
+            "a0fe4fef-1a58-5c73-a89e-614b9a12335f",
+            "49c85a20-2076-5e8d-a0e8-4f7b6fb6ac28",
+            "834bb5ce-1aac-5255-aaa8-762a0ccc2fa2",
+            "efe3b71c-aaf4-543a-af6f-485bafab542e"
+          ]
+        },
+        {
+          "skuId": "7f13fcc7-0a5c-52f6-a40f-c7f9495ff8c7",
+          "article": "KPP1WHT0",
+          "label": "Белая подсветка",
+          "price": "2200.00",
+          "sourceProductId": "2c18a35a-9600-5e7e-aa2c-f865d9937a5a",
+          "oldSlugs": [
+            "ruchka-kpp-s-podsvetkoy-belyy-kpp1wht0"
+          ],
+          "images": [
+            "67e4d9ea-f987-5dd8-a59b-e96a592bbc9c",
+            "d110c415-c7b2-5261-a704-c39a0649e124",
+            "b6c32e91-fc16-5502-afa2-9bee92d804a0",
+            "1245efb6-106d-581c-af8f-28719e1450c1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ручка КПП с надписью «Лада» и подсветкой",
+      "productId": "fdcb2aff-fa85-5e92-a754-9f8c37df356f",
+      "slug": "ruchka-kpp-s-nadpisyu-lada-i-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "0e34282a-5d6f-5c1f-a5a6-aba0985793dd",
+          "article": "П2_ЛАДА_КРАСНЫЙ",
+          "label": "Красная подсветка",
+          "price": "2250.00",
+          "sourceProductId": "fdcb2aff-fa85-5e92-a754-9f8c37df356f",
+          "oldSlugs": [
+            "ruchka-kpp-lada-s-led-podsvetkoy-krasnyy",
+            "wb-285153689"
+          ],
+          "images": [
+            "0c75be79-5c6c-5678-a26b-6779faddef90",
+            "c504234d-784e-51fc-a6de-a361f390f80e"
+          ]
+        },
+        {
+          "skuId": "13453ac4-0b9b-57de-a4ec-aad45b775f9f",
+          "article": "П2_ЛАДА_СИНИЙ",
+          "label": "Синяя подсветка",
+          "price": "2300.00",
+          "sourceProductId": "e09c7b2b-5204-549e-a856-6b1dff461bc3",
+          "oldSlugs": [
+            "ruchka-kpp-lada-s-led-podsvetkoy-siniy"
+          ],
+          "images": [
+            "95a36adc-2d87-5a5e-ae09-7ac9e99ef8a6",
+            "13eab27e-7328-5dcc-a597-6308bf5f32f2",
+            "e26b2711-a55c-5e82-a496-bd65b30b37b1",
+            "bbd14618-1f1a-5496-a080-e819ffd30ad3",
+            "7cb2a3bf-5e8a-5c8d-a426-0ed91ef2297d",
+            "974ab8ec-d886-54a0-aee7-67336d44fe3b",
+            "8cf7c1d0-98d1-5324-ad38-3f7d4920698f",
+            "304b29c4-97f4-533b-a23d-ea9e13e0e8fc"
+          ]
+        },
+        {
+          "skuId": "f7262e2b-3547-531f-a8ac-f70886a9f9d6",
+          "article": "П2_ЛАДА_ЗЕЛЕНЫЙ",
+          "label": "Зелёная подсветка",
+          "price": "2250.00",
+          "sourceProductId": "2f71a0a9-87d3-5b2c-a98c-c88483e5d49e",
+          "oldSlugs": [
+            "ruchka-kpp-lada-s-led-podsvetkoy-zelenyy"
+          ],
+          "images": [
+            "53856952-c8e3-54f7-a0fb-eb46cd7f21ed",
+            "24371a82-8a9c-5900-aadf-f2279e8c797d",
+            "6468b8cb-37d9-5628-a275-b892621ef991",
+            "468faea9-1d5c-5565-a42a-8f0237388af2",
+            "e6edfa31-8db3-5cea-a9ed-0789c3bea9a4",
+            "9234a200-3fab-5480-a5a0-ea731ffc8bb5",
+            "c3b9cc1a-bdf2-566d-ad43-c2114ab85919",
+            "a1a1d32e-e223-503b-a736-f4e694fedeb1"
+          ]
+        },
+        {
+          "skuId": "abe8eab9-8553-54ed-af68-f6d9a5b8f2ad",
+          "article": "П2_ЛАДА_БЕЛЫЙ",
+          "label": "Белая подсветка",
+          "price": "2250.00",
+          "sourceProductId": "53d9462b-63cb-552b-a146-46f1c98e8dbc",
+          "oldSlugs": [
+            "ruchka-kpp-lada-s-led-podsvetkoy-belyy"
+          ],
+          "images": [
+            "e018247b-f09a-5785-af07-279544fcdde9",
+            "03fc9071-a5ff-5885-a0f1-5a75f39e6046",
+            "03082eda-4c40-5afb-acbe-746ac8fce3fd",
+            "1071f7cb-e5b6-521a-a3f1-cc237c2d4a98",
+            "149be9f5-5bc8-5011-ad76-1ddfd0dfd096",
+            "f4673259-b00a-5a65-ad34-24e43d697ac7",
+            "f25ebb47-adb9-557f-a713-0659ae3dd1d1"
+          ]
+        },
+        {
+          "skuId": "a7952823-cc58-5841-abda-d6ceca799752",
+          "article": "П2_ЛАДА_ФИОЛЕТОВЫЙ",
+          "label": "Фиолетовая подсветка",
+          "price": "2250.00",
+          "sourceProductId": "47753b5f-36a6-5119-a433-be5830fe07cd",
+          "oldSlugs": [
+            "ruchka-kpp-lada-s-led-podsvetkoy-fioletovyy"
+          ],
+          "images": [
+            "560916a0-fdcb-54c0-a2a1-582beb71ad94",
+            "73613827-612d-5ccf-a165-6e70a0675168",
+            "654398e5-aac0-5bdc-abe7-0e2a838c1d47"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ручка КПП с надписью «Приора» и подсветкой",
+      "productId": "36240a7e-bf1b-5935-a67e-725ea5c949f0",
+      "slug": "ruchka-kpp-s-nadpisyu-priora-i-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "6846f7d2-7987-511b-a7bc-1335324f95ad",
+          "article": "П2_ПРИОРА_БЕЛАЯ",
+          "label": "Белая подсветка",
+          "price": "2200.00",
+          "sourceProductId": "36240a7e-bf1b-5935-a67e-725ea5c949f0",
+          "oldSlugs": [
+            "ruchka-kpp-priora-s-led-podsvetkoy-belyy",
+            "wb-285165379"
+          ],
+          "images": [
+            "6d48453d-53fa-577c-a77f-afcda51f4200",
+            "3c0a01ed-19bb-5832-a917-d637f7867db4"
+          ]
+        },
+        {
+          "skuId": "d21cdd3e-7261-5f2b-ac6f-0257a93e9b02",
+          "article": "П2_ПРИОРА_КРАСНЫЙ",
+          "label": "Красная подсветка",
+          "price": "2300.00",
+          "sourceProductId": "bbbf735c-8f61-589e-a67b-ffcfd380ec15",
+          "oldSlugs": [
+            "ruchka-kpp-priora-s-led-podsvetkoy-krasnyy"
+          ],
+          "images": [
+            "8f65b3ad-f562-5392-a88f-1a3a607ce294",
+            "b22ff1d5-c666-5324-a577-a5b18510becd",
+            "7c61f8e5-fe28-53f0-a12f-cab85e572dac",
+            "bb65a475-8bb4-5fb8-a942-da9f55762e4a",
+            "cb46cf34-4dae-5229-a2db-501aa1f7c943",
+            "c2a867c4-1eed-53e8-a93f-0f3119903f82",
+            "f2f6566e-3c6a-562e-a409-818de4f35863",
+            "68a01e63-fce2-57d7-a19a-e73c84243083"
+          ]
+        },
+        {
+          "skuId": "46b3ac1d-8e8a-5302-aa33-2a342002eb8c",
+          "article": "П2_ПРИОРА_ЗЕЛЕНАЯ",
+          "label": "Зелёная подсветка",
+          "price": "2250.00",
+          "sourceProductId": "f29e1dbe-9e1d-53a2-ae23-fec9c40a1de7",
+          "oldSlugs": [
+            "ruchka-kpp-priora-s-led-podsvetkoy-zelenyy"
+          ],
+          "images": [
+            "b7fe7791-bac0-5261-aed8-ae96bcb0e1b2",
+            "aabf555e-06c3-519a-a2fb-80f66641eacc",
+            "428618c8-5da9-5647-a216-1fd631b5ca52",
+            "d128a9fe-6356-5948-a6eb-f50226aa43c3",
+            "3381df1d-9c4d-5c05-a540-ee07da31619f",
+            "2a3a8778-6c24-5e5c-a8ba-bfc31e1c1af5",
+            "267f7805-68d1-513e-aefd-e9b7fb9fe1f3"
+          ]
+        },
+        {
+          "skuId": "1fe7a3bc-7302-51f0-af5b-542a90c91eb0",
+          "article": "П2_ПРИОРА_СИНИЙ",
+          "label": "Синяя подсветка",
+          "price": "2250.00",
+          "sourceProductId": "e10530b3-7fdf-5319-ad3b-e402e6a17bfe",
+          "oldSlugs": [
+            "ruchka-kpp-priora-s-led-podsvetkoy-siniy"
+          ],
+          "images": [
+            "42e37f96-546d-5baa-a1eb-ddfce05b475f",
+            "88450269-fe23-5ea8-a5e3-54014f11025e",
+            "c2bdb62a-3b98-58a0-a4e4-79b92445ae5c",
+            "b4aeeff8-9f2e-5cf5-a4ce-8d2de4dc5c6b",
+            "1da12c9d-fddf-528b-a89c-9a2eef96e6a9",
+            "49a09a90-6a6f-59f0-ad50-36737ece6b2c",
+            "35952018-4fa7-538f-a924-b99d2099c2ef",
+            "8b113a20-ee04-5e92-a925-5eda38339247"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ручка КПП с надписью «Веста» и подсветкой",
+      "productId": "33589c91-428b-59c0-afdd-95e1abb91076",
+      "slug": "ruchka-kpp-s-nadpisyu-vesta-i-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "6d99383d-3d3c-5ba6-adc6-ef6009a8532f",
+          "article": "П2_ВЕСТА_БЕЛАЯ",
+          "label": "Белая подсветка",
+          "price": "2250.00",
+          "sourceProductId": "33589c91-428b-59c0-afdd-95e1abb91076",
+          "oldSlugs": [
+            "ruchka-kpp-s-led-podsvetkoy-belyy",
+            "wb-285178488"
+          ],
+          "images": [
+            "08885f9f-7aee-4905-bd12-039675fe11aa",
+            "5a1a6702-1854-53ec-a9d7-70436df477e9",
+            "9d0a6d48-5d43-5801-a118-f28cae2f70e5"
+          ]
+        },
+        {
+          "skuId": "fe5a66c2-1874-5c80-ab40-e87bacdc44ea",
+          "article": "П2_ВЕСТА_КРАСНАЯ",
+          "label": "Красная подсветка",
+          "price": "2250.00",
+          "sourceProductId": "60b04b25-693a-5ea0-a49b-2603e1960f8e",
+          "oldSlugs": [
+            "ruchka-kpp-s-led-podsvetkoy-krasnyy"
+          ],
+          "images": [
+            "f58230ea-6f31-5ae6-a832-2d0e0681d600",
+            "d08107cd-1084-5406-abdb-720cc2e91005",
+            "1f05b0be-1f7e-575b-ab4d-d7ae474c283d",
+            "b2071e65-e978-5f12-a408-46d2d15fe975",
+            "b824406b-c668-59f3-a59e-82785e16d74c",
+            "46b14cba-af9e-508c-a32e-b9bcdaa8e9d2",
+            "8333ae28-ffa6-50ff-adae-67dccbddebe6",
+            "1d88c2ac-8fd1-576e-a918-31ac80996b2b"
+          ]
+        },
+        {
+          "skuId": "eadccd15-bb5d-5823-aa5f-35c164e5a577",
+          "article": "П2_ВЕСТА_ФИОЛЕТОВЫЙ",
+          "label": "Фиолетовая подсветка",
+          "price": "2200.00",
+          "sourceProductId": "4130b955-ea10-5899-aaf2-f586ca0a2654",
+          "oldSlugs": [
+            "ruchka-kpp-s-led-podsvetkoy-fioletovyy"
+          ],
+          "images": [
+            "94646932-53dd-5a28-a954-85189e23bee8",
+            "61750117-962e-53ec-a83f-2663869a1e68",
+            "4b74477b-8271-55e7-ad99-3e243d45f7bd",
+            "3edf620d-a1f4-5175-a228-7f34c4e5808f"
+          ]
+        },
+        {
+          "skuId": "b61dbefb-137a-5478-ac43-1bb630aeabdb",
+          "article": "П2_ВЕСТА_ЗЕЛЕНАЯ",
+          "label": "Зелёная подсветка",
+          "price": "2200.00",
+          "sourceProductId": "612f086a-be12-560f-af92-814d72bc5c99",
+          "oldSlugs": [
+            "ruchka-kpp-s-led-podsvetkoy-zelenyy"
+          ],
+          "images": [
+            "8a1583aa-7de5-5c5d-af20-2e1e53c5e760",
+            "268c1686-302c-5e3f-a640-d8b637a4ed3b",
+            "aa953feb-2b83-5377-a201-8da0622bf1e2",
+            "fb2a557f-eef9-5381-af93-a19342cf34ca",
+            "d915a5ed-25fe-5d87-aee3-3db2bef0ac4d",
+            "3a0037db-06be-5396-af82-be98062547e2",
+            "d7eef4cb-2ed4-58ce-a29b-42d0b3c89a00",
+            "03bec9bf-c0b3-5e86-af0f-e0217919c549"
+          ]
+        },
+        {
+          "skuId": "3efe908d-ae01-547b-a62d-7ded3701d407",
+          "article": "П2_ВЕСТА_СИНЯЯ",
+          "label": "Синяя подсветка",
+          "price": "2250.00",
+          "sourceProductId": "52c3dc06-f12f-5eae-ac1c-4e2c53ae1dcd",
+          "oldSlugs": [
+            "ruchka-kpp-vesta-siniy"
+          ],
+          "images": [
+            "f4dda483-ac95-5cd2-a9fc-48565e6c09db",
+            "16252bb6-aab6-55ed-ad79-d5abd5573751",
+            "2458210d-4f5a-5bdd-ab00-3f314ac57941",
+            "b87ae9cd-c791-5b70-ab19-eb2b836ce545",
+            "19594f9b-3ed6-57aa-a3e0-49d5abfef4e7",
+            "62567564-bec8-51e6-aa09-3471308a38c0",
+            "1396e42b-08ac-53d3-a7e5-480997753daf",
+            "57aebe7a-0643-50a1-a1c8-aedfec7bb35e"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ручка КПП с надписью «Газель» и подсветкой",
+      "productId": "2cf29739-3f45-580c-a0da-7da33e2ecb7b",
+      "slug": "ruchka-kpp-s-nadpisyu-gazel-i-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "9e309957-9020-5b93-a290-42aa07c5132f",
+          "article": "П2_Газель_Синий",
+          "label": "Синяя подсветка",
+          "price": "2200.00",
+          "sourceProductId": "2cf29739-3f45-580c-a0da-7da33e2ecb7b",
+          "oldSlugs": [
+            "ruchka-kpp-dlya-tyuninga-gazel-siniy",
+            "wb-286355487"
+          ],
+          "images": [
+            "7440efa0-9168-5dc4-a906-01355d96c25c",
+            "8c82efe2-a19c-5cfa-acc9-5b91e2616037"
+          ]
+        },
+        {
+          "skuId": "7450e69b-5b77-5548-af0a-8a1ef28a33e2",
+          "article": "П2_Газель_Красный",
+          "label": "Красная подсветка",
+          "price": "2500.00",
+          "sourceProductId": "afdadd09-7900-54ef-aa16-5d402d3181bf",
+          "oldSlugs": [
+            "ruchka-kpp-dlya-tyuninga-gazel-krasnyy"
+          ],
+          "images": [
+            "1e530082-8b80-5ab8-a84b-312674da05b1",
+            "ba0e8939-6a07-5299-a2cc-17f5924bba26",
+            "eaa8a4aa-d9be-572c-a46a-52474a23c3e1",
+            "5ea0d886-3a7c-5ba4-afb4-5262d030ac85",
+            "f4240324-8a52-574a-a709-5a01522a69b5",
+            "84b2d363-bf93-524a-a87e-f1da11e2ac75",
+            "61c9c490-f209-5849-acc3-ed3c1072b7dd"
+          ]
+        },
+        {
+          "skuId": "16c0fc1e-b78d-56e9-a0f2-89c3cf4c7bc9",
+          "article": "П2_Газель_Белый",
+          "label": "Белая подсветка",
+          "price": "2200.00",
+          "sourceProductId": "49491126-0e75-5180-aa6b-b9caac903fce",
+          "oldSlugs": [
+            "ruchka-kpp-dlya-tyuninga-gazel-belyy"
+          ],
+          "images": [
+            "c89793e8-a41e-5069-ac57-5ff2a2eaba48",
+            "fe78ae3f-def4-5248-a564-542d54da8ef9",
+            "0e8d72b7-c86e-5304-a21a-e4536d98eece",
+            "fede7ea6-b67b-510c-a6e0-93db06801036",
+            "0a6ce49b-c59d-5a5a-a4fa-08982c84dd35",
+            "82d64a5c-13a8-5222-aa0a-85ec86f2d5ad",
+            "86289fbc-f72d-5a8b-a53d-1e903bbe2736"
+          ]
+        },
+        {
+          "skuId": "dcb2728a-d4a0-5275-a930-2cf3cfc817cc",
+          "article": "П2_Газель_ЗЕЛЕНЫЙ",
+          "label": "Зелёная подсветка",
+          "price": "2200.00",
+          "sourceProductId": "e3605e1a-6d1b-5258-a5a5-1d54ab5b7a1a",
+          "oldSlugs": [
+            "ruchka-kpp-dlya-tyuninga-gazel-zelenyy"
+          ],
+          "images": [
+            "c010aeb9-fa13-562b-a9c9-97db5af61a16",
+            "66f92913-b950-521c-a4d4-5628eaa51b65",
+            "01b2b434-ea80-506b-a9f6-30c3b4ae7172",
+            "2edb15b9-a96c-5563-a701-971aabb4ee6f",
+            "d7590634-4b79-594e-a977-4212330d98cb",
+            "c09bff2e-7526-5187-ae0e-481319371c43",
+            "7aa92046-1783-52cf-a194-b6e60da9408f"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ручка КПП с надписью «Гранта» и подсветкой",
+      "productId": "c2a0f9a7-a4d7-5371-a3c6-251c19713db5",
+      "slug": "ruchka-kpp-s-nadpisyu-granta-i-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "64a93109-8834-5296-ad7a-cc74d10dedbd",
+          "article": "П2_ГРАНТА_СИНИЙ",
+          "label": "Синяя подсветка",
+          "price": "2200.00",
+          "sourceProductId": "c2a0f9a7-a4d7-5371-a3c6-251c19713db5",
+          "oldSlugs": [
+            "ruchka-kpp-granta-s-podsvetkoy-siniy",
+            "wb-287796872"
+          ],
+          "images": [
+            "3c0cd863-7ca6-5d8d-a8bd-92d17eded05f",
+            "c30ab912-4544-522a-aefc-5506475de6bd"
+          ]
+        },
+        {
+          "skuId": "42f3fd46-a0af-53ac-a7e9-4640741ed994",
+          "article": "П2_ГРАНТА_ЗЕЛЕНЫЙ",
+          "label": "Зелёная подсветка",
+          "price": "2250.00",
+          "sourceProductId": "ab194b78-2d53-50b5-a6a1-0204135342d8",
+          "oldSlugs": [
+            "ruchka-kpp-granta-s-podsvetkoy-zelenyy"
+          ],
+          "images": [
+            "4f2d9126-7ed2-5aa8-a91a-0a9352e0d7b2",
+            "63edfc9b-6dae-59a1-a73e-fc03d28e615a",
+            "a752d45b-47ee-54e6-a3ce-3d9c0ba48230",
+            "cb1472db-c715-5026-afdf-7061b7542415",
+            "c5403826-1f4f-5e46-a9a2-0c292693eb57",
+            "6c3deb52-8ad9-5483-a533-a080192627c1",
+            "a8d378fa-5910-58d6-a7f8-6dde81022a10"
+          ]
+        },
+        {
+          "skuId": "97f5669e-d0ce-54f3-a8e5-d8605e5537aa",
+          "article": "П2_ГРАНТА_КРАСНЫЙ",
+          "label": "Красная подсветка",
+          "price": "2200.00",
+          "sourceProductId": "0220e8ae-c21c-5d26-a1f5-785af3ed40c4",
+          "oldSlugs": [
+            "ruchka-kpp-granta-s-podsvetkoy-krasnyy"
+          ],
+          "images": [
+            "e758430d-454c-5744-a98e-0745ecdb6949",
+            "90dde3c1-c918-5eb2-a19b-7ecd770ac804",
+            "2c8a928d-2cba-51fb-a0ed-a40ec1e851b6",
+            "79e84c05-70c2-5bff-a762-79e5e325b511",
+            "83b2cd23-bd99-5473-a2ba-4211d80f2261",
+            "344c1bdc-20f2-5bc6-a050-0fa5148a56e6",
+            "8e2de384-8313-5705-a9ea-609ed3bd273c"
+          ]
+        },
+        {
+          "skuId": "e229081a-b449-5912-a39e-c46bfe8e7b9e",
+          "article": "П2_ГРАНТА_БЕЛЫЙ",
+          "label": "Белая подсветка",
+          "price": "2200.00",
+          "sourceProductId": "7d990914-bc98-544e-aafa-1eab1c60ec0e",
+          "oldSlugs": [
+            "ruchka-kpp-granta-s-podsvetkoy-belyy"
+          ],
+          "images": [
+            "6122ebd1-c254-5776-a491-36fff34750ce",
+            "19d95be8-918e-5d55-aa65-406bcd547afc",
+            "57f6e9b6-9082-5e8e-a64d-5cbd2a93520a",
+            "90bb0e71-ae03-5484-a37f-b5e9cd73bba6",
+            "4da15105-4540-592c-afcd-421ad2e535d8",
+            "569cb007-b4dd-55f9-a32a-453b71dd678c",
+            "748d781c-eb8e-54ae-a4c1-f42b749ea9df"
+          ]
+        },
+        {
+          "skuId": "298c3977-557f-5c64-a819-e87c80fbd6fa",
+          "article": "П2_ГРАНТА_ФИОЛЕТОВЫЙ",
+          "label": "Фиолетовая подсветка",
+          "price": "2200.00",
+          "sourceProductId": "2d94cc23-6d42-5303-af9f-bfb644521f4d",
+          "oldSlugs": [
+            "ruchka-kpp-granta-s-podsvetkoy-fioletovyy"
+          ],
+          "images": [
+            "460c21fc-c669-5df2-aa43-9a6e97f10261",
+            "d765be48-9a82-5764-acc4-f91b1ae8ba24",
+            "db6b8615-1ffa-5427-a11b-3a90d4e85297",
+            "cb8fd1c5-dc1b-5b70-af81-db28994cbd32",
+            "58ee500f-b676-5b73-a4ef-0cee18cc5fd6",
+            "4eb868a1-9e31-5040-a976-3efce202542a",
+            "993d594e-8c05-58bc-a23b-a819520284e0"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ручка КПП с надписью «Калина» и подсветкой",
+      "productId": "543252b6-abdf-5634-a87f-013f796b7e46",
+      "slug": "ruchka-kpp-s-nadpisyu-kalina-i-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "c1505bcb-f447-5b0c-a13f-13e24dbfcdb2",
+          "article": "П2_КАЛИНА_БЕЛЫЙ",
+          "label": "Белая подсветка",
+          "price": "2200.00",
+          "sourceProductId": "543252b6-abdf-5634-a87f-013f796b7e46",
+          "oldSlugs": [
+            "ruchka-kpp-kalina-s-podsvetkoy-belyy",
+            "wb-287995949"
+          ],
+          "images": [
+            "228f4a32-dde8-5189-a9f9-72d5beae6449",
+            "0fb7ba25-4b19-5471-a7f1-169dec2dee5d"
+          ]
+        },
+        {
+          "skuId": "16b3f2c0-e072-5eb3-a679-0c18a439c7ca",
+          "article": "П2_КАЛИНА_КРАСНЫЙ",
+          "label": "Красная подсветка",
+          "price": "2200.00",
+          "sourceProductId": "060851d9-5109-5eb6-a299-0126a9ab0a78",
+          "oldSlugs": [
+            "ruchka-kpp-kalina-s-podsvetkoy-krasnyy"
+          ],
+          "images": [
+            "552b3c6c-593b-531a-a09b-f71e1caa098c",
+            "e4d29248-fa8f-547d-a7b0-86f1d9c6fbe5",
+            "abbcf962-3fea-5ca4-a7c1-addb5bf8fc32",
+            "ddcfcb4d-c98d-520d-ac99-83163f783470",
+            "99729ac8-2382-574e-ad8b-f7745aa6ef4a",
+            "40423ca6-f915-5ec6-a054-45c1212fb45e",
+            "767eec8e-e6c1-5099-a56b-99051504e54b"
+          ]
+        },
+        {
+          "skuId": "3108ecd3-a3aa-585b-a5b3-fceb4256b6d7",
+          "article": "П2_КАЛИНА_ФИОЛЕТОВЫЙ",
+          "label": "Фиолетовая подсветка",
+          "price": "2200.00",
+          "sourceProductId": "35f710e3-e5fb-5097-a7c6-e1d8b9b3ccea",
+          "oldSlugs": [
+            "ruchka-kpp-kalina-s-podsvetkoy-fioletovyy"
+          ],
+          "images": [
+            "037d2fb9-c1f7-5d13-a394-2c743da3f751",
+            "17b72187-705f-5a45-a9bb-48fc680abfa1",
+            "04463cd4-d4eb-53ac-a0e3-fe78eeb55776",
+            "f0d6fe7f-27db-513d-ab08-22b9127fd7e8",
+            "f1374c42-03fd-52c2-a67a-b2c486c22bc6",
+            "8b88b165-79a7-51e2-ab63-fe5c38fc925b",
+            "745cc7d8-b5d7-57b8-aa7f-722f7444f178"
+          ]
+        },
+        {
+          "skuId": "20a31ea5-8121-5e7a-a851-b89fe4fcb4bc",
+          "article": "П2_КАЛИНА_ЗЕЛЕНЫЙ",
+          "label": "Зелёная подсветка",
+          "price": "2250.00",
+          "sourceProductId": "58384a9b-614b-5d60-adf6-2c4d6d02ff63",
+          "oldSlugs": [
+            "ruchka-kpp-kalina-s-podsvetkoy-zelenyy"
+          ],
+          "images": [
+            "0500431f-4fc2-53f1-ac11-bb2046b32688",
+            "e7ba84f7-957c-522a-a6db-846b7363ebcc",
+            "ac2cf604-cdbc-50a3-ac96-e4b44bb8369a",
+            "54bafc43-c267-52bd-ab37-f554dc080706",
+            "87845788-30bd-5a06-a83d-0b6025516769",
+            "0e303db9-8428-54d6-a296-4c8cb351e850",
+            "69b3a253-e2e6-5e85-a54c-33e705f0268b"
+          ]
+        },
+        {
+          "skuId": "070a4c4e-4825-5e6b-a524-92e18e1975d1",
+          "article": "П2_КАЛИНА_СИНИЙ",
+          "label": "Синяя подсветка",
+          "price": "2200.00",
+          "sourceProductId": "70353476-b0a4-5fc8-a6ae-f6022c84088a",
+          "oldSlugs": [
+            "ruchka-kpp-kalina-s-podsvetkoy-siniy"
+          ],
+          "images": [
+            "c6269a9e-d9d7-53de-aa62-9aacb60de4fb",
+            "8fa24d24-27bd-52e7-a059-59f082971378",
+            "6892de9e-3762-55ca-a3d2-c1da0656e33a",
+            "95f8f054-2a52-5605-af10-9eec6064e1f4",
+            "fbd77d5b-42bb-5d20-aace-b640648644a3",
+            "c9db1f39-0e3b-58ca-a55b-5f31701680cd",
+            "413ad86f-780b-5fcb-afd5-d9227185be9c"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ручка КПП в стиле Веста с цветной строчкой и подсветкой",
+      "productId": "4e5b24f1-1cad-572b-a160-f9fc709ae897",
+      "slug": "ruchka-kpp-v-stile-vesta-s-tsvetnoy-strochkoy-i-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "b5f46a05-3e70-57db-a2d7-4fcd03381184",
+          "article": "п1_краснстрочка_красный",
+          "label": "Красная строчка · красная подсветка",
+          "price": "2820.00",
+          "sourceProductId": "4e5b24f1-1cad-572b-a160-f9fc709ae897",
+          "oldSlugs": [
+            "ruchka-kpp-stil-vesta-vaz-2113-2114-2115-krasnyy",
+            "wb-311024526"
+          ],
+          "images": [
+            "0142afa9-7270-58e0-a947-7a9cfe550891",
+            "e80aa9ef-897c-51b1-a75a-695e959c410b"
+          ]
+        },
+        {
+          "skuId": "a23cf761-5342-5e75-a8b2-66120c8d4d16",
+          "article": "п1_зеленстрочка_зеленая",
+          "label": "Зелёная строчка · зелёная подсветка",
+          "price": "2820.00",
+          "sourceProductId": "b9f25533-9d3e-573a-a668-6b70d0beb2d7",
+          "oldSlugs": [
+            "ruchka-kpp-stil-vesta-vaz-2113-2114-2115-zelenyy-p1-zelenstrochka-zelenaya",
+            "wb-311896585"
+          ],
+          "images": [
+            "735533e7-be4b-57e9-a823-4df63adbd627",
+            "cf98f711-1a4d-52ac-a669-59a10f990a2a"
+          ]
+        },
+        {
+          "skuId": "43ad2388-4fb2-5e03-aee0-e301b5775a51",
+          "article": "п1_синяястрочка_синий",
+          "label": "Синяя строчка · синяя подсветка",
+          "price": "2820.00",
+          "sourceProductId": "f3fc740b-083a-5ebd-a995-38354cbda33e",
+          "oldSlugs": [
+            "ruchka-kpp-stil-vesta-vaz-2113-2114-2115-siniy-p1-sinyayastrochka-siniy",
+            "wb-311902127"
+          ],
+          "images": [
+            "7a7b7842-f0f0-518a-a93e-663b52eca2d2",
+            "30439af3-ddba-5b72-a655-6e51d23c9f1b"
+          ]
+        },
+        {
+          "skuId": "aec406b0-64dc-5879-a6bf-754be6adcf3b",
+          "article": "п1_краснстрочка_синий",
+          "label": "Красная строчка · синяя подсветка",
+          "price": "2820.00",
+          "sourceProductId": "a0d9a54c-08b4-5a0e-ae6d-8a6705fef021",
+          "oldSlugs": [
+            "ruchka-kpp-stil-vesta-vaz-2113-2114-2115-siniy"
+          ],
+          "images": [
+            "fdd40f4c-12de-569c-a833-6ef9ff7af847",
+            "d1c6e11b-2e45-5e50-a5ac-6d10940e5402",
+            "a20a5cfa-4743-572a-a603-3e1d6c6f16c5",
+            "b8526af3-ed52-5b11-a83b-fc3338a9a9f6"
+          ]
+        },
+        {
+          "skuId": "710f8164-77f6-5a3d-a373-fe5c7a45483f",
+          "article": "п1_краснстрочка_зеленая",
+          "label": "Красная строчка · зелёная подсветка",
+          "price": "2820.00",
+          "sourceProductId": "a236ff15-6818-51be-a6b9-bce22ecd42f5",
+          "oldSlugs": [
+            "ruchka-kpp-stil-vesta-vaz-2113-2114-2115-zelenyy"
+          ],
+          "images": [
+            "686dfd53-f191-5e18-aa8d-30d1b6328dd8",
+            "87a2b3b6-b7b3-5e04-af9a-31636e1e0f9d",
+            "8e6cea77-b939-545f-a826-4b123b3726b1",
+            "2124abba-fe6c-5e33-ac0d-a712b170ab5f"
+          ]
+        },
+        {
+          "skuId": "4db13721-3d78-5ace-a3e5-20d2ccaf3e06",
+          "article": "п1_краснстрочка_белая",
+          "label": "Красная строчка · белая подсветка",
+          "price": "2820.00",
+          "sourceProductId": "7bf8e488-a53b-5142-a84b-ed1d08dfe0c5",
+          "oldSlugs": [
+            "ruchka-kpp-stil-vesta-vaz-2113-2114-2115-belyy"
+          ],
+          "images": [
+            "ab25e67a-e216-5c31-ac08-1c1aa8d25ca2",
+            "975869d6-1053-56e1-acca-d848dc9c59c3",
+            "022cca7e-abab-5aab-a661-5c36993717a6",
+            "c3e0cb17-b248-5f96-ab21-78e4d1006f71"
+          ]
+        },
+        {
+          "skuId": "e9c8ba94-b21a-590d-a657-cc683ae76547",
+          "article": "п1_зеленстрочка_белая",
+          "label": "Зелёная строчка · белая подсветка",
+          "price": "2820.00",
+          "sourceProductId": "5192cee5-29b3-5f45-acf1-d7f1ebcc7701",
+          "oldSlugs": [
+            "ruchka-kpp-stil-vesta-vaz-2113-2114-2115-belyy-p1-zelenstrochka-belaya"
+          ],
+          "images": [
+            "09816098-9426-5e5e-ae4b-e5b77c278545",
+            "b8bfc239-8925-5bb2-a2eb-5ff63731b833",
+            "e1628b89-eec0-54c8-ac62-3664c7c36dab",
+            "a9d541d6-c09d-51d5-afcc-8c71b306a2f4"
+          ]
+        },
+        {
+          "skuId": "313b4a69-e433-5b89-a4d7-e9fa827f6a9e",
+          "article": "п1_зеленстрочка_красный",
+          "label": "Зелёная строчка · красная подсветка",
+          "price": "2820.00",
+          "sourceProductId": "b5493d6e-1e8f-5826-a17b-eca0c3620091",
+          "oldSlugs": [
+            "ruchka-kpp-stil-vesta-vaz-2113-2114-2115-krasnyy-p1-zelenstrochka-krasnyy"
+          ],
+          "images": [
+            "e627dd43-e3b9-5e50-a936-97b74321dabb",
+            "40ed98b3-91f8-5953-afee-b72790cc6d14",
+            "29397d63-04cc-5af6-a3e1-ff91ccec7a45",
+            "5176346f-704e-521d-a828-05e9ae108d40"
+          ]
+        },
+        {
+          "skuId": "587a43c3-3254-537f-a156-f45ec2f2840b",
+          "article": "п1_зеленстрочка_синий",
+          "label": "Зелёная строчка · синяя подсветка",
+          "price": "2820.00",
+          "sourceProductId": "25a808e5-c9e7-5ae8-a68c-895bbbbb946c",
+          "oldSlugs": [
+            "ruchka-kpp-stil-vesta-vaz-2113-2114-2115-siniy-p1-zelenstrochka-siniy"
+          ],
+          "images": [
+            "c0485d8d-d234-5c26-a13c-816c6265de4f",
+            "2abadd03-3205-5e72-aa24-333727e2ed2c",
+            "dccf1988-512c-51d3-a653-db782106bdf9",
+            "62a1774a-b5b0-59d2-a9c0-e9910b2d733e"
+          ]
+        },
+        {
+          "skuId": "368d9a05-0198-5262-a5fc-8c4f573cb2b5",
+          "article": "п1_синяястрочка_белый",
+          "label": "Синяя строчка · белая подсветка",
+          "price": "2820.00",
+          "sourceProductId": "2f48c1ff-27e3-5ec6-abe1-98d2de73c034",
+          "oldSlugs": [
+            "ruchka-kpp-stil-vesta-vaz-2113-2114-2115-belyy-p1-sinyayastrochka-belyy"
+          ],
+          "images": [
+            "90be1ea3-9685-52a1-af1a-9888bef0271f",
+            "74b452b6-ba48-5819-abd0-6e956b4f9c3b",
+            "489dafc2-4f19-50e4-af71-de78f9b97cb0",
+            "00d01f5c-8052-5de9-a7f5-b5267803955c"
+          ]
+        },
+        {
+          "skuId": "a0ddaee8-3e91-5195-a5cd-162982c0872b",
+          "article": "п1_синяястрочка_красный",
+          "label": "Синяя строчка · красная подсветка",
+          "price": "2820.00",
+          "sourceProductId": "88704266-06f4-53a5-adc1-a30555f8f18a",
+          "oldSlugs": [
+            "ruchka-kpp-stil-vesta-vaz-2113-2114-2115-krasnyy-p1-sinyayastrochka-krasnyy"
+          ],
+          "images": [
+            "255c47cf-bab7-5ffc-aaaa-44d79ea585e4",
+            "4b4e607f-cd45-5797-a1f8-994e6b672a7a",
+            "e76c1574-be68-5831-a394-22b057f9ba7c",
+            "6b091528-877b-5d95-a447-7be2f79ca873"
+          ]
+        },
+        {
+          "skuId": "ccc26437-7e61-557a-ace2-1a208948a644",
+          "article": "п1_синяястрочка_зеленый",
+          "label": "Синяя строчка · зелёная подсветка",
+          "price": "2820.00",
+          "sourceProductId": "3b60ab92-6568-5790-a896-ac09cace27cb",
+          "oldSlugs": [
+            "ruchka-kpp-stil-vesta-vaz-2113-2114-2115-zelenyy-p1-sinyayastrochka-zelenyy"
+          ],
+          "images": [
+            "09f05f03-2382-5489-a0fc-2aa8d6b261df",
+            "7afc1d64-62b5-50bf-a543-7c6a8cbc083b",
+            "814ae839-40c7-527c-aba3-391edddce760",
+            "e5bea505-94b4-5b49-a18f-2317dd3c8cee"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ручка КПП с надписью «Лада», цветной строчкой и подсветкой",
+      "productId": "ed447ba0-4512-53c3-aaa9-9e5ba3f33e4c",
+      "slug": "ruchka-kpp-s-nadpisyu-lada-tsvetnoy-strochkoy-i-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "a1962dc5-e86e-5b4c-a6a7-d8f62928bff7",
+          "article": "п1_зеленаястрочка_лада_зеленая",
+          "label": "Зелёная строчка · зелёная подсветка",
+          "price": "2820.00",
+          "sourceProductId": "ed447ba0-4512-53c3-aaa9-9e5ba3f33e4c",
+          "oldSlugs": [
+            "ruchka-kpp-lada-stil-vesta-zelenyy",
+            "wb-311906666"
+          ],
+          "images": [
+            "f4e12585-79ed-5f51-aed7-2a33acf72137",
+            "1a7a97de-a0cd-5f23-af64-9fe351c359bd"
+          ]
+        },
+        {
+          "skuId": "3ae81d54-aabf-5238-a5f9-c1c2dc892fad",
+          "article": "п1_краснаястрочка_лада_красная",
+          "label": "Красная строчка · красная подсветка",
+          "price": "2820.00",
+          "sourceProductId": "04c5a03e-396e-5985-ad12-303b4b941aab",
+          "oldSlugs": [
+            "ruchka-kpp-lada-stil-vesta-krasnyy"
+          ],
+          "images": [
+            "a576dc5b-a21d-5ba2-a437-e04e0ba92876",
+            "119a52c9-f378-59e5-a0a7-4f44d4c41786",
+            "0f77643b-1729-5c18-ac47-9feafd1f1616",
+            "d144ab1b-6042-5260-a462-85997876635e"
+          ]
+        },
+        {
+          "skuId": "2d7ac6a6-a8bd-5c13-a8ea-244e19e24368",
+          "article": "п1_синяястрочка_лада_синяя",
+          "label": "Синяя строчка · синяя подсветка",
+          "price": "2820.00",
+          "sourceProductId": "7f22a31f-bbfe-5d7c-aa46-e35be291afc5",
+          "oldSlugs": [
+            "ruchka-kpp-lada-stil-vesta-siniy"
+          ],
+          "images": [
+            "c404c866-1901-5ba5-a3c2-819a62f319bf",
+            "bf953349-6ad7-5512-aaba-dd833262ba97",
+            "ec415122-cde7-516c-a5fb-5290cd973dbd"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ручка КПП Приора 2 с красной строчкой и подсветкой",
+      "productId": "c7c66a55-e903-5865-ab37-a21017076bfa",
+      "slug": "ruchka-kpp-priora-2-s-krasnoy-strochkoy-i-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "9ccd477d-1a7c-59f3-a6fc-04faf1345372",
+          "article": "п2_краснаястрочка_красная",
+          "label": "Красная подсветка",
+          "price": "2700.00",
+          "sourceProductId": "c7c66a55-e903-5865-ab37-a21017076bfa",
+          "oldSlugs": [
+            "ruchka-kpp-priora-2-krasnyy",
+            "wb-312802689"
+          ],
+          "images": [
+            "41751ff1-5bf1-5cca-af9c-c1152eae370c",
+            "893f21e5-1b03-5416-a1e0-5aeabada44ae"
+          ]
+        },
+        {
+          "skuId": "23655bf5-2129-52a1-ac17-4fa440a37020",
+          "article": "п2_краснаястрочка_зеленый",
+          "label": "Зелёная подсветка",
+          "price": "2820.00",
+          "sourceProductId": "034769d1-01f4-58d2-ab11-f674e7351eda",
+          "oldSlugs": [
+            "ruchka-kpp-priora-2-zelenyy"
+          ],
+          "images": [
+            "fde99944-4246-514c-a979-c40545de944d",
+            "64ad9c48-dcf3-5402-a61f-eb1c17496012",
+            "2c0b956b-1982-55f7-a2b3-cba207d2e572",
+            "d1d29241-f6e2-598f-a9da-7fbbf9a582e8"
+          ]
+        },
+        {
+          "skuId": "ed52ea5c-744d-5c1c-a0b3-ed6237f72ed5",
+          "article": "п2_краснаястрочка_синий",
+          "label": "Синяя подсветка",
+          "price": "2820.00",
+          "sourceProductId": "3b557517-fc7b-5029-a895-9981e2307d57",
+          "oldSlugs": [
+            "ruchka-kpp-priora-2-siniy"
+          ],
+          "images": [
+            "f34ea7a2-e392-5626-a50a-415b01093047",
+            "5e44ce5a-0a43-50bd-a485-48aceb49f57b",
+            "2443e8cf-2636-5845-a901-544987580930",
+            "fc51b410-d9c4-53e9-a0de-6ad0da2e0af8"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Блок отопителя Гранта и Калина с подсветкой — тепло сверху",
+      "productId": "32761a44-6ee1-4129-b4e5-e500238e5be1",
+      "slug": "blok-otopitelya-granta-i-kalina-s-podsvetkoy-teplo-sverhu",
+      "variants": [
+        {
+          "skuId": "a7b1a2da-7526-4d39-813f-7c5b1cf18182",
+          "article": "гранта зеленая",
+          "label": "Зелёная подсветка",
+          "price": "1800.00",
+          "sourceProductId": "32761a44-6ee1-4129-b4e5-e500238e5be1",
+          "oldSlugs": [
+            "heater-granta"
+          ],
+          "images": [
+            "61702159-67c1-5d10-a6c5-83420675a601",
+            "dd128d7d-efe4-53e4-ab73-d094ef80017a"
+          ]
+        },
+        {
+          "skuId": "42321fa2-f5aa-5a6d-aebf-043df85e898e",
+          "article": "OBL-GRANT-BLU",
+          "label": "Синяя подсветка",
+          "price": "3250.00",
+          "sourceProductId": "d7d4ec0d-4639-5ebd-afe9-85640da7d667",
+          "oldSlugs": [
+            "ruchki-bloka-otopitelya-s-podsvetkoy-siniy",
+            "wb-225680024"
+          ],
+          "images": [
+            "e650b2cc-b9a2-54d5-a43a-8371df5a8dde",
+            "e1d16fd2-dece-544c-aee4-f48290871b54"
+          ]
+        },
+        {
+          "skuId": "b41b8791-94e3-5c0e-a08f-97c89e5d0f22",
+          "article": "OBL-GRANT-WHT",
+          "label": "Белая подсветка",
+          "price": "3250.00",
+          "sourceProductId": "19022738-6047-5aab-ad46-f7c3a6607b59",
+          "oldSlugs": [
+            "ruchki-bloka-otopitelya-s-podsvetkoy-belyy"
+          ],
+          "images": [
+            "3a5c9299-e68d-58f5-a8d5-e8fb5fb60a06",
+            "2d13d04f-242c-5d28-a404-85d1900bc422",
+            "0cacf125-8439-5420-ab6e-cb981656ef54"
+          ]
+        },
+        {
+          "skuId": "e6393a92-3b9d-521b-aeb7-4f93cdd96073",
+          "article": "OBL-GRANT-RED",
+          "label": "Красная подсветка",
+          "price": "3250.00",
+          "sourceProductId": "b56383b5-6e7c-5f19-a0c9-e5c3bf750ea8",
+          "oldSlugs": [
+            "blok-otopitelya-granta-krasnyy"
+          ],
+          "images": [
+            "9bc30b55-b39d-5206-a3ed-abe403c2f7ac",
+            "b0a1a283-efbd-5a64-aed8-f6a95218c900",
+            "8630493c-564c-52cc-ac05-e4130e963c6a"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Блок отопителя Гранта и Калина с подсветкой — холод сверху",
+      "productId": "914da3ba-221b-548d-a112-7e6235731487",
+      "slug": "blok-otopitelya-granta-i-kalina-s-podsvetkoy-holod-sverhu",
+      "variants": [
+        {
+          "skuId": "8d8b7edc-c9fe-597a-a6df-d25b99366047",
+          "article": "OBL-GRANT-WHT2",
+          "label": "Белая подсветка",
+          "price": "3250.00",
+          "sourceProductId": "914da3ba-221b-548d-a112-7e6235731487",
+          "oldSlugs": [
+            "ruchki-bloka-otopitelya-s-podsvetkoy-belyy-obl-grant-wht2",
+            "wb-235488550"
+          ],
+          "images": [
+            "a38ed364-4236-516e-aeea-3f56fa5d521f",
+            "c2b59d2e-22cc-5b51-ac30-0988333901e5"
+          ]
+        },
+        {
+          "skuId": "9c005261-43fb-5196-a0ed-f5c4e40b52dc",
+          "article": "OBL-GRANT-GREEN2",
+          "label": "Зелёная подсветка",
+          "price": "3250.00",
+          "sourceProductId": "c9540c1e-c4be-5d6e-a8d1-232643cca31c",
+          "oldSlugs": [
+            "ruchki-bloka-otopitelya-s-podsvetkoy-zelenyy"
+          ],
+          "images": [
+            "82d5c8a3-120f-5e47-ab11-64f533d43ab1",
+            "5575219c-81f7-5b2d-a203-1fbb0c9cf81a",
+            "646a4b9b-8bc0-5c25-acb9-c26793f9e234"
+          ]
+        },
+        {
+          "skuId": "2bb75bdc-65cc-5114-ad6a-23c2189efb5d",
+          "article": "OBL-GRANT-RED2",
+          "label": "Красная подсветка",
+          "price": "3250.00",
+          "sourceProductId": "df463b2e-badb-5c1a-ae0d-851a8eae3fba",
+          "oldSlugs": [
+            "ruchki-bloka-otopitelya-s-podsvetkoy-krasnyy"
+          ],
+          "images": [
+            "6c86a62d-bc6c-58f4-a724-dc4345ee289c",
+            "3d5013ec-3167-5e98-ad10-0a23984071ed",
+            "da84d423-7270-5dbb-ac24-4c890d6c0a03"
+          ]
+        },
+        {
+          "skuId": "009f1f33-23f3-568e-a324-deebdcf56da9",
+          "article": "гранта-синяя-спорт",
+          "label": "Синяя подсветка",
+          "price": "3250.00",
+          "sourceProductId": "d2e056ba-2f4e-5170-acdf-a2c1899dd448",
+          "oldSlugs": [
+            "ruchki-bloka-otopitelya-dlya-granta-s-podsvetkoy-siniy"
+          ],
+          "images": [
+            "e696b48f-8dd7-5b57-a29e-d1cf984b0475",
+            "6484f3a5-b15a-5d9f-abef-cfecc37a43a6"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LED-панель отопителя ВАЗ 2110–2112 с подсветкой",
+      "productId": "f59beb83-9a76-5f50-ac1b-1b0facb0fd04",
+      "slug": "led-panel-otopitelya-vaz-2110-2112-s-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "a006e9e9-aa33-5fd1-a364-2d90a0db95cc",
+          "article": "2110-евро-белая",
+          "label": "Белая подсветка",
+          "price": "3300.00",
+          "sourceProductId": "f59beb83-9a76-5f50-ac1b-1b0facb0fd04",
+          "oldSlugs": [
+            "led-panel-otopitelya-na-vaz-2110-belaya",
+            "wb-317868927"
+          ],
+          "images": [
+            "40e1ce05-6960-475a-aa3e-d00e73839a2b",
+            "cc4849e7-8dea-5512-ae58-3743fc45d037",
+            "0f412633-87de-5a05-a0f3-33ca9a14c942"
+          ]
+        },
+        {
+          "skuId": "85e24855-3caa-5b5d-ada6-235ef778dbc0",
+          "article": "2110-евро-зеленая",
+          "label": "Зелёная подсветка",
+          "price": "3300.00",
+          "sourceProductId": "ca29ce47-97b3-5e44-afc9-0a71c337fb52",
+          "oldSlugs": [
+            "blok-otopitelya-na-vaz-2110-zelenyy"
+          ],
+          "images": [
+            "8996eb31-8103-5a37-a154-0da321e4a441",
+            "076ffb19-6c0b-5abf-a95d-351040157cf2",
+            "7ed80aa7-eb35-59f4-a34c-6de5e50e473f"
+          ]
+        },
+        {
+          "skuId": "252dffa4-0a68-53d2-adf7-c42b8fb6fa79",
+          "article": "2110-евро-синий",
+          "label": "Синяя подсветка",
+          "price": "3300.00",
+          "sourceProductId": "143f2fe3-2eea-523f-a12a-c078d45f70eb",
+          "oldSlugs": [
+            "oblitsovka-otopitelya-na-vaz-2110-2112-siniy"
+          ],
+          "images": [
+            "d2425f53-fa10-5da4-a165-bd65e3d825b6",
+            "9a017cbd-7d14-594f-a716-0b2cfb35e654",
+            "43d9008c-b363-5865-a2ea-f865a97910df"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Блок отопителя ВАЗ 2113, 2114, 2115 с подсветкой",
+      "productId": "6f927dfc-6d9b-5177-aef3-c4262a13e2ce",
+      "slug": "blok-otopitelya-vaz-2113-2114-2115-s-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "4eded112-bf45-54c2-a546-0d2c7675cf50",
+          "article": "2114-синий",
+          "label": "Синяя подсветка",
+          "price": "3300.00",
+          "sourceProductId": "6f927dfc-6d9b-5177-aef3-c4262a13e2ce",
+          "oldSlugs": [
+            "aksessuar-pechki-dlya-vaz-2114-2113-2115-siniy",
+            "wb-317890736"
+          ],
+          "images": [
+            "a630a3d1-5cea-56f0-ab8d-f0d67092d0da",
+            "01401125-32b8-5a09-a115-322977dbd425"
+          ]
+        },
+        {
+          "skuId": "b6304150-8994-5827-ab6a-b44f94ad5495",
+          "article": "2114-зеленый",
+          "label": "Зелёная подсветка",
+          "price": "3300.00",
+          "sourceProductId": "3a537585-18c4-5fff-a5c8-78784e54e407",
+          "oldSlugs": [
+            "panel-otopitelya-s-podsvetkoy-dlya-2113-2114-2115-zelenyy",
+            "wb-317895736"
+          ],
+          "images": [
+            "74381dc1-9a1d-514e-a9dc-15b0efc3358a",
+            "34d4f3bc-9f83-50e6-a25b-3b4bf6d29928"
+          ]
+        },
+        {
+          "skuId": "b919689b-6f9e-59aa-a040-f9acd8320c31",
+          "article": "2114-красный",
+          "label": "Красная подсветка",
+          "price": "3300.00",
+          "sourceProductId": "a8075912-6677-5ec2-a4c2-78ef7589bead",
+          "oldSlugs": [
+            "blok-otopitelya-s-podsvetkoy-dlya-2113-2114-2115-krasnyy"
+          ],
+          "images": [
+            "f7b5aa03-f12d-5b65-a620-877e2b8502ac",
+            "c06ffaaa-dd41-53c4-ac49-b32fe405a374",
+            "0869d46d-d09f-5dc5-acf2-35ea2ea5f642"
+          ]
+        },
+        {
+          "skuId": "8fdf4ac1-ae17-5477-ad9d-5e9b4cfa0a59",
+          "article": "2114-белый",
+          "label": "Белая подсветка",
+          "price": "3300.00",
+          "sourceProductId": "5205aa7c-5f05-5a05-ac05-acbfb06e7c34",
+          "oldSlugs": [
+            "led-panel-otopitelya-dlya-2113-2114-2115-s-podsvetkoy-belyy"
+          ],
+          "images": [
+            "de962435-7e46-5171-ac30-ce281887e6d4",
+            "7f88680c-5dca-5a3c-a81a-d01399bdae0e",
+            "514b8009-f7a1-581a-a1e8-2b5c5720deac"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Блок отопителя Лада Приора 1 с подсветкой",
+      "productId": "0f11bcb0-8edf-59b0-af0a-5e366b29df9e",
+      "slug": "blok-otopitelya-lada-priora-1-s-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "b73e0f23-8799-5cd8-ab17-e262cdaf8b22",
+          "article": "приора1-зеленый",
+          "label": "Зелёная подсветка",
+          "price": "2500.00",
+          "sourceProductId": "0f11bcb0-8edf-59b0-af0a-5e366b29df9e",
+          "oldSlugs": [
+            "led-panel-upravleniya-otopitelem-lada-priora-zelenyy",
+            "wb-318315068"
+          ],
+          "images": [
+            "c938aa76-cd71-4557-acfd-5b5d6a661614"
+          ]
+        },
+        {
+          "skuId": "87e69ca5-d6c6-559c-a977-ef00a4294aab",
+          "article": "приора1-белый",
+          "label": "Белая подсветка",
+          "price": "2500.00",
+          "sourceProductId": "09aeee5d-58e0-517b-a282-80853087b83e",
+          "oldSlugs": [
+            "blok-otopitelya-lada-priora-belyy",
+            "wb-318314120"
+          ],
+          "images": [
+            "c0903a97-beca-5f5d-a92d-d8ecba138a79",
+            "7bdb0c8b-3994-5ad8-a863-a873e3b166f2"
+          ]
+        },
+        {
+          "skuId": "80ba6835-24e8-5b6a-a8f6-aee0871740da",
+          "article": "приора1-синий",
+          "label": "Синяя подсветка",
+          "price": "2500.00",
+          "sourceProductId": "722a90b8-764c-568b-aed3-9e92d889bed0",
+          "oldSlugs": [
+            "blok-otopitelya-lada-priora-siniy"
+          ],
+          "images": [
+            "9ea95780-0900-538a-a7ee-ff24272333f9",
+            "3abb4198-d6e6-5bf7-a4e5-fec5ac1f0431",
+            "07e536a0-4d81-5ab8-afdb-3c677f232293"
+          ]
+        },
+        {
+          "skuId": "0e73837f-2383-5c49-a4d0-3bde752e3d8a",
+          "article": "приора1-красный",
+          "label": "Красная подсветка",
+          "price": "2500.00",
+          "sourceProductId": "61b2d84e-63d1-5fd5-ad0e-aaf0252fb2ff",
+          "oldSlugs": [
+            "led-panel-upravleniya-otopitelem-lada-priora-krasnyy"
+          ],
+          "images": [
+            "df94ff1d-70fe-5550-a217-7b1fd8ac1be4",
+            "9ae95594-da9b-5cea-a725-e5f8933ef039",
+            "7bafc56e-c385-5b6a-a737-03464ca69d58"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Уголки зеркал Приора с подсветкой — хром",
+      "productId": "c48a8ffd-c1db-56ca-a0b0-3836f610513e",
+      "slug": "ugolki-zerkal-priora-s-podsvetkoy-hrom",
+      "variants": [
+        {
+          "skuId": "3a3e9c28-9975-5c3f-ab5a-ed0529cb44b0",
+          "article": "Уголки-хром-белый",
+          "label": "Белая подсветка",
+          "price": "3250.00",
+          "sourceProductId": "c48a8ffd-c1db-56ca-a0b0-3836f610513e",
+          "oldSlugs": [
+            "ugolki-zerkal-priora-rgb-belyy-hrom"
+          ],
+          "images": [
+            "df7d9a61-3b2c-57f7-abc4-5c2fc72bce89",
+            "cb4bf887-f4fd-5179-ac46-98d188b17ca2",
+            "53832994-3a32-5ad8-a22a-30feb5df250c",
+            "4778a140-5b18-588d-a507-c9d2055ef123"
+          ]
+        },
+        {
+          "skuId": "fe1abea8-c4b0-5a1e-a83a-0e34fe9b7063",
+          "article": "Уголки-хром-красный",
+          "label": "Красная подсветка",
+          "price": "3250.00",
+          "sourceProductId": "4ea62f48-1d9c-555a-a77f-f362d88376ce",
+          "oldSlugs": [
+            "ugolki-zerkal-priora-rgb-krasnyy-hrom"
+          ],
+          "images": [
+            "fd00010f-3801-5305-a8ba-82fb00cbd19d",
+            "75e5d219-5ce8-598f-a234-676b58b32ffa",
+            "bce2b06b-176a-520c-a62b-950925798e6a",
+            "f65132b6-07c0-5956-aa03-1d75a45f0710"
+          ]
+        },
+        {
+          "skuId": "cfe79921-be6b-55ae-a5ca-9ae64e4fd000",
+          "article": "Уголки-хром-фиолетовый",
+          "label": "Фиолетовая подсветка",
+          "price": "3250.00",
+          "sourceProductId": "5337ee30-cb5d-5535-a882-c1125a304e5d",
+          "oldSlugs": [
+            "ugolki-zerkal-priora-rgb-fioletovyy-hrom"
+          ],
+          "images": [
+            "87e79196-5b4b-5f7a-a9c5-3d4db678c3d4",
+            "459878f0-938a-562f-a10e-85e26faea3c6",
+            "a54e80f7-343c-5994-aeab-6ad2d7c2b8fc",
+            "3c04ba53-bd31-5667-ab80-5dc58ad05ad7"
+          ]
+        },
+        {
+          "skuId": "733801f9-0350-5a45-ad7c-68f11485bd74",
+          "article": "Уголки-хром-зеленый",
+          "label": "Зелёная подсветка",
+          "price": "3250.00",
+          "sourceProductId": "e6bab8cb-431b-5e79-ad08-9bd725abe1bf",
+          "oldSlugs": [
+            "ugolki-zerkal-priora-rgb-zelenyy-hrom"
+          ],
+          "images": [
+            "311d00df-0504-56e7-a931-626775d082c5",
+            "8f8ff71f-f25f-57dc-ab73-6bc1b9503ad8",
+            "669f4f33-d88e-5c58-a9de-91f7df0243df",
+            "e3d2d676-d152-5265-ae02-9d1c36341661"
+          ]
+        },
+        {
+          "skuId": "4a155101-5c2e-5f4a-a882-c4621f44aeb1",
+          "article": "Уголки-хром-синий",
+          "label": "Синяя подсветка",
+          "price": "3250.00",
+          "sourceProductId": "e8714803-680e-5183-ae52-0c63a60e4953",
+          "oldSlugs": [
+            "ugolki-zerkal-priora-rgb-siniy-hrom"
+          ],
+          "images": [
+            "7d71f828-3703-53ef-a671-fdf9f8222e93",
+            "9d011943-9328-557d-a0b7-fe1fe5cc672e",
+            "6f2dea18-7d54-5ab6-a8ae-7d6423a492b4",
+            "98bb91c3-ad45-515d-a3d4-ee1aa87b128b"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Уголки зеркал Приора с подсветкой — чёрный глянец",
+      "productId": "077a5077-027d-5359-a6be-849d697d6f69",
+      "slug": "ugolki-zerkal-priora-s-podsvetkoy-chernyy-glyanets",
+      "variants": [
+        {
+          "skuId": "471f4408-647c-5689-ab40-95b71d402ec2",
+          "article": "Уголки-глянец-синий",
+          "label": "Синяя подсветка",
+          "price": "3250.00",
+          "sourceProductId": "077a5077-027d-5359-a6be-849d697d6f69",
+          "oldSlugs": [
+            "ugolki-zerkal-priora-siniy-glyanets"
+          ],
+          "images": [
+            "8f48b129-6eef-5b7e-ac5f-ddf17638ae04",
+            "15dd95d2-2792-5b71-a0bf-bb44daf7fd5d",
+            "f7e53290-ebaf-5c4a-acd4-3fb4495509a4",
+            "b3dc0fac-307d-5fe1-a89e-79f509bc92f3"
+          ]
+        },
+        {
+          "skuId": "068892bc-c335-530b-a1af-52927e27e259",
+          "article": "Уголки-глянец-зеленый",
+          "label": "Зелёная подсветка",
+          "price": "3250.00",
+          "sourceProductId": "c46c4046-9560-5148-a422-c52aaa16407d",
+          "oldSlugs": [
+            "ugolki-zerkal-priora-zelenyy-glyanets"
+          ],
+          "images": [
+            "778e7639-6dcb-51ee-a2bd-53c29110f8d2",
+            "8791344e-32fa-538f-a7f9-9a3cca8e278d",
+            "55d05369-9432-5a83-a6bc-671b2a88af6e",
+            "a4586f47-671e-577e-a4f4-f884506f70b4"
+          ]
+        },
+        {
+          "skuId": "837cc97c-ba8a-52f5-ac14-47178da3d170",
+          "article": "Уголки-глянец-фиолетовый",
+          "label": "Фиолетовая подсветка",
+          "price": "3250.00",
+          "sourceProductId": "d58b4187-8da7-50b7-a5f1-3645703e6430",
+          "oldSlugs": [
+            "ugolki-zerkal-priora-fioletovyy-glyanets"
+          ],
+          "images": [
+            "b9f4a8a0-9587-51d5-a4db-b725bc186a50",
+            "b8bc9bb4-55fd-564e-ad03-23067dbc8459",
+            "a87b5819-e11e-59da-aca8-19532dbb68b7",
+            "7c5ea610-70ee-5408-a6c0-40feb3b65b71"
+          ]
+        },
+        {
+          "skuId": "41679bf5-8b2d-53a1-afb8-8b98fb348a33",
+          "article": "Уголки-глянец-красный",
+          "label": "Красная подсветка",
+          "price": "3250.00",
+          "sourceProductId": "fc91f133-1355-574a-a174-813245116180",
+          "oldSlugs": [
+            "ugolki-zerkal-priora-krasnyy-glyanets"
+          ],
+          "images": [
+            "b31cb93e-f848-5b07-aff8-0c99dada2809",
+            "3fffaa0a-36db-5e67-aa56-550464fcf6a4",
+            "67b11714-5593-5a19-a38d-fe2280a6415a",
+            "adf1eef3-d960-522c-a351-a7d3aa793e9a"
+          ]
+        },
+        {
+          "skuId": "7d3e2749-ae15-50fc-a7fb-30212bb22bef",
+          "article": "Уголки-глянец-белый",
+          "label": "Белая подсветка",
+          "price": "3250.00",
+          "sourceProductId": "d88d07a9-1865-5317-a659-449fb31e4567",
+          "oldSlugs": [
+            "ugolki-zerkal-priora-belyy-glyanets"
+          ],
+          "images": [
+            "13e3182f-7ed5-584a-a7b5-40baf9af371e",
+            "23fce6f4-d94e-592d-aef1-88a1b0c25c85",
+            "14902ec7-4617-5ffd-a746-aa8c069b960c",
+            "1490b689-52fb-58ca-a4bc-7bc702375810"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Сопла воздуховодов AMG для ГАЗель Бизнес с подсветкой",
+      "productId": "5f3589f4-4218-5631-a8dd-9faec2ec3ee1",
+      "slug": "sopla-vozduhovodov-amg-dlya-gazel-biznes-s-podsvetkoy",
+      "variants": [
+        {
+          "skuId": "de49fcb4-f00f-5c7d-a7c3-7efd9e58e68b",
+          "article": "ГАЗЕЛЬ-СИНИЙ",
+          "label": "Синяя подсветка",
+          "price": "10200.00",
+          "sourceProductId": "5f3589f4-4218-5631-a8dd-9faec2ec3ee1",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-siniy",
+            "wb-484391631"
+          ],
+          "images": [
+            "4e569bfb-9b0b-59e8-af00-184333ff0ceb",
+            "8e98e422-255a-5488-a655-6bb16d79270f"
+          ]
+        },
+        {
+          "skuId": "ddc6e0cd-11f1-5aab-a020-df2b88468ef7",
+          "article": "ГАЗЕЛЬ-Красный",
+          "label": "Красная подсветка",
+          "price": "10200.00",
+          "sourceProductId": "822c6bc1-d7ca-5f01-a846-c01f66ff22fe",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-krasnyy"
+          ],
+          "images": [
+            "d7cc254a-6a43-5183-a0f1-f49fabaa6731",
+            "bebc1da3-830a-5181-a6f1-e63f67b374a0",
+            "83f64b9f-a177-51a4-a10d-a4387655419a",
+            "1c811010-b97f-5855-a18e-8289fddb6036",
+            "ed423b13-dcae-58c2-a60d-948c600654c2"
+          ]
+        },
+        {
+          "skuId": "2713d9e0-ad3a-5e99-a04d-7ca26484faa3",
+          "article": "ГАЗЕЛЬ-ЗЕЛЕНЫЙ",
+          "label": "Зелёная подсветка",
+          "price": "10200.00",
+          "sourceProductId": "523f14f3-3fc3-53f7-aec6-25000d396c26",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-zelenyy"
+          ],
+          "images": [
+            "88690acd-662d-5be0-a599-9d40f6d44808",
+            "b966083b-1d59-54ba-af51-01ff6f493af3",
+            "dbf5bee3-6d55-5382-a724-b21ed7d118db",
+            "f88a890f-2344-5751-aba8-0815d801c9a0",
+            "362bd6b0-e21f-59b7-aad4-00ec683ae917"
+          ]
+        },
+        {
+          "skuId": "ac010297-71d8-5b0a-ab57-7b891c178621",
+          "article": "ГАЗЕЛЬ-БЕЛЫЙ",
+          "label": "Белая подсветка",
+          "price": "10200.00",
+          "sourceProductId": "94f98213-e22d-5f06-acd2-63699d705fce",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-belyy"
+          ],
+          "images": [
+            "6b11adea-6b77-5f57-a928-2b00b8b0d5b4",
+            "f9fb44ef-dd5b-5744-a1fd-d7ceded71eb6",
+            "d49a51c0-0879-5c48-adfc-7af1913f1f32",
+            "599ebb53-89da-57bf-a3ba-798f68ee97e5",
+            "89a3a954-6438-5568-ab5a-4034ab4b4d9c"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Сопла воздуховодов AMG для Приора 1 с подсветкой — хром",
+      "productId": "4b75216c-8316-54b8-a395-a727e674a8c6",
+      "slug": "sopla-vozduhovodov-amg-dlya-priora-1-s-podsvetkoy-hrom",
+      "variants": [
+        {
+          "skuId": "db0471b7-02e1-5299-a1bb-c67d3133fb3c",
+          "article": "амг-хром-приора-1-белый",
+          "label": "Белая подсветка",
+          "price": "6500.00",
+          "sourceProductId": "4b75216c-8316-54b8-a395-a727e674a8c6",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-dlya-priora-1-belyy-hrom",
+            "wb-485809095"
+          ],
+          "images": [
+            "76f6ef49-5ac3-5e17-a2f3-5105888c585b",
+            "5f700fc7-73aa-5664-a4ba-1315ade7d977"
+          ]
+        },
+        {
+          "skuId": "e169e7e4-ece8-5624-a4d5-37276253befb",
+          "article": "амг-хром-приора-1-синий",
+          "label": "Синяя подсветка",
+          "price": "6500.00",
+          "sourceProductId": "a77fd04e-34ac-57ba-a8c2-cbe2681b2fcb",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-dlya-priora-1-siniy-hrom"
+          ],
+          "images": [
+            "ec349a00-d7f1-5c5d-a3fb-b29403c620f0",
+            "c5875e95-195b-5e52-aef5-fb01363c1a3b",
+            "6e359951-f654-5b55-a73e-a20779a30393"
+          ]
+        },
+        {
+          "skuId": "57b5440c-8e99-5db1-ae39-ec1208dca3ca",
+          "article": "амг-хром-приора-1-зеленый",
+          "label": "Зелёная подсветка",
+          "price": "6500.00",
+          "sourceProductId": "5ec00656-9796-5294-a0ff-1c17332456ec",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-dlya-priora-1-zelenyy-hrom"
+          ],
+          "images": [
+            "d1f7b52a-803b-59c1-ab04-726c7152b9a2",
+            "4e393527-bc2d-5a37-a154-0ad6f5cc9784",
+            "4b265e00-ab7b-506c-adbf-83df9ffab1e1"
+          ]
+        },
+        {
+          "skuId": "c3744cff-3f9d-5b3c-a9b1-1f46f594e2de",
+          "article": "амг-хром-приора-1-красный",
+          "label": "Красная подсветка",
+          "price": "6500.00",
+          "sourceProductId": "75247db3-e6ed-511b-aad2-a5b3ade02b5d",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-dlya-priora-1-krasnyy-hrom"
+          ],
+          "images": [
+            "1c2a905f-0cdc-54c0-a16c-9ffd29f4f9b2",
+            "e9e529a5-97f8-53d0-af43-6535bda59cca"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Сопла воздуховодов AMG для Приора 1 с подсветкой — чёрный глянец",
+      "productId": "13114f43-a087-5320-ae26-69d25d19a573",
+      "slug": "sopla-vozduhovodov-amg-dlya-priora-1-s-podsvetkoy-chernyy-glyanets",
+      "variants": [
+        {
+          "skuId": "641abce5-7db2-544b-ae32-cce6d86248e0",
+          "article": "маг-глянец-приора1-белый",
+          "label": "Белая подсветка",
+          "price": "6500.00",
+          "sourceProductId": "13114f43-a087-5320-ae26-69d25d19a573",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-dlya-priora-1-belyy-glyanets"
+          ],
+          "images": [
+            "5e63cc9a-3d60-52d6-a208-7ea1cbebd0a3",
+            "158cd823-c0a8-57e2-a670-9283eef776fc",
+            "bda26f3f-a071-553c-ab57-470ee51760f4"
+          ]
+        },
+        {
+          "skuId": "474c3b1f-721b-52d3-aad2-c2c60020df3b",
+          "article": "маг-глянец-приора1-синий",
+          "label": "Синяя подсветка",
+          "price": "6500.00",
+          "sourceProductId": "e6439162-b802-5ae8-ab85-5ea4bc2f9415",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-dlya-priora-1-siniy-glyanets"
+          ],
+          "images": [
+            "cf508e29-77fe-5a81-adba-26008805ca12",
+            "ab726d95-bd23-571c-a262-4d8427b397f5",
+            "68392054-30d5-5947-a5c6-6abc586d1e93"
+          ]
+        },
+        {
+          "skuId": "7fb71ad7-77a3-5d3f-a721-c23516961d9c",
+          "article": "маг-глянец-приора1-зеленый",
+          "label": "Зелёная подсветка",
+          "price": "6500.00",
+          "sourceProductId": "23425af9-9353-5740-a56b-44a353cbe766",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-dlya-priora-1-zelenyy-glyanets"
+          ],
+          "images": [
+            "48c7c187-cf8a-577f-a5dc-ec85638e2a20",
+            "0ca350f6-06a1-5a18-a854-117fe74f02f9",
+            "a72a6e52-b94b-5a11-a40d-352cd9e05426"
+          ]
+        },
+        {
+          "skuId": "b0429c4d-6dc0-5a8a-afdf-098c1fd8c432",
+          "article": "маг-глянец-приора1-красный",
+          "label": "Красная подсветка",
+          "price": "5500.00",
+          "sourceProductId": "4b02a95e-4375-5685-a53c-9476191c6853",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-dlya-priora-1-krasnyy-glyanets"
+          ],
+          "images": [
+            "12531b81-d739-56ac-a7f3-1f79601549db",
+            "7eaa8970-9752-5e11-ae44-ce93f41d8284",
+            "c5fe04a6-37df-5e98-abbd-f4073f70591b"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Сопла воздуховодов AMG для Приора 2 с подсветкой — хром",
+      "productId": "f64120c4-5889-5ee6-ae43-c003b143d357",
+      "slug": "sopla-vozduhovodov-amg-dlya-priora-2-s-podsvetkoy-hrom",
+      "variants": [
+        {
+          "skuId": "18ef2ad6-6339-5c0d-ac8e-b277d5f3227c",
+          "article": "маг-хром-приора2-синий",
+          "label": "Синяя подсветка",
+          "price": "6500.00",
+          "sourceProductId": "f64120c4-5889-5ee6-ae43-c003b143d357",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-dlya-priora-2-siniy-hrom",
+            "wb-485819247"
+          ],
+          "images": [
+            "a1ad9225-2a79-52a1-a309-7e6366308eee",
+            "707b1d34-4b6e-5272-a155-54a488a17473"
+          ]
+        },
+        {
+          "skuId": "9967a4d7-715b-5124-a558-8ad5b6f1dc91",
+          "article": "маг-хром-приора2-зеленый",
+          "label": "Зелёная подсветка",
+          "price": "6500.00",
+          "sourceProductId": "ef80cd82-f600-50cd-a9b7-06a02db29e7d",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-dlya-priora-2-zelenyy-hrom"
+          ],
+          "images": [
+            "8c58c3b5-995d-54e0-afeb-2fbd9ee5178d",
+            "434a3d2e-34e5-50e6-a3a5-b43b0c9e7913",
+            "56ee0a35-9f47-5032-a363-1736662e776f"
+          ]
+        },
+        {
+          "skuId": "72017ef4-b3a6-5951-afa9-c0186d7874e1",
+          "article": "маг-хром-приора2-красный",
+          "label": "Красная подсветка",
+          "price": "6500.00",
+          "sourceProductId": "f01be85c-593d-50ae-acfd-6e28a55e28cb",
+          "oldSlugs": [
+            "soplo-vozduhovoda-amg-dlya-priora-2-krasnyy-hrom"
+          ],
+          "images": [
+            "0dc81264-8c26-56a7-af63-1dab8d0440e1",
+            "f0b4cc10-bbba-54c3-ae2e-9a457fb53dd8",
+            "a3c1638b-2822-5a06-a936-25c861a6095a"
+          ]
+        }
+      ]
+    }
+  ]
+}

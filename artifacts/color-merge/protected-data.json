@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-03T15:42:56.645Z",
+  "tables": [
+    "ar_stock",
+    "ar_orders",
+    "ar_packages",
+    "directus_files",
+    "ar_stock_movements",
+    "ar_order_components",
+    "ar_bundle_components",
+    "ar_product_editor_drafts"
+  ],
+  "rows": {
+    "ar_stock": 19,
+    "ar_orders": 4,
+    "ar_packages": 132,
+    "directus_files": 606,
+    "ar_stock_movements": 23,
+    "ar_order_components": 4,
+    "ar_bundle_components": 3,
+    "ar_product_editor_drafts": 5
+  },
+  "ordersAndComponentsUnchanged": true,
+  "stockAndMovementHistoryUnchanged": true,
+  "filesAndPackagesUnchanged": true,
+  "savedRecipesUnchanged": true
+}

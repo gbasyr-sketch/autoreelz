@@ -1,0 +1,36 @@
+{
+  "legacyChecks": false,
+  "passed": true,
+  "qaImageMock": false,
+  "variantPages": 98,
+  "redirects": 0,
+  "viewports": [
+    {
+      "width": 1440,
+      "variants": true,
+      "exactPhoto": true,
+      "exactPrice": true,
+      "twelveOptions": true,
+      "noOverflow": true
+    },
+    {
+      "width": 768,
+      "variants": true,
+      "exactPhoto": true,
+      "exactPrice": true,
+      "twelveOptions": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "variants": true,
+      "exactPhoto": true,
+      "exactPrice": true,
+      "twelveOptions": true,
+      "noOverflow": true
+    }
+  ],
+  "ordersCreated": 0,
+  "catalogPublished": 56,
+  "checkedAt": "2026-10-03T15:46:00.510Z"
+}

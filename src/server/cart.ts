@@ -1,4 +1,5 @@
 import {checkoutTerms} from './confirmations.ts';
+import {canonicalProductId} from './product-merges.ts';
 import{sumRubles,multiplyRubles}from'./pricing.ts';
 import type{PoolClient}from'pg';
 import type{ShopSession,CartView,CartLineView,CheckoutQuote,OrderLineSnapshot,DeliveryInput,DeliveryEstimate}from'../lib/commerce-types.ts';
@@ -37,15 +38,16 @@ export async function changeCart(session:ShopSession,body:Record<string,unknown>
  const mode=String(body.mode);if(!['add','set','remove'].includes(mode))throw new StoreError('CART_MODE','Некорректное действие с корзиной.');
  const quantity=mode==='remove'?0:integer(body.quantity,'Количество',1,99),version=integer(body.cartVersion,'Версия корзины');
  return transaction(c=>idempotent(c,`cart:${session.id}`,body.idempotencyKey,{productId,skuId,mode,quantity,version},async()=>{
+  const targetId=await canonicalProductId(c,productId);
   const cart=await cartRecord(c,session,true);if(cart.version!==version)throw new StoreError('CART_CHANGED','Корзина изменилась в другой вкладке. Обновите её и повторите действие.',409);
-  const existing=(await c.query('SELECT * FROM ar_cart_lines WHERE cart_id=$1 AND product_id=$2 AND sku_id IS NOT DISTINCT FROM $3::uuid',[cart.id,productId,skuId])).rows[0];
+  const existing=(await c.query('SELECT * FROM ar_cart_lines l WHERE cart_id=$1 AND coalesce((SELECT target_product_id FROM ar_product_merges WHERE source_product_id=l.product_id),l.product_id)=$2 AND sku_id IS NOT DISTINCT FROM $3::uuid',[cart.id,targetId,skuId])).rows[0];
   if(mode==='remove'){if(existing)await c.query('DELETE FROM ar_cart_lines WHERE id=$1',[existing.id]);}
   else{
    const qty=mode==='add'?(existing?.quantity??0)+quantity:quantity;integer(qty,'Количество',1,99);
-   const snapshot=await snapshotLine(c,productId,skuId,qty);
+   const snapshot=await snapshotLine(c,targetId,skuId,qty);
    if(!existing&&Number((await c.query('SELECT count(*) n FROM ar_cart_lines WHERE cart_id=$1',[cart.id])).rows[0].n)>=100)throw new StoreError('CART_LIMIT','В корзине слишком много разных позиций.');
-   if(existing)await c.query('UPDATE ar_cart_lines SET quantity=$2,last_name=$3,last_price_rubles=$4,last_image=$5 WHERE id=$1',[existing.id,qty,snapshot.name,snapshot.unitPriceRubles,snapshot.image]);
-   else await c.query('INSERT INTO ar_cart_lines(cart_id,product_id,sku_id,quantity,last_name,last_price_rubles,last_image) VALUES($1,$2,$3,$4,$5,$6,$7)',[cart.id,productId,skuId,qty,snapshot.name,snapshot.unitPriceRubles,snapshot.image]);
+   if(existing)await c.query('UPDATE ar_cart_lines SET quantity=$2,last_name=$3,last_price_rubles=$4,last_image=$5,product_id=$6 WHERE id=$1',[existing.id,qty,snapshot.name,snapshot.unitPriceRubles,snapshot.image,targetId]);
+   else await c.query('INSERT INTO ar_cart_lines(cart_id,product_id,sku_id,quantity,last_name,last_price_rubles,last_image) VALUES($1,$2,$3,$4,$5,$6,$7)',[cart.id,targetId,skuId,qty,snapshot.name,snapshot.unitPriceRubles,snapshot.image]);
   }
   await c.query('UPDATE ar_carts SET version=version+1 WHERE id=$1',[cart.id]);return cartView(c,session);
  }));

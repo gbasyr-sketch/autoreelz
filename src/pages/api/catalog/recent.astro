@@ -1,6 +1,7 @@
 ---
 import ProductCard from '../../../components/ProductCard.astro';
 import {getCatalog} from '../../../server/catalog';
+import {productMergeMap} from '../../../server/product-merges';
 import {recentProducts,recentOffers,RECENT_LIMIT} from '../../../lib/product-discovery';
 import {uuid} from '../../../server/errors';
 export const partial=true;
@@ -9,6 +10,7 @@ try{
  const input=Astro.url.searchParams.get('items')??'';if(input.length>2400)throw Error();const raw=JSON.parse(input);if(!Array.isArray(raw)||raw.length>RECENT_LIMIT)throw Error();
  const now=Date.now();rows=recentProducts(raw.map(row=>({productId:uuid(row.productId),skuId:row.skuId===null?null:uuid(row.skuId),viewedAt:now})));exclude=uuid(Astro.url.searchParams.get('exclude'));
 }catch{return new Response('Некорректный список товаров.',{status:400});}
-const catalog=await getCatalog(),items=recentOffers(catalog,rows,exclude);
+const aliases=await productMergeMap();rows=recentProducts(rows.map(row=>({...row,productId:aliases[row.productId]??row.productId})));
+const catalog=await getCatalog(),items=recentOffers(catalog,rows,aliases[exclude]??exclude);
 ---
 {items.map(({product,offer})=><ProductCard product={product} offer={offer} catalog={catalog}/>)}

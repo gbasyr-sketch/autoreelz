@@ -1,4 +1,5 @@
 import {withProductThumbnails} from './manager-product-thumbnails.ts';
+import {canonicalProductId} from './product-merges.ts';
 import {availableLibraryImages,lockImageLibrary} from './product-image-library.ts';
 import {normalizeInfographic,infographicFileIds} from '../lib/product-infographic.ts';
 import {randomUUID} from 'node:crypto';
@@ -51,7 +52,8 @@ export async function live(c:PoolClient,id:string){
  const data:EditorData={recommendedProductIds:recommendations.map(r=>r.recommended_id),name:product.name,slug:product.slug,categoryId:product.category_id,description:product.description??'',seoTitle:product.seo_title??'',metaDescription:product.meta_description??'',isDemo:product.is_demo,photos:media.map(image),attributes:attrs.map(attr),fitment:fits.filter(f=>!f.sku_id).map(fit),variants:skus.map(s=>{const p=packs.find(p=>p.id===s.package_id);return{...emptyVariant(s.id),name:s.name,article:s.article,price:s.price_rubles,status:s.status,package:p?{weightG:String(p.weight_g),lengthCm:String(p.length_mm/10),widthCm:String(p.width_mm/10),heightCm:String(p.height_mm/10)}:emptyPackage(),photos:skuMedia.filter(m=>m.sku_id===s.id).map(image),mediaMode:s.media_mode,attributes:skuAttrs.filter(a=>a.sku_id===s.id).map(attr),fitment:fits.filter(f=>f.sku_id===s.id).map(fit),fitmentMode:s.fitment_mode};})};
  return{data,raw,hash:hash(JSON.stringify(raw))};
 }
-export async function readProductEditor(input:unknown):Promise<EditorState>{const id=uuid(input);return transaction(async c=>{
+export async function readProductEditor(input:unknown):Promise<EditorState>{const requested=uuid(input);return transaction(async c=>{
+ const id=await canonicalProductId(c,requested);
  const current=await live(c,id),draft=(await c.query('SELECT * FROM ar_product_editor_drafts WHERE id=$1',[id])).rows[0];
  const stock=(await c.query('SELECT st.sku_id,st.on_hand,st.reserved FROM ar_stock st JOIN ar_skus s ON s.id=st.sku_id WHERE s.product_id=$1',[id])).rows;
  return{archived:current?current.raw.product.status==='archived':!!draft?.archived_at,liveStatus:current?.raw.product.status,id,version:draft?.version??0,baseHash:draft?.payload?draft.base_hash:current?.hash??null,data:{...(draft?.payload??current?.data??{...emptyProduct(),variants:[emptyVariant(randomUUID())]}),infographic:draft?.payload&&Object.hasOwn(draft.payload,'infographic')?draft.payload.infographic:draft?.infographic??null},hasDraft:!!draft?.payload,live:!!current,liveSlug:current?.data.slug,existingSkuIds:current?.data.variants.map(v=>v.id)??[],stock:Object.fromEntries(stock.map(s=>[s.sku_id,{onHand:s.on_hand,reserved:s.reserved}]))};
@@ -95,6 +97,7 @@ export async function saveProductEditor(actor:{id:string},body:Record<string,unk
  const baseHash=body.baseHash===null?null:string(body.baseHash,64);
  try{return await transaction(c=>idempotent(c,`product-editor:${actor.id}`,body.idempotencyKey,{id,version,baseHash,data,action},async()=>{
   await lockImageLibrary(c);
+  if(await canonicalProductId(c,id)!==id)throw new StoreError('PRODUCT_MERGED','Товар объединён с общей карточкой. Обновите страницу редактора, чтобы перейти к ней.',409);
   await c.query("SELECT pg_advisory_xact_lock(hashtextextended('product-editor:'||$1,0))",[id]);
   const prior=(await c.query('SELECT * FROM ar_product_editor_drafts WHERE id=$1 FOR UPDATE',[id])).rows[0];if((prior?.version??0)!==version)throw conflict();
   // READ COMMITTED after these locks sees CMS changes committed before publication.

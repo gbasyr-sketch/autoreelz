@@ -1,4 +1,5 @@
 import type{PoolClient}from'pg';
+import {canonicalProductId} from './product-merges.ts';
 import type{CheckoutInput,OrderLineSnapshot,QuoteGroup,DeliveryInput}from'../lib/commerce-types.ts';
 import{StoreError,text,email,integer}from'./errors.ts';
 import{prepareShipping}from'./adapters/shipping.ts';
@@ -23,6 +24,7 @@ export function customerInput(body:Record<string,unknown>):CheckoutInput{
  return{customer:{name:text(customer.name,'Имя',2,100),phone,email:email(customer.email)},delivery:deliveryInput(body.delivery),cartVersion:integer(body.cartVersion,'Версия корзины')};
 }
 export async function snapshotLine(c:PoolClient,productId:string,skuId:string|null,quantity:number):Promise<OrderLineSnapshot>{
+ productId=await canonicalProductId(c,productId);
  const product=(await c.query(`SELECT p.* FROM ar_products p WHERE p.id=$1 AND p.status='published' AND NOT EXISTS (
  WITH RECURSIVE parents AS (SELECT * FROM ar_categories WHERE id=p.category_id UNION ALL SELECT x.* FROM ar_categories x JOIN parents a ON x.id=a.parent_id)
  SELECT 1 FROM parents WHERE status<>'published')`,[productId])).rows[0];

@@ -49,6 +49,7 @@ export function initFavorites(notify:(text:string)=>void){
   const error=document.querySelector<HTMLElement>('[data-favorites-error]');if(error)error.hidden=true;
   try{
    const session=await getSession(true);let remote=await api();let state=read();
+   if(remote.productAliases){const normalized=[...new Set(state.ids.map(id=>remote.productAliases?.[id]??id))];if(JSON.stringify(normalized)!==JSON.stringify(state.ids)){state.ids=normalized;save(state);}}
    if(remote.authenticated&&session.email){
     const owner=await identity(session.email);
     if(state.ids.length){

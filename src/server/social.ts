@@ -1,4 +1,5 @@
 import type {PoolClient} from 'pg';
+import {productMergeMap} from './product-merges.ts';
 import type {ShopSession} from '../lib/commerce-types.ts';
 import type {FavoritesView,ReviewView,ReviewsView} from '../lib/social-types.ts';
 import {transaction} from './db.ts';
@@ -14,8 +15,8 @@ async function customer(c:PoolClient,session:ShopSession,required=false){
  if(required)await c.query('SELECT id FROM ar_customers WHERE id=$1 FOR UPDATE',[row.customer_id]);
  return{id:row.customer_id as string,email:row.email as string};
 }
-async function favoriteIds(c:PoolClient,id:string){return(await c.query('SELECT product_id FROM ar_favorites WHERE customer_id=$1 ORDER BY created_at,id',[id])).rows.map(r=>r.product_id as string);}
-export async function getFavorites(session:ShopSession):Promise<FavoritesView>{return transaction(async c=>{const owner=await customer(c,session);return{authenticated:Boolean(owner),productIds:owner?await favoriteIds(c,owner.id):[]};});}
+async function favoriteIds(c:PoolClient,id:string){return[...new Set((await c.query('SELECT coalesce(m.target_product_id,f.product_id) product_id FROM ar_favorites f LEFT JOIN ar_product_merges m ON m.source_product_id=f.product_id WHERE f.customer_id=$1 ORDER BY f.created_at,f.id',[id])).rows.map(r=>r.product_id as string))];}
+export async function getFavorites(session:ShopSession):Promise<FavoritesView>{return transaction(async c=>{const owner=await customer(c,session);return{authenticated:Boolean(owner),productIds:owner?await favoriteIds(c,owner.id):[],productAliases:await productMergeMap(c)};});}
 export async function changeFavorites(session:ShopSession,body:Record<string,unknown>):Promise<FavoritesView>{
  const action=body.action;if(typeof action!=='string'||!['merge','add','remove'].includes(action))throw new StoreError('FAVORITE_ACTION','Неподдерживаемое действие с избранным.');
  const values=action==='merge'?body.productIds:[body.productId];
@@ -24,9 +25,10 @@ export async function changeFavorites(session:ShopSession,body:Record<string,unk
  return transaction(async c=>{
   const owner=(await customer(c,session,true))!;
   await idempotent(c,`favorites:${owner.id}`,body.idempotencyKey,{action,ids},async()=>{
-   if(action==='remove')await c.query('DELETE FROM ar_favorites WHERE customer_id=$1 AND product_id=ANY($2::uuid[])',[owner.id,ids]);
+   const aliases=await productMergeMap(c),targets=[...new Set(ids.map(id=>aliases[id]??id))];
+   if(action==='remove')await c.query('DELETE FROM ar_favorites f WHERE customer_id=$1 AND coalesce((SELECT target_product_id FROM ar_product_merges WHERE source_product_id=f.product_id),f.product_id)=ANY($2::uuid[])',[owner.id,targets]);
    else{
-    const allowed=(await c.query(`SELECT p.id FROM ar_products p WHERE p.id=ANY($1::uuid[]) AND ${visibleProduct}`,[ids])).rows.map(r=>r.id as string);
+    const allowed=(await c.query(`SELECT p.id FROM ar_products p WHERE p.id=ANY($1::uuid[]) AND ${visibleProduct}`,[targets])).rows.map(r=>r.id as string);
     if(action==='add'&&!allowed.length)throw new StoreError('PRODUCT_UNAVAILABLE','Товар сейчас недоступен.',404);
     const existing=await favoriteIds(c,owner.id);
     if(new Set([...existing,...allowed]).size>500)throw new StoreError('FAVORITE_LIMIT','В избранном может быть не более 500 товаров.');

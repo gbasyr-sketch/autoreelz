@@ -1,4 +1,5 @@
 import {withProductThumbnails} from './manager-product-thumbnails.ts';
+import {canonicalProductId} from './product-merges.ts';
 import type {PoolClient} from 'pg';
 import {transaction} from './db.ts';
 import {StoreError,uuid} from './errors.ts';
@@ -6,6 +7,7 @@ import {hash,canonical,idempotent} from './security.ts';
 import {live} from './product-editor.ts';
 import type {ProductLifecycle} from '../lib/product-lifecycle.ts';
 async function inspect(c:PoolClient,id:string){
+ if(await canonicalProductId(c,id)!==id)throw new StoreError('PRODUCT_MERGED','Товар объединён с общей карточкой. Откройте её для редактирования.',409);
  const product=(await c.query('SELECT * FROM ar_products WHERE id=$1',[id])).rows[0],draft=(await c.query('SELECT * FROM ar_product_editor_drafts WHERE id=$1',[id])).rows[0];
  if(!product&&!draft?.payload&&!draft?.archived_at)throw new StoreError('NOT_FOUND','Товар или черновик не найден.',404);
  const bundles=(await c.query("SELECT DISTINCT p.id,p.name FROM ar_bundle_components b JOIN ar_skus s ON s.id=b.sku_id JOIN ar_products p ON p.id=b.bundle_id WHERE s.product_id=$1 AND p.status='published' ORDER BY p.name,p.id",[id])).rows;
@@ -17,7 +19,7 @@ async function inspect(c:PoolClient,id:string){
  return{view,product,draft,current};
 }
 export const readProductLifecycle=(input:unknown)=>transaction(async c=>(await inspect(c,uuid(input))).view);
-export const archivedProducts=()=>transaction(async c=>withProductThumbnails(c,(await c.query(`SELECT p.id,p.name,p.slug,p.status,p.kind,p.is_demo FROM ar_products p WHERE p.status='archived'
+export const archivedProducts=()=>transaction(async c=>withProductThumbnails(c,(await c.query(`SELECT p.id,p.name,p.slug,p.status,p.kind,p.is_demo FROM ar_products p WHERE p.status='archived' AND NOT EXISTS(SELECT 1 FROM ar_product_merges m WHERE m.source_product_id=p.id)
  UNION ALL SELECT d.id,coalesce(nullif(d.payload->>'name',''),'Без названия'),'','archived','single',coalesce(d.payload->'isDemo'='true'::jsonb,false) FROM ar_product_editor_drafts d WHERE d.archived_at IS NOT NULL AND NOT EXISTS(SELECT 1 FROM ar_products p WHERE p.id=d.id) ORDER BY name,id`)).rows));
 export async function changeProductLifecycle(actor:{id:string},body:Record<string,unknown>){
  const id=uuid(body.id),action=body.action;if(action!=='archive'&&action!=='restore')throw new StoreError('PRODUCT_ACTION','Неизвестное действие.');

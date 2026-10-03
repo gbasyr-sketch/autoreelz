@@ -1,4 +1,4 @@
-export interface FavoritesView {authenticated:boolean;productIds:string[]}
+export interface FavoritesView {authenticated:boolean;productIds:string[];productAliases?:Record<string,string>}
 export interface ReviewView {
  id:string;productId:string;productName:string;authorName:string;body:string;
  status:'pending'|'approved'|'rejected';moderationNote?:string;createdAt:string;

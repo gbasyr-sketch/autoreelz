@@ -4,6 +4,8 @@
 
 ## Базовые проверки
 
+Объединение цветов03.10: `tests/product-color-merges-database.mjs` — только `ar_qa_color_merges_*` со схемой001–017 и синтетическими записями. `AR_COLOR_URL=<preview> node tests/product-color-merges-browser.mjs` использует рассмотренный каталог из `AR_COLOR_PLAN` либо `artifacts/color-merge/rehearsal.json`. Проверяет точные цвета/цены/галереи, старые ссылки, избранное/историю. [Контракт](product-color-merges.md). Не выполнять разовый SQL переноса на рабочей базе повторно ради теста.
+
 - `npm run check` — Astro/TypeScript.
 - `npm test` — быстрые тесты. Интеграционные suites без своих флагов будут **skipped**, это не их успешный прогон.
 - `npm run build` — свежий `dist` для браузерных harness.

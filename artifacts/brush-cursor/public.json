@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "mockedApi": true,
+  "publicCode": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "hover": true,
+      "radiusMatchesPaint": true,
+      "hoverAndKeyboardDoNotAlterPixels": true,
+      "brushAndUndo": true,
+      "touchIndicatorClears": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "hover": true,
+      "radiusMatchesPaint": true,
+      "hoverAndKeyboardDoNotAlterPixels": true,
+      "brushAndUndo": true,
+      "touchIndicatorClears": true,
+      "noOverflow": true
+    }
+  ]
+}

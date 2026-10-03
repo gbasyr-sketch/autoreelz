@@ -1,0 +1,17 @@
+{
+  "/": {
+    "status": 200,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  "/manager/products/edit": {
+    "status": 200,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  "/muzey/": {
+    "status": 200,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  "/api/manager/product-editor?options=1": {
+    "status": 401
+  }
+}

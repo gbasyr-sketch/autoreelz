@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-03",
+  "revision": "1c12685937e71171228684c28cde29a4690d3bfb",
+  "image": "sha256:db55cf08652cc20462957361638efe0b17c022d58e0668b04f1d117428a25c46",
+  "previousRevision": "4895a0c6293af1ec1d8b875efe78f3231b54f346",
+  "changes": [
+    "fixed full preview with independently scrolling settings",
+    "compact top preview on mobile and two columns in landscape"
+  ],
+  "checks": {
+    "astro": {
+      "files": 153,
+      "errors": 0,
+      "warnings": 0
+    },
+    "build": "passed",
+    "unit": {
+      "passed": 109,
+      "skipped": 8
+    },
+    "preview": "preview/report.json",
+    "publishedMockedApi": "public/report.json",
+    "publishedRegressionMockedApi": "regression/report.json",
+    "http": "http.json",
+    "containers": "web/worker/CMS/DB/background healthy; edge running",
+    "healthRevision": "1c12685937e71171228684c28cde29a4690d3bfb"
+  },
+  "migrations": "001–015 unchanged",
+  "liveCatalogChanged": false,
+  "paidRequests": 0,
+  "limitations": [
+    "Chromium viewport checks; physical iPhone/Safari not tested",
+    "browser mutation APIs replaced by fixtures; no real product edits"
+  ]
+}

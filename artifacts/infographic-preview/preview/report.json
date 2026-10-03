@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "publishedClient": false,
+  "mockedApi": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "previewAndControlsVisible": true,
+      "keyboardScale": true,
+      "unclippedBothPhotos": true,
+      "textAbovePhoto": true,
+      "sizesAndPlacementPersist": true,
+      "pngMatchesCanvas": true,
+      "overflowAndAutomaticReset": true
+    },
+    {
+      "width": 1440,
+      "height": 700,
+      "previewAndControlsVisible": true,
+      "keyboardScale": true,
+      "unclippedBothPhotos": true,
+      "textAbovePhoto": true,
+      "sizesAndPlacementPersist": true,
+      "pngMatchesCanvas": true,
+      "overflowAndAutomaticReset": true
+    },
+    {
+      "width": 768,
+      "height": 800,
+      "previewAndControlsVisible": true,
+      "keyboardScale": true,
+      "unclippedBothPhotos": true,
+      "textAbovePhoto": true,
+      "sizesAndPlacementPersist": true,
+      "pngMatchesCanvas": true,
+      "overflowAndAutomaticReset": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "previewAndControlsVisible": true,
+      "keyboardScale": true,
+      "unclippedBothPhotos": true,
+      "textAbovePhoto": true,
+      "sizesAndPlacementPersist": true,
+      "pngMatchesCanvas": true,
+      "overflowAndAutomaticReset": true
+    },
+    {
+      "width": 812,
+      "height": 375,
+      "previewAndControlsVisible": true,
+      "keyboardScale": true,
+      "unclippedBothPhotos": true,
+      "textAbovePhoto": true,
+      "sizesAndPlacementPersist": true,
+      "pngMatchesCanvas": true,
+      "overflowAndAutomaticReset": true
+    }
+  ]
+}

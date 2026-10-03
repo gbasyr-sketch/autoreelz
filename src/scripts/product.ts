@@ -1,4 +1,4 @@
-export {};
+import {photoSwipe} from './photo-swipe';
 const quantity=document.querySelector<HTMLInputElement>('#product-quantity');
 document.querySelectorAll<HTMLButtonElement>('[data-quantity]').forEach(button=>button.addEventListener('click',()=>{
   if(!quantity)return;
@@ -43,3 +43,8 @@ const zoom=document.querySelector<HTMLButtonElement>('[data-zoom]');
 function openPhoto(){if(dialog&&!dialog.open)dialog.showModal();}
 zoom?.addEventListener('click',openPhoto);
 image?.addEventListener('click',()=>{zoom?.focus({preventScroll:true});openPhoto();});
+if(thumbs.length>1){
+ if(image)image.draggable=false;
+ if(stage)photoSwipe(stage,direction=>void selectPhoto(requested+direction));
+ if(enlarged){enlarged.draggable=false;const reset=photoSwipe(enlarged,direction=>void selectPhoto(requested+direction));dialog?.addEventListener('close',reset);}
+}

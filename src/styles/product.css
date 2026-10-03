@@ -23,3 +23,6 @@
 @media(max-width:800px){.product-tabs{gap:20px}.product-tabs a{font-size:12px}}
 
 .product-description>section:first-child{margin-top:0}
+
+[data-gallery-swipe]{touch-action:pan-y pinch-zoom;user-select:none;-webkit-user-select:none}
+[data-gallery-swipe][data-gallery-zoomed]{touch-action:auto}

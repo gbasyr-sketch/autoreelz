@@ -14,7 +14,7 @@ const{featured,categoryCards,heroItem,articles,about}=homeSelection(catalog,cont
 const bundleCategory=catalog.categories.find(c=>catalog.products.some(p=>p.category===c.slug&&p.kind==='bundle'));
 const showDemoReviews=['local-test','staging'].includes(setting('STORE_MODE','local-test'))&&publishedReviews.length===0;
 const reviews=showDemoReviews?demoProductReviews(catalog,setting('STORE_MODE','local-test')):publishedReviews;
-const aboutParagraphs=about?textParagraphs(about.body).slice(0,2):['AUTO REELZ — отдельные детали автомобильного интерьера и готовые комплекты. Подбирайте исполнение по модели автомобиля, году выпуска и наличию кондиционера.'];
+const aboutParagraphs=about?textParagraphs(about.bodyText??about.body).slice(0,2):['AUTO REELZ — отдельные детали автомобильного интерьера и готовые комплекты. Подбирайте исполнение по модели автомобиля, году выпуска и наличию кондиционера.'];
 const heroImage=heroItem?.offer.variant?.image??heroItem?.product.image??'/images/placeholder-console.svg';
 const heroImageReal=Boolean((heroItem?.offer.variant?.media??heroItem?.product.media)?.length);
 const currentYear=new Date().getFullYear();

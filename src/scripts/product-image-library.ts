@@ -3,13 +3,13 @@ import {node} from './manager-page';
 import type {EditorPhoto} from '../lib/product-editor';
 type Photo={id:string;title:string;width:number|null;height:number|null;used:boolean};
 type Result={items:Photo[];total:number;page:number;pages:number};
-export function productImageLibrary(dialog:HTMLDialogElement,config:{used:()=>Set<string>;busy:(v:boolean)=>void;error:(e:unknown)=>void}){
+export function productImageLibrary(dialog:HTMLDialogElement,config:{limit?:number;used:()=>Set<string>;busy:(v:boolean)=>void;error:(e:unknown)=>void}){
  const $=<T extends HTMLElement=HTMLElement>(s:string)=>dialog.querySelector<T>(s)!;
  const grid=$('[data-pl-grid]'),status=$('[data-pl-status]'),error=$('[data-pl-error]'),search=$<HTMLFormElement>('[data-pl-search]'),input=search.elements.namedItem('q') as HTMLInputElement,add=$<HTMLButtonElement>('[data-pl-add]');
  let scope='active',page=1,pages=1,serial=0,controller:AbortController|undefined,mutating=false,loading=false;
  let target:EditorPhoto[]=[],apply:(photos:EditorPhoto[])=>void=()=>{},opener:HTMLElement|null=null;
  const selected=new Map<string,Photo>();
- function selection(){const remaining=Math.max(0,12-target.length);$('[data-pl-selection]').textContent=`Выбрано: ${selected.size} · Можно добавить: ${remaining}`;add.disabled=!selected.size||mutating||loading;add.hidden=scope==='trash';}
+ function selection(){const remaining=Math.max(0,(config.limit??12)-target.length);$('[data-pl-selection]').textContent=`Выбрано: ${selected.size} · Можно добавить: ${remaining}`;add.disabled=!selected.size||mutating||loading;add.hidden=scope==='trash';}
  function controls(){selection();$<HTMLButtonElement>('[data-pl-prev]').disabled=page<=1||loading||mutating;$<HTMLButtonElement>('[data-pl-next]').disabled=page>=pages||loading||mutating;dialog.querySelectorAll<HTMLButtonElement>('[data-pl-close],[data-pl-cancel],[data-pl-scope],.pl-search button').forEach(b=>b.disabled=mutating);input.disabled=mutating;}
  function close(){if(!mutating)dialog.close();}
  function reset(){serial++;mutating=false;loading=false;controller?.abort();selected.clear();last=[];grid.replaceChildren();target=[];apply=()=>{};config.busy(false);}
@@ -33,7 +33,7 @@ export function productImageLibrary(dialog:HTMLDialogElement,config:{used:()=>Se
    const img=node('img');img.src='/api/manager/product-image?id='+encodeURIComponent(photo.id)+'&thumbnail=1';img.alt='';img.loading='lazy';img.width=192;img.height=192;
    const name=node('span',photo.title,'pl-name'),badge=node('span',already?'Уже в галерее':selected.has(photo.id)?'Выбрано':'Выбрать','pl-badge');pick.append(img,name,badge);
    img.addEventListener('error',()=>{img.hidden=true;badge.textContent='Фото недоступно';});
-   pick.addEventListener('click',()=>{if(mutating||loading)return;error.hidden=true;if(selected.has(photo.id))selected.delete(photo.id);else{if(selected.size>=12-target.length){error.textContent='Достигнут предел: 12 фотографий в галерее.';error.hidden=false;return;}selected.set(photo.id,photo);}pick.setAttribute('aria-pressed',String(selected.has(photo.id)));badge.textContent=selected.has(photo.id)?'Выбрано':'Выбрать';remove.disabled=selected.has(photo.id)||photo.used||config.used().has(photo.id);selection();});
+   pick.addEventListener('click',()=>{if(mutating||loading)return;error.hidden=true;if(selected.has(photo.id))selected.delete(photo.id);else{if(selected.size>=(config.limit??12)-target.length){error.textContent=`Можно выбрать не больше ${(config.limit??12)-target.length} фото.`;error.hidden=false;return;}selected.set(photo.id,photo);}pick.setAttribute('aria-pressed',String(selected.has(photo.id)));badge.textContent=selected.has(photo.id)?'Выбрано':'Выбрать';remove.disabled=selected.has(photo.id)||photo.used||config.used().has(photo.id);selection();});
    const inUse=photo.used||used.has(photo.id)||selected.has(photo.id),remove=node('button',scope==='trash'?'Восстановить':'Удалить','dash-button pl-remove');remove.type='button';remove.disabled=scope!=='trash'&&inUse;remove.setAttribute('aria-label',(scope==='trash'?'Восстановить: ':'Удалить: ')+photo.title);remove.addEventListener('click',()=>void change(photo));
    card.append(pick,node('small',photo.used?'Используется':used.has(photo.id)?'В текущей форме':scope==='trash'?'Можно восстановить':'Не используется','dash-help'),remove);grid.append(card);
   }
@@ -46,6 +46,6 @@ export function productImageLibrary(dialog:HTMLDialogElement,config:{used:()=>Se
  search.addEventListener('submit',e=>{e.preventDefault();if(mutating)return;page=1;void load();});
  dialog.querySelectorAll<HTMLButtonElement>('[data-pl-scope]').forEach(b=>b.addEventListener('click',()=>{scope=b.dataset.plScope!;page=1;dialog.querySelectorAll<HTMLButtonElement>('[data-pl-scope]').forEach(t=>t.setAttribute('aria-pressed',String(t===b)));void load();}));
  $('[data-pl-prev]').addEventListener('click',()=>{page--;void load();});$('[data-pl-next]').addEventListener('click',()=>{page++;void load();});
- add.addEventListener('click',()=>{if(mutating||loading)return;const photos=[...selected.values()].filter(p=>!target.some(t=>t.id===p.id)).map(p=>({id:p.id,alt:p.title==='Фото товара'?'':p.title}));if(target.length+photos.length>12)return;apply(photos);dialog.close();});
+ add.addEventListener('click',()=>{if(mutating||loading)return;const photos=[...selected.values()].filter(p=>!target.some(t=>t.id===p.id)).map(p=>({id:p.id,alt:p.title==='Фото товара'?'':p.title}));if(target.length+photos.length>(config.limit??12))return;apply(photos);dialog.close();});
  return{open(items:EditorPhoto[],onApply:(photos:EditorPhoto[])=>void){target=items;apply=onApply;selected.clear();scope='active';page=1;input.value='';opener=document.activeElement as HTMLElement;dialog.querySelectorAll<HTMLButtonElement>('[data-pl-scope]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.plScope===scope)));config.busy(true);dialog.showModal();input.focus();void load();},lock(){reset();dialog.close();}};
 }

@@ -10,6 +10,7 @@ export async function availableLibraryImages(c:PoolClient,ids:string[]){return(a
 export const imageUsedSQL=`EXISTS(SELECT 1 FROM ar_product_media m WHERE m.file_id=f.id)
  OR EXISTS(SELECT 1 FROM ar_sku_media m WHERE m.file_id=f.id)
  OR EXISTS(SELECT 1 FROM ar_product_editor_drafts d WHERE position(f.id::text in coalesce(d.payload::text,'')||coalesce(d.infographic::text,''))>0)
+ OR EXISTS(SELECT 1 FROM ar_content_editor_drafts d WHERE position(f.id::text in coalesce(d.payload::text,''))>0)
  OR EXISTS(SELECT 1 FROM ar_articles a WHERE a.cover_file_id=f.id OR a.video_thumbnail_id=f.id OR position(f.id::text in a.body)>0)
  OR EXISTS(SELECT 1 FROM ar_pages p WHERE position(f.id::text in p.body)>0)`;
 export function libraryQuery(params:URLSearchParams){

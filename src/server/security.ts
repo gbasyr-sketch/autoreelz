@@ -27,7 +27,7 @@ export async function readBody(request:Request,session:ShopSession,maxBytes=1638
  return jsonBody(request,maxBytes);
 }
 export async function jsonBody(request:Request,maxBytes=16384){
- if(!Number.isSafeInteger(maxBytes)||maxBytes<1||maxBytes>65536)throw new Error('Invalid JSON body limit');
+ if(!Number.isSafeInteger(maxBytes)||maxBytes<1||maxBytes>262144)throw new Error('Invalid JSON body limit');
  if(!request.headers.get('Content-Type')?.startsWith('application/json'))throw new StoreError('CONTENT_TYPE','Ожидается JSON.',415);
  const reader=request.body?.getReader();let length=0;const chunks:Uint8Array[]=[];
  if(reader)for(;;){const{done,value}=await reader.read();if(done)break;length+=value.length;if(length>maxBytes){await reader.cancel();throw new StoreError('TOO_LARGE','Слишком большой запрос.',413);}chunks.push(value);}

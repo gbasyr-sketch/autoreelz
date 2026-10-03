@@ -33,7 +33,7 @@ export function productSchema(p:CatalogProduct,c:CatalogSnapshot,offer:Offer){
  }
  return{'@context':'https://schema.org',...productNode(p,c,offer)};
 }
-export function articleSchema(a:Article){return{'@context':'https://schema.org','@type':'Article','@id':absoluteUrl('/blog/'+a.slug)+'#article',url:absoluteUrl('/blog/'+a.slug),mainEntityOfPage:absoluteUrl('/blog/'+a.slug),headline:a.title,description:snippet(a.excerpt||a.body),inLanguage:'ru-RU',...(a.publishedAt?{datePublished:a.publishedAt}:{}),...(a.coverUrl?{image:absoluteUrl(a.coverUrl)}:{})};}
+export function articleSchema(a:Article){return{'@context':'https://schema.org','@type':'Article','@id':absoluteUrl('/blog/'+a.slug)+'#article',url:absoluteUrl('/blog/'+a.slug),mainEntityOfPage:absoluteUrl('/blog/'+a.slug),headline:a.title,description:snippet(a.excerpt||a.bodyText||a.body),inLanguage:'ru-RU',...(a.publishedAt?{datePublished:a.publishedAt}:{}),...(a.coverUrl?{image:absoluteUrl(a.coverUrl)}:{})};}
 export function videoSchema(a:Article){
  const v=a.videoMetadata;if(!a.video||!v?.title||!v.description||!v.thumbnailUrl||!v.uploadedAt)return null;
  return{'@context':'https://schema.org','@type':'VideoObject',name:v.title,description:v.description,thumbnailUrl:[absoluteUrl(v.thumbnailUrl)],uploadDate:v.uploadedAt,embedUrl:a.video.embedUrl,...(v.durationSeconds?{duration:`PT${v.durationSeconds}S`}:{})};
@@ -60,7 +60,7 @@ export function pageSeo(url:URL,c:CatalogSnapshot,content:ContentSnapshot,settin
   const cat=c.categories.find(x=>x.slug===p.category),parents=cat?[...cat.ancestorSlugs,cat.slug].flatMap(slug=>{const a=c.categories.find(x=>x.slug===slug);return a?[{name:a.name,path:'/catalog?category='+a.slug}]:[]}):[];
   result.structuredData.push(breadcrumbs([{name:'Главная',path:'/'},{name:'Каталог',path:'/catalog'},...parents,{name:p.name,path:productPath(p)}]),productSchema(p,c,offer));
  }else if(path.startsWith('/info/')){
-  const p=content.pages.find(p=>'/info/'+p.slug===path);if(!p)return result;set(path);eligible=!p.isDraftText&&!params.size;result.title=clean(p.seoTitle);result.description=clean(p.metaDescription)??snippet(p.summary||p.body);result.structuredData.push(breadcrumbs([{name:'Главная',path:'/'},{name:p.title,path}]));
+  const p=content.pages.find(p=>'/info/'+p.slug===path);if(!p)return result;set(path);eligible=!p.isDraftText&&!params.size;result.title=clean(p.seoTitle);result.description=clean(p.metaDescription)??snippet(p.summary||p.bodyText||p.body);result.structuredData.push(breadcrumbs([{name:'Главная',path:'/'},{name:p.title,path}]));
  }else if(path==='/blog'||path.startsWith('/blog/category/')||path.startsWith('/blog/tag/')){
   const cat=path.startsWith('/blog/category/')?content.categories.find(x=>'/blog/category/'+x.slug===path):null;
   const tag=path.startsWith('/blog/tag/')?content.tags.find(x=>'/blog/tag/'+x.slug===path):null;
@@ -70,7 +70,7 @@ export function pageSeo(url:URL,c:CatalogSnapshot,content:ContentSnapshot,settin
   result.description=`${cat?.name??(tag?'Материалы с тегом «'+tag.name+'»':'Блог AUTO REELZ')}: статьи о подборе деталей и работе магазина.`;
   result.structuredData.push(breadcrumbs([{name:'Главная',path:'/'},{name:'Блог',path:'/blog'},...(cat||tag?[{name:cat?.name??tag!.name,path}]:[])]));
  }else if(path.startsWith('/blog/')){
-  const a=content.articles.find(a=>'/blog/'+a.slug===path);if(!a)return result;set(path);eligible=!a.isDemo&&Boolean(clean(a.body))&&!params.size;result.title=clean(a.seoTitle);result.description=clean(a.metaDescription)??snippet(a.excerpt||a.body);
+  const a=content.articles.find(a=>'/blog/'+a.slug===path);if(!a)return result;set(path);eligible=!a.isDemo&&Boolean(clean(a.body))&&!params.size;result.title=clean(a.seoTitle);result.description=clean(a.metaDescription)??snippet(a.excerpt||a.bodyText||a.body);
   result.structuredData.push(breadcrumbs([{name:'Главная',path:'/'},{name:'Блог',path:'/blog'},{name:a.category.name,path:'/blog/category/'+a.category.slug},{name:a.title,path}]),articleSchema(a));
   const video=videoSchema(a);if(video)result.structuredData.push(video);
  }else if(path==='/cars'){set(path);eligible=false;}

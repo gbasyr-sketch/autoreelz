@@ -1,0 +1,6 @@
+export type ContentKind='page'|'article';
+export type ContentData={title:string;slug:string;body:string;summary:string;seoTitle:string;metaDescription:string;categoryId:string;tagIds:string[];productIds:string[];coverId:string;videoUrl:string;videoTitle:string;videoDescription:string;videoThumbnailId:string;videoUploadedAt:string;videoDuration:string;publishedAt:string;isDemo:boolean;isLegal:boolean;isDraftText:boolean;sort:string};
+export type ContentState={kind:ContentKind;id:string;version:number;baseHash:string|null;data:ContentData;hasDraft:boolean;live:boolean;status:string;liveSlug:string|null};
+export type ContentOptions={categories:{id:string;name:string;slug:string;status:string}[];tags:{id:string;name:string;slug:string}[];products:{id:string;name:string;status:string}[]};
+export const emptyContent=():ContentData=>({title:'',slug:'',body:'<p><br></p>',summary:'',seoTitle:'',metaDescription:'',categoryId:'',tagIds:[],productIds:[],coverId:'',videoUrl:'',videoTitle:'',videoDescription:'',videoThumbnailId:'',videoUploadedAt:'',videoDuration:'',publishedAt:'',isDemo:false,isLegal:false,isDraftText:false,sort:'0'});
+export const contentHref=(kind:ContentKind,slug:string)=>(kind==='article'?'/blog/':'/info/')+encodeURIComponent(slug);

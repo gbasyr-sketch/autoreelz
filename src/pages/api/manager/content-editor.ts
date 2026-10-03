@@ -1,0 +1,5 @@
+import type {APIRoute} from 'astro';
+import {staff,readBody} from '../../../server/security';import {sessionFor,json,failure} from '../../../server/http';import {uuid} from '../../../server/errors';
+import {contentKind,contentOptions,listContent,readContentEditor,saveContentEditor,previewContent,createContentTaxonomy} from '../../../server/content-editor';
+export const GET:APIRoute=async ctx=>{try{await staff(ctx.request);const p=ctx.url.searchParams;if(p.has('options'))return json(await contentOptions());const kind=contentKind(p.get('kind'));return json(p.has('list')?{items:await listContent(kind)}:await readContentEditor(kind,uuid(p.get('id'))));}catch(e){return failure(e);}};
+export const POST:APIRoute=async ctx=>{try{const actor=await staff(ctx.request),body=await readBody(ctx.request,await sessionFor(ctx),262144);return json(body.action==='preview'?await previewContent(contentKind(body.kind),body.data):body.action==='taxonomy'?await createContentTaxonomy(actor,body):await saveContentEditor(actor,body));}catch(e){return failure(e);}};

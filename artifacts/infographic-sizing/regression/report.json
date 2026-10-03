@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "mockedApi": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "removeCalls": 2
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "removeCalls": 2
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "removeCalls": 2
+    }
+  ],
+  "checks": [
+    "two photo sources, style and captions",
+    "429 and retry",
+    "real canvas alpha and brush undo",
+    "mask upload retry keeps idempotency key",
+    "recipe and mask IDs survive draft reload",
+    "PNG download",
+    "add only to unsaved gallery",
+    "mobile fit",
+    "401 closes and clears studio"
+  ]
+}

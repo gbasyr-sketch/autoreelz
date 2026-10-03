@@ -37,7 +37,7 @@
 
 ## Точки входа HTTP
 
-Генератор инфографики: `src/scripts/product-infographic.ts`, `src/lib/product-infographic.ts`, `src/server/product-background.ts`, `services/background-removal/`, миграция014. Проверять приватность исходников, очередь1+2, кисти/отмену, сохранение рецепта после публикации, retry. [Контракт](product-infographics.md).
+Генератор инфографики: `src/scripts/product-infographic.ts`, `src/lib/product-infographic.ts`, `src/lib/infographic-text.ts`, `src/server/product-background.ts`, `services/background-removal/`, миграция014. Проверять приватность исходников, очередь1+2, кисти/отмену, свободное размещение фото, размеры/переполнение текста, PNG и сохранение рецепта после публикации, retry. [Контракт](product-infographics.md).
 
 Серверные маршруты в `src/pages/api/`: commerce, auth, social, manager, shipping, delivery/event, payments/yookassa. Публичного CRUD торговых таблиц нет.
 

@@ -9,8 +9,10 @@ export function photoSwipe(surface:HTMLElement,step:(direction:number)=>void){
  surface.addEventListener('pointerdown',event=>{
   if(event.pointerType!=='touch')return;
   pointers.add(event.pointerId);
-  if(pointers.size!==1||!event.isPrimary||zoomed()||(event.target as Element).closest('button,a')){gesture=undefined;blockClickUntil=performance.now()+700;return;}
-  blockClickUntil=0;gesture={id:event.pointerId,x:event.clientX,y:event.clientY,at:performance.now(),vertical:false};
+  if(pointers.size!==1||!event.isPrimary){gesture=undefined;blockClickUntil=performance.now()+700;return;}
+  blockClickUntil=0;
+  if(zoomed()||(event.target as Element).closest('button,a')){gesture=undefined;return;}
+  gesture={id:event.pointerId,x:event.clientX,y:event.clientY,at:performance.now(),vertical:false};
  },{passive:true});
  surface.addEventListener('pointermove',event=>{
   if(!gesture||gesture.id!==event.pointerId)return;

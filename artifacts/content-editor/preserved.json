@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "originalContentUnchanged": true,
+  "pages": 7,
+  "articles": 9,
+  "compared": [
+    "body",
+    "title",
+    "slug",
+    "status",
+    "cover",
+    "video metadata",
+    "SEO",
+    "legal flags",
+    "dates",
+    "categories",
+    "tags",
+    "tag links",
+    "product links"
+  ],
+  "newDefaultBodyFormatExcluded": true
+}

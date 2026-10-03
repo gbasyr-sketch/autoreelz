@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "mockedApi": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "kind": "article",
+      "quillFormatting": true,
+      "imageUploadRetry": true,
+      "imageAltWidthCaption": true,
+      "libraryCover": true,
+      "serverPreview": true,
+      "draftRetryReload": true,
+      "publishArchiveRestore": true,
+      "listSearchAndDraftFilter": true,
+      "clearedOn401": true
+    },
+    {
+      "width": 1440,
+      "kind": "page",
+      "quillFormatting": true,
+      "imageUploadRetry": true,
+      "imageAltWidthCaption": true,
+      "libraryCover": false,
+      "serverPreview": true,
+      "draftRetryReload": true,
+      "publishArchiveRestore": true,
+      "listSearchAndDraftFilter": true,
+      "clearedOn401": true
+    },
+    {
+      "width": 768,
+      "kind": "article",
+      "quillFormatting": true,
+      "imageUploadRetry": true,
+      "imageAltWidthCaption": true,
+      "libraryCover": true,
+      "serverPreview": true,
+      "draftRetryReload": true,
+      "publishArchiveRestore": true,
+      "listSearchAndDraftFilter": true,
+      "clearedOn401": true
+    },
+    {
+      "width": 768,
+      "kind": "page",
+      "quillFormatting": true,
+      "imageUploadRetry": true,
+      "imageAltWidthCaption": true,
+      "libraryCover": false,
+      "serverPreview": true,
+      "draftRetryReload": true,
+      "publishArchiveRestore": true,
+      "listSearchAndDraftFilter": true,
+      "clearedOn401": true
+    },
+    {
+      "width": 375,
+      "kind": "article",
+      "quillFormatting": true,
+      "imageUploadRetry": true,
+      "imageAltWidthCaption": true,
+      "libraryCover": true,
+      "serverPreview": true,
+      "draftRetryReload": true,
+      "publishArchiveRestore": true,
+      "listSearchAndDraftFilter": true,
+      "clearedOn401": true
+    },
+    {
+      "width": 375,
+      "kind": "page",
+      "quillFormatting": true,
+      "imageUploadRetry": true,
+      "imageAltWidthCaption": true,
+      "libraryCover": false,
+      "serverPreview": true,
+      "draftRetryReload": true,
+      "publishArchiveRestore": true,
+      "listSearchAndDraftFilter": true,
+      "clearedOn401": true
+    }
+  ]
+}

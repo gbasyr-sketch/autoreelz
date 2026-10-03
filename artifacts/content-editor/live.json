@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "revision": "954721a126870322e69bc6a3184917a80748e69c",
+  "readOnlyLiveContent": true,
+  "saveRequests": 0,
+  "uploadRequests": 0,
+  "viewports": [
+    {
+      "width": 1440,
+      "kind": "article",
+      "existingTextLoaded": true,
+      "russianToolbar": true,
+      "preview": true,
+      "unsavedLibraryImage": true
+    },
+    {
+      "width": 1440,
+      "kind": "page",
+      "existingTextLoaded": true,
+      "russianToolbar": true,
+      "preview": true,
+      "unsavedLibraryImage": false
+    },
+    {
+      "width": 375,
+      "kind": "article",
+      "existingTextLoaded": true,
+      "russianToolbar": true,
+      "preview": true,
+      "unsavedLibraryImage": true
+    },
+    {
+      "width": 375,
+      "kind": "page",
+      "existingTextLoaded": true,
+      "russianToolbar": true,
+      "preview": true,
+      "unsavedLibraryImage": false
+    }
+  ],
+  "pageCount": 7,
+  "articleCount": 9,
+  "materialsUnchanged": true,
+  "sessionRevoked": true
+}

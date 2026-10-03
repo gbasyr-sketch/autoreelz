@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "isolatedDatabase": true,
+  "realAuthentication": true,
+  "checks": [
+    "anonymous 401 and invalid CSRF 403",
+    "real draft and repeat are private",
+    "real publication renders safe rich HTML and preserves document banner",
+    "archive hides; restore stays draft"
+  ],
+  "sessionRevoked": true
+}

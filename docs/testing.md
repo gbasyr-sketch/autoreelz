@@ -4,6 +4,8 @@
 
 ## Базовые проверки
 
+Контент03.10: `tests/content-editor.test.ts`, `tests/content-editor-database.mjs` (только `ar_qa_content_editor_*` со схемой001–019), `tests/content-editor-browser.mjs` с `AR_CONTENT_URL`/`AR_CONTENT_OUTPUT`. Браузерные записи подменены; настоящий API проверяется на отдельной QA-БД, а опубликованные материалы читаются без сохранения. После изменения медиа-защиты запускать регрессию библиотеки и редактора товаров. Доказательства — artifacts/content-editor.
+
 Объединение цветов03.10: `tests/product-color-merges-database.mjs` — только `ar_qa_color_merges_*` со схемой001–017 и синтетическими записями. `AR_COLOR_URL=<preview> node tests/product-color-merges-browser.mjs` использует рассмотренный каталог из `AR_COLOR_PLAN` либо `artifacts/color-merge/rehearsal.json`. Проверяет точные цвета/цены/галереи, старые ссылки, избранное/историю. [Контракт](product-color-merges.md). Не выполнять разовый SQL переноса на рабочей базе повторно ради теста.
 
 - `npm run check` — Astro/TypeScript.

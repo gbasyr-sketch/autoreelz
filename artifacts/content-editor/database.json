@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "isolatedRegressionDatabasesRemoved": true,
+  "suites": {
+    "content": {
+      "passed": true,
+      "isolated": true,
+      "checks": [
+        "legacy text is escaped and reading does not rewrite its format or legal flags",
+        "durable draft is separate, idempotent and its images cannot be trashed or exposed publicly",
+        "publication switches only chosen material to safe HTML and exposes its inline photos",
+        "new taxonomy creation is idempotent and collisions do not overwrite it",
+        "future article retains video/tags/products but is absent together with its images",
+        "published rich article and media obey category visibility and date",
+        "changing slug keeps historical redirect and forbids reuse or reserved page route",
+        "CMS child relation edits conflict; discard reloads instead of overwriting",
+        "archive/restore retain unpublished changes and restore only to draft",
+        "invalid refs, images and video cannot advance version or change public material",
+        "new incomplete draft archives/restores independently of live tables"
+      ]
+    },
+    "image-library": {
+      "passed": true,
+      "isolated": true,
+      "checks": [
+        "bounded search, pagination and literal wildcard characters",
+        "trash and restore are reversible and repeated commands do not duplicate",
+        "unlinked CMS image can be reused; draft protects its original",
+        "deleted image cannot enter a new draft",
+        "saved infographic sources remain protected without gallery entries",
+        "published and archived product media cannot be trashed",
+        "concurrent draft save and trash cannot leave a deleted photo in a saved draft",
+        "publish reuses a photo from another product without copying or removing the original",
+        "an old upload claim cannot reintroduce a trashed infographic source"
+      ]
+    },
+    "product-editor": {
+      "passed": true,
+      "isolated": true,
+      "checks": [
+        "incomplete draft is durable and invisible to catalog and stock",
+        "invalid publication rolls back without advancing draft version",
+        "infographic recipe rejects foreign sources and survives draft reload",
+        "concurrent repeat publishes all relations and receives stock exactly once in rubles",
+        "publication retains private recipe without replacing original gallery",
+        "editing draft leaves published price unchanged and prevents repeat initial receipt",
+        "CMS child edits cause a conflict; explicit discard recovers a stale draft",
+        "duplicate article, historical slug, foreign media and missing SKU cannot overwrite catalog",
+        "new variant receives only its own initial stock; package changes leave shared packages intact",
+        "source remains privately editable after replacing its gallery entry"
+      ]
+    }
+  }
+}

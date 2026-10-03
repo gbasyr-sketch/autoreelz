@@ -1,0 +1,32 @@
+{
+  "quill": "2.0.3",
+  "sanitizeHtml": "2.18.0",
+  "legacyVersionsUnchanged": {
+    "astro": true,
+    "@astrojs/node": true,
+    "http-cache-semantics": true
+  },
+  "audit": {
+    "@astrojs/node": {
+      "severity": "high",
+      "advisories": []
+    },
+    "astro": {
+      "severity": "high",
+      "advisories": []
+    },
+    "http-cache-semantics": {
+      "severity": "high",
+      "advisories": [
+        "https://github.com/advisories/GHSA-ch52-4w7c-c8xp"
+      ]
+    },
+    "quill": {
+      "severity": "low",
+      "advisories": [
+        "https://github.com/advisories/GHSA-v3m3-f69x-jf25"
+      ]
+    }
+  },
+  "quillMitigation": "Export never inserted as trusted HTML; server allowlist applied on save/load/preview/public output. XSS tests passed. No forced dependency downgrades."
+}

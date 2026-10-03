@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "mockedApi": true,
+  "viewports": [
+    {
+      "width": 375,
+      "kind": "article",
+      "quillFormatting": true,
+      "imageUploadRetry": true,
+      "imageAltWidthCaption": true,
+      "libraryCover": true,
+      "serverPreview": true,
+      "draftRetryReload": true,
+      "publishArchiveRestore": true,
+      "listSearchAndDraftFilter": true,
+      "clearedOn401": true
+    }
+  ]
+}

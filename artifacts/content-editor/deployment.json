@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-03",
+  "revision": "954721a126870322e69bc6a3184917a80748e69c",
+  "imageId": "sha256:09f2ff47cb23db47f9df5cc6657872366d06243ee645198fca082d7d4eea6fbc",
+  "previousRevision": "01a06c434ae25b197a036c98c1294bba702d67be",
+  "migration": {
+    "name": "019_content_editor.sql",
+    "sha256": "7d54a7e6a4fec85c270399a45e8bcd844b199353a0da3f6e8b8c26fc69615d8c"
+  },
+  "backup": "/srv/autoreelz2026/backups/before-content-editor-20261003T192446Z.dump",
+  "checks": {
+    "astro": {
+      "files": 169,
+      "errors": 0,
+      "warnings": 0
+    },
+    "build": "passed",
+    "unit": {
+      "passed": 121,
+      "skipped": 8
+    },
+    "database": "database.json",
+    "realIsolatedAPI": "api-qa.json",
+    "preview": "preview/report.json",
+    "publishedMockedAPI": "public/report.json",
+    "liveReadOnly": "live.json",
+    "contentPreserved": "preserved.json",
+    "cleanup": "cleanup.txt",
+    "services": "web/worker/CMS/DB/background healthy; edge running",
+    "http": "http.json",
+    "finalRussianValidation": "final-ui/report.json"
+  },
+  "paidRequests": 0,
+  "liveContentWrites": 0,
+  "limitations": [
+    "Browser upload/save scenarios use synthetic API data; actual publication/API tested on isolated QA database.",
+    "No physical phone/Safari test.",
+    "Quill export is untrusted; server sanitizer is mandatory for every save, read, preview and public render."
+  ],
+  "baseFeatureRevision": "0d738e395fb3aa8edf71598c222ddf2c391cb5ae",
+  "notes": [
+    "Final follow-up only makes category/tag form validation use Russian server responses. Full regression refers to baseFeatureRevision; final mobile flow and real content reads ran on final revision."
+  ]
+}

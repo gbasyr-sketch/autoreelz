@@ -1,0 +1,30 @@
+{
+  "/health": {
+    "status": 200,
+    "robots": "noindex, nofollow, noarchive",
+    "body": {
+      "ok": true,
+      "revision": "954721a126870322e69bc6a3184917a80748e69c"
+    }
+  },
+  "/": {
+    "status": 200,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  "/blog": {
+    "status": 200,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  "/info/about": {
+    "status": 200,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  "/manager/content": {
+    "status": 200,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  "/muzey/": {
+    "status": 200,
+    "robots": "noindex, nofollow, noarchive"
+  }
+}

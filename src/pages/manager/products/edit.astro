@@ -1,4 +1,5 @@
 ---
+import BundleCollageDialog from '../../../components/BundleCollageDialog.astro';
 import ProductInfographicStudio from '../../../components/ProductInfographicStudio.astro';
 import ProductImageLibrary from '../../../components/ProductImageLibrary.astro';
 import ManagerLayout from '../../../layouts/ManagerLayout.astro';
@@ -14,6 +15,7 @@ import '../../../styles/product-editor.css';
    <button type="button" class="dash-button" data-discard-draft hidden>Сбросить черновик и загрузить карточку</button>
    <div class="dash-message dash-error" data-editor-errors role="alert" tabindex="-1" hidden></div>
    <div class="pe-lifecycle-actions"><button type="button" class="dash-button dash-danger" data-product-archive hidden>Удалить товар</button><button type="button" class="dash-button" data-product-restore hidden>Восстановить в черновик</button></div>
+   <BundleCollageDialog/>
    <ProductInfographicStudio/>
    <ProductImageLibrary/>
    <div class="pe-layout">

@@ -29,6 +29,7 @@ export function publicationIssues(data:EditorData,existingIds:string[]=[]):Edito
  if(!data.categoryId)add('categoryId','Выберите категорию.');
  if(!data.photos.length)add('photos','Добавьте хотя бы одну общую фотографию товара.');
  if(data.kind==='bundle'){
+  if((data.components?.length??0)>20)add('components','В комплекте может быть не больше 20 позиций.');
   if(data.variants.length)add('components','У комплекта нет собственных исполнений и остатков.');
   if(!data.components?.length)add('components','Добавьте хотя бы одно исполнение в состав комплекта.');
   const ids=new Set<string>();for(const [i,c] of (data.components??[]).entries()){if(!c.skuId||ids.has(c.skuId))add('components','Исполнения в составе не должны повторяться.');ids.add(c.skuId);if(!/^\d+$/.test(c.quantity)||Number(c.quantity)<1||Number(c.quantity)>10000)add(`components.${i}.quantity`,'Укажите целое количество от 1 до 10 000.');}

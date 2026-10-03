@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "isolatedDatabasesRemoved": true,
+  "suites": {
+    "bundles": {
+      "passed": true,
+      "isolated": true,
+      "checks": [
+        "new bundle and incomplete draft have no SKU, live product or stock",
+        "concurrent repeat atomically publishes composition and discount without inventory receipts",
+        "checkout uses exact discount, current component prices and combined demand",
+        "draft edits do not change live bundle or existing order snapshot",
+        "CMS composition changes conflict and explicit discard reloads the new composition",
+        "unpublished, missing, nested and duplicate components cannot be published",
+        "ordinary product cannot change kind; bundle cannot create own stock",
+        "archive and restore preserve bundle draft composition and allow re-publication",
+        "SKU options carry exact prices, effective photos and shared stock; catalog stock untouched"
+      ]
+    },
+    "ordinary-editor": {
+      "passed": true,
+      "isolated": true,
+      "checks": [
+        "incomplete draft is durable and invisible to catalog and stock",
+        "invalid publication rolls back without advancing draft version",
+        "infographic recipe rejects foreign sources and survives draft reload",
+        "concurrent repeat publishes all relations and receives stock exactly once in rubles",
+        "publication retains private recipe without replacing original gallery",
+        "editing draft leaves published price unchanged and prevents repeat initial receipt",
+        "CMS child edits cause a conflict; explicit discard recovers a stale draft",
+        "duplicate article, historical slug, foreign media and missing SKU cannot overwrite catalog",
+        "new variant receives only its own initial stock; package changes leave shared packages intact",
+        "source remains privately editable after replacing its gallery entry"
+      ]
+    },
+    "lifecycle": {
+      "passed": true,
+      "isolated": true,
+      "externalCalls": 0,
+      "checks": [
+        "published bundle dependency blocks removing a component",
+        "concurrent archive and retry change visibility once without touching order, stock, photos or SKU",
+        "restore requires explicit publication and never repeats initial stock",
+        "CMS SKU edits invalidate an open lifecycle confirmation",
+        "stale confirmation cannot archive a newer edit",
+        "archive and restore preserve a pre-existing draft conflict with CMS",
+        "unpublished drafts can be archived and restored with their data intact",
+        "recommendation drafts are private; publishing preserves order and legacy clients retain choices",
+        "self, duplicate and missing recommendations are rejected atomically",
+        "archiving a recommended product removes its card without breaking the source product"
+      ]
+    }
+  }
+}

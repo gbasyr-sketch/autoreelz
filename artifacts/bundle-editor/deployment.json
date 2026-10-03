@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-03",
+  "revision": "531600eb8d50dcbe0ffc6ab7bcaeb3f905c6e70c",
+  "imageId": "sha256:c244be2bb8a45d852551ee01028057a9fca25980d432ada07a97e54f47e93c47",
+  "previousRevision": "fb2a23c51963e9cd912ea917aea262e34cdb8978",
+  "migration": {
+    "name": "018_bundle_editor.sql",
+    "sha256": "2b257ab2e5cdb3170b8945e5f43261accb034dcb29be0681d2400597d0fcc5b2",
+    "change": "INSERT, DELETE permission on ar_bundle_components for ar_app"
+  },
+  "backup": "/srv/autoreelz2026/backups/before-bundle-editor-20261003T162051Z.dump",
+  "checks": {
+    "astro": {
+      "files": 159,
+      "errors": 0,
+      "warnings": 0
+    },
+    "build": "passed",
+    "unit": {
+      "passed": 112,
+      "skipped": 8
+    },
+    "database": "database.json",
+    "preview": "preview/report.json",
+    "publishedMockedApi": "public/report.json",
+    "ordinaryRegression": "ordinary-public/report.json",
+    "realCatalogReadOnly": "live.json",
+    "http": "http.json",
+    "services": "web/worker/CMS/DB/background healthy; edge running"
+  },
+  "liveProductStockOrdersChanged": false,
+  "paidRequests": 0,
+  "limitations": [
+    "No physical phone/Safari test",
+    "Bundle publication and inventory assertions performed on synthetic isolated databases; public checks never saved a product"
+  ]
+}

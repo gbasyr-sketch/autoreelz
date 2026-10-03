@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "revision": "531600eb8d50dcbe0ffc6ab7bcaeb3f905c6e70c",
+  "readOnlyCatalog": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "realSearchPhotoPrice": true,
+      "unsavedOnly": true
+    },
+    {
+      "width": 375,
+      "realSearchPhotoPrice": true,
+      "unsavedOnly": true
+    }
+  ],
+  "availableSkuCount": 127,
+  "existingBundlesReadable": 17,
+  "existingBundlesUnchanged": true,
+  "access": {
+    "anonymous": 401,
+    "noCsrf": 403
+  },
+  "sessionRevoked": true
+}

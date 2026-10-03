@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "publishedClient": true,
+  "mockedApi": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "searchAndExactSku": true,
+      "quantityAndDiscount": true,
+      "noDuplicatePhotos": true,
+      "retryAndDraftReload": true,
+      "validationBeforePublish": true,
+      "published": true,
+      "reorderAndRemove": true,
+      "clearsOn401": true
+    },
+    {
+      "width": 768,
+      "searchAndExactSku": true,
+      "quantityAndDiscount": true,
+      "noDuplicatePhotos": true,
+      "retryAndDraftReload": true,
+      "validationBeforePublish": true,
+      "published": true,
+      "reorderAndRemove": true,
+      "clearsOn401": true
+    },
+    {
+      "width": 375,
+      "searchAndExactSku": true,
+      "quantityAndDiscount": true,
+      "noDuplicatePhotos": true,
+      "retryAndDraftReload": true,
+      "validationBeforePublish": true,
+      "published": true,
+      "reorderAndRemove": true,
+      "clearsOn401": true
+    }
+  ]
+}

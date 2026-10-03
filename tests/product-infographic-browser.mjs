@@ -4,7 +4,7 @@ const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'/Users/magomedrasu
 const base=process.env.AR_INFO_URL||'http://127.0.0.1:14338',out=process.env.AR_INFO_OUTPUT||'artifacts/infographics/browser';fs.mkdirSync(out,{recursive:true});
 const source=await sharp({create:{width:500,height:400,channels:4,background:'#fff'}}).composite([{input:await sharp({create:{width:220,height:220,channels:4,background:'#243cff'}}).png().toBuffer(),left:140,top:90}]).png().toBuffer();
 const cutout=await sharp({create:{width:500,height:400,channels:4,background:{r:0,g:0,b:0,alpha:0}}}).composite([{input:await sharp({create:{width:220,height:220,channels:4,background:'#243cff'}}).png().toBuffer(),left:140,top:90}]).png().toBuffer();
-const report={passed:false,mockedApi:true,viewports:[],checks:[]},browser=await chromium.launch({channel:'chrome',headless:true});
+const report={passed:false,mockedApi:true,viewports:[],checks:[]},browser=await chromium.launch({headless:true,...(process.env.AR_CHROMIUM_EXECUTABLE?{executablePath:process.env.AR_CHROMIUM_EXECUTABLE}:{channel:'chrome'})});
 try{for(const width of [1440,768,375]){
  const context=await browser.newContext({viewport:{width,height:1000},acceptDownloads:true}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('dialog',d=>d.accept());
  const id=randomUUID(),photo=randomUUID(),second=randomUUID(),category=randomUUID();let gate=200,failRemove=true,failUpload=false,removeCalls=0;const uploadKeys=[];

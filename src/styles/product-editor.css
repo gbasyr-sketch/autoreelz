@@ -61,3 +61,11 @@
 @media(max-width:700px){.pl-dialog{width:calc(100% - 16px);max-height:calc(100dvh - 16px);padding:12px;gap:10px}.pl-header{align-items:start}.pl-header h2{font-size:20px}.pl-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.pl-pick img{height:110px}.pl-search{flex-wrap:wrap}.pl-search .dash-field{flex-basis:100%}.pl-search input{font-size:16px}.pl-footer{flex-wrap:wrap}.pl-footer p{flex-basis:100%}.pl-footer button{flex:1}.pl-card{padding:5px}.pl-header .dash-button{padding-inline:10px}}
 .pl-header,.pl-search,.pl-tabs,.pl-pagination,.pl-footer{flex-shrink:0}
 @media(max-height:550px){.pl-dialog[open]{display:block;overflow:auto}.pl-dialog>*+*{margin-top:12px!important}.pl-scroll{max-height:45dvh}.pl-footer{padding-bottom:8px}}
+
+.be-picker>summary{font-weight:700;cursor:pointer;min-height:44px;display:flex;align-items:center}
+.be-results{display:grid;gap:10px;max-height:390px;overflow:auto;overscroll-behavior:contain;padding:2px 8px 2px 2px}
+.be-result,.be-component{border:1px solid var(--dash-line);border-radius:8px;padding:14px;min-width:0;background:#fff}
+.be-result .dash-button{margin-top:8px}.be-identity{display:flex;gap:12px;align-items:center;min-width:0}.be-identity img{object-fit:contain;background:var(--dash-bg);border-radius:5px;flex-shrink:0}.be-identity>div{min-width:0;overflow-wrap:anywhere}.be-identity strong{font-size:14px}.be-selected{display:grid;gap:12px}.be-component{display:grid;gap:12px}.be-totals{padding:18px;border-radius:8px;background:#edf1eb;display:grid;gap:8px}.be-totals strong{font-size:20px}
+@media(max-width:700px){.be-results{max-height:350px}.be-component input,.be-picker input{font-size:16px}}
+.be-picker>summary:after{content:'+';margin-left:auto;font-size:20px}.be-picker[open]>summary:after{content:'−'}
+@media(min-width:701px){.be-result{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:16px;align-items:center}.be-result>.be-identity{grid-row:1/3}.be-result>.dash-help,.be-result>.dash-button{grid-column:2}.be-result>.dash-button{justify-self:end}.be-component{grid-template-columns:minmax(0,1fr) 170px;column-gap:20px}.be-component>.dash-field{grid-column:2;grid-row:1/3}.be-component>.pe-inline-actions{grid-column:1/-1}.be-component>.dash-error{grid-column:1/-1}}

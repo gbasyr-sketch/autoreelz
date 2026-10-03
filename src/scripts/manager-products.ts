@@ -25,7 +25,7 @@ if(root){
    copy.append(node('h3',p.name),node('p',p.kind==='bundle'?'Комплект':'Отдельный товар','dash-help'));
    const tags=node('div','','dash-tags');tags.append(node('span',archived?'Удалён с сайта':p.status==='published'?'Опубликован':'Черновик','dash-tag'));if(p.is_demo)tags.append(node('span','Демонстрационный','dash-tag warning'));
    copy.append(tags,node('p',archived?'Можно восстановить в черновик. Заказы и остатки сохранены.':issues.length?issues.join(' · '):p.is_demo?'Демонстрационный товар не участвует в проверке готовности.':'По проверяемым полям данные заполнены.','dash-help'));
-   const actions=node('div','','mgr-row-actions');if(p.kind==='single')actions.append(link(archived?'Открыть карточку':'Редактировать','/manager/products/edit?id='+p.id,'dash-button'));
+   const actions=node('div','','mgr-row-actions');actions.append(link(archived?'Открыть карточку':'Редактировать','/manager/products/edit?id='+p.id,'dash-button'));
    if(p.slug)actions.append(link('Открыть CMS',`${cms}/content/ar_products/${p.id}`,'dash-button'));actions.append(actionButton(p.name,p.id,archived?'restore':'archive'));row.append(identity(p.imageId,copy),actions);list.append(row);
   }
   const saved=$('[data-product-drafts]');saved.replaceChildren();const visible=drafts.filter(d=>d.name.toLocaleLowerCase('ru-RU').includes(q));$('[data-product-drafts-panel]').hidden=archived||!visible.length;

@@ -1,12 +1,14 @@
+import {bundlePreview} from './helpers/bundle-preview.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';import {randomUUID} from 'node:crypto';
 import {emptyProduct,emptyVariant} from '../src/lib/product-editor.ts';
 const{chromium}=await import(process.env.PLAYWRIGHT_MODULE||'/Users/magomedrasul/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs');
 const base=process.env.AR_EDITOR_URL||'http://127.0.0.1:14333',out=process.env.AR_EDITOR_OUTPUT||'artifacts/product-editor/browser';fs.mkdirSync(out,{recursive:true});
-const browser=await chromium.launch({channel:'chrome',headless:true});const report={passed:false,mockedApi:true,viewports:[],checks:[]};
+const browser=await chromium.launch({headless:true,...(process.env.AR_CHROMIUM_EXECUTABLE?{executablePath:process.env.AR_CHROMIUM_EXECUTABLE}:{channel:'chrome'})});const report={passed:false,mockedApi:true,viewports:[],checks:[]};
 try{for(const width of [1440,768,375]){
  const context=await browser.newContext({viewport:{width,height:1000},locale:'en-US'}),page=await context.newPage(),errors=[],calls=[];page.on('pageerror',e=>errors.push(e.message));page.on('dialog',d=>d.accept());
  const id=randomUUID(),sku=randomUUID(),category=randomUUID(),photo=randomUUID();let gate=401,failSave=true;
  const state={id,version:0,baseHash:null,data:{...emptyProduct(),variants:[emptyVariant(sku)]},hasDraft:false,live:false,existingSkuIds:[],stock:{}};
+ if(process.env.AR_EDITOR_BUNDLE_PREVIEW==='1')await bundlePreview(page);
  await page.route('**/api/**',async route=>{const r=route.request(),u=new URL(r.url()),action=u.pathname.split('/').at(-1),reply=(json,status=200)=>route.fulfill({status,json});
   if(action==='session')return reply({id:randomUUID(),csrfToken:'qa-csrf',email:null,expiresAt:'2030-01-01T00:00:00Z'});
   if(action==='login'){gate=200;return reply({ok:true});}if(action==='logout'){gate=401;return reply({ok:true});}if(gate!==200)return reply({error:{message:'Войдите в кабинет владельца.'}},gate);

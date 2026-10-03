@@ -10,7 +10,7 @@ import {hash,idempotent} from './security.ts';
 import {stockMove} from './orders.ts';
 import {lockStock} from './pricing.ts';
 import {parseRublesInput} from '../lib/money.ts';
-import {emptyProduct,emptyPackage,emptyVariant,publicationIssues,hasPackage,packageValues,type EditorData,type EditorOptions,type EditorState,type EditorAttribute,type EditorPhoto,type EditorFitment} from '../lib/product-editor.ts';
+import {emptyProduct,emptyPackage,emptyVariant,bundleTotals,bundleDiscount,publicationIssues,hasPackage,packageValues,type EditorData,type EditorOptions,type EditorState,type EditorAttribute,type EditorPhoto,type EditorFitment} from '../lib/product-editor.ts';
 
 type Row=Record<string,any>;
 export class EditorError extends StoreError {issues:{path:string;message:string}[];constructor(issues:{path:string;message:string}[]){super('PRODUCT_FIELDS','Проверьте отмеченные поля.');this.issues=issues;}}
@@ -26,17 +26,21 @@ function fitment(value:unknown):EditorFitment[]{return list(value,30).map(v=>{co
 export function normalizeProduct(value:unknown):EditorData{
  const x=object(value);if(typeof x.isDemo!=='boolean')throw new StoreError('PRODUCT_INPUT','Проверьте признак демонстрационного товара.');
  let infographic;try{infographic=normalizeInfographic(x.infographic);}catch(e){throw new StoreError('INFOGRAPHIC_INPUT',e instanceof Error?e.message:'Неверный макет.');}
- return{...(x.recommendedProductIds!==undefined?{recommendedProductIds:list(x.recommendedProductIds,8).map(uuid)}:{}),...(x.infographic!==undefined?{infographic}:{}),name:string(x.name),slug:string(x.slug,160),categoryId:optionalId(x.categoryId),description:string(x.description,12000),seoTitle:string(x.seoTitle,250),metaDescription:string(x.metaDescription,2000),isDemo:x.isDemo,photos:photos(x.photos),attributes:attributes(x.attributes),fitment:fitment(x.fitment),variants:list(x.variants,20).map(value=>{const v=object(value),p=object(v.package);return{id:uuid(v.id),name:string(v.name),article:string(v.article,160),price:string(v.price,40),status:choice(v.status,['draft','published','archived']) as 'draft'|'published'|'archived',package:{weightG:string(p.weightG,15),lengthCm:string(p.lengthCm,15),widthCm:string(p.widthCm,15),heightCm:string(p.heightCm,15)},initialStock:string(v.initialStock,10),stockReason:string(v.stockReason,500),photos:photos(v.photos),mediaMode:choice(v.mediaMode,['inherit','replace']) as 'inherit'|'replace',attributes:attributes(v.attributes),fitment:fitment(v.fitment),fitmentMode:choice(v.fitmentMode,['inherit','replace']) as 'inherit'|'replace'};})};
+ const kind=choice(x.kind??'single',['single','bundle']);
+ const bundle=kind==='bundle'?{kind:'bundle' as const,discountPercent:string(x.discountPercent??'0',6),components:list(x.components??[],50).map(value=>{const item=object(value);return{skuId:uuid(item.skuId),quantity:string(item.quantity,5)};})}:{};
+ if(kind==='single'&&(x.components?.length||x.discountPercent&&x.discountPercent!=='0'))throw new StoreError('PRODUCT_INPUT','Состав и скидка доступны только комплектам.');
+ if(kind==='bundle'&&list(x.variants,20).length)throw new StoreError('PRODUCT_INPUT','У комплекта нет собственных исполнений.');
+ return{...bundle,...(x.recommendedProductIds!==undefined?{recommendedProductIds:list(x.recommendedProductIds,8).map(uuid)}:{}),...(x.infographic!==undefined?{infographic}:{}),name:string(x.name),slug:string(x.slug,160),categoryId:optionalId(x.categoryId),description:string(x.description,12000),seoTitle:string(x.seoTitle,250),metaDescription:string(x.metaDescription,2000),isDemo:x.isDemo,photos:photos(x.photos),attributes:attributes(x.attributes),fitment:fitment(x.fitment),variants:list(x.variants,20).map(value=>{const v=object(value),p=object(v.package);return{id:uuid(v.id),name:string(v.name),article:string(v.article,160),price:string(v.price,40),status:choice(v.status,['draft','published','archived']) as 'draft'|'published'|'archived',package:{weightG:string(p.weightG,15),lengthCm:string(p.lengthCm,15),widthCm:string(p.widthCm,15),heightCm:string(p.heightCm,15)},initialStock:string(v.initialStock,10),stockReason:string(v.stockReason,500),photos:photos(v.photos),mediaMode:choice(v.mediaMode,['inherit','replace']) as 'inherit'|'replace',attributes:attributes(v.attributes),fitment:fitment(v.fitment),fitmentMode:choice(v.fitmentMode,['inherit','replace']) as 'inherit'|'replace'};})};
 }
 export async function productEditorOptions():Promise<EditorOptions>{return transaction(async c=>{
  const categories=(await c.query('SELECT id,name,parent_id,status FROM ar_categories ORDER BY sort,name')).rows;
  const attrs=(await c.query('SELECT id,name,value_type,unit FROM ar_attributes ORDER BY sort,name')).rows,values=(await c.query('SELECT id,attribute_id,label FROM ar_attribute_values ORDER BY sort,label')).rows,links=(await c.query('SELECT category_id,attribute_id FROM ar_category_attributes')).rows;
  const vehicles=(await c.query('SELECT id,name FROM ar_vehicles ORDER BY name')).rows,versions=(await c.query('SELECT id,vehicle_id,name FROM ar_vehicle_versions ORDER BY name')).rows;
- return {products:(await c.query("SELECT id,name,status FROM ar_products WHERE status<>'archived' ORDER BY name,id")).rows,categories:categories.map(r=>({id:r.id,name:r.name,parentId:r.parent_id,status:r.status})),attributes:attrs.map(r=>({id:r.id,name:r.name,type:r.value_type,unit:r.unit,categoryIds:links.filter(l=>l.attribute_id===r.id).map(l=>l.category_id),values:values.filter(v=>v.attribute_id===r.id).map(v=>({id:v.id,label:v.label}))})),vehicles:vehicles.map(v=>({id:v.id,name:v.name,versions:versions.filter(r=>r.vehicle_id===v.id).map(r=>({id:r.id,name:r.name}))}))};
+ return {bundleSkus:await bundleSkuOptions(c),products:(await c.query("SELECT id,name,status FROM ar_products WHERE status<>'archived' ORDER BY name,id")).rows,categories:categories.map(r=>({id:r.id,name:r.name,parentId:r.parent_id,status:r.status})),attributes:attrs.map(r=>({id:r.id,name:r.name,type:r.value_type,unit:r.unit,categoryIds:links.filter(l=>l.attribute_id===r.id).map(l=>l.category_id),values:values.filter(v=>v.attribute_id===r.id).map(v=>({id:v.id,label:v.label}))})),vehicles:vehicles.map(v=>({id:v.id,name:v.name,versions:versions.filter(r=>r.vehicle_id===v.id).map(r=>({id:r.id,name:r.name}))}))};
  });}
 export async function live(c:PoolClient,id:string){
  const product=(await c.query('SELECT * FROM ar_products WHERE id=$1',[id])).rows[0];if(!product)return null;
- if(product.kind!=='single')throw new StoreError('PRODUCT_BUNDLE','Комплекты пока редактируются в CMS: их цена и наличие зависят от состава.',409);
+ const components=product.kind==='bundle'?(await c.query('SELECT * FROM ar_bundle_components WHERE bundle_id=$1 ORDER BY sort,id',[id])).rows:[];
  const skus=(await c.query('SELECT * FROM ar_skus WHERE product_id=$1 ORDER BY sort,id',[id])).rows;
  const media=(await c.query('SELECT * FROM ar_product_media WHERE product_id=$1 ORDER BY sort,id',[id])).rows;
  const skuMedia=(await c.query('SELECT m.* FROM ar_sku_media m JOIN ar_skus s ON s.id=m.sku_id WHERE s.product_id=$1 ORDER BY m.sort,m.id',[id])).rows;
@@ -45,23 +49,28 @@ export async function live(c:PoolClient,id:string){
  const fits=(await c.query('SELECT * FROM ar_fitment WHERE product_id=$1 ORDER BY id',[id])).rows;
  const packs=(await c.query('SELECT * FROM ar_packages WHERE id=ANY($1::uuid[]) ORDER BY id',[skus.flatMap(s=>s.package_id?[s.package_id]:[])])).rows;
  const recommendations=(await c.query('SELECT recommended_id,sort FROM ar_product_recommendations WHERE product_id=$1 ORDER BY sort,recommended_id',[id])).rows;
- const raw={product,skus,media,skuMedia,attrs,skuAttrs,fits,packs,...(recommendations.length?{recommendations}:{})};
+ const raw={...(product.kind==='bundle'?{components}:{}),product,skus,media,skuMedia,attrs,skuAttrs,fits,packs,...(recommendations.length?{recommendations}:{})};
  const image=(m:Row):EditorPhoto=>({id:m.file_id,alt:m.alt});
  const attr=(a:Row):EditorAttribute=>({attributeId:a.attribute_id,value:String(a.value_id??a.text_value??a.number_value??a.boolean_value??'')});
  const fit=(f:Row):EditorFitment=>({vehicleId:f.vehicle_id,versionId:f.version_id??'',yearFrom:String(f.year_from??''),yearTo:String(f.year_to??''),ac:f.air_conditioning,state:f.state,note:f.note??''});
- const data:EditorData={recommendedProductIds:recommendations.map(r=>r.recommended_id),name:product.name,slug:product.slug,categoryId:product.category_id,description:product.description??'',seoTitle:product.seo_title??'',metaDescription:product.meta_description??'',isDemo:product.is_demo,photos:media.map(image),attributes:attrs.map(attr),fitment:fits.filter(f=>!f.sku_id).map(fit),variants:skus.map(s=>{const p=packs.find(p=>p.id===s.package_id);return{...emptyVariant(s.id),name:s.name,article:s.article,price:s.price_rubles,status:s.status,package:p?{weightG:String(p.weight_g),lengthCm:String(p.length_mm/10),widthCm:String(p.width_mm/10),heightCm:String(p.height_mm/10)}:emptyPackage(),photos:skuMedia.filter(m=>m.sku_id===s.id).map(image),mediaMode:s.media_mode,attributes:skuAttrs.filter(a=>a.sku_id===s.id).map(attr),fitment:fits.filter(f=>f.sku_id===s.id).map(fit),fitmentMode:s.fitment_mode};})};
+ const data:EditorData={...(product.kind==='bundle'?{kind:'bundle' as const,discountPercent:product.discount_percent,components:components.map(c=>({skuId:c.sku_id,quantity:String(c.quantity)}))}:{}),recommendedProductIds:recommendations.map(r=>r.recommended_id),name:product.name,slug:product.slug,categoryId:product.category_id,description:product.description??'',seoTitle:product.seo_title??'',metaDescription:product.meta_description??'',isDemo:product.is_demo,photos:media.map(image),attributes:attrs.map(attr),fitment:fits.filter(f=>!f.sku_id).map(fit),variants:skus.map(s=>{const p=packs.find(p=>p.id===s.package_id);return{...emptyVariant(s.id),name:s.name,article:s.article,price:s.price_rubles,status:s.status,package:p?{weightG:String(p.weight_g),lengthCm:String(p.length_mm/10),widthCm:String(p.width_mm/10),heightCm:String(p.height_mm/10)}:emptyPackage(),photos:skuMedia.filter(m=>m.sku_id===s.id).map(image),mediaMode:s.media_mode,attributes:skuAttrs.filter(a=>a.sku_id===s.id).map(attr),fitment:fits.filter(f=>f.sku_id===s.id).map(fit),fitmentMode:s.fitment_mode};})};
  return{data,raw,hash:hash(JSON.stringify(raw))};
 }
-export async function readProductEditor(input:unknown):Promise<EditorState>{const requested=uuid(input);return transaction(async c=>{
+export async function readProductEditor(input:unknown,kind:unknown='single'):Promise<EditorState>{const requested=uuid(input);choice(kind,['single','bundle']);return transaction(async c=>{
  const id=await canonicalProductId(c,requested);
  const current=await live(c,id),draft=(await c.query('SELECT * FROM ar_product_editor_drafts WHERE id=$1',[id])).rows[0];
  const stock=(await c.query('SELECT st.sku_id,st.on_hand,st.reserved FROM ar_stock st JOIN ar_skus s ON s.id=st.sku_id WHERE s.product_id=$1',[id])).rows;
- return{archived:current?current.raw.product.status==='archived':!!draft?.archived_at,liveStatus:current?.raw.product.status,id,version:draft?.version??0,baseHash:draft?.payload?draft.base_hash:current?.hash??null,data:{...(draft?.payload??current?.data??{...emptyProduct(),variants:[emptyVariant(randomUUID())]}),infographic:draft?.payload&&Object.hasOwn(draft.payload,'infographic')?draft.payload.infographic:draft?.infographic??null},hasDraft:!!draft?.payload,live:!!current,liveSlug:current?.data.slug,existingSkuIds:current?.data.variants.map(v=>v.id)??[],stock:Object.fromEntries(stock.map(s=>[s.sku_id,{onHand:s.on_hand,reserved:s.reserved}]))};
+ return{archived:current?current.raw.product.status==='archived':!!draft?.archived_at,liveStatus:current?.raw.product.status,id,version:draft?.version??0,baseHash:draft?.payload?draft.base_hash:current?.hash??null,data:{...(draft?.payload??current?.data??{...emptyProduct(),...(kind==='bundle'?{kind:'bundle' as const,components:[],discountPercent:'0'}:{variants:[emptyVariant(randomUUID())]})}),infographic:draft?.payload&&Object.hasOwn(draft.payload,'infographic')?draft.payload.infographic:draft?.infographic??null},hasDraft:!!draft?.payload,live:!!current,liveSlug:current?.data.slug,existingSkuIds:current?.data.variants.map(v=>v.id)??[],stock:Object.fromEntries(stock.map(s=>[s.sku_id,{onHand:s.on_hand,reserved:s.reserved}]))};
  });}
 export async function editorDrafts(){return transaction(async c=>withProductThumbnails(c,(await c.query("SELECT id,coalesce(nullif(payload->>'name',''),'Без названия') name,updated_at FROM ar_product_editor_drafts WHERE payload IS NOT NULL AND archived_at IS NULL AND NOT EXISTS(SELECT 1 FROM ar_products p WHERE p.id=ar_product_editor_drafts.id AND p.status='archived') ORDER BY updated_at DESC LIMIT 200")).rows,true),false);}
 
 async function checkReferences(c:PoolClient,id:string,actorId:string,data:EditorData,current:Awaited<ReturnType<typeof live>>){
  const issues:{path:string;message:string}[]=[];
+ if(data.kind==='bundle'){
+  const skus=await bundleSkuOptions(c),selected=data.components??[];
+  if(selected.some(item=>!skus.some(s=>s.id===item.skuId&&s.published)))issues.push({path:'components',message:'В состав можно включить только опубликованные исполнения из доступных категорий. Проверьте удалённые и скрытые компоненты.'});
+  try{bundleTotals(data,skus);}catch{issues.push({path:'components',message:'Не удалось рассчитать цену комплекта. Проверьте состав, количество и скидку.'});}
+ }
  const related=data.recommendedProductIds;if(related&&(new Set(related).size!==related.length||related.includes(id)||(await c.query("SELECT id FROM ar_products WHERE id=ANY($1::uuid[]) AND status<>'archived'",[related])).rowCount!==related.length))issues.push({path:'recommendedProductIds',message:'Выберите до восьми разных доступных товаров, кроме текущего.'});
  const cat=(await c.query(`WITH RECURSIVE tree AS (SELECT id,parent_id,status FROM ar_categories WHERE id=$1 UNION ALL SELECT c.id,c.parent_id,c.status FROM ar_categories c JOIN tree t ON c.id=t.parent_id) SELECT * FROM tree`,[data.categoryId])).rows;
  if(!cat.length||cat.some(c=>c.status!=='published'))issues.push({path:'categoryId',message:'Выберите опубликованную категорию; её родительские разделы тоже должны быть опубликованы.'});
@@ -101,8 +110,9 @@ export async function saveProductEditor(actor:{id:string},body:Record<string,unk
   await c.query("SELECT pg_advisory_xact_lock(hashtextextended('product-editor:'||$1,0))",[id]);
   const prior=(await c.query('SELECT * FROM ar_product_editor_drafts WHERE id=$1 FOR UPDATE',[id])).rows[0];if((prior?.version??0)!==version)throw conflict();
   // READ COMMITTED after these locks sees CMS changes committed before publication.
-  if(action==='publish')await c.query('LOCK TABLE ar_products,ar_skus,ar_packages,ar_product_media,ar_sku_media,ar_product_attributes,ar_sku_attributes,ar_fitment,ar_product_recommendations IN SHARE ROW EXCLUSIVE MODE');
+  if(action==='publish')await c.query('LOCK TABLE ar_products,ar_skus,ar_packages,ar_product_media,ar_sku_media,ar_product_attributes,ar_sku_attributes,ar_fitment,ar_product_recommendations,ar_bundle_components IN SHARE ROW EXCLUSIVE MODE');
   const current=await live(c,id);
+  if(action!=='discard'&&current&&(data.kind??'single')!==current.raw.product.kind)throw new StoreError('PRODUCT_KIND','Нельзя изменить тип существующего товара. Создайте отдельный комплект.',409);
   if(current?current.raw.product.status==='archived':!!prior?.archived_at)throw new StoreError('PRODUCT_ARCHIVED','Сначала восстановите товар из удалённых в черновик.',409);
   if(action!=='discard'&&((current?.hash??null)!==baseHash||(prior?.payload&&prior.base_hash!==baseHash)))throw conflict();
   if(action!=='discard'){
@@ -124,8 +134,8 @@ export async function saveProductEditor(actor:{id:string},body:Record<string,unk
   if(action==='publish'){
    const issues=publicationIssues(data,current?.data.variants.map(v=>v.id)??[]);if(issues.length)throw new EditorError(issues);
    await checkReferences(c,id,actor.id,data,current);
-   if(current)await c.query("UPDATE ar_products SET name=$2,slug=$3,category_id=$4,description=$5,seo_title=$6,meta_description=$7,is_demo=$8,status='published' WHERE id=$1",[id,data.name,data.slug,data.categoryId,data.description,data.seoTitle||null,data.metaDescription||null,data.isDemo]);
-   else await c.query("INSERT INTO ar_products(id,name,slug,category_id,description,seo_title,meta_description,is_demo,status) VALUES($1,$2,$3,$4,$5,$6,$7,$8,'published')",[id,data.name,data.slug,data.categoryId,data.description,data.seoTitle||null,data.metaDescription||null,data.isDemo]);
+   if(current)await c.query("UPDATE ar_products SET name=$2,slug=$3,category_id=$4,description=$5,seo_title=$6,meta_description=$7,is_demo=$8,discount_percent=$9,status='published' WHERE id=$1",[id,data.name,data.slug,data.categoryId,data.description,data.seoTitle||null,data.metaDescription||null,data.isDemo,data.kind==='bundle'?bundleDiscount(data.discountPercent??'0')/100:0]);
+   else await c.query("INSERT INTO ar_products(id,name,slug,category_id,description,seo_title,meta_description,is_demo,status,kind,discount_percent) VALUES($1,$2,$3,$4,$5,$6,$7,$8,'published',$9,$10)",[id,data.name,data.slug,data.categoryId,data.description,data.seoTitle||null,data.metaDescription||null,data.isDemo,data.kind??'single',data.kind==='bundle'?bundleDiscount(data.discountPercent??'0')/100:0]);
    if(data.recommendedProductIds!==undefined){await c.query('DELETE FROM ar_product_recommendations WHERE product_id=$1',[id]);for(const [sort,target] of data.recommendedProductIds.entries())await c.query('INSERT INTO ar_product_recommendations(product_id,recommended_id,sort) VALUES($1,$2,$3)',[id,target,sort]);}
    await writeRelations(c,id,null,data.photos,data.attributes,data.fitment);
    for(const[i,v]of data.variants.entries()){
@@ -141,6 +151,10 @@ export async function saveProductEditor(actor:{id:string},body:Record<string,unk
     await writeRelations(c,id,v.id,v.photos,v.attributes,v.fitment);
     if(!old){const need=new Map([[v.id,Number(v.initialStock)]]);await lockStock(c,need);if(Number(v.initialStock)>0)await stockMove(c,null,need,`product-initial:${v.id}`,1,0,v.stockReason,actor.id);}
    }
+   if(data.kind==='bundle'){
+    await c.query('DELETE FROM ar_bundle_components WHERE bundle_id=$1',[id]);
+    for(const [sort,item] of (data.components??[]).entries())await c.query('INSERT INTO ar_bundle_components(bundle_id,sku_id,quantity,sort) VALUES($1,$2,$3,$4)',[id,item.skuId,Number(item.quantity),sort]);
+   }
    nextHash=(await live(c,id))!.hash;
   }
   await c.query(`INSERT INTO ar_product_editor_drafts(id,version,base_hash,payload,actor_id) VALUES($1,$2,$3,$4::jsonb,$5) ON CONFLICT(id) DO UPDATE SET version=excluded.version,base_hash=excluded.base_hash,payload=excluded.payload,actor_id=excluded.actor_id,updated_at=now()`,[id,version+1,nextHash,action==='draft'?JSON.stringify(data):null,actor.id]);
@@ -148,4 +162,14 @@ export async function saveProductEditor(actor:{id:string},body:Record<string,unk
   await c.query('INSERT INTO ar_product_editor_events(product_id,actor_id,action) VALUES($1,$2,$3)',[id,actor.id,action]);
   return{id,version:version+1,action,slug:data.slug};
  }),false);}catch(error){if(error instanceof StoreError)throw error;const code=(error as{code?:string}).code;if(['23505','23503','23514','P0001'].includes(code??''))throw new StoreError('PRODUCT_RULE','Не удалось сохранить: проверьте уникальность адреса/артикулов, связи и значения характеристик.',409);throw error;}
+}
+
+export async function bundleSkuOptions(c:PoolClient){
+ return(await c.query(`SELECT s.id,s.product_id "productId",p.name "productName",s.name,s.article,s.price_rubles price,
+ greatest(0,coalesce(st.on_hand-st.reserved,0))::int available,
+ (s.status='published' AND p.status='published' AND NOT EXISTS(
+ WITH RECURSIVE parents AS (SELECT * FROM ar_categories WHERE id=p.category_id UNION ALL SELECT x.* FROM ar_categories x JOIN parents a ON x.id=a.parent_id) SELECT 1 FROM parents WHERE status<>'published')) published,
+ ar_effective_sku(s.id)->'media'->0->>'file_id' "imageId",s.package_id IS NOT NULL "hasPackage"
+ FROM ar_skus s JOIN ar_products p ON p.id=s.product_id LEFT JOIN ar_stock st ON st.sku_id=s.id
+ WHERE p.kind='single' ORDER BY p.name,s.sort,s.name,s.id`)).rows;
 }

@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-03T13:50:51.984Z",
+  "productWrites": 0,
+  "revision": "cf07d8318c49bfa4d54452c6e20e181c3e39f606",
+  "anonymousDenied": true,
+  "libraryTotal": 603,
+  "usedProtected": true,
+  "csrfProtected": true,
+  "realTrashRestore": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "selection": true,
+      "realThumbnail": true,
+      "overflow": false
+    },
+    {
+      "width": 375,
+      "selection": true,
+      "realThumbnail": true,
+      "overflow": false
+    }
+  ],
+  "catalogUnchanged": true,
+  "sessionRevoked": true
+}

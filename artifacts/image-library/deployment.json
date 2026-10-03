@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-03T13:54:53.403Z",
+  "revision": "cf07d8318c49bfa4d54452c6e20e181c3e39f606",
+  "imageId": "sha256:e1163a0e52ad095a8b6c14ebf68347b4a6b91b1f96179fd8751b724c3688a51a",
+  "previousRevision": "1c12685937e71171228684c28cde29a4690d3bfb",
+  "backup": "/srv/autoreelz2026/backups/before-image-library-20261003T134826Z.dump",
+  "backupListVerified": true,
+  "migration": "016_product_image_library.sql",
+  "migrationSha256": "e7ed164d64714acaf62d5a5c24207f779545bc7a83de339c2e721f66fe8e300c",
+  "appliedMigrations": 16,
+  "qaDatabasesRemoved": true,
+  "qaPreviewRemoved": true,
+  "trashEmptyAfterTest": true,
+  "catalogUnchanged": true,
+  "check": true,
+  "build": true,
+  "fastTestsPassed": 109,
+  "fastTestsSkipped": 8,
+  "libraryDatabaseChecks": 9,
+  "editorDatabaseChecks": 10,
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+    },
+    {
+      "path": "/health",
+      "status": 200,
+      "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+    },
+    {
+      "path": "/muzey/",
+      "status": 200,
+      "noindex": "noindex, nofollow, noarchive"
+    },
+    {
+      "path": "/api/manager/product-image-library",
+      "status": 401,
+      "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+    },
+    {
+      "path": "/cms/users/me",
+      "status": 401,
+      "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "publishedClient": false,
+  "mockedApi": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "counts": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        12,
+        20
+      ],
+      "wholePhotoEdges": true,
+      "missingAndFailedPhotoNoPartialCollage": true,
+      "retrySameUpload": true,
+      "pngMatchesPreview": true,
+      "firstInGalleryOldPhotoPreserved": true,
+      "repeatedApplyNoDuplicates": true,
+      "fullGalleryNoUpload": true,
+      "cancelAnd401Clear": true
+    },
+    {
+      "width": 375,
+      "counts": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        12,
+        20
+      ],
+      "wholePhotoEdges": true,
+      "missingAndFailedPhotoNoPartialCollage": true,
+      "retrySameUpload": true,
+      "pngMatchesPreview": true,
+      "firstInGalleryOldPhotoPreserved": true,
+      "repeatedApplyNoDuplicates": true,
+      "fullGalleryNoUpload": true,
+      "cancelAnd401Clear": true
+    }
+  ]
+}

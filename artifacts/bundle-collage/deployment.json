@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-03",
+  "revision": "01a06c434ae25b197a036c98c1294bba702d67be",
+  "imageId": "sha256:e52c61013886c1065f1e434989786b5d64f73bcff87fc41d7ef949d79a5af0d4",
+  "previousRevision": "531600eb8d50dcbe0ffc6ab7bcaeb3f905c6e70c",
+  "migrations": "001-018 unchanged",
+  "limits": {
+    "bundlePositions": 20,
+    "galleryPhotos": 12,
+    "longestCanvasSide": 1600
+  },
+  "checks": {
+    "astro": {
+      "files": 162,
+      "errors": 0,
+      "warnings": 0
+    },
+    "build": "passed",
+    "unit": {
+      "passed": 115,
+      "skipped": 8
+    },
+    "preview": "preview/report.json",
+    "publishedMockedApi": "public/report.json",
+    "bundleRegression": "bundle-regression/report.json",
+    "ordinaryRegression": "ordinary-public/report.json",
+    "realReadOnlyPreview": "live.json",
+    "http": "http.json",
+    "containers": "web/worker/CMS/DB/background healthy; edge running"
+  },
+  "liveProductWrites": 0,
+  "livePhotoUploads": 0,
+  "paidImageCalls": 0,
+  "notes": [
+    "First public login attempt returned a transient 502; after checking healthy services, retry and real-photo checks passed.",
+    "Image upload/add/retry checks used mocked API; existing server upload implementation unchanged.",
+    "No physical phone/Safari testing."
+  ]
+}

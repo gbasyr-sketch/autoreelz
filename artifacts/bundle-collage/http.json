@@ -1,0 +1,18 @@
+{
+  "/health": {
+    "status": 200,
+    "robots": "noindex, nofollow, noarchive",
+    "body": {
+      "ok": true,
+      "revision": "01a06c434ae25b197a036c98c1294bba702d67be"
+    }
+  },
+  "/": {
+    "status": 200,
+    "robots": "noindex, nofollow, noarchive"
+  },
+  "/muzey/": {
+    "status": 200,
+    "robots": "noindex, nofollow, noarchive"
+  }
+}

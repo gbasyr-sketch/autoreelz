@@ -1,0 +1,10 @@
+{
+  "revision": "dae6c8b7e74b3d8dc2d9619b77356093fb6119f0",
+  "imageId": "sha256:cd1e3cabee15e04023fc31dfaec4c2763700147bc640317fcaae8b264e74be54",
+  "migration": "020_product_purges.sql",
+  "migrationSha256": "9ca7c511c2bde8d3e8faa07a33df89d29cc303129877bff1e7edee8fea8f286f",
+  "backup": "before-product-purge-20261004T155029Z.dump",
+  "removed": 30,
+  "staging": true,
+  "realPayments": false
+}

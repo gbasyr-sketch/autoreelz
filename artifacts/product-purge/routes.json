@@ -1,0 +1,37 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/cms/users/me",
+    "status": 401,
+    "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/api/manager/orders",
+    "status": 401,
+    "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/api/manager/product-lifecycle?trash=1",
+    "status": 401,
+    "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/muzey/",
+    "status": 200,
+    "noindex": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/cookies",
+    "status": 404,
+    "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/health",
+    "status": 200,
+    "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+  }
+]

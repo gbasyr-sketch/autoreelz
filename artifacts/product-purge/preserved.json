@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "tables": {
+    "skus": {
+      "hash": "3be71d0d28aa123882c2226f1c58f9f5",
+      "count": 139
+    },
+    "files": {
+      "hash": "808ae6c7e91af28d4125beac5fd5a91a",
+      "count": 612
+    },
+    "stock": {
+      "hash": "2cd708a5ed525422150cc971fb90aa9e",
+      "count": 19
+    },
+    "orders": {
+      "hash": "c3e085fa393bb9bde003ea43b1327fec",
+      "count": 4
+    },
+    "bundles": {
+      "hash": "cffd2737837e17aa48e6eb004471f0f5",
+      "count": 7
+    },
+    "packages": {
+      "hash": "4db855026977abb827c6f0f4301a0d86",
+      "count": 132
+    },
+    "products": {
+      "hash": "5eb98ffa4a37c4ef50be912b5cfc70ae",
+      "count": 154
+    },
+    "movements": {
+      "hash": "905c0896c74c82049e5695321cc96918",
+      "count": 26
+    },
+    "components": {
+      "hash": "a90c1b6e6c0f276e0a2b99295c92ccdb",
+      "count": 4
+    }
+  }
+}

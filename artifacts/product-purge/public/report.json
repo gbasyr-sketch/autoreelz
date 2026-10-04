@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "revision": "dae6c8b7e74b3d8dc2d9619b77356093fb6119f0",
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "width": 768,
+      "passed": true
+    },
+    {
+      "width": 375,
+      "passed": true
+    }
+  ],
+  "removed": 30,
+  "sessionRevoked": true
+}

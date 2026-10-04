@@ -1,3 +1,4 @@
+import {requireUnpurgedProduct} from './product-purges.ts';
 import {withProductThumbnails} from './manager-product-thumbnails.ts';
 import {canonicalProductId} from './product-merges.ts';
 import {availableLibraryImages,lockImageLibrary} from './product-image-library.ts';
@@ -58,11 +59,12 @@ export async function live(c:PoolClient,id:string){
 }
 export async function readProductEditor(input:unknown,kind:unknown='single'):Promise<EditorState>{const requested=uuid(input);choice(kind,['single','bundle']);return transaction(async c=>{
  const id=await canonicalProductId(c,requested);
+ await requireUnpurgedProduct(c,id);
  const current=await live(c,id),draft=(await c.query('SELECT * FROM ar_product_editor_drafts WHERE id=$1',[id])).rows[0];
  const stock=(await c.query('SELECT st.sku_id,st.on_hand,st.reserved FROM ar_stock st JOIN ar_skus s ON s.id=st.sku_id WHERE s.product_id=$1',[id])).rows;
  return{archived:current?current.raw.product.status==='archived':!!draft?.archived_at,liveStatus:current?.raw.product.status,id,version:draft?.version??0,baseHash:draft?.payload?draft.base_hash:current?.hash??null,data:{...(draft?.payload??current?.data??{...emptyProduct(),...(kind==='bundle'?{kind:'bundle' as const,components:[],discountPercent:'0'}:{variants:[emptyVariant(randomUUID())]})}),infographic:draft?.payload&&Object.hasOwn(draft.payload,'infographic')?draft.payload.infographic:draft?.infographic??null},hasDraft:!!draft?.payload,live:!!current,liveSlug:current?.data.slug,existingSkuIds:current?.data.variants.map(v=>v.id)??[],stock:Object.fromEntries(stock.map(s=>[s.sku_id,{onHand:s.on_hand,reserved:s.reserved}]))};
  });}
-export async function editorDrafts(){return transaction(async c=>withProductThumbnails(c,(await c.query("SELECT id,coalesce(nullif(payload->>'name',''),'Без названия') name,updated_at FROM ar_product_editor_drafts WHERE payload IS NOT NULL AND archived_at IS NULL AND NOT EXISTS(SELECT 1 FROM ar_products p WHERE p.id=ar_product_editor_drafts.id AND p.status='archived') ORDER BY updated_at DESC LIMIT 200")).rows,true),false);}
+export async function editorDrafts(){return transaction(async c=>withProductThumbnails(c,(await c.query("SELECT id,coalesce(nullif(payload->>'name',''),'Без названия') name,updated_at,payload->>'categoryId' category_id FROM ar_product_editor_drafts WHERE payload IS NOT NULL AND archived_at IS NULL AND NOT EXISTS(SELECT 1 FROM ar_product_purges x WHERE x.product_id=ar_product_editor_drafts.id) AND NOT EXISTS(SELECT 1 FROM ar_products p WHERE p.id=ar_product_editor_drafts.id AND p.status='archived') ORDER BY updated_at DESC LIMIT 200")).rows,true),false);}
 
 async function checkReferences(c:PoolClient,id:string,actorId:string,data:EditorData,current:Awaited<ReturnType<typeof live>>){
  const issues:{path:string;message:string}[]=[];
@@ -108,6 +110,7 @@ export async function saveProductEditor(actor:{id:string},body:Record<string,unk
   await lockImageLibrary(c);
   if(await canonicalProductId(c,id)!==id)throw new StoreError('PRODUCT_MERGED','Товар объединён с общей карточкой. Обновите страницу редактора, чтобы перейти к ней.',409);
   await c.query("SELECT pg_advisory_xact_lock(hashtextextended('product-editor:'||$1,0))",[id]);
+  await requireUnpurgedProduct(c,id);
   const prior=(await c.query('SELECT * FROM ar_product_editor_drafts WHERE id=$1 FOR UPDATE',[id])).rows[0];if((prior?.version??0)!==version)throw conflict();
   // READ COMMITTED after these locks sees CMS changes committed before publication.
   if(action==='publish')await c.query('LOCK TABLE ar_products,ar_skus,ar_packages,ar_product_media,ar_sku_media,ar_product_attributes,ar_sku_attributes,ar_fitment,ar_product_recommendations,ar_bundle_components IN SHARE ROW EXCLUSIVE MODE');

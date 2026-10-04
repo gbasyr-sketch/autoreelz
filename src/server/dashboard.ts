@@ -43,7 +43,7 @@ export async function getDashboard(params:URLSearchParams){
 
 export async function managerCatalogReadiness(){return transaction(async c=>{
  const quality=await readCatalogQuality(c);
- const products=(await c.query("SELECT id,name,slug,status,kind,is_demo FROM ar_products WHERE status<>'archived' ORDER BY name,id")).rows;return{products:await withProductThumbnails(c,products),quality};});}
+ const products=(await c.query("SELECT id,name,slug,status,kind,is_demo,category_id,ARRAY(SELECT pc.category_id FROM ar_product_categories pc WHERE pc.product_id=ar_products.id) category_ids FROM ar_products WHERE status<>'archived' ORDER BY name,id")).rows;return{products:await withProductThumbnails(c,products),quality,categories:(await c.query('SELECT id,name,parent_id FROM ar_categories ORDER BY sort,name,id')).rows};});}
 
 async function readCatalogQuality(c:PoolClient):Promise<DashboardData['quality']>{
  return(await c.query(`WITH checks AS (

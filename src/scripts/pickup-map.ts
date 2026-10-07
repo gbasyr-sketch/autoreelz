@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 export interface MapPoint {code:string;address:string;workTime:string;latitude:number|null;longitude:number|null}
 export function createPickupMap(host:HTMLElement,status:HTMLElement,onChoose:(code:string)=>void){
  host.replaceChildren();const map=L.map(host,{scrollWheelZoom:false,zoomControl:false,zoomAnimation:!matchMedia('(prefers-reduced-motion: reduce)').matches,minZoom:3,maxZoom:19}).setView([42.98,47.50],11);
+ map.attributionControl.setPrefix(false);
  L.control.zoom({position:'topright',zoomInTitle:'Приблизить',zoomOutTitle:'Отдалить'}).addTo(map);
  const tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>',referrerPolicy:'strict-origin-when-cross-origin'}).addTo(map);
  tiles.on('tileerror',()=>{status.textContent='Подложка карты недоступна. Выберите ПВЗ в списке ниже.';});tiles.on('tileload',()=>{status.textContent='Нажмите на пункт на карте или выберите его в списке.';});

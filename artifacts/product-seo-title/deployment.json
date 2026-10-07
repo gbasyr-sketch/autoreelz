@@ -1,0 +1,24 @@
+{
+  "appSha": "da25b0f10e304c0129513f222f86a411c429f284",
+  "imageId": "sha256:94c6fa7f08a186c04299af1c2b4d8da2dbe918711ae2342edb601baf640dba96",
+  "previousSha": "d9c9e76d40b767fc3203e0b09aec9497ebee177e",
+  "previousImageId": "sha256:87142294e30f12fb2db3dcac47a74168e29dee7a10c20825c379057fa94a21de",
+  "settings": {
+    "map": "osm",
+    "shipping": "cdek",
+    "payment": "yookassa-sandbox",
+    "mode": "staging",
+    "indexing": "false"
+  },
+  "health": {
+    "web": "healthy",
+    "worker": "healthy"
+  },
+  "privateEnvBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-product-seo-20261007T144502Z",
+  "servicesUpdated": [
+    "web",
+    "worker"
+  ],
+  "migrationsApplied": false,
+  "catalogEdited": false
+}

@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "published": true,
+  "mockedApi": true,
+  "checks": [
+    {
+      "width": 1440,
+      "kind": "single",
+      "autoNewAndExisting": true,
+      "persistsAutoAcrossSaveReload": true,
+      "manualPreserved": true,
+      "explicitEqualNameStaysManual": true,
+      "resetAndEmptyRestoreAuto": true,
+      "draftAndPublicationPayloads": true
+    },
+    {
+      "width": 1440,
+      "kind": "bundle",
+      "autoNewAndExisting": true,
+      "persistsAutoAcrossSaveReload": true,
+      "manualPreserved": true,
+      "explicitEqualNameStaysManual": true,
+      "resetAndEmptyRestoreAuto": true,
+      "draftAndPublicationPayloads": true
+    },
+    {
+      "width": 375,
+      "kind": "single",
+      "autoNewAndExisting": true,
+      "persistsAutoAcrossSaveReload": true,
+      "manualPreserved": true,
+      "explicitEqualNameStaysManual": true,
+      "resetAndEmptyRestoreAuto": true,
+      "draftAndPublicationPayloads": true
+    },
+    {
+      "width": 375,
+      "kind": "bundle",
+      "autoNewAndExisting": true,
+      "persistsAutoAcrossSaveReload": true,
+      "manualPreserved": true,
+      "explicitEqualNameStaysManual": true,
+      "resetAndEmptyRestoreAuto": true,
+      "draftAndPublicationPayloads": true
+    }
+  ]
+}

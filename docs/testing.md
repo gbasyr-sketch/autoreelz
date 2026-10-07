@@ -4,6 +4,8 @@
 
 ## Базовые проверки
 
+Карта OSM07.10: `node tests/pickup-map-browser.mjs` проверяет опубликованный checkout на1440/768/375, по умолчанию `AR_MAP_URL=https://autoreelz.ru`; `AR_MAP_OUTPUT` задаёт папку отчёта, `AR_CHROMIUM_EXECUTABLE` — путь браузера. Все API, кроме загрузки HTML/ассетов, и все тайлы подменены: реальные заказы/корзины/тарифы не создаются. Проверены автозагрузка, отсутствие Яндекса/согласия, кластеры, клавиатура/popup, список/поля/ранняя цена, курьер, пустой город, сбой подложки и ПВЗ без координат. `AR_MAP_CANDIDATE=1` только для репетиции переключения: заменяет провайдер в полученном HTML; не является проверкой серверной конфигурации. Отчёты — artifacts/osm-map. Автоматические pan/zoom не направлять к публичному tile.openstreetmap.org.
+
 Контент03.10: `tests/content-editor.test.ts`, `tests/content-editor-database.mjs` (только `ar_qa_content_editor_*` со схемой001–019), `tests/content-editor-browser.mjs` с `AR_CONTENT_URL`/`AR_CONTENT_OUTPUT`. Браузерные записи подменены; настоящий API проверяется на отдельной QA-БД, а опубликованные материалы читаются без сохранения. После изменения медиа-защиты запускать регрессию библиотеки и редактора товаров. Доказательства — artifacts/content-editor.
 
 Объединение цветов03.10: `tests/product-color-merges-database.mjs` — только `ar_qa_color_merges_*` со схемой001–017 и синтетическими записями. `AR_COLOR_URL=<preview> node tests/product-color-merges-browser.mjs` использует рассмотренный каталог из `AR_COLOR_PLAN` либо `artifacts/color-merge/rehearsal.json`. Проверяет точные цвета/цены/галереи, старые ссылки, избранное/историю. [Контракт](product-color-merges.md). Не выполнять разовый SQL переноса на рабочей базе повторно ради теста.

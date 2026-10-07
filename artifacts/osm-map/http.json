@@ -1,0 +1,50 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/checkout",
+      "status": 200
+    },
+    {
+      "path": "/cms/users/me",
+      "status": 401
+    },
+    {
+      "path": "/api/manager/orders",
+      "status": 401
+    },
+    {
+      "path": "/muzey/",
+      "status": 200
+    },
+    {
+      "path": "/cookies",
+      "status": 404
+    }
+  ],
+  "checkout": {
+    "provider": "osm",
+    "noYandexKey": true,
+    "noindex": true,
+    "referrerPolicy": "strict-origin-when-cross-origin"
+  },
+  "health": {
+    "ok": true,
+    "revision": "dae6c8b7e74b3d8dc2d9619b77356093fb6119f0"
+  },
+  "realCdek": {
+    "cityCode": 44,
+    "pointsReturned": 446,
+    "withCoordinates": 446
+  },
+  "osmAvailability": {
+    "status": 200,
+    "contentType": "image/png",
+    "cacheControl": "max-age=525148, stale-while-revalidate=604800, stale-if-error=604800",
+    "bytes": 6929
+  },
+  "ordersCreated": 0
+}

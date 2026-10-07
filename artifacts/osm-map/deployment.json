@@ -1,0 +1,20 @@
+{
+  "appSha": "dae6c8b7e74b3d8dc2d9619b77356093fb6119f0",
+  "imageId": "sha256:cd1e3cabee15e04023fc31dfaec4c2763700147bc640317fcaae8b264e74be54",
+  "beforeProvider": "yandex",
+  "afterProvider": "osm",
+  "settings": {
+    "map": "osm",
+    "shipping": "cdek",
+    "mode": "staging",
+    "indexing": "false"
+  },
+  "health": "healthy",
+  "privateEnvBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-osm-20261007T084425Z",
+  "servicesRecreated": [
+    "web"
+  ],
+  "appRebuilt": false,
+  "migrationsApplied": false,
+  "databaseWrites": false
+}

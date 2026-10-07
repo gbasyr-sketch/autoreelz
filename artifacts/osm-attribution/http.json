@@ -1,0 +1,32 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/checkout",
+      "status": 200
+    },
+    {
+      "path": "/cms/users/me",
+      "status": 401
+    },
+    {
+      "path": "/api/manager/orders",
+      "status": 401
+    },
+    {
+      "path": "/muzey/",
+      "status": 200
+    },
+    {
+      "path": "/cookies",
+      "status": 404
+    }
+  ],
+  "health": {
+    "ok": true,
+    "revision": "d9c9e76d40b767fc3203e0b09aec9497ebee177e"
+  }
+}

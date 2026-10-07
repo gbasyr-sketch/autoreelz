@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "candidate": false,
+  "api": "synthetic",
+  "tiles": "synthetic (no OSM tile requests)",
+  "checks": [
+    "automatic OSM after city, no Yandex requests or consent gate",
+    "clusters, keyboard popup and selection, popup auto-pan",
+    "list/map code/address synchronization and delivery estimate",
+    "courier has no stale pickup code; empty city removes markers",
+    "tile failure and points without coordinates still permit list selection",
+    "manual fallback and responsive layout"
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "tileRequestsMocked": 77,
+      "estimateRequestsMocked": 5
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "tileRequestsMocked": 43,
+      "estimateRequestsMocked": 4
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "tileRequestsMocked": 28,
+      "estimateRequestsMocked": 4
+    }
+  ],
+  "attribution": "OSM only; no Leaflet prefix, link or flag at all three sizes",
+  "clientSource": "Published checkout with locally built pickup-map module"
+}

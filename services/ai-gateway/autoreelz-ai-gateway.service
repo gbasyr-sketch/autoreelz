@@ -1,0 +1,29 @@
+[Unit]
+Description=AUTO REELZ private text generation gateway
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=autoreelz-ai
+Group=autoreelz-ai
+EnvironmentFile=/etc/autoreelz-ai-gateway/service.env
+ExecStart=/usr/bin/python3 -B /opt/autoreelz-ai-gateway/server.py
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_INET6
+MemoryMax=96M
+CPUQuota=25%
+TasksMax=16
+LimitNOFILE=64
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

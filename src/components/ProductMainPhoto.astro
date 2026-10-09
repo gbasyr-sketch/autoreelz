@@ -1,0 +1,13 @@
+<dialog class="pm-dialog" data-main-photo-dialog aria-labelledby="pm-title" aria-describedby="pm-help">
+ <header class="pm-header"><h2 id="pm-title">Сделать фото главным</h2><button type="button" class="dash-button" data-pm-close>Закрыть</button></header>
+ <img class="pm-image" data-pm-image alt="Выбранное главное фото"/>
+ <p class="dash-help" id="pm-help">Остальные фотографии сохранятся. Изменения появятся на сайте после публикации товара.</p>
+ <fieldset class="pm-scope" data-pm-scope><legend>Где использовать это фото?</legend>
+  <label class="pm-choice"><input type="radio" name="main-photo-scope" value="all" checked/><span>Для всех вариантов (цветов)</span></label>
+  <label class="pm-choice"><input type="radio" name="main-photo-scope" value="variant"/><span>Только для одного варианта</span></label>
+ </fieldset>
+ <label class="dash-field" data-pm-variant-label hidden>Вариант<select data-pm-variant></select></label>
+ <p class="dash-help" data-pm-impact role="status"></p>
+ <p class="dash-message dash-error" data-pm-error role="alert" hidden></p>
+ <footer class="pm-actions"><button type="button" class="dash-button" data-pm-cancel>Отмена</button><button type="button" class="dash-button dash-primary" data-pm-apply>Применить к форме</button></footer>
+</dialog>

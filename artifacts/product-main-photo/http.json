@@ -1,0 +1,37 @@
+[
+  {
+    "path": "/health",
+    "status": 200,
+    "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive",
+    "health": {
+      "ok": true,
+      "revision": "7eb3711ccc1413c5e9ea61d8831d19314c6fe245"
+    }
+  },
+  {
+    "path": "/",
+    "status": 200,
+    "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive",
+    "htmlNoindex": true
+  },
+  {
+    "path": "/cms/users/me",
+    "status": 401,
+    "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/api/manager/orders",
+    "status": 401,
+    "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/muzey/",
+    "status": 200,
+    "noindex": "noindex, nofollow, noarchive"
+  },
+  {
+    "path": "/cookies",
+    "status": 404,
+    "noindex": "noindex, nofollow, noarchive, noindex, nofollow, noarchive"
+  }
+]

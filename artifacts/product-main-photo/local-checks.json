@@ -1,0 +1,15 @@
+{
+  "node": "24.21.0",
+  "astroCheck": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "unitTests": {
+    "pass": 13,
+    "fail": 0,
+    "skip": 0
+  },
+  "build": "passed",
+  "scope": "Main-photo client operation, no new API or schema changes. Save/publish browser requests use synthetic API; real product correction was verified separately."
+}

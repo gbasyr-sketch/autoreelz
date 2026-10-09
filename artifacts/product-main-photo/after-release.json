@@ -1,0 +1,53 @@
+{
+  "containers": {
+    "autoreelz2026-release-web-1": {
+      "id": "8f10f9fbcd2fd1603748db9a2319a576ef63150a5bc6ebc0b658ee7d0c0a8302",
+      "status": "running",
+      "health": "healthy",
+      "revision": "7eb3711ccc1413c5e9ea61d8831d19314c6fe245",
+      "imageId": "sha256:1f603db2549e29402a3c74deda601b7e17dd7ad81bdc2113b877148399bafa3e"
+    },
+    "autoreelz2026-release-image-worker-1": {
+      "id": "0c3c97d5edba6257619773eaacf66c6fa37239a5d9f0c4f68eedc8248290dc79",
+      "status": "running",
+      "health": null,
+      "revision": "7eb3711ccc1413c5e9ea61d8831d19314c6fe245",
+      "imageId": "sha256:1f603db2549e29402a3c74deda601b7e17dd7ad81bdc2113b877148399bafa3e"
+    },
+    "autoreelz2026-release-worker-1": {
+      "id": "8584c08642e1d886dc5e3526fff61805ed8580fb43b1af4e22d72404255138f3",
+      "status": "running",
+      "health": "healthy",
+      "revision": "7eb3711ccc1413c5e9ea61d8831d19314c6fe245",
+      "imageId": "sha256:1f603db2549e29402a3c74deda601b7e17dd7ad81bdc2113b877148399bafa3e"
+    },
+    "autoreelz2026-release-edge-1": {
+      "id": "9d8c8974aa6e59e3a9bd6a5c162d39e5567c33d0ee793fc6a8ecac2c41c3ef38",
+      "status": "running",
+      "health": null,
+      "revision": null,
+      "imageId": "sha256:6aeddd44c3078b0f9a35206472a11420648a79c184603ef95957d0a20044cb2b"
+    },
+    "autoreelz2026-release-background-1": {
+      "id": "7bfa481425a90cc851fab221e42ea5cf03fc3e024a151d7b637b4f476b91847c",
+      "status": "running",
+      "health": "healthy",
+      "revision": "12d1845867eabf9767296bf521b8353c84f912bd",
+      "imageId": "sha256:ab6084c983d3bba0cee87ba64e019d63223d208e520edf9dd49edafc81d3b707"
+    },
+    "autoreelz2026-release-cms-1": {
+      "id": "7da34b36aa472d8b0279478a7ec3c53bdb7124e8fad06e3b1e20730d4e3c77a8",
+      "status": "running",
+      "health": "healthy",
+      "revision": "973be10df8b0305569dc0dc53e187c648133c8d6",
+      "imageId": "sha256:8978edf633ae28aa31464bb71c55300c94d8bc771ff3727b5fac485173283869"
+    },
+    "autoreelz2026-release-db-1": {
+      "id": "c81ff315e46cac586372b6c0b8c399b5a13e9fd0266966612034c9588f93760d",
+      "status": "running",
+      "health": "healthy",
+      "revision": null,
+      "imageId": "sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24"
+    }
+  }
+}

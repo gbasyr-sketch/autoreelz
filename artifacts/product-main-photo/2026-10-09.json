@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "productId": "f59beb83-9a76-5f50-ac1b-1b0facb0fd04",
+  "mainPhotoId": "44937d05-3585-4935-b6c9-922312193128",
+  "backup": "/srv/autoreelz2026/backups/before-shared-main-f59beb83-20261009T143933Z.dump",
+  "published": true,
+  "version": 12,
+  "newAIGeneration": false,
+  "sessionRevoked": true,
+  "otherProductDataUnchanged": true,
+  "stockAndSkuIdsUnchanged": true,
+  "attributeOrderNormalizedForComparison": true,
+  "variants": [
+    {
+      "id": "a006e9e9-aa33-5fd1-a364-2d90a0db95cc",
+      "name": "Белая подсветка",
+      "mainImage": "/media/44937d05-3585-4935-b6c9-922312193128",
+      "preservedOwnPhotos": 3,
+      "totalPhotos": 4,
+      "status": 200
+    },
+    {
+      "id": "85e24855-3caa-5b5d-ada6-235ef778dbc0",
+      "name": "Зелёная подсветка",
+      "mainImage": "/media/44937d05-3585-4935-b6c9-922312193128",
+      "preservedOwnPhotos": 3,
+      "totalPhotos": 4,
+      "status": 200
+    },
+    {
+      "id": "252dffa4-0a68-53d2-adf7-c42b8fb6fa79",
+      "name": "Синяя подсветка",
+      "mainImage": "/media/44937d05-3585-4935-b6c9-922312193128",
+      "preservedOwnPhotos": 3,
+      "totalPhotos": 4,
+      "status": 200
+    },
+    {
+      "id": "d0dc410c-7cfa-4f2b-900f-cd47714b1ee3",
+      "name": "Красная подсветка",
+      "mainImage": "/media/44937d05-3585-4935-b6c9-922312193128",
+      "preservedOwnPhotos": 3,
+      "totalPhotos": 4,
+      "status": 200
+    }
+  ],
+  "checkedAt": "2026-10-09T14:42:59.095Z"
+}

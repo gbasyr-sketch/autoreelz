@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "candidateCss": true,
+  "checks": [
+    {
+      "width": 320,
+      "stageWidth": 288,
+      "imageWidth": 288,
+      "inside": true,
+      "objectFit": "contain"
+    },
+    {
+      "width": 375,
+      "stageWidth": 343,
+      "imageWidth": 343,
+      "inside": true,
+      "objectFit": "contain"
+    },
+    {
+      "width": 600,
+      "stageWidth": 568,
+      "imageWidth": 568,
+      "inside": true,
+      "objectFit": "contain"
+    },
+    {
+      "width": 1440,
+      "stageWidth": 698.171875,
+      "imageWidth": 698.171875,
+      "inside": true,
+      "objectFit": "contain"
+    }
+  ]
+}

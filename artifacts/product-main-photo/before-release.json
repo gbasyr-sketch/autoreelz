@@ -1,0 +1,150 @@
+{
+  "appSha": "52012268f5ccaacc6cf6493f3b97523daa80ed73",
+  "imageId": "sha256:9e51d943cb2b2c27e5e404499eee0609344111254feff6668f11e7c7c715c33d",
+  "containers": {
+    "autoreelz2026-release-web-1": {
+      "id": "f6ee063f0069237972c3a24d1bddc693be1eaa9f693aa2fd5c148aa0aa2a833f",
+      "startedAt": "2026-10-09T13:52:54.730680231Z",
+      "state": "running"
+    },
+    "autoreelz2026-release-image-worker-1": {
+      "id": "02c1d9c83f336d5f9b9c1b2da3aa1dfa364d98ffce166d1a8bd40db1f11db524",
+      "startedAt": "2026-10-09T13:52:55.181767735Z",
+      "state": "running"
+    },
+    "autoreelz2026-release-worker-1": {
+      "id": "e67ae645152f73458c50d7d063eae3d944c8b4fac5674047451ece80f1cb2bb4",
+      "startedAt": "2026-10-09T13:52:55.027782975Z",
+      "state": "running"
+    },
+    "autoreelz2026-release-edge-1": {
+      "id": "9d8c8974aa6e59e3a9bd6a5c162d39e5567c33d0ee793fc6a8ecac2c41c3ef38",
+      "startedAt": "2026-10-03T19:54:04.011566724Z",
+      "state": "running"
+    },
+    "autoreelz2026-release-background-1": {
+      "id": "7bfa481425a90cc851fab221e42ea5cf03fc3e024a151d7b637b4f476b91847c",
+      "startedAt": "2026-09-30T15:14:09.306572603Z",
+      "state": "running"
+    },
+    "autoreelz2026-release-cms-1": {
+      "id": "7da34b36aa472d8b0279478a7ec3c53bdb7124e8fad06e3b1e20730d4e3c77a8",
+      "startedAt": "2026-09-23T17:02:33.846890768Z",
+      "state": "running"
+    },
+    "autoreelz2026-release-db-1": {
+      "id": "c81ff315e46cac586372b6c0b8c399b5a13e9fd0266966612034c9588f93760d",
+      "startedAt": "2026-09-23T15:16:27.816123898Z",
+      "state": "running"
+    }
+  },
+  "migrations": [
+    {
+      "name": "001_catalog.sql",
+      "sha256": "127903d14d39b672de30d66f37b4fb10b79399bf97b6e27f21f630e2f7db008c",
+      "applied_at": "2026-09-21T18:40:06.825438+00:00"
+    },
+    {
+      "name": "002_catalog_integrity.sql",
+      "sha256": "0b21f38e7c87a740d2268d1f3d2d800ed7039f906e4de41c5014c6b41bec482b",
+      "applied_at": "2026-09-21T18:46:46.546381+00:00"
+    },
+    {
+      "name": "003_catalog_concurrency.sql",
+      "sha256": "0c92790dc994a93fb72b92af5fde887fd2684b0211d437de4e42fab9edc8c911",
+      "applied_at": "2026-09-21T18:49:06.418436+00:00"
+    },
+    {
+      "name": "004_commerce.sql",
+      "sha256": "ed66c3867d5c29a2238b8f7bfb9bb72dd5861c19af7e2a5398c75dd36b771d7f",
+      "applied_at": "2026-09-21T20:29:21.887553+00:00"
+    },
+    {
+      "name": "005_auth_limits.sql",
+      "sha256": "8e7a40e3e12685e811efd860700c915eab7e95bb2e776e6b1332f54b5dcc0ee8",
+      "applied_at": "2026-09-21T20:41:06.537682+00:00"
+    },
+    {
+      "name": "006_ruble_money.sql",
+      "sha256": "02739027c9170a770673cbf8974f9a2d83f47b35dd0a0fffba10cafee3cb4663",
+      "applied_at": "2026-09-21T21:58:15.87789+00:00"
+    },
+    {
+      "name": "007_store_expansion.sql",
+      "sha256": "97cbca44dcec84d923313d8ef9b08e01f78b94ae1c4d2125458bccd29d3daa7f",
+      "applied_at": "2026-09-21T23:48:54.241009+00:00"
+    },
+    {
+      "name": "008_carrier_tracking.sql",
+      "sha256": "a22cc319a353a6c2a120ef732b63875c94ea8b3ec7bb8e0d2636d9852a820e15",
+      "applied_at": "2026-09-21T23:50:25.154103+00:00"
+    },
+    {
+      "name": "009_seo_content.sql",
+      "sha256": "8bbe161f46c94d3166cb4ef36eb6c6e5ab62e4713a54ea713d552035f5d661c6",
+      "applied_at": "2026-09-23T13:18:24.257912+00:00"
+    },
+    {
+      "name": "010_yookassa_payments.sql",
+      "sha256": "299a91e12ef5ac6d9a331f09e4db18c5191a4afbc21bbb90354e769611d8ae2f",
+      "applied_at": "2026-09-23T17:02:27.731021+00:00"
+    },
+    {
+      "name": "011_checkout_confirmations.sql",
+      "sha256": "4fc1e275dd86364a321452e45213f04235206efa0901908f44bcd5ebd0fcb892",
+      "applied_at": "2026-09-23T20:17:13.65324+00:00"
+    },
+    {
+      "name": "012_product_editor.sql",
+      "sha256": "5a8c9ede9a2744a98f70bbcc6b447edf949f9dcc05a7dd404cc081072326694a",
+      "applied_at": "2026-09-30T11:46:42.193189+00:00"
+    },
+    {
+      "name": "013_ai_text_generation.sql",
+      "sha256": "dd1b6e381037e4bc80e8f205cbe60b971f6712137f1b4bc671de6f8ad2d39d74",
+      "applied_at": "2026-09-30T13:26:01.608732+00:00"
+    },
+    {
+      "name": "014_product_infographics.sql",
+      "sha256": "71baa0c384ebce0da7c5e7fa115a0a58b3c6ef818f1bc9d9f287c3f89f5ffba3",
+      "applied_at": "2026-09-30T15:12:35.943519+00:00"
+    },
+    {
+      "name": "015_product_discovery_lifecycle.sql",
+      "sha256": "aeac15a26820d8621d7f490f2ff77b05e3ec8546aeb9490533e8762c82e71cf4",
+      "applied_at": "2026-09-30T16:00:31.669638+00:00"
+    },
+    {
+      "name": "016_product_image_library.sql",
+      "sha256": "e7ed164d64714acaf62d5a5c24207f779545bc7a83de339c2e721f66fe8e300c",
+      "applied_at": "2026-10-03T13:48:27.101248+00:00"
+    },
+    {
+      "name": "017_product_color_merges.sql",
+      "sha256": "d84a89e81568e2e42aaeaed6cb63d1e318bc059d508e13fa52db9312671f4164",
+      "applied_at": "2026-10-03T15:28:59.51223+00:00"
+    },
+    {
+      "name": "018_bundle_editor.sql",
+      "sha256": "2b257ab2e5cdb3170b8945e5f43261accb034dcb29be0681d2400597d0fcc5b2",
+      "applied_at": "2026-10-03T16:20:52.572934+00:00"
+    },
+    {
+      "name": "019_content_editor.sql",
+      "sha256": "7d54a7e6a4fec85c270399a45e8bcd844b199353a0da3f6e8b8c26fc69615d8c",
+      "applied_at": "2026-10-03T19:24:47.53212+00:00"
+    },
+    {
+      "name": "020_product_purges.sql",
+      "sha256": "9ca7c511c2bde8d3e8faa07a33df89d29cc303129877bff1e7edee8fea8f286f",
+      "applied_at": "2026-10-04T15:50:30.489583+00:00"
+    },
+    {
+      "name": "021_ai_image_studio.sql",
+      "sha256": "04a09e3ce6204373fd6f259a22c33325fd1fad4d1e52552d180b4a84709fc0d0",
+      "applied_at": "2026-10-09T13:20:42.575781+00:00"
+    }
+  ],
+  "activeImageJobs": "0",
+  "disk": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/vda1        79G   64G   16G  81% /"
+}

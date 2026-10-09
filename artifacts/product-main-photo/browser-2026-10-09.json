@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "width": 1440,
+      "sku": "a006e9e9-aa33-5fd1-a364-2d90a0db95cc",
+      "sharedCoverDisplayed": true,
+      "ownNextPhotoPreserved": true
+    },
+    {
+      "width": 1440,
+      "sku": "85e24855-3caa-5b5d-ada6-235ef778dbc0",
+      "sharedCoverDisplayed": true,
+      "ownNextPhotoPreserved": true
+    },
+    {
+      "width": 1440,
+      "sku": "252dffa4-0a68-53d2-adf7-c42b8fb6fa79",
+      "sharedCoverDisplayed": true,
+      "ownNextPhotoPreserved": true
+    },
+    {
+      "width": 1440,
+      "sku": "d0dc410c-7cfa-4f2b-900f-cd47714b1ee3",
+      "sharedCoverDisplayed": true,
+      "ownNextPhotoPreserved": true
+    },
+    {
+      "width": 375,
+      "sku": "a006e9e9-aa33-5fd1-a364-2d90a0db95cc",
+      "sharedCoverDisplayed": true,
+      "ownNextPhotoPreserved": true
+    },
+    {
+      "width": 375,
+      "sku": "85e24855-3caa-5b5d-ada6-235ef778dbc0",
+      "sharedCoverDisplayed": true,
+      "ownNextPhotoPreserved": true
+    },
+    {
+      "width": 375,
+      "sku": "252dffa4-0a68-53d2-adf7-c42b8fb6fa79",
+      "sharedCoverDisplayed": true,
+      "ownNextPhotoPreserved": true
+    },
+    {
+      "width": 375,
+      "sku": "d0dc410c-7cfa-4f2b-900f-cd47714b1ee3",
+      "sharedCoverDisplayed": true,
+      "ownNextPhotoPreserved": true
+    }
+  ],
+  "siteCodeUnchanged": true
+}

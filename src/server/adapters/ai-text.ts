@@ -2,7 +2,7 @@ import Decimal from 'decimal.js';
 import {setting} from '../config.ts';
 import {aiFetch,OPENAI_GATEWAY} from './ai-gateway.ts';
 import type {AIProvider,AITextResult,AIUsage} from '../../lib/ai-text.ts';
-export const TEXT_PROMPT_VERSION='2026-09-30.6',TEXT_MAX_OUTPUT=1800,TEXT_MAX_INPUT_BYTES=24000;
+export const TEXT_PROMPT_VERSION='2026-10-09.1',TEXT_MAX_OUTPUT=1800,TEXT_MAX_INPUT_BYTES=24000;
 // OpenAI input bound includes the higher Standard cache-write price.
 export const TEXT_PRICES={deepseek:{input:'0.30',output:'1.20',model:'deepseek-flash'},openai:{input:'0.125',output:'0.50',model:'gpt-6-luna'}} as const;
 export const TEXT_INSTRUCTIONS=`Ты редактор AUTO REELZ. Пиши полезный текст для покупателя автомобильной детали, а не текст ради количества знаков или поисковых ключей.
@@ -61,7 +61,7 @@ function usage(provider:AIProvider,body:any):AIUsage{const inputTokens=provider=
 async function quotaError(r:Response){const parts:Uint8Array[]=[];let size=0;const reader=r.body?.getReader();if(!reader)return false;try{for(;;){const p=await reader.read();if(p.done)break;size+=p.value.length;if(size>16384){await reader.cancel();return false;}parts.push(p.value);}const data=JSON.parse(Buffer.concat(parts).toString('utf8'));return['insufficient_quota','insufficient_balance','billing_hard_limit_reached'].includes(data.error?.code);}catch{return false;}}
 export async function requestAIText(provider:AIProvider,key:string,facts:unknown,fetcher:typeof fetch=aiFetch):Promise<{result:AITextResult|null;usage:AIUsage;errorCode?:string}>{
  const input=promptBody(facts),model=TEXT_PRICES[provider].model;
- const body=provider==='deepseek'?{model,messages:[{role:'system',content:TEXT_INSTRUCTIONS},{role:'user',content:input}],thinking:{type:'disabled'},response_format:{type:'json_object'},max_tokens:TEXT_MAX_OUTPUT,stream:false,temperature:0.4}:{model,instructions:TEXT_INSTRUCTIONS,input,reasoning:{effort:'none'},text:{format:{type:'json_object'}},max_output_tokens:TEXT_MAX_OUTPUT,store:false,service_tier:'default'};
+ const body=provider==='deepseek'?{model,messages:[{role:'system',content:TEXT_INSTRUCTIONS},{role:'user',content:input}],thinking:{type:'disabled'},response_format:{type:'json_object'},max_tokens:TEXT_MAX_OUTPUT,stream:false,temperature:0.4}:{model,instructions:TEXT_INSTRUCTIONS,input:'Product facts (JSON):\n'+input,reasoning:{effort:'none'},text:{format:{type:'json_object'}},max_output_tokens:TEXT_MAX_OUTPUT,store:false,service_tier:'default'};
  let r:Response;
  const endpoint=provider==='deepseek'?'https://api.deepseek.com/chat/completions':setting('AI_TEXT_OPENAI_GATEWAY','false')==='true'?OPENAI_GATEWAY:'https://api.openai.com/v1/responses';
  try{r=await fetcher(endpoint,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},body:JSON.stringify(body),redirect:'error',signal:AbortSignal.timeout(35000)});}catch{throw new AIProviderError('AI_UNCERTAIN','Ответ сервиса не получен. Автоматически повторять платный запрос не будем.');}

@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "catalogApplied": false,
+  "sessionRevoked": true,
+  "requestId": "f0ad9014-c534-46d5-bd03-889b05e70ca6",
+  "state": "completed",
+  "costUpperUsd": "0.00018438",
+  "model": "gpt-6-luna",
+  "result": {
+    "description": "ДЕМО — Панель интерьера — демонстрационный товар. Указано чёрное глянцевое цветовое исполнение.\n\nСовместимость уточняйте для выбранного исполнения в карточке товара.",
+    "metaDescription": "ДЕМО — Панель интерьера — демонстрационный товар в чёрном глянцевом исполнении."
+  },
+  "message": "Тексты готовы к проверке.",
+  "repeatSameRequest": true,
+  "noProductOrDraftCreated": true
+}

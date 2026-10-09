@@ -1,0 +1,29 @@
+{
+  "completed": 2,
+  "rejectedWithoutCharge": 2,
+  "costUpperUsd": "0.00036776",
+  "catalogApplied": false,
+  "ledgerPreserved": true,
+  "requests": [
+    {
+      "id": "fd9a401a-1824-4586-80fe-b719f3928973",
+      "state": "failed",
+      "costUpperUsd": "0.00000000"
+    },
+    {
+      "id": "5c23e576-7719-4ba7-a782-15758869bac0",
+      "state": "failed",
+      "costUpperUsd": "0.00000000"
+    },
+    {
+      "id": "4229c183-ea72-4c73-a068-9dabceb1a091",
+      "state": "completed",
+      "costUpperUsd": "0.00018338"
+    },
+    {
+      "id": "f0ad9014-c534-46d5-bd03-889b05e70ca6",
+      "state": "completed",
+      "costUpperUsd": "0.00018438"
+    }
+  ]
+}

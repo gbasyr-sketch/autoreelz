@@ -1,0 +1,17 @@
+{
+  "health": {
+    "status": 200,
+    "body": "{\"ok\":true}"
+  },
+  "invalidToken": {
+    "status": 401,
+    "body": "{\"error\":{\"code\":\"gateway_access\"}}"
+  },
+  "invalidBody": {
+    "status": 400,
+    "body": "{}"
+  },
+  "untrustedCertificate": {
+    "error": "DEPTH_ZERO_SELF_SIGNED_CERT"
+  }
+}

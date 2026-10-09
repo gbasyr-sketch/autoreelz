@@ -1,0 +1,18 @@
+{
+  "sha": "14f22348eea78ab2bcacb8fa876cd4c18758a263",
+  "buildInputs": [
+    "Dockerfile",
+    ".dockerignore",
+    "package.json",
+    "package-lock.json",
+    "astro.config.mjs",
+    "tsconfig.json",
+    "src",
+    "public",
+    "infra",
+    "scripts",
+    "services",
+    "migrations"
+  ],
+  "bytes": 678227
+}

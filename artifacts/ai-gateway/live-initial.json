@@ -1,0 +1,14 @@
+{
+  "passed": false,
+  "catalogApplied": false,
+  "sessionRevoked": true,
+  "requestId": "fd9a401a-1824-4586-80fe-b719f3928973",
+  "state": "failed",
+  "costUpperUsd": "0.00000000",
+  "model": "gpt-6-luna",
+  "result": null,
+  "message": "Сервис не подготовил текст.",
+  "repeatSameRequest": true,
+  "noProductOrDraftCreated": true,
+  "error": "AssertionError [ERR_ASSERTION]: Сервис не подготовил текст.\n+ actual - expected\n\n+ 'failed'\n- 'completed'\n\n    at file:///Users/magomedrasul/Documents/autoreelz2026/private/ai-gateway-live.mjs:24:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+}

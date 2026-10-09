@@ -1,0 +1,6 @@
+{
+  "sourceSha256": "ee110cff13b6e54fddd05972bcf0df2758bfdbe8cfaff53124524be3d1e96429",
+  "service": "MemoryCurrent=10924032\nCPUQuotaPerSecUSec=250ms\nActiveState=active\nSubState=running",
+  "vpnRuntime": "69a12daed5c05d01d1f12438646d86b90ca8f4d02d8e18f52c9ff04283294095 2026-09-04T10:02:36.467641136Z true",
+  "amneziaUnchanged": true
+}

@@ -1,0 +1,27 @@
+{
+  "appSha": "14f22348eea78ab2bcacb8fa876cd4c18758a263",
+  "imageId": "sha256:90f0b235e155f39efd393738e871f288a98f667835970674fa5602c764e56ee4",
+  "previousSha": "ea6bff5441e9ca9184351de9a440e6b7067be8f3",
+  "previousImageId": "sha256:572e5cb4939204ca09b85fb3cfd603c6d2451e482942e25b0e9f7ed8443d99a0",
+  "settings": {
+    "map": "osm",
+    "shipping": "cdek",
+    "payment": "yookassa-sandbox",
+    "mode": "staging",
+    "indexing": "false",
+    "ai": "openai",
+    "gateway": "true",
+    "budget": "10"
+  },
+  "health": {
+    "web": "healthy",
+    "worker": "healthy"
+  },
+  "privateEnvBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-ai-gateway-20261009T093434Z",
+  "servicesUpdated": [
+    "web",
+    "worker"
+  ],
+  "migrationsApplied": false,
+  "catalogEdited": false
+}

@@ -1,0 +1,10 @@
+{
+  "health": 200,
+  "badToken": 401,
+  "invalid": 422,
+  "wrongPath": 404,
+  "untrustedRejected": true,
+  "providerCalls": 0,
+  "origin": "store web container",
+  "target": "image gateway TLS 14447"
+}

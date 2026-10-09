@@ -1,0 +1,40 @@
+{
+  "migration": "021_ai_image_studio.sql",
+  "sha256": "04a09e3ce6204373fd6f259a22c33325fd1fad4d1e52552d180b4a84709fc0d0",
+  "backup": "/srv/autoreelz2026/backups/before-ai-images-e9c48e744328-20261009.dump",
+  "backupBytes": 9238585,
+  "backupReadable": true,
+  "migrationCount": 21,
+  "imageJobs": 0,
+  "protectedTables": {
+    "ar_products": {
+      "count": 154,
+      "digest": "1d7d8ba617e398aa8c64153fef85814f"
+    },
+    "ar_skus": {
+      "count": 140,
+      "digest": "ca45621f6670e33d3bc486626a1b0b1a"
+    },
+    "ar_stock": {
+      "count": 20,
+      "digest": "8f3ece86dcc200ae74b54ad9b0126ec2"
+    },
+    "ar_product_editor_drafts": {
+      "count": 54,
+      "digest": "3dd6357c87a1706037acd3fd98d7ffc8"
+    },
+    "ar_product_media": {
+      "count": 593,
+      "digest": "932d772777361bce7c308bbaaf50f481"
+    },
+    "ar_sku_media": {
+      "count": 411,
+      "digest": "b4634dbe4a6715a6dd0fd51b919cd017"
+    },
+    "ar_ai_text_requests": {
+      "count": 98,
+      "digest": "bb1580b01256a9a97e8890f622587151"
+    }
+  },
+  "protectedTablesUnchanged": true
+}

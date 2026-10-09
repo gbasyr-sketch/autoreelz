@@ -1,0 +1,54 @@
+{
+  "releaseSha": "e9c48e744328e69bc4ef32fad4129dc68a57196d",
+  "imageId": "sha256:b62ae55fa7c3d11b2016e98544ebf00593c09581ce0b736657794efbc6cb41f7",
+  "health": {
+    "ok": true,
+    "revision": "e9c48e744328e69bc4ef32fad4129dc68a57196d"
+  },
+  "budget": {
+    "enabled": true,
+    "simulation": false,
+    "model": "gpt-image-2.5-sunburst-2026-09-08",
+    "budgetKey": "autoreelz-image-pilot-v1",
+    "limitUsd": "4.75634800",
+    "usedUsd": "0.00000000",
+    "remainingUsd": "4.75634800",
+    "needsAudit": false,
+    "reservedPerJobUsd": "0.50000000"
+  },
+  "previousEnv": "/srv/autoreelz2026/shared/bootstrap/server.env.before-ai-images-e9c48e744328",
+  "updatedServices": [
+    "web",
+    "worker",
+    "image-worker"
+  ],
+  "imageStorageSharedAndWritable": true,
+  "imageWorkerHasNoPublishedPort": true,
+  "textBudget": "10",
+  "containers": {
+    "autoreelz2026-release-web-1": {
+      "id": "9884f83f7f134ed350d706698d0bc4931c7af936b0852a6e41a39c0dc3d6e046",
+      "status": "running",
+      "image": "sha256:b62ae55fa7c3d11b2016e98544ebf00593c09581ce0b736657794efbc6cb41f7",
+      "revision": "e9c48e744328e69bc4ef32fad4129dc68a57196d",
+      "health": "starting",
+      "readOnly": true
+    },
+    "autoreelz2026-release-worker-1": {
+      "id": "af364dd8c467958aaa5c53c4b7f3c9c5d4c03a87478171f90eec91ca9c1de015",
+      "status": "running",
+      "image": "sha256:b62ae55fa7c3d11b2016e98544ebf00593c09581ce0b736657794efbc6cb41f7",
+      "revision": "e9c48e744328e69bc4ef32fad4129dc68a57196d",
+      "health": "starting",
+      "readOnly": true
+    },
+    "autoreelz2026-release-image-worker-1": {
+      "id": "0c1053b8d01c360fdf7fa6a807f5d41c38a8b1523877cc87228978dd3ee2d3ed",
+      "status": "running",
+      "image": "sha256:b62ae55fa7c3d11b2016e98544ebf00593c09581ce0b736657794efbc6cb41f7",
+      "revision": "e9c48e744328e69bc4ef32fad4129dc68a57196d",
+      "health": null,
+      "readOnly": true
+    }
+  }
+}

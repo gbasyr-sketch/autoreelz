@@ -1,0 +1,56 @@
+{
+  "releaseSha": "52012268f5ccaacc6cf6493f3b97523daa80ed73",
+  "imageId": "sha256:9e51d943cb2b2c27e5e404499eee0609344111254feff6668f11e7c7c715c33d",
+  "health": {
+    "ok": true,
+    "revision": "52012268f5ccaacc6cf6493f3b97523daa80ed73"
+  },
+  "budget": {
+    "enabled": true,
+    "simulation": false,
+    "model": "gpt-image-2.5-sunburst-2026-09-08",
+    "budgetKey": "autoreelz-image-pilot-v1",
+    "limitUsd": "4.75634800",
+    "usedUsd": "0.25295100",
+    "remainingUsd": "4.50339700",
+    "needsAudit": false,
+    "reservedPerJobUsd": "0.50000000"
+  },
+  "previousEnv": "/srv/autoreelz2026/shared/bootstrap/server.env.before-private-artifact-exclusion-52012268f5cc",
+  "updatedServices": [
+    "web",
+    "worker",
+    "image-worker"
+  ],
+  "runtimeUnchangedFromPaidVerification": true,
+  "paidVerificationSha": "e9c48e744328e69bc4ef32fad4129dc68a57196d",
+  "imageHistoryPreserved": true,
+  "textBudget": "10",
+  "containers": {
+    "autoreelz2026-release-web-1": {
+      "id": "f6ee063f0069237972c3a24d1bddc693be1eaa9f693aa2fd5c148aa0aa2a833f",
+      "status": "running",
+      "image": "sha256:9e51d943cb2b2c27e5e404499eee0609344111254feff6668f11e7c7c715c33d",
+      "revision": "52012268f5ccaacc6cf6493f3b97523daa80ed73",
+      "health": "starting",
+      "readOnly": true
+    },
+    "autoreelz2026-release-worker-1": {
+      "id": "e67ae645152f73458c50d7d063eae3d944c8b4fac5674047451ece80f1cb2bb4",
+      "status": "running",
+      "image": "sha256:9e51d943cb2b2c27e5e404499eee0609344111254feff6668f11e7c7c715c33d",
+      "revision": "52012268f5ccaacc6cf6493f3b97523daa80ed73",
+      "health": "starting",
+      "readOnly": true
+    },
+    "autoreelz2026-release-image-worker-1": {
+      "id": "02c1d9c83f336d5f9b9c1b2da3aa1dfa364d98ffce166d1a8bd40db1f11db524",
+      "status": "running",
+      "image": "sha256:9e51d943cb2b2c27e5e404499eee0609344111254feff6668f11e7c7c715c33d",
+      "revision": "52012268f5ccaacc6cf6493f3b97523daa80ed73",
+      "health": null,
+      "readOnly": true
+    }
+  },
+  "noAdditionalVerificationRequestsDuringEquivalentRuntimeRelease": true
+}

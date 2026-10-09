@@ -1,0 +1,104 @@
+{
+  "ru": {
+    "protectedTables": {
+      "ar_products": {
+        "count": 154,
+        "digest": "1d7d8ba617e398aa8c64153fef85814f"
+      },
+      "ar_skus": {
+        "count": 140,
+        "digest": "ca45621f6670e33d3bc486626a1b0b1a"
+      },
+      "ar_stock": {
+        "count": 20,
+        "digest": "8f3ece86dcc200ae74b54ad9b0126ec2"
+      },
+      "ar_product_editor_drafts": {
+        "count": 54,
+        "digest": "3dd6357c87a1706037acd3fd98d7ffc8"
+      },
+      "ar_product_media": {
+        "count": 593,
+        "digest": "932d772777361bce7c308bbaaf50f481"
+      },
+      "ar_sku_media": {
+        "count": 411,
+        "digest": "b4634dbe4a6715a6dd0fd51b919cd017"
+      },
+      "ar_ai_text_requests": {
+        "count": 98,
+        "digest": "bb1580b01256a9a97e8890f622587151"
+      }
+    },
+    "containers": {
+      "autoreelz2026-release-web-1": {
+        "id": "9884f83f7f134ed350d706698d0bc4931c7af936b0852a6e41a39c0dc3d6e046",
+        "startedAt": "2026-10-09T13:22:02.702902559Z",
+        "status": "running",
+        "health": "healthy"
+      },
+      "autoreelz2026-release-image-worker-1": {
+        "id": "0c1053b8d01c360fdf7fa6a807f5d41c38a8b1523877cc87228978dd3ee2d3ed",
+        "startedAt": "2026-10-09T13:22:02.52309924Z",
+        "status": "running",
+        "health": null
+      },
+      "autoreelz2026-release-worker-1": {
+        "id": "af364dd8c467958aaa5c53c4b7f3c9c5d4c03a87478171f90eec91ca9c1de015",
+        "startedAt": "2026-10-09T13:22:02.356977892Z",
+        "status": "running",
+        "health": "healthy"
+      },
+      "autoreelz2026-release-edge-1": {
+        "id": "9d8c8974aa6e59e3a9bd6a5c162d39e5567c33d0ee793fc6a8ecac2c41c3ef38",
+        "startedAt": "2026-10-03T19:54:04.011566724Z",
+        "status": "running",
+        "health": null
+      },
+      "autoreelz2026-release-background-1": {
+        "id": "7bfa481425a90cc851fab221e42ea5cf03fc3e024a151d7b637b4f476b91847c",
+        "startedAt": "2026-09-30T15:14:09.306572603Z",
+        "status": "running",
+        "health": "healthy"
+      },
+      "autoreelz2026-release-cms-1": {
+        "id": "7da34b36aa472d8b0279478a7ec3c53bdb7124e8fad06e3b1e20730d4e3c77a8",
+        "startedAt": "2026-09-23T17:02:33.846890768Z",
+        "status": "running",
+        "health": "healthy"
+      },
+      "autoreelz2026-release-db-1": {
+        "id": "c81ff315e46cac586372b6c0b8c399b5a13e9fd0266966612034c9588f93760d",
+        "startedAt": "2026-09-23T15:16:27.816123898Z",
+        "status": "running",
+        "health": "healthy"
+      }
+    },
+    "imageJobs": [
+      {
+        "state": "completed",
+        "jobs": 1,
+        "charged_usd": "0.05297100",
+        "held_usd": "0"
+      }
+    ],
+    "imageAssets": 2,
+    "disk": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/vda1        79G   64G   16G  81% /",
+    "imageStorageVolume": "/srv/autoreelz2026/.local/share/docker/volumes/autoreelz2026-release_ai_image_assets/_data",
+    "protectedTablesUnchanged": true
+  },
+  "nl": {
+    "textService": "MainPID=573077\nActiveState=active",
+    "imageService": "active",
+    "files": {
+      "/opt/autoreelz-ai-gateway/server.py": "ee110cff13b6e54fddd05972bcf0df2758bfdbe8cfaff53124524be3d1e96429",
+      "/etc/autoreelz-ai-gateway/server.crt": "b29e54fa7106155d055f12b25a0aa6317cc49249b8e2366345c96d868f204557",
+      "/etc/systemd/system/autoreelz-ai-gateway.service": "95864c3dcae48b6ff563be93f2e9016f2989da0ec33f7b6396bf1342b01827d9"
+    },
+    "amnezia": {
+      "id": "69a12daed5c05d01d1f12438646d86b90ca8f4d02d8e18f52c9ff04283294095",
+      "startedAt": "2026-09-04T10:02:36.467641136Z"
+    }
+  },
+  "unrelatedServicesPreserved": true
+}

@@ -30,3 +30,11 @@ __pycache__/
 
 # Local product-photo background-removal experiments
 output/background-removal/
+
+# AI image outputs stay private until the owner publishes them in a product.
+/output/ai-infographic-*/**/*.png
+/output/ai-infographic-*/**/*.webp
+/output/ai-infographic-*/**/*.jpg
+/output/ai-infographic-*/**/*.zip
+/artifacts/ai-image-studio/**/*.png
+/artifacts/ai-image-studio/**/*.jpg

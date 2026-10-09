@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "catalogApplied": false,
+  "sessionRevoked": true,
+  "expectedRoute": "RU image-worker -> NL TLS image gateway -> OpenAI",
+  "productId": "740c02e0-bda7-51c3-ad30-c4d55ef14c5e",
+  "productName": "Рамка под андройд на Газель Бизнес",
+  "beforeProductHash": "bfca69d64fc5f1b87c9ee9b18e896662f7a6027869f05aff29c0bb56802162af",
+  "textBudgetUsd": "10",
+  "estimateUsd": "0.07080900",
+  "reservedUsd": "0.50000000",
+  "jobId": "1f7bbdf3-c017-4d2d-9b58-ee9792f0f587",
+  "state": "completed",
+  "chargedUsd": "0.05297100",
+  "model": "gpt-image-2.5-sunburst-2026-09-08",
+  "message": "Готово. Проверьте товар и надписи перед применением.",
+  "usage": {
+    "outputTokens": 1372,
+    "textInputTokens": 599,
+    "imageInputTokens": 1102
+  },
+  "repeatSameJob": true,
+  "output": "output/ai-infographic-server-2026-10-09/gazel-cover-1f7bbdf3-c017-4d2d-9b58-ee9792f0f587.png",
+  "anonymousImageStatus": 401,
+  "publicImageStatus": 404,
+  "reviewRequired": true,
+  "productUnchanged": true,
+  "budget": {
+    "enabled": true,
+    "simulation": false,
+    "model": "gpt-image-2.5-sunburst-2026-09-08",
+    "budgetKey": "autoreelz-image-pilot-v1",
+    "limitUsd": "4.75634800",
+    "usedUsd": "0.05297100",
+    "remainingUsd": "4.70337700",
+    "needsAudit": false,
+    "reservedPerJobUsd": "0.50000000"
+  }
+}

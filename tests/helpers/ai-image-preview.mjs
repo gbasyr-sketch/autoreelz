@@ -3,6 +3,10 @@ import fs from 'node:fs/promises';import path from 'node:path';import http from 
 import {createImageDatabase,imageEnvironment,localConfig} from './ai-image-qa.mjs';
 import {emptyProduct,emptyVariant} from '../../src/lib/product-editor.ts';
 const provider=process.env.AR_IMAGE_PREVIEW_PROVIDER||'simulation';if(!['simulation','openai'].includes(provider))throw Error('Invalid local provider');
+if(provider==='openai'){
+ try{await fs.access(path.resolve('private/ai-image-local/pilot/server-allocation.json'));throw Error('Image pilot budget is allocated to the server. Use its existing ledger instead of restarting the local paid pilot.');}
+ catch(error){if(error.code!=='ENOENT')throw error;}
+}
 const defaultRoot=path.resolve('private/ai-image-local',provider==='openai'?'pilot':'preview'),root=path.resolve(process.env.AR_IMAGE_PREVIEW_DIR||defaultRoot);await fs.mkdir(root,{recursive:true});await fs.mkdir(path.join(root,'uploads'),{recursive:true});
 const database=provider==='openai'?'ar_qa_ai_images_pilot_20261009':process.env.AR_IMAGE_PREVIEW_DATABASE||'ar_qa_ai_images_local',qa=await createImageDatabase(database);
 let fixture;try{fixture=JSON.parse(await fs.readFile(path.join(root,'fixture.json'),'utf8'));}catch{

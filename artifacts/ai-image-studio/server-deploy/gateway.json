@@ -1,0 +1,19 @@
+{
+  "active": "active",
+  "unit": "MainPID=576536\nCPUQuotaPerSecUSec=250ms\nMemoryMax=268435456\nTasksMax=16",
+  "health": 200,
+  "unauthorized": 401,
+  "invalidBody": 422,
+  "wrongPath": 404,
+  "providerCalls": 0,
+  "textService": "MainPID=573077\nActiveState=active",
+  "preservedFiles": {
+    "/opt/autoreelz-ai-gateway/server.py": "ee110cff13b6e54fddd05972bcf0df2758bfdbe8cfaff53124524be3d1e96429",
+    "/etc/autoreelz-ai-gateway/server.crt": "b29e54fa7106155d055f12b25a0aa6317cc49249b8e2366345c96d868f204557",
+    "/etc/systemd/system/autoreelz-ai-gateway.service": "95864c3dcae48b6ff563be93f2e9016f2989da0ec33f7b6396bf1342b01827d9"
+  },
+  "amnezia": {
+    "id": "69a12daed5c05d01d1f12438646d86b90ca8f4d02d8e18f52c9ff04283294095",
+    "startedAt": "2026-09-04T10:02:36.467641136Z"
+  }
+}

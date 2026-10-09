@@ -1,0 +1,13 @@
+{
+  "releaseSha": "52012268f5ccaacc6cf6493f3b97523daa80ed73",
+  "imageId": "sha256:9e51d943cb2b2c27e5e404499eee0609344111254feff6668f11e7c7c715c33d",
+  "releaseDirectory": "/srv/autoreelz2026/releases/52012268f5ccaacc6cf6493f3b97523daa80ed73",
+  "archiveSha256": "c559c37b747a94bdb17831cef3e7419a30fc5edc8f1a10995530b206904d9b06",
+  "built": true,
+  "composeValidated": true,
+  "caddyValidatedOffline": true,
+  "mode": "staging",
+  "indexing": false,
+  "unrelatedWorkingTreeChangesExcluded": true,
+  "buildLog": "/srv/autoreelz2026/shared/bootstrap/ai-image-build-52012268f5ccaacc6cf6493f3b97523daa80ed73.log"
+}

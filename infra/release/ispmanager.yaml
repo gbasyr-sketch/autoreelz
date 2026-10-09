@@ -16,6 +16,9 @@ services:
   worker:
     environment:
       STORE_MODE: staging
+  image-worker:
+    environment:
+      STORE_MODE: staging
   cms:
     ports: !reset []
     environment:

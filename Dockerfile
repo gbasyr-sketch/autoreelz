@@ -20,6 +20,7 @@ RUN npm ci --omit=dev --no-audit --no-fund
 FROM base AS runtime
 ARG VCS_REF=development
 RUN node -e "if(!/^(development|[a-f0-9]{40})$/.test(process.argv[1]))process.exit(1)" "$VCS_REF"
+RUN mkdir -p /var/lib/autoreelz/ai-images && chown -R node:node /var/lib/autoreelz
 LABEL org.opencontainers.image.revision=$VCS_REF
 ENV NODE_ENV=production \
     HOST=0.0.0.0 \
@@ -30,6 +31,7 @@ COPY --from=build --chown=node:node /app/dist ./dist
 COPY --chown=node:node src/server ./src/server
 COPY --chown=node:node src/lib ./src/lib
 COPY --chown=node:node scripts/commerce-worker.ts ./scripts/commerce-worker.ts
+COPY --chown=node:node scripts/ai-image-worker.ts ./scripts/ai-image-worker.ts
 COPY --chown=node:node package.json ./
 USER node
 EXPOSE 4321

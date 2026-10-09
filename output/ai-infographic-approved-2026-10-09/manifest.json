@@ -1,0 +1,54 @@
+{
+  "approvedAdditionalUsd": "5.00000000",
+  "newImageUsageUsd": "0.24365200",
+  "selected": [
+    {
+      "step": "cover-final",
+      "title": "Обложка",
+      "file": "01-cover.png",
+      "jobId": "3d27a94a-0d20-48c3-8494-0032578021e8",
+      "chargedUsd": "0.08626600",
+      "newInThisPilot": false
+    },
+    {
+      "step": "features",
+      "title": "Характеристики",
+      "file": "02-features.png",
+      "jobId": "0d975a58-7294-4347-9d85-8c5fdaf777e9",
+      "chargedUsd": "0.06495400",
+      "newInThisPilot": false
+    },
+    {
+      "step": "kit",
+      "title": "Комплектация",
+      "file": "03-kit.png",
+      "jobId": "e4b141a6-7f3f-492f-8b5e-ef1adce02388",
+      "chargedUsd": "0.07402500",
+      "newInThisPilot": false
+    },
+    {
+      "step": "installation-revised",
+      "title": "Установка",
+      "file": "04-installation.png",
+      "jobId": "d8004aaa-0fd9-4d01-a954-464fad4f0cb9",
+      "chargedUsd": "0.07820700",
+      "newInThisPilot": true
+    },
+    {
+      "step": "controls-revised",
+      "title": "Управление",
+      "file": "05-controls.png",
+      "jobId": "4392ec0a-1ce3-4d55-88c3-3ce5158a05d0",
+      "chargedUsd": "0.07829200",
+      "newInThisPilot": true
+    },
+    {
+      "step": "connection-revised",
+      "title": "Подключение",
+      "file": "06-connection.png",
+      "jobId": "d8124789-da9e-4a8f-9fc2-22d2a07f2a32",
+      "chargedUsd": "0.08715300",
+      "newInThisPilot": true
+    }
+  ]
+}

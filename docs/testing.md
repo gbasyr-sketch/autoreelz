@@ -33,6 +33,15 @@
 
 `node --test tests/product-editor.test.ts` — единицы, суммы, пустые черновики, ограничения и публикация. `tests/product-editor-database.mjs` — только отдельная PostgreSQL `ar_qa_product_editor_*` с полной схемой и миграцией012: повтор/конкурентная публикация, приход, конфликты CMS, сохранение чужой упаковки, дубли/фотографии/связи. Не запускать на рабочем каталоге; QA-базу удалить после проверки. `AR_EDITOR_URL=<preview> node tests/product-editor-browser.mjs` — интерфейс375/768/1440, подменённыеAPI, черновик/retry/фото/предпросмотр/повторный вход. Настоящие upload/auth/CSRF/API проверены отдельно в изолированной торговой БД; временный файл собственной проверки в CMS удалён, сессия отозвана. Доказательства — `artifacts/product-editor/`.
 
+## ИИ-инфографика (локально, 09.10.2026)
+
+- `node --test tests/ai-images.test.ts`: модель/формат, whitelist данных, подсчёт тарифа, границы лимита и ответы провайдера.
+- `node tests/ai-image-database.mjs`: только отдельная `ar_qa_ai_images_*`; источники/результаты, подпись сметы, идемпотентность, бюджетные резервы, очередь, неизвестный исход без повторного вызова, восстановление по квитанции, ошибки и отдельность текстового журнала.
+- `python3 tests/ai-image-gateway.py`: локальная проверка преобразования запроса и allowlist; OpenAI не вызывается.
+- `node tests/ai-image-api.mjs` — только вместе с локальным `tests/helpers/ai-image-preview.mjs` и уникальными `AR_IMAGE_PREVIEW_DATABASE`, `AR_IMAGE_PREVIEW_DIR`, `AR_AI_IMAGE_ARTIFACT_DIR`. Preview использует CMS-имитатор, отдельную базу и `AI_IMAGE_PROVIDER=simulation`; API проверяет вход/CSRF, gallery/import/upload, PNG/privacy, повтор, применение и явное сохранение черновика. Останавливать preview с `AR_IMAGE_PREVIEW_DROP_DATABASE=1 AR_IMAGE_PREVIEW_REMOVE_FILES=1`.
+- `node tests/ai-image-studio-browser.mjs` — Playwright/Chrome, desktop1440 и mobile375; реальный локальный UI с simulation, фоновой очередью и фиктивной CMS. Здесь Chrome отсутствует, поэтому эти размеры дополнительно проверены вручную в локальном браузере Codex.
+- Не запускать `tests/ai-image-pilot.mjs` и не менять provider на `openai` без согласованного бюджета изображений. Текстовая генерация имеет отдельный бюджет/журнал; использовать текущий текстовый учёт для image QA нельзя.
+
 ## Матрица по областям
 
 | Изменение | Основная проверка | Дополнение при затрагивании поведения |

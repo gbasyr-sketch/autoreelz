@@ -1,0 +1,47 @@
+<dialog class="aii-dialog" data-ai-image-studio aria-labelledby="aii-title">
+ <header class="aii-header"><div><p class="dash-eyebrow">Фото реального товара · новый дизайн</p><h2 id="aii-title">ИИ-инфографика</h2></div><button type="button" class="dash-button" data-aii-close>Закрыть</button></header>
+ <p class="dash-help" data-aii-budget role="status"></p>
+ <p class="dash-message dash-error" data-aii-error role="alert" hidden></p>
+ <p class="dash-help" data-aii-operation role="status"></p>
+ <div class="aii-layout">
+  <section class="aii-preview" aria-label="Сравнение изображений">
+   <div class="aii-compare"><figure><a data-aii-original-link target="_blank" rel="noopener" aria-label="Открыть исходник в полном размере"><img data-aii-original alt="Исходное фото товара" hidden/></a><figcaption>Исходник</figcaption></figure><figure><a data-aii-result-link target="_blank" rel="noopener" aria-label="Открыть результат в полном размере"><img data-aii-result alt="Выбранный результат ИИ" hidden/></a><span data-aii-placeholder>Результат появится здесь</span><figcaption>Результат · 1536 × 1024</figcaption></figure></div>
+   <p class="dash-help">Нажмите на изображение, чтобы рассмотреть его в полном размере.</p>
+   <p class="dash-help">ИИ может изменить детали изделия или ошибиться в надписях. Сравните форму, цвет, кнопки, разъёмы, крепления и комплектацию.</p>
+   <label class="dash-checkbox"><input type="checkbox" data-aii-reviewed/>Я проверил товар, надписи и комплектность по оригиналу</label>
+   <div class="aii-actions"><a class="dash-button" data-aii-download hidden>Скачать PNG</a><button type="button" class="dash-button" data-aii-cover disabled>Выбрать обложкой серии</button><button type="button" class="dash-button" data-aii-revise disabled>Переделать этот слайд — платно</button></div>
+   <div class="aii-history-heading"><h3>История и варианты</h3><button type="button" class="dash-button" data-aii-refresh>Обновить</button></div>
+   <label class="dash-checkbox"><input type="checkbox" data-aii-all-history/>Все мои задания, включая несохранённые товары</label>
+   <p class="dash-help">Закрытие окна не отменяет задания. Каждый новый вариант оплачивается отдельно.</p>
+   <div data-aii-history class="aii-history" aria-live="polite"></div>
+   <div class="aii-actions"><button type="button" class="dash-button" data-aii-latest hidden>К последним заданиям</button><button type="button" class="dash-button" data-aii-older hidden>Более ранние задания</button></div>
+   <button type="button" class="dash-button dash-primary" data-aii-apply disabled>Добавить выбранные в форму товара</button>
+   <p class="dash-help" data-aii-apply-status role="status">После добавления сохраните черновик. Публикация — отдельное действие.</p>
+  </section>
+  <section class="aii-controls" aria-label="Параметры слайда">
+   <fieldset data-aii-fields>
+    <h3>1. Исходные изображения</h3>
+    <p class="dash-help">До четырёх фото товара. Выбранные фотографии не перезаписываются.</p>
+    <div class="aii-sources" data-aii-gallery></div>
+    <label class="dash-field">Загрузить фото товара<input type="file" data-aii-upload accept="image/jpeg,image/png,image/webp" multiple/></label>
+    <h3>2. Оформление</h3>
+    <label class="dash-field">Тип слайда<select data-aii-type><option value="cover">Обложка</option><option value="features">Характеристики</option><option value="kit">Комплектация</option><option value="installation">Установка</option><option value="controls">Управление</option></select></label>
+    <label class="dash-field">Стиль серии<select data-aii-anchor><option value="">Новый стиль</option></select></label>
+    <p class="dash-help">Если выбрана обложка серии, палитра и общий стиль берутся из неё.</p>
+    <div class="aii-colors"><label class="dash-field">Фон<input type="color" value="#f6f4ef" data-aii-background/></label><label class="dash-field">Акцент<input type="color" value="#ff7a1a" data-aii-accent/></label></div>
+    <label class="dash-field">Пожелания к оформлению<textarea data-aii-wishes rows="3" maxlength="1200" placeholder="Светлый фон, крупный товар, оранжевые акценты…"></textarea></label>
+    <label class="dash-field">Образец оформления — необязательно<input type="file" data-aii-style-upload accept="image/jpeg,image/png,image/webp"/></label><div class="aii-style" data-aii-style></div><button type="button" class="dash-button" data-aii-clear-style hidden>Убрать образец</button>
+    <h3>3. Проверьте надписи и сведения</h3>
+    <label class="dash-field">Заголовок на слайде<input data-aii-headline maxlength="250"/></label>
+    <label class="dash-field">Подписи — каждая с новой строки<textarea data-aii-lines rows="4" maxlength="1200"></textarea></label>
+    <label class="dash-field">Примечание на слайде<input data-aii-footnote maxlength="250"/></label>
+    <label class="dash-field">Подтверждённые факты для этого слайда<textarea data-aii-facts rows="3" maxlength="1500" placeholder="Только проверенные сведения. Неизвестную совместимость не указывайте как подтверждённую."></textarea></label>
+    <label class="dash-field" data-aii-changes-field hidden>Что изменить в выбранном варианте<textarea data-aii-changes rows="3" maxlength="700" placeholder="Увеличь товар, замени цвет фона, убери декоративную линию…"></textarea></label>
+    <p class="dash-help">Цвета относятся к оформлению. Форма, физический цвет и состав товара должны сохраниться.</p>
+    <button type="button" class="dash-button" data-aii-preview>Проверить параметры и стоимость</button>
+    <section class="aii-cost" data-aii-cost hidden><p data-aii-estimate></p><details><summary>Сведения и инструкция для модели</summary><pre data-aii-prompt></pre></details><label class="dash-checkbox"><input type="checkbox" data-aii-confirm/><span data-aii-confirm-copy>Подтверждение передачи фотографий и текста провайдеру и платного запроса</span></label><button type="button" class="dash-button dash-primary" data-aii-generate disabled>Создать изображение</button></section>
+    <button type="button" class="dash-button" data-aii-new>Новый слайд или платный вариант</button>
+   </fieldset>
+  </section>
+ </div>
+</dialog>

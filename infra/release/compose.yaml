@@ -39,6 +39,11 @@ services:
       AI_TEXT_ALLOW_OPENAI: ${AI_TEXT_ALLOW_OPENAI:-false}
       AI_TEXT_OPENAI_GATEWAY: ${AI_TEXT_OPENAI_GATEWAY:-false}
       AI_TEXT_GATEWAY_TOKEN: ${AI_TEXT_GATEWAY_TOKEN:-}
+      AI_IMAGE_PROVIDER: ${AI_IMAGE_PROVIDER:-disabled}
+      AI_IMAGE_BUDGET_USD: ${AI_IMAGE_BUDGET_USD:-0}
+      AI_IMAGE_BUDGET_KEY: ${AI_IMAGE_BUDGET_KEY:-autoreelz-image-pilot-v1}
+      AI_IMAGE_API_KEY_CONFIGURED: ${AI_IMAGE_API_KEY_CONFIGURED:-false}
+      AI_IMAGE_STORAGE_PATH: /var/lib/autoreelz/ai-images
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       SHIPPING_PROVIDER: ${SHIPPING_PROVIDER:-simulation}
@@ -51,7 +56,9 @@ services:
       CMS_UPLOADS_PATH: /cms-uploads
       SEO_INDEXING_ENABLED: ${SEO_INDEXING_ENABLED:-false}
       YML_COMPANY_NAME: ${YML_COMPANY_NAME:-}
-    volumes: [uploads:/cms-uploads:ro]
+    volumes:
+      - uploads:/cms-uploads:ro
+      - ai_image_assets:/var/lib/autoreelz/ai-images
     read_only: true
     tmpfs: [/tmp]
     networks: [frontend, backend, images]
@@ -91,6 +98,33 @@ services:
       interval: 15s
       timeout: 5s
       retries: 4
+    restart: unless-stopped
+  image-worker:
+    image: ${RELEASE_IMAGE:?}
+    command: [node, scripts/ai-image-worker.ts]
+    init: true
+    stop_grace_period: 210s
+    healthcheck:
+      disable: true
+    mem_limit: 768m
+    cpus: 1
+    pids_limit: 32
+    environment:
+      <<: *app-env
+      AI_IMAGE_PROVIDER: ${AI_IMAGE_PROVIDER:-disabled}
+      AI_IMAGE_BUDGET_USD: ${AI_IMAGE_BUDGET_USD:-0}
+      AI_IMAGE_BUDGET_KEY: ${AI_IMAGE_BUDGET_KEY:-autoreelz-image-pilot-v1}
+      AI_IMAGE_GATEWAY_TOKEN: ${AI_IMAGE_GATEWAY_TOKEN:-}
+      AI_IMAGE_OPENAI_API_KEY: ${AI_IMAGE_OPENAI_API_KEY:-}
+      AI_IMAGE_STORAGE_PATH: /var/lib/autoreelz/ai-images
+    volumes:
+      - ai_image_assets:/var/lib/autoreelz/ai-images
+    read_only: true
+    tmpfs: [/tmp]
+    networks: [backend]
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
   db:
     image: postgres:17.11-alpine@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
@@ -166,5 +200,6 @@ networks:
 volumes:
   database: {}
   uploads: {}
+  ai_image_assets: {}
   edge_data: {}
   edge_config: {}

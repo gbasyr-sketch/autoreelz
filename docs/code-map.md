@@ -36,13 +36,16 @@
 | Отзывы | [social.ts](../src/server/social.ts), `social-photos.ts`, `src/components/Reviews.astro` | Только полученный заказ, модерация, приватность исходников/неодобренных фото |
 | Генератор текстов | [description-generation.ts](../src/server/description-generation.ts), `adapters/description.ts` | Preview/Apply, изменённые исходные данные, ручной title. Сейчас имитатор |
 | Настоящая генерация в форме товара | [product-ai.ts](../src/server/product-ai.ts), `adapters/ai-text.ts`, `adapters/ai-gateway.ts`, `services/ai-gateway/server.py`, `src/scripts/product-ai.ts`, `src/lib/ai-text.ts`, миграция013 | Общий бюджет, резерв до внешнего вызова, повторы/неопределённость, вход/CSRF, whitelist фактов, применение только в форму; [контракт](ai-text-generation.md) |
+| ИИ-инфографика в редакторе товара | `src/components/AIImageStudio.astro`, `src/scripts/ai-image-studio.ts`, `src/server/ai-image-studio.ts`, `ai-image-worker.ts`, `adapters/ai-images.ts`, `services/ai-image-gateway/`, маршруты `api/manager/ai-images` и `ai-image-file`, миграция021 | Приватные исходники/результаты, лимит и резерв бюджета, async worker, неопределённый исход без retry, сверка товара/текста, только черновик; [контракт](ai-image-studio.md) |
 | SEO/фид | [seo.ts](../src/lib/seo.ts), `src/server/seo.ts`, `src/lib/feed.ts` | SSR SKU, canonical, sitemap/YML, отсутствие ложных свойств; staging остаётся noindex |
 | Схема/CMS | [migrations](../migrations), `cms/model.mjs`, `scripts/configure-*.mjs` | Только новая миграция, SQL и CMS-права, метаданные, совместимость старых заказов |
 | Выпуск/маршрутизация | [server-staging.md](server-staging.md), `Dockerfile`, `infra/release/` | Нужный overlay, SHA web/worker, /cms, /muzey/, webhook, публичная витрина |
 
 ## Точки входа HTTP
 
-Генератор инфографики: `src/scripts/product-infographic.ts`, `src/lib/product-infographic.ts`, `src/lib/infographic-text.ts`, `src/server/product-background.ts`, `services/background-removal/`, миграция014. Проверять приватность исходников, очередь1+2, кисти/отмену, свободное размещение фото, размеры/переполнение текста, PNG и сохранение рецепта после публикации, retry. [Контракт](product-infographics.md).
+Генератор инфографики по шаблонам: `src/scripts/product-infographic.ts`, `src/lib/product-infographic.ts`, `src/lib/infographic-text.ts`, `src/server/product-background.ts`, `services/background-removal/`, миграция014. Проверять приватность исходников, очередь1+2, кисти/отмену, свободное размещение фото, размеры/переполнение текста, PNG и сохранение рецепта после публикации, retry. [Контракт](product-infographics.md).
+
+Новый режим ИИ-инфографики работает отдельно от шаблонов: [контракт](ai-image-studio.md). Провайдер отключён по умолчанию. Дополнительный локальный image-пилот до$5 согласован09.10; расход и остаток — в контракте. Текстовый бюджет/журнал менять нельзя; выпуск требует отдельного поручения.
 
 Серверные маршруты в `src/pages/api/`: commerce, auth, social, manager, shipping, delivery/event, payments/yookassa. Публичного CRUD торговых таблиц нет.
 

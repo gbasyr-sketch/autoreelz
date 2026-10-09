@@ -1,0 +1,11 @@
+export const IMAGE_MODEL='gpt-image-2.5-sunburst-2026-09-08';
+export const IMAGE_SIZE='1536x1024',IMAGE_QUALITY='high',IMAGE_PROMPT_VERSION='2026-10-09.2';
+export const SLIDE_TYPES={cover:'Обложка',features:'Характеристики',kit:'Комплектация',installation:'Установка',controls:'Управление'} as const;
+export type SlideType=keyof typeof SLIDE_TYPES;
+export type ImageAsset={id:string;kind:'source'|'result';name:string;digest:string;width:number;height:number;bytes:number};
+export type ImageSettings={type:SlideType;headline:string;lines:string;footnote:string;facts:string;wishes:string;changes:string;background:string;accent:string;sourceIds:string[];styleId:string|null;coverId:string|null;editOf:string|null};
+export type ImagePlan={version:string;productId:string;productName:string;settings:ImageSettings;facts:unknown;references:{asset:ImageAsset;role:'product'|'style'|'edit'}[];prompt:string;model:string;size:string;quality:string};
+export type ImageJob={id:string;number:string;productId:string;state:'queued'|'preparing'|'running'|'completed'|'failed'|'uncertain'|'cancelled';provider:'openai'|'simulation';plan:ImagePlan;estimatedUsd:string;reservedUsd:string;chargedUsd:string|null;usage:unknown;message:string;result:ImageAsset|null;approved:boolean;applyFileId:string|null;createdAt:string};
+export type ImageBudget={enabled:boolean;simulation:boolean;model:string;budgetKey:string;limitUsd:string;usedUsd:string;remainingUsd:string;needsAudit:boolean;reservedPerJobUsd:string};
+export type ImagePreview={plan:ImagePlan;token:string;estimatedUsd:string;reservedUsd:string;budget:ImageBudget};
+export const imageFileUrl=(id:string,download=false)=>'/api/manager/ai-image-file?id='+encodeURIComponent(id)+(download?'&download=1':'');

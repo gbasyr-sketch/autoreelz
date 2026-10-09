@@ -1,0 +1,139 @@
+{
+  "checkedAt": "2026-10-09T13:01:20.203Z",
+  "passed": true,
+  "sourceCommit": "9f019e3ed0f1b067a4ab1c3398855b601dbf659d",
+  "approvedAdditionalUsd": "5.00000000",
+  "previousImageUsageUsd": "0.58850200",
+  "newImageUsageUsd": "0.24365200",
+  "totalImageUsageUsd": "0.83215400",
+  "remainingApprovedAdditionalUsd": "4.75634800",
+  "runtimeLifetimeCapUsd": "5.00000000",
+  "model": "gpt-image-2.5-sunburst-2026-09-08",
+  "modelAccessHttpStatus": 200,
+  "quality": "high",
+  "size": "1536x1024",
+  "transport": "local-test direct Images API; production gateway not deployed",
+  "newPaidRequests": 3,
+  "idempotentRechecks": 3,
+  "uncertainJobs": 0,
+  "protectedFilesVerified": 55,
+  "historicalJobsPreserved": true,
+  "productDraftsCatalogStockTextLedgerUnchanged": true,
+  "appliedToProducts": false,
+  "remoteDeployment": false,
+  "jobs": [
+    {
+      "id": "d8004aaa-0fd9-4d01-a954-464fad4f0cb9",
+      "model": "gpt-image-2.5-sunburst-2026-09-08",
+      "provider": "openai",
+      "state": "completed",
+      "charged_usd": "0.07820700",
+      "usage": {
+        "outputTokens": 1372,
+        "textInputTokens": 731,
+        "imageInputTokens": 4174
+      },
+      "prompt_version": "2026-10-09.2",
+      "type": "installation",
+      "parent_id": "2627c002-95da-455b-b836-8e708cbb90d4",
+      "cover_id": "3d27a94a-0d20-48c3-8494-0032578021e8",
+      "apply_file_id": null
+    },
+    {
+      "id": "4392ec0a-1ce3-4d55-88c3-3ce5158a05d0",
+      "model": "gpt-image-2.5-sunburst-2026-09-08",
+      "provider": "openai",
+      "state": "completed",
+      "charged_usd": "0.07829200",
+      "usage": {
+        "outputTokens": 1372,
+        "textInputTokens": 748,
+        "imageInputTokens": 4174
+      },
+      "prompt_version": "2026-10-09.2",
+      "type": "controls",
+      "parent_id": "d3854745-60fb-4e45-bdf1-dcd6970689b8",
+      "cover_id": "3d27a94a-0d20-48c3-8494-0032578021e8",
+      "apply_file_id": null
+    },
+    {
+      "id": "d8124789-da9e-4a8f-9fc2-22d2a07f2a32",
+      "model": "gpt-image-2.5-sunburst-2026-09-08",
+      "provider": "openai",
+      "state": "completed",
+      "charged_usd": "0.08715300",
+      "usage": {
+        "outputTokens": 1372,
+        "textInputTokens": 757,
+        "imageInputTokens": 5276
+      },
+      "prompt_version": "2026-10-09.2",
+      "type": "controls",
+      "parent_id": "d0638f9e-ac4f-4e25-85eb-5a1a9124dedc",
+      "cover_id": "3d27a94a-0d20-48c3-8494-0032578021e8",
+      "apply_file_id": null
+    }
+  ],
+  "selected": [
+    {
+      "step": "cover-final",
+      "title": "Обложка",
+      "file": "01-cover.png",
+      "jobId": "3d27a94a-0d20-48c3-8494-0032578021e8",
+      "chargedUsd": "0.08626600",
+      "newInThisPilot": false
+    },
+    {
+      "step": "features",
+      "title": "Характеристики",
+      "file": "02-features.png",
+      "jobId": "0d975a58-7294-4347-9d85-8c5fdaf777e9",
+      "chargedUsd": "0.06495400",
+      "newInThisPilot": false
+    },
+    {
+      "step": "kit",
+      "title": "Комплектация",
+      "file": "03-kit.png",
+      "jobId": "e4b141a6-7f3f-492f-8b5e-ef1adce02388",
+      "chargedUsd": "0.07402500",
+      "newInThisPilot": false
+    },
+    {
+      "step": "installation-revised",
+      "title": "Установка",
+      "file": "04-installation.png",
+      "jobId": "d8004aaa-0fd9-4d01-a954-464fad4f0cb9",
+      "chargedUsd": "0.07820700",
+      "newInThisPilot": true
+    },
+    {
+      "step": "controls-revised",
+      "title": "Управление",
+      "file": "05-controls.png",
+      "jobId": "4392ec0a-1ce3-4d55-88c3-3ce5158a05d0",
+      "chargedUsd": "0.07829200",
+      "newInThisPilot": true
+    },
+    {
+      "step": "connection-revised",
+      "title": "Подключение",
+      "file": "06-connection.png",
+      "jobId": "d8124789-da9e-4a8f-9fc2-22d2a07f2a32",
+      "chargedUsd": "0.08715300",
+      "newInThisPilot": true
+    }
+  ],
+  "review": [
+    "Requested extra frame removed from installation/controls/connection",
+    "Approved Russian headings and captions visually checked",
+    "Whole slide remains generative: tiny physical markings, dashboard geometry and connectors still need owner verification before publishing"
+  ],
+  "localPreviewStopped": true,
+  "historicalFieldsCompared": [
+    "id",
+    "state",
+    "charged_usd",
+    "result_id"
+  ]
+}

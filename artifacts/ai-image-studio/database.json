@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "externalCalls": 0,
+  "checks": [
+    "source snapshots are private, deduplicated and never overwrite original bytes",
+    "quote binds facts, price review and immutable source identities",
+    "simultaneous identical submissions make one job and one budget reservation",
+    "worker finishes without browser, uses one global slot and stores PNG plus WebP",
+    "style anchor requires a reviewed completed cover and copies its design",
+    "revision is a new paid action and retains old result and source snapshots",
+    "queue cancellation is free and does not call a provider",
+    "independent image budget includes pending requests and blocks overspending",
+    "interrupted sent jobs are held as uncertain and never automatically resent",
+    "durable receipts recover after a database interruption without regeneration",
+    "image worker does not touch products, stock, text budget or product drafts",
+    "request and charge history cannot be silently rewritten",
+    "explicit provider access rejection costs zero and is never retried",
+    "network timeout retains its reservation without a second provider call",
+    "paid malformed output keeps actual usage and expense",
+    "once sent, cancellation cannot imply a free aborted request",
+    "valid image without billing metadata stays downloadable and pauses new paid work"
+  ]
+}

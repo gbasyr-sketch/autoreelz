@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "externalCalls": 0,
+  "checks": [
+    "anonymous and bad-CSRF requests cannot read or create image jobs",
+    "gallery import and source upload preserve private snapshots and reject unsupported files",
+    "double submission and later retry return the same background job",
+    "PNG download is private and source/result dimensions remain intact",
+    "apply requires review, is idempotent, and never publishes or saves the product",
+    "explicit draft save retains the new photo privately and leaves originals untouched"
+  ],
+  "sessionRevoked": true
+}

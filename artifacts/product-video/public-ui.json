@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "publishedUI": true,
+  "realManagerApiReads": true,
+  "productWrites": 0,
+  "externalPlayerMocked": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "width": 375,
+      "passed": true
+    }
+  ],
+  "sessionsRevoked": true
+}

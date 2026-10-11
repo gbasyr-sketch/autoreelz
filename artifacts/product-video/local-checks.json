@@ -1,0 +1,15 @@
+{
+  "node": "24.21.0",
+  "check": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "build": "passed",
+  "unit": {
+    "passed": 139,
+    "skipped": 8,
+    "failed": 0
+  },
+  "targetedUnitPassed": 17,
+  "paidCalls": 0
+}

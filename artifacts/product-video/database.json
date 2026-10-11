@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "isolated": true,
+  "checks": [
+    "migration preserves pre-existing null-video draft fingerprint",
+    "draft and idempotent retry leave live video hidden",
+    "atomic publish and repeat expose one normalized video",
+    "invalid publication rejected; older client cannot silently remove video",
+    "deletion remains a draft until published",
+    "CMS video edits invalidate stale editor fingerprint",
+    "bundle shares the same video contract without creating a SKU"
+  ],
+  "stockAndPhotosPreserved": true
+}

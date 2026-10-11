@@ -1,0 +1,8 @@
+{
+  "applied": "022_product_video.sql",
+  "sha256": "946369ce4321f4dc751d2f99c4fe0f20b6392a929bc02a4755d61d96972b8be8",
+  "backup": "/srv/autoreelz2026/backups/before-product-video-20261011T123320Z.dump",
+  "backupBytes": 10172040,
+  "backupReadable": true,
+  "productRowsUnchangedByMigration": true
+}

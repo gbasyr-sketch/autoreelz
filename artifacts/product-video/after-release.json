@@ -1,0 +1,47 @@
+{
+  "containers": {
+    "autoreelz2026-release-web-1": {
+      "id": "7b86d6912acf2b7081fb3be9b21e3c2e9294fa530067dffd4022ea5b1c8a4e79",
+      "status": "running",
+      "health": "healthy",
+      "revision": "fde8358eec09bfec9bcfa7c65fb955970ebf3af7"
+    },
+    "autoreelz2026-release-image-worker-1": {
+      "id": "494ceb7997e72fe59ff21c259a507bd2e904d2a536e953f1bfae3c44823b6f14",
+      "status": "running",
+      "health": null,
+      "revision": "fde8358eec09bfec9bcfa7c65fb955970ebf3af7"
+    },
+    "autoreelz2026-release-worker-1": {
+      "id": "a664a63be55df0aa761faded1ebfed11cd4029eb3b749fb5ef58c7920f48d5b7",
+      "status": "running",
+      "health": "healthy",
+      "revision": "fde8358eec09bfec9bcfa7c65fb955970ebf3af7"
+    },
+    "autoreelz2026-release-edge-1": {
+      "id": "9d8c8974aa6e59e3a9bd6a5c162d39e5567c33d0ee793fc6a8ecac2c41c3ef38",
+      "status": "running",
+      "health": null,
+      "revision": null
+    },
+    "autoreelz2026-release-background-1": {
+      "id": "7bfa481425a90cc851fab221e42ea5cf03fc3e024a151d7b637b4f476b91847c",
+      "status": "running",
+      "health": "healthy",
+      "revision": "12d1845867eabf9767296bf521b8353c84f912bd"
+    },
+    "autoreelz2026-release-cms-1": {
+      "id": "7da34b36aa472d8b0279478a7ec3c53bdb7124e8fad06e3b1e20730d4e3c77a8",
+      "status": "running",
+      "health": "healthy",
+      "revision": "973be10df8b0305569dc0dc53e187c648133c8d6"
+    },
+    "autoreelz2026-release-db-1": {
+      "id": "c81ff315e46cac586372b6c0b8c399b5a13e9fd0266966612034c9588f93760d",
+      "status": "running",
+      "health": "healthy",
+      "revision": null
+    }
+  },
+  "migration": "022_product_video.sql"
+}

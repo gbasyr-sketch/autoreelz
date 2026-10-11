@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "provider": "RUTUBE",
+  "publicManager": true,
+  "productSaved": false,
+  "checks": [
+    {
+      "width": 375,
+      "documentStatus": 200,
+      "autoplayDisabled": true,
+      "videoElement": true,
+      "played": true,
+      "removedOnClose": true
+    }
+  ]
+}

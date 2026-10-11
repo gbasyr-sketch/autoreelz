@@ -1,4 +1,5 @@
 ---
+import ProductVideoDialog from '../../components/ProductVideoDialog.astro';
 import ProductCarousel from '../../components/ProductCarousel.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import {productSuggestions} from '../../lib/product-discovery';
@@ -58,9 +59,10 @@ const demoReviews=product?demoProductReviews(catalog,setting('STORE_MODE','local
     <section class="product-intro"><div class="product-overline"><span>{category?.name}{product.isDemo?' · демо-товар':''}</span><FavoriteButton productId={product.id} name={product.name}/></div><h1>{product.name}</h1><p>{product.kind==='bundle'?'Готовый состав из конкретных исполнений.':'Выберите исполнение для вашего интерьера.'}</p></section>
     <section class="product-media" aria-label="Галерея товара">
       <div class:list={['gallery-stage',placeholder&&color&&`light-${color}`]}><span class="gallery-index" data-gallery-index>{media.length?`01 / ${String(media.length).padStart(2,'0')}`:'01 / 01'}</span><img id="product-image" src={image} width="720" height="480" alt={media[0]?.alt||`${placeholder?'Изображение-заглушка: ':''}${product.name}`} fetchpriority="high"/>{placeholder&&<span class="gallery-caption"><Icon name="info" size={15}/>Изображение-заглушка</span>}<button class="gallery-zoom icon-button js-only" data-zoom aria-label="Увеличить изображение"><Icon name="search"/></button></div>
-      {media.length>1&&<div class="gallery-thumbs js-only" role="group" aria-label="Фотографии товара">{media.map((m,i)=><button type="button" data-gallery-src={m.src} data-gallery-alt={m.alt||`${product.name} — фото ${i+1}`} aria-label={`Показать фотографию ${i+1}`} aria-pressed={i===0?"true":"false"} aria-controls="product-image"><img src={m.src} width="720" height="480" loading="lazy" alt=""/></button>)}</div>}
+      {(media.length>1||product.video)&&<div class="gallery-thumbs js-only" role="group" aria-label={product.video?'Фотографии и видео товара':'Фотографии товара'}>{media.map((m,i)=><button type="button" data-gallery-src={m.src} data-gallery-alt={m.alt||`${product.name} — фото ${i+1}`} aria-label={`Показать фотографию ${i+1}`} aria-pressed={i===0?"true":"false"} aria-controls="product-image"><img src={m.src} width="720" height="480" loading="lazy" alt=""/></button>)}{product.video&&<button type="button" class="gallery-video-thumb" data-product-video={product.video.sourceUrl} data-video-title={product.name} aria-label="Смотреть видео товара" aria-haspopup="dialog"><img src={image} width="720" height="480" loading="lazy" alt=""/><span class="gallery-video-label"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4v16l13-8z" fill="currentColor"/></svg>Видео</span></button>}</div>}
       <p class="gallery-status field-help" data-gallery-status role="status" aria-live="polite" aria-atomic="true"></p>
-      <noscript><div class="gallery-thumbs">{media.map((m,i)=><a href={m.src} aria-label={`Открыть фотографию ${i+1}`}><img src={m.src} width="720" height="480" loading="lazy" alt={m.alt}/></a>)}</div></noscript>
+      <noscript>{product.video&&<a href={product.video.watchUrl} target="_blank" rel="noopener noreferrer">Смотреть видео на {product.video.provider}</a>}<div class="gallery-thumbs">{media.map((m,i)=><a href={m.src} aria-label={`Открыть фотографию ${i+1}`}><img src={m.src} width="720" height="480" loading="lazy" alt={m.alt}/></a>)}</div></noscript>
+      {product.video&&<ProductVideoDialog/>}
       {product.isDemo&&<p class="product-demo">Демонстрационный товар. Цена, наличие и характеристики — примеры для проверки магазина, не предложение о продаже.</p>}
     </section>
     <section class="product-purchase" aria-label="Исполнение и покупка">

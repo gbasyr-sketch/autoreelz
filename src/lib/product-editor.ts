@@ -1,3 +1,4 @@
+import {productVideo,productVideoHelp} from './product-video.ts';
 import type {InfographicRecipe} from './product-infographic.ts';
 import Decimal from 'decimal.js';
 import {sumRubles,multiplyRubles,discountRubles,parseRublesInput} from './money.ts';
@@ -9,13 +10,13 @@ export type EditorPackage={weightG:string;lengthCm:string;widthCm:string;heightC
 export type EditorVariant={id:string;name:string;article:string;price:string;status:'published'|'draft'|'archived';package:EditorPackage;initialStock:string;stockReason:string;photos:EditorPhoto[];mediaMode:'inherit'|'replace';attributes:EditorAttribute[];fitment:EditorFitment[];fitmentMode:'inherit'|'replace'};
 export type BundleComponent={skuId:string;quantity:string};
 export type BundleSku={id:string;productId:string;productName:string;name:string;article:string;price:string;available:number;published:boolean;imageId:string|null;hasPackage:boolean};
-export type EditorData={kind?:'single'|'bundle';components?:BundleComponent[];discountPercent?:string;recommendedProductIds?:string[];infographic?:InfographicRecipe|null;name:string;slug:string;categoryId:string;description:string;seoTitle:string;metaDescription:string;isDemo:boolean;photos:EditorPhoto[];attributes:EditorAttribute[];fitment:EditorFitment[];variants:EditorVariant[]};
+export type EditorData={videoUrl?:string;kind?:'single'|'bundle';components?:BundleComponent[];discountPercent?:string;recommendedProductIds?:string[];infographic?:InfographicRecipe|null;name:string;slug:string;categoryId:string;description:string;seoTitle:string;metaDescription:string;isDemo:boolean;photos:EditorPhoto[];attributes:EditorAttribute[];fitment:EditorFitment[];variants:EditorVariant[]};
 export type EditorIssue={path:string;message:string};
 export type EditorOptions={bundleSkus?:BundleSku[];products?:{id:string;name:string;status:string}[];categories:{id:string;name:string;parentId:string|null;status:string}[];attributes:{id:string;name:string;type:string;unit:string|null;categoryIds:string[];values:{id:string;label:string}[]}[];vehicles:{id:string;name:string;versions:{id:string;name:string}[]}[]};
 export type EditorState={archived?:boolean;liveStatus?:string;id:string;version:number;baseHash:string|null;data:EditorData;hasDraft:boolean;live:boolean;liveSlug?:string;existingSkuIds:string[];stock:Record<string,{onHand:number;reserved:number}>};
 export const emptyPackage=():EditorPackage=>({weightG:'',lengthCm:'',widthCm:'',heightCm:''});
 export const emptyVariant=(id:string):EditorVariant=>({id,name:'',article:'',price:'',status:'published',package:emptyPackage(),initialStock:'0',stockReason:'',photos:[],mediaMode:'inherit',attributes:[],fitment:[],fitmentMode:'inherit'});
-export const emptyProduct=():EditorData=>({recommendedProductIds:[],infographic:null,name:'',slug:'',categoryId:'',description:'',seoTitle:'',metaDescription:'',isDemo:false,photos:[],attributes:[],fitment:[],variants:[]});
+export const emptyProduct=():EditorData=>({videoUrl:'',recommendedProductIds:[],infographic:null,name:'',slug:'',categoryId:'',description:'',seoTitle:'',metaDescription:'',isDemo:false,photos:[],attributes:[],fitment:[],variants:[]});
 export function productSlug(value:string){const letters:Record<string,string>={а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'ts',ч:'ch',ш:'sh',щ:'sch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya'};return [...value.toLowerCase()].map(c=>letters[c]??c).join('').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,150).replace(/-$/,'');}
 export function packageValues(p:EditorPackage){
  const positive=(raw:string,scale:number,max:number)=>{if(!/^\d+(?:[.,]\d)?$/.test(raw.trim()))throw new Error('Укажите положительное число');const n=new Decimal(raw.replace(',','.')).times(scale);if(!n.isInteger()||n.lte(0)||n.gt(max))throw new Error('Некорректный размер');return n.toNumber();};
@@ -24,6 +25,7 @@ export function packageValues(p:EditorPackage){
 export const hasPackage=(p:EditorPackage)=>Object.values(p).some(v=>v.trim());
 export function publicationIssues(data:EditorData,existingIds:string[]=[]):EditorIssue[]{
  const issues:EditorIssue[]=[];const add=(path:string,message:string)=>issues.push({path,message});
+ if(data.videoUrl&&!productVideo(data.videoUrl))add('videoUrl',productVideoHelp);
  if(!data.name.trim())add('name','Укажите название товара.');
  if(!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(data.slug))add('slug','Адрес: латинские буквы, цифры и дефисы.');
  if(!data.categoryId)add('categoryId','Выберите категорию.');

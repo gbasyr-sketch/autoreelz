@@ -1,3 +1,4 @@
+import {productVideoDialog} from './product-video';
 import {photoSwipe} from './photo-swipe';
 const quantity=document.querySelector<HTMLInputElement>('#product-quantity');
 document.querySelectorAll<HTMLButtonElement>('[data-quantity]').forEach(button=>button.addEventListener('click',()=>{
@@ -48,3 +49,6 @@ if(thumbs.length>1){
  if(stage)photoSwipe(stage,direction=>void selectPhoto(requested+direction));
  if(enlarged){enlarged.draggable=false;const reset=photoSwipe(enlarged,direction=>void selectPhoto(requested+direction));dialog?.addEventListener('close',reset);}
 }
+
+const videoModal=document.querySelector<HTMLDialogElement>('[data-product-video-dialog]');
+if(videoModal){const video=productVideoDialog(videoModal);document.querySelectorAll<HTMLButtonElement>('[data-product-video]').forEach(button=>button.addEventListener('click',()=>video.open(button.dataset.productVideo??'',button.dataset.videoTitle??'Видео товара',button)));}

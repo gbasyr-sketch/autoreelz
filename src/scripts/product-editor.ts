@@ -1,3 +1,5 @@
+import {productVideo,productVideoHelp} from '../lib/product-video';
+import {productVideoDialog} from './product-video';
 import {productMainPhoto} from './product-main-photo';
 import {setProductMainPhoto} from '../lib/product-main-photo';
 import {bundleCollage} from './bundle-collage';
@@ -102,18 +104,26 @@ if(root){
    extraBody.append(field('Фотографии варианта',path+'.mediaMode',v.mediaMode,value=>{v.mediaMode=value as typeof v.mediaMode;photos.hidden=value==='inherit';},{choices:[['inherit','Общие фотографии товара'],['replace','Свои фотографии варианта']]}),photos);gallery(photos,v.photos,path+'.photos');photos.hidden=v.mediaMode==='inherit';attributeFields(attrs,v.attributes,path+'.attributes');extraBody.append(attrs,field('Совместимость варианта',path+'.fitmentMode',v.fitmentMode,value=>{v.fitmentMode=value as typeof v.fitmentMode;fits.hidden=value==='inherit';},{choices:[['inherit','Общие правила товара'],['replace','Свои правила варианта']]}),fits);fitmentFields(fits,v.fitment,path+'.fitment');fits.hidden=v.fitmentMode==='inherit';extra.append(extraBody);card.append(extra);container.append(card);
   });
  }
+ function renderVideo(){
+  const container=$('[data-editor-video]'),hint=node('p','','dash-help');hint.setAttribute('role','status');
+  const preview=button('Проверить видео',()=>videoDialog.open(data.videoUrl??'',data.name||'Видео товара',preview));
+  const remove=button('Убрать видео',()=>{data.videoUrl='';container.querySelector<HTMLInputElement>('input')!.value='';videoDialog.close();refresh();changed();});
+  function refresh(){const video=productVideo(data.videoUrl);preview.disabled=!video;remove.disabled=!data.videoUrl;hint.textContent=video?`Ссылка ${video.provider} распознана. Проверьте воспроизведение перед публикацией.`:data.videoUrl?productVideoHelp:'Видео не добавлено.';markField('videoUrl',data.videoUrl&&!video?productVideoHelp:'');}
+  container.replaceChildren(field('Ссылка на видео','videoUrl',data.videoUrl??'',value=>{data.videoUrl=value;videoDialog.close();refresh();},{max:2048,help:'Ссылка на отдельный ролик, а не канал или плейлист. Изменения появятся после публикации.'}),hint);
+  const actions=node('div','','pe-video-actions');actions.append(preview,remove);container.append(actions);refresh();
+ }
  function renderRecommendations(){
   const target=$('[data-editor-recommendations]');target.replaceChildren();const selected=data.recommendedProductIds??=[];const choices=options.products??[];
   selected.forEach((productId,index)=>{const row=node('div','','pe-inline-actions');row.append(node('span',`${index+1}. ${choices.find(p=>p.id===productId)?.name??'Недоступный товар — уберите из списка'}`));const up=button('Выше',()=>{[selected[index-1],selected[index]]=[selected[index]!,selected[index-1]!];renderRecommendations();changed();});up.disabled=index===0;row.append(up,button('Убрать',()=>{selected.splice(index,1);renderRecommendations();changed();}));target.append(row);});
   if(selected.length<8){const label=node('label','','dash-field'),select=node('select');label.append(node('span','Добавить товар в рекомендации'),select);select.append(new Option('Выберите товар',''));for(const product of choices.filter(p=>p.id!==id&&!selected.includes(p.id)))select.append(new Option(product.name+(product.status==='published'?'':' — черновик'),product.id));select.addEventListener('change',()=>{if(select.value){selected.push(select.value);renderRecommendations();changed();}});target.append(label);}
  }
- function render(){generation++;data=structuredClone(state.data);library.lock();mainPhoto.lock();studio.reset();imageStudio.lock();collage.lock();slugManual=!!data.slug;showValidation=false;$('[data-editor-errors]').hidden=true;$('[data-discard-draft]').hidden=!state.hasDraft;
+ function render(){generation++;data=structuredClone(state.data);library.lock();mainPhoto.lock();videoDialog.close();studio.reset();imageStudio.lock();collage.lock();slugManual=!!data.slug;showValidation=false;$('[data-editor-errors]').hidden=true;$('[data-discard-draft]').hidden=!state.hasDraft;
   const isBundle=data.kind==='bundle';$('[data-single-section]').hidden=isBundle;$('[data-bundle-section]').hidden=!isBundle;$('[data-ai-text-panel]').hidden=isBundle;bundlePanel.render();
   $('[data-editor-title]').textContent=isBundle?(state.archived?'Удалённый комплект':state.live?'Редактировать комплект':'Создать комплект'):state.archived?'Удалённый товар':state.live?'Редактировать товар':'Добавить товар';
   $('[data-editor-status]').textContent=state.archived?'Товар удалён с сайта. История и остатки сохранены. Чтобы продолжить редактирование, восстановите его в черновик.':state.hasDraft?(state.live?'Открыт сохранённый черновик. На сайте пока остаётся прежняя версия товара.':'Открыт сохранённый черновик. Товар ещё не опубликован.'):(state.live?'Изменения появятся на сайте только после публикации. Склад существующих вариантов здесь не пересчитывается.':'Заполните данные в одной форме. Черновик можно сохранить даже до заполнения всех полей.');
   $('[data-product-archive]').hidden=!!state.archived||!state.live&&!state.hasDraft;$('[data-product-restore]').hidden=!state.archived;renderRecommendations();
   const main=$('[data-editor-main]');main.replaceChildren(field('Название товара','name',data.name,value=>{data.name=value;updateSeoTitle(true);if(!slugManual){data.slug=productSlug(value);const input=document.getElementById(pathId('slug')) as HTMLInputElement|null;if(input)input.value=data.slug;}},{wide:true}),field('Категория','categoryId',data.categoryId,value=>{data.categoryId=value;attributeFields($('[data-editor-attributes]'),data.attributes,'attributes');},{wide:true,choices:[['','Выберите категорию'],...options.categories.map(c=>[c.id,categoryLabel(c.id)+(c.status==='published'?'':' — '+(c.status==='draft'?'черновик':'архив'))] as[string,string])]}),field('Описание','description',data.description,value=>data.description=value,{wide:true,type:'textarea',help:'Что это за товар, что входит в поставку и что важно для установки.'}));
-  gallery($('[data-editor-photos]'),data.photos,'photos');renderVariants();attributeFields($('[data-editor-attributes]'),data.attributes,'attributes');fitmentFields($('[data-editor-fitment]'),data.fitment,'fitment');
+  gallery($('[data-editor-photos]'),data.photos,'photos');renderVariants();renderVideo();attributeFields($('[data-editor-attributes]'),data.attributes,'attributes');fitmentFields($('[data-editor-fitment]'),data.fitment,'fitment');
   const seoTitle=node('div','','pe-field'),titleField=field('SEO-заголовок','seoTitle',data.seoTitle||data.name.trim(),value=>{data.seoTitle=value;updateSeoTitle();},{help:'Из названия товара.'});
   const titleInput=titleField.querySelector<HTMLInputElement>('input')!;
   titleInput.addEventListener('blur',()=>{if(!data.seoTitle.trim()){data.seoTitle='';updateSeoTitle(true);}});
@@ -133,6 +143,7 @@ if(root){
   finally{busy=false;setBusy();}
  }
  async function uploadStudio(file:File,key:string){const serial=generation,session=await getSession(),body=new FormData();body.append('id',id);body.append('key',key);body.append('file',file);const response=await fetch('/api/manager/product-image',{method:'POST',headers:{'X-CSRF-Token':session.csrfToken},body,signal:AbortSignal.timeout(30000)});const payload=await response.json();if(!response.ok)throw new CommerceError(payload.error?.message??'Не удалось сохранить фотографию.',response.status);if(serial!==generation)throw Error('Форма уже обновилась.');return payload as EditorPhoto;}
+ const videoDialog=productVideoDialog($<HTMLDialogElement>('[data-product-video-dialog]'));
  const mainPhoto=productMainPhoto($<HTMLDialogElement>('[data-main-photo-dialog]'),{
   data:()=>data,busy:value=>{mainPhotoBusy=value;setBusy();},
   apply:(photo,target)=>{
@@ -159,6 +170,6 @@ if(root){
  $<HTMLButtonElement>('[data-product-archive]').addEventListener('click',()=>void lifecycle.open(id,'archive'));
  $<HTMLButtonElement>('[data-product-restore]').addEventListener('click',()=>void lifecycle.open(id,'restore'));
  $<HTMLButtonElement>('[data-discard-draft]').addEventListener('click',()=>{if(confirm('Удалить сохранённый черновик и несохранённые изменения? Опубликованный товар и склад останутся без изменений.'))void save('discard');});
- root.addEventListener('autoreelz:manager-locked',()=>{generation++;library.lock();mainPhoto.lock();studio.lock();imageStudio.lock();collage.lock();aiPanel.lock();for(const selector of ['[data-editor-main]','[data-editor-photos]','[data-editor-variants]','[data-editor-attributes]','[data-editor-fitment]','[data-editor-seo]','[data-editor-recommendations]','[data-editor-bundle]'])$(selector).replaceChildren();$('[data-editor-status]').textContent='';$<HTMLImageElement>('[data-preview-image]').removeAttribute('src');$('[data-preview-name]').textContent='';$('[data-preview-price]').textContent='';$('[data-editor-errors]').hidden=true;});
+ root.addEventListener('autoreelz:manager-locked',()=>{generation++;library.lock();mainPhoto.lock();videoDialog.close();studio.lock();imageStudio.lock();collage.lock();aiPanel.lock();for(const selector of ['[data-editor-video]','[data-editor-main]','[data-editor-photos]','[data-editor-variants]','[data-editor-attributes]','[data-editor-fitment]','[data-editor-seo]','[data-editor-recommendations]','[data-editor-bundle]'])$(selector).replaceChildren();$('[data-editor-status]').textContent='';$<HTMLImageElement>('[data-preview-image]').removeAttribute('src');$('[data-preview-name]').textContent='';$('[data-preview-price]').textContent='';$('[data-editor-errors]').hidden=true;});
  void page.reload();
 }

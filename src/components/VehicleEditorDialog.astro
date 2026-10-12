@@ -1,0 +1,15 @@
+---
+import '../styles/vehicle-editor.css';
+---
+<dialog class="ve-dialog" data-vehicle-editor aria-labelledby="ve-title" aria-describedby="ve-scope">
+ <header class="ve-header"><h2 id="ve-title" data-ve-title>Автомобиль</h2><button type="button" class="dash-button" data-ve-close>Закрыть</button></header>
+ <p id="ve-scope" class="dash-help">Это общий справочник магазина. Его изменения видны сразу. Правила совместимости товара сохраняются отдельно.</p>
+ <p class="dash-help" data-ve-usage></p>
+ <p class="dash-message dash-error" data-ve-error role="alert" hidden></p>
+ <p class="dash-help" data-ve-loading role="status" hidden>Загружаем запись…</p>
+ <button type="button" class="dash-button" data-ve-reload hidden>Повторить загрузку</button>
+ <form data-ve-form novalidate>
+  <fieldset data-ve-fields class="ve-fields"><div class="ve-grid" data-ve-inputs></div><p class="dash-help" data-ve-address></p></fieldset>
+  <footer class="ve-actions"><button type="button" class="dash-button" data-ve-cancel>Отмена</button><button type="submit" class="dash-button dash-primary" data-ve-save>Сохранить</button></footer>
+ </form>
+</dialog>

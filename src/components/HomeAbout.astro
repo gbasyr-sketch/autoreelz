@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+import '../styles/home-about.css';
+---
+<section class="home-section home-about" aria-labelledby="about-title">
+  <div class="home-about__copy">
+    <img class="home-about__logo" src="/brand/logo-inverse.svg" alt="AUTO REELZ" width="244" height="34" loading="lazy"/>
+    <p class="home-about__eyebrow"><span aria-hidden="true"></span>Детали вашего интерьера</p>
+    <h2 id="about-title">Салон<br/>в новом<br/><span>свете.</span></h2>
+    <p class="home-about__description">Детали и готовые комплекты для обновления салона. Выберите свой цвет, форму и исполнение.</p>
+    <a class="home-about__link" href="/info/about">О магазине <Icon name="arrow" size={20}/></a>
+  </div>
+  <div class="home-about__visual">
+    <div class="home-about__rings" aria-hidden="true"></div>
+    <p class="home-about__note"><span aria-hidden="true"></span>Акцент на деталях</p>
+    <div class="home-about__photo">
+      <img src="/images/home-about-heater.webp" alt="Блок управления отопителем с синей подсветкой" width="900" height="1200" loading="lazy" decoding="async"/>
+    </div>
+    <ul class="home-about__categories" aria-label="Детали интерьера"><li>Подсветка</li><li>Консоли</li><li>Комплекты</li></ul>
+  </div>
+</section>

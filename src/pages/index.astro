@@ -1,4 +1,5 @@
 ---
+import HomeAbout from '../components/HomeAbout.astro';
 import StoreLayout from '../layouts/StoreLayout.astro';
 import Icon from '../components/Icon.astro';
 import ProductCard from '../components/ProductCard.astro';
@@ -7,14 +8,13 @@ import {getContent} from '../server/content';
 import {getHomeReviews} from '../server/home';
 import {setting} from '../server/config';
 import {homeSelection,demoProductReviews} from '../lib/home';
-import {contentDate,textParagraphs} from '../lib/content';
+import {contentDate} from '../lib/content';
 import '../styles/home.css';
 const [catalog,content,publishedReviews]=await Promise.all([getCatalog(),getContent(),getHomeReviews()]);
-const{featured,categoryCards,heroItem,articles,about}=homeSelection(catalog,content);
+const{featured,categoryCards,heroItem,articles}=homeSelection(catalog,content);
 const bundleCategory=catalog.categories.find(c=>catalog.products.some(p=>p.category===c.slug&&p.kind==='bundle'));
 const showDemoReviews=['local-test','staging'].includes(setting('STORE_MODE','local-test'))&&publishedReviews.length===0;
 const reviews=showDemoReviews?demoProductReviews(catalog,setting('STORE_MODE','local-test')):publishedReviews;
-const aboutParagraphs=about?textParagraphs(about.bodyText??about.body).slice(0,2):['AUTO REELZ — отдельные детали автомобильного интерьера и готовые комплекты. Подбирайте исполнение по модели автомобиля, году выпуска и наличию кондиционера.'];
 const heroImage=heroItem?.offer.variant?.image??heroItem?.product.image??'/images/placeholder-console.svg';
 const heroImageReal=Boolean((heroItem?.offer.variant?.media??heroItem?.product.media)?.length);
 const currentYear=new Date().getFullYear();
@@ -44,7 +44,7 @@ const currentYear=new Date().getFullYear();
   {reviews.length?<div class="home-rail-shell" data-home-rail><div class="home-review-track" data-rail-track tabindex="0" aria-label="Отзывы, можно прокручивать">{reviews.map(review=><article class="home-review" data-home-review><div class="review-person"><span class="review-avatar" aria-hidden="true">{Array.from(review.authorName)[0]}</span><div><h3>{review.authorName}</h3>{review.isDemo?<span class="review-demo-label">Демонстрационный отзыв</span>:<span>Отзыв о товаре</span>}</div></div><p class="review-body">{review.body.length>280?review.body.slice(0,277)+'…':review.body}</p>{review.createdAt&&<time datetime={review.createdAt}>{contentDate(review.createdAt)}</time>}{review.productSlug&&<a class="content-read-link" href={`/product/${review.productSlug}#reviews`}>{review.productName} <Icon name="arrow" size={16}/></a>}</article>)}</div><div class="rail-controls js-only"><button type="button" data-rail-step="-1" aria-label="Предыдущие отзывы"><Icon name="arrow" class="arrow-back"/></button><button type="button" data-rail-step="1" aria-label="Следующие отзывы"><Icon name="arrow"/></button></div></div>:<div class="reviews-empty"><h3>Отзывы появятся после первых покупок</h3><p>Здесь будет опыт покупателей AUTO REELZ — о выборе и использовании деталей.</p></div>}
   </div>
  </section>
- <section class="home-section home-about" aria-labelledby="about-title"><div class="about-visual" aria-hidden="true"><span>AUTO REELZ</span><Icon name="car" size={120}/><p>Детали вашего интерьера</p></div><div class="about-copy"><p class="eyebrow">О магазине</p><h2 id="about-title">AUTO REELZ —<br/>детали для вашего салона.</h2>{aboutParagraphs.map(p=><p>{p}</p>)}<a class="text-link" href="/info/about">Подробнее о магазине <Icon name="arrow" size={18}/></a></div></section>
+ <HomeAbout/>
  <section class="home-section home-blog" aria-labelledby="blog-title"><div class="section-heading"><div><p class="eyebrow">Разбираемся в деталях</p><h2 id="blog-title">Статьи и советы</h2></div><a href="/blog">Все статьи <Icon name="arrow" size={18}/></a></div>
  {articles.length?<div class="home-rail-shell" data-home-rail><div class="home-article-track" data-rail-track tabindex="0" aria-label="Статьи, можно прокручивать">{articles.map((a,i)=><article class="home-article"><a class={`home-article-cover article-tone-${i%3}`} href={`/blog/${a.slug}`} tabindex="-1" aria-hidden="true">{a.coverUrl?<img src={a.coverUrl} alt="" width="600" height="450" loading="lazy"/>:<><Icon name={['car','box','vent'][i%3]!} size={92}/><span>AUTO REELZ / ЖУРНАЛ</span></>}</a><div class="home-article-copy"><p class="article-category">{a.category.name}</p>{a.isDemo&&<p class="review-demo-label">Демонстрационный материал</p>}<h3><a href={`/blog/${a.slug}`}>{a.title}</a></h3><p>{a.excerpt}</p>{a.publishedAt&&<time datetime={a.publishedAt}>{contentDate(a.publishedAt)}</time>}<a class="content-read-link" href={`/blog/${a.slug}`}>Читать статью <Icon name="arrow" size={17}/></a></div></article>)}</div><div class="rail-controls js-only"><button type="button" data-rail-step="-1" aria-label="Предыдущие статьи"><Icon name="arrow" class="arrow-back"/></button><button type="button" data-rail-step="1" aria-label="Следующие статьи"><Icon name="arrow"/></button></div></div>:<p class="home-empty">Статьи готовятся. Новые материалы появятся здесь после публикации в блоге.</p>}
  </section>

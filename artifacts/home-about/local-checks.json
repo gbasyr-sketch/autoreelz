@@ -1,0 +1,20 @@
+{
+  "node": "24.21.0",
+  "check": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "homeUnitTests": {
+    "passed": 3,
+    "failed": 0
+  },
+  "build": "passed",
+  "asset": {
+    "path": "public/images/home-about-heater.webp",
+    "bytes": 77582,
+    "sha256": "70af0cdefceea6f59a6c15907fc69be080e15c52cfbd5e6808f65655812269c7",
+    "source": "Existing catalog photo used in approved dark mockup; no image generation or pixel edits"
+  },
+  "schemaChanges": false,
+  "paidCalls": 0
+}

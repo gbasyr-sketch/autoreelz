@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "candidate": false,
+  "viewports": [
+    {
+      "width": 1440,
+      "geometry": {
+        "width": 1328,
+        "height": 616.890625,
+        "mobileStack": false,
+        "outside": [],
+        "buttonHeight": 52
+      },
+      "categories": 6,
+      "articles": 6,
+      "aboutLink": true
+    },
+    {
+      "width": 1024,
+      "geometry": {
+        "width": 976,
+        "height": 560,
+        "mobileStack": false,
+        "outside": [],
+        "buttonHeight": 52
+      },
+      "categories": 6,
+      "articles": 6,
+      "aboutLink": true
+    },
+    {
+      "width": 768,
+      "geometry": {
+        "width": 736,
+        "height": 560,
+        "mobileStack": false,
+        "outside": [],
+        "buttonHeight": 52
+      },
+      "categories": 6,
+      "articles": 6,
+      "aboutLink": true
+    },
+    {
+      "width": 600,
+      "geometry": {
+        "width": 568,
+        "height": 793.375,
+        "mobileStack": true,
+        "outside": [],
+        "buttonHeight": 50
+      },
+      "categories": 6,
+      "articles": 6,
+      "aboutLink": true
+    },
+    {
+      "width": 375,
+      "geometry": {
+        "width": 343,
+        "height": 793.375,
+        "mobileStack": true,
+        "outside": [],
+        "buttonHeight": 50
+      },
+      "categories": 6,
+      "articles": 6,
+      "aboutLink": true
+    },
+    {
+      "width": 320,
+      "geometry": {
+        "width": 288,
+        "height": 718.25,
+        "mobileStack": true,
+        "outside": [],
+        "buttonHeight": 50
+      },
+      "categories": 6,
+      "articles": 6,
+      "aboutLink": true
+    }
+  ]
+}

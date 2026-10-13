@@ -1,0 +1,8 @@
+{
+  "applied": "023_vehicle_editor.sql",
+  "sha256": "9ce6a2e0547dc98cb9a6280e6397aef78f0b42e9153a79c50cac7efde5f90495",
+  "backup": "/srv/autoreelz2026/backups/before-vehicle-editor-20261013T132937Z.dump",
+  "backupBytes": 11177920,
+  "backupReadable": true,
+  "existingRowsUnchangedByMigration": true
+}

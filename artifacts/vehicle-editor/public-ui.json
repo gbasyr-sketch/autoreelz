@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "publishedUI": true,
+  "writes": 0,
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "recordUnchanged": true,
+      "productUnchanged": true
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "recordUnchanged": true,
+      "productUnchanged": true
+    }
+  ],
+  "sessionsRevoked": true
+}

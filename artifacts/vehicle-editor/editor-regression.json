@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "mockedApi": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "width": 768,
+      "passed": true
+    },
+    {
+      "width": 375,
+      "passed": true
+    }
+  ],
+  "checks": [
+    "Russian errors with English browser locale",
+    "login and re-login after expired session",
+    "slug suggestion",
+    "photo upload UI",
+    "rubles and cm inputs",
+    "multiple variants and shared packaging",
+    "draft reload",
+    "retry retains idempotency key",
+    "publish and existing stock read-only",
+    "preview and no horizontal overflow"
+  ]
+}

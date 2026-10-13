@@ -1,0 +1,13 @@
+{
+  "appSha": "03db389b717bcfb584e3bcc2a72bb6eda525ba59",
+  "imageId": "sha256:ccbc17d5d728b54f46ffaeff0137700b667e9b8c1d0ca8962b72d52df9320d65",
+  "built": true,
+  "sourceBase": "b8de98595f49615741aaa04b0fcadacbe730e611",
+  "completeGitArchiveManifestVerified": true,
+  "verifiedFiles": 1423,
+  "deltaFiles": [
+    "src/scripts/vehicle-editor.ts",
+    "tests/vehicle-editor-browser.mjs"
+  ],
+  "recoveredAfterSshDisconnect": true
+}

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "isolated": true,
+  "checks": [
+    "concurrent and repeated create produces one vehicle and one audit event",
+    "normalized and concurrent duplicate names rejected",
+    "renaming retains ID, URL, fitment rules and saved product draft",
+    "stale manager and CMS edits cannot overwrite each other",
+    "modification rename preserves references; moving it to another vehicle is forbidden",
+    "no delete permission and immutable audit; stock and prices unchanged"
+  ]
+}

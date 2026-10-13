@@ -125,3 +125,7 @@ CMS-наборы `cms-browser`, `content-browser`, `stage6-cms-*`, schema/permis
 ## Видео товара (11.10.2026)
 
 `tests/product-video.test.ts`, `tests/product-video-database.mjs` и `tests/product-video-browser.mjs` — URL/безопасность, миграция/fingerprint/повторы/публикация, настоящий локальный manager API и UI1440/768/375. [Порядок запуска и ограничения](product-video.md#проверки). Дополнительно — прежние DB suites обычного товара/комплекта и editor-browser. RUTUBE с предоставленной ссылкой проверять отдельно без сохранения рабочего товара; внешний плеер зависит от ограничений провайдера. Не смешивать mock-проверку VK с реальным воспроизведением.
+
+## Справочник автомобилей (12–13.10.2026)
+
+`tests/vehicle-editor.test.ts`, `tests/vehicle-editor-database.mjs`, `tests/vehicle-editor-browser.mjs`: нормализация, дубли/конкуренция/старые токены, неизменность ссылок/правил/черновиков, права и журнал; настоящий локальный API и UI1440/768/375. В browser-тесте потерянный ответ моделируется после сохранения на сервере. [Подготовка](vehicle-editor.md#проверки). Использовать `AR_CHROMIUM_EXECUTABLE` для установленного браузера; на Mac доступен native arm64 Chromium headless shell в `~/Library/Caches/ms-playwright`, если Yandex под Rosetta не запускается. Публичные проверки — только чтение и окна, без вымышленных автомобилей/переименований рабочей базы.

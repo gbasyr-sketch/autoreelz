@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "isolated": true,
+  "realApi": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "preservedProductInputs": true,
+      "retrySameKey": true
+    },
+    {
+      "width": 768,
+      "passed": true,
+      "preservedProductInputs": true,
+      "retrySameKey": true
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "preservedProductInputs": true,
+      "retrySameKey": true
+    }
+  ]
+}

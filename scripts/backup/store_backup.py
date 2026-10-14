@@ -2,7 +2,7 @@
 """AUTO REELZ only: encrypted snapshots, scoped offsite copy and isolated restore drill.
 No live restore, provider calls, CMS clone or global disk cleanup is implemented.
 """
-import argparse, base64, datetime, fcntl, hashlib, json, os, pathlib, re, selectors, shutil, stat, subprocess, sys, time, uuid
+import argparse, base64, datetime, fcntl, hashlib, json, os, pathlib, re, selectors, shutil, stat, subprocess, sys, time, traceback, uuid
 
 ROOT = pathlib.Path('/srv/autoreelz2026')
 PROJECT = 'autoreelz2026-release'
@@ -343,6 +343,8 @@ def main():
             {'backup':backup,'verify':restore_drill,'retention':retention,'capture':capture_only,'verify-local':lambda:restore_drill(str(LOCAL))}[args.action]()
         except BaseException as error:
             code=str(error) if isinstance(error,BackupError) else 'unexpected_failure'
+            diagnostic=PRIVATE/'pipeline-error.log'
+            diagnostic.write_text(traceback.format_exc(),encoding='utf-8');os.chmod(diagnostic,0o600)
             status_update(state='error',error=code,lastFailureAt=now(),**({'verificationError':code} if args.action=='verify' else {}))
             print(json.dumps({'ok':False,'action':args.action,'code':code}),flush=True)
             return 1

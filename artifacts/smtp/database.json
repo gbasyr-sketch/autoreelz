@@ -14,6 +14,8 @@
     "expired or revoked recipients never sent",
     "provider rollback cannot reroute old mail or lose pending SMTP state",
     "OTP atomically queued, expires with challenge, consumed code never sent; foreign email denied",
-    "owner event queues exactly one SMTP notice; simulator excludes it; explicit safe retry updates original history"
+    "owner event queues exactly one SMTP notice; simulator excludes it; explicit safe retry updates original history",
+    "all-new sends to external address; older pending/retry and blocked mail never replay",
+    "new customer OTP accepts any valid email without changing payment environment"
   ]
 }

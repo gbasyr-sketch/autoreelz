@@ -1,5 +1,5 @@
 import {createTransport,type SMTPTransportOptions,type SendMailOptions} from 'nodemailer';
-import {MAIL_SENDER,smtpPassword,mailRecipientAllowed} from '../mail-policy.ts';
+import {MAIL_SENDER,smtpPassword,mailRecipientAllowed,mailMessageIsNew} from '../mail-policy.ts';
 import {StoreError,email} from '../errors.ts';
 export interface SmtpMessage {recipient:string;subject:string;body:string;message_id:string;created_at:string|Date}
 export class MailSendError extends Error {
@@ -22,6 +22,7 @@ export function timewebOptions(password:string):SMTPTransportOptions {
 }
 export function timewebMessage(input:SmtpMessage):SendMailOptions {
  const to=email(input.recipient);
+ if(!mailMessageIsNew(input.created_at))throw new MailSendError('failed','MAIL_BEFORE_ACTIVATION');
  if(!mailRecipientAllowed(to))throw new MailSendError('failed','MAIL_RECIPIENT_BLOCKED');
  if(!input.subject||input.subject.length>200||/[\r\n\0]/.test(input.subject)||!input.body||Buffer.byteLength(input.body)>65536||!/^<ar-[a-f0-9-]{36}@autoreelz\.ru>$/.test(input.message_id))throw new MailSendError('failed','MAIL_INVALID_MESSAGE');
  const date=new Date(input.created_at);if(!Number.isFinite(date.getTime()))throw new MailSendError('failed','MAIL_INVALID_MESSAGE');

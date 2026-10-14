@@ -2,7 +2,7 @@ import {randomUUID} from 'node:crypto';
 import type {PoolClient} from 'pg';
 import {query,transaction} from './db.ts';
 import {email} from './errors.ts';
-import {mailProvider,mailRecipientAllowed,ownerMailRecipient} from './mail-policy.ts';
+import {mailProvider,mailRecipientAllowed,ownerMailRecipient,mailMessageIsNew} from './mail-policy.ts';
 import {createTimewebMail,mailError} from './adapters/timeweb-mail.ts';
 
 export async function enqueueMail(c:PoolClient,input:{recipient:string;subject:string;body:string;key:string;kind?:'customer'|'login'|'owner'|'probe';expiresAt?:string;notificationId?:string;challengeId?:string}){
@@ -41,6 +41,9 @@ export function createMailWorker(makeClient=createTimewebMail){
    const lease=randomUUID();
    const row=await transaction(async c=>{
     const item=(await c.query("SELECT * FROM ar_mail_outbox WHERE provider='timeweb-smtp' AND status IN('pending','retry') AND next_attempt_at<=now() ORDER BY next_attempt_at,created_at,id FOR UPDATE SKIP LOCKED LIMIT 1")).rows[0];if(!item)return null;
+    if(!mailMessageIsNew(item.created_at)){
+     await c.query("UPDATE ar_mail_outbox SET status='blocked',last_error='MAIL_BEFORE_ACTIVATION' WHERE id=$1",[item.id]);await updateOwner(c,item,'blocked','Письмо создано до включения отправки новых писем.');return{skip:true};
+    }
     const oldCode=item.challenge_id&&(await c.query('SELECT consumed_at IS NOT NULL OR expires_at<=now() AS expired FROM ar_login_challenges WHERE id=$1',[item.challenge_id])).rows[0]?.expired;
     if(oldCode||new Date(item.expires_at).getTime()<=Date.now()||!mailRecipientAllowed(item.recipient)){
      const status=oldCode||new Date(item.expires_at).getTime()<=Date.now()?'expired':'blocked';

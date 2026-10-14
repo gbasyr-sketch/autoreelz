@@ -18,3 +18,14 @@ test('verify authenticates without sending; send reports SMTP acceptance and alw
  assert.equal((await createTimewebMail(factory).verify()).authenticated,true);assert.equal(sends,0);await createTimewebMail(factory).send(message);assert.equal(sends,1);assert.equal(verifies,1);assert.equal(closed,2);
  const failing=()=>({...factory(),async sendMail(){throw{code:'EAUTH',response:'private password'};}});await assert.rejects(createTimewebMail(failing).send(message),{code:'SMTP_AUTH_FAILED'});assert.equal(closed,3);
 });
+test('all-new permits valid external recipients only with a cutoff; old messages and malformed emails stay blocked',()=>{
+ process.env.MAIL_RECIPIENT_POLICY='all-new';
+ try{
+  delete process.env.MAIL_NEW_MESSAGES_FROM;assert.throws(()=>timewebMessage({...message,recipient:'new@example.org'}),{code:'MAIL_CONFIG'});
+  process.env.MAIL_NEW_MESSAGES_FROM='2026-10-15T00:00:00Z';
+  assert.equal((timewebMessage({...message,recipient:'new@example.org'}).to as {address:string}).address,'new@example.org');
+  assert.throws(()=>timewebMessage({...message,created_at:'2026-10-14T23:59:59Z'}),{code:'MAIL_BEFORE_ACTIVATION'});
+  assert.throws(()=>timewebMessage({...message,recipient:'bad\r\nBcc:bad@example.org'}));
+  process.env.MAIL_NEW_MESSAGES_FROM='bad';assert.throws(()=>timewebMessage(message),{code:'MAIL_CONFIG'});
+ }finally{delete process.env.MAIL_RECIPIENT_POLICY;delete process.env.MAIL_NEW_MESSAGES_FROM;}
+});

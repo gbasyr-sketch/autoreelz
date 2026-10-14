@@ -6,8 +6,8 @@ const settings=privacySettings(Astro.url,Astro.cookies.get(PRIVACY_COOKIE)?.valu
 ---
 <div data-privacy data-state={JSON.stringify(settings)} data-track-page={(Astro.response.status??200)<400?'true':'false'}>
  <section class="privacy-banner" data-privacy-banner hidden aria-label="Cookies и аналитика">
-  <p><strong>Cookies.</strong> Для корзины и входа.{settings.enabled&&<> Аналитика — с вашего согласия.</>} <a href="/info/privacy">Подробнее</a></p>
-  <div class="privacy-actions"><button type="button" class="button-secondary" data-privacy-reject>{settings.enabled?'Только необходимые':'Понятно'}</button><button type="button" class="button-secondary" data-privacy-accept hidden={!settings.enabled}>Разрешить</button><button type="button" class="privacy-link" data-privacy-settings>Настройки</button></div>
+  <p>Мы используем cookies для работы сайта.{settings.enabled&&<> Аналитика — по отдельному согласию.</>} Подробнее — в <a href="/info/privacy">политике конфиденциальности</a>.</p>
+  <button type="button" class="privacy-banner-ok" data-privacy-reject aria-label="OK, использовать только необходимые cookies">OK</button>
   <p role="status" class="privacy-status" data-privacy-status hidden></p>
  </section>
  <dialog class="privacy-dialog" data-privacy-dialog aria-labelledby="privacy-title">

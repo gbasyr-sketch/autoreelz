@@ -1,0 +1,44 @@
+import assert from 'node:assert/strict';import fs from 'node:fs/promises';import {randomUUID as key} from 'node:crypto';
+import {createImageDatabase,imageEnvironment} from './helpers/ai-image-qa.mjs';
+const qa=await createImageDatabase('ar_qa_ai_images_refunds_'+key().replaceAll('-','').slice(0,12));
+Object.assign(process.env,imageEnvironment(qa.database,'private/payment-refunds/qa'),{APP_ORIGIN:'http://127.0.0.1:14323',PAYMENT_PROVIDER:'yookassa-sandbox',YOOKASSA_SHOP_ID:'123456',YOOKASSA_SECRET_KEY:'qa-secret-not-real-00000'});
+const {getPool,transaction}=await import('../src/server/db.ts'),{queueRefund,refundWorkspace,createYooRefunds}=await import('../src/server/yookassa-refunds.ts'),{createYooKassaSandbox}=await import('../src/server/adapters/yookassa-sandbox.ts'),{fulfill}=await import('../src/server/management.ts');
+const q=(s,v=[])=>qa.owner.query(s,v),actor={id:key()},checks=[],remote=new Map(),payments=new Map(),posts=[];
+let lose=false,hold=null,patch=null;
+const cfg={shopId:'123456',secretKey:'qa-secret-not-real-00000',returnOrigin:'http://127.0.0.1:14323'};
+const factory=()=>createYooKassaSandbox(cfg,async(url,init)=>{
+ if(url.endsWith('/me'))return Response.json({test:true,account_id:cfg.shopId,status:'enabled',payment_methods:['bank_card'],fiscalization_enabled:false});
+ if(url.includes('/payments/'))return Response.json(payments.get(url.split('/').at(-1)));
+ if(init.method==='POST'){
+  const k=init.headers['Idempotence-Key'],b=JSON.parse(init.body);posts.push({key:k,body:b});if(!remote.has(k))remote.set(k,{id:key(),status:'pending',payment_id:b.payment_id,amount:b.amount});const r=structuredClone(remote.get(k));if(hold)await hold;if(lose){lose=false;throw Error('lost response');}return Response.json(patch?{...r,...patch}:r);
+ }
+ const r=[...remote.values()].find(r=>r.id===url.split('/').at(-1));return Response.json(patch?{...r,...patch}:r);
+});
+let service=createYooRefunds(factory);
+async function buy(state='succeeded'){
+ const orderId=key(),session=key(),quote=key(),batch=key(),paymentId=key(),providerId=key();
+ await q("INSERT INTO ar_web_sessions(id,token_hash,csrf_token,expires_at) VALUES($1,$2,$3,now()+interval '1 hour')",[session,key(),key()]);
+ await q("INSERT INTO ar_cart_quotes(id,session_id,cart_version,input,snapshot,fingerprint,expires_at) VALUES($1,$2,0,'{}','{}','qa',now()+interval '1 hour')",[quote,session]);await q('INSERT INTO ar_checkout_batches(id,session_id,quote_id) VALUES($1,$2,$3)',[batch,session,quote]);
+ await q("INSERT INTO ar_orders(id,batch_id,session_id,kind,status,payment_status,delivery_status,allocation_state,customer_name,customer_phone,customer_email,delivery_snapshot,items_snapshot,product_total_rubles,shipping_cost_rubles) VALUES($1,$2,$3,'ordinary',$4,$5,'quoted',$6,'QA','+79990000000','qa@example.invalid','{}','[]','1800.10','390.00')",[orderId,batch,session,state==='review'?'manual_review':'paid',state==='review'?'review':'paid',state==='review'?'released':'settled']);
+ await q("INSERT INTO ar_payments(id,order_id,amount_rubles,method,shipping_version,status,provider,provider_shop_id,provider_id,provider_return_url,provider_status) VALUES($1,$2,'2190.10','card',0,$3,'yookassa-sandbox','123456',$4,$5,'succeeded')",[paymentId,orderId,state,providerId,cfg.returnOrigin+'/orders/'+orderId]);
+ payments.set(providerId,{id:providerId,status:'succeeded',paid:true,test:true,recipient:{account_id:cfg.shopId},amount:{value:'2190.10',currency:'RUB'},metadata:{autoreelz_order_id:orderId,autoreelz_payment_id:paymentId}});
+ return{orderId,paymentId,providerId,amountRubles:'2190.10',reason:'QA возврат',confirmed:true,idempotencyKey:key()};
+}
+const read=async id=>(await q('SELECT * FROM ar_yookassa_refunds WHERE id=$1',[id])).rows[0];
+const due=id=>q("UPDATE ar_yookassa_refunds SET next_check_at=now()-interval '1 second',lease_until=NULL WHERE id=$1",[id]);
+try{
+ const b=await buy();await assert.rejects(queueRefund(actor,{...b,amountRubles:'1.00'}),{code:'REFUND_AMOUNT'});await assert.rejects(queueRefund(actor,{...b,confirmed:false}),{code:'REFUND_CONFIRMATION'});
+ const all=await Promise.all([queueRefund(actor,b),queueRefund(actor,b),queueRefund(actor,{...b,idempotencyKey:key()})]);assert.equal(new Set(all.map(r=>r.id)).size,1);const id=all[0].id;
+ await assert.rejects(queueRefund(actor,{...b,reason:'other reason'}),{code:'KEY_REUSED'});assert.equal((await refundWorkspace(b.orderId)).payments[0].canRefund,false);await assert.rejects(fulfill(actor,{orderId:b.orderId,status:'packing',reason:'QA',idempotencyKey:key()}),{code:'PAYMENT_REQUIRED'});checks.push('amount/confirmation/idempotency/concurrency and fulfillment block');
+ lose=true;await service.process(id);assert.equal((await read(id)).state,'uncertain');await due(id);service=createYooRefunds(factory);await service.process(id);assert.equal(posts.length,2);assert.deepEqual(posts[0],posts[1]);assert.equal(remote.size,1);assert.equal((await read(id)).state,'pending');checks.push('lost response and process restart reuse immutable key/body');
+ const r=await read(id);await service.webhook({type:'notification',event:'refund.succeeded',object:{id:r.provider_id,status:'succeeded'}}).catch(e=>assert.equal(e.code,'REFUND_CHECK_PENDING'));assert.equal((await read(id)).state,'pending');remote.get(r.provider_key).status='succeeded';await due(id);await Promise.all([service.process(id),service.webhook({type:'notification',event:'refund.succeeded',object:{id:r.provider_id}}).catch(()=>{})]);await service.process(id,true);assert.equal((await read(id)).state,'succeeded');await service.webhook({type:'notification',event:'refund.succeeded',object:{id:r.provider_id}});assert.equal((await q("SELECT count(*)::int n FROM ar_order_events WHERE order_id=$1 AND event_type='refund_succeeded'",[b.orderId])).rows[0].n,1);checks.push('callback is a hint; concurrent GET settles once');
+ const b2=await buy('review'),id2=(await queueRefund(actor,b2)).id;let release;hold=new Promise(r=>release=r);const before=posts.length,work=service.process(id2);while(posts.length===before)await new Promise(r=>setTimeout(r,5));await service.process(id2);assert.equal(posts.length,before+1);await transaction(c=>c.query('SELECT id FROM ar_orders WHERE id=$1 FOR UPDATE',[b2.orderId]));release();await work;hold=null;checks.push('late payment refund and network outside SQL; lease prevents parallel POST');
+ const b3=await buy(),id3=(await queueRefund(actor,b3)).id;await q("UPDATE ar_yookassa_refunds SET requested_at=now()-interval '24 hours' WHERE id=$1",[id3]);const n=posts.length;await service.process(id3);assert.equal((await read(id3)).state,'attention');assert.equal(posts.length,n);checks.push('expired idempotence window never sends new POST');
+ const b4=await buy(),id4=(await queueRefund(actor,b4)).id;patch={amount:{value:'1.00',currency:'RUB'}};await service.process(id4);patch=null;assert.equal((await read(id4)).state,'attention');checks.push('mismatched provider facts require manual review');
+ const b5=await buy(),id5=(await queueRefund(actor,b5)).id;await service.process(id5);const r5=await read(id5);remote.get(r5.provider_key).status='canceled';await due(id5);await service.process(id5);assert.equal((await read(id5)).state,'canceled');checks.push('provider cancellation is not success');
+ const b6=await buy();await q("INSERT INTO ar_cdek_shipments(id,order_id,environment,account_hash,number,payload,fingerprint,actor_id) VALUES($1,$2,'test','qa',$3,'{}','qa',$4)",[key(),b6.orderId,key(),actor.id]);await assert.rejects(queueRefund(actor,b6),{code:'REFUND_SHIPMENT'});checks.push('active shipment blocks refund');
+ await assert.rejects(getPool().query('DELETE FROM ar_yookassa_refunds WHERE id=$1',[id]),e=>e.code==='42501');await assert.rejects(getPool().query("UPDATE ar_yookassa_refunds SET amount_rubles='1.00' WHERE id=$1",[id]),/immutable/);await assert.rejects(getPool().query('UPDATE ar_yookassa_refunds SET requested_at=now() WHERE id=$1',[id]),/immutable/);
+ assert.equal((await q('SELECT count(*)::int n FROM ar_stock_movements')).rows[0].n,0);assert.equal((await q('SELECT allocation_state FROM ar_orders WHERE id=$1',[b.orderId])).rows[0].allocation_state,'settled');assert.equal((await q('SELECT allocation_state FROM ar_orders WHERE id=$1',[b2.orderId])).rows[0].allocation_state,'released');checks.push('immutable request, least privilege, stock and allocation preserved');
+ process.env.STORE_MODE='production';await assert.rejects(queueRefund(actor,await buy()));await assert.rejects(service.process(id));assert.equal((await refundWorkspace(b.orderId)).enabled,false);checks.push('production closed; history readable');
+ await fs.mkdir('artifacts/payment-refunds',{recursive:true});const report={passed:true,isolated:true,externalCalls:0,checks};await fs.writeFile('artifacts/payment-refunds/database.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));
+}finally{await getPool().end();await qa.close(true);}

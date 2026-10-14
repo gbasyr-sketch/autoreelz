@@ -1,0 +1,14 @@
+{
+  "checkedDate": "2026-10-14",
+  "test": true,
+  "cardAvailable": true,
+  "fiscalizationEnabled": false,
+  "paymentStatus": "succeeded",
+  "refundStatus": "succeeded",
+  "amountRubles": "1.00",
+  "currency": "RUB",
+  "provider": "yookassa-sandbox",
+  "realMoney": false,
+  "scope": "adapter protocol and official sandbox; not published manager",
+  "privateEvidence": "private/payment-refunds/"
+}

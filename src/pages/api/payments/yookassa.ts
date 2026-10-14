@@ -5,6 +5,7 @@ import{query}from'../../../server/db';
 import{StoreError}from'../../../server/errors';
 import{paymentProvider}from'../../../server/payment-policy';
 import{yooPayments}from'../../../server/yookassa-payments';
+import{yooRefunds}from'../../../server/yookassa-refunds';
 export const POST:APIRoute=async ctx=>{try{
  if(paymentProvider()!=='yookassa-sandbox')return json({error:{code:'NOT_FOUND'}},404);
  const key=sign('yookassa-webhook:'+peer(ctx));
@@ -13,5 +14,6 @@ export const POST:APIRoute=async ctx=>{try{
   reset_at=CASE WHEN ar_rate_limits.reset_at<=now() THEN now()+interval '1 minute' ELSE ar_rate_limits.reset_at END
   WHERE ar_rate_limits.reset_at<=now() OR ar_rate_limits.count<120 RETURNING id`,[key]);
  if(!rate.rowCount)throw new StoreError('RATE_LIMIT','Повторите запрос позже.',429);
- return json(await yooPayments.webhook(await jsonBody(ctx.request,16384)));
+ const body=await jsonBody(ctx.request,16384);
+ return json(await (body.event==='refund.succeeded'?yooRefunds:yooPayments).webhook(body));
 }catch(error){return failure(error);}};

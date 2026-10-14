@@ -47,6 +47,7 @@
 - Обзор владельца и правила показателей: [dashboard.md](dashboard.md).
 - Главная, товарные демоотзывы и статьи: [homepage-content.md](homepage-content.md).
 - Торговые контракты: [stage-4-contracts.md](stage-4-contracts.md), [stage-5-contracts.md](stage-5-contracts.md). Это базовые контракты этапов; актуальные изменения checkout и провайдеров перечислены в architecture.md и следующих документах.
+- Возвраты оплаты: [полный тестовый возврат из manager](payment-refunds.md), миграция025, пока локально. [План «Чеков от ЮKassa»](yookassa-receipts-plan.md): ИП/УСН6%/безНДС, подключение услуги уточняется.
 - ЮKassa: [yookassa.md](yookassa.md), [yookassa-checkout-contract.md](yookassa-checkout-contract.md).
 - Отправления СДЭК в manager: [очередь, накладные PDF, статусы и отмена](cdek-shipments.md), миграция024; опубликовано14.10 в тестовом режиме.
 - СДЭК/карта: [cdek.md](cdek.md), [cdek-checkout-contract.md](cdek-checkout-contract.md).

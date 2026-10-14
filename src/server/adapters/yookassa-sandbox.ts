@@ -12,6 +12,8 @@ function object(value:unknown):ObjectValue {if(!value||typeof value!=='object'||
 export interface ExpectedPayment {orderId:string;internalPaymentId:string;amountRubles:string}
 export interface SandboxPayment {id:string;status:'pending'|'waiting_for_capture'|'succeeded'|'canceled';paid:boolean;amountRubles:string;confirmationUrl:string|null;test:true}
 export interface SandboxConfig {shopId:string;secretKey:string;returnOrigin:string}
+export interface ExpectedRefund extends ExpectedPayment {providerPaymentId:string;internalRefundId:string}
+export interface SandboxRefund {id:string;paymentId:string;status:'pending'|'succeeded'|'canceled';amountRubles:string}
 type Transport=(url:string,init:RequestInit)=>Promise<Response>;
 function expected(value:ExpectedPayment){
  if(!uuid.test(value.orderId)||!uuid.test(value.internalPaymentId))reject('INVALID_PAYMENT_REFERENCE');
@@ -61,5 +63,26 @@ export function createYooKassaSandbox(config:SandboxConfig,transport:Transport=f
   // Never trust callback status/amount, redirects, or a made-up HMAC. Read provider state.
   return getPayment(wanted.providerPaymentId,wanted);
  }
- return{checkShop,createPayment,getPayment,verifyNotification};
+ function refundExpected(input:ExpectedRefund){expected(input);if(!uuid.test(input.providerPaymentId)||!uuid.test(input.internalRefundId))reject('INVALID_PAYMENT_REFERENCE');}
+ function normalizeRefund(raw:ObjectValue,input:ExpectedRefund,id?:string):SandboxRefund{
+  if(!uuid.test(raw.id)||id&&raw.id!==id||raw.payment_id!==input.providerPaymentId)reject('REFUND_IDENTITY_MISMATCH');
+  if(raw.amount?.currency!=='RUB'||raw.amount?.value!==input.amountRubles)reject('REFUND_FACTS_MISMATCH');
+  if(!['pending','succeeded','canceled'].includes(raw.status))reject('INVALID_PROVIDER_RESPONSE');
+  return{id:raw.id,paymentId:raw.payment_id,status:raw.status,amountRubles:raw.amount.value};
+ }
+ async function createRefund(input:ExpectedRefund&{idempotenceKey:string}){
+  refundExpected(input);if(!uuid.test(input.idempotenceKey))reject('IDEMPOTENCE_KEY_REQUIRED');
+  const shop=await checkShop();if(shop.fiscalizationEnabled)reject('RECEIPT_SETUP_REQUIRED');
+  const payment=await getPayment(input.providerPaymentId,input);
+  if(payment.status!=='succeeded'||!payment.paid)reject('REFUND_PAYMENT_NOT_SUCCEEDED');
+  // Full refund only. Retrying uses exactly the same body/key even after the provider accepted it.
+  return normalizeRefund(await request('/refunds','POST',{payment_id:input.providerPaymentId,amount:{value:input.amountRubles,currency:'RUB'},description:'AUTO REELZ refund '+input.internalRefundId},input.idempotenceKey),input);
+ }
+ async function getRefund(id:string,input:ExpectedRefund){
+  refundExpected(input);if(!uuid.test(id))reject('INVALID_PROVIDER_ID');
+  // Refund objects have no test/account fields; verify the associated payment first.
+  await getPayment(input.providerPaymentId,input);
+  return normalizeRefund(await request('/refunds/'+id),input,id);
+ }
+ return{checkShop,createPayment,getPayment,verifyNotification,createRefund,getRefund};
 }

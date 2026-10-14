@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "mockProvider": true,
+  "api": {
+    "anonymous401": true,
+    "role403": true,
+    "csrf403": true,
+    "origin403": true,
+    "noStore": true,
+    "cms": "isolated stub; real staff guard"
+  },
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "doubleClickBlocked": true,
+      "sameRetryKey": true,
+      "reloadRestores": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "doubleClickBlocked": true,
+      "sameRetryKey": true,
+      "reloadRestores": true,
+      "noOverflow": true
+    }
+  ]
+}

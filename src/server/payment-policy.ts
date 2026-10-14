@@ -14,3 +14,10 @@ export function sandboxConfig(){
  return{shopId,secretKey,returnOrigin};
 }
 export const sandboxClient=()=>createYooKassaSandbox(sandboxConfig());
+
+// Explicit opt-in for future test configuration; the deployed default stays disabled.
+export function receiptMode(){
+ const mode=setting('YOOKASSA_RECEIPTS_MODE','disabled');
+ if(!['disabled','yookassa'].includes(mode))throw new StoreError('RECEIPT_CONFIG','Неверная настройка чеков.',503);
+ return mode as 'disabled'|'yookassa';
+}

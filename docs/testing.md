@@ -148,3 +148,7 @@ CMS-наборы `cms-browser`, `content-browser`, `stage6-cms-*`, schema/permis
 ## Сроки и условия заказа15.10.2026
 
 `tests/delivery-deadline.test.ts`, `tests/order-terms-database.mjs`, прежние commerce/CDEK/YooKassa suites; [точные команды и границы проверки](order-terms.md). `AR_QA_NATIVE=1` включает синтетические базы со всеми миграциями через выделенный локальный PostgreSQL, без Docker и без чтения рабочего каталога. Запускать native suites последовательно (`--test-concurrency=1`). UI проверять CUA на отдельной синтетической базе; банковские реквизиты и скриншоты не включать в Git.
+
+## Передача данных чеков ЮKassa15.10.2026
+
+`node --test tests/yookassa-receipts.test.ts` — состав/точные суммы/лимиты/протокол; `node tests/yookassa-receipts-database.mjs` — отдельная синтетическая PostgreSQL001–028 через native QA-helper,8 групп, транспорт подменён, внешних вызовов нет. Регрессия: `AR_QA_NATIVE=1 AR_YOOKASSA_TESTS=1 node --test --test-concurrency=1 tests/yookassa-integration.test.ts` и `node tests/yookassa-refunds-database.mjs`. Использовать закреплённый Node24.21.0 из .tools. [Контракт/границы](yookassa-receipts.md). Никаких новых реальных/sandbox платежей автоматически.

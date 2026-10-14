@@ -1,5 +1,6 @@
+import {buildPaymentReceipt} from './yookassa-receipt-snapshot.ts';
 import type{PoolClient}from'pg';
-import{paymentProvider,sandboxConfig,type PaymentProvider}from'./payment-policy.ts';
+import{paymentProvider,sandboxConfig,receiptMode,type PaymentProvider}from'./payment-policy.ts';
 import{sumRubles}from'./pricing.ts';
 import type{ShopSession}from'../lib/commerce-types.ts';
 import{transaction}from'./db.ts';
@@ -75,7 +76,8 @@ export async function initiatePayment(session:ShopSession,body:Record<string,unk
   const existing=(await c.query("SELECT * FROM ar_payments WHERE order_id=$1 AND status='pending'",[id])).rows[0];
   if(existing){if(existing.provider!==selected)throw new StoreError('PAYMENT_PROVIDER_CHANGED','Провайдер оплаты изменён. Обратитесь к менеджеру.',409);return{orderId:id,paymentId:existing.id,amountRubles:safeMoney(existing.amount_rubles)};}
   const amount=sumRubles([order.product_total_rubles,order.shipping_cost_rubles]);
-  const payment=(await c.query('INSERT INTO ar_payments(order_id,amount_rubles,method,shipping_version,provider,provider_shop_id,provider_return_url) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING id',[id,amount,method,version,selected,config?.shopId??null,config?config.returnOrigin+'/orders/'+id:null])).rows[0];
+  const receipt=selected==='yookassa-sandbox'&&receiptMode()==='yookassa'?buildPaymentReceipt(order,amount):null;
+  const payment=(await c.query('INSERT INTO ar_payments(order_id,amount_rubles,method,shipping_version,provider,provider_shop_id,provider_return_url,receipt_snapshot) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id',[id,amount,method,version,selected,config?.shopId??null,config?config.returnOrigin+'/orders/'+id:null,receipt])).rows[0];
   await c.query("UPDATE ar_orders SET payment_status='pending' WHERE id=$1",[id]);return{orderId:id,paymentId:payment.id,amountRubles:amount};
  }));
  if('expired'in result&&result.expired)throw new StoreError('EXPIRED','Срок оплаты истёк. Остатки освобождены.',409);

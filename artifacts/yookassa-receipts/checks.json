@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "runtime": "Node 24.21.0",
+  "externalPaymentCalls": 0,
+  "serverChanged": false,
+  "migration": "028_yookassa_receipts.sql (isolated QA only)",
+  "checks": {
+    "astroCheck": {
+      "errors": 0,
+      "warnings": 0,
+      "hints": 0
+    },
+    "build": "passed; existing mixed import warning",
+    "unit": {
+      "passed": 178,
+      "skipped": 8
+    },
+    "receiptProtocolTests": 5,
+    "receiptDatabaseGroups": 8,
+    "yookassaRegressionScenarios": 11,
+    "refundRegressionGroups": 10,
+    "commerceRegressionScenarios": 35,
+    "bundlePreorderRegressionScenarios": 2,
+    "composeValidation": "local and release passed with synthetic required values; config --quiet"
+  },
+  "limitations": [
+    "Provider transport mocked; no actual fiscal documents sent",
+    "Service activation and production integration not confirmed",
+    "Settlement receipt dispatch and partial refunds outside this change",
+    "No UI changes; no new browser acceptance claimed"
+  ]
+}

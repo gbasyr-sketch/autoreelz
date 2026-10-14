@@ -1,3 +1,4 @@
+import {recordReceipt} from './yookassa-receipts.ts';
 import {randomUUID} from 'node:crypto';
 import {query,transaction} from './db.ts';
 import {StoreError,uuid,text,iso} from './errors.ts';
@@ -51,9 +52,10 @@ export function createYooRefunds(makeClient=sandboxClient){
    }
    await c.query("UPDATE ar_yookassa_refunds SET lease_id=$2,lease_until=now()+interval '90 seconds',requested_at=CASE WHEN provider_id IS NULL THEN coalesce(requested_at,now()) ELSE requested_at END WHERE id=$1",[id,lease]);return r;
   });if(!claim)return;
+  const original=(await query('SELECT receipt_snapshot FROM ar_payments WHERE id=$1',[claim.payment_id])).rows[0];
   const wanted:ExpectedRefund={orderId:claim.order_id,internalPaymentId:claim.payment_id,providerPaymentId:claim.provider_payment_id,internalRefundId:id,amountRubles:claim.amount_rubles};
   let result:SandboxRefund;
-  try{const client=makeClient();result=claim.provider_id?await client.getRefund(claim.provider_id,wanted):await client.createRefund({...wanted,idempotenceKey:claim.provider_key});}
+  try{const client=makeClient();result=claim.provider_id?await client.getRefund(claim.provider_id,wanted):await client.createRefund({...wanted,idempotenceKey:claim.provider_key,...(original?.receipt_snapshot?{receipt:original.receipt_snapshot}:{})});}
   catch(e){
    const code=e instanceof YooKassaError?e.code:'PROVIDER_UNAVAILABLE';
    const retry=['PAYMENT_OUTCOME_UNKNOWN','PROVIDER_UNAVAILABLE'].includes(code);
@@ -66,6 +68,7 @@ export function createYooRefunds(makeClient=sandboxClient){
    if(current.lease_id!==lease||!active.includes(current.state))return;
    if(current.provider_id&&current.provider_id!==result.id)throw new StoreError('REFUND_IDENTITY','Возврат не совпадает.',409);
    await c.query("UPDATE ar_yookassa_refunds SET provider_id=$2,state=$3,checked_at=now(),last_error=NULL,lease_id=NULL,lease_until=NULL,next_check_at=now()+interval '30 seconds' WHERE id=$1",[id,result.id,result.status]);
+   if(original?.receipt_snapshot)await recordReceipt(c,'refund',id,result.receiptRegistration);
    if(result.status!=='pending')await event(c,claim.order_id,'refund_'+result.status,result.status==='succeeded'?`ЮKassa подтвердила тестовый возврат ${claim.amount_rubles} ₽. Возврат товара на склад оформляется отдельно.`:'ЮKassa отменила тестовый возврат. Требуется ручная проверка.');
   });
  }

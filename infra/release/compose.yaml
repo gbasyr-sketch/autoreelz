@@ -9,6 +9,7 @@ x-app-env: &app-env
   APP_ORIGIN: https://autoreelz.ru
   STORE_MODE: production
   PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-simulation}
+  YOOKASSA_RECEIPTS_MODE: ${YOOKASSA_RECEIPTS_MODE:-disabled}
   YOOKASSA_SHOP_ID: ${YOOKASSA_SHOP_ID:-}
   YOOKASSA_SECRET_KEY: ${YOOKASSA_SECRET_KEY:-}
 x-cdek-shipments-env: &cdek-shipments-env

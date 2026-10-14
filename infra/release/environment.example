@@ -18,6 +18,8 @@ YML_COMPANY_NAME=
 
 # Explicitly opt into the TEST shop only after its credentials have been verified.
 PAYMENT_PROVIDER=simulation
+# Enable only after confirming the receipt service; default preserves non-fiscal sandbox.
+YOOKASSA_RECEIPTS_MODE=disabled
 YOOKASSA_SHOP_ID=
 YOOKASSA_SECRET_KEY=
 

@@ -25,6 +25,7 @@ assert.equal(env.POSTGRES_DB,'autoreelz2026_new');
   process.env.AR_DATABASE_NAME=database;process.env.AR_DB_HOST='127.0.0.1';process.env.AR_DB_PORT=env.DB_PORT;process.env.APP_DB_PASSWORD=env.APP_DB_PASSWORD;
   owner=new pg.Pool({host:'127.0.0.1',port:Number(env.DB_PORT),database,user:'ar_migrator',password:env.POSTGRES_PASSWORD,max:5});
   if(!(await owner.query("SELECT 1 FROM information_schema.columns WHERE table_name='ar_orders' AND column_name='delivery_deadline'")).rowCount)await owner.query(readFileSync('migrations/027_order_delivery_deadline.sql','utf8'));
+  if(!(await owner.query("SELECT 1 FROM information_schema.columns WHERE table_name='ar_payments' AND column_name='receipt_snapshot'")).rowCount)await owner.query(readFileSync('migrations/028_yookassa_receipts.sql','utf8'));
   return{database,owner,query:(statement,params=[])=>owner.query(statement,params),async close(){await owner.end();sql(`DROP DATABASE ${database} WITH (FORCE);`,env.POSTGRES_DB);}};
  }catch(error){if(owner)await owner.end();if(created)sql(`DROP DATABASE ${database} WITH (FORCE);`,env.POSTGRES_DB);throw error;}
 }

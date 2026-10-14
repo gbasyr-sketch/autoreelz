@@ -1,3 +1,4 @@
+import {validatePaymentReceipt,type PaymentReceipt,type ReceiptRegistration} from '../yookassa-receipt-snapshot.ts';
 // Test-only protocol client; payment orchestration lives in yookassa-payments.ts.
 import {rubles,compareRubles} from '../../lib/money.ts';
 const API='https://api.yookassa.ru/v3';
@@ -10,11 +11,12 @@ const reject=(code:string):never=>{throw new YooKassaError(code);};
 type ObjectValue=Record<string,any>;
 function object(value:unknown):ObjectValue {if(!value||typeof value!=='object'||Array.isArray(value))return reject('INVALID_PROVIDER_RESPONSE');return value as ObjectValue;}
 export interface ExpectedPayment {orderId:string;internalPaymentId:string;amountRubles:string}
-export interface SandboxPayment {id:string;status:'pending'|'waiting_for_capture'|'succeeded'|'canceled';paid:boolean;amountRubles:string;confirmationUrl:string|null;paidAt?:string;test:true}
+export interface SandboxPayment {id:string;status:'pending'|'waiting_for_capture'|'succeeded'|'canceled';paid:boolean;amountRubles:string;confirmationUrl:string|null;paidAt?:string;test:true;receiptRegistration?:ReceiptRegistration}
 export interface SandboxConfig {shopId:string;secretKey:string;returnOrigin:string}
 export interface ExpectedRefund extends ExpectedPayment {providerPaymentId:string;internalRefundId:string}
-export interface SandboxRefund {id:string;paymentId:string;status:'pending'|'succeeded'|'canceled';amountRubles:string}
+export interface SandboxRefund {id:string;paymentId:string;status:'pending'|'succeeded'|'canceled';amountRubles:string;receiptRegistration?:ReceiptRegistration}
 type Transport=(url:string,init:RequestInit)=>Promise<Response>;
+function registration(value:unknown):ReceiptRegistration|undefined {if(value===undefined)return undefined;if(typeof value!=='string'||!['pending','succeeded','canceled'].includes(value))return undefined;return value as ReceiptRegistration;}
 function expected(value:ExpectedPayment){
  if(!uuid.test(value.orderId)||!uuid.test(value.internalPaymentId))reject('INVALID_PAYMENT_REFERENCE');
  if(typeof value.amountRubles!=='string'||!/^\d+\.\d{2}$/.test(value.amountRubles)||compareRubles(value.amountRubles,'0.00')<=0)reject('INVALID_PAYMENT_AMOUNT');
@@ -48,15 +50,17 @@ export function createYooKassaSandbox(config:SandboxConfig,transport:Transport=f
   let confirmationUrl=null;
   if(raw.confirmation?.confirmation_url){let url:URL;try{url=new URL(raw.confirmation.confirmation_url);}catch{return reject('UNSAFE_CONFIRMATION_URL');}if(url.protocol!=='https:'||url.username||url.password||url.port||!['yoomoney.ru','yookassa.ru'].includes(url.hostname))reject('UNSAFE_CONFIRMATION_URL');confirmationUrl=url.href;}
   if(raw.status==='pending'&&!confirmationUrl)reject('MISSING_CONFIRMATION_URL');
+  const receiptRegistration=registration(raw.receipt_registration);
   const captured=raw.captured_at;
   if(captured!==undefined&&(typeof captured!=='string'||!/^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$/.test(captured)||!Number.isFinite(Date.parse(captured))||Date.parse(captured)>Date.now()+60_000))reject('INVALID_PROVIDER_RESPONSE');
-  return{id:raw.id,status:raw.status,paid:raw.paid,amountRubles:amount,confirmationUrl,...(raw.status==='succeeded'&&captured?{paidAt:new Date(captured).toISOString()}:{}),test:true};
+  return{id:raw.id,status:raw.status,paid:raw.paid,amountRubles:amount,confirmationUrl,...(receiptRegistration?{receiptRegistration}:{}),...(raw.status==='succeeded'&&captured?{paidAt:new Date(captured).toISOString()}:{}),test:true};
  }
- async function createPayment(input:ExpectedPayment&{idempotenceKey:string;returnUrl:string}){
+ async function createPayment(input:ExpectedPayment&{idempotenceKey:string;returnUrl:string;receipt?:PaymentReceipt}){
   const amount=expected(input);if(!uuid.test(input.idempotenceKey))reject('IDEMPOTENCE_KEY_REQUIRED');
   const back=new URL(input.returnUrl);if(back.origin!==config.returnOrigin||back.username||back.password||back.pathname!==`/orders/${input.orderId}`||back.search||back.hash)reject('RETURN_URL_NOT_ALLOWED');
-  const shop=await checkShop();if(shop.fiscalizationEnabled)reject('RECEIPT_SETUP_REQUIRED');
-  const raw=await request('/payments','POST',{amount:{value:amount,currency:'RUB'},capture:true,payment_method_data:{type:'bank_card'},confirmation:{type:'redirect',return_url:back.href},description:'AUTO REELZ — тестовая операция',metadata:{autoreelz_order_id:input.orderId,autoreelz_payment_id:input.internalPaymentId}},input.idempotenceKey);
+  const receipt=input.receipt?validatePaymentReceipt(input.receipt,amount):undefined;
+  const shop=await checkShop();if(shop.fiscalizationEnabled!==Boolean(receipt))reject('RECEIPT_SETUP_REQUIRED');
+  const raw=await request('/payments','POST',{amount:{value:amount,currency:'RUB'},capture:true,...(receipt?{receipt}:{}),payment_method_data:{type:'bank_card'},confirmation:{type:'redirect',return_url:back.href},description:'AUTO REELZ — тестовая операция',metadata:{autoreelz_order_id:input.orderId,autoreelz_payment_id:input.internalPaymentId}},input.idempotenceKey);
   return normalize(raw,input);
  }
  async function getPayment(id:string,wanted:ExpectedPayment){if(!uuid.test(id))reject('INVALID_PROVIDER_ID');expected(wanted);return normalize(await request('/payments/'+id),wanted,id);}
@@ -70,11 +74,13 @@ export function createYooKassaSandbox(config:SandboxConfig,transport:Transport=f
   if(!uuid.test(raw.id)||id&&raw.id!==id||raw.payment_id!==input.providerPaymentId)reject('REFUND_IDENTITY_MISMATCH');
   if(raw.amount?.currency!=='RUB'||raw.amount?.value!==input.amountRubles)reject('REFUND_FACTS_MISMATCH');
   if(!['pending','succeeded','canceled'].includes(raw.status))reject('INVALID_PROVIDER_RESPONSE');
-  return{id:raw.id,paymentId:raw.payment_id,status:raw.status,amountRubles:raw.amount.value};
+  const receiptRegistration=registration(raw.receipt_registration);
+  return{id:raw.id,paymentId:raw.payment_id,status:raw.status,amountRubles:raw.amount.value,...(receiptRegistration?{receiptRegistration}:{})};
  }
- async function createRefund(input:ExpectedRefund&{idempotenceKey:string}){
+ async function createRefund(input:ExpectedRefund&{idempotenceKey:string;receipt?:PaymentReceipt}){
   refundExpected(input);if(!uuid.test(input.idempotenceKey))reject('IDEMPOTENCE_KEY_REQUIRED');
-  const shop=await checkShop();if(shop.fiscalizationEnabled)reject('RECEIPT_SETUP_REQUIRED');
+  const receipt=input.receipt?validatePaymentReceipt(input.receipt,input.amountRubles):undefined;
+  const shop=await checkShop();if(shop.fiscalizationEnabled!==Boolean(receipt))reject('RECEIPT_SETUP_REQUIRED');
   const payment=await getPayment(input.providerPaymentId,input);
   if(payment.status!=='succeeded'||!payment.paid)reject('REFUND_PAYMENT_NOT_SUCCEEDED');
   // Full refund only. Retrying uses exactly the same body/key even after the provider accepted it.

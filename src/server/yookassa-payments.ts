@@ -1,8 +1,9 @@
+import {recordReceipt} from './yookassa-receipts.ts';
 import {randomUUID} from 'node:crypto';
 import {query,transaction} from './db.ts';
 import {StoreError,uuid} from './errors.ts';
 import {requireTestEnvironment} from './config.ts';
-import {paymentProvider,sandboxClient,sandboxConfig} from './payment-policy.ts';
+import {paymentProvider,sandboxClient,sandboxConfig,receiptMode} from './payment-policy.ts';
 import {orderRow,getOrder,expireLocked} from './orders.ts';
 import {settlePayment} from './payments.ts';
 import type {ShopSession} from '../lib/commerce-types.ts';
@@ -13,7 +14,7 @@ const terminal=(status:string)=>status==='succeeded'||status==='canceled';
 const allowedErrors=new Set(['PAYMENT_OUTCOME_UNKNOWN','PROVIDER_UNAVAILABLE','INVALID_PROVIDER_RESPONSE','PROVIDER_AUTH_FAILED','PROVIDER_REQUEST_REJECTED','NOT_EXPECTED_TEST_SHOP','TEST_CARD_NOT_ENABLED','RECEIPT_SETUP_REQUIRED','PAYMENT_IDENTITY_MISMATCH','PAYMENT_FACTS_MISMATCH','UNSAFE_CONFIRMATION_URL','MISSING_CONFIRMATION_URL']);
 export function createYooPayments(makeClient:()=>Client=sandboxClient){
  function enabled(){requireTestEnvironment();if(paymentProvider()!=='yookassa-sandbox')throw new StoreError('PAYMENT_DISABLED','Тестовая ЮKassa не включена.',503);}
- async function preflight(){enabled();const client=makeClient();try{const shop=await client.checkShop();if(shop.fiscalizationEnabled)throw new YooKassaError('RECEIPT_SETUP_REQUIRED');}catch{throw new StoreError('PAYMENT_SETUP','Тестовый магазин ЮKassa пока недоступен. Обратитесь к менеджеру.',503);}}
+ async function preflight(){enabled();const client=makeClient();try{const shop=await client.checkShop();if(shop.fiscalizationEnabled!==(receiptMode()==='yookassa'))throw new YooKassaError('RECEIPT_SETUP_REQUIRED');}catch{throw new StoreError('PAYMENT_SETUP','Тестовый магазин ЮKassa пока недоступен. Обратитесь к менеджеру.',503);}}
  async function process(id:string,observedProviderId?:string):Promise<'done'|'waiting'|'closed'|'busy'>{
   enabled();id=uuid(id);if(observedProviderId)observedProviderId=uuid(observedProviderId);
   const initial=(await query('SELECT order_id FROM ar_payments WHERE id=$1 AND provider=\'yookassa-sandbox\'',[id])).rows[0];if(!initial)return'closed';
@@ -43,7 +44,7 @@ export function createYooPayments(makeClient:()=>Client=sandboxClient){
   let result:SandboxPayment;
   try{
    const client=makeClient();
-   result=claim.providerId?await client.getPayment(claim.providerId,wanted):await client.createPayment({...wanted,idempotenceKey:payment.provider_key,returnUrl:payment.provider_return_url});
+   result=claim.providerId?await client.getPayment(claim.providerId,wanted):await client.createPayment({...wanted,idempotenceKey:payment.provider_key,returnUrl:payment.provider_return_url,...(payment.receipt_snapshot?{receipt:payment.receipt_snapshot}:{})});
   }catch(error){
    const code=error instanceof YooKassaError&&allowedErrors.has(error.code)?error.code:'PROVIDER_UNAVAILABLE';
    await query("UPDATE ar_payments SET provider_last_error=$3,provider_lease_id=NULL,provider_lease_until=NULL,provider_next_check_at=now()+interval '30 seconds' WHERE id=$1 AND provider_lease_id=$2",[id,lease,code]);
@@ -53,6 +54,7 @@ export function createYooPayments(makeClient:()=>Client=sandboxClient){
    await orderRow(c,payment.order_id,undefined,true);
    const current=(await c.query('SELECT * FROM ar_payments WHERE id=$1 FOR UPDATE',[id])).rows[0];
    if(current.provider_id&&current.provider_id!==result.id)throw new StoreError('PAYMENT_IDENTITY_MISMATCH','Платёж не совпадает.',409);
+   if(current.receipt_snapshot)await recordReceipt(c,'payment',id,result.receiptRegistration);
    if(['succeeded','review'].includes(current.status))return;
    // An older pending response must never regress a terminal payment.
    const status=terminal(current.provider_status)&&!terminal(result.status)?current.provider_status:result.status;

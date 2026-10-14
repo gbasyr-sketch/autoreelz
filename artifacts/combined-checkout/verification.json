@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-15",
+  "scope": "local implementation; no public deployment or CMS publication",
+  "schema": "001-028 unchanged",
+  "check": {"errors": 0, "warnings": 0, "hints": 0},
+  "build": "passed; existing Vite warning about YooKassa mixed static/dynamic imports",
+  "unit": {"passed": 178, "skippedIntegrationSuites": 8, "failed": 0},
+  "isolatedDatabaseRegression": {
+    "passed": 66, "failed": 0, "skipped": 0,
+    "suites": ["commerce", "stage-6-commerce", "cdek-checkout", "yookassa-integration"],
+    "orderTermsGroups": 10,
+    "source": "synthetic PostgreSQL created from migrations, deleted after tests",
+    "externalProviderCalls": 0
+  },
+  "browser": {
+    "checkoutUxGroups": 8, "fullCombinedCheckoutGroups": 6,
+    "viewports": ["1440x1000", "768x1000", "375x1000", "812x375", "375x812 review"],
+    "verified": [
+      "decoded catalog media in editable cart and order snapshot",
+      "serialized edits, lost-response retry, competing cart version and invalid quantity",
+      "Russian validation; shipping directory and failed map fallback",
+      "cart edit invalidates quote and consent; contact and address survive",
+      "late quote after cart edit cannot restore stale confirmation",
+      "one mixed order, no early reserve or payment",
+      "manager confirmation, single simulation payment and no second stock debit",
+      "available-only order immediately opens payment and reserves stock",
+      "no horizontal overflow; review remains on the same page"
+    ],
+    "fullCombinedExternalCalls": 0,
+    "screenshots": "private/combined-checkout; excluded from Git"
+  },
+  "limitations": [
+    "real CDEK and YooKassa requests were not repeated; adapters/simulation used",
+    "published app, CMS documents, stock, orders and payment configuration unchanged",
+    "new offer/delivery editions require coordinated publication with app under separate instruction"
+  ]
+}

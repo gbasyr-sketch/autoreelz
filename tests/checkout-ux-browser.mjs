@@ -18,10 +18,10 @@ try{
  const product=randomUUID(),sku=randomUUID(),sku2=randomUUID();
  await qa.query("INSERT INTO ar_products(id,name,slug,category_id,status,is_demo) VALUES($1,'QA корзина',$2,'00000000-0000-4000-8000-000000000001','published',true)",[product,'qa-'+product]);
  for(const id of [sku,sku2]){await qa.query("INSERT INTO ar_skus(id,product_id,article,name,price_rubles,status) VALUES($1,$2,$3,'QA исполнение','100.01','published')",[id,product,id]);await qa.query('INSERT INTO ar_stock(sku_id,on_hand,reserved) VALUES($1,20,0)',[id]);}
- server=spawn(process.execPath,['dist/server/entry.mjs'],{env:{...process.env,AR_DATABASE_NAME:qa.database,AR_DB_HOST:'127.0.0.1',AR_DB_PORT:env.DB_PORT,APP_DB_PASSWORD:env.APP_DB_PASSWORD,APP_SECRET:randomBytes(48).toString('hex'),APP_ORIGIN:base,STORE_MODE:'local-test',SHIPPING_PROVIDER:'cdek',PICKUP_MAP_PROVIDER:'yandex',YANDEX_MAPS_API_KEY:'qa-placeholder-key-no-external-traffic',PAYMENT_PROVIDER:'simulation',HOST:'127.0.0.1',PORT:'14330'},stdio:['ignore','ignore','pipe']});
+ server=spawn(process.execPath,['dist/server/entry.mjs'],{env:{...process.env,AR_DATABASE_NAME:qa.database,AR_DB_HOST:'127.0.0.1',AR_DB_PORT:process.env.AR_QA_NATIVE==='1'?process.env.AR_DB_PORT:env.DB_PORT,APP_DB_PASSWORD:process.env.AR_QA_NATIVE==='1'?process.env.APP_DB_PASSWORD:env.APP_DB_PASSWORD,APP_SECRET:randomBytes(48).toString('hex'),APP_ORIGIN:base,STORE_MODE:'local-test',SHIPPING_PROVIDER:'cdek',PICKUP_MAP_PROVIDER:'yandex',YANDEX_MAPS_API_KEY:'qa-placeholder-key-no-external-traffic',PAYMENT_PROVIDER:'simulation',HOST:'127.0.0.1',PORT:'14330'},stdio:['ignore','ignore','pipe']});
  let log='';server.stderr.on('data',d=>log=(log+d).slice(-2000));
  for(let i=0;i<100;i++){if(await fetch(base+'/health').then(r=>r.ok).catch(()=>false))break;await delay(100);if(i===99)throw Error('QA server unavailable '+log);}
- browser=await chromium.launch({channel:'chrome',headless:true});const ctx=await browser.newContext({locale:'en-US',viewport:{width:1440,height:1000}}),page=await ctx.newPage();page.setDefaultTimeout(15000);const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ browser=await chromium.launch({headless:true,...(process.env.AR_CHROMIUM_EXECUTABLE?{executablePath:process.env.AR_CHROMIUM_EXECUTABLE}:{channel:'chrome'})});const ctx=await browser.newContext({locale:'en-US',viewport:{width:1440,height:1000}}),page=await ctx.newPage();page.setDefaultTimeout(15000);const errors=[];page.on('pageerror',e=>errors.push(e.message));
  const api=async(path,body)=>{const s=await(await ctx.request.get(base+'/api/commerce/session')).json();const res=body?await ctx.request.post(base+path,{headers:{Origin:base,'X-CSRF-Token':s.csrfToken},data:{...body,idempotencyKey:body.idempotencyKey??randomUUID()}}):await ctx.request.get(base+path);return{status:res.status(),body:await res.json()};};
  const cart=async()=>(await api('/api/commerce/cart')).body;
  const add=async id=>{const c=await cart();assert.equal((await api('/api/commerce/cart',{productId:product,skuId:id,quantity:1,mode:'add',cartVersion:c.version})).status,200);};
@@ -36,15 +36,16 @@ try{
   const saved=await cart();assert.equal(saved.lines.find(l=>l.id===firstId).quantity,3);assert.equal(saved.lines.find(l=>l.id!==firstId).quantity,4);assert.equal(saved.productTotalRubles,'700.07');assert.equal(await input.evaluate(n=>document.activeElement===n),true);
   await page.unroute('**/api/commerce/cart');
  });
- await check('checkout flushes a pending quantity; removal cancels its unsent draft',async()=>{
-  const input=page.locator(`[data-cart-line="${firstId}"] input`);await input.fill('5');await page.getByRole('link',{name:'Перейти к оформлению',exact:true}).click();await page.waitForURL('**/checkout');assert.equal((await cart()).lines.find(l=>l.id===firstId).quantity,5);
-  await page.goto(base+'/cart');await page.locator('.commerce-line').nth(1).waitFor();const second=page.locator('.commerce-line').nth(1);await second.locator('input').fill('8');await second.getByRole('button',{name:/Удалить/}).click();await page.waitForFunction(()=>document.querySelectorAll('.commerce-line').length===1);assert.equal((await cart()).lines.length,1);
-  await page.locator('.commerce-line input').fill('');await page.getByRole('link',{name:'Перейти к оформлению',exact:true}).click();assert.match(page.url(),/\/cart$/);assert.equal(await page.locator('.commerce-line input').evaluate(n=>n.validationMessage),'Укажите количество.');
+ await check('pending edits block review; removal cancels its unsent draft and invalid quantities cannot proceed',async()=>{
+  const input=page.locator(`[data-cart-line="${firstId}"] input`);await input.fill('5');assert.equal(await page.locator('[data-review-order]').isDisabled(),true);
+  await page.waitForFunction(()=>document.querySelector('[data-review-order]').disabled===false);assert.equal((await cart()).lines.find(l=>l.id===firstId).quantity,5);
+  const second=page.locator('.commerce-line').nth(1);await second.locator('input').fill('8');await second.getByRole('button',{name:/Удалить/}).click();await page.waitForFunction(()=>document.querySelectorAll('.commerce-line').length===1);assert.equal((await cart()).lines.length,1);
+  await page.locator('.commerce-line input').fill('');assert.equal(await page.locator('[data-review-order]').isDisabled(),true);
   await page.locator('.commerce-line input').fill('1');await page.waitForFunction(()=>document.querySelector('.cart-save-status').textContent==='');
  });
  await check('failed save has explicit retry and cannot silently proceed to checkout',async()=>{
   await page.route('**/api/commerce/cart',async route=>{if(route.request().method()==='POST')await route.abort();else await route.continue();});
-  await page.locator('.commerce-line input').fill('2');await page.getByRole('button',{name:'Повторить сохранение',exact:true}).waitFor();await page.getByRole('link',{name:'Перейти к оформлению',exact:true}).click();assert.match(page.url(),/\/cart$/);
+  await page.locator('.commerce-line input').fill('2');await page.getByRole('button',{name:'Повторить сохранение',exact:true}).waitFor();assert.equal(await page.locator('[data-review-order]').isDisabled(),true);
   await page.unroute('**/api/commerce/cart');await page.getByRole('button',{name:'Повторить сохранение',exact:true}).click();await page.waitForFunction(()=>document.querySelector('.cart-save-status').textContent==='');assert.equal((await cart()).lines[0].quantity,2);
  });
  await check('a competing cart version is reloaded without overwriting the other tab',async()=>{
@@ -52,7 +53,7 @@ try{
   await page.locator('.commerce-line input').fill('4');await page.locator('[data-page-error]').filter({hasText:'Корзина изменилась'}).waitFor();assert.equal((await cart()).lines[0].quantity,3);assert.equal(await page.locator('.commerce-line input').inputValue(),'3');
  });
  await check('English browser receives Russian required, minlength and email messages',async()=>{
-  await page.goto(base+'/checkout');await page.locator('#checkout-form').waitFor();const submit=page.locator('#checkout-form button[type=submit]'),name=page.locator('[name=name]');await submit.click();assert.equal(await name.evaluate(n=>n.validationMessage),'Укажите имя и фамилию.');
+  await page.goto(base+'/checkout');await page.locator('#checkout-form').waitFor();const submit=page.locator('[data-review-order]'),name=page.locator('[name=name]');await submit.click();assert.equal(await name.evaluate(n=>n.validationMessage),'Укажите имя и фамилию.');
   await name.pressSequentially('я');await submit.click();assert.equal(await name.evaluate(n=>n.validationMessage),'Введите не менее 2 символов.');
   await name.fill('QA Покупатель');await page.locator('[name=phone]').fill('+79990000000');await page.locator('[name=email]').fill('wrong');await submit.click();assert.equal(await page.locator('[name=email]').evaluate(n=>n.validationMessage),'Введите корректный адрес электронной почты.');await page.locator('[name=email]').fill('qa@example.invalid');
  });
@@ -70,7 +71,7 @@ try{
  });
  let quote,result;
  await check('checkout requires active confirmation, stores immutable exact terms and uses server time',async()=>{
-  const response=page.waitForResponse(r=>r.url().endsWith('/api/commerce/quote'));await page.locator('#checkout-form button[type=submit]').click();quote=await(await response).json();assert.ok(quote.confirmation?.version);
+  const response=page.waitForResponse(r=>r.url().endsWith('/api/commerce/quote'));await page.locator('[data-review-order]').click();quote=await(await response).json();assert.ok(quote.confirmation?.version);
   assert.equal(await page.locator('[data-accept-checkout]').isChecked(),false);await page.locator('[data-confirm-checkout]').click();assert.equal(await page.locator('#checkout-confirmation-error').isVisible(),true);
   for(const confirmation of [undefined,{accepted:false,version:testOrderTerms.version},{accepted:'true',version:testOrderTerms.version},{accepted:true,version:'obsolete'}]){const rejected=await api('/api/commerce/checkout',{quoteId:quote.id,cartVersion:quote.cartVersion,confirmation});assert.ok([400,409].includes(rejected.status));}
   await page.locator('[data-accept-checkout]').check();await page.screenshot({path:out+'/checkout-confirmation-desktop.png',fullPage:true});

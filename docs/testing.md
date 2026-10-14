@@ -6,6 +6,8 @@ Cookies/документы14.10: `tests/privacy.test.ts`, `tests/privacy-databas
 
 ## Базовые проверки
 
+Объединённый checkout15.10: [контракт](combined-checkout.md). Backend: `AR_QA_NATIVE=1 AR_COMMERCE_TESTS=1 AR_STAGE6_TESTS=1 AR_CDEK_TESTS=1 AR_YOOKASSA_TESTS=1 node --test --test-concurrency=1 tests/commerce.test.ts tests/stage-6-commerce.test.ts tests/cdek-checkout.test.ts tests/yookassa-integration.test.ts`. Полный синтетический browser/API: `node tests/combined-checkout-browser.mjs` после build, порт14365; `AR_COMBINED_OUTPUT` по умолчанию `private/combined-checkout/full-browser`. Поддерживает `AR_CHROMIUM_EXECUTABLE`/`PLAYWRIGHT_MODULE`. Старый UX-набор также поддерживает `AR_QA_NATIVE=1`, установленный Chromium и вывод в private через `AR_CHECKOUT_UX_OUTPUT`. Запускать DB-наборы последовательно, не копировать реальные товары/заказы. У нового browser-набора все операции API настоящие локальные, shipping/payment=simulation, внешние запросы блокируются; это не новая проверка реальных тарифов/оплаты.
+
 Транспорт Яндекса14.10: `python3 tests/yandex-webdav.py` — границы собственной папки, HTTPS-адреса и запрет переноса credentials, сохранение PUT/тела, ограниченные цепочки переходов, read-back/SHA256 и неопределённый исход, частичное чтение, размеры/формат body, отсутствие секретов в argv. После изменения маршрута/заголовков нужны сверка прежнего repo ID, настоящая передача и внешний restore. Не переинициализировать репозитории; обновлять runner только вне работающего задания. Range направляется в узел хранения, а не в медленный управляющий endpoint.
 
 Серверные копии14.10: `python3 tests/store-backup.py`, `node --experimental-strip-types --test tests/backup-status.test.ts`, `tests/dashboard-browser.mjs` (1440/768/375). Проверяют повреждённые/отсутствующие файлы, symlink, оба формата ИИ, закрепление репозитория, запрет retention до восстановления/при очереди, сохранение локального снимка при сбое облака, повтор без лишнего снимка и отсутствие секретов в статусе. Реальный runner проверять сначала `capture`/`verify-local`, затем внешнюю передачу/`verify`, только после успеха — service и timers. Изолированный drill не подключает сеть, внешние оплаты/ИИ и лицензированную CMS. [Контракт](server-backups.md). Фото и полные логи UI/восстановления хранить в private; в artifacts только обезличенные результаты.
@@ -63,7 +65,7 @@ Cookies/документы14.10: `tests/privacy.test.ts`, `tests/privacy-databas
 | Серверное избранное/отзывы | `AR_SOCIAL_TESTS=1 node --test tests/social.test.ts` | `node tests/social-browser.mjs` — полный социальный путь |
 | Кабинет владельца | `AR_STAGE5_TESTS=1 node --test tests/management.test.ts` | `node tests/owner-browser.mjs` |
 | Контент | `AR_CONTENT_TESTS=1 node --test tests/content-integration.test.ts` | `node tests/content-storefront-browser.mjs` — чтение текущей локальной витрины |
-| Полная покупка | `node tests/purchase-browser.mjs` | `AR_PURCHASE_VIEWPORT=375 AR_PURCHASE_OUTPUT=artifacts/<проверка>/mobile node tests/purchase-browser.mjs` |
+| Объединённое оформление/покупка | `node tests/combined-checkout-browser.mjs` | Синтетическая база/реальные локальные API, simulation,1440/768/375/landscape; старый `purchase-browser.mjs` использует seed/Docker и прежний split-сценарий, для нового checkout не применять |
 | Релизная конфигурация | `node --test tests/release.test.ts tests/test-environment.test.ts`; `node tests/release-config.mjs` | `node tests/release-proxy.mjs` — QA-процесс на14330; старые gate-тесты не описывают нынешний публичный доступ |
 
 ## Что тесты могут менять

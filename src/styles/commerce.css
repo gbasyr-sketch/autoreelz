@@ -17,3 +17,44 @@
 .checkout-confirmations summary::after{content:'Показать';margin-left:auto;padding-left:16px;font-size:12px;font-weight:400;color:var(--red)}.checkout-confirmations details[open]>summary::after{content:'Скрыть'}.order-meta>.order-history{grid-column:1/-1}
 
 .confirmation-choice span{min-width:0}.confirmation-choice a{color:var(--red);text-decoration:underline;text-underline-offset:3px}.confirmation-choice a:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+/* Unified cart and checkout: editable products remain beside the delivery total. */
+[data-combined-checkout] .checkout-main{display:grid;gap:24px;min-width:0}
+[data-combined-checkout] .checkout-cart{padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+[data-combined-checkout] .checkout-cart>h2{font-size:22px;margin-bottom:20px}
+[data-combined-checkout] [data-cart-content]>.commerce-grid{display:block}
+[data-combined-checkout] .commerce-lines{gap:0}
+[data-combined-checkout] .commerce-line{grid-template-columns:72px minmax(0,1fr) auto;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:18px 0;gap:12px 16px}
+[data-combined-checkout] .commerce-line:first-child{padding-top:0}
+[data-combined-checkout] .commerce-line:last-child{border-bottom:0;padding-bottom:0}
+[data-combined-checkout] .commerce-line img{width:72px;height:72px;aspect-ratio:1;object-fit:contain}
+[data-combined-checkout] .commerce-line h2{font-size:15px;line-height:1.45}
+[data-combined-checkout] .line-price{font-size:17px}
+[data-combined-checkout] .line-actions{grid-column:2/-1;align-items:center;gap:14px}
+[data-combined-checkout] .quantity-form .field{font-size:11px;gap:4px}
+[data-combined-checkout] .quantity-form input{width:76px;min-height:44px;padding:8px 10px}
+[data-combined-checkout] .line-actions>.button-secondary{padding:8px 12px;min-height:44px;font-size:12px}
+[data-combined-checkout] .cart-save-status:empty{display:none}
+[data-combined-checkout] .checkout-form-submit{display:none}
+[data-combined-checkout] .commerce-summary .notice{font-size:13px;line-height:1.7}
+[data-combined-checkout] .commerce-summary .button{min-height:48px}
+[data-combined-checkout] .quote-review{max-width:none;margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.snapshot-line:has(.snapshot-image){grid-template-columns:52px minmax(0,1fr) auto}
+.snapshot-line .snapshot-image{width:52px;height:52px;object-fit:contain;border-radius:6px;background:var(--soft);grid-row:1/3}
+.snapshot-line:has(.snapshot-image) small{grid-column:2/-1}
+@media(max-width:1000px){[data-combined-checkout] .commerce-line{grid-template-columns:64px minmax(0,1fr)}[data-combined-checkout] .commerce-line img{width:64px;height:64px}[data-combined-checkout] .line-price{grid-column:2}[data-combined-checkout] .line-actions{grid-column:2}}
+@media(max-width:760px){[data-combined-checkout] .checkout-cart{padding:20px}[data-combined-checkout] .commerce-summary{position:static}[data-combined-checkout] .checkout-main{gap:18px}[data-combined-checkout] .checkout-steps{display:none}}
+@media(max-width:480px){[data-combined-checkout] .line-actions{grid-column:1/-1}[data-combined-checkout] .commerce-line h2{font-size:14px}.snapshot-line:has(.snapshot-image){grid-template-columns:44px minmax(0,1fr) auto}.snapshot-line .snapshot-image{width:44px;height:44px}}
+[data-combined-checkout] .commerce-summary:has([data-quote-review]:not([hidden])){position:static}
+[data-combined-checkout] .commerce-summary .quote-review{margin-top:20px;padding-top:20px}
+[data-combined-checkout] .quote-review .commerce-heading{display:block;margin-bottom:14px}
+[data-combined-checkout] .quote-review h2{font-size:20px;margin-bottom:8px}
+[data-combined-checkout] .quote-review [data-edit-checkout]{border:0;padding:0;background:none;min-height:44px;color:var(--red);font-size:12px}
+[data-combined-checkout] .quote-groups{display:block;margin:14px 0}
+[data-combined-checkout] .quote-conditions p{font-size:12px;line-height:1.7;margin:12px 0}
+[data-combined-checkout] .quote-contact{font-size:12px;line-height:1.7;overflow-wrap:anywhere}
+[data-combined-checkout] .quote-contact summary{cursor:pointer;min-height:44px;display:flex;align-items:center}
+[data-combined-checkout] .checkout-confirmations{padding:0;border:0;border-radius:0;margin:18px 0;background:none;gap:12px}
+[data-combined-checkout] .checkout-confirmations p,[data-combined-checkout] .confirmation-choice{font-size:12px;line-height:1.7}
+[data-combined-checkout] .checkout-confirmations details{min-width:0;overflow-wrap:anywhere}
+[data-combined-checkout] .checkout-confirmations summary{font-size:13px}

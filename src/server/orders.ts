@@ -65,6 +65,7 @@ export async function checkout(session:ShopSession,body:Record<string,unknown>){
   const current=await quoteGroups(c,lines,input,true);
   if(quoteFingerprint(current)!==quote.fingerprint)throw new StoreError('QUOTE_CHANGED','Цена, состав, наличие или упаковка изменились. Обновите расчёт и подтвердите его снова.',409);
   const groups:QuoteGroup[]=quote.snapshot;
+  if(groups.length!==1)throw new StoreError('QUOTE_CHANGED','Обновите расчёт: все товары теперь оформляются одним заказом.',409);
   const batch=(await c.query("INSERT INTO ar_checkout_batches(session_id,quote_id,confirmation) VALUES($1,$2,$3::jsonb || jsonb_build_object('acceptedAt',now())) RETURNING id",[session.id,quoteId,confirmation])).rows[0];const orderIds:string[]=[];
   for(const group of groups){
    const ordinary=group.kind==='ordinary',quoted=group.shipping.status==='quoted',ready=ordinary&&quoted&&validDate(group.deliveryDeadline);
@@ -73,7 +74,7 @@ export async function checkout(session:ShopSession,body:Record<string,unknown>){
     VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,CASE WHEN $16 THEN now()+interval '30 minutes' ELSE NULL END,'2026-10-15',$17) RETURNING *`,[batch.id,session.id,group.kind,ordinary?(ready?'awaiting_payment':'open'):'preorder_pending',group.shipping.status,ready?'reserved':'none',input.customer.name,input.customer.phone,input.customer.email,{...input.delivery,...(group.shipping.carrier?{carrier:group.shipping.carrier}:{})},JSON.stringify(group.lines),group.productTotalRubles,group.shipping.costRubles,group.shipping.reason,group.shipping.packageSnapshot,ready,group.deliveryDeadline??null])).rows[0];
    const need=requirements(group.lines);for(const[id,quantity]of need)await c.query('INSERT INTO ar_order_components(order_id,sku_id,quantity) VALUES($1,$2,$3)',[order.id,id,quantity]);
    if(ready)await stockMove(c,order.id,need,`reserve:${order.id}`,0,1,'Резерв обычного заказа');
-   await event(c,order.id,'created',ready?'Обычный заказ: резерв и оплата на 30 минут.':ordinary?'Сумма или дата получения уточняются. До согласования товары не резервируются.':'Предзаказ: компоненты не резервируются до подтверждения.');
+   await event(c,order.id,'created',ready?'Обычный заказ: резерв и оплата на 30 минут.':ordinary?'Сумма или дата получения уточняются. До согласования товары не резервируются.':'В заказе есть предзаказ: весь состав ожидает подтверждения менеджером, компоненты не резервируются до подтверждения.');
    await outbox(c,input.customer.email,`AUTO REELZ — заказ ${order.number}`,`Тестовое подтверждение ${order.number}. ${ordinary?'Обычный заказ.':'Предзаказ без немедленной оплаты.'} Откройте «Мои заказы» и войдите по коду на email.`, `order:${order.id}:created`);
    orderIds.push(order.id);
   }

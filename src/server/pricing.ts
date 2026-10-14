@@ -47,6 +47,7 @@ export async function snapshotLine(c:PoolClient,productId:string,skuId:string|nu
  const unitPriceRubles=discountRubles(sum,bps);
  let image=product.kind==='bundle'?'/images/placeholder-kit.svg':'/images/placeholder-console.svg';
  if(skuId){const r=await c.query("SELECT ar_effective_sku($1)->'media'->0->>'file_id' file_id",[skuId]);if(r.rows[0]?.file_id)image='/media/'+r.rows[0].file_id;}
+ else{const r=await c.query('SELECT file_id FROM ar_product_media WHERE product_id=$1 ORDER BY sort,id LIMIT 1',[productId]);if(r.rows[0]?.file_id)image='/media/'+r.rows[0].file_id;}
  return{productId,skuId,name:product.name,article:skuId?components[0]!.article:'',variantLabel:skuId?components[0]!.name:'Фиксированный состав',quantity,unitPriceRubles,lineTotalRubles:multiplyRubles(unitPriceRubles,quantity),image,components};
 }
 export function requirements(lines:OrderLineSnapshot[]){const result=new Map<string,number>();for(const l of lines)for(const c of l.components)result.set(c.skuId,(result.get(c.skuId)??0)+l.quantity*c.quantity);return result;}
@@ -61,10 +62,15 @@ export function splitLines(lines:OrderLineSnapshot[],stocks:{sku_id:string;on_ha
  return{ordinary,preorder};
 }
 export async function shippingQuote(c:PoolClient,lines:OrderLineSnapshot[],delivery:CheckoutInput['delivery'],fail=false){return prepareShipping(c,requirements(lines),delivery,fail);}
-export const quoteFingerprint=(groups:QuoteGroup[])=>hash(canonical(shippingProvider()==='cdek'?{groups,context:shippingContext()}:groups));
+// Changing the order policy invalidates earlier quotes, including old split-order snapshots.
+export const quoteFingerprint=(groups:QuoteGroup[])=>hash(canonical({policy:'single-order-2026-10-15',groups,...(shippingProvider()==='cdek'?{context:shippingContext()}:{})}));
 export async function quoteGroups(c:PoolClient,lines:OrderLineSnapshot[],input:Pick<CheckoutInput,'delivery'>,lock=false):Promise<QuoteGroup[]>{
  const need=requirements(lines);const stocks=lock?await lockStock(c,need):(await c.query('SELECT sku_id,on_hand,reserved FROM ar_stock WHERE sku_id=ANY($1::uuid[])',[[...need.keys()]])).rows;
- const groups=splitLines(lines,stocks);const result:QuoteGroup[]=[];
- for(const kind of ['ordinary','preorder'] as const){const items=groups[kind];if(!items.length)continue;const productTotalRubles=sumRubles(items.map(l=>l.lineTotalRubles));const shipping=await shippingQuote(c,items,input.delivery);result.push({kind,lines:items,productTotalRubles,shipping,totalRubles:shipping.costRubles===null?null:sumRubles([productTotalRubles,shipping.costRubles])});}
- return result;
+ const availability=splitLines(lines,stocks);
+ if(!lines.length)return [];
+ const kind=availability.preorder.length?'preorder':'ordinary';
+ const productTotalRubles=sumRubles(lines.map(l=>l.lineTotalRubles));
+ // One order has one package/rule and one delivery. Never sum rates of separate parcels.
+ const shipping=await shippingQuote(c,lines,input.delivery);
+ return[{kind,lines,productTotalRubles,shipping,totalRubles:shipping.costRubles===null?null:sumRubles([productTotalRubles,shipping.costRubles])}];
 }

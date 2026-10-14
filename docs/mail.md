@@ -42,3 +42,9 @@
 По поручению подключения выпущен48f6e92, применена029 после читаемого DB-only backup. MAIL_PROVIDER=timeweb-smtp, разрешённый адрес и получатель владельца — только sales@autoreelz.ru. Пароль в серверном env0600, передаётся только worker; совпадение после Compose-разбора проверено без печати. Успешный Nodemailer verify выполнен из worker. БД/CMS/edge/background и прочие env-поля/защищённые данные сохранены, web/worker/image-worker имеют один образ.21 HTTP-проверка прошла.
 
 Владелец отдельно разрешил одно контрольное письмо на sales. Оно прошло enqueueMail и настоящий commerce-worker:1попытка, SMTP accepted; IMAP read-only подтвердил письмо во входящих с тем же Message-ID/From/To. Дополнительных писем/заказов/платежей не создавали; старый outbox не пересылался. [Итог](../artifacts/smtp/deployment/final.json), [SMTP](../artifacts/smtp/deployment/probe-result.json), [входящие](../artifacts/smtp/deployment/inbox.json). Это проверка одного адреса, не всех будущих покупателей. ЮKassa sandbox/чеки disabled и noindex сохранены.
+
+## Отправка новых писем всем адресатам15.10.2026
+
+Выпущен6423b28 без миграций. MAIL_RECIPIENT_POLICY=all-new, MAIL_NEW_MESSAGES_FROM=2026-10-14T23:37:31.373Z. Это постоянная граница включения, не скользящий срок; при следующих выпусках её не обновлять. Старые pending/retry до неё блокируются, simulation/blocked/failed/uncertain не переотправляются. При включении ожидающих писем не было, история13 simulation/1 SMTP сохранилась.21 HTTP-проверка и серверная проверка внешнего адреса/запрета старого снимка без отправки успешны. Платёж остаётся sandbox; прочие настройки и защищённые данные сохранены. [Итог](../artifacts/smtp/all-new/final.json).
+
+Для отката только адресатной политики вернуть MAIL_RECIPIENT_POLICY=allowlist, сохранив MAIL_NEW_MESSAGES_FROM и прежний MAIL_ALLOWED_RECIPIENTS=sales@autoreelz.ru. Не снимать временную границу ради старых писем. Контрольные/исторические письма в этом выпуске не отправлялись.

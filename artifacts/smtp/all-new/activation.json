@@ -1,0 +1,13 @@
+{
+  "sha": "6423b283bb929abe7bf8478c7e42ee5b8652eda2",
+  "previousSha": "48f6e92ca2a48c3a267d5209c767baf5ce9e2a2a",
+  "imageId": "sha256:821aacf855a78cd94b89350b99d2bf8a1d5d2400d73eff7760575e2e54332e54",
+  "backup": "/srv/autoreelz2026/backups/before-mail-all-new-20261014T233729Z.dump",
+  "backupReadable": true,
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-mail-all-new-20261014T233729Z",
+  "recipientPolicy": "all-new",
+  "newMessagesFrom": "2026-10-14T23:37:31.373Z",
+  "oldPendingBlocked": 0,
+  "migrationsUnchanged": 29,
+  "testPaymentsPreserved": true
+}

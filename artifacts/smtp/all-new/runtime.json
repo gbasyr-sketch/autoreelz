@@ -1,0 +1,13 @@
+{
+  "policy": "all-new",
+  "allowsExternal": true,
+  "allowsNew": true,
+  "oldBlocked": true,
+  "payment": "yookassa-sandbox",
+  "receipts": "disabled",
+  "verificationMessagesSent": 0,
+  "workerHeartbeatAfterStart": true,
+  "workerNoError": true,
+  "queuedSmtp": 0,
+  "acceptedSmtp": 1
+}

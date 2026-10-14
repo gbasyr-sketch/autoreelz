@@ -290,8 +290,9 @@ def restore_drill(repo=REMOTE):
         manifest=read_json(source/'manifest.json');verify_files(source,manifest)
         image=manifest['postgresImage']
         if not re.fullmatch(r'postgres:17\.\d+-alpine@sha256:[a-f0-9]{64}',image):raise BackupError('unexpected_postgres_image')
-        environment='POSTGRES_USER=ar_restore_admin\nPOSTGRES_PASSWORD='+uuid.uuid4().hex+uuid.uuid4().hex+'\nPOSTGRES_DB=postgres\n'
-        docker('create','--name',name,'--network','none','--label','autoreelz.backup-drill='+name,'--env-file','/dev/stdin','--memory','512m','--cpus','1',image,input=environment);created=True;docker('start',name)
+        environment={**os.environ,'POSTGRES_USER':'ar_restore_admin','POSTGRES_PASSWORD':uuid.uuid4().hex+uuid.uuid4().hex,'POSTGRES_DB':'postgres'}
+        # Inherit only these named values; no password in argv or root-owned stdin file.
+        docker('create','--name',name,'--network','none','--label','autoreelz.backup-drill='+name,'--env','POSTGRES_USER','--env','POSTGRES_PASSWORD','--env','POSTGRES_DB','--memory','512m','--cpus','1',image,env=environment);created=True;docker('start',name)
         ready=False
         for _ in range(80):
             try:docker('exec',name,'pg_isready','-h','127.0.0.1','-U','ar_restore_admin');ready=True;break

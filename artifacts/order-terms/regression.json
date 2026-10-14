@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-15",
+  "passed": true,
+  "unit": {
+    "passed": 173,
+    "skipped": 8
+  },
+  "databaseRegression": {
+    "passed": 60,
+    "skipped": 0,
+    "suites": [
+      "commerce",
+      "cdek-checkout",
+      "yookassa-integration"
+    ],
+    "synthetic": true,
+    "externalCalls": 0
+  },
+  "check": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "build": "passed",
+  "browser": {
+    "realLocalApi": true,
+    "syntheticData": true,
+    "viewports": [
+      1280,
+      375
+    ],
+    "deadlineBeforeCheckout": true,
+    "deadlineSaved": true,
+    "offerReadableBeforeCheckout": true,
+    "confirmationVersionSaved": true,
+    "noHorizontalOverflow": true
+  },
+  "appDeployed": false,
+  "migration": "027_order_delivery_deadline.sql"
+}

@@ -58,11 +58,11 @@ export function createYooPayments(makeClient:()=>Client=sandboxClient){
    const status=terminal(current.provider_status)&&!terminal(result.status)?current.provider_status:result.status;
    await c.query(`UPDATE ar_payments SET provider_id=$2,provider_status=$3,
     provider_confirmation_url=CASE WHEN $4::boolean THEN NULL ELSE $5 END,provider_checked_at=now(),provider_last_error=NULL,
-    provider_next_check_at=now()+interval '15 seconds',
+    provider_next_check_at=now()+interval '15 seconds',provider_paid_at=coalesce(provider_paid_at,$7),
     provider_lease_id=CASE WHEN provider_lease_id=$6 THEN NULL ELSE provider_lease_id END,
     provider_lease_until=CASE WHEN provider_lease_id=$6 THEN NULL ELSE provider_lease_until END WHERE id=$1`,
-   [id,result.id,status,terminal(status),result.confirmationUrl,lease]);
-   if(terminal(result.status))await settlePayment(c,{eventId:`yookassa:${result.id}:${result.status}`,paymentId:id,amountRubles:result.amountRubles,currency:'RUB',status:result.status==='succeeded'?'succeeded':'failed'},'yookassa-sandbox');
+   [id,result.id,status,terminal(status),result.confirmationUrl,lease,result.paidAt??null]);
+   if(terminal(result.status))await settlePayment(c,{eventId:`yookassa:${result.id}:${result.status}`,paymentId:id,amountRubles:result.amountRubles,currency:'RUB',status:result.status==='succeeded'?'succeeded':'failed',...(result.paidAt?{paidAt:result.paidAt}:{})},'yookassa-sandbox');
   });
   return'done';
  }

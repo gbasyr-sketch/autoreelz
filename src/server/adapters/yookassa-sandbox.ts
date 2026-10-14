@@ -10,7 +10,7 @@ const reject=(code:string):never=>{throw new YooKassaError(code);};
 type ObjectValue=Record<string,any>;
 function object(value:unknown):ObjectValue {if(!value||typeof value!=='object'||Array.isArray(value))return reject('INVALID_PROVIDER_RESPONSE');return value as ObjectValue;}
 export interface ExpectedPayment {orderId:string;internalPaymentId:string;amountRubles:string}
-export interface SandboxPayment {id:string;status:'pending'|'waiting_for_capture'|'succeeded'|'canceled';paid:boolean;amountRubles:string;confirmationUrl:string|null;test:true}
+export interface SandboxPayment {id:string;status:'pending'|'waiting_for_capture'|'succeeded'|'canceled';paid:boolean;amountRubles:string;confirmationUrl:string|null;paidAt?:string;test:true}
 export interface SandboxConfig {shopId:string;secretKey:string;returnOrigin:string}
 export interface ExpectedRefund extends ExpectedPayment {providerPaymentId:string;internalRefundId:string}
 export interface SandboxRefund {id:string;paymentId:string;status:'pending'|'succeeded'|'canceled';amountRubles:string}
@@ -48,7 +48,9 @@ export function createYooKassaSandbox(config:SandboxConfig,transport:Transport=f
   let confirmationUrl=null;
   if(raw.confirmation?.confirmation_url){let url:URL;try{url=new URL(raw.confirmation.confirmation_url);}catch{return reject('UNSAFE_CONFIRMATION_URL');}if(url.protocol!=='https:'||url.username||url.password||url.port||!['yoomoney.ru','yookassa.ru'].includes(url.hostname))reject('UNSAFE_CONFIRMATION_URL');confirmationUrl=url.href;}
   if(raw.status==='pending'&&!confirmationUrl)reject('MISSING_CONFIRMATION_URL');
-  return{id:raw.id,status:raw.status,paid:raw.paid,amountRubles:amount,confirmationUrl,test:true};
+  const captured=raw.captured_at;
+  if(captured!==undefined&&(typeof captured!=='string'||!/^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$/.test(captured)||!Number.isFinite(Date.parse(captured))||Date.parse(captured)>Date.now()+60_000))reject('INVALID_PROVIDER_RESPONSE');
+  return{id:raw.id,status:raw.status,paid:raw.paid,amountRubles:amount,confirmationUrl,...(raw.status==='succeeded'&&captured?{paidAt:new Date(captured).toISOString()}:{}),test:true};
  }
  async function createPayment(input:ExpectedPayment&{idempotenceKey:string;returnUrl:string}){
   const amount=expected(input);if(!uuid.test(input.idempotenceKey))reject('IDEMPOTENCE_KEY_REQUIRED');

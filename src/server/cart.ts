@@ -1,3 +1,4 @@
+import {automaticDeliveryDeadline,PAYMENT_WINDOW_MS} from '../lib/delivery-deadline.ts';
 import {checkoutTerms} from './confirmations.ts';
 import {canonicalProductId} from './product-merges.ts';
 import{sumRubles,multiplyRubles}from'./pricing.ts';
@@ -76,10 +77,11 @@ export async function estimateDelivery(session:ShopSession,body:Record<string,un
  const productTotalRubles=sumRubles(groups.map(g=>g.productTotalRubles)),shippingCostRubles=groups.some(g=>g.shipping.costRubles===null)?null:sumRubles(groups.map(g=>g.shipping.costRubles!));
  return{cartVersion:version,delivery,groups,productTotalRubles,shippingCostRubles,totalRubles:shippingCostRubles===null?null:sumRubles([productTotalRubles,shippingCostRubles]),expiresAt:new Date(startedAt+5*60_000).toISOString()};
 }
+function withDeadlines(groups:import('../lib/commerce-types.ts').QuoteGroup[],quoteExpiry:number){return groups.map(group=>({...group,deliveryDeadline:group.kind==='ordinary'&&group.shipping.status==='quoted'?automaticDeliveryDeadline(quoteExpiry+PAYMENT_WINDOW_MS,group.shipping.carrier?.periodMax??(shippingProvider()==='simulation'?3:NaN)):null}));}
 export async function createQuote(session:ShopSession,body:Record<string,unknown>,shipping=cdekShipping):Promise<CheckoutQuote>{
  const input=customerInput(body);
  if(shippingProvider()==='cdek'){
-  const prepared=await prepareCarrierQuote(session,input.cartVersion,input.delivery,shipping);input.delivery=prepared.delivery;
+  const prepared=await prepareCarrierQuote(session,input.cartVersion,input.delivery,shipping);input.delivery=prepared.delivery;prepared.groups=withDeadlines(prepared.groups,prepared.startedAt+5*60_000);
   return transaction(async c=>{
    await verifyCarrierQuote(c,session,input.cartVersion,prepared);
    const row=(await c.query('INSERT INTO ar_cart_quotes(session_id,cart_version,input,snapshot,fingerprint,expires_at) VALUES($1,$2,$3,$4,$5,$6) RETURNING id,expires_at',[session.id,input.cartVersion,input,JSON.stringify(prepared.groups),prepared.fingerprint,new Date(prepared.startedAt+5*60_000)])).rows[0];
@@ -89,8 +91,8 @@ export async function createQuote(session:ShopSession,body:Record<string,unknown
 
  return transaction(async c=>{
   const cart=await cartRecord(c,session,true);if(cart.version!==input.cartVersion)throw new StoreError('CART_CHANGED','Корзина изменилась. Обновите состав.',409);
-  const lines=await completeLines(c,cart.id);const groups=await quoteGroups(c,lines,input);
-  const row=(await c.query("INSERT INTO ar_cart_quotes(session_id,cart_version,input,snapshot,fingerprint,expires_at) VALUES($1,$2,$3,$4,$5,now()+interval '10 minutes') RETURNING id,expires_at",[session.id,cart.version,input,JSON.stringify(groups),quoteFingerprint(groups)])).rows[0];
+  const lines=await completeLines(c,cart.id);const basis=await quoteGroups(c,lines,input);const groups=withDeadlines(basis,Date.now()+10*60_000);
+  const row=(await c.query("INSERT INTO ar_cart_quotes(session_id,cart_version,input,snapshot,fingerprint,expires_at) VALUES($1,$2,$3,$4,$5,now()+interval '10 minutes') RETURNING id,expires_at",[session.id,cart.version,input,JSON.stringify(groups),quoteFingerprint(basis)])).rows[0];
   return{confirmation:checkoutTerms(),id:row.id,cartVersion:cart.version,expiresAt:iso(row.expires_at)!,customer:input.customer,delivery:input.delivery,groups,csrfToken:session.csrfToken};
  });
 }

@@ -41,10 +41,12 @@ export async function settlePayment(c:PoolClient,input:PaymentEvent,provider:Pay
    await orderEvent(c,order.id,'payment_review','Параметры оплаты требуют ручной проверки.');outcome='review';
   }else{
    const need=await componentNeeds(c,order.id);await lockStock(c,need);
-   await expireLocked(c,order);
+   const paidAt=input.paidAt?Date.parse(input.paidAt):NaN;
+   const timely=provider==='yookassa-sandbox'&&Number.isFinite(paidAt)&&paidAt>=new Date(current.created_at).getTime()&&paidAt<=Date.now()+60_000&&order.expires_at&&paidAt<=new Date(order.expires_at).getTime();
+   if(!timely)await expireLocked(c,order);
    if(order.status==='paid'||order.status!=='awaiting_payment'||!['reserved','debited'].includes(order.allocation_state)){
     await c.query("UPDATE ar_payments SET status='review' WHERE id=$1",[paymentId]);
-    await c.query("UPDATE ar_orders SET status='manual_review',payment_status='review',review_reason='Оплата пришла после истечения срока, отмены или другой оплаты. Требуется ручная проверка.' WHERE id=$1",[order.id]);
+    await c.query("UPDATE ar_orders SET status='manual_review',payment_status='review',review_reason=$2 WHERE id=$1",[order.id,timely?'Платёж совершён в срок, подтверждение получено позже. Требуется проверить исполнение заказа; своевременная оплата не отменяется.':'Оплата получена после закрытия заказа или её своевременность не подтверждена. Требуется ручная проверка.']);
     await orderEvent(c,order.id,'late_payment','Запоздалая или повторная оплата: автоматического списания и отправки нет.');outcome='review';
    }else{
     if(order.allocation_state==='reserved')await stockMove(c,order.id,need,`paid:${order.id}`,-1,-1,'Оплата обычного заказа');
@@ -67,6 +69,7 @@ export async function initiatePayment(session:ShopSession,body:Record<string,unk
   if(await expireLocked(c,order))return{orderId:id,expired:true};
   if(order.status==='paid')return{orderId:id};
   if(order.delivery_status!=='quoted'||order.shipping_cost_rubles===null)throw new StoreError('DELIVERY_PENDING','Сначала менеджер должен уточнить доставку.',409);
+  if(order.checkout_policy_version&&!order.delivery_deadline)throw new StoreError('DELIVERY_DEADLINE','Сначала согласуйте дату получения.',409);
   if(order.shipping_version!==version)throw new StoreError('TOTAL_CHANGED','Итоговая сумма изменилась. Просмотрите её заново.',409);
   if(order.status!=='awaiting_payment'||!order.expires_at||!['reserved','debited'].includes(order.allocation_state))throw new StoreError('PAYMENT_CLOSED','Оплата этого заказа сейчас недоступна.',409);
   const existing=(await c.query("SELECT * FROM ar_payments WHERE order_id=$1 AND status='pending'",[id])).rows[0];

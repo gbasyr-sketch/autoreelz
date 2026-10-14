@@ -44,3 +44,13 @@ test('oversized or malformed provider responses are rejected without retaining p
  const malformed=createYooKassaSandbox(config,async()=>new Response('not-json'));await assert.rejects(malformed.checkShop(),code('INVALID_PROVIDER_RESPONSE'));
  const large=createYooKassaSandbox(config,async()=>new Response('x'.repeat(140000)));await assert.rejects(large.checkShop(),code('INVALID_PROVIDER_RESPONSE'));
 });
+
+test('verified capture time is normalized; malformed and future times are rejected',async()=>{
+ const captured=new Date(Date.now()-60_000).toISOString();
+ const client=createYooKassaSandbox(config,async()=>json({...payment,status:'succeeded',paid:true,captured_at:captured}));
+ assert.equal((await client.getPayment(ids.providerPaymentId,wanted)).paidAt,captured);
+ for(const captured_at of ['bad','2026-10-15',new Date(Date.now()+120_000).toISOString()]){
+  const c=createYooKassaSandbox(config,async()=>json({...payment,status:'succeeded',paid:true,captured_at}));
+  await assert.rejects(c.getPayment(ids.providerPaymentId,wanted),code('INVALID_PROVIDER_RESPONSE'));
+ }
+});

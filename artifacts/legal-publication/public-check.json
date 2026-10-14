@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-15",
+  "published": 9,
+  "checks": [
+    {
+      "slug": "contacts",
+      "status": 200,
+      "titlePresent": true,
+      "emailPresent": true,
+      "bodyMatches": true,
+      "draftWarning": false,
+      "stageDocumentNotice": false,
+      "noindex": true,
+      "allRequisitesPresent": true,
+      "sha256": "32cb8d1d519ffbe85fc6bd8d11dd6b12bd5a2c0fbc1b1e2371a4280eb39337fa"
+    },
+    {
+      "slug": "delivery",
+      "status": 200,
+      "titlePresent": true,
+      "emailPresent": true,
+      "bodyMatches": true,
+      "draftWarning": false,
+      "stageDocumentNotice": false,
+      "noindex": true,
+      "sha256": "4ee77a3fbdee5b651aafee4bd251edfe7b5a41354bf12e2334305b5498610900"
+    },
+    {
+      "slug": "returns",
+      "status": 200,
+      "titlePresent": true,
+      "emailPresent": true,
+      "bodyMatches": true,
+      "draftWarning": false,
+      "stageDocumentNotice": false,
+      "noindex": true,
+      "sha256": "c669857ac5e2eb98877b44e2ff142e436174656d864ac4d11dc7520628909fd1"
+    },
+    {
+      "slug": "warranty",
+      "status": 200,
+      "titlePresent": true,
+      "emailPresent": true,
+      "bodyMatches": true,
+      "draftWarning": false,
+      "stageDocumentNotice": false,
+      "noindex": true,
+      "sha256": "245be041dfb2ec46adfb8a2ddbbaaa92d1d556c4613432785ad1962f972867c8"
+    },
+    {
+      "slug": "offer",
+      "status": 200,
+      "titlePresent": true,
+      "emailPresent": true,
+      "bodyMatches": true,
+      "draftWarning": false,
+      "stageDocumentNotice": false,
+      "noindex": true,
+      "sha256": "7efec80a308f2c30ad7ee439b0956b430bbc79c8e445f85e4f71eec069bd0ba3"
+    },
+    {
+      "slug": "personal-data",
+      "status": 200,
+      "titlePresent": true,
+      "emailPresent": true,
+      "bodyMatches": true,
+      "draftWarning": false,
+      "stageDocumentNotice": false,
+      "noindex": true,
+      "sha256": "518376862f7036b42a9809bc0e5b5ba7c3e95def079c76d1a575100a6eeb9d12"
+    },
+    {
+      "slug": "privacy",
+      "status": 200,
+      "titlePresent": true,
+      "emailPresent": true,
+      "bodyMatches": true,
+      "draftWarning": false,
+      "stageDocumentNotice": false,
+      "noindex": true,
+      "sha256": "09b76af689e721f39b2feb8bd8df57366e9b7bf4b8f101e9d4897c313a320d2c"
+    },
+    {
+      "slug": "analytics-consent",
+      "status": 200,
+      "titlePresent": true,
+      "emailPresent": true,
+      "bodyMatches": true,
+      "draftWarning": false,
+      "stageDocumentNotice": false,
+      "noindex": true,
+      "sha256": "ac913b4b5c88d4345a7cafcf180533dbef303aa35d18a78beca8a7cabd988dd2"
+    },
+    {
+      "slug": "review-consent",
+      "status": 200,
+      "titlePresent": true,
+      "emailPresent": true,
+      "bodyMatches": true,
+      "draftWarning": false,
+      "stageDocumentNotice": false,
+      "noindex": true,
+      "sha256": "e86c44a57083f0706c80a0095c3a7a77c1991e9dffe35ce001b0e6afe1392cbd"
+    }
+  ]
+}

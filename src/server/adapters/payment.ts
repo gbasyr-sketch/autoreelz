@@ -1,6 +1,6 @@
 import{requireTestEnvironment}from'../config.ts';
 import{canonical,sign}from'../security.ts';
-export interface PaymentEvent {eventId:string;paymentId:string;amountRubles:string;currency:string;status:'succeeded'|'failed'}
+export interface PaymentEvent {eventId:string;paymentId:string;amountRubles:string;currency:string;status:'succeeded'|'failed';paidAt?:string}
 export const testPaymentAdapter={
  event(payment:{id:string;amountRubles:string},status:'succeeded'|'failed'='succeeded'){
   requireTestEnvironment();const event:PaymentEvent={eventId:`test:rubles-v1:${payment.id}:${status}`,paymentId:payment.id,amountRubles:payment.amountRubles,currency:'RUB',status};

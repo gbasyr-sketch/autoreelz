@@ -144,3 +144,7 @@ CMS-наборы `cms-browser`, `content-browser`, `stage6-cms-*`, schema/permis
 ## Полные возвраты ЮKassa14.10.2026
 
 `tests/yookassa-refunds.test.ts`, `tests/yookassa-refunds-database.mjs`, `tests/yookassa-refunds-browser.mjs`:протокол, отдельная синтетическая PostgreSQL со всеми миграциями, lease/повторы/потеря ответа, правдоподобие webhook, сроки ключа и неизменность склада. Browser-harness поднимает собственные preview14361/CMS-stub14362 и удаляет их вместе с базой; API401/403/CSRF/Origin/no-store настоящие, UI1440/375 — подменённые ответы. Playwright использует уже установленный native Chromium; можно переопределить AR_CHROMIUM_EXECUTABLE. Снимки в private/payment-refunds. Официальная sandbox-проба1.00RUB уже завершена успешным возвратом, не повторять её автоматически. [Результаты и ограничения](payment-refunds.md).
+
+## Сроки и условия заказа15.10.2026
+
+`tests/delivery-deadline.test.ts`, `tests/order-terms-database.mjs`, прежние commerce/CDEK/YooKassa suites; [точные команды и границы проверки](order-terms.md). `AR_QA_NATIVE=1` включает синтетические базы со всеми миграциями через выделенный локальный PostgreSQL, без Docker и без чтения рабочего каталога. Запускать native suites последовательно (`--test-concurrency=1`). UI проверять CUA на отдельной синтетической базе; банковские реквизиты и скриншоты не включать в Git.

@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "sdk": "local stub; no actual counter created",
+  "observedCheckpoints": {
+    "initialSdkRequests": 0,
+    "afterRejectedReloadSdkRequests": 0,
+    "afterLostConsentResponseSdkRequests": 0,
+    "afterRetrySdkRequests": 1,
+    "afterSecondTabSdkRequests": 2,
+    "withdrawalDestructCalls": 2,
+    "lateLoadedScriptsDidNotInitializeOldTabs": true
+  },
+  "privateAccountQueryAnd404Excluded": true,
+  "api": {
+    "csrf403": true,
+    "origin403": true,
+    "oldVersion409": true,
+    "noStore": true
+  },
+  "layout": {
+    "documents": 9,
+    "widths": [
+      375,
+      1440
+    ],
+    "overflow": false,
+    "simplifiedPolicyRechecked": true,
+    "internalKeyNamesRemoved": true
+  },
+  "qaDatabasesRemoved": true,
+  "ownerPreview": "read-only static snapshot on loopback 14364",
+  "privateEvidence": "private/legal-analytics-20261014/"
+}

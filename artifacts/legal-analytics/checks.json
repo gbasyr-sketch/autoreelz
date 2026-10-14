@@ -1,0 +1,20 @@
+{
+  "check": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "build": "passed; existing static/dynamic yookassa import warning",
+  "unit": {
+    "passed": 170,
+    "skipped": 8,
+    "failed": 0
+  },
+  "databaseGroups": 5,
+  "realMetrikaTested": false,
+  "googleOwnershipVerified": true,
+  "finalTargetedTests": {
+    "passed": 6,
+    "failed": 0,
+    "reason": "final per-session rate limiter and current legal HTML"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "externalCalls": 0,
+  "isolated": true,
+  "checks": [
+    "concurrent/retried choice creates one immutable proof and reusable signed cookie",
+    "reused key with different choice and outdated consent are rejected",
+    "withdrawal has a separate timestamped event with exact text/version",
+    "app role cannot overwrite or erase evidence",
+    "disabled analytics cannot acquire consent; choices are rate limited without penalizing identical retries"
+  ]
+}

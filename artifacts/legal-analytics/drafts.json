@@ -1,0 +1,20 @@
+{
+  "preparedDate": "2026-10-14",
+  "savedDrafts": [
+    "contacts",
+    "delivery",
+    "returns",
+    "warranty",
+    "offer",
+    "personal-data",
+    "privacy",
+    "analytics-consent",
+    "review-consent"
+  ],
+  "skipped": [],
+  "published": false,
+  "liveBaseHashesPreserved": true,
+  "temporarySessionRevoked": true,
+  "backupReadable": true,
+  "editorialRevision": "Simplified public technical details; reviewed Pack24 and Boxstore references"
+}

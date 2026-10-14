@@ -1,0 +1,23 @@
+---
+import {privacySettings} from '../server/privacy-consent';
+import {PRIVACY_COOKIE,analyticsConsentText} from '../lib/privacy-consent';
+import '../styles/privacy.css';
+const settings=privacySettings(Astro.url,Astro.cookies.get(PRIVACY_COOKIE)?.value);
+---
+<div data-privacy data-state={JSON.stringify(settings)} data-track-page={(Astro.response.status??200)<400?'true':'false'}>
+ <section class="privacy-banner" data-privacy-banner hidden aria-label="Cookies и аналитика">
+  <div><h2>Cookies и ваше решение</h2><p>Необходимые cookies помогают работать корзине и входу. Яндекс.Метрика будет собирать статистику только с вашего согласия. <a href="/info/privacy">Подробнее о cookies</a></p></div>
+  <div class="privacy-actions"><button type="button" class="button-secondary" data-privacy-reject>Только необходимые</button><button type="button" class="button-secondary" data-privacy-accept hidden={!settings.enabled}>Разрешить аналитику</button><button type="button" class="privacy-link" data-privacy-settings>Настроить</button></div>
+  <p role="status" class="privacy-status" data-privacy-status hidden></p>
+ </section>
+ <dialog class="privacy-dialog" data-privacy-dialog aria-labelledby="privacy-title">
+  <div class="privacy-heading"><h2 id="privacy-title">Настройки cookies</h2><button type="button" class="button-secondary" data-privacy-close aria-label="Закрыть настройки cookies">Закрыть</button></div>
+  <p>Необходимые cookies поддерживают корзину, вход и сохраняют ваш выбор. Они не используются для аналитики.</p>
+  <p data-privacy-current></p>
+  <details><summary>Согласие на Яндекс.Метрику</summary><p>{analyticsConsentText}</p><p><a href="/info/personal-data">Политика обработки персональных данных</a></p></details>
+  <p class="privacy-unavailable" hidden={settings.enabled}>Аналитика пока не подключена. Внешний счётчик не загружается.</p>
+  <div class="privacy-actions"><button type="button" class="button-secondary" data-privacy-reject>Только необходимые</button><button type="button" class="button-secondary" data-privacy-accept hidden={!settings.enabled}>Разрешить аналитику</button></div>
+  <p role="status" class="privacy-status" data-privacy-status hidden></p>
+ </dialog>
+</div>
+<script>import '../scripts/privacy';</script>

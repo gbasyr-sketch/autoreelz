@@ -2,6 +2,7 @@
 import {pageSeo,safeJsonLd} from '../lib/seo';
 import {seoSettings} from '../server/seo';
 import Icon from '../components/Icon.astro';
+import PrivacyControls from '../components/PrivacyControls.astro';
 import {getCatalog} from '../server/catalog';
 import type {CatalogSnapshot} from '../lib/catalog-types';
 import type {ContentSnapshot} from '../lib/content';
@@ -65,6 +66,8 @@ const query=Astro.url.searchParams.get('q')??'';
   <dialog id="menu-dialog" class="menu-dialog" aria-labelledby="menu-title"><div class="dialog-heading"><div><p class="eyebrow">AUTO REELZ</p><h2 id="menu-title">Каталог деталей</h2></div><button class="icon-button" data-close-dialog aria-label="Закрыть каталог"><Icon name="close"/></button></div><div class="menu-categories">{categories.map((c,i)=><a href={`/catalog?category=${c.slug}`}><span class="menu-number">{String(i+1).padStart(2,'0')}</span><Icon name={c.icon}/><span style={`padding-left:${c.depth*16}px`}>{c.name}</span><Icon name="arrow" size={18}/></a>)}</div><a class="button-secondary" href="/catalog">Все товары <Icon name="arrow"/></a><nav class="menu-content-links" aria-label="Подбор и материалы"><a href="/cars">Подбор по автомобилю</a><a href="/blog">Блог</a><a href="/info/about">О нас</a></nav></dialog>
   <dialog id="search-dialog" class="search-dialog" aria-labelledby="search-title"><div class="dialog-heading"><h2 id="search-title">Найти деталь</h2><button class="icon-button" data-close-dialog aria-label="Закрыть поиск"><Icon name="close"/></button></div><form action="/catalog"><label class="field">Название или артикул<input name="q" type="search" required maxlength="100" placeholder="Например, блок отопителя"/></label><button class="button">Найти <Icon name="search"/></button></form><p class="muted">Попробуйте «отопитель», «консоль» или DEMO-HEATER-R.</p></dialog>
   <div id="toast" role="status" aria-live="polite" class="toast" hidden></div>
+  <PrivacyControls/>
+  <div class="container"><button type="button" class="privacy-footer-button" data-privacy-settings>Настройки cookies</button></div>
   <noscript><div class="no-js-note">Поиск, фильтры и выбор исполнения работают без JavaScript. Для избранного и оформления заказа включите JavaScript.</div></noscript>
   <script>import '../scripts/store.ts';</script>
 </body>

@@ -30,6 +30,10 @@ class Tests(unittest.TestCase):
   with patch.object(self.client,'call',return_value=y.Reply(302,{'location':'https://downloader.disk.yandex.ru/again'},p)) as call:
    with self.assertRaisesRegex(y.TransportError,'redirect_loop'):self.client.follow('GET',y.PREFIX+'/file',self.root)
    self.assertEqual(call.call_count,5)
+ def test_eventual_visibility_retries_only_reads(self):
+  data=self.root/'data';data.write_bytes(b'ciphertext');empty=self.root/'empty';empty.touch()
+  with patch.object(self.client,'follow',side_effect=[y.Reply(201,{},empty),y.Reply(404,{},empty),y.Reply(404,{},empty),y.Reply(200,{},data)]) as follow,patch.object(y.time,'sleep'):
+   self.assertEqual(self.client.request('PUT',y.PREFIX+'/file',self.root,data,{}).status,201);self.assertEqual([x.args[0] for x in follow.call_args_list],['PUT','GET','GET','GET'])
  def test_fixed_and_chunked_bodies_are_bounded_and_complete(self):
   p=self.root/'body';self.assertEqual(y.receive_body(io.BytesIO(b'abc'),{'Content-Length':'3'},p),3);self.assertEqual(p.read_bytes(),b'abc')
   self.assertEqual(y.receive_body(io.BytesIO(b'3\r\nabc\r\n0\r\n\r\n'),{'Transfer-Encoding':'chunked'},p),3)

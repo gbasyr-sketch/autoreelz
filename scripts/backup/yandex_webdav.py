@@ -5,7 +5,7 @@ Yandex's desktop-client route returns a signed upload URL before receiving a PUT
 Keep PUT/body on that hop, strip credentials, and verify stored bytes before success.
 No public listener, arbitrary upstream URL, generic proxy or account-wide path exists.
 """
-import base64, ctypes, hashlib, http.server, json, os, pathlib, re, secrets, signal, socketserver, subprocess, tempfile, threading, urllib.parse
+import base64, ctypes, hashlib, http.server, json, os, pathlib, re, secrets, signal, socketserver, subprocess, tempfile, threading, time, urllib.parse
 
 ROOT = pathlib.Path('/var/lib/autoreelz2026-backup')
 SOCKET = ROOT/'private/yandex-webdav.sock'
@@ -72,7 +72,9 @@ class Client:
         if payload is not None:args+=['--upload-file' if method=='PUT' else '--data-binary',str(payload) if method=='PUT' else '@'+str(payload)]
         try:run=subprocess.run(args,input=config,capture_output=True,text=True,timeout=125)
         except subprocess.TimeoutExpired as error:raise TransportError('upstream_timeout') from error
-        if run.returncode:raise TransportError('upstream_connection')
+        if run.returncode:
+            print(json.dumps({'error':'upstream_connection','curlExit':run.returncode,'method':method,'host':urllib.parse.urlsplit(url).hostname,'status':run.stdout.strip() if run.stdout.strip().isdigit() else None}),flush=True)
+            raise TransportError('upstream_connection')
         if not body.exists():body.touch(mode=0o600)
         if body.stat().st_size>MAX_BYTES:raise TransportError('upstream_too_large')
         try:status=int(run.stdout.strip())
@@ -99,9 +101,16 @@ class Client:
         # Resolve a lost upload response without sending the body again. Do not accept
         # a 201 (or an uncertain result) until the logical file downloads identically.
         if written is None or 200<=written.status<300:
-            verified=self.follow('GET',path,folder)
-            if verified.status==200 and verified.body.stat().st_size==len(data) and hashlib.sha256(verified.body.read_bytes()).digest()==digest:
-                empty=folder/'accepted';empty.touch(mode=0o600);return Reply(201,{},empty)
+            for attempt in range(6):
+                try:verified=self.follow('GET',path,folder)
+                except TransportError:verified=None
+                if verified is not None and verified.status==200:
+                    if verified.body.stat().st_size==len(data) and hashlib.sha256(verified.body.read_bytes()).digest()==digest:
+                        empty=folder/'accepted';empty.touch(mode=0o600);return Reply(201,{},empty)
+                    if verified.body.stat().st_size:raise TransportError('uploaded_file_not_verified')
+                # The upload node can commit before the logical path becomes visible.
+                # Retry only reads; never send a second PUT after an unknown outcome.
+                if attempt<5:time.sleep(min(2,attempt+.5))
             raise TransportError('uploaded_file_not_verified')
         return written
 

@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "externalCalls": 0,
+  "isolated": true,
+  "checks": [
+    "auto deadline and full immutable offer snapshot; checkout retry without another reserve",
+    "missing/false/stale acknowledgement rejected before order and stock writes; accepted label, links and timestamp preserved",
+    "manual quote waits without reserve; validated date starts full window once",
+    "stock checked atomically when manual payment opens",
+    "preorder requires explicit date before stock debit and payment",
+    "payment requires date/version; paid deadline cannot be changed",
+    "concurrent cancellation releases reservation once",
+    "concurrent expiration releases reservation once",
+    "verified timely payment survives delayed callback; released stock requires honest manual review",
+    "real-money mode remains closed"
+  ]
+}

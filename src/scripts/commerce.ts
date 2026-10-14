@@ -10,6 +10,15 @@ const q=<T extends Element=HTMLElement>(selector:string,context:ParentNode=docum
 const date=(value:string)=>new Intl.DateTimeFormat('ru-RU',{dateStyle:'medium',timeStyle:'short'}).format(new Date(value));
 function el<K extends keyof HTMLElementTagNameMap>(tag:K,text='',className=''):HTMLElementTagNameMap[K]{const node=document.createElement(tag);node.textContent=text;node.className=className;return node;}
 function link(text:string,href:string,className=''){const a=el('a',text,className);a.href=href;return a;}
+function confirmationLabel(terms:import('../lib/checkout-confirmations').CheckoutConfirmation){
+ const span=el('span');
+ if(!terms.labelParts||terms.labelParts.map(part=>part.text).join('')!==terms.label){span.textContent=terms.label;return span;}
+ for(const part of terms.labelParts){
+  if(part.href&&['/info/offer','/info/personal-data'].includes(part.href)){const a=link(part.text,part.href);a.target='_blank';a.rel='noopener noreferrer';a.title='Откроется в новой вкладке';span.append(a);}
+  else span.append(document.createTextNode(part.text));
+ }
+ return span;
+}
 function button(text:string,className='button-secondary'){const b=el('button',text,className);b.type='button';return b;}
 function safePath(value:string,fallback='/catalog'){return value.startsWith('/')&&!value.startsWith('//')?value:fallback;}
 function field(label:string,name:string,type='text',value=''){const node=el('label',label,'field');const input=el('input');input.name=name;input.type=type;input.value=value;node.append(input);return {node,input};}
@@ -175,7 +184,7 @@ async function initCheckout(){
    const label=el('label','','confirmation-choice');confirmationInput=el('input');confirmationInput.type='checkbox';confirmationInput.required=true;confirmationInput.dataset.acceptCheckout='';
    const confirmError=el('p','Подтвердите условия оформления заказа.','line-error');confirmError.hidden=true;confirmError.id='checkout-confirmation-error';confirmError.setAttribute('role','alert');confirmationInput.setAttribute('aria-describedby',confirmError.id);
    confirmationInput.addEventListener('change',()=>{confirmError.hidden=confirmationInput!.checked;confirmationInput!.setAttribute('aria-invalid',String(!confirmationInput!.checked));});
-   label.append(confirmationInput,el('span',terms.label));confirmations.replaceChildren(details,label,confirmError);
+   label.append(confirmationInput,confirmationLabel(terms));confirmations.replaceChildren(details,label,confirmError);
    const groups=q<HTMLElement>('[data-quote-groups]')!;groups.replaceChildren();for(const group of quote.groups)groups.append(quoteGroup(group));content.hidden=true;review.hidden=false;q('[data-step-contact]')?.removeAttribute('aria-current');q('[data-step-review]')?.setAttribute('aria-current','step');q<HTMLElement>('[data-quote-validity]')!.textContent=`Расчёт действует до ${date(quote.expiresAt)}. После этого потребуется проверить стоимость снова.`;confirm.textContent=quote.groups.length>1?'Оформить 2 тестовых заказа':'Оформить тестовый заказ';q<HTMLElement>('#review-title')!.focus();
   });});
  q<HTMLButtonElement>('[data-edit-checkout]')!.addEventListener('click',()=>{showForm();scheduleEstimate();input('name').focus();});

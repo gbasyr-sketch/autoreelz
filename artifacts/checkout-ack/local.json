@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-15",
+  "passed": true,
+  "checkErrors": 0,
+  "checkWarnings": 0,
+  "build": "passed",
+  "unitTests": 3,
+  "databaseGroups": 10,
+  "browser": {
+    "syntheticLocalApi": true,
+    "defaultUnchecked": true,
+    "uncheckedBlocked": true,
+    "bothLinksOpenedCorrectDocuments": true,
+    "linksDoNotCheckBox": true,
+    "targetBlank": true,
+    "mobileWidth": 375,
+    "noHorizontalOverflow": true,
+    "checkedOrderCreated": true,
+    "confirmationVisibleInOrder": true
+  },
+  "externalPayments": 0
+}

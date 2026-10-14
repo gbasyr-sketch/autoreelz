@@ -6,7 +6,7 @@ const db=await import('../src/server/db.ts'),cart=await import('../src/server/ca
 const {getSession}=await import('../src/server/security.ts'),{testOrderTerms}=await import('../src/lib/checkout-confirmations.ts');
 const q=(s,v=[])=>qa.owner.query(s,v),one=async(s,v=[])=>(await q(s,v)).rows[0],actor={id:key()},category=key(),checks=[];
 const deadline='2099-12-31';
-async function fixture({pack=false,stock=3}={}){
+async function fixture({pack=false,stock=3,checkConfirmation=false}={}){
  const jar=new Map(),session=await getSession({cookies:{get:n=>jar.has(n)?{value:jar.get(n)}:undefined,set:(n,v)=>jar.set(n,v)}});
  const product=key(),sku=key(),packageId=pack?key():null;
  if(pack)await q("INSERT INTO ar_packages(id,name,weight_g,length_mm,width_mm,height_mm) VALUES($1,'QA',500,200,100,50)",[packageId]);
@@ -16,14 +16,20 @@ async function fixture({pack=false,stock=3}={}){
  const c=await cart.changeCart(session,{productId:product,skuId:sku,quantity:1,mode:'add',cartVersion:0,idempotencyKey:key()});
  const quote=await cart.createQuote(session,{cartVersion:c.version,customer:{name:'QA',phone:'+79990000000',email:'qa@example.invalid'},delivery:{method:'pickup_point',city:'QA City',address:'QA Address'}});
  const body={quoteId:quote.id,cartVersion:c.version,confirmation:{accepted:true,version:quote.confirmation.version},idempotencyKey:key()};
+ if(checkConfirmation){
+  for(const confirmation of [undefined,{accepted:false,version:quote.confirmation.version},{accepted:'true',version:quote.confirmation.version}])await assert.rejects(orders.checkout(session,{...body,confirmation,idempotencyKey:key()}),{code:'CONFIRMATION_REQUIRED'});
+  await assert.rejects(orders.checkout(session,{...body,confirmation:{accepted:true,version:'test-order-2026-10-15-'+testOrderTerms.offer.sha256.slice(0,12)},idempotencyKey:key()}),{code:'CONFIRMATION_CHANGED'});
+  assert.equal((await one('SELECT count(*)::int n FROM ar_orders WHERE session_id=$1',[session.id])).n,0);
+  assert.equal((await one('SELECT reserved FROM ar_stock WHERE sku_id=$1',[sku])).reserved,0);
+ }
  const order=(await orders.checkout(session,body)).orders[0];return{session,order,sku,quote,body};
 }
 const ship=(f,more={})=>orders.quoteShipping(actor,{orderId:f.order.id,costRubles:'40.20',note:'QA agreed terms',deliveryDeadline:deadline,idempotencyKey:key(),...more});
 const stock=id=>one('SELECT on_hand,reserved FROM ar_stock WHERE sku_id=$1',[id]);
 try{
  await q("INSERT INTO ar_categories(id,name,slug,status) VALUES($1,'QA','qa-terms','published')",[category]);
- const a=await fixture({pack:true});assert.equal(a.order.status,'awaiting_payment');assert.ok(a.order.deliveryDeadline);assert.equal(a.order.deliveryDeadline,a.quote.groups[0].deliveryDeadline);assert.equal(a.order.confirmation.offer.body,testOrderTerms.offer.body);assert.equal(a.order.confirmation.offer.sha256,testOrderTerms.offer.sha256);assert.deepEqual(await stock(a.sku),{on_hand:3,reserved:1});
- assert.equal((await orders.checkout(a.session,a.body)).orders[0].id,a.order.id);await assert.rejects(q("UPDATE ar_checkout_batches SET confirmation='{}' WHERE id=(SELECT batch_id FROM ar_orders WHERE id=$1)",[a.order.id]),/immutable/);checks.push('auto deadline and full immutable offer snapshot; checkout retry without another reserve');
+ const a=await fixture({pack:true,checkConfirmation:true});assert.equal(a.order.status,'awaiting_payment');assert.ok(a.order.deliveryDeadline);assert.equal(a.order.deliveryDeadline,a.quote.groups[0].deliveryDeadline);assert.equal(a.order.confirmation.offer.body,testOrderTerms.offer.body);assert.equal(a.order.confirmation.offer.sha256,testOrderTerms.offer.sha256);assert.equal(a.order.confirmation.label,testOrderTerms.label);assert.deepEqual(a.order.confirmation.labelParts.filter(p=>p.href).map(p=>p.href),['/info/offer','/info/personal-data']);assert.ok(a.order.confirmation.acceptedAt);assert.deepEqual(await stock(a.sku),{on_hand:3,reserved:1});
+ assert.equal((await orders.checkout(a.session,a.body)).orders[0].id,a.order.id);await assert.rejects(q("UPDATE ar_checkout_batches SET confirmation='{}' WHERE id=(SELECT batch_id FROM ar_orders WHERE id=$1)",[a.order.id]),/immutable/);checks.push('auto deadline and full immutable offer snapshot; checkout retry without another reserve');checks.push('missing/false/stale acknowledgement rejected before order and stock writes; accepted label, links and timestamp preserved');
  const m=await fixture();assert.equal(m.order.status,'open');assert.equal(m.order.expiresAt,null);assert.equal(m.order.canPay,false);assert.deepEqual(await stock(m.sku),{on_hand:3,reserved:0});
 await orders.expireDueOrders();
  await assert.rejects(ship(m,{deliveryDeadline:null}),{code:'DELIVERY_DEADLINE'});await assert.rejects(ship(m,{deliveryDeadline:'2026-02-30'}),{code:'DELIVERY_DEADLINE'});await assert.rejects(ship(m,{deliveryDeadline:'2020-01-01'}),{code:'DELIVERY_DEADLINE'});
@@ -42,5 +48,5 @@ await orders.expireDueOrders();
  const t=await timed();assert.equal((await orders.getOrder(t.session,t.order.id)).status,'paid');assert.deepEqual(await stock(t.sku),{on_hand:2,reserved:0});assert.ok((await one('SELECT provider_paid_at FROM ar_payments WHERE id=$1',[t.p.paymentId])).provider_paid_at);
  const r=await timed(true),review=await orders.getOrder(r.session,r.order.id);assert.equal(review.status,'manual_review');assert.match(review.reviewReason,/совершён в срок/);assert.deepEqual(await stock(r.sku),{on_hand:3,reserved:0});checks.push('verified timely payment survives delayed callback; released stock requires honest manual review');
  process.env.STORE_MODE='production';await assert.rejects(payments.initiatePayment(r.session,{orderId:r.order.id,shippingVersion:0,method:'card',idempotencyKey:key()}));checks.push('real-money mode remains closed');
- await fs.mkdir('artifacts/order-terms',{recursive:true});await fs.writeFile('artifacts/order-terms/database.json',JSON.stringify({passed:true,externalCalls:0,isolated:true,checks},null,2)+'\n');console.log(JSON.stringify({passed:true,checks}));
+ await fs.mkdir('artifacts/order-terms',{recursive:true});await fs.writeFile(process.env.AR_ORDER_TERMS_REPORT??'artifacts/order-terms/database.json',JSON.stringify({passed:true,externalCalls:0,isolated:true,checks},null,2)+'\n');console.log(JSON.stringify({passed:true,checks}));
 }finally{await db.getPool().end();await qa.close(true);}

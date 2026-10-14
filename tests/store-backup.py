@@ -25,15 +25,15 @@ class BackupTests(unittest.TestCase):
   with self.assertRaisesRegex(b.BackupError,'restored_media_missing'):b.verify_media(self.root,{'files':[{'path':'../secret','bytes':5}],'images':[]})
   with self.assertRaisesRegex(b.BackupError,'restored_media_size'):b.verify_media(self.root,{'files':[{'path':'photo.webp','bytes':100}],'images':[]})
  def test_retention_requires_verified_restore_and_no_pending_upload(self):
-  with patch.object(b,'PRIVATE',self.root),patch.object(b,'restic') as run:
+  with patch.object(b,'PRIVATE',self.root),patch.object(b,'STATUS',self.root/'status.json'),patch.object(b,'restic') as run:
    with self.assertRaisesRegex(b.BackupError,'recovery_not_verified'):b.retention()
-   b.atomic_json(self.root/'verified-recovery.json',{'verifiedAt':'2026-10-14'})
+   b.atomic_json(self.root/'verified-recovery.json',{'verifiedAt':b.now(),'external':True})
    b.atomic_json(self.root/'pending.json',[{'runId':'pending'}])
    with self.assertRaisesRegex(b.BackupError,'pending_uploads'):b.retention()
    run.assert_not_called()
  def test_retention_is_scoped_and_ignores_individual_run_tags(self):
-  with patch.object(b,'PRIVATE',self.root),patch.object(b,'verify_repo'),patch.object(b,'status_update'),patch.object(b,'restic') as run:
-   b.atomic_json(self.root/'verified-recovery.json',{'verifiedAt':'2026-10-14'});b.retention();self.assertEqual(run.call_count,2)
+  with patch.object(b,'PRIVATE',self.root),patch.object(b,'STATUS',self.root/'status.json'),patch.object(b,'verify_repo'),patch.object(b,'status_update'),patch.object(b,'restic') as run:
+   b.atomic_json(self.root/'verified-recovery.json',{'verifiedAt':b.now(),'external':True});b.retention();self.assertEqual(run.call_count,2)
    for call in run.call_args_list:
     self.assertIn('--host',call.args);self.assertIn(b.HOST,call.args);self.assertIn(b.TAG,call.args);self.assertIn('host,paths',call.args)
    self.assertEqual(run.call_args_list[0].args[0],b.REMOTE)
@@ -62,4 +62,26 @@ class BackupTests(unittest.TestCase):
    self.assertTrue(b.capture_due(datetime.datetime.fromisoformat('2026-10-14T13:17:00+00:00')))
    b.atomic_json(b.STATUS,{'lastLocalAt':'2026-10-14T12:03:00+00:00'})
    self.assertTrue(b.capture_due(datetime.datetime.fromisoformat('2026-10-14T12:17:00+00:00')))
+ def test_failed_upload_remains_queued_until_snapshot_is_confirmed(self):
+  item={'runId':'a'*32,'localId':'b'*64,'capturedAt':'2026-10-14T12:17:00Z','bytes':123,'revision':'c'*40}
+  with patch.object(b,'PRIVATE',self.root),patch.object(b,'verify_repo'),patch.object(b,'status_update') as status:
+   b.atomic_json(self.root/'pending.json',[item])
+   with patch.object(b,'restic',side_effect=b.BackupError('command_timeout')):
+    with self.assertRaises(b.BackupError):b.copy_pending()
+   self.assertEqual(b.read_json(self.root/'pending.json'),[item]);status.assert_not_called()
+   with patch.object(b,'restic'),patch.object(b,'snapshots',return_value=[{'id':'d'*64}]):b.copy_pending()
+   self.assertEqual(b.read_json(self.root/'pending.json'),[]);self.assertEqual(status.call_args.kwargs['lastSnapshot'],'d'*64)
+ def test_committed_local_snapshot_recovers_after_missing_queue_write(self):
+  run='a'*32;manifest={'project':b.PROJECT,'complete':True,'capturedAt':'2026-10-14T12:17:00Z','revision':'c'*40,'files':{'database.dump':{'bytes':42}}}
+  def snaps(repo):return [] if repo==b.REMOTE else [{'id':'b'*64,'tags':[b.TAG,'run:'+run]}]
+  with patch.object(b,'PRIVATE',self.root),patch.object(b,'snapshots',side_effect=snaps),patch.object(b,'restic',return_value=json.dumps(manifest)):
+   b.recover_pending();b.recover_pending();pending=b.read_json(self.root/'pending.json');self.assertEqual(len(pending),1);self.assertEqual(pending[0]['bytes'],42)
+ def test_failed_or_overdue_restore_blocks_deletion_of_last_good_copies(self):
+  with patch.object(b,'PRIVATE',self.root),patch.object(b,'STATUS',self.root/'status.json'),patch.object(b,'restic') as run:
+   b.atomic_json(self.root/'verified-recovery.json',{'verifiedAt':b.now(),'external':True});b.atomic_json(b.STATUS,{'verificationError':'checksum_mismatch'})
+   with self.assertRaisesRegex(b.BackupError,'recovery_not_verified'):b.trim_local()
+   b.atomic_json(b.STATUS,{})
+   b.atomic_json(self.root/'verified-recovery.json',{'verifiedAt':(datetime.datetime.now(datetime.timezone.utc)-datetime.timedelta(days=36)).isoformat(),'external':True})
+   with self.assertRaisesRegex(b.BackupError,'recovery_not_verified'):b.retention()
+   run.assert_not_called()
 if __name__=='__main__':unittest.main()

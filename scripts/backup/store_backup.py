@@ -273,6 +273,20 @@ def capture_due(current=None):
     if previous.tzinfo is None:return True
     return int((previous.timestamp()-17*60)//3600)!=int((current.timestamp()-17*60)//3600)
 
+def require_verified_recovery():
+    report=read_json(PRIVATE/'verified-recovery.json')
+    try:verified=datetime.datetime.fromisoformat(report.get('verifiedAt',''))
+    except (ValueError,TypeError):raise BackupError('recovery_not_verified')
+    if report.get('external') is not True or verified.tzinfo is None:raise BackupError('recovery_not_verified')
+    age=(datetime.datetime.now(datetime.timezone.utc)-verified).total_seconds()
+    if age<0 or age>35*86400 or read_json(STATUS).get('verificationError'):raise BackupError('recovery_not_verified')
+    if read_json(PRIVATE/'pending.json',[]):raise BackupError('pending_uploads')
+
+def trim_local():
+    require_verified_recovery()
+    verify_repo(str(LOCAL),'local')
+    restic(str(LOCAL),'forget','--host',HOST,'--tag',TAG,'--group-by','host,paths','--keep-last','3','--prune',timeout=1800)
+
 def backup():
     status_update(state='running',lastAttemptAt=now(),error=None)
     verify_repo(str(LOCAL),'local')
@@ -281,6 +295,10 @@ def backup():
     verify_repo(REMOTE,'remote')
     recover_pending()
     copy_pending()
+    # A failed/overdue drill blocks deletion, not creation or upload of fresh copies.
+    try:require_verified_recovery()
+    except BackupError:pass
+    else:trim_local()
     status_update(state='ok',error=None)
 
 
@@ -338,11 +356,10 @@ def restore_drill(repo=REMOTE):
 
 
 def retention():
-    if not read_json(PRIVATE/'verified-recovery.json').get('verifiedAt'):raise BackupError('recovery_not_verified')
-    if read_json(PRIVATE/'pending.json',[]):raise BackupError('pending_uploads')
+    require_verified_recovery()
     verify_repo(REMOTE,'remote');verify_repo(str(LOCAL),'local')
     restic(REMOTE,'forget','--host',HOST,'--tag',TAG,'--group-by','host,paths','--keep-hourly','24','--keep-daily','7','--keep-weekly','4','--keep-monthly','3','--prune',timeout=3600)
-    restic(str(LOCAL),'forget','--host',HOST,'--tag',TAG,'--group-by','host,paths','--keep-last','3','--prune',timeout=1800)
+    trim_local()
     status_update(lastRetentionAt=now())
 
 def main():

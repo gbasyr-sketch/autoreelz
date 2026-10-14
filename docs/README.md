@@ -51,7 +51,7 @@
 - ЮKassa: [yookassa.md](yookassa.md), [yookassa-checkout-contract.md](yookassa-checkout-contract.md).
 - Отправления СДЭК в manager: [очередь, накладные PDF, статусы и отмена](cdek-shipments.md), миграция024; опубликовано14.10 в тестовом режиме.
 - СДЭК/карта: [cdek.md](cdek.md), [cdek-checkout-contract.md](cdek-checkout-contract.md).
-- Документы/cookies/аналитика: [комплект14.10 и критерии публикации](legal-publication.md), [разбор Pack24/Boxstore](legal-reference-review.md), [подготовка уведомления РКН](rkn-notification-prep.md).9 текстов сохранены в черновики manager; уведомление cookies локально,026. Search Console подтверждена; создание Метрики заблокировано недоступностью кабинета. Прежние [legal-and-cookies-review.md](legal-and-cookies-review.md) и [offer-draft.md](offer-draft.md) — история подготовки.
+- Документы/cookies/аналитика: [комплект14.10 и критерии публикации](legal-publication.md), [разбор Pack24/Boxstore](legal-reference-review.md), [подготовка уведомления РКН](rkn-notification-prep.md).9 текстов сохранены в черновики manager; [оферта доведена до итоговой редакции](offer-finalization.md), пока без публикации. Уведомление cookies локально,026. Search Console подтверждена; создание Метрики заблокировано недоступностью кабинета. Прежние [legal-and-cookies-review.md](legal-and-cookies-review.md) и [offer-draft.md](offer-draft.md) — история подготовки.
 - SEO: [seo.md](seo.md); оформление: [MASTER.md](../design-system/MASTER.md).
 - Лицензия: [license.md](license.md); статический тур: [muzey.md](muzey.md).
 - Версии: package.json / package-lock.json / Dockerfile / Compose — фактические pins; [versions.json](versions.json) — датированный снимок, не рекомендация автоматически обновляться.

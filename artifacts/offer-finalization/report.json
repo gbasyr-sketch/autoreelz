@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-14",
+  "scope": "Final offer text and delivery clarification; unpublished CMS drafts",
+  "draftsSaved": [
+    "offer",
+    "delivery"
+  ],
+  "published": false,
+  "backupArchiveReadable": true,
+  "backupRestoreTested": false,
+  "readbackVerified": true,
+  "publishedBaseHashUnchanged": true,
+  "offerIsDraftText": false,
+  "legalHtmlTest": "passed",
+  "localPreviewWidths": [
+    1440,
+    375
+  ],
+  "horizontalOverflow": false,
+  "appReleaseChanged": false,
+  "sourceHashes": {
+    "delivery": "2f7e4a4f6ccb64b5d1a32ac0247f99735b493680309766e66975e4a30ffaba63",
+    "offer": "5c3c64bd404fdf38de3528fe44383d994f3ee4683222e918bf7183a60a9cc8f5"
+  }
+}

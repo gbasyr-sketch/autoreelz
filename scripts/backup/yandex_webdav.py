@@ -48,6 +48,21 @@ def response_headers(raw):
 class Reply:
     def __init__(self,status,headers,body):self.status=status;self.headers=headers;self.body=body
 
+def ranged_reply(reply,value,folder):
+    match=re.fullmatch(r'bytes=([0-9]*)-([0-9]*)',value)
+    if not match or not any(match.groups()):raise TransportError('unsupported_range')
+    size=reply.body.stat().st_size;first,last=match.groups()
+    start=int(first) if first else max(0,size-int(last));end=min(int(last),size-1) if first and last else size-1
+    body=folder/('range-'+secrets.token_hex(8));headers=dict(reply.headers)
+    if start>=size or end<start:
+        body.touch(mode=0o600);headers['content-range']='bytes */'+str(size);return Reply(416,headers,body)
+    with reply.body.open('rb') as src,body.open('wb') as dest:
+        src.seek(start);remaining=end-start+1
+        while remaining:
+            part=src.read(min(remaining,65536));dest.write(part);remaining-=len(part)
+    headers['content-range']=f'bytes {start}-{end}/{size}';headers['content-length']=str(end-start+1)
+    return Reply(206,headers,body)
+
 class Client:
     def __init__(self,credentials):
         login,password=credentials['login'],credentials['password']
@@ -92,8 +107,14 @@ class Client:
         deadline=deadline or time.monotonic()+120
         url=ORIGIN+safe_path(path);authenticated=True
         for _ in range(5):
-            result=self.call(method,url,folder,payload=payload,headers=headers,authenticated=authenticated,deadline=deadline)
-            if result.status not in [301,302,303,307,308]:return result
+            outgoing=dict(headers or {});requested_range=outgoing.get('Range')
+            # Range on the control endpoint selects its slow streaming handler.
+            # Obtain the signed URL first, then let the storage node serve the range.
+            if method=='GET' and requested_range and not (urllib.parse.urlsplit(url).hostname or '').endswith('.storage.yandex.net'):outgoing.pop('Range')
+            result=self.call(method,url,folder,payload=payload,headers=outgoing,authenticated=authenticated,deadline=deadline)
+            if result.status not in [301,302,303,307,308]:
+                if method=='GET' and requested_range and result.status==200:return ranged_reply(result,requested_range,folder)
+                return result
             # Never change PUT to GET or forward Basic credentials to signed endpoints.
             if method not in ['GET','HEAD','PUT']:raise TransportError('unexpected_redirect')
             url=safe_target(urllib.parse.urljoin(url,result.headers.get('location','')));authenticated=False

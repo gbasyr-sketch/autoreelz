@@ -416,6 +416,8 @@ def retention():
 def main():
     os.umask(0o077)
     parser=argparse.ArgumentParser();parser.add_argument('action',choices=['backup','verify','retention','capture','verify-local']);args=parser.parse_args()
+    def interrupted(signum,frame):raise BackupError('interrupted')
+    signal.signal(signal.SIGTERM,interrupted);signal.signal(signal.SIGINT,interrupted)
     if os.geteuid()!=0 or not ROOT.is_dir():raise BackupError('wrong_host_or_user')
     # Root-executed code, binaries and credentials must not sit under the shop user's home.
     for anchor in [BACKUP_ROOT,RESTIC.parent,RESTIC.parent.parent/'runner']:

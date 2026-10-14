@@ -51,4 +51,15 @@ class Tests(unittest.TestCase):
   for args,_ in calls:
    self.assertEqual(args[1],'--disable')
    self.assertNotIn('signed-secret',' '.join(args));self.assertNotIn(self.client.authorization,' '.join(args));self.assertNotIn('--location-trusted',args);self.assertNotIn('--insecure',args)
+ def test_ranges_go_only_to_storage_and_inline_files_are_sliced(self):
+  body=self.root/'data';body.write_bytes(b'0123456789');calls=[]
+  def call(method,url,folder,**kwargs):
+   calls.append(kwargs)
+   return y.Reply(302,{'location':'https://s1.storage.yandex.net/data'},body) if len(calls)==1 else y.Reply(206,{'content-range':'bytes 3-5/10'},body)
+  with patch.object(self.client,'call',side_effect=call):self.client.follow('GET',y.PREFIX+'/file',self.root,headers={'Range':'bytes=3-5'})
+  self.assertNotIn('Range',calls[0]['headers']);self.assertEqual(calls[1]['headers']['Range'],'bytes=3-5')
+  with patch.object(self.client,'call',return_value=y.Reply(200,{},body)):
+   reply=self.client.follow('GET',y.PREFIX+'/file',self.root,headers={'Range':'bytes=3-5'});self.assertEqual(reply.status,206);self.assertEqual(reply.body.read_bytes(),b'345');self.assertEqual(reply.headers['content-range'],'bytes 3-5/10')
+  self.assertEqual(y.ranged_reply(y.Reply(200,{},body),'bytes=-2',self.root).body.read_bytes(),b'89')
+  self.assertEqual(y.ranged_reply(y.Reply(200,{},body),'bytes=15-',self.root).status,416)
 if __name__=='__main__':unittest.main()

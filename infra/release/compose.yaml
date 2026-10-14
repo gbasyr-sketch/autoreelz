@@ -60,7 +60,7 @@ services:
       SEO_INDEXING_ENABLED: ${SEO_INDEXING_ENABLED:-false}
       YML_COMPANY_NAME: ${YML_COMPANY_NAME:-}
     volumes:
-      - /srv/autoreelz2026/shared/backup-status:/var/lib/autoreelz/backup-status:ro
+      - /var/lib/autoreelz2026-backup/status:/var/lib/autoreelz/backup-status:ro
       - uploads:/cms-uploads:ro
       - ai_image_assets:/var/lib/autoreelz/ai-images
     read_only: true

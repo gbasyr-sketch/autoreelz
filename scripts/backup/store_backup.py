@@ -8,11 +8,12 @@ ROOT = pathlib.Path('/srv/autoreelz2026')
 PROJECT = 'autoreelz2026-release'
 DATABASE = 'autoreelz2026_new'
 DB = PROJECT + '-db-1'
-PRIVATE = ROOT / 'shared/backup-private'
-WORK = ROOT / 'shared/backup-runtime'
-STATUS = ROOT / 'shared/backup-status/status.json'
-RESTIC = ROOT / 'bin/backup/restic'
-RCLONE = ROOT / 'bin/backup/rclone'
+BACKUP_ROOT = pathlib.Path('/var/lib/autoreelz2026-backup')
+PRIVATE = BACKUP_ROOT / 'private'
+WORK = BACKUP_ROOT / 'work'
+STATUS = BACKUP_ROOT / 'status/status.json'
+RESTIC = pathlib.Path('/opt/autoreelz2026-backup/bin/restic')
+RCLONE = pathlib.Path('/opt/autoreelz2026-backup/bin/rclone')
 LOCAL = WORK / 'repository'
 REMOTE = 'rclone:ar_yandex:AUTO-REELZ-backups/autoreelz2026'
 DOCKER = ['runuser','-u','autoreelz2026','--','env','XDG_RUNTIME_DIR=/run/user/1018','DOCKER_HOST=unix:///run/user/1018/docker.sock','PATH=/srv/autoreelz2026/bin:/usr/local/bin:/usr/bin:/bin','docker']
@@ -163,7 +164,7 @@ def live_sources():
     if not re.fullmatch('[a-f0-9]{40}',revision):raise BackupError('invalid_release')
     db=json.loads(docker('inspect',DB))[0]
     if db['Config']['Labels'].get('com.docker.compose.project')!=PROJECT:raise BackupError('wrong_project')
-    sources={'release':ROOT/'releases'/revision,'public':ROOT/'public','origin-tls':pathlib.Path('/etc/ssl/autoreelz2026'),'backup-runner':ROOT/'ops/backup'}
+    sources={'release':ROOT/'releases'/revision,'public':ROOT/'public','origin-tls':pathlib.Path('/etc/ssl/autoreelz2026'),'backup-runner':pathlib.Path('/opt/autoreelz2026-backup/runner')}
     for suffix in ['uploads','ai_image_assets']:
         v=json.loads(docker('volume','inspect',PROJECT+'_'+suffix))[0]
         expected=ROOT/'.local/share/docker/volumes'/(PROJECT+'_'+suffix)/'_data'
@@ -222,6 +223,12 @@ def verify_repo(repo, key):
 def snapshots(repo, tag=TAG):
     return json.loads(restic(repo,'snapshots','--json','--host',HOST,'--tag',tag))
 
+def snapshot_root(snapshot):
+    paths=snapshot.get('paths',[])
+    allowed=['/srv/autoreelz2026/shared/backup-runtime/stage',str(WORK/'stage')]
+    if len(paths)!=1 or paths[0] not in allowed:raise BackupError('unexpected_snapshot_path')
+    return paths[0]
+
 def copy_pending():
     pending_path=PRIVATE/'pending.json';pending=read_json(pending_path,[])
     for item in list(pending):
@@ -242,7 +249,7 @@ def recover_pending():
         runs=[t[4:] for t in s.get('tags',[]) if t.startswith('run:')]
         if len(runs)!=1 or not re.fullmatch('[a-f0-9]{32}',runs[0]):raise BackupError('invalid_local_snapshot')
         if 'run:'+runs[0] in remote_runs or any(p['runId']==runs[0] for p in pending):continue
-        manifest=json.loads(restic(str(LOCAL),'dump',s['id'],str(WORK/'stage/manifest.json')))
+        manifest=json.loads(restic(str(LOCAL),'dump',s['id'],snapshot_root(s)+'/manifest.json'))
         if manifest.get('project')!=PROJECT or manifest.get('complete') is not True:raise BackupError('invalid_manifest')
         pending.append({'runId':runs[0],'localId':s['id'],'capturedAt':manifest['capturedAt'],'bytes':sum(f['bytes'] for f in manifest['files'].values()),'revision':manifest['revision']})
     atomic_json(PRIVATE/'pending.json',pending)
@@ -285,7 +292,7 @@ def require_verified_recovery():
 def trim_local():
     require_verified_recovery()
     verify_repo(str(LOCAL),'local')
-    restic(str(LOCAL),'forget','--host',HOST,'--tag',TAG,'--group-by','host,paths','--keep-last','3','--prune',timeout=1800)
+    restic(str(LOCAL),'forget','--host',HOST,'--tag',TAG,'--group-by','host','--keep-last','3','--prune',timeout=1800)
 
 def backup():
     status_update(state='running',lastAttemptAt=now(),error=None)
@@ -315,7 +322,7 @@ def restore_drill(repo=REMOTE):
     try:
         restic(repo,'check','--read-data',timeout=3600)
         restic(repo,'restore',sid,'--target',str(scratch),timeout=1800)
-        source=scratch/str(WORK/'stage').lstrip('/')
+        source=scratch/snapshot_root(latest).lstrip('/')
         manifest=read_json(source/'manifest.json');verify_files(source,manifest)
         image=manifest['postgresImage']
         if not re.fullmatch(r'postgres:17\.\d+-alpine@sha256:[a-f0-9]{64}',image):raise BackupError('unexpected_postgres_image')
@@ -358,7 +365,7 @@ def restore_drill(repo=REMOTE):
 def retention():
     require_verified_recovery()
     verify_repo(REMOTE,'remote');verify_repo(str(LOCAL),'local')
-    restic(REMOTE,'forget','--host',HOST,'--tag',TAG,'--group-by','host,paths','--keep-hourly','24','--keep-daily','7','--keep-weekly','4','--keep-monthly','3','--prune',timeout=3600)
+    restic(REMOTE,'forget','--host',HOST,'--tag',TAG,'--group-by','host','--keep-hourly','24','--keep-daily','7','--keep-weekly','4','--keep-monthly','3','--prune',timeout=3600)
     trim_local()
     status_update(lastRetentionAt=now())
 
@@ -366,6 +373,11 @@ def main():
     os.umask(0o077)
     parser=argparse.ArgumentParser();parser.add_argument('action',choices=['backup','verify','retention','capture','verify-local']);args=parser.parse_args()
     if os.geteuid()!=0 or not ROOT.is_dir():raise BackupError('wrong_host_or_user')
+    # Root-executed code, binaries and credentials must not sit under the shop user's home.
+    for anchor in [BACKUP_ROOT,RESTIC.parent,RESTIC.parent.parent/'runner']:
+        for path in [anchor,*anchor.parents]:
+            info=path.lstat()
+            if not stat.S_ISDIR(info.st_mode) or info.st_uid!=0 or stat.S_IMODE(info.st_mode)&0o022:raise BackupError('unsafe_root_ownership')
     for path in [PRIVATE,WORK,STATUS.parent]:
         if path.is_symlink():raise BackupError('unsafe_root')
         path.mkdir(parents=True,exist_ok=True)

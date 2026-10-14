@@ -35,7 +35,7 @@ class BackupTests(unittest.TestCase):
   with patch.object(b,'PRIVATE',self.root),patch.object(b,'STATUS',self.root/'status.json'),patch.object(b,'verify_repo'),patch.object(b,'status_update'),patch.object(b,'restic') as run:
    b.atomic_json(self.root/'verified-recovery.json',{'verifiedAt':b.now(),'external':True});b.retention();self.assertEqual(run.call_count,2)
    for call in run.call_args_list:
-    self.assertIn('--host',call.args);self.assertIn(b.HOST,call.args);self.assertIn(b.TAG,call.args);self.assertIn('host,paths',call.args)
+    self.assertIn('--host',call.args);self.assertIn(b.HOST,call.args);self.assertIn(b.TAG,call.args);self.assertIn('host',call.args)
    self.assertEqual(run.call_args_list[0].args[0],b.REMOTE)
  def test_failure_keeps_last_success_and_separate_restore_error(self):
   with patch.object(b,'STATUS',self.root/'status.json'):
@@ -73,7 +73,7 @@ class BackupTests(unittest.TestCase):
    self.assertEqual(b.read_json(self.root/'pending.json'),[]);self.assertEqual(status.call_args.kwargs['lastSnapshot'],'d'*64)
  def test_committed_local_snapshot_recovers_after_missing_queue_write(self):
   run='a'*32;manifest={'project':b.PROJECT,'complete':True,'capturedAt':'2026-10-14T12:17:00Z','revision':'c'*40,'files':{'database.dump':{'bytes':42}}}
-  def snaps(repo):return [] if repo==b.REMOTE else [{'id':'b'*64,'tags':[b.TAG,'run:'+run]}]
+  def snaps(repo):return [] if repo==b.REMOTE else [{'id':'b'*64,'tags':[b.TAG,'run:'+run],'paths':['/srv/autoreelz2026/shared/backup-runtime/stage']}]
   with patch.object(b,'PRIVATE',self.root),patch.object(b,'snapshots',side_effect=snaps),patch.object(b,'restic',return_value=json.dumps(manifest)):
    b.recover_pending();b.recover_pending();pending=b.read_json(self.root/'pending.json');self.assertEqual(len(pending),1);self.assertEqual(pending[0]['bytes'],42)
  def test_failed_or_overdue_restore_blocks_deletion_of_last_good_copies(self):

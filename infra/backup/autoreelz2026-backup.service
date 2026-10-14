@@ -8,7 +8,7 @@ StartLimitIntervalSec=0
 Type=oneshot
 User=root
 Group=root
-ExecStart=/usr/bin/python3 /srv/autoreelz2026/ops/backup/store_backup.py backup
+ExecStart=/usr/bin/python3 /opt/autoreelz2026-backup/runner/store_backup.py backup
 Environment=PYTHONUNBUFFERED=1
 Environment=TZ=Europe/Moscow
 UMask=0077
@@ -28,5 +28,5 @@ ProtectHome=tmpfs
 BindReadOnlyPaths=/run/user/1018/docker.sock
 ProtectKernelTunables=true
 ProtectControlGroups=true
-ReadWritePaths=/srv/autoreelz2026/shared/backup-private /srv/autoreelz2026/shared/backup-runtime /srv/autoreelz2026/shared/backup-status
+ReadWritePaths=/var/lib/autoreelz2026-backup
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6

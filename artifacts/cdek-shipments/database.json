@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "isolated": true,
+  "externalCalls": 0,
+  "checks": [
+    "concurrent creates and lost response recover by number without another POST; sandbox never changes order delivery",
+    "one durable PDF job, polling and private print state",
+    "confirmed carrier cancellation does not cancel payment or restock",
+    "parallel worker cannot repeat POST and network holds no order SQL lock",
+    "crash after dispatch never repeats create, even when lookup returns not found",
+    "immutable snapshots/history and least privilege",
+    "manual override preserved; resume uses latest carrier state; regressions ignored",
+    "mock live statuses apply; acknowledged DELETE plus UUID/number not-found confirms pre-handover cancellation clears only carrier tracking and permits a new explicit attempt",
+    "history remains readable when outbound shipping is disabled"
+  ]
+}

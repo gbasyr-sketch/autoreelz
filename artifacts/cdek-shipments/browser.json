@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "mockProvider": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "previewInvalidated": true,
+      "doubleClickBlocked": true,
+      "retrySameKey": true,
+      "reloadRestores": true,
+      "printAndCancel": true
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "previewInvalidated": true,
+      "doubleClickBlocked": true,
+      "retrySameKey": true,
+      "reloadRestores": true,
+      "printAndCancel": true
+    }
+  ]
+}

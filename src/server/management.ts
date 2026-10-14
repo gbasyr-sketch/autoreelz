@@ -92,6 +92,10 @@ export async function overrideDelivery(actor:Actor,body:Record<string,unknown>){
 export interface CarrierEvent {eventId:string;orderId:string;status:'packing'|'shipped'|'delivered';occurredAt:string;trackingNumber?:string}
 export async function applyCarrierEvent(input:CarrierEvent,signature:string){
  requireTestEnvironment();if(!equal(sign('delivery:'+canonical(input)),signature))throw new StoreError('DELIVERY_SIGNATURE','Подпись события неверна.',403);
+ return applyVerifiedCarrierEvent(input);
+}
+// Server-only: call only after an authenticated provider read, never with webhook/browser data.
+export async function applyVerifiedCarrierEvent(input:CarrierEvent){
  const id=uuid(input.orderId),eventId=text(input.eventId,'Событие',1,160),status=text(input.status,'Статус',1,30);
  if(!['packing','shipped','delivered'].includes(status))throw new StoreError('DELIVERY_STATE','Неизвестный статус перевозчика.');
  const at=new Date(input.occurredAt);if(!Number.isFinite(at.getTime())||at.getTime()>Date.now()+300000)throw new StoreError('EVENT_TIME','Некорректное время события.');

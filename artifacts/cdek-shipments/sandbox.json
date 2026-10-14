@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "environment": "official-sandbox",
+  "realShipments": 0,
+  "creationRegistered": true,
+  "pdfDownloaded": true,
+  "viewports": [
+    1440,
+    375
+  ],
+  "cancellationConfirmed": true,
+  "cancellationMethod": "acknowledged DELETE followed by missing UUID and number",
+  "testOrdersCreated": 2,
+  "secondOrderReason": "verify actual provider deletion protocol",
+  "personalContactsSynthetic": true,
+  "paidCalls": 0
+}

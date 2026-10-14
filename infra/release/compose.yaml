@@ -11,6 +11,15 @@ x-app-env: &app-env
   PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-simulation}
   YOOKASSA_SHOP_ID: ${YOOKASSA_SHOP_ID:-}
   YOOKASSA_SECRET_KEY: ${YOOKASSA_SECRET_KEY:-}
+x-cdek-shipments-env: &cdek-shipments-env
+  CDEK_SHIPMENTS_MODE: ${CDEK_SHIPMENTS_MODE:-disabled}
+  CDEK_SHIPMENTS_ALLOW_LIVE: ${CDEK_SHIPMENTS_ALLOW_LIVE:-false}
+  CDEK_TEST_CLIENT_ID: ${CDEK_TEST_CLIENT_ID:-}
+  CDEK_TEST_CLIENT_SECRET: ${CDEK_TEST_CLIENT_SECRET:-}
+  CDEK_TEST_FROM_PVZ: ${CDEK_TEST_FROM_PVZ:-}
+  CDEK_CLIENT_ID: ${CDEK_CLIENT_ID:-}
+  CDEK_CLIENT_SECRET: ${CDEK_CLIENT_SECRET:-}
+  CDEK_FROM_PVZ: ${CDEK_FROM_PVZ:-}
 services:
   edge:
     image: caddy:2.11.4-alpine@sha256:6aeddd44c3078b0f9a35206472a11420648a79c184603ef95957d0a20044cb2b
@@ -30,7 +39,7 @@ services:
     mem_limit: 1g
     cpus: 2
     environment:
-      <<: *app-env
+      <<: [*app-env, *cdek-shipments-env]
       CMS_INTERNAL_URL: http://cms:8055
       BACKGROUND_REMOVAL_URL: ${BACKGROUND_REMOVAL_URL:-}
       AI_TEXT_PROVIDER: ${AI_TEXT_PROVIDER:-disabled}
@@ -90,7 +99,8 @@ services:
     image: ${RELEASE_IMAGE:?}
     command: [node, scripts/commerce-worker.ts]
     init: true
-    environment: *app-env
+    environment:
+      <<: [*app-env, *cdek-shipments-env]
     read_only: true
     tmpfs: [/tmp]
     networks: [backend]

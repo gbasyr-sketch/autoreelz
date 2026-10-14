@@ -1,5 +1,14 @@
 name: autoreelz2026-new
 
+x-cdek-shipments-env: &cdek-shipments-env
+  CDEK_SHIPMENTS_MODE: ${CDEK_SHIPMENTS_MODE:-disabled}
+  CDEK_SHIPMENTS_ALLOW_LIVE: ${CDEK_SHIPMENTS_ALLOW_LIVE:-false}
+  CDEK_TEST_CLIENT_ID: ${CDEK_TEST_CLIENT_ID:-}
+  CDEK_TEST_CLIENT_SECRET: ${CDEK_TEST_CLIENT_SECRET:-}
+  CDEK_TEST_FROM_PVZ: ${CDEK_TEST_FROM_PVZ:-}
+  CDEK_CLIENT_ID: ${CDEK_CLIENT_ID:-}
+  CDEK_CLIENT_SECRET: ${CDEK_CLIENT_SECRET:-}
+  CDEK_FROM_PVZ: ${CDEK_FROM_PVZ:-}
 services:
   web:
     build:
@@ -13,6 +22,7 @@ services:
     ports:
       - 127.0.0.1:${WEB_PORT:-14323}:4321
     environment:
+      <<: *cdek-shipments-env
       HOST: 0.0.0.0
       PORT: 4321
       NODE_ENV: production
@@ -49,6 +59,7 @@ services:
     command: [node, scripts/commerce-worker.ts]
     init: true
     environment:
+      <<: *cdek-shipments-env
       AR_DB_HOST: db
       AR_DB_PORT: 5432
       AR_DATABASE_NAME: ${POSTGRES_DB:?}

@@ -14,7 +14,8 @@ export function cdekPackage(pack:ShippingPackage){
  const values=[pack.weightG,pack.lengthMm,pack.widthMm,pack.heightMm];if(values.some(v=>!Number.isSafeInteger(v)||v<=0))fail('INVALID_PACKAGE');
  return{weight:pack.weightG,length:Math.ceil(pack.lengthMm/10),width:Math.ceil(pack.widthMm/10),height:Math.ceil(pack.heightMm/10)};
 }
-export function createCdekClient(config:{clientId:string;clientSecret:string},transport:CdekTransport=fetch){
+export function createCdekClient(config:{clientId:string;clientSecret:string;environment?:'test'|'live'},transport:CdekTransport=fetch){
+ const api=config.environment==='test'?'https://api.edu.cdek.ru/v2':API;
  if(!config.clientId||!config.clientSecret||/[\r\n]/.test(config.clientId+config.clientSecret))fail('CREDENTIALS_REQUIRED');
  let token:{value:string;until:number}|undefined,authenticating:Promise<string>|undefined;
  const cache=new Map<string,{until:number;value:any}>();const pending=new Map<string,Promise<any>>();
@@ -22,7 +23,7 @@ export function createCdekClient(config:{clientId:string;clientSecret:string},tr
   const reader=response.body?.getReader(),parts:Uint8Array[]=[];let size=0;
   try{if(reader)for(;;){const p=await reader.read();if(p.done)break;size+=p.value.byteLength;if(size>4*1024*1024){await reader.cancel();fail('RESPONSE_TOO_LARGE');}parts.push(p.value);}return JSON.parse(Buffer.concat(parts).toString('utf8'));}catch(e){if(e instanceof CdekError)throw e;return fail('INVALID_RESPONSE');}
  }
- async function send(path:string,init:RequestInit){let r:Response;try{r=await transport(API+path,{...init,redirect:'error',signal:AbortSignal.timeout(6000)});}catch{return fail('UNAVAILABLE');}return r;}
+ async function send(path:string,init:RequestInit){let r:Response;try{r=await transport(api+path,{...init,redirect:'error',signal:AbortSignal.timeout(6000)});}catch{return fail('UNAVAILABLE');}return r;}
  async function authorize(){
   if(token&&token.until>Date.now())return token.value;if(authenticating)return authenticating;
   authenticating=(async()=>{const r=await send('/oauth/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({grant_type:'client_credentials',client_id:config.clientId,client_secret:config.clientSecret}).toString()});if(!r.ok)fail('AUTH_FAILED');const data=object(await read(r));if(typeof data.access_token!=='string'||data.token_type?.toLowerCase()!=='bearer'||typeof data.expires_in!=='number'||data.expires_in<60)fail('INVALID_RESPONSE');token={value:data.access_token,until:Date.now()+Math.min(data.expires_in-30,3600)*1000};return token.value;})();

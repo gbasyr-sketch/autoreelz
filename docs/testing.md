@@ -54,6 +54,7 @@
 | Корзина, склад, заказы | `AR_COMMERCE_TESTS=1 node --test tests/commerce.test.ts` | `AR_STAGE6_TESTS=1 node --test tests/stage-6-commerce.test.ts` для комплектов/предзаказов |
 | Вход/доступ | `AR_AUTH_TESTS=1 node --test tests/auth.test.ts` | Покупка/чужая сессия/выход |
 | ЮKassa | `node --test tests/yookassa.test.ts`; `AR_YOOKASSA_TESTS=1 node --test tests/yookassa-integration.test.ts` | Реальный sandbox — отдельно по процедуре yookassa.md |
+| Отправления СДЭК | `node --test tests/cdek-shipments.test.ts`; `node tests/cdek-shipments-database.mjs` — отдельная синтетическая native PostgreSQL через ai-image-qa helper | `AR_CDEK_SHIPMENTS_URL=<local> node tests/cdek-shipments-browser.mjs` —1440/375, подмена API, скриншоты private; [контракт](cdek-shipments.md). Настоящую песочницу не повторять без необходимости; доступы/пробы вне Git |
 | СДЭК | `node --test tests/cdek.test.ts`; `AR_CDEK_TESTS=1 node --test tests/cdek-checkout.test.ts` | `AR_CDEK_BROWSER=1 node tests/cdek-browser.mjs` использует настоящий API и private/cdek.env |
 | Автокорзина/русские поля/подтверждения | `AR_CHECKOUT_UX_TESTS=1 node tests/checkout-ux-browser.mjs` | Справочники/SDK подменены. С24.09 проверяется автозагрузка без записи согласий; `AR_CHECKOUT_UX_OUTPUT` позволяет сохранить отчёт отдельно |
 | Галерея/кнопка избранного/badge | `node tests/product-gallery-browser.mjs` | 1440/375px, быстрый выбор/ошибка, гость/аккаунт/две вкладки |

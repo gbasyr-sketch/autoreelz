@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "localOnly": true,
+  "productionUnchanged": true,
+  "migration": "024_cdek_shipments.sql (isolated QA only)",
+  "astroCheck": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "unit": {
+    "passed": 160,
+    "skipped": 8,
+    "failed": 0
+  },
+  "build": true,
+  "compose": {
+    "webAndWorkerConfigured": true,
+    "defaultMode": "disabled"
+  },
+  "database": "database.json",
+  "browser": "browser.json",
+  "officialSandbox": "sandbox.json",
+  "managerRegression": "manager-regression.json",
+  "access": "http.json",
+  "cleanup": {
+    "temporaryDatabases": 0,
+    "previewStopped": true
+  }
+}

@@ -127,10 +127,10 @@ class Snapshot:
         try:
             acquired=self.ask("SET TIME ZONE 'UTC'; SET statement_timeout='15s'; SET idle_in_transaction_session_timeout='20s'; SELECT pg_try_advisory_lock(320260900);")
             if acquired!='t':raise BackupError('migration_active')
-            names=json.loads(self.ask("SELECT json_agg(tablename ORDER BY tablename) FROM pg_tables WHERE schemaname='public';"))
+            names=json.loads(self.ask("SELECT jsonb_agg(tablename ORDER BY tablename) FROM pg_tables WHERE schemaname='public';"))
             if any(not re.fullmatch('[a-z][a-z0-9_]*',n) for n in names): raise BackupError('unexpected_schema')
             self.ask('BEGIN ISOLATION LEVEL REPEATABLE READ; LOCK TABLE '+','.join('public."'+n+'"' for n in names)+' IN SHARE MODE NOWAIT; SELECT 1;')
-            if json.loads(self.ask("SELECT json_agg(tablename ORDER BY tablename) FROM pg_tables WHERE schemaname='public';"))!=names:raise BackupError('schema_changed')
+            if json.loads(self.ask("SELECT jsonb_agg(tablename ORDER BY tablename) FROM pg_tables WHERE schemaname='public';"))!=names:raise BackupError('schema_changed')
             active=int(self.ask("SELECT (SELECT count(*) FROM ar_ai_image_jobs WHERE state IN ('queued','preparing','running'))+(SELECT count(*) FROM ar_ai_text_requests WHERE state='running');"))
             if active: raise BackupError('active_generation')
             self.snapshot=self.ask('SELECT pg_export_snapshot();')
@@ -195,11 +195,11 @@ def capture():
             docker('exec',DB,'pg_dump','-U','ar_migrator','-d',DATABASE,'-Fc','--snapshot='+barrier.snapshot,'--lock-wait-timeout=3s',stdout=f,timeout=15)
         tables=json.loads(barrier.ask(fingerprints_query(barrier.names)))
         media=json.loads(barrier.ask(MEDIA_QUERY))
-        migrations=json.loads(barrier.ask('SELECT json_agg(t ORDER BY name) FROM ar_migrations t;'))
+        migrations=json.loads(barrier.ask('SELECT jsonb_agg(t ORDER BY name) FROM ar_migrations t;'))
         if live_sources()[0]!=revision:raise BackupError('release_changed')
         if any(hashlib.sha256(path.read_bytes()).hexdigest()!=config_hashes[name] for name,path in config_files.items()):raise BackupError('configuration_changed')
     write_barrier=time.monotonic()-lock_start
-    with (stage/'roles.sql').open('wb') as f:docker('exec',DB,'pg_dumpall','-U','ar_migrator','--roles-only','--no-role-passwords',stdout=f)
+    with (stage/'roles.sql').open('wb') as f:docker('exec',DB,'pg_dumpall','-U','ar_migrator','--roles-only',stdout=f)
     with (stage/'database.dump').open('rb') as f:
         result=subprocess.run(DOCKER+['exec','-i',DB,'pg_restore','--list'],stdin=f,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE)
         if result.returncode:raise BackupError('dump_invalid')
@@ -307,7 +307,13 @@ def restore_drill(repo=REMOTE):
         verify_media(source,json.loads(sql(MEDIA_QUERY,container=name,user='ar_restore_admin',database='ar_backup_restore')))
         grants=json.loads(sql("SELECT json_build_object('appReadsCatalog',has_table_privilege('ar_app','ar_products','SELECT'),'appCannotDeleteVehicles',NOT has_table_privilege('ar_app','ar_vehicles','DELETE'),'cmsCannotWriteStock',NOT has_table_privilege('ar_cms','ar_stock','UPDATE'));",container=name,user='ar_restore_admin',database='ar_backup_restore'))
         if not all(grants.values()):raise BackupError('restored_grants_mismatch')
-        report={'verifiedAt':now(),'snapshot':sid,'tables':len(tables),'rows':sum(t['rows'] for t in tables.values()),'files':len(manifest['files']),'grants':grants,'isolated':True,'licensedCmsStarted':False,'external':external}
+        saved_env={line.split('=',1)[0]:line.split('=',1)[1].strip() for line in (source/'configuration/server.env').read_text().splitlines() if '=' in line and not line.lstrip().startswith('#')}
+        password=saved_env.get('APP_DB_PASSWORD','')
+        if len(password)>1 and password[0]==password[-1] and password[0] in ['"',"'"]:password=password[1:-1]
+        if not password or '\n' in password:raise BackupError('restored_credentials_missing')
+        identity=docker('exec','-i',name,'sh','-c','IFS= read -r PGPASSWORD; export PGPASSWORD; exec psql -XAt -v ON_ERROR_STOP=1 -h 127.0.0.1 -U ar_app -d ar_backup_restore -c "SELECT current_user"',input=password+'\n')
+        if identity!='ar_app':raise BackupError('restored_credentials_failed')
+        report={'verifiedAt':now(),'snapshot':sid,'tables':len(tables),'rows':sum(t['rows'] for t in tables.values()),'files':len(manifest['files']),'grants':grants,'appCredentialsVerified':True,'isolated':True,'licensedCmsStarted':False,'external':external}
         atomic_json(PRIVATE/('verified-recovery.json' if external else 'local-verified-recovery.json'),report)
         if external:status_update(state='ok',lastVerifiedAt=report['verifiedAt'],verifiedSnapshot=sid,error=None,verificationError=None)
         else:status_update(state='error',lastLocalVerifiedAt=report['verifiedAt'],error='offsite_pending')

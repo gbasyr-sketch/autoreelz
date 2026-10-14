@@ -1,0 +1,15 @@
+export type BackupStatus={configured:boolean;state:'ok'|'running'|'verifying'|'error'|'unavailable';scheduled:boolean;lastSuccessAt:string|null;uploadedAt:string|null;lastLocalAt:string|null;lastVerifiedAt:string|null;bytes:number|null;stale:boolean;verificationDue:boolean;message:string};
+const messages:Record<string,string>={active_generation:'Копия отложена до завершения генерации изображений или текста.',snapshot_busy:'Копия отложена: магазин сохранял изменения.',migration_active:'Копия отложена: выполнялось обновление базы.',low_disk:'Недостаточно свободного места на сервере.',repository_identity:'Не удалось подтвердить хранилище копий.',restored_media_missing:'При проверке восстановления не найден файл товара.',restored_image_missing:'При проверке восстановления не совпало изображение.',checksum_mismatch:'Не совпали контрольные суммы восстановленных файлов.',command_timeout:'Превышено время ожидания при создании или проверке копии.',database_needs_new_backup_plan:'Объём базы вырос: требуется обновить план резервирования.'};
+export function backupStatus(value:unknown,now=Date.now()):BackupStatus{
+ const empty:BackupStatus={configured:false,state:'unavailable',scheduled:false,lastSuccessAt:null,uploadedAt:null,lastLocalAt:null,lastVerifiedAt:null,bytes:null,stale:true,verificationDue:true,message:'Резервное копирование пока не настроено.'};
+ if(value===null)return empty;
+ if(!value||typeof value!=='object'||Array.isArray(value))return{...empty,message:'Не удалось прочитать состояние резервных копий.'};
+ const raw=value as Record<string,unknown>;
+ const date=(key:string)=>{const v=raw[key];if(v===undefined||v===null)return null;if(typeof v!=='string'||!Number.isFinite(Date.parse(v))||Date.parse(v)>now+300000)throw Error();return new Date(v).toISOString();};
+ try{
+  if(raw.version!==1||!['ok','running','verifying','error'].includes(String(raw.state)))throw Error();
+  const lastSuccessAt=date('lastSuccessAt'),lastVerifiedAt=date('lastVerifiedAt'),state=raw.state as BackupStatus['state'];
+  const stale=!lastSuccessAt||now-Date.parse(lastSuccessAt)>2*3600000,verificationDue=Boolean(raw.verificationError)||!lastVerifiedAt||now-Date.parse(lastVerifiedAt)>35*86400000;
+  return{configured:true,state,scheduled:raw.scheduled===true,lastSuccessAt,lastVerifiedAt,lastLocalAt:date('lastLocalAt'),uploadedAt:date('uploadedAt'),bytes:typeof raw.lastBytes==='number'&&Number.isSafeInteger(raw.lastBytes)&&raw.lastBytes>=0?raw.lastBytes:null,stale,verificationDue,message:state==='error'?(messages[String(raw.error)]??'Не удалось завершить резервное копирование или проверку. Требуется проверка администратора.'):state==='running'?'Создаётся резервная копия.':state==='verifying'?'Проверяется восстановление из Яндекс Диска.':stale?'Свежая внешняя копия отсутствует. Требуется проверка администратора.':verificationDue?'Копия сохранена. Требуется проверка восстановления.':'Внешняя копия сохранена, восстановление проверено.'};
+ }catch{return{...empty,message:'Состояние резервных копий повреждено. Требуется проверка администратора.'};}
+}

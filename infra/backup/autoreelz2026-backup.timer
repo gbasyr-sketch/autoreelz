@@ -1,0 +1,9 @@
+[Unit]
+Description=AUTO REELZ hourly encrypted backups
+[Timer]
+OnCalendar=*-*-* *:17:00 Europe/Moscow
+RandomizedDelaySec=60
+Persistent=true
+Unit=autoreelz2026-backup.service
+[Install]
+WantedBy=timers.target

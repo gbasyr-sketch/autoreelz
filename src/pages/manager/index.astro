@@ -1,6 +1,7 @@
 ---
 import ManagerLayout from '../../layouts/ManagerLayout.astro';
 import Icon from '../../components/Icon.astro';
+import BackupStatus from '../../components/BackupStatus.astro';
 ---
 <ManagerLayout title="Обзор магазина">
 <header class="dash-header"><div><p class="dash-eyebrow">Магазин под контролем</p><h1>Обзор магазина</h1></div><div class="dash-header-actions" data-dash-controls hidden><label class="dash-field">Период · МСК<select data-period><option value="today">Сегодня</option><option value="7" selected>Последние 7 дней</option><option value="30">Последние 30 дней</option></select></label><button class="dash-button" type="button" data-refresh>Обновить</button></div></header>
@@ -13,6 +14,7 @@ import Icon from '../../components/Icon.astro';
 <section class="dash-panel dash-chart-panel"><div class="dash-section-head"><h2>Динамика оплат товаров</h2><span>₽</span></div><div class="dash-chart" data-chart></div><p class="dash-empty" data-chart-empty hidden>За этот период подтверждённых тестовых оплат нет.</p><p class="dash-chart-footer">Оплаченная доставка отдельно: <strong data-shipping>—</strong></p><p class="dash-help">По дате принятия оплаты, включая текущий неполный день. Отменённые и спорные заказы исключены.</p></section></div>
 <section class="dash-panel" id="dashboard-orders"><div class="dash-section-head"><h2 data-list-title>Последние 5 заказов</h2><a href="/manager/orders">Управление заказами <Icon name="arrow" size={16}/></a></div><div class="dash-order-controls"><p class="dash-help" data-list-count></p></div><div class="dash-table-wrap"><table class="dash-table mgr-record-table"><thead><tr><th>Заказ</th><th>Тип</th><th>Оплата / доставка</th><th class="dash-number">Товары</th></tr></thead><tbody data-orders></tbody></table></div><p class="dash-empty" data-orders-empty hidden>Подходящих заказов пока нет.</p></section>
 <section class="mgr-summary-links" aria-label="Сводка каталога"><article class="dash-panel mgr-summary-link"><div><h2>Низкий свободный остаток</h2><strong data-summary-stock>—</strong><p data-summary-threshold>Исполнения, требующие внимания</p></div><a href="/manager/stock?low=1">Перейти к складу →</a></article><article class="dash-panel mgr-summary-link"><div><h2>Незаполненные товары</h2><strong data-summary-quality>—</strong><p>Фото, упаковка, описание и совместимость</p></div><a href="/manager/products?incomplete=1">Открыть товары →</a></article></section>
+<BackupStatus />
 <footer class="dash-footer"><p data-updated role="status" aria-live="polite"></p><span>Автообновление раз в минуту</span></footer>
 </div><noscript><p class="dash-message">Для безопасного входа и обновления обзора включите JavaScript.</p></noscript>
 <script>import '../../scripts/dashboard';</script>

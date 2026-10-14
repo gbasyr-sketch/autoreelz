@@ -1,0 +1,13 @@
+<section class="dash-panel" data-backup-panel aria-labelledby="backup-heading">
+ <div class="dash-section-head"><h2 id="backup-heading">Резервные копии</h2><span>Яндекс Диск · шифрование</span></div>
+ <p data-backup-message class="dash-help" role="status">Проверяем состояние копий…</p>
+ <dl class="backup-metrics">
+  <div><dt>Внешняя копия · данные на</dt><dd data-backup-copy>—</dd></div>
+  <div><dt>Восстановление проверено</dt><dd data-backup-verified>—</dd></div>
+  <div><dt>Объём данных в копии</dt><dd data-backup-size>—</dd></div>
+ </dl>
+ <p data-backup-schedule class="dash-help">—</p>
+</section>
+<style>
+.backup-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem;margin:1.25rem 0}.backup-metrics dt{color:var(--muted);font-size:.9rem;margin-bottom:.5rem}.backup-metrics dd{margin:0;font-weight:600;overflow-wrap:anywhere}@media(max-width:700px){.backup-metrics{grid-template-columns:1fr;gap:1rem}}
+</style>

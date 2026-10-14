@@ -34,6 +34,7 @@ services:
       CMS_INTERNAL_URL: http://cms:8055
       BACKGROUND_REMOVAL_URL: ${BACKGROUND_REMOVAL_URL:-}
       AI_TEXT_PROVIDER: ${AI_TEXT_PROVIDER:-disabled}
+      BACKUP_STATUS_PATH: /var/lib/autoreelz/backup-status/status.json
       AI_TEXT_MONTHLY_BUDGET_USD: ${AI_TEXT_MONTHLY_BUDGET_USD:-0}
       AI_TEXT_ALLOW_DEEPSEEK: ${AI_TEXT_ALLOW_DEEPSEEK:-false}
       AI_TEXT_ALLOW_OPENAI: ${AI_TEXT_ALLOW_OPENAI:-false}
@@ -59,6 +60,7 @@ services:
       SEO_INDEXING_ENABLED: ${SEO_INDEXING_ENABLED:-false}
       YML_COMPANY_NAME: ${YML_COMPANY_NAME:-}
     volumes:
+      - /srv/autoreelz2026/shared/backup-status:/var/lib/autoreelz/backup-status:ro
       - uploads:/cms-uploads:ro
       - ai_image_assets:/var/lib/autoreelz/ai-images
     read_only: true

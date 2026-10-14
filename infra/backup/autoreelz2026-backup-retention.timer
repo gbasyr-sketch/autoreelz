@@ -1,0 +1,8 @@
+[Unit]
+Description=AUTO REELZ weekly backup retention
+[Timer]
+OnCalendar=Sun *-*-* 04:40:00 Europe/Moscow
+Persistent=true
+Unit=autoreelz2026-backup-retention.service
+[Install]
+WantedBy=timers.target

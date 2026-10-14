@@ -1,0 +1,8 @@
+[Unit]
+Description=AUTO REELZ monthly isolated restore drill
+[Timer]
+OnCalendar=*-*-01 04:40:00 Europe/Moscow
+Persistent=true
+Unit=autoreelz2026-backup-verify.service
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,32 @@
+[Unit]
+Description=AUTO REELZ encrypted backup to Yandex Disk
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 /srv/autoreelz2026/ops/backup/store_backup.py retention
+Environment=PYTHONUNBUFFERED=1
+Environment=TZ=Europe/Moscow
+UMask=0077
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+CPUQuota=100%
+MemoryMax=768M
+TasksMax=64
+TimeoutStartSec=90min
+Restart=on-failure
+RestartPreventExitStatus=1
+RestartSec=300
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+ReadWritePaths=/srv/autoreelz2026/shared/backup-private /srv/autoreelz2026/shared/backup-runtime /srv/autoreelz2026/shared/backup-status
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6

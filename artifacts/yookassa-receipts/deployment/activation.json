@@ -1,0 +1,15 @@
+{
+  "sha": "749f74fc3d59254672545a47a4c521e9e68e895f",
+  "previousSha": "d2d727b45e787d29276b3c4bace43ed5b0d78776",
+  "imageId": "sha256:70de9dd937f3b4199fb1399fbfe826ab4996731a2165292c71f18fcfb0888114",
+  "backup": "/srv/autoreelz2026/backups/before-yookassa-receipts-20261014T224241Z.dump",
+  "backupReadable": true,
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-receipts-20261014T224241Z",
+  "migration": {
+    "name": "028_yookassa_receipts.sql",
+    "sha256": "85267d54d7afd11ccf5bd93882f72040b24145712d6bbc3b65cee1a9eb912766"
+  },
+  "receiptMode": "disabled",
+  "paymentProvider": "yookassa-sandbox",
+  "activatedAt": "2026-10-14T22:42:49.007765+00:00"
+}

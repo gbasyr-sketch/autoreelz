@@ -1,0 +1,11 @@
+{
+  "test": true,
+  "cardAvailable": true,
+  "fiscalizationEnabled": false,
+  "receiptMode": "disabled",
+  "externalRequests": "GET /me only",
+  "paymentsCreated": 0,
+  "heartbeatAfterStart": true,
+  "workerNoError": true,
+  "receiptSnapshots": 0
+}

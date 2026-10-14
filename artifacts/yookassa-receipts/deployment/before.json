@@ -1,0 +1,238 @@
+{
+  "checkedAt": "2026-10-14T22:41:33.358428+00:00",
+  "containers": {
+    "autoreelz2026-release-web-1": {
+      "id": "81e71e53a940551ed21b12c354d81346f6a24927722445a058ffdbcbc83b8c72",
+      "image": "sha256:b892247b6ac4d3a1d4d128877982f09547694ec0b67e1c7998e67c7c5b11be8d",
+      "revision": "d2d727b45e787d29276b3c4bace43ed5b0d78776",
+      "startedAt": "2026-10-14T22:27:30.656422367Z",
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-image-worker-1": {
+      "id": "bbde0a9613ae647ff39158f4b473bc74b84e6c58a8117ca783f62f61240c83ee",
+      "image": "sha256:b892247b6ac4d3a1d4d128877982f09547694ec0b67e1c7998e67c7c5b11be8d",
+      "revision": "d2d727b45e787d29276b3c4bace43ed5b0d78776",
+      "startedAt": "2026-10-14T22:27:30.902125855Z",
+      "status": "running",
+      "health": null
+    },
+    "autoreelz2026-release-worker-1": {
+      "id": "0f5a82f180055907e1e1bcea594116a645d5e46f73816771a4de1726d62daaa2",
+      "image": "sha256:b892247b6ac4d3a1d4d128877982f09547694ec0b67e1c7998e67c7c5b11be8d",
+      "revision": "d2d727b45e787d29276b3c4bace43ed5b0d78776",
+      "startedAt": "2026-10-14T22:27:31.1160098Z",
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-edge-1": {
+      "id": "9d8c8974aa6e59e3a9bd6a5c162d39e5567c33d0ee793fc6a8ecac2c41c3ef38",
+      "image": "sha256:6aeddd44c3078b0f9a35206472a11420648a79c184603ef95957d0a20044cb2b",
+      "revision": null,
+      "startedAt": "2026-10-14T19:02:48.07763938Z",
+      "status": "running",
+      "health": null
+    },
+    "autoreelz2026-release-background-1": {
+      "id": "7bfa481425a90cc851fab221e42ea5cf03fc3e024a151d7b637b4f476b91847c",
+      "image": "sha256:ab6084c983d3bba0cee87ba64e019d63223d208e520edf9dd49edafc81d3b707",
+      "revision": "12d1845867eabf9767296bf521b8353c84f912bd",
+      "startedAt": "2026-09-30T15:14:09.306572603Z",
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-cms-1": {
+      "id": "7da34b36aa472d8b0279478a7ec3c53bdb7124e8fad06e3b1e20730d4e3c77a8",
+      "image": "sha256:8978edf633ae28aa31464bb71c55300c94d8bc771ff3727b5fac485173283869",
+      "revision": "973be10df8b0305569dc0dc53e187c648133c8d6",
+      "startedAt": "2026-09-23T17:02:33.846890768Z",
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-db-1": {
+      "id": "c81ff315e46cac586372b6c0b8c399b5a13e9fd0266966612034c9588f93760d",
+      "image": "sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+      "revision": null,
+      "startedAt": "2026-09-23T15:16:27.816123898Z",
+      "status": "running",
+      "health": "healthy"
+    }
+  },
+  "config": {
+    "APP_REVISION": "d2d727b45e787d29276b3c4bace43ed5b0d78776",
+    "STORE_MODE": "staging",
+    "PAYMENT_PROVIDER": "yookassa-sandbox",
+    "YOOKASSA_RECEIPTS_MODE": null,
+    "SEO_INDEXING_ENABLED": "false",
+    "CDEK_SHIPMENTS_MODE": "test",
+    "PICKUP_MAP_PROVIDER": "osm",
+    "METRIKA_ENABLED": "false"
+  },
+  "protectedTables": {
+    "ar_products": {
+      "count": 155,
+      "digest": "03a515633712840828e0d278f7435bed"
+    },
+    "ar_skus": {
+      "count": 140,
+      "digest": "425cf2efc6add2f1b6ccdcfce8589739"
+    },
+    "ar_stock": {
+      "count": 21,
+      "digest": "0a1bb7ffaf9e9a2f9aed9dee252ab2c1"
+    },
+    "ar_product_editor_drafts": {
+      "count": 79,
+      "digest": "7149ee02c61d228ef9313099e1f0fabc"
+    },
+    "ar_product_media": {
+      "count": 597,
+      "digest": "e8b46cec4c97e411afe6dbb97cee6c05"
+    },
+    "ar_sku_media": {
+      "count": 465,
+      "digest": "123f3612b529c03678cae7df047ac2b1"
+    },
+    "ar_ai_text_requests": {
+      "count": 161,
+      "digest": "7b081e05665f6009cf817a50c8aa1c69"
+    },
+    "ar_ai_image_jobs": {
+      "count": 60,
+      "digest": "b1cc8d98c8f6c3d3e6a44d52ded95c6e"
+    },
+    "ar_pages": {
+      "count": 10,
+      "digest": "cf4e06479006206d763dd86ce00445c5"
+    },
+    "ar_content_editor_drafts": {
+      "count": 9,
+      "digest": "e22e45c9c6e911f2a2e58c0dde302a54"
+    },
+    "ar_orders": {
+      "count": 5,
+      "digest": "b41158c740e18ffbfc4fbc77cc7d7101"
+    },
+    "ar_payments": {
+      "count": 5,
+      "digest": "8b0bad9548322f898f552a60b801d163"
+    },
+    "ar_yookassa_refunds": {
+      "count": 0,
+      "digest": "d751713988987e9331980363e24189ce"
+    }
+  },
+  "otherEnvDigest": "842c4318ec3050520857d13ed5f10f51df96a603879e2d8809b525316f667568",
+  "migrations": [
+    {
+      "name": "001_catalog.sql",
+      "sha256": "127903d14d39b672de30d66f37b4fb10b79399bf97b6e27f21f630e2f7db008c"
+    },
+    {
+      "name": "002_catalog_integrity.sql",
+      "sha256": "0b21f38e7c87a740d2268d1f3d2d800ed7039f906e4de41c5014c6b41bec482b"
+    },
+    {
+      "name": "003_catalog_concurrency.sql",
+      "sha256": "0c92790dc994a93fb72b92af5fde887fd2684b0211d437de4e42fab9edc8c911"
+    },
+    {
+      "name": "004_commerce.sql",
+      "sha256": "ed66c3867d5c29a2238b8f7bfb9bb72dd5861c19af7e2a5398c75dd36b771d7f"
+    },
+    {
+      "name": "005_auth_limits.sql",
+      "sha256": "8e7a40e3e12685e811efd860700c915eab7e95bb2e776e6b1332f54b5dcc0ee8"
+    },
+    {
+      "name": "006_ruble_money.sql",
+      "sha256": "02739027c9170a770673cbf8974f9a2d83f47b35dd0a0fffba10cafee3cb4663"
+    },
+    {
+      "name": "007_store_expansion.sql",
+      "sha256": "97cbca44dcec84d923313d8ef9b08e01f78b94ae1c4d2125458bccd29d3daa7f"
+    },
+    {
+      "name": "008_carrier_tracking.sql",
+      "sha256": "a22cc319a353a6c2a120ef732b63875c94ea8b3ec7bb8e0d2636d9852a820e15"
+    },
+    {
+      "name": "009_seo_content.sql",
+      "sha256": "8bbe161f46c94d3166cb4ef36eb6c6e5ab62e4713a54ea713d552035f5d661c6"
+    },
+    {
+      "name": "010_yookassa_payments.sql",
+      "sha256": "299a91e12ef5ac6d9a331f09e4db18c5191a4afbc21bbb90354e769611d8ae2f"
+    },
+    {
+      "name": "011_checkout_confirmations.sql",
+      "sha256": "4fc1e275dd86364a321452e45213f04235206efa0901908f44bcd5ebd0fcb892"
+    },
+    {
+      "name": "012_product_editor.sql",
+      "sha256": "5a8c9ede9a2744a98f70bbcc6b447edf949f9dcc05a7dd404cc081072326694a"
+    },
+    {
+      "name": "013_ai_text_generation.sql",
+      "sha256": "dd1b6e381037e4bc80e8f205cbe60b971f6712137f1b4bc671de6f8ad2d39d74"
+    },
+    {
+      "name": "014_product_infographics.sql",
+      "sha256": "71baa0c384ebce0da7c5e7fa115a0a58b3c6ef818f1bc9d9f287c3f89f5ffba3"
+    },
+    {
+      "name": "015_product_discovery_lifecycle.sql",
+      "sha256": "aeac15a26820d8621d7f490f2ff77b05e3ec8546aeb9490533e8762c82e71cf4"
+    },
+    {
+      "name": "016_product_image_library.sql",
+      "sha256": "e7ed164d64714acaf62d5a5c24207f779545bc7a83de339c2e721f66fe8e300c"
+    },
+    {
+      "name": "017_product_color_merges.sql",
+      "sha256": "d84a89e81568e2e42aaeaed6cb63d1e318bc059d508e13fa52db9312671f4164"
+    },
+    {
+      "name": "018_bundle_editor.sql",
+      "sha256": "2b257ab2e5cdb3170b8945e5f43261accb034dcb29be0681d2400597d0fcc5b2"
+    },
+    {
+      "name": "019_content_editor.sql",
+      "sha256": "7d54a7e6a4fec85c270399a45e8bcd844b199353a0da3f6e8b8c26fc69615d8c"
+    },
+    {
+      "name": "020_product_purges.sql",
+      "sha256": "9ca7c511c2bde8d3e8faa07a33df89d29cc303129877bff1e7edee8fea8f286f"
+    },
+    {
+      "name": "021_ai_image_studio.sql",
+      "sha256": "04a09e3ce6204373fd6f259a22c33325fd1fad4d1e52552d180b4a84709fc0d0"
+    },
+    {
+      "name": "022_product_video.sql",
+      "sha256": "946369ce4321f4dc751d2f99c4fe0f20b6392a929bc02a4755d61d96972b8be8"
+    },
+    {
+      "name": "023_vehicle_editor.sql",
+      "sha256": "9ce6a2e0547dc98cb9a6280e6397aef78f0b42e9153a79c50cac7efde5f90495"
+    },
+    {
+      "name": "024_cdek_shipments.sql",
+      "sha256": "6191066b40ba0198c65e3f1f43ad55d3290adf086911113953ebda4da6a4312e"
+    },
+    {
+      "name": "025_yookassa_refunds.sql",
+      "sha256": "03e8f44840f2147b7d2c513658e0d6ccdc6d5bda8e466e1c1c7097b125575a79"
+    },
+    {
+      "name": "026_privacy_consent.sql",
+      "sha256": "beeabac0db58309edcf09c01f65b0e94ca9245f2d5db4ae5f16e1c005af89cd7"
+    },
+    {
+      "name": "027_order_delivery_deadline.sql",
+      "sha256": "6e55722f8b23f1cf1bb445e1bc28ec9bd9a19d9b7422a655700c8789b90ce5a7"
+    }
+  ],
+  "activeImageJobs": 0,
+  "workerRecent": true
+}

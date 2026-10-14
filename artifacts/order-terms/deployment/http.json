@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-15",
+  "targetSha": "bae4236c8a9642b924a7fe211fa6b5fe89d8c2af",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "noindex": true
+    },
+    {
+      "path": "/health",
+      "status": 200,
+      "revision": "bae4236c8a9642b924a7fe211fa6b5fe89d8c2af"
+    },
+    {
+      "path": "/catalog",
+      "status": 200
+    },
+    {
+      "path": "/checkout",
+      "status": 200,
+      "compactBanner": true
+    },
+    {
+      "path": "/api/manager/orders",
+      "status": 401
+    },
+    {
+      "path": "/api/manager/payment-refunds?orderId=00000000-0000-4000-8000-000000000001",
+      "status": 401
+    },
+    {
+      "path": "/api/privacy",
+      "status": 200,
+      "analyticsEnabled": false,
+      "noStore": true
+    },
+    {
+      "path": "/cms/users/me",
+      "status": 401
+    },
+    {
+      "path": "/muzey/",
+      "status": 200
+    },
+    {
+      "path": "/google031b679d17a8feda.html",
+      "status": 200
+    },
+    {
+      "path": "/info/contacts",
+      "status": 200
+    },
+    {
+      "path": "/info/delivery",
+      "status": 200
+    },
+    {
+      "path": "/info/returns",
+      "status": 200
+    },
+    {
+      "path": "/info/warranty",
+      "status": 200
+    },
+    {
+      "path": "/info/offer",
+      "status": 200
+    },
+    {
+      "path": "/info/personal-data",
+      "status": 200
+    },
+    {
+      "path": "/info/privacy",
+      "status": 200
+    },
+    {
+      "path": "/info/analytics-consent",
+      "status": 200
+    },
+    {
+      "path": "/info/review-consent",
+      "status": 200
+    }
+  ],
+  "passed": true
+}

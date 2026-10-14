@@ -47,11 +47,11 @@
 - Обзор владельца и правила показателей: [dashboard.md](dashboard.md).
 - Главная, товарные демоотзывы и статьи: [homepage-content.md](homepage-content.md).
 - Торговые контракты: [stage-4-contracts.md](stage-4-contracts.md), [stage-5-contracts.md](stage-5-contracts.md). Это базовые контракты этапов; актуальные изменения checkout и провайдеров перечислены в architecture.md и следующих документах.
-- Возвраты оплаты: [полный тестовый возврат из manager](payment-refunds.md), миграция025, пока локально. [План «Чеков от ЮKassa»](yookassa-receipts-plan.md): ИП/УСН6%/безНДС, подключение услуги уточняется.
+- Возвраты оплаты: [полный тестовый возврат из manager](payment-refunds.md), миграция025, опубликовано15.10. [План «Чеков от ЮKassa»](yookassa-receipts-plan.md): ИП/УСН6%/безНДС, подключение услуги уточняется.
 - ЮKassa: [yookassa.md](yookassa.md), [yookassa-checkout-contract.md](yookassa-checkout-contract.md).
 - Отправления СДЭК в manager: [очередь, накладные PDF, статусы и отмена](cdek-shipments.md), миграция024; опубликовано14.10 в тестовом режиме.
 - СДЭК/карта: [cdek.md](cdek.md), [cdek-checkout-contract.md](cdek-checkout-contract.md).
-- Документы/cookies/аналитика: [комплект14.10 и критерии публикации](legal-publication.md), [разбор Pack24/Boxstore](legal-reference-review.md), [подготовка уведомления РКН](rkn-notification-prep.md).9 документов опубликованы15.10; [итоговая оферта](offer-finalization.md), [локальные сроки и снимки заказа](order-terms.md). Уведомление cookies локально,026. Search Console подтверждена; создание Метрики заблокировано недоступностью кабинета. Прежние [legal-and-cookies-review.md](legal-and-cookies-review.md) и [offer-draft.md](offer-draft.md) — история подготовки.
+- Документы/cookies/аналитика: [комплект14.10 и критерии публикации](legal-publication.md), [разбор Pack24/Boxstore](legal-reference-review.md), [подготовка уведомления РКН](rkn-notification-prep.md).9 документов опубликованы15.10; [итоговая оферта](offer-finalization.md), [сроки и снимки заказа](order-terms.md). Уведомление cookies опубликовано,026. Search Console подтверждена; создание Метрики заблокировано недоступностью кабинета. Прежние [legal-and-cookies-review.md](legal-and-cookies-review.md) и [offer-draft.md](offer-draft.md) — история подготовки.
 - SEO: [seo.md](seo.md); оформление: [MASTER.md](../design-system/MASTER.md).
 - Лицензия: [license.md](license.md); статический тур: [muzey.md](muzey.md).
 - Версии: package.json / package-lock.json / Dockerfile / Compose — фактические pins; [versions.json](versions.json) — датированный снимок, не рекомендация автоматически обновляться.

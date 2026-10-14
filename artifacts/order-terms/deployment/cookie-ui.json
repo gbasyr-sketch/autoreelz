@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-15",
+  "releaseSha": "bae4236c8a9642b924a7fe211fa6b5fe89d8c2af",
+  "reference": "https://pack24.ru/",
+  "exactCopyRequested": false,
+  "banner": {
+    "position": "bottom center",
+    "desktop": {
+      "viewport": 1440,
+      "width": 576,
+      "height": 70
+    },
+    "mobile": {
+      "viewport": 375,
+      "width": 343,
+      "height": 76
+    },
+    "visibleButtons": 1,
+    "button": "OK",
+    "noOverflow": true
+  },
+  "localChoicePersistsAfterReload": true,
+  "publicExistingChoicePersists": true,
+  "analyticsEnabled": false,
+  "checkErrors": 0,
+  "checkWarnings": 0,
+  "build": "passed"
+}

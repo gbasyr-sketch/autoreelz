@@ -1,0 +1,15 @@
+{
+  "migrations": {
+    "025_yookassa_refunds.sql": "03e8f44840f2147b7d2c513658e0d6ccdc6d5bda8e466e1c1c7097b125575a79",
+    "026_privacy_consent.sql": "beeabac0db58309edcf09c01f65b0e94ca9245f2d5db4ae5f16e1c005af89cd7",
+    "027_order_delivery_deadline.sql": "6e55722f8b23f1cf1bb445e1bc28ec9bd9a19d9b7422a655700c8789b90ce5a7"
+  },
+  "migrationCount": 27,
+  "backup": "/srv/autoreelz2026/backups/before-order-terms-1542a554f80e-20261015.dump",
+  "backupBytes": 11747965,
+  "backupReadable": true,
+  "restorePerformed": false,
+  "protectedTablesUnchanged": true,
+  "publishedPagesUnchanged": true,
+  "backupLockHeld": true
+}

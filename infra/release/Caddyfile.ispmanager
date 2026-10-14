@@ -5,6 +5,10 @@
 
 :8080 {
  header X-Robots-Tag "noindex, nofollow, noarchive"
+ handle /google031b679d17a8feda.html {
+  root * /srv/static/verification
+  file_server
+ }
  redir /muzey /muzey/ 301
  handle /muzey/* {
   root * /srv/static

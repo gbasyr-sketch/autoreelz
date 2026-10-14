@@ -75,7 +75,7 @@ class Client:
             config+='header = '+json.dumps(name+': '+str(value))+'\n'
         limit=min(20 if authenticated else 60,(deadline-time.monotonic()) if deadline is not None else 120)
         if limit<=0:raise TransportError('request_deadline')
-        args=['/usr/bin/curl','--config','-','--silent','--show-error','--http1.1','--ipv4','--noproxy','*','--connect-timeout','10','--max-time',str(round(limit,2)),'--max-filesize',str(MAX_BYTES),'--expect100-timeout','10','--request',method,'--user-agent',USER_AGENT if authenticated else 'AUTO-REELZ-backup/1','--dump-header',str(head),'--output',str(body),'--write-out','%{http_code}']
+        args=['/usr/bin/curl','--disable','--config','-','--silent','--show-error','--http1.1','--ipv4','--noproxy','*','--connect-timeout','10','--max-time',str(round(limit,2)),'--max-filesize',str(MAX_BYTES),'--expect100-timeout','10','--request',method,'--user-agent',USER_AGENT if authenticated else 'AUTO-REELZ-backup/1','--dump-header',str(head),'--output',str(body),'--write-out','%{http_code}']
         if method=='HEAD':args+=['--head']
         if payload is not None:args+=['--upload-file' if method=='PUT' else '--data-binary',str(payload) if method=='PUT' else '@'+str(payload)]
         try:run=subprocess.run(args,input=config,capture_output=True,text=True,timeout=limit+5)

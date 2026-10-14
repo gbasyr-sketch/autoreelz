@@ -49,5 +49,6 @@ class Tests(unittest.TestCase):
    self.client.call('GET','https://s1.storage.yandex.net/signed-secret',self.root)
   self.assertIn('Authorization: Basic ',calls[0][1]['input']);self.assertNotIn('Authorization',calls[1][1]['input'])
   for args,_ in calls:
+   self.assertEqual(args[1],'--disable')
    self.assertNotIn('signed-secret',' '.join(args));self.assertNotIn(self.client.authorization,' '.join(args));self.assertNotIn('--location-trusted',args);self.assertNotIn('--insecure',args)
 if __name__=='__main__':unittest.main()

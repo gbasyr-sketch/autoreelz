@@ -57,7 +57,7 @@ def execute(args, *, input=None, timeout=180, stdout=None, env=None):
         # Private diagnostic only; never forward stderr into manager or a public artifact.
         with (PRIVATE/'last-error.log').open('w', encoding='utf-8') as f:
             os.chmod(f.name, 0o600)
-            f.write(result.stderr[-32000:])
+            f.write((result.stdout or '')[-32000:]+'\n'+result.stderr[-32000:])
         raise BackupError('command_failed')
     return (result.stdout or '').strip()
 

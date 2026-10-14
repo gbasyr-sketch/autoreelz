@@ -1,0 +1,242 @@
+{
+  "appSha": "abe26c5317400e9c11d2fe27d19b6c809b95e1dd",
+  "imageId": "sha256:ce6495a38ae68f9924ae80a42151e0170eef5baceab81f90210cef75e41671ef",
+  "containers": {
+    "autoreelz2026-release-web-1": {
+      "id": "f866dd15269b87efc3a399b3ef4c4f69a7940b5c8186fb54af4193d551f948f8",
+      "startedAt": "2026-10-14T22:11:22.945525673Z",
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-image-worker-1": {
+      "id": "fd90eec242210b596759dc9cdc7936d5c1fc662b04fa17937216518a2a763c61",
+      "startedAt": "2026-10-14T22:11:22.634563819Z",
+      "status": "running",
+      "health": null
+    },
+    "autoreelz2026-release-worker-1": {
+      "id": "90280c6b61ab8873b33b2dd26735508bedfc3acda18fcff935a6732e28e44bbf",
+      "startedAt": "2026-10-14T22:11:22.789580073Z",
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-edge-1": {
+      "id": "9d8c8974aa6e59e3a9bd6a5c162d39e5567c33d0ee793fc6a8ecac2c41c3ef38",
+      "startedAt": "2026-10-14T19:02:48.07763938Z",
+      "status": "running",
+      "health": null
+    },
+    "autoreelz2026-release-background-1": {
+      "id": "7bfa481425a90cc851fab221e42ea5cf03fc3e024a151d7b637b4f476b91847c",
+      "startedAt": "2026-09-30T15:14:09.306572603Z",
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-cms-1": {
+      "id": "7da34b36aa472d8b0279478a7ec3c53bdb7124e8fad06e3b1e20730d4e3c77a8",
+      "startedAt": "2026-09-23T17:02:33.846890768Z",
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-db-1": {
+      "id": "c81ff315e46cac586372b6c0b8c399b5a13e9fd0266966612034c9588f93760d",
+      "startedAt": "2026-09-23T15:16:27.816123898Z",
+      "status": "running",
+      "health": "healthy"
+    }
+  },
+  "migrations": [
+    {
+      "name": "001_catalog.sql",
+      "sha256": "127903d14d39b672de30d66f37b4fb10b79399bf97b6e27f21f630e2f7db008c",
+      "applied_at": "2026-09-21T18:40:06.825438+00:00"
+    },
+    {
+      "name": "002_catalog_integrity.sql",
+      "sha256": "0b21f38e7c87a740d2268d1f3d2d800ed7039f906e4de41c5014c6b41bec482b",
+      "applied_at": "2026-09-21T18:46:46.546381+00:00"
+    },
+    {
+      "name": "003_catalog_concurrency.sql",
+      "sha256": "0c92790dc994a93fb72b92af5fde887fd2684b0211d437de4e42fab9edc8c911",
+      "applied_at": "2026-09-21T18:49:06.418436+00:00"
+    },
+    {
+      "name": "004_commerce.sql",
+      "sha256": "ed66c3867d5c29a2238b8f7bfb9bb72dd5861c19af7e2a5398c75dd36b771d7f",
+      "applied_at": "2026-09-21T20:29:21.887553+00:00"
+    },
+    {
+      "name": "005_auth_limits.sql",
+      "sha256": "8e7a40e3e12685e811efd860700c915eab7e95bb2e776e6b1332f54b5dcc0ee8",
+      "applied_at": "2026-09-21T20:41:06.537682+00:00"
+    },
+    {
+      "name": "006_ruble_money.sql",
+      "sha256": "02739027c9170a770673cbf8974f9a2d83f47b35dd0a0fffba10cafee3cb4663",
+      "applied_at": "2026-09-21T21:58:15.87789+00:00"
+    },
+    {
+      "name": "007_store_expansion.sql",
+      "sha256": "97cbca44dcec84d923313d8ef9b08e01f78b94ae1c4d2125458bccd29d3daa7f",
+      "applied_at": "2026-09-21T23:48:54.241009+00:00"
+    },
+    {
+      "name": "008_carrier_tracking.sql",
+      "sha256": "a22cc319a353a6c2a120ef732b63875c94ea8b3ec7bb8e0d2636d9852a820e15",
+      "applied_at": "2026-09-21T23:50:25.154103+00:00"
+    },
+    {
+      "name": "009_seo_content.sql",
+      "sha256": "8bbe161f46c94d3166cb4ef36eb6c6e5ab62e4713a54ea713d552035f5d661c6",
+      "applied_at": "2026-09-23T13:18:24.257912+00:00"
+    },
+    {
+      "name": "010_yookassa_payments.sql",
+      "sha256": "299a91e12ef5ac6d9a331f09e4db18c5191a4afbc21bbb90354e769611d8ae2f",
+      "applied_at": "2026-09-23T17:02:27.731021+00:00"
+    },
+    {
+      "name": "011_checkout_confirmations.sql",
+      "sha256": "4fc1e275dd86364a321452e45213f04235206efa0901908f44bcd5ebd0fcb892",
+      "applied_at": "2026-09-23T20:17:13.65324+00:00"
+    },
+    {
+      "name": "012_product_editor.sql",
+      "sha256": "5a8c9ede9a2744a98f70bbcc6b447edf949f9dcc05a7dd404cc081072326694a",
+      "applied_at": "2026-09-30T11:46:42.193189+00:00"
+    },
+    {
+      "name": "013_ai_text_generation.sql",
+      "sha256": "dd1b6e381037e4bc80e8f205cbe60b971f6712137f1b4bc671de6f8ad2d39d74",
+      "applied_at": "2026-09-30T13:26:01.608732+00:00"
+    },
+    {
+      "name": "014_product_infographics.sql",
+      "sha256": "71baa0c384ebce0da7c5e7fa115a0a58b3c6ef818f1bc9d9f287c3f89f5ffba3",
+      "applied_at": "2026-09-30T15:12:35.943519+00:00"
+    },
+    {
+      "name": "015_product_discovery_lifecycle.sql",
+      "sha256": "aeac15a26820d8621d7f490f2ff77b05e3ec8546aeb9490533e8762c82e71cf4",
+      "applied_at": "2026-09-30T16:00:31.669638+00:00"
+    },
+    {
+      "name": "016_product_image_library.sql",
+      "sha256": "e7ed164d64714acaf62d5a5c24207f779545bc7a83de339c2e721f66fe8e300c",
+      "applied_at": "2026-10-03T13:48:27.101248+00:00"
+    },
+    {
+      "name": "017_product_color_merges.sql",
+      "sha256": "d84a89e81568e2e42aaeaed6cb63d1e318bc059d508e13fa52db9312671f4164",
+      "applied_at": "2026-10-03T15:28:59.51223+00:00"
+    },
+    {
+      "name": "018_bundle_editor.sql",
+      "sha256": "2b257ab2e5cdb3170b8945e5f43261accb034dcb29be0681d2400597d0fcc5b2",
+      "applied_at": "2026-10-03T16:20:52.572934+00:00"
+    },
+    {
+      "name": "019_content_editor.sql",
+      "sha256": "7d54a7e6a4fec85c270399a45e8bcd844b199353a0da3f6e8b8c26fc69615d8c",
+      "applied_at": "2026-10-03T19:24:47.53212+00:00"
+    },
+    {
+      "name": "020_product_purges.sql",
+      "sha256": "9ca7c511c2bde8d3e8faa07a33df89d29cc303129877bff1e7edee8fea8f286f",
+      "applied_at": "2026-10-04T15:50:30.489583+00:00"
+    },
+    {
+      "name": "021_ai_image_studio.sql",
+      "sha256": "04a09e3ce6204373fd6f259a22c33325fd1fad4d1e52552d180b4a84709fc0d0",
+      "applied_at": "2026-10-09T13:20:42.575781+00:00"
+    },
+    {
+      "name": "022_product_video.sql",
+      "sha256": "946369ce4321f4dc751d2f99c4fe0f20b6392a929bc02a4755d61d96972b8be8",
+      "applied_at": "2026-10-11T12:33:21.949553+00:00"
+    },
+    {
+      "name": "023_vehicle_editor.sql",
+      "sha256": "9ce6a2e0547dc98cb9a6280e6397aef78f0b42e9153a79c50cac7efde5f90495",
+      "applied_at": "2026-10-13T13:29:38.81355+00:00"
+    },
+    {
+      "name": "024_cdek_shipments.sql",
+      "sha256": "6191066b40ba0198c65e3f1f43ad55d3290adf086911113953ebda4da6a4312e",
+      "applied_at": "2026-10-14T17:58:03.976369+00:00"
+    },
+    {
+      "name": "025_yookassa_refunds.sql",
+      "sha256": "03e8f44840f2147b7d2c513658e0d6ccdc6d5bda8e466e1c1c7097b125575a79",
+      "applied_at": "2026-10-14T21:40:16.753482+00:00"
+    },
+    {
+      "name": "026_privacy_consent.sql",
+      "sha256": "beeabac0db58309edcf09c01f65b0e94ca9245f2d5db4ae5f16e1c005af89cd7",
+      "applied_at": "2026-10-14T21:40:16.753482+00:00"
+    },
+    {
+      "name": "027_order_delivery_deadline.sql",
+      "sha256": "6e55722f8b23f1cf1bb445e1bc28ec9bd9a19d9b7422a655700c8789b90ce5a7",
+      "applied_at": "2026-10-14T21:40:16.753482+00:00"
+    }
+  ],
+  "protectedTables": {
+    "ar_products": {
+      "count": 155,
+      "digest": "1e8ae0943e82ac0c081c3aafec2326ca"
+    },
+    "ar_skus": {
+      "count": 140,
+      "digest": "25bad5b8fa0ffc9f27cb8298f2f5a613"
+    },
+    "ar_stock": {
+      "count": 21,
+      "digest": "996ed0875bad0ae54323a1e5ab9f80eb"
+    },
+    "ar_product_editor_drafts": {
+      "count": 79,
+      "digest": "ace6c384cb30abf215a37c9f041f8bbe"
+    },
+    "ar_product_media": {
+      "count": 597,
+      "digest": "3fb98995b80f95daef0adbb1063c6543"
+    },
+    "ar_sku_media": {
+      "count": 465,
+      "digest": "4493dbadbd1853e02953e60d3431ff7a"
+    },
+    "ar_ai_text_requests": {
+      "count": 161,
+      "digest": "8605dc2316b4b26ae1aa37ff9e4c63fe"
+    }
+  },
+  "activeImageJobs": 0,
+  "activeTextJobs": 0,
+  "pagesDigest": "263224c33a55e1d2dade7b0e5e81ab57",
+  "googleFilePresent": true,
+  "mode": "staging",
+  "providers": {
+    "PAYMENT_PROVIDER": "yookassa-sandbox",
+    "SHIPPING_PROVIDER": "cdek",
+    "PICKUP_MAP_PROVIDER": "osm",
+    "CDEK_SHIPMENTS_MODE": "test",
+    "SEO_INDEXING_ENABLED": "false"
+  },
+  "backup": {
+    "state": "running",
+    "lastSuccessAt": "2026-10-14T21:17:16.522520+00:00",
+    "uploadedAt": "2026-10-14T21:28:50.313326+00:00",
+    "lastVerifiedAt": "2026-10-14T15:24:07.962756+00:00",
+    "error": null,
+    "verificationError": null,
+    "scheduled": true
+  },
+  "pendingUploads": 1,
+  "backupActive": "active",
+  "disk": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/vda1        79G   66G   14G  84% /",
+  "sourceExists": true,
+  "targetSha": "d2d727b45e787d29276b3c4bace43ed5b0d78776",
+  "checkedAt": "2026-10-14T22:24:46.986546+00:00"
+}

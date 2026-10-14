@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "releaseSha": "d2d727b45e787d29276b3c4bace43ed5b0d78776",
+  "checks": [
+    {
+      "path": "/health",
+      "status": 200
+    },
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/info/privacy",
+      "status": 200
+    },
+    {
+      "path": "/checkout",
+      "status": 200
+    },
+    {
+      "path": "/info/contacts",
+      "status": 200
+    },
+    {
+      "path": "/google031b679d17a8feda.html",
+      "status": 200
+    }
+  ],
+  "insideFooter": true,
+  "singleSettingsTrigger": true
+}

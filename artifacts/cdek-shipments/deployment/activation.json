@@ -1,0 +1,72 @@
+{
+  "releaseSha": "72aa7f198220971363db6dca30d15572e185adbc",
+  "imageId": "sha256:875108cf1249825459c43bf1141dc4654e32e8451718f0d2654359a185c57ed6",
+  "health": {
+    "ok": true,
+    "revision": "72aa7f198220971363db6dca30d15572e185adbc"
+  },
+  "previousEnv": "/srv/autoreelz2026/shared/bootstrap/server.env.before-cdek-72aa7f198220",
+  "mode": "staging",
+  "shipmentMode": "test",
+  "liveShipmentsEnabled": false,
+  "updatedServices": [
+    "web",
+    "worker",
+    "image-worker"
+  ],
+  "envChangedKeys": [
+    "RELEASE_IMAGE",
+    "CDEK_SHIPMENTS_MODE",
+    "CDEK_SHIPMENTS_ALLOW_LIVE",
+    "CDEK_TEST_CLIENT_ID",
+    "CDEK_TEST_CLIENT_SECRET",
+    "CDEK_TEST_FROM_PVZ"
+  ],
+  "otherEnvUnchanged": true,
+  "originPointUnchanged": true,
+  "containers": {
+    "autoreelz2026-release-web-1": {
+      "id": "cae823508b4a7559df1ee1c71f9f51c02f568e56a082216c19f432855678f2c2",
+      "startedAt": "2026-10-14T17:59:59.914459255Z",
+      "status": "running",
+      "health": "starting"
+    },
+    "autoreelz2026-release-image-worker-1": {
+      "id": "7b9679d3f683475d79e17c1aabddebd2731169e9fb018c6f45f8d28b2e2da8d6",
+      "startedAt": "2026-10-14T17:59:59.758848569Z",
+      "status": "running",
+      "health": null
+    },
+    "autoreelz2026-release-worker-1": {
+      "id": "62d7ef9166d8decbc22febc6d823133242500cb010f96f59b4510c8e38b52806",
+      "startedAt": "2026-10-14T18:00:00.166660515Z",
+      "status": "running",
+      "health": "starting"
+    },
+    "autoreelz2026-release-edge-1": {
+      "id": "9d8c8974aa6e59e3a9bd6a5c162d39e5567c33d0ee793fc6a8ecac2c41c3ef38",
+      "startedAt": "2026-10-03T19:54:04.011566724Z",
+      "status": "running",
+      "health": null
+    },
+    "autoreelz2026-release-background-1": {
+      "id": "7bfa481425a90cc851fab221e42ea5cf03fc3e024a151d7b637b4f476b91847c",
+      "startedAt": "2026-09-30T15:14:09.306572603Z",
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-cms-1": {
+      "id": "7da34b36aa472d8b0279478a7ec3c53bdb7124e8fad06e3b1e20730d4e3c77a8",
+      "startedAt": "2026-09-23T17:02:33.846890768Z",
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-db-1": {
+      "id": "c81ff315e46cac586372b6c0b8c399b5a13e9fd0266966612034c9588f93760d",
+      "startedAt": "2026-09-23T15:16:27.816123898Z",
+      "status": "running",
+      "health": "healthy"
+    }
+  },
+  "unrelatedContainersUnchanged": true
+}

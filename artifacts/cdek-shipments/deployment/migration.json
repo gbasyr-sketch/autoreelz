@@ -1,0 +1,41 @@
+{
+  "migration": "024_cdek_shipments.sql",
+  "sha256": "6191066b40ba0198c65e3f1f43ad55d3290adf086911113953ebda4da6a4312e",
+  "backup": "/srv/autoreelz2026/backups/before-cdek-72aa7f198220-20261014.dump",
+  "backupBytes": 11665489,
+  "backupReadable": true,
+  "migrationCount": 24,
+  "protectedTablesUnchanged": true,
+  "protectedTables": {
+    "ar_products": {
+      "count": 155,
+      "digest": "1e8ae0943e82ac0c081c3aafec2326ca"
+    },
+    "ar_skus": {
+      "count": 140,
+      "digest": "25bad5b8fa0ffc9f27cb8298f2f5a613"
+    },
+    "ar_stock": {
+      "count": 21,
+      "digest": "996ed0875bad0ae54323a1e5ab9f80eb"
+    },
+    "ar_product_editor_drafts": {
+      "count": 79,
+      "digest": "ace6c384cb30abf215a37c9f041f8bbe"
+    },
+    "ar_product_media": {
+      "count": 597,
+      "digest": "3fb98995b80f95daef0adbb1063c6543"
+    },
+    "ar_sku_media": {
+      "count": 465,
+      "digest": "4493dbadbd1853e02953e60d3431ff7a"
+    },
+    "ar_ai_text_requests": {
+      "count": 161,
+      "digest": "8605dc2316b4b26ae1aa37ff9e4c63fe"
+    }
+  },
+  "shipmentCount": 0,
+  "backupLockHeld": true
+}

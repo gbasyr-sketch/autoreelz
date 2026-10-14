@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "publishedUI": true,
+  "appSha": "72aa7f198220971363db6dca30d15572e185adbc",
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "testMode": true,
+      "apiPrivate": true,
+      "noOverflow": true,
+      "formVisible": true
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "testMode": true,
+      "apiPrivate": true,
+      "noOverflow": true,
+      "formVisible": true
+    }
+  ],
+  "mutations": "login/logout only; blocked CSRF probe; no shipping orders",
+  "sessionsRevoked": true
+}

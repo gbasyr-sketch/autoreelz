@@ -48,7 +48,7 @@
 - Главная, товарные демоотзывы и статьи: [homepage-content.md](homepage-content.md).
 - Торговые контракты: [stage-4-contracts.md](stage-4-contracts.md), [stage-5-contracts.md](stage-5-contracts.md). Это базовые контракты этапов; актуальные изменения checkout и провайдеров перечислены в architecture.md и следующих документах.
 - ЮKassa: [yookassa.md](yookassa.md), [yookassa-checkout-contract.md](yookassa-checkout-contract.md).
-- Отправления СДЭК в manager: [очередь, накладные PDF, статусы и отмена](cdek-shipments.md), миграция024; локально проверено14.10, пока не выпущено.
+- Отправления СДЭК в manager: [очередь, накладные PDF, статусы и отмена](cdek-shipments.md), миграция024; опубликовано14.10 в тестовом режиме.
 - СДЭК/карта: [cdek.md](cdek.md), [cdek-checkout-contract.md](cdek-checkout-contract.md).
 - Юридическая подготовка: [legal-and-cookies-review.md](legal-and-cookies-review.md), [offer-draft.md](offer-draft.md). Это датированный аудит и проект, не утверждённая оферта; перед реальным запуском нормы проверить заново.
 - SEO: [seo.md](seo.md); оформление: [MASTER.md](../design-system/MASTER.md).

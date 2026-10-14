@@ -53,10 +53,16 @@ class Client:
         login,password=credentials['login'],credentials['password']
         if not isinstance(login,str) or not isinstance(password,str) or not login or not password or any(c in login+password for c in '\r\n'):raise TransportError('invalid_credentials')
         self.authorization='Basic '+base64.b64encode((login+':'+password).encode()).decode()
+        self.control_gate=threading.Lock();self.next_control=0.0
     def call(self,method,url,folder,*,payload=None,headers=None,authenticated=False,deadline=None):
         if authenticated:
             if not url.startswith(ORIGIN+'/'):raise TransportError('credential_destination')
             safe_path(url[len(ORIGIN):])
+            # Keep account metadata traffic modest; bulk bytes use signed data nodes.
+            with self.control_gate:
+                delay=self.next_control-time.monotonic()
+                if delay>0:time.sleep(delay)
+                self.next_control=time.monotonic()+.5
         else:safe_target(url)
         request_headers=dict(headers or {})
         if authenticated:request_headers['Authorization']=self.authorization

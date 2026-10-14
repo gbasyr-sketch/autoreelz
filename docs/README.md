@@ -1,6 +1,6 @@
 # Навигатор документации
 
-Обновлено 09.10.2026. Цель — начать конкретную доработку без чтения всей переписки и истории этапов.
+Обновлено 14.10.2026. Цель — начать конкретную доработку без чтения всей переписки и истории этапов.
 
 ## Первые пять минут
 
@@ -42,7 +42,7 @@
 - Печатная инструкция владельцу: [PDF, 6 страниц](../output/pdf/AUTO-REELZ-instruktsiya-dobavlenie-tovarov.pdf). Сборка — `scripts/build-product-guide-pdf.py` с Python/reportlab; после изменения процедуры обновлять текст и проверять все страницы PDF.
 - Каталог/владелец: [cms.md](cms.md), [manager-guide.md](manager-guide.md), [полный перенос03.10 и21 черновик](wb-full-import.md); [первый импорт23.09](wb-catalog-import.md) — история.
 - Структура кабинета: [manager-workspace.md](manager-workspace.md); инструкция — [manager-guide.md](manager-guide.md).
-- Генерация описаний: [руководство и контракт](ai-text-generation.md), [история подготовки](ai-text-generation-plan.md). Общий бюджет до $10/месяц, часовой квоты нет; OpenAI GPT-6 Luna подключён через [отдельный шлюз владельца](ai-gateway.md), DeepSeek отключён в выборе.
+- Генерация описаний: [руководство и контракт](ai-text-generation.md), [история подготовки](ai-text-generation-plan.md). Общий бюджет до $10/месяц, часовой квоты нет; GPT-6 Luna и GPT-6.1 Sol подключены через [отдельный шлюз владельца](ai-gateway.md); доступны правки словами и история. DeepSeek отключён в выборе.
 - Обзор владельца и правила показателей: [dashboard.md](dashboard.md).
 - Главная, товарные демоотзывы и статьи: [homepage-content.md](homepage-content.md).
 - Торговые контракты: [stage-4-contracts.md](stage-4-contracts.md), [stage-5-contracts.md](stage-5-contracts.md). Это базовые контракты этапов; актуальные изменения checkout и провайдеров перечислены в architecture.md и следующих документах.

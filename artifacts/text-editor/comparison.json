@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-10-14",
+  "comparisonAppSha": "1477dcf5065faeb553ee3ed170efe56c2d0a91a4",
+  "finalAppSha": "def9ce9aaac290bf536f8067a2effe455ef23612",
+  "finalPromptVersion": "2026-10-14.2",
+  "productsSelected": 10,
+  "inputConflictProducts": 1,
+  "inputConflictBlockedBeforeCharge": true,
+  "initialPaidAttempts": 20,
+  "finalComparisonPaidAttempts": 18,
+  "revisionPaidAttempts": 1,
+  "totalPaidAttempts": 39,
+  "approvedCapUsd": "1.00000000",
+  "totalChargedUpperUsd": "0.13753830",
+  "monthlyBudgetUsd": "10.00000000",
+  "models": [
+    {
+      "model": "gpt-6-luna",
+      "attempted": 9,
+      "accepted": 4,
+      "failed": 5,
+      "costUpperUsd": "0.00282916",
+      "medianDescriptionCharacters": 193.0,
+      "manualReview": "Several service-style phrases and fitment assertions were rejected; one accepted chrome wording needs manual review."
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "attempted": 9,
+      "accepted": 9,
+      "failed": 0,
+      "costUpperUsd": "0.05987250",
+      "medianDescriptionCharacters": 264,
+      "manualReview": "Sol retained material, packaging and installation details more consistently; provider success and lexical validation do not prove factual correctness."
+    }
+  ],
+  "revisionCompleted": true,
+  "revisionRetryWithoutCharge": true,
+  "catalogUnchanged": true,
+  "resultsPublishedToProducts": false,
+  "privateSamples": "private/text-editor-20261014/comparison-final.json"
+}

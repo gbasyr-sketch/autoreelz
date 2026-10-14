@@ -1,0 +1,17 @@
+{
+  "node": "24.21.0",
+  "check": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "build": "passed",
+  "unit": {
+    "passed": 147,
+    "skipped": 8,
+    "failed": 0
+  },
+  "targetedTestsPassed": 22,
+  "gatewayTestsPassed": 6,
+  "paidCallsInLocalTests": 0
+}

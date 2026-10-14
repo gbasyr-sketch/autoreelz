@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "publishedUI": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "history": true,
+      "applyOnlyToForm": true,
+      "reloadRestoresSavedProduct": true
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "history": true,
+      "applyOnlyToForm": true,
+      "reloadRestoresSavedProduct": true
+    }
+  ],
+  "paidCalls": 0,
+  "productWrites": 0,
+  "sessionsRevoked": true
+}

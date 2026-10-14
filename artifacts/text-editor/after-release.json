@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-10-14T10:34:30.167106+00:00",
+  "services": [
+    {
+      "service": "web",
+      "health": "healthy",
+      "running": true,
+      "revision": "def9ce9aaac290bf536f8067a2effe455ef23612"
+    },
+    {
+      "service": "image-worker",
+      "health": null,
+      "running": true,
+      "revision": "def9ce9aaac290bf536f8067a2effe455ef23612"
+    },
+    {
+      "service": "worker",
+      "health": "healthy",
+      "running": true,
+      "revision": "def9ce9aaac290bf536f8067a2effe455ef23612"
+    },
+    {
+      "service": "edge",
+      "health": null,
+      "running": true,
+      "revision": null
+    },
+    {
+      "service": "background",
+      "health": "healthy",
+      "running": true,
+      "revision": "12d1845867eabf9767296bf521b8353c84f912bd"
+    },
+    {
+      "service": "cms",
+      "health": "healthy",
+      "running": true,
+      "revision": "973be10df8b0305569dc0dc53e187c648133c8d6"
+    },
+    {
+      "service": "db",
+      "health": "healthy",
+      "running": true,
+      "revision": null
+    }
+  ],
+  "temporaryRunnerEnvRemoved": true,
+  "readOnly": true
+}

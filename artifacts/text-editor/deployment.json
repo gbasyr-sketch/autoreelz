@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-14T10:33:18.741392+00:00",
+  "appSha": "def9ce9aaac290bf536f8067a2effe455ef23612",
+  "imageId": "sha256:ca777af53577d05d08d67427bd9c0a2b70ad3b4e07eb4cc92da6c6c0b1b77ba3",
+  "previousSha": "03db389b717bcfb584e3bcc2a72bb6eda525ba59",
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-text-editor-20261014T103313Z",
+  "changedEnv": [
+    "RELEASE_IMAGE",
+    "AI_TEXT_ALLOW_SOL",
+    "AI_TEXT_OPENAI_MODEL"
+  ],
+  "defaultModel": "gpt-6-luna",
+  "preservedContainers": [
+    "db",
+    "cms",
+    "edge",
+    "background"
+  ],
+  "catalogAndTextLedgerUnchangedByActivation": true,
+  "schemaChanged": false,
+  "lastMigration": "023_vehicle_editor.sql"
+}

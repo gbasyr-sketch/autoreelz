@@ -4,6 +4,7 @@
 
 ## Ресурсы и границы
 
+- Резервирование нового магазина: [server-backups.md](server-backups.md). Runner/бинарники — `/opt/autoreelz2026-backup`, секреты — `/var/lib/autoreelz2026-backup/private`, локальный зашифрованный репозиторий — `/var/lib/autoreelz2026-backup/work/repository`. В web примонтирован только `/var/lib/autoreelz2026-backup/status` read-only; секреты и архивы не доступны приложению. Фактическое состояние расписания — status.md.
 - SSH: `root@91.200.150.79:22`, отдельные `private/ssh_server_ed25519` и `private/server_known_hosts`.
 - Новый Linux-пользователь: `autoreelz2026`, UID1018; дом `/srv/autoreelz2026`.
 - Только наш rootless Docker: проект `autoreelz2026-release`, socket `/run/user/1018/docker.sock`. Системный Docker, ISPmanager и другие сайты не менять.

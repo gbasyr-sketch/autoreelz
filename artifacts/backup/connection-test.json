@@ -1,0 +1,7 @@
+{
+  "bytes": 16777216,
+  "exitCode": 1,
+  "seconds": 0.26,
+  "errorType": "connection_failed",
+  "reason": "parent_creation_http_500"
+}

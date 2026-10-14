@@ -4,6 +4,7 @@
 
 | Назначение | Где искать | Как использовать |
 |---|---|---|
+| Резервные копии14.10 | Mac: `private/backup-20261014/`; RU: `/var/lib/autoreelz2026-backup/private`, `/var/lib/autoreelz2026-backup/work/repository` | `AUTO-REELZ-recovery-key.txt` содержит пароль расшифровки; `server-encrypted-repository` — дополнительный проверенный экземпляр. OAuth/WebDAV-конфигурация и логи приватны. Не переинициализировать репозитории/ключи. Облачная передача пока не принята; [состояние](status.md), [контракт](server-backups.md) |
 | Вход владельца/сервера | `private/server-access.md` | Прочитать только когда нужен вход. Старый HTTP Basic может быть сохранён как история, витрина уже публичная |
 | Учётные данные для прежних QA-скриптов | `private/staging-transfer-2026-09-23T15-04-22-391Z/access.json` | Поля cms/email/password и store; не выводить целиком, не отправлять третьим сторонам |
 | SSH сервера | `private/ssh_server_ed25519`, `private/server_known_hosts` | StrictHostKeyChecking; новый компьютер требует защищённого переноса или отдельно разрешённого ключа |

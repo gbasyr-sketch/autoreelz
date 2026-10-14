@@ -1,0 +1,32 @@
+{
+  "exitCode": 0,
+  "result": "{\"ok\": true, \"action\": \"verify-local\"}",
+  "verification": {
+    "verifiedAt": "2026-10-14T12:10:03.358288+00:00",
+    "snapshot": "e584b4c21b8f3e0f4deefbbadaff68838abae85fa2e593e01bceec641a998d79",
+    "tables": 100,
+    "rows": 137007,
+    "files": 4039,
+    "grants": {
+      "appReadsCatalog": true,
+      "appCannotDeleteVehicles": true,
+      "cmsCannotWriteStock": true
+    },
+    "appCredentialsVerified": true,
+    "isolated": true,
+    "licensedCmsStarted": false,
+    "external": false
+  },
+  "status": {
+    "version": 1,
+    "updatedAt": "2026-10-14T12:10:03.358808+00:00",
+    "state": "error",
+    "lastAttemptAt": "2026-10-14T12:03:27.540942+00:00",
+    "error": "offsite_pending",
+    "lastFailureAt": "2026-10-14T12:08:18.546145+00:00",
+    "lastLocalAt": "2026-10-14T12:03:29.823125+00:00",
+    "writeBarrierSeconds": 2.533,
+    "lastVerificationAttemptAt": "2026-10-14T12:09:47.823346+00:00",
+    "lastLocalVerifiedAt": "2026-10-14T12:10:03.358288+00:00"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "moved": true,
+  "rootOwnedProgram": "/opt/autoreelz2026-backup",
+  "rootOwnedState": "/var/lib/autoreelz2026-backup",
+  "passwordAndRepositoryIdsPreserved": true,
+  "timersEnabled": false,
+  "oldStatusTemporarilyKeptForRunningWeb": true
+}

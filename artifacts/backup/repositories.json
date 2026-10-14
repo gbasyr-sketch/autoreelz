@@ -1,0 +1,10 @@
+{
+  "ready": true,
+  "initialized": true,
+  "transport": "webdav",
+  "remoteFolder": "AUTO-REELZ-backups/autoreelz2026",
+  "localRepositoryId": "588e2e14d414e74a4cebbfdd89ba4cf9dd17fd6241951485861a52b6289a0922",
+  "remoteRepositoryId": "bac96f4d6bf93f8ca9413857448ad7c5b11fe806b4942379f8922d32a1da4788",
+  "encrypted": true,
+  "parentCreatedPrivately": true
+}

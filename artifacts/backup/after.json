@@ -1,0 +1,117 @@
+{
+  "checkedAt": "2026-10-14T13:04:55.440600+00:00",
+  "appSha": "3c2e89cac443710f6196e41490acde8d7eb48bba",
+  "imageId": "sha256:292b3f53ed657ca0f71acde18e741e21f3d7a627153c5106e21352158a39ab24",
+  "status": {
+    "version": 1,
+    "updatedAt": "2026-10-14T13:04:08.927302+00:00",
+    "state": "error",
+    "lastAttemptAt": "2026-10-14T13:03:33.420749+00:00",
+    "error": "offsite_pending",
+    "lastFailureAt": "2026-10-14T12:50:26.126069+00:00",
+    "lastLocalAt": "2026-10-14T13:03:35.772817+00:00",
+    "writeBarrierSeconds": 2.344,
+    "lastVerificationAttemptAt": "2026-10-14T13:03:50.135423+00:00",
+    "lastLocalVerifiedAt": "2026-10-14T13:04:08.926557+00:00"
+  },
+  "localVerification": {
+    "verifiedAt": "2026-10-14T13:04:08.926557+00:00",
+    "snapshot": "e88baa318bf10861a00e534e08f5a8d6acb358ef863f798c1971d25080a818c5",
+    "tables": 100,
+    "rows": 137141,
+    "files": 4073,
+    "grants": {
+      "appReadsCatalog": true,
+      "appCannotDeleteVehicles": true,
+      "cmsCannotWriteStock": true
+    },
+    "appCredentialsVerified": true,
+    "isolated": true,
+    "licensedCmsStarted": false,
+    "external": false
+  },
+  "remoteVerificationExists": false,
+  "pendingUploads": 3,
+  "timers": {
+    "": "disabled",
+    "-verify": "disabled",
+    "-retention": "disabled"
+  },
+  "containers": {
+    "autoreelz2026-release-web-1": {
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-image-worker-1": {
+      "status": "running",
+      "health": null
+    },
+    "autoreelz2026-release-worker-1": {
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-edge-1": {
+      "status": "running",
+      "health": null
+    },
+    "autoreelz2026-release-background-1": {
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-cms-1": {
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-db-1": {
+      "status": "running",
+      "health": "healthy"
+    }
+  },
+  "temporaryRestoreContainers": [],
+  "plaintextStageExists": false,
+  "plaintextRestoreDirectories": 0,
+  "temporaryUnitRemoved": true,
+  "privilegedFiles": {
+    "/opt/autoreelz2026-backup": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    },
+    "/opt/autoreelz2026-backup/runner/store_backup.py": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    },
+    "/opt/autoreelz2026-backup/bin/restic": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    },
+    "/opt/autoreelz2026-backup/bin/rclone": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    },
+    "/var/lib/autoreelz2026-backup": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    },
+    "/var/lib/autoreelz2026-backup/private": {
+      "uid": 0,
+      "mode": "0o700",
+      "shopUserCanWrite": false
+    },
+    "/var/lib/autoreelz2026-backup/work": {
+      "uid": 0,
+      "mode": "0o700",
+      "shopUserCanWrite": false
+    },
+    "/var/lib/autoreelz2026-backup/status": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    }
+  },
+  "statusMountReadOnly": true
+}

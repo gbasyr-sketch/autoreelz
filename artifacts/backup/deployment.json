@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-14T13:03:29.823124+00:00",
+  "appSha": "3c2e89cac443710f6196e41490acde8d7eb48bba",
+  "imageId": "sha256:292b3f53ed657ca0f71acde18e741e21f3d7a627153c5106e21352158a39ab24",
+  "previousSha": "131df34f746399b4ac1f1143bfa77aec24713644",
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-backup-status-20261014T130323Z",
+  "changedEnv": [
+    "RELEASE_IMAGE",
+    "BACKUP_STATUS_PATH"
+  ],
+  "backupStatusReadOnly": true,
+  "preservedContainers": [
+    "db",
+    "cms",
+    "edge",
+    "background"
+  ],
+  "catalogAndTextLedgerUnchangedByActivation": true,
+  "schemaChanged": false,
+  "lastMigration": "023_vehicle_editor.sql"
+}

@@ -1,6 +1,6 @@
 # Эксплуатация и восстановление
 
-> Backup/restore ниже относятся к локальному Compose-проекту. Серверные диагностика/выпуск/откат — [server-staging.md](server-staging.md). Полный серверный backup/offsite/restore остаётся задачей B06 в [backlog.md](backlog.md).
+> Backup/restore ниже относятся к локальному Compose-проекту. Серверное зашифрованное резервирование — [server-backups.md](server-backups.md); диагностика/выпуск/откат — [server-staging.md](server-staging.md). Проверенное состояние внешних копий и расписания — [status.md](status.md).
 
 Подготовлено на этапе 7, 23.09.2026. Скрипты `backup-local`, `restore-drill`, `ops-check` сейчас привязаны к **новому локальному** проекту `autoreelz2026-new`. Они не управляют будущим сервером и старыми проектами. Перед работой используйте Node из .node-version.
 

@@ -1,0 +1,32 @@
+{
+  "astroCheck": {
+    "files": 198,
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "buildPassed": true,
+  "unit": {
+    "passed": 150,
+    "skipped": 8,
+    "failed": 0
+  },
+  "backupPython": {
+    "passed": 13,
+    "failed": 0
+  },
+  "backupStatus": {
+    "passed": 3,
+    "failed": 0
+  },
+  "mockDashboard": {
+    "passed": true,
+    "widths": [
+      1440,
+      768,
+      375
+    ]
+  },
+  "physicalPhoneUsed": false,
+  "paidCalls": 0
+}

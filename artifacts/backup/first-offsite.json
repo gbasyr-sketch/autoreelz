@@ -1,0 +1,16 @@
+{
+  "exitCode": 1,
+  "result": "{\"ok\": false, \"action\": \"backup\", \"code\": \"command_failed\"}",
+  "status": {
+    "version": 1,
+    "updatedAt": "2026-10-14T12:36:46.198122+00:00",
+    "state": "error",
+    "lastAttemptAt": "2026-10-14T12:03:27.540942+00:00",
+    "error": "command_failed",
+    "lastFailureAt": "2026-10-14T12:36:46.198025+00:00",
+    "lastLocalAt": "2026-10-14T12:03:29.823125+00:00",
+    "writeBarrierSeconds": 2.533,
+    "lastVerificationAttemptAt": "2026-10-14T12:09:47.823346+00:00",
+    "lastLocalVerifiedAt": "2026-10-14T12:10:03.358288+00:00"
+  }
+}

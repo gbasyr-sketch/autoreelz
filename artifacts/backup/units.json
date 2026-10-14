@@ -1,0 +1,6 @@
+{
+  "valid": true,
+  "diagnostic": "/lib/systemd/system/snapd.service:23: Unknown key name 'RestartMode' in section 'Service', ignoring.\nConfiguration file /lib/systemd/system/iptables-restore.service is marked executable. Please remove executable permission bits. Proceeding anyway.\n",
+  "units": 6,
+  "timersEnabled": false
+}

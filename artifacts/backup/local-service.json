@@ -1,0 +1,16 @@
+{
+  "startExitCode": 0,
+  "unit": "Result=success\nExecMainStatus=0\nActiveState=inactive",
+  "status": {
+    "version": 1,
+    "updatedAt": "2026-10-14T13:03:46.404459+00:00",
+    "state": "error",
+    "lastAttemptAt": "2026-10-14T13:03:33.420749+00:00",
+    "error": "offsite_pending",
+    "lastFailureAt": "2026-10-14T12:50:26.126069+00:00",
+    "lastLocalAt": "2026-10-14T13:03:35.772817+00:00",
+    "writeBarrierSeconds": 2.344,
+    "lastVerificationAttemptAt": "2026-10-14T13:02:34.543564+00:00",
+    "lastLocalVerifiedAt": "2026-10-14T13:02:53.577917+00:00"
+  }
+}

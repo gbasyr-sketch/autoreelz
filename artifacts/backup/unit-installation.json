@@ -1,0 +1,16 @@
+{
+  "installed": [
+    "autoreelz2026-backup-retention.timer",
+    "autoreelz2026-backup-verify.timer",
+    "autoreelz2026-backup.timer",
+    "autoreelz2026-backup-retention.service",
+    "autoreelz2026-backup.service",
+    "autoreelz2026-backup-verify.service"
+  ],
+  "timers": {
+    "autoreelz2026-backup-retention.timer": "disabled",
+    "autoreelz2026-backup-verify.timer": "disabled",
+    "autoreelz2026-backup.timer": "disabled"
+  },
+  "enabled": false
+}

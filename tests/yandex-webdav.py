@@ -1,4 +1,4 @@
-import importlib.util,pathlib,tempfile,unittest,io,hashlib
+import importlib.util,pathlib,tempfile,unittest,io,hashlib,subprocess
 from unittest.mock import patch
 spec=importlib.util.spec_from_file_location('yandex',pathlib.Path(__file__).parents[1]/'scripts/backup/yandex_webdav.py');y=importlib.util.module_from_spec(spec);spec.loader.exec_module(y)
 class Tests(unittest.TestCase):
@@ -40,4 +40,14 @@ class Tests(unittest.TestCase):
   for body,headers in [(b'a',{'Content-Length':'3'}),(b'',{'Content-Length':str(y.MAX_BYTES+1)}),(b'',{'Content-Length':'1','Transfer-Encoding':'chunked'}),(b'bad\r\nx',{'Transfer-Encoding':'chunked'})]:
    with self.assertRaises(y.TransportError):y.receive_body(io.BytesIO(body),headers,p)
  def test_only_final_response_headers_are_used(self):self.assertEqual(y.response_headers('HTTP/1.1 100 Continue\r\nX-Temp: no\r\n\r\nHTTP/1.1 201 Created\r\nContent-Length: 0\r\n'),{'content-length':'0'})
+ def test_curl_argv_never_contains_credentials_or_signed_url(self):
+  calls=[]
+  def execute(args,**kwargs):
+   calls.append((args,kwargs));pathlib.Path(args[args.index('--dump-header')+1]).write_text('HTTP/1.1 200 OK\r\nContent-Length: 0\r\n');pathlib.Path(args[args.index('--output')+1]).touch();return subprocess.CompletedProcess(args,0,stdout='200',stderr='')
+  with patch.object(y.subprocess,'run',side_effect=execute):
+   self.client.call('GET',y.ORIGIN+y.PREFIX+'/autoreelz2026/config',self.root,authenticated=True)
+   self.client.call('GET','https://s1.storage.yandex.net/signed-secret',self.root)
+  self.assertIn('Authorization: Basic ',calls[0][1]['input']);self.assertNotIn('Authorization',calls[1][1]['input'])
+  for args,_ in calls:
+   self.assertNotIn('signed-secret',' '.join(args));self.assertNotIn(self.client.authorization,' '.join(args));self.assertNotIn('--location-trusted',args);self.assertNotIn('--insecure',args)
 if __name__=='__main__':unittest.main()

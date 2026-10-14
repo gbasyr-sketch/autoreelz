@@ -53,7 +53,7 @@ class Client:
         login,password=credentials['login'],credentials['password']
         if not isinstance(login,str) or not isinstance(password,str) or not login or not password or any(c in login+password for c in '\r\n'):raise TransportError('invalid_credentials')
         self.authorization='Basic '+base64.b64encode((login+':'+password).encode()).decode()
-    def call(self,method,url,folder,*,payload=None,headers=None,authenticated=False):
+    def call(self,method,url,folder,*,payload=None,headers=None,authenticated=False,deadline=None):
         if authenticated:
             if not url.startswith(ORIGIN+'/'):raise TransportError('credential_destination')
             safe_path(url[len(ORIGIN):])
@@ -67,10 +67,12 @@ class Client:
         for name,value in request_headers.items():
             if any(c in name+str(value) for c in '\r\n'):raise TransportError('invalid_header')
             config+='header = '+json.dumps(name+': '+str(value))+'\n'
-        args=['/usr/bin/curl','--config','-','--silent','--show-error','--http1.1','--ipv4','--noproxy','*','--connect-timeout','10','--max-time','120','--max-filesize',str(MAX_BYTES),'--expect100-timeout','10','--request',method,'--user-agent',USER_AGENT if authenticated else 'AUTO-REELZ-backup/1','--dump-header',str(head),'--output',str(body),'--write-out','%{http_code}']
+        limit=min(20 if authenticated else 60,(deadline-time.monotonic()) if deadline is not None else 120)
+        if limit<=0:raise TransportError('request_deadline')
+        args=['/usr/bin/curl','--config','-','--silent','--show-error','--http1.1','--ipv4','--noproxy','*','--connect-timeout','10','--max-time',str(round(limit,2)),'--max-filesize',str(MAX_BYTES),'--expect100-timeout','10','--request',method,'--user-agent',USER_AGENT if authenticated else 'AUTO-REELZ-backup/1','--dump-header',str(head),'--output',str(body),'--write-out','%{http_code}']
         if method=='HEAD':args+=['--head']
         if payload is not None:args+=['--upload-file' if method=='PUT' else '--data-binary',str(payload) if method=='PUT' else '@'+str(payload)]
-        try:run=subprocess.run(args,input=config,capture_output=True,text=True,timeout=125)
+        try:run=subprocess.run(args,input=config,capture_output=True,text=True,timeout=limit+5)
         except subprocess.TimeoutExpired as error:raise TransportError('upstream_timeout') from error
         if run.returncode:
             print(json.dumps({'error':'upstream_connection','curlExit':run.returncode,'method':method,'host':urllib.parse.urlsplit(url).hostname,'status':run.stdout.strip() if run.stdout.strip().isdigit() else None}),flush=True)
@@ -80,29 +82,32 @@ class Client:
         try:status=int(run.stdout.strip())
         except ValueError as error:raise TransportError('invalid_upstream_response') from error
         return Reply(status,response_headers(head.read_text()),body)
-    def follow(self,method,path,folder,*,payload=None,headers=None):
+    def follow(self,method,path,folder,*,payload=None,headers=None,deadline=None):
+        deadline=deadline or time.monotonic()+120
         url=ORIGIN+safe_path(path);authenticated=True
         for _ in range(5):
-            result=self.call(method,url,folder,payload=payload,headers=headers,authenticated=authenticated)
+            result=self.call(method,url,folder,payload=payload,headers=headers,authenticated=authenticated,deadline=deadline)
             if result.status not in [301,302,303,307,308]:return result
             # Never change PUT to GET or forward Basic credentials to signed endpoints.
             if method not in ['GET','HEAD','PUT']:raise TransportError('unexpected_redirect')
             url=safe_target(urllib.parse.urljoin(url,result.headers.get('location','')));authenticated=False
         raise TransportError('redirect_loop')
     def request(self,method,path,folder,payload,headers):
+        deadline=time.monotonic()+(180 if method=='PUT' else 90)
         if payload is not None and not payload.stat().st_size and method not in ['PUT','PROPFIND']:payload=None
         if method=='PROPFIND' and (payload is None or payload.stat().st_size==0):
             payload=folder/'properties.xml';payload.write_bytes(STANDARD_PROPS)
-        if method!='PUT':return self.follow(method,path,folder,payload=payload,headers=headers)
+        if method!='PUT':return self.follow(method,path,folder,payload=payload,headers=headers,deadline=deadline)
         data=payload.read_bytes();digest=hashlib.sha256(data).digest()
         put_headers={'Content-Type':'application/binary','Expect':'100-continue','Etag':hashlib.md5(data).hexdigest(),'Sha256':digest.hex()}
-        try:written=self.follow('PUT',path,folder,payload=payload,headers=put_headers)
+        try:written=self.follow('PUT',path,folder,payload=payload,headers=put_headers,deadline=deadline)
         except TransportError:written=None
         # Resolve a lost upload response without sending the body again. Do not accept
         # a 201 (or an uncertain result) until the logical file downloads identically.
         if written is None or 200<=written.status<300:
             for attempt in range(6):
-                try:verified=self.follow('GET',path,folder)
+                if time.monotonic()>=deadline:break
+                try:verified=self.follow('GET',path,folder,deadline=deadline)
                 except TransportError:verified=None
                 if verified is not None and verified.status==200:
                     if verified.body.stat().st_size==len(data) and hashlib.sha256(verified.body.read_bytes()).digest()==digest:
@@ -149,7 +154,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
     protocol_version='HTTP/1.1'
     def log_message(self,*args):pass
     def setup(self):
-        super().setup();self.connection.settimeout(150)
+        super().setup();self.connection.settimeout(240)
     def handle_request(self):
         with self.server.capacity:
             try:

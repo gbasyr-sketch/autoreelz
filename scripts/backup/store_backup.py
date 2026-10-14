@@ -216,8 +216,8 @@ def capture():
 
 def restic(repo,*args,timeout=1800):
     if repo==REMOTE:start_transport()
-    env={**os.environ,'RESTIC_PASSWORD_FILE':str(PRIVATE/'password'),'RESTIC_CACHE_DIR':str(WORK/'cache'),'RCLONE_CONFIG':str(PRIVATE/'rclone.conf'),'TZ':'Europe/Moscow'}
-    return execute([RESTIC,'--repo',repo,'-o','rclone.program='+str(RCLONE),*args],timeout=timeout,env=env)
+    env={**os.environ,'RESTIC_PASSWORD_FILE':str(PRIVATE/'password'),'RESTIC_CACHE_DIR':str(WORK/'cache'),'RCLONE_CONFIG':str(PRIVATE/'rclone.conf'),'RCLONE_CHECKERS':'2','RCLONE_TRANSFERS':'2','TZ':'Europe/Moscow'}
+    return execute([RESTIC,'--repo',repo,'-o','rclone.program='+str(RCLONE),'-o','rclone.connections=2',*args],timeout=timeout,env=env)
 
 def start_transport():
     global _transport,_transport_log

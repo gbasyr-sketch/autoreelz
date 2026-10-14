@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-15",
+  "mailbox": "sales@autoreelz.ru",
+  "provider": "Timeweb Cloud",
+  "webmailLoginConfirmed": true,
+  "outbound": {
+    "recipientProvider": "Yandex",
+    "recipientAddressRedacted": true,
+    "messageMarker": "ARMAIL-20261015-01",
+    "sentByAgent": 1,
+    "receivedInInbox": true,
+    "senderConfirmedByYandex": true
+  },
+  "inbound": {
+    "replySentByOwner": true,
+    "replyReceivedInSalesInbox": true,
+    "replyText": "Получено"
+  },
+  "smtpFromStore": {
+    "host": "smtp.timeweb.ru",
+    "port": 465,
+    "tlsVerified": true,
+    "greetingOk": true,
+    "authenticated": false
+  },
+  "imapFromStore": {
+    "host": "imap.timeweb.ru",
+    "port": 993,
+    "tlsVerified": true,
+    "greetingOk": true,
+    "authenticated": false
+  },
+  "applicationMailProvider": "simulation",
+  "credentialsObtained": false,
+  "dnsChanged": false,
+  "websiteChanged": false,
+  "limitations": [
+    "Browser/webmail delivery confirmed; authenticated SMTP from application not yet configured",
+    "Provider displays possible delays for Yandex delivery; this one test succeeded"
+  ]
+}

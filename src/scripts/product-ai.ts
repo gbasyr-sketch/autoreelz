@@ -4,7 +4,7 @@ import {aiSource,aiSourceSignature,type AITextRequest,type AITextStatus,type AIP
 import type {EditorData} from '../lib/product-editor';
 
 type Pending={body:Record<string,unknown>;source:string;texts:string};
-type History={id:string;model:string;createdAt:string;sourceHash:string;result:{description:string;metaDescription:string}};
+type History={id:string;model:string;createdAt:string;sourceHash:string;notes:string;result:{description:string;metaDescription:string}};
 const canonical=(v:any):string=>Array.isArray(v)?'['+v.map(canonical).join(',')+']':v&&typeof v==='object'?'{'+Object.entries(v).sort(([a],[b])=>a.localeCompare(b)).map(([k,value])=>JSON.stringify(k)+':'+canonical(value)).join(',')+'}':JSON.stringify(v)??'null';
 async function digest(s:string){return [...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))].map(n=>n.toString(16).padStart(2,'0')).join('');}
 export function productAIPanel(root:HTMLElement,hooks:{id:string;data:()=>EditorData;apply:(description:string,meta:string)=>void;error:(e:unknown)=>void}){
@@ -28,11 +28,12 @@ export function productAIPanel(root:HTMLElement,hooks:{id:string;data:()=>Editor
  const stale=node('p','Данные товара или исходные тексты изменились. Создайте новый запрос, чтобы не затереть правки.','dash-message dash-error');stale.hidden=true;
  const descField=field('Описание товара',8,10000),description=descField.input,metaField=field('Текст для поиска (meta description)',3,320),meta=metaField.input;
  const review=node('p','Проверьте характеристики, комплектность и условия установки. Текст ещё не опубликован.','dash-help');
+ const historicalFacts=node('details'),historicalNotes=field('Заметки выбранного варианта',3,1500),restoreNotes=button('Подставить эти заметки');historicalNotes.input.readOnly=true;historicalFacts.hidden=true;historicalFacts.append(node('summary','Исходные заметки этого варианта'),historicalNotes.label,restoreNotes);let historicalHash='';
  const revisionField=field('Что изменить в этом варианте',3,1000),instruction=revisionField.input;instruction.placeholder='Например: сделай живее, убери повтор цветов, подробнее раскрой комплектацию.';
  const presets=node('div','','pe-inline-actions');for(const label of ['Живее','Короче','Больше конкретики']){const b=button(label);b.addEventListener('click',()=>{instruction.value=label==='Живее'?'Сделай язык живее и естественнее, сохрани факты.':label==='Короче'?'Сократи повторы, сохрани важные сведения.':'Раскрой полезные конкретные сведения из исходных фактов, без общих советов.';instruction.focus();});presets.append(b);}
  const revise=button('Переработать текст'),apply=button('Применить в черновик',true),close=button('Закрыть просмотр');
  const previewActions=node('div','','pe-inline-actions');previewActions.append(apply,close);
- preview.append(heading,review,stale,descField.label,metaField.label,revisionField.label,presets,revise,previewActions);
+ preview.append(heading,review,stale,historicalFacts,descField.label,metaField.label,revisionField.label,presets,revise,previewActions);
  const history=node('details'),historyList=node('div','','pe-stack');history.append(node('summary','Предыдущие варианты'),historyList);
  content.append(explain,budget,providerLabel,notesField.label,facts,actions,paid,message,preview,history);
  const texts=()=>JSON.stringify([hooks.data().description,hooks.data().metaDescription]);
@@ -40,7 +41,7 @@ export function productAIPanel(root:HTMLElement,hooks:{id:string;data:()=>Editor
  function remember(next:Pending|null){pending=next;try{if(next)sessionStorage.setItem(storageKey,JSON.stringify(next));else sessionStorage.removeItem(storageKey);}catch{/* In-memory pending request still prevents duplicate calls. */}}
  function changed(){
   if(!preview.hidden){stale.hidden=signature()===sourceAtStart&&texts()===textsAtStart;apply.disabled=!stale.hidden||working;}
-  generate.disabled=working||!status?.enabled;fresh.disabled=generate.disabled;revise.disabled=working||!status?.enabled||!result;
+  generate.disabled=working||!status?.enabled;fresh.disabled=generate.disabled;revise.disabled=working||!status?.enabled||!result;restoreNotes.disabled=working;
   select.disabled=notes.disabled=instruction.disabled=description.disabled=meta.disabled=working;content.setAttribute('aria-busy',String(working));
   for(const b of presets.querySelectorAll('button'))b.disabled=working;
  }
@@ -54,7 +55,7 @@ export function productAIPanel(root:HTMLElement,hooks:{id:string;data:()=>Editor
  async function load(){const current=epoch;try{const next=await commerceGet<AITextStatus>('/api/manager/product-ai');if(current!==epoch)return;renderBudget(next);storageKey='autoreelz.ai-text.v2.'+hooks.id+'.'+(next.actorId??'local');
   if(!pending)try{const saved=JSON.parse(sessionStorage.getItem(storageKey)??'null');if(saved?.body?.productId===hooks.id&&typeof saved.body.idempotencyKey==='string'&&typeof saved.source==='string'&&typeof saved.texts==='string'){pending=saved;generate.textContent='Проверить результат запроса';fresh.hidden=false;message.textContent='Есть сохранённый запрос. Его результат можно проверить без новой генерации.';}}catch{/* Invalid local state is ignored. */}
  }catch(e){if(current===epoch){budget.textContent='Не удалось проверить генератор. Попробуйте обновить страницу.';if(e instanceof CommerceError&&(e.status===401||e.status===403))hooks.error(e);}}}
- function show(next:AITextRequest,source:string,previousTexts:string){result=next;sourceAtStart=source;textsAtStart=previousTexts;description.value=next.result!.description;meta.value=next.result!.metaDescription;instruction.value='';preview.hidden=false;heading.focus();changed();}
+ function show(next:AITextRequest,source:string,previousTexts:string){result=next;sourceAtStart=source;textsAtStart=previousTexts;description.value=next.result!.description;meta.value=next.result!.metaDescription;instruction.value='';historicalFacts.hidden=true;historicalHash='';preview.hidden=false;heading.focus();changed();}
  async function run(forceNew=false,revision?:AITextRevision){
   if(working||!status?.enabled)return;const current=epoch;
   if(forceNew||!pending){const provider:AIProvider=select.value==='deepseek'?'deepseek':'openai';remember({body:{productId:hooks.id,provider,model:select.value==='openai-sol'?'gpt-6.1-sol':provider==='openai'?'gpt-6-luna':'deepseek-flash',data:structuredClone(hooks.data()),notes:notes.value,idempotencyKey:crypto.randomUUID(),...(revision?{revision}:{})},source:signature(),texts:texts()});}
@@ -73,9 +74,10 @@ export function productAIPanel(root:HTMLElement,hooks:{id:string;data:()=>Editor
  select.addEventListener('change',()=>{message.textContent='Выбранная модель используется для нового запроса. Проверка прежнего результата не меняет модель.';});
  apply.addEventListener('click',()=>{changed();if(apply.disabled)return;if(description.value.trim().length<10||meta.value.trim().length<10){message.textContent='Заполните оба текста перед применением.';return;}preview.hidden=true;hooks.apply(description.value.trim(),meta.value.trim());message.textContent='Тексты перенесены в форму. Сохраните черновик или опубликуйте товар после проверки.';});
  close.addEventListener('click',()=>{preview.hidden=true;generate.focus();});
+ restoreNotes.addEventListener('click',async()=>{if(working||!historicalHash)return;notes.value=historicalNotes.input.value;const snapshot=signature(),expected=historicalHash,current=epoch,hash=await digest(canonical(aiSource(hooks.data(),notes.value)));if(current!==epoch||historicalHash!==expected)return;if(hash===expected)sourceAtStart=snapshot;changed();message.textContent='Заметки возвращены. Остальные поля товара не изменены.';});
  history.addEventListener('toggle',async()=>{if(!history.open)return;const current=epoch;historyList.replaceChildren(node('p','Загружаем варианты…','dash-help'));
   try{const rows=await commerceGet<History[]>('/api/manager/product-ai?history='+encodeURIComponent(hooks.id));if(current!==epoch)return;historyList.replaceChildren();if(!rows.length)historyList.append(node('p','Сохранённых вариантов пока нет.','dash-help'));
-   for(const row of rows){const b=button(new Date(row.createdAt).toLocaleString('ru-RU')+' · '+row.model);b.addEventListener('click',async()=>{if(working||!status)return;const snapshot=signature(),hash=await digest(canonical(aiSource(hooks.data(),notes.value)));if(current!==epoch||working)return;show({...row,state:'completed',provider:row.model==='deepseek-flash'?'deepseek':'openai',costUpperUsd:'0',message:'',status},hash===row.sourceHash?snapshot:'history-source-changed',texts());message.textContent='Открыт сохранённый вариант. Переработка создаст новый платный запрос.';});historyList.append(b);}
+   for(const row of rows){const b=button(new Date(row.createdAt).toLocaleString('ru-RU')+' · '+row.model);b.addEventListener('click',async()=>{if(working||!status)return;const snapshot=signature(),hash=await digest(canonical(aiSource(hooks.data(),notes.value)));if(current!==epoch||working)return;show({...row,state:'completed',provider:row.model==='deepseek-flash'?'deepseek':'openai',costUpperUsd:'0',message:'',status},hash===row.sourceHash?snapshot:'history-source-changed',texts());historicalHash=row.sourceHash;historicalNotes.input.value=row.notes??'';historicalFacts.hidden=false;message.textContent='Открыт сохранённый вариант. Переработка создаст новый платный запрос.';});historyList.append(b);}
   }catch{if(current===epoch)historyList.replaceChildren(node('p','Не удалось загрузить историю. Закройте и откройте её снова.','dash-help'));}
  });
  return{load,changed,lock(){epoch++;working=false;status=null;result=null;remember(null);notes.value=description.value=meta.value=instruction.value='';preview.hidden=true;history.open=false;historyList.replaceChildren();message.textContent='';budget.textContent='Войдите, чтобы использовать генератор.';changed();}};

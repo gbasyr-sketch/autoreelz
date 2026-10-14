@@ -3,7 +3,7 @@ import {setting} from '../config.ts';
 import {aiFetch,OPENAI_GATEWAY} from './ai-gateway.ts';
 import {TEXT_INSTRUCTIONS} from './ai-text-prompt.ts';
 import type {AIProvider,AITextModel,AITextResult,AIUsage} from '../../lib/ai-text.ts';
-export const TEXT_PROMPT_VERSION='2026-10-14.1',TEXT_MAX_OUTPUT=1800,TEXT_MAX_INPUT_BYTES=24000;
+export const TEXT_PROMPT_VERSION='2026-10-14.2',TEXT_MAX_OUTPUT=1800,TEXT_MAX_INPUT_BYTES=24000;
 // OpenAI input bound includes the higher Standard cache-write price.
 export const TEXT_PRICES={deepseek:{input:'0.30',output:'1.20',model:'deepseek-flash'},openai:{input:'0.125',output:'0.50',model:'gpt-6-luna'}} as const;
 export {TEXT_INSTRUCTIONS} from './ai-text-prompt.ts';
@@ -32,7 +32,7 @@ export function parseAIText(content:unknown):AITextResult{
 }
 /** A conservative lexical check, not a proof of factual correctness; owner review stays mandatory. */
 export function checkTextFacts(result:AITextResult,facts:unknown):AITextResult{
- const clean=(s:string)=>s.toLocaleLowerCase('ru-RU').replaceAll('ё','е').replace(/[«»“”"'—–-]/g,' ').replace(/\s+/g,' ').trim();
+ const clean=(s:string)=>s.toLocaleLowerCase('ru-RU').replace(/[a-zа-яё]+/giu,word=>/[а-яё]/iu.test(word)?word.replace(/[aceopxy]/g,c=>({a:'а',c:'с',e:'е',o:'о',p:'р',x:'х',y:'у'}[c]!)):word).replaceAll('ё','е').replace(/[«»“”"'—–-]/g,' ').replace(/\s+/g,' ').trim();
  const input=facts as{name?:string;notes?:string;fitment?:{state:string}[];variants?:{fitment?:{state:string}[]}[];editorial?:unknown},safeFacts={...input,editorial:undefined},source=clean(JSON.stringify(safeFacts)),text=clean(result.description+' '+result.metaDescription),withoutName=input.name?text.split(clean(input.name)).join(' '):text;
  if(/wildberries|\bwb\b|вайлдбер|\bozon\b|озон|артикул/.test(text))throw new AIProviderError('AI_FACTS','Ответ содержит служебные данные вместо описания.');
  for(const stem of ['глян','матов','пластик','алюмини','металл','нержав','кожан','карбон','деревян','резинов','полиуретан','производител','изготовител','гарант','премиальн','оригинальн','долговеч','прочн','надежн','зелен','красн','черн','син','фиолет','бел'])if(text.includes(stem)&&!source.includes(stem))throw new AIProviderError('AI_FACTS','В ответе есть неподтверждённое свойство.');
@@ -40,7 +40,7 @@ export function checkTextFacts(result:AITextResult,facts:unknown):AITextResult{
  const rules=[...(input.fitment??[]),...(input.variants??[]).flatMap(v=>v.fitment??[])];
  if(/подход|совместим|предназнач/.test(assertions)&&(!rules.length||rules.some(r=>r.state!=='compatible')))throw new AIProviderError('AI_FACTS','Описание обещает совместимость без подтверждённых правил.');
  const notes=clean(input.notes??'');
- if(/устанавлив|монтаж|креплен|вырез/.test(assertions)&&!/установ|монтаж|креплен|вырез|шток/.test(source))throw new AIProviderError('AI_FACTS','Способ установки отсутствует в исходных сведениях.');
+ if(/устанавлив|монтаж|креплен|вырез/.test(assertions)&&!/устан[ао]в|монтаж|креплен|вырез|шток/.test(source))throw new AIProviderError('AI_FACTS','Способ установки отсутствует в исходных сведениях.');
  if(/без доработ|без подгон|без вырез/.test(assertions)&&!/(?:без доработ|без подгон|без вырез)/.test(notes))throw new AIProviderError('AI_FACTS','Отсутствие доработок не подтверждено.');
  if(/(?:необходим|нужен|потребуется|требуется|необходима).{0,25}(?:вырез|доработ|подгон)/.test(notes)&&/без доработ|без подгон|без вырез/.test(assertions))throw new AIProviderError('AI_FACTS','Описание противоречит требуемой доработке.');
  if(/в названии|в описании (?:товара )?(?:заявлен|указан)|в примечании|указано для товара|цветовое исполнение/.test(text))throw new AIProviderError('AI_STYLE','Получился служебный пересказ вместо описания товара.');

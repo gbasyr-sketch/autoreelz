@@ -58,3 +58,13 @@ test('Sol profile uses its own output bound, reasoning and metered prices',async
  assert.ok((await requestAIText('openai','qa-secret',{name:'Блок отопителя с зелёной подсветкой'},fetcher,'gpt-6.1-sol')).result);
  await assert.rejects(()=>requestAIText('deepseek','qa-secret',{},fetcher,'gpt-6.1-sol'));
 });
+
+test('installation guard handles mixed Cyrillic/Latin source spelling and inflection',()=>{
+ for(const [notes,description] of [['Уголки легко устанавливаются вместо штатных.','Уголки устанавливаются вместо штатных.'],['Для устaновки необходим ВЫРEЗ пoд CТАКАН.','Для установки потребуется вырез под стакан.']])assert.doesNotThrow(()=>checkTextFacts({description,metaDescription:'Накладка для салона.'},{name:'Накладка',notes}));
+});
+test('contradictory body colour fails before generation; lighting colours are separate',()=>{
+ const d=structuredClone(data);d.name='Рамка серая';d.variants[0]!.name='серый';d.variants[0]!.attributes=[{attributeId:attr,value:value}];
+ const opts={...options,attributes:[{...options.attributes[0]!,name:'Цвет',values:[{id:value,label:'Чёрный'}]}]};
+ assert.throws(()=>factsForAI(d,opts,''),/разные цвета/);
+ d.variants[0]!.name='Зелёная подсветка';assert.doesNotThrow(()=>factsForAI(d,opts,''));
+});

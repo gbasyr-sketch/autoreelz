@@ -154,3 +154,7 @@ CMS-наборы `cms-browser`, `content-browser`, `stage6-cms-*`, schema/permis
 ## Передача данных чеков ЮKassa15.10.2026
 
 `node --test tests/yookassa-receipts.test.ts` — состав/точные суммы/лимиты/протокол; `node tests/yookassa-receipts-database.mjs` — отдельная синтетическая PostgreSQL001–028 через native QA-helper,8 групп, транспорт подменён, внешних вызовов нет. Регрессия: `AR_QA_NATIVE=1 AR_YOOKASSA_TESTS=1 node --test --test-concurrency=1 tests/yookassa-integration.test.ts` и `node tests/yookassa-refunds-database.mjs`. Использовать закреплённый Node24.21.0 из .tools. [Контракт/границы](yookassa-receipts.md). Никаких новых реальных/sandbox платежей автоматически.
+
+## SMTP Timeweb15.10.2026
+
+`node --test tests/mail.test.ts`, `node tests/mail-database.mjs`: синтетическая PostgreSQL001–029 через native helper, подменённый транспорт, без внешних писем/ключей. Регрессии commerce/management/yookassa запускать с AR_QA_NATIVE=1 и профильными флагами, --test-concurrency=1. Проверка настоящего SMTP verify не отправляет письма; send разрешается отдельно на конкретный адрес, секреты только private/server.env. [Контракт](mail.md).

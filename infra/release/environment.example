@@ -17,6 +17,11 @@ SEO_INDEXING_ENABLED=false
 YML_COMPANY_NAME=
 
 # Explicitly opt into the TEST shop only after its credentials have been verified.
+# SMTP is opt-in; staging requires exact recipient addresses. No historical mail is replayed.
+MAIL_PROVIDER=simulation
+MAIL_ALLOWED_RECIPIENTS=
+MAIL_OWNER_RECIPIENT=
+SMTP_PASSWORD=
 PAYMENT_PROVIDER=simulation
 # Enable only after confirming the receipt service; default preserves non-fiscal sandbox.
 YOOKASSA_RECEIPTS_MODE=disabled

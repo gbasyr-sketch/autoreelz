@@ -1,3 +1,4 @@
+import {mailStatus} from '../../../server/mail';
 import{managerOrders,managerOrder,addNote,adjustStock,cancelByManager,fulfill,overrideDelivery,simulateCarrier}from'../../../server/management';
 import{ownerNotifications,retryNotification}from'../../../server/notifications';
 import{generationProducts,generateDescription,applyDescription}from'../../../server/description-generation';
@@ -15,6 +16,7 @@ import{uuid}from'../../../server/errors';
 export const GET:APIRoute=async ctx=>{try{
  await staff(ctx.request);
  switch(ctx.params.action){
+  case'mail-status':return json(await mailStatus());
   case'access':return json({ok:true});
   case'order-list':return json(await listManagerOrders(ctx.url.searchParams));
   case'order':return json(await managerOrder(uuid(ctx.url.searchParams.get('id'))));
@@ -26,7 +28,7 @@ export const GET:APIRoute=async ctx=>{try{
   case'notifications':return json({notifications:await ownerNotifications()});
   case'products':return json({products:await generationProducts()});
   case'stock':return json(await stockList());
-  case'mail':requireTestEnvironment();return json({messages:(await query("SELECT id,recipient,subject,body,created_at FROM ar_mail_outbox WHERE status='delivered' ORDER BY created_at DESC LIMIT 100")).rows.map(r=>({id:r.id,to:r.recipient,subject:r.subject,body:r.body,createdAt:iso(r.created_at)}))});
+  case'mail':requireTestEnvironment();return json({messages:(await query("SELECT id,recipient,subject,body,created_at FROM ar_mail_outbox WHERE status='delivered' AND provider='simulation' ORDER BY created_at DESC LIMIT 100")).rows.map(r=>({id:r.id,to:r.recipient,subject:r.subject,body:r.body,createdAt:iso(r.created_at)}))});
   default:return json({error:{code:'NOT_FOUND',message:'Раздел не найден.'}},404);
  }
 }catch(e){return failure(e);}};

@@ -1,3 +1,4 @@
+import {enqueueMail,enqueueOwnerMail,enqueueDeliveryMail} from './mail.ts';
 import {validDate,moscowDate,PAYMENT_WINDOW_MS} from '../lib/delivery-deadline.ts';
 import {verifyCheckoutConfirmation} from './confirmations.ts';
 import{paymentProvider}from'./payment-policy.ts';
@@ -30,8 +31,8 @@ export async function toOrder(c:PoolClient,row:Record<string,any>):Promise<Order
 }
 export const getOrder=(session:ShopSession,id:string)=>transaction(async c=>toOrder(c,await orderRow(c,uuid(id),session)),false);
 export async function listOrders(session?:ShopSession){return transaction(async c=>{const rows=await c.query(`SELECT *,delivery_deadline::text AS delivery_deadline FROM ar_orders ${session?'WHERE session_id=$1 OR ($2::text IS NOT NULL AND customer_email=$2)':''} ORDER BY created_at DESC LIMIT 100`,session?[session.id,session.email]:[]);const orders:OrderView[]=[];for(const r of rows.rows)orders.push(await toOrder(c,r));return orders;},false);}
-export async function event(c:PoolClient,orderId:string,type:string,note:string,actorId:string|null=null){await c.query('INSERT INTO ar_order_events(order_id,event_type,note,actor_id) VALUES($1,$2,$3,$4)',[orderId,type,note,actorId]);}
-export async function outbox(c:PoolClient,email:string,subject:string,body:string,key:string){await c.query('INSERT INTO ar_mail_outbox(recipient,subject,body,deduplication_key) VALUES($1,$2,$3,$4) ON CONFLICT(deduplication_key) DO NOTHING',[email,subject,body,key]);}
+export async function event(c:PoolClient,orderId:string,type:string,note:string,actorId:string|null=null){const result=await c.query('INSERT INTO ar_order_events(order_id,event_type,note,actor_id) VALUES($1,$2,$3,$4) RETURNING id',[orderId,type,note,actorId]);await enqueueOwnerMail(c,result.rows[0].id,orderId,type);await enqueueDeliveryMail(c,orderId,result.rows[0].id,type);}
+export async function outbox(c:PoolClient,email:string,subject:string,body:string,key:string){await enqueueMail(c,{recipient:email,subject,body,key});}
 export async function componentNeeds(c:PoolClient,orderId:string){const rows=(await c.query('SELECT sku_id,quantity FROM ar_order_components WHERE order_id=$1 ORDER BY sku_id',[orderId])).rows;return new Map<string,number>(rows.map(r=>[r.sku_id,r.quantity]));}
 export async function stockMove(c:PoolClient,orderId:string|null,need:Map<string,number>,operation:string,stockFactor:number,reserveFactor:number,reason:string,actor:string|null=null){
  for(const[id,qty]of [...need].sort(([a],[b])=>a.localeCompare(b))){

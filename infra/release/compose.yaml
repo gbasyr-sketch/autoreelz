@@ -8,6 +8,9 @@ x-app-env: &app-env
   APP_SECRET: ${APP_SECRET:?}
   APP_ORIGIN: https://autoreelz.ru
   STORE_MODE: production
+  MAIL_PROVIDER: ${MAIL_PROVIDER:-simulation}
+  MAIL_ALLOWED_RECIPIENTS: ${MAIL_ALLOWED_RECIPIENTS:-}
+  MAIL_OWNER_RECIPIENT: ${MAIL_OWNER_RECIPIENT:-}
   PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-simulation}
   YOOKASSA_RECEIPTS_MODE: ${YOOKASSA_RECEIPTS_MODE:-disabled}
   YOOKASSA_SHOP_ID: ${YOOKASSA_SHOP_ID:-}
@@ -103,6 +106,7 @@ services:
     command: [node, scripts/commerce-worker.ts]
     init: true
     environment:
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       <<: [*app-env, *cdek-shipments-env]
     read_only: true
     tmpfs: [/tmp]

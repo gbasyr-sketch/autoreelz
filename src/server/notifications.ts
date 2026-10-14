@@ -10,7 +10,7 @@ export async function ownerNotifications():Promise<OwnerNotification[]>{
 }
 export async function deliverOwnerNotifications(fail=false){
  requireTestEnvironment();return transaction(async c=>{
-  const rows=(await c.query("SELECT id,channel,subject,body FROM ar_owner_notifications WHERE status='pending' ORDER BY created_at,id FOR UPDATE SKIP LOCKED LIMIT 100")).rows;
+  const rows=(await c.query("SELECT id,channel,subject,body FROM ar_owner_notifications WHERE status='pending' AND NOT EXISTS(SELECT 1 FROM ar_mail_outbox m WHERE m.notification_id=ar_owner_notifications.id) ORDER BY created_at,id FOR UPDATE SKIP LOCKED LIMIT 100")).rows;
   for(const row of rows){
    // Local outbox only. Real MAX/email adapters require separately configured recipients and approval.
    let failed=false;try{await sendLocalOwnerNotification(row,fail);}catch{failed=true;}
@@ -26,6 +26,12 @@ export async function retryNotification(actor:{id:string},body:Record<string,unk
   const row=(await c.query('SELECT * FROM ar_owner_notifications WHERE id=$1 FOR UPDATE',[id])).rows[0];
   if(!row)throw new StoreError('NOT_FOUND','Уведомление не найдено.',404);
   if(row.status!=='failed')return{ok:true};
+  const mail=(await c.query("SELECT id,status,attempts,expires_at FROM ar_mail_outbox WHERE notification_id=$1 FOR UPDATE",[id])).rows[0];
+  if(mail){
+   if(mail.status==='uncertain')throw new StoreError('MAIL_REVIEW','Исход отправки неизвестен. Сначала проверьте письмо в почтовом кабинете.',409);
+   if(mail.status!=='failed'||mail.attempts>=3||new Date(mail.expires_at).getTime()<=Date.now())throw new StoreError('MAIL_RETRY_CLOSED','Повторная отправка недоступна. Требуется ручная проверка.',409);
+   await c.query("UPDATE ar_mail_outbox SET status='retry',next_attempt_at=now(),last_error=NULL WHERE id=$1",[mail.id]);
+  }
   if(row.attempts>=3)throw new StoreError('RETRY_LIMIT','Три попытки исчерпаны. Требуется проверить адаптер.',409);
   await c.query("UPDATE ar_owner_notifications SET status='pending',last_error=NULL WHERE id=$1",[id]);return{ok:true};
  }));

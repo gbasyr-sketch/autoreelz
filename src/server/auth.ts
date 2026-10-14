@@ -1,3 +1,5 @@
+import {enqueueMail} from './mail.ts';
+import {requireMailRecipient,mailProvider} from './mail-policy.ts';
 import {randomBytes,randomInt,randomUUID} from 'node:crypto';
 import type {APIContext} from 'astro';
 import type {PoolClient} from 'pg';
@@ -26,7 +28,7 @@ async function takeRate(client:PoolClient,key:string,limit:number,seconds:number
 
 export async function requestCode(session:ShopSession,emailInput:unknown,ip:string):Promise<{challengeId:string;expiresAt:string}>{
  requireTestEnvironment();
- const address=email(emailInput),challengeId=randomUUID(),code=String(randomInt(0,1000000)).padStart(6,'0');
+ const address=email(emailInput);requireMailRecipient(address);const challengeId=randomUUID(),code=String(randomInt(0,1000000)).padStart(6,'0');
  const ipHash=sign(`ip:${ip}`);
  return transaction(async client=>{
   await lockSession(client,session);
@@ -41,9 +43,7 @@ export async function requestCode(session:ShopSession,emailInput:unknown,ip:stri
   await client.query('UPDATE ar_login_challenges SET consumed_at=now() WHERE session_id=$1 AND consumed_at IS NULL',[session.id]);
   const challenge=(await client.query(`INSERT INTO ar_login_challenges(id,session_id,email,code_hash,ip_hash,expires_at)
    VALUES($1,$2,$3,$4,$5,now()+interval '10 minutes') RETURNING expires_at`,[challengeId,session.id,address,sign(`otp:${challengeId}:${session.id}:${address}:${code}`),ipHash])).rows[0];
-  await client.query('INSERT INTO ar_mail_outbox(recipient,subject,body,deduplication_key) VALUES($1,$2,$3,$4)',[
-   address,'Код входа в AUTO REELZ',`Ваш код входа: ${code}\n\nКод действует 10 минут. Не сообщайте его другим людям.\nЕсли вы не запрашивали вход, проигнорируйте письмо.\n\nЭто письмо из локального тестового магазина; оно сохранено только в тестовом почтовом ящике.`,`login:${challengeId}`,
-  ]);
+  await enqueueMail(client,{recipient:address,subject:'Код входа в AUTO REELZ',body:`Ваш код входа: ${code}\n\nКод действует 10 минут. Не сообщайте его другим людям.\nЕсли вы не запрашивали вход, проигнорируйте письмо.${mailProvider()==='simulation'?'\n\nЭто письмо сохранено только в тестовом почтовом ящике.':''}`,key:`login:${challengeId}`,kind:'login',challengeId,expiresAt:iso(challenge.expires_at)!});
   return{challengeId,expiresAt:iso(challenge.expires_at)!};
  });
 }

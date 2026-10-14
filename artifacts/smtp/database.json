@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "externalCalls": 0,
+  "isolated": true,
+  "checks": [
+    "atomic enqueue, concurrent deduplication, immutable recipient/body and rollback",
+    "only explicitly routed NEW mail sends; old simulation stays local",
+    "staging exact allowlist prevents unauthorised recipients",
+    "explicit temporary rejection retries same snapshot/message ID",
+    "maximum three safe attempts then attention",
+    "ambiguous DATA outcome never automatically resent; errors redacted",
+    "process crash after send becomes uncertain rather than duplicate",
+    "lease excludes concurrent worker; SMTP has no open SQL transaction",
+    "expired or revoked recipients never sent",
+    "provider rollback cannot reroute old mail or lose pending SMTP state",
+    "OTP atomically queued, expires with challenge, consumed code never sent; foreign email denied",
+    "owner event queues exactly one SMTP notice; simulator excludes it; explicit safe retry updates original history"
+  ]
+}

@@ -33,6 +33,9 @@ services:
       APP_SECRET: ${APP_SECRET:?}
       APP_ORIGIN: ${APP_ORIGIN:-http://127.0.0.1:14323}
       STORE_MODE: local-test
+      MAIL_PROVIDER: ${MAIL_PROVIDER:-simulation}
+      MAIL_ALLOWED_RECIPIENTS: ${MAIL_ALLOWED_RECIPIENTS:-}
+      MAIL_OWNER_RECIPIENT: ${MAIL_OWNER_RECIPIENT:-}
       PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-simulation}
       YOOKASSA_RECEIPTS_MODE: ${YOOKASSA_RECEIPTS_MODE:-disabled}
       YOOKASSA_SHOP_ID: ${YOOKASSA_SHOP_ID:-}
@@ -62,6 +65,7 @@ services:
     command: [node, scripts/commerce-worker.ts]
     init: true
     environment:
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       <<: *cdek-shipments-env
       AR_DB_HOST: db
       AR_DB_PORT: 5432
@@ -70,6 +74,9 @@ services:
       APP_SECRET: ${APP_SECRET:?}
       APP_ORIGIN: ${APP_ORIGIN:-http://127.0.0.1:14323}
       STORE_MODE: local-test
+      MAIL_PROVIDER: ${MAIL_PROVIDER:-simulation}
+      MAIL_ALLOWED_RECIPIENTS: ${MAIL_ALLOWED_RECIPIENTS:-}
+      MAIL_OWNER_RECIPIENT: ${MAIL_OWNER_RECIPIENT:-}
       PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-simulation}
       YOOKASSA_RECEIPTS_MODE: ${YOOKASSA_RECEIPTS_MODE:-disabled}
       YOOKASSA_SHOP_ID: ${YOOKASSA_SHOP_ID:-}

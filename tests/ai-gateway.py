@@ -70,6 +70,16 @@ class GatewayTest(unittest.TestCase):
             self.assertIn(b'gateway_uncertain', body)
             call.assert_called_once()
 
+    def test_sol_is_allowlisted_with_separate_reasoning_and_token_limit(self):
+        data = {**self.data, 'model': 'gpt-6.1-sol', 'reasoning': {'effort': 'low'}, 'max_output_tokens': 4000}
+        with patch.object(gateway, 'forward', return_value=(200, b'{}')) as call:
+            self.assertEqual(self.request(body=data)[0], 200)
+            call.assert_called_once()
+        for changes in [{'max_output_tokens': 4001}, {'reasoning': {'effort': 'none'}}]:
+            with patch.object(gateway, 'forward') as call:
+                self.assertEqual(self.request(body={**data, **changes})[0], 400)
+                call.assert_not_called()
+
     def test_redirects_are_never_followed(self):
         self.assertIsNone(gateway.NoRedirect().redirect_request(None, None, 302, '', {}, 'https://untrusted.invalid'))
 

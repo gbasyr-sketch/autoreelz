@@ -12,7 +12,7 @@ export const aiFetch:typeof fetch=async(input,init)=>{
  const headers=new Headers(init?.headers);headers.set('X-AutoReelz-Gateway',token);
  const ca=readFileSync(join(process.cwd(),'src/server/ai-gateway.crt'));
  return new Promise<Response>((resolve,reject)=>{
-  const req=request(OPENAI_GATEWAY,{method:'POST',headers:Object.fromEntries(headers),ca,rejectUnauthorized:true,signal:init?.signal??undefined,timeout:32000},res=>{
+  const req=request(OPENAI_GATEWAY,{method:'POST',headers:Object.fromEntries(headers),ca,rejectUnauthorized:true,signal:init?.signal??undefined,timeout:90000},res=>{
    const chunks:Buffer[]=[];let bytes=0;
    res.on('data',(chunk:Buffer)=>{bytes+=chunk.length;if(bytes>131072){req.destroy(Error('Oversized gateway response'));return;}chunks.push(chunk);});
    res.on('error',reject);

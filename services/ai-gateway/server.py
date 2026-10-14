@@ -11,15 +11,15 @@ import urllib.request
 MAX_BODY = 65536
 MAX_REPLY = 131072
 UPSTREAM = 'https://api.openai.com/v1/responses'
-MODEL = 'gpt-6-luna'
+MODELS = {'gpt-6-luna': (1800, 'none'), 'gpt-6.1-sol': (4000, 'low')}
 
 
 def valid_payload(value):
     return (isinstance(value, dict)
             and set(value) == {'model', 'instructions', 'input', 'reasoning', 'text', 'max_output_tokens', 'store', 'service_tier'}
-            and value['model'] == MODEL and value['store'] is False and value['service_tier'] == 'default'
-            and type(value['max_output_tokens']) is int and 1 <= value['max_output_tokens'] <= 1800
-            and value['reasoning'] == {'effort': 'none'}
+            and isinstance(value.get('model'), str) and value['model'] in MODELS and value['store'] is False and value['service_tier'] == 'default'
+            and type(value['max_output_tokens']) is int and 1 <= value['max_output_tokens'] <= MODELS[value['model']][0]
+            and value['reasoning'] == {'effort': MODELS[value['model']][1]}
             and value['text'] == {'format': {'type': 'json_object'}}
             and isinstance(value['instructions'], str) and isinstance(value['input'], str))
 
@@ -35,7 +35,7 @@ def forward(body, authorization):
         'User-Agent': 'AUTO-REELZ-description-gateway/1.0'})
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect())
     try:
-        response = opener.open(request, timeout=28)
+        response = opener.open(request, timeout=85)
     except urllib.error.HTTPError as error:
         response = error
     with response:
@@ -124,7 +124,7 @@ class Server(http.server.ThreadingHTTPServer):
         try:
             request.settimeout(5)
             request = self.context.wrap_socket(request, server_side=True)
-            request.settimeout(32)
+            request.settimeout(95)
             super().process_request_thread(request, address)
         except Exception:
             self.shutdown_request(request)

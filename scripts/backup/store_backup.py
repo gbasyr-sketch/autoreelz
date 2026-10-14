@@ -97,11 +97,13 @@ def verify_files(root, manifest):
     if files != manifest['files']:
         raise BackupError('checksum_mismatch')
 
-MEDIA_QUERY="SELECT json_build_object('files',(SELECT coalesce(json_agg(filename_disk),'[]') FROM directus_files WHERE storage='local' AND filename_disk IS NOT NULL),'images',(SELECT coalesce(json_agg(json_build_object('id',id,'kind',kind,'digest',digest,'originalDigest',original_digest)),'[]') FROM ar_ai_image_assets));"
+MEDIA_QUERY="SELECT json_build_object('files',(SELECT coalesce(json_agg(json_build_object('path',filename_disk,'bytes',filesize)),'[]') FROM directus_files WHERE storage='local' AND filename_disk IS NOT NULL),'images',(SELECT coalesce(json_agg(json_build_object('id',id,'kind',kind,'digest',digest,'originalDigest',original_digest)),'[]') FROM ar_ai_image_assets));"
 
 def verify_media(root, refs):
-    for filename in refs['files']:
+    for item in refs['files']:
+        filename=item['path']
         if pathlib.PurePosixPath(filename).is_absolute() or '..' in pathlib.PurePosixPath(filename).parts or not (root/'uploads'/filename).is_file():raise BackupError('restored_media_missing')
+        if not isinstance(item['bytes'],int) or item['bytes']<0 or (root/'uploads'/filename).stat().st_size!=item['bytes']:raise BackupError('restored_media_size')
     for asset in refs['images']:
         if not re.fullmatch('[a-f0-9-]{36}',asset['id']):raise BackupError('restored_asset_invalid')
         expected={'webp':asset['digest']}

@@ -19,10 +19,11 @@ class BackupTests(unittest.TestCase):
  def test_both_ai_formats_and_original_uploads_are_required(self):
   assets=self.root/'ai_image_assets/assets';assets.mkdir(parents=True);(self.root/'uploads').mkdir();(self.root/'uploads/photo.webp').write_bytes(b'photo')
   aid='11111111-1111-4111-8111-111111111111';webp=b'webp';png=b'png';(assets/(aid+'.webp')).write_bytes(webp);(assets/(aid+'.png')).write_bytes(png)
-  refs={'files':['photo.webp'],'images':[{'id':aid,'kind':'result','digest':hashlib.sha256(base64.b64encode(webp)).hexdigest(),'originalDigest':hashlib.sha256(base64.b64encode(png)).hexdigest()}]};b.verify_media(self.root,refs)
+  refs={'files':[{'path':'photo.webp','bytes':5}],'images':[{'id':aid,'kind':'result','digest':hashlib.sha256(base64.b64encode(webp)).hexdigest(),'originalDigest':hashlib.sha256(base64.b64encode(png)).hexdigest()}]};b.verify_media(self.root,refs)
   (assets/(aid+'.png')).unlink()
   with self.assertRaisesRegex(b.BackupError,'restored_image_missing'):b.verify_media(self.root,refs)
-  with self.assertRaisesRegex(b.BackupError,'restored_media_missing'):b.verify_media(self.root,{'files':['../secret'],'images':[]})
+  with self.assertRaisesRegex(b.BackupError,'restored_media_missing'):b.verify_media(self.root,{'files':[{'path':'../secret','bytes':5}],'images':[]})
+  with self.assertRaisesRegex(b.BackupError,'restored_media_size'):b.verify_media(self.root,{'files':[{'path':'photo.webp','bytes':100}],'images':[]})
  def test_retention_requires_verified_restore_and_no_pending_upload(self):
   with patch.object(b,'PRIVATE',self.root),patch.object(b,'restic') as run:
    with self.assertRaisesRegex(b.BackupError,'recovery_not_verified'):b.retention()

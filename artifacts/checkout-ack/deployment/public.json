@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "version": "test-order-2026-10-15-v2-7efec80a308f",
+  "label": "Принимаю условия публичной оферты. С политикой обработки персональных данных ознакомлен.",
+  "links": [
+    {
+      "path": "/info/offer",
+      "status": 200
+    },
+    {
+      "path": "/info/personal-data",
+      "status": 200
+    }
+  ],
+  "uncheckedBlocked": true,
+  "staleVersionBlocked": true,
+  "ordersCreated": 0,
+  "paymentsCreated": 0,
+  "carrierCalls": 0
+}

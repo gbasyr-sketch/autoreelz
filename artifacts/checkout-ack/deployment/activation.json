@@ -1,0 +1,65 @@
+{
+  "releaseSha": "abe26c5317400e9c11d2fe27d19b6c809b95e1dd",
+  "imageId": "sha256:ce6495a38ae68f9924ae80a42151e0170eef5baceab81f90210cef75e41671ef",
+  "health": {
+    "ok": true,
+    "revision": "abe26c5317400e9c11d2fe27d19b6c809b95e1dd"
+  },
+  "previousEnv": "/srv/autoreelz2026/shared/bootstrap/server.env.before-order-terms-abe26c531740",
+  "mode": "staging",
+  "updatedServices": [
+    "web",
+    "worker",
+    "image-worker"
+  ],
+  "envChangedKeys": [
+    "RELEASE_IMAGE"
+  ],
+  "otherEnvUnchanged": true,
+  "metrikaEnabled": false,
+  "containers": {
+    "autoreelz2026-release-web-1": {
+      "id": "f866dd15269b87efc3a399b3ef4c4f69a7940b5c8186fb54af4193d551f948f8",
+      "startedAt": "2026-10-14T22:11:22.945525673Z",
+      "status": "running",
+      "health": "starting"
+    },
+    "autoreelz2026-release-image-worker-1": {
+      "id": "fd90eec242210b596759dc9cdc7936d5c1fc662b04fa17937216518a2a763c61",
+      "startedAt": "2026-10-14T22:11:22.634563819Z",
+      "status": "running",
+      "health": null
+    },
+    "autoreelz2026-release-worker-1": {
+      "id": "90280c6b61ab8873b33b2dd26735508bedfc3acda18fcff935a6732e28e44bbf",
+      "startedAt": "2026-10-14T22:11:22.789580073Z",
+      "status": "running",
+      "health": "starting"
+    },
+    "autoreelz2026-release-edge-1": {
+      "id": "9d8c8974aa6e59e3a9bd6a5c162d39e5567c33d0ee793fc6a8ecac2c41c3ef38",
+      "startedAt": "2026-10-14T19:02:48.07763938Z",
+      "status": "running",
+      "health": null
+    },
+    "autoreelz2026-release-background-1": {
+      "id": "7bfa481425a90cc851fab221e42ea5cf03fc3e024a151d7b637b4f476b91847c",
+      "startedAt": "2026-09-30T15:14:09.306572603Z",
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-cms-1": {
+      "id": "7da34b36aa472d8b0279478a7ec3c53bdb7124e8fad06e3b1e20730d4e3c77a8",
+      "startedAt": "2026-09-23T17:02:33.846890768Z",
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-db-1": {
+      "id": "c81ff315e46cac586372b6c0b8c399b5a13e9fd0266966612034c9588f93760d",
+      "startedAt": "2026-09-23T15:16:27.816123898Z",
+      "status": "running",
+      "health": "healthy"
+    }
+  },
+  "unrelatedContainersUnchanged": true
+}

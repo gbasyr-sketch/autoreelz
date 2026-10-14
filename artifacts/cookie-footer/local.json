@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-15",
+  "passed": true,
+  "checkErrors": 0,
+  "checkWarnings": 0,
+  "build": "passed",
+  "desktop": {
+    "insideFooterNav": true,
+    "fontPx": 12,
+    "matchesAdjacentLinks": true
+  },
+  "mobile": {
+    "width": 375,
+    "fontPx": 11,
+    "noOverflow": true
+  },
+  "singleTrigger": true,
+  "dialogOpensAndCloses": true,
+  "separateBlockRemoved": true
+}

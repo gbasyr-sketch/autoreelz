@@ -1,0 +1,45 @@
+{
+  "serviceProof": {
+    "backup": {
+      "state": "Result=success\nExecMainStatus=0\nActiveState=inactive\nSubState=dead",
+      "events": [
+        {
+          "at": "2026-10-14T15:37:09.336418+00:00",
+          "ok": true,
+          "code": null
+        }
+      ]
+    },
+    "verify": {
+      "state": "Result=success\nExecMainStatus=0\nActiveState=inactive\nSubState=dead",
+      "events": [
+        {
+          "at": "2026-10-14T15:24:08.307325+00:00",
+          "ok": true,
+          "code": null
+        }
+      ]
+    }
+  },
+  "status": {
+    "version": 1,
+    "updatedAt": "2026-10-14T15:37:09.332977+00:00",
+    "state": "ok",
+    "lastAttemptAt": "2026-10-14T15:28:26.251535+00:00",
+    "error": null,
+    "lastFailureAt": "2026-10-14T14:31:06.281703+00:00",
+    "lastLocalAt": "2026-10-14T15:28:28.378086+00:00",
+    "writeBarrierSeconds": 2.273,
+    "lastVerificationAttemptAt": "2026-10-14T15:14:18.293353+00:00",
+    "lastLocalVerifiedAt": "2026-10-14T13:04:08.926557+00:00",
+    "lastSuccessAt": "2026-10-14T15:28:28.378086+00:00",
+    "uploadedAt": "2026-10-14T15:37:07.469576+00:00",
+    "lastSnapshot": "8a4cd5832079207ea3a74293bb19abb36d1d76d1feee5aa10f8797a80864611b",
+    "lastBytes": 555274726,
+    "revision": "3c2e89cac443710f6196e41490acde8d7eb48bba",
+    "verificationError": null,
+    "lastVerifiedAt": "2026-10-14T15:24:07.962756+00:00",
+    "verifiedSnapshot": "453cc49708b134992e977a7ad2e8e977d245ea59346da0196aefc9dde483141d"
+  },
+  "pending": 0
+}

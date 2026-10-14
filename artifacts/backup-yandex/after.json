@@ -1,0 +1,146 @@
+{
+  "checkedAt": "2026-10-14T16:50:28.599161+00:00",
+  "appSha": "3c2e89cac443710f6196e41490acde8d7eb48bba",
+  "imageId": "sha256:292b3f53ed657ca0f71acde18e741e21f3d7a627153c5106e21352158a39ab24",
+  "status": {
+    "version": 1,
+    "updatedAt": "2026-10-14T16:43:33.824103+00:00",
+    "state": "ok",
+    "lastAttemptAt": "2026-10-14T15:28:26.251535+00:00",
+    "error": null,
+    "lastFailureAt": "2026-10-14T14:31:06.281703+00:00",
+    "lastLocalAt": "2026-10-14T15:28:28.378086+00:00",
+    "writeBarrierSeconds": 2.273,
+    "lastVerificationAttemptAt": "2026-10-14T15:14:18.293353+00:00",
+    "lastLocalVerifiedAt": "2026-10-14T13:04:08.926557+00:00",
+    "lastSuccessAt": "2026-10-14T15:28:28.378086+00:00",
+    "uploadedAt": "2026-10-14T15:37:07.469576+00:00",
+    "lastSnapshot": "8a4cd5832079207ea3a74293bb19abb36d1d76d1feee5aa10f8797a80864611b",
+    "lastBytes": 555274726,
+    "revision": "3c2e89cac443710f6196e41490acde8d7eb48bba",
+    "verificationError": null,
+    "lastVerifiedAt": "2026-10-14T15:24:07.962756+00:00",
+    "verifiedSnapshot": "453cc49708b134992e977a7ad2e8e977d245ea59346da0196aefc9dde483141d",
+    "scheduled": true
+  },
+  "localVerification": {
+    "verifiedAt": "2026-10-14T13:04:08.926557+00:00",
+    "snapshot": "e88baa318bf10861a00e534e08f5a8d6acb358ef863f798c1971d25080a818c5",
+    "tables": 100,
+    "rows": 137141,
+    "files": 4073,
+    "grants": {
+      "appReadsCatalog": true,
+      "appCannotDeleteVehicles": true,
+      "cmsCannotWriteStock": true
+    },
+    "appCredentialsVerified": true,
+    "isolated": true,
+    "licensedCmsStarted": false,
+    "external": false
+  },
+  "externalVerification": {
+    "verifiedAt": "2026-10-14T15:24:07.962756+00:00",
+    "snapshot": "453cc49708b134992e977a7ad2e8e977d245ea59346da0196aefc9dde483141d",
+    "tables": 100,
+    "rows": 137295,
+    "files": 4078,
+    "grants": {
+      "appReadsCatalog": true,
+      "appCannotDeleteVehicles": true,
+      "cmsCannotWriteStock": true
+    },
+    "appCredentialsVerified": true,
+    "isolated": true,
+    "licensedCmsStarted": false,
+    "external": true
+  },
+  "pendingUploads": 0,
+  "timers": {
+    "": "enabled",
+    "-verify": "enabled",
+    "-retention": "enabled"
+  },
+  "containers": {
+    "autoreelz2026-release-web-1": {
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-image-worker-1": {
+      "status": "running",
+      "health": null
+    },
+    "autoreelz2026-release-worker-1": {
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-edge-1": {
+      "status": "running",
+      "health": null
+    },
+    "autoreelz2026-release-background-1": {
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-cms-1": {
+      "status": "running",
+      "health": "healthy"
+    },
+    "autoreelz2026-release-db-1": {
+      "status": "running",
+      "health": "healthy"
+    }
+  },
+  "temporaryRestoreContainers": [],
+  "plaintextStageExists": false,
+  "plaintextRestoreDirectories": 0,
+  "temporaryUnitRemoved": true,
+  "privilegedFiles": {
+    "/opt/autoreelz2026-backup": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    },
+    "/opt/autoreelz2026-backup/runner/store_backup.py": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    },
+    "/opt/autoreelz2026-backup/bin/restic": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    },
+    "/opt/autoreelz2026-backup/bin/rclone": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    },
+    "/opt/autoreelz2026-backup/runner/yandex_webdav.py": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    },
+    "/var/lib/autoreelz2026-backup": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    },
+    "/var/lib/autoreelz2026-backup/private": {
+      "uid": 0,
+      "mode": "0o700",
+      "shopUserCanWrite": false
+    },
+    "/var/lib/autoreelz2026-backup/work": {
+      "uid": 0,
+      "mode": "0o700",
+      "shopUserCanWrite": false
+    },
+    "/var/lib/autoreelz2026-backup/status": {
+      "uid": 0,
+      "mode": "0o755",
+      "shopUserCanWrite": false
+    }
+  },
+  "statusMountReadOnly": true
+}

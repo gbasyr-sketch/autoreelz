@@ -1,0 +1,47 @@
+{
+  "unit": {
+    "Result": "success",
+    "ExecMainStartTimestampMonotonic": "0",
+    "ExecMainExitTimestampMonotonic": "0",
+    "ExecMainStatus": "0",
+    "ActiveState": "inactive"
+  },
+  "report": {
+    "verifiedAt": "2026-10-14T15:24:07.962756+00:00",
+    "snapshot": "453cc49708b134992e977a7ad2e8e977d245ea59346da0196aefc9dde483141d",
+    "tables": 100,
+    "rows": 137295,
+    "files": 4078,
+    "grants": {
+      "appReadsCatalog": true,
+      "appCannotDeleteVehicles": true,
+      "cmsCannotWriteStock": true
+    },
+    "appCredentialsVerified": true,
+    "isolated": true,
+    "licensedCmsStarted": false,
+    "external": true
+  },
+  "status": {
+    "version": 1,
+    "updatedAt": "2026-10-14T15:24:07.963562+00:00",
+    "state": "ok",
+    "lastAttemptAt": "2026-10-14T14:34:43.579689+00:00",
+    "error": null,
+    "lastFailureAt": "2026-10-14T14:31:06.281703+00:00",
+    "lastLocalAt": "2026-10-14T14:17:32.415433+00:00",
+    "writeBarrierSeconds": 2.351,
+    "lastVerificationAttemptAt": "2026-10-14T15:14:18.293353+00:00",
+    "lastLocalVerifiedAt": "2026-10-14T13:04:08.926557+00:00",
+    "lastSuccessAt": "2026-10-14T14:17:32.415433+00:00",
+    "uploadedAt": "2026-10-14T14:56:14.381284+00:00",
+    "lastSnapshot": "453cc49708b134992e977a7ad2e8e977d245ea59346da0196aefc9dde483141d",
+    "lastBytes": 555259754,
+    "revision": "3c2e89cac443710f6196e41490acde8d7eb48bba",
+    "verificationError": null,
+    "lastVerifiedAt": "2026-10-14T15:24:07.962756+00:00",
+    "verifiedSnapshot": "453cc49708b134992e977a7ad2e8e977d245ea59346da0196aefc9dde483141d"
+  },
+  "temporaryRestoreContainers": [],
+  "plaintextRestoreDirectories": 0
+}

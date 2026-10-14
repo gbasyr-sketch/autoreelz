@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "publishedUI": true,
+  "appSha": "3c2e89cac443710f6196e41490acde8d7eb48bba",
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "statusRead": true,
+      "scheduled": true,
+      "externalCopyPresent": true,
+      "restorationConfirmed": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "statusRead": true,
+      "scheduled": true,
+      "externalCopyPresent": true,
+      "restorationConfirmed": true,
+      "noOverflow": true
+    }
+  ],
+  "sessionsRevoked": true
+}

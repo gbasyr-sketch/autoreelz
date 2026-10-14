@@ -4,7 +4,7 @@
 
 | Что менять | Где начать | Что проверить |
 |---|---|---|
-| Серверные резервные копии и статус владельца | [store_backup.py](../scripts/backup/store_backup.py), `infra/backup/`, `src/lib/backup-status.ts`, `src/server/backup-status.ts`, `src/components/BackupStatus.astro`, `api/manager/backup-status` | Согласованный снимок, шифрование, очередь/повторы, локальная копия при сбое облака, изолированное восстановление, права API и read-only mount; [контракт](server-backups.md) |
+| Серверные резервные копии и статус владельца | [store_backup.py](../scripts/backup/store_backup.py), [yandex_webdav.py](../scripts/backup/yandex_webdav.py), `infra/backup/`, `src/lib/backup-status.ts`, `src/server/backup-status.ts`, `src/components/BackupStatus.astro`, `api/manager/backup-status` | Согласованный снимок, шифрование, очередь, закрытый транспорт Яндекса/PUT/Range, восстановление, права API и read-only mount; [контракт](server-backups.md) |
 | Шапка, меню, общие стили | [StoreLayout.astro](../src/layouts/StoreLayout.astro), `src/styles/global.css` | Desktop/mobile, навигация, счётчики, отсутствие горизонтального скролла |
 | Каталог/фильтры/поиск/страницы | [catalog.ts](../src/lib/catalog.ts), `src/pages/catalog.astro`, `src/lib/pagination.ts`, `src/scripts/catalog.ts` | Все условия совпадают на одном SKU; страницы по12; сброс page при фильтрации |
 | Чтение каталога из CMS | [server/catalog.ts](../src/server/catalog.ts), `src/lib/catalog-types.ts` | Статусы родителей/SKU, наследование фото/атрибутов/совместимости |

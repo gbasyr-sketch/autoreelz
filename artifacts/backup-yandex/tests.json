@@ -1,0 +1,9 @@
+{
+  "runnerTests": 13,
+  "transportTests": 10,
+  "failed": 0,
+  "paidModelCalls": 0,
+  "physicalPhoneUsed": false,
+  "appRebuilt": false,
+  "dataMigrations": false
+}

@@ -1,0 +1,123 @@
+{
+  "checkedAt": "2026-10-14T23:01:55.528011+00:00",
+  "targetSha": "2462d01e44548dfd76f5d28c66740ee2b52947b2",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "passed": true,
+      "noindex": true
+    },
+    {
+      "path": "/health",
+      "status": 200,
+      "passed": true,
+      "revision": "2462d01e44548dfd76f5d28c66740ee2b52947b2"
+    },
+    {
+      "path": "/catalog",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/checkout",
+      "status": 200,
+      "passed": true,
+      "combinedPage": true,
+      "noStore": true
+    },
+    {
+      "path": "/cart",
+      "status": 200,
+      "passed": true,
+      "combinedPage": true,
+      "noStore": true
+    },
+    {
+      "path": "/api/manager/orders",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "path": "/api/manager/payment-refunds?orderId=00000000-0000-4000-8000-000000000001",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "path": "/api/privacy",
+      "status": 200,
+      "passed": true,
+      "analyticsEnabled": false,
+      "noStore": true
+    },
+    {
+      "path": "/cms/users/me",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "path": "/muzey/",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/google031b679d17a8feda.html",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/cookies",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/info/contacts",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/delivery",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/returns",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/warranty",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/offer",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/personal-data",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/privacy",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/analytics-consent",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/review-consent",
+      "status": 200,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "ordersCreated": 0,
+  "paymentsCreated": 0,
+  "fiscalDocumentsSent": 0
+}

@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "pages": [
+    {
+      "slug": "offer",
+      "bodyMatchesSource": true,
+      "sha256": "081a419f071e56df9d5a7d0fa5378d602e867150899c7328f662963fee319524"
+    },
+    {
+      "slug": "delivery",
+      "bodyMatchesSource": true,
+      "sha256": "3b5d7fa943a4a003f11d1c02476ce591b239381c4b4fca85a985fb431a13c805"
+    }
+  ],
+  "contactsUnchanged": true
+}

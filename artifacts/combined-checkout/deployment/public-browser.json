@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "imagesDecoded": true
+    },
+    {
+      "width": 375,
+      "overflow": false,
+      "imagesDecoded": true
+    }
+  ],
+  "ordinaryQuote": true,
+  "mixedQuote": true,
+  "ordersCreated": 0,
+  "paymentsCreated": 0,
+  "carrierCalls": 0,
+  "cartCleaned": true
+}

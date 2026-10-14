@@ -2,7 +2,7 @@
 """AUTO REELZ only: encrypted snapshots, scoped offsite copy and isolated restore drill.
 No live restore, provider calls, CMS clone or global disk cleanup is implemented.
 """
-import argparse, base64, datetime, fcntl, hashlib, json, os, pathlib, re, selectors, shutil, stat, subprocess, sys, time, traceback, uuid
+import argparse, base64, datetime, fcntl, hashlib, json, os, pathlib, re, selectors, shutil, signal, socket, stat, subprocess, sys, time, traceback, uuid
 
 ROOT = pathlib.Path('/srv/autoreelz2026')
 PROJECT = 'autoreelz2026-release'
@@ -19,6 +19,9 @@ REMOTE = 'rclone:ar_yandex:AUTO-REELZ-backups/autoreelz2026'
 DOCKER = ['runuser','-u','autoreelz2026','--','env','XDG_RUNTIME_DIR=/run/user/1018','DOCKER_HOST=unix:///run/user/1018/docker.sock','PATH=/srv/autoreelz2026/bin:/usr/local/bin:/usr/bin:/bin','docker']
 HOST = 'autoreelz2026'
 TAG = 'autoreelz2026-complete'
+TRANSPORT_SCRIPT=pathlib.Path('/opt/autoreelz2026-backup/runner/yandex_webdav.py')
+_transport=None
+_transport_log=None
 
 class BackupError(Exception):
     pass
@@ -184,6 +187,8 @@ def capture():
     for name,path in sources.items():mirror(path,stage/name)
     configuration=stage/'configuration';configuration.mkdir(mode=0o700)
     config_files={'server.env':ROOT/'shared/bootstrap/server.env','origin-nginx.conf':pathlib.Path('/etc/nginx/conf.d/autoreelz2026.conf')}
+    for name,source in [('backup-rclone.conf',PRIVATE/'rclone.conf'),('backup-webdav.json',PRIVATE/'yandex-webdav.json')]:
+        if source.exists():config_files[name]=source
     for name,path in config_files.items():
         if path.is_symlink() or not path.is_file():raise BackupError('unsafe_configuration')
         shutil.copyfile(path,configuration/name);os.chmod(configuration/name,0o600)
@@ -210,8 +215,47 @@ def capture():
     return manifest
 
 def restic(repo,*args,timeout=1800):
+    if repo==REMOTE:start_transport()
     env={**os.environ,'RESTIC_PASSWORD_FILE':str(PRIVATE/'password'),'RESTIC_CACHE_DIR':str(WORK/'cache'),'RCLONE_CONFIG':str(PRIVATE/'rclone.conf'),'TZ':'Europe/Moscow'}
     return execute([RESTIC,'--repo',repo,'-o','rclone.program='+str(RCLONE),*args],timeout=timeout,env=env)
+
+def start_transport():
+    global _transport,_transport_log
+    if _transport is not None:
+        if _transport.poll() is not None:raise BackupError('transport_stopped')
+        return
+    info=TRANSPORT_SCRIPT.lstat()
+    if not stat.S_ISREG(info.st_mode) or info.st_uid!=0 or info.st_mode&0o022:raise BackupError('unsafe_transport')
+    path=PRIVATE/'yandex-webdav.sock'
+    if path.exists():
+        if not stat.S_ISSOCK(path.lstat().st_mode):raise BackupError('unsafe_transport_socket')
+        with socket.socket(socket.AF_UNIX) as probe:
+            probe.settimeout(1)
+            if probe.connect_ex(str(path))==0:raise BackupError('transport_busy')
+        path.unlink()
+    _transport_log=(PRIVATE/'transport.log').open('ab');os.chmod(_transport_log.name,0o600)
+    _transport=subprocess.Popen([sys.executable,str(TRANSPORT_SCRIPT)],stdout=_transport_log,stderr=subprocess.STDOUT,start_new_session=True)
+    for _ in range(100):
+        if _transport.poll() is not None:raise BackupError('transport_start_failed')
+        if path.exists():return
+        time.sleep(.05)
+    raise BackupError('transport_start_failed')
+
+def stop_transport():
+    global _transport,_transport_log
+    if _transport is not None:
+        if _transport.poll() is None:
+            try:os.killpg(_transport.pid,signal.SIGTERM)
+            except ProcessLookupError:pass
+            try:_transport.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                os.killpg(_transport.pid,signal.SIGKILL);_transport.wait()
+        _transport=None
+        path=PRIVATE/'yandex-webdav.sock'
+        if path.exists() and stat.S_ISSOCK(path.lstat().st_mode):path.unlink()
+        for path in WORK.glob('webdav-*'):
+            if path.is_dir() and not path.is_symlink():shutil.rmtree(path)
+    if _transport_log is not None:_transport_log.close();_transport_log=None
 
 def repo_ids():
     return read_json(PRIVATE/'repositories.json')
@@ -396,6 +440,7 @@ def main():
             print(json.dumps({'ok':False,'action':args.action,'code':code}),flush=True)
             return 1
         finally:
+            stop_transport()
             stage=WORK/'stage'
             if stage.exists() and not stage.is_symlink():shutil.rmtree(stage)
         print(json.dumps({'ok':True,'action':args.action}),flush=True)

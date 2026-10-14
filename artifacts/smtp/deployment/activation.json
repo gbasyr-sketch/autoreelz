@@ -1,0 +1,17 @@
+{
+  "sha": "48f6e92ca2a48c3a267d5209c767baf5ce9e2a2a",
+  "previousSha": "2462d01e44548dfd76f5d28c66740ee2b52947b2",
+  "imageId": "sha256:a605716d671378d51751f2b64d64d79d5046d2d55a8ac7d4598840fefea2f067",
+  "backup": "/srv/autoreelz2026/backups/before-smtp-20261014T232306Z.dump",
+  "backupReadable": true,
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-smtp-20261014T232306Z",
+  "migration": {
+    "name": "029_smtp_mail.sql",
+    "sha256": "b03c8c009e3aecea1c38c6a95d54b5a6b080801e6e2161123558b7ed872ee274"
+  },
+  "mailProvider": "timeweb-smtp",
+  "allowedRecipient": "sales@autoreelz.ru",
+  "passwordOnlyInWorker": true,
+  "paymentProvider": "yookassa-sandbox",
+  "activatedAt": "2026-10-14T23:23:13.146720+00:00"
+}

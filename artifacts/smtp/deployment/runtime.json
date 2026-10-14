@@ -1,0 +1,10 @@
+{
+  "authenticated": true,
+  "host": "smtp.timeweb.ru",
+  "port": 465,
+  "sender": "sales@autoreelz.ru",
+  "heartbeatAfterStart": true,
+  "workerNoError": true,
+  "smtpRows": 0,
+  "passwordOnlyWorker": true
+}

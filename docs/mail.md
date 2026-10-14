@@ -36,3 +36,9 @@
 Обратное переключение MAIL_PROVIDER=simulation оставляет SMTP-очередь сохранённой. Откат к старому commerce-worker без учёта provider опасен: он может принять SMTP pending за локально доставленные. При необходимости откатить только web, сохранив новый worker, либо отдельно разобрать очередь. Миграцию/снимки не откатывать, базу из backup поверх новых заказов не восстанавливать.
 
 Источники15.10: [SMTP Timeweb](https://timeweb.cloud/docs/mail/email-clients-configuration), [Nodemailer SMTP](https://nodemailer.com/smtp/), [исходники закреплённого Nodemailer](https://github.com/nodemailer/nodemailer). Подключение чеков ЮKassa этим модулем не выполняется.
+
+## Выпуск15.10.2026
+
+По поручению подключения выпущен48f6e92, применена029 после читаемого DB-only backup. MAIL_PROVIDER=timeweb-smtp, разрешённый адрес и получатель владельца — только sales@autoreelz.ru. Пароль в серверном env0600, передаётся только worker; совпадение после Compose-разбора проверено без печати. Успешный Nodemailer verify выполнен из worker. БД/CMS/edge/background и прочие env-поля/защищённые данные сохранены, web/worker/image-worker имеют один образ.21 HTTP-проверка прошла.
+
+Владелец отдельно разрешил одно контрольное письмо на sales. Оно прошло enqueueMail и настоящий commerce-worker:1попытка, SMTP accepted; IMAP read-only подтвердил письмо во входящих с тем же Message-ID/From/To. Дополнительных писем/заказов/платежей не создавали; старый outbox не пересылался. [Итог](../artifacts/smtp/deployment/final.json), [SMTP](../artifacts/smtp/deployment/probe-result.json), [входящие](../artifacts/smtp/deployment/inbox.json). Это проверка одного адреса, не всех будущих покупателей. ЮKassa sandbox/чеки disabled и noindex сохранены.

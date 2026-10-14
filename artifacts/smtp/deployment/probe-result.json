@@ -1,0 +1,9 @@
+{
+  "id": "190b1899-a7c9-4470-ae26-e0bbe72a2d29",
+  "status": "delivered",
+  "provider": "timeweb-smtp",
+  "attempts": 1,
+  "lastError": null,
+  "messageId": "<ar-b1152bde-c6dc-4ae2-9576-43986247ed91@autoreelz.ru>",
+  "acceptedAt": "2026-10-14T23:24:59.373844+00:00"
+}

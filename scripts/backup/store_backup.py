@@ -264,11 +264,22 @@ def capture_only():
     local_capture()
     status_update(state='error',error='offsite_pending')
 
+def capture_due(current=None):
+    """Retry uploads without creating another snapshot in the same hourly timer slot."""
+    current=current or datetime.datetime.now(datetime.timezone.utc)
+    value=read_json(STATUS).get('lastLocalAt')
+    try:previous=datetime.datetime.fromisoformat(value)
+    except (TypeError,ValueError):return True
+    if previous.tzinfo is None:return True
+    return int((previous.timestamp()-17*60)//3600)!=int((current.timestamp()-17*60)//3600)
+
 def backup():
-    verify_repo(str(LOCAL),'local');verify_repo(REMOTE,'remote')
+    status_update(state='running',lastAttemptAt=now(),error=None)
+    verify_repo(str(LOCAL),'local')
+    # A cloud outage must not prevent a fresh encrypted local copy.
+    if capture_due():local_capture()
+    verify_repo(REMOTE,'remote')
     recover_pending()
-    copy_pending()
-    local_capture()
     copy_pending()
     status_update(state='ok',error=None)
 

@@ -1,4 +1,4 @@
-import base64,hashlib,importlib.util,json,pathlib,tempfile,unittest
+import base64,datetime,hashlib,importlib.util,json,pathlib,tempfile,unittest
 from unittest.mock import patch
 spec=importlib.util.spec_from_file_location('backup',pathlib.Path(__file__).parents[1]/'scripts/backup/store_backup.py');b=importlib.util.module_from_spec(spec);spec.loader.exec_module(b)
 class BackupTests(unittest.TestCase):
@@ -47,4 +47,19 @@ class BackupTests(unittest.TestCase):
    self.assertEqual(run.call_args.args,(b.REMOTE,'cat','config'))
  def test_schema_identifiers_cannot_inject_commands(self):
   with self.assertRaisesRegex(b.BackupError,'unexpected_schema'):b.fingerprints_query(['table; DROP DATABASE postgres'])
+ def test_cloud_failure_keeps_new_local_capture_before_upload(self):
+  calls=[]
+  def verify(repo,key):
+   calls.append(key)
+   if key=='remote':raise b.BackupError('command_failed')
+  with patch.object(b,'verify_repo',side_effect=verify),patch.object(b,'status_update'),patch.object(b,'capture_due',return_value=True),patch.object(b,'local_capture',side_effect=lambda:calls.append('capture')):
+   with self.assertRaisesRegex(b.BackupError,'command_failed'):b.backup()
+  self.assertEqual(calls,['local','capture','remote'])
+ def test_upload_retry_does_not_create_extra_snapshot_in_timer_slot(self):
+  with patch.object(b,'STATUS',self.root/'status.json'):
+   b.atomic_json(b.STATUS,{'lastLocalAt':'2026-10-14T12:17:30+00:00'})
+   self.assertFalse(b.capture_due(datetime.datetime.fromisoformat('2026-10-14T13:16:59+00:00')))
+   self.assertTrue(b.capture_due(datetime.datetime.fromisoformat('2026-10-14T13:17:00+00:00')))
+   b.atomic_json(b.STATUS,{'lastLocalAt':'2026-10-14T12:03:00+00:00'})
+   self.assertTrue(b.capture_due(datetime.datetime.fromisoformat('2026-10-14T12:17:00+00:00')))
 if __name__=='__main__':unittest.main()

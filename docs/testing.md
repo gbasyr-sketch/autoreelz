@@ -178,3 +178,7 @@ CMS-наборы `cms-browser`, `content-browser`, `stage6-cms-*`, schema/permis
 ## Закрытие разбора возврата034
 
 `node --test tests/return-resolution-policy.test.ts` —8unit; `node tests/return-resolution-database.mjs` —14 групп отдельной native PostgreSQL001–034: cumulative partial/full, overlapping bundleSKU/held, idempotency/concurrency/stale, oldkey after reopen, directSQL NULL/malformedJSON/amount/composition/ledger guards, dashboard reviewfilter и production. `node tests/return-resolution-browser.mjs` после build —4 full/partial×1440/375, роли/CSRF/Origin/no-store, неизвестныйответ/reload/samekey, storagefail и stale409. Порты14371/14372, внешний fetch запрещён, снимки private. [Сводка](../artifacts/return-resolution/local.json). Регрессия:67trade,13intakeDB/11partialDB/7supplierDB/8dispatch,4intakeUI/4refundUI. Старый standalone manager-workspace DB требует отдельного QA launcher; запуск без него закрыт проверкой имени БД, не считать его пройденным.
+
+## Рабочая ЮKassa и закрывающие чеки15.10.2026
+
+`tests/commerce-production.test.ts`, `tests/yookassa-live.test.ts` — policy/протокол; `tests/yookassa-production-database.mjs` — synthetic001–035, подменённый транспорт и полный цикл до закрытия разбора возврата; `tests/yookassa-production-browser.mjs` — mockAPI1440/375. Node24.21.0. Реальные платежи/фискализация/SMTP не выполняются. Контракт и команды — [yookassa-production.md](yookassa-production.md), результат — artifacts/yookassa-production/local.json.

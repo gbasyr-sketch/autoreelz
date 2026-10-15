@@ -50,7 +50,7 @@ export async function cancelByManager(actor:Actor,body:Record<string,unknown>){
  }));return managerOrder(id);
 }
 function tracking(value:unknown,fallback:string|null){return value===undefined?fallback:value===null||value===''?null:text(value,'Трек-номер',3,120);}
-function paid(row:Record<string,any>){if(row.status!=='paid'||row.payment_status!=='paid')throw new StoreError('PAYMENT_REQUIRED','Сборка и отправка доступны после оплаты заказа.',409);}
+function paid(row:Record<string,any>){if(row.status!=='paid'||row.payment_status!=='paid')throw new StoreError('PAYMENT_REQUIRED','Сборка и отправка доступны после оплаты заказа.',409);if(['supplier_pending','supplier_paid'].includes(row.allocation_state))throw new StoreError('STOCK_REQUIRED','Сначала внесите приход и выделите весь состав заказа с нашего склада.',409);}
 async function writeDelivery(c:PoolClient,id:string,status:string,source:'carrier'|'manager',override:boolean,track:string|null){
  await c.query(`UPDATE ar_orders SET delivery_status=$2,delivery_source=$3,delivery_override=$4,tracking_number=$5,
   delivery_updated_at=now(),delivered_at=CASE WHEN $2='delivered' THEN coalesce(delivered_at,now()) ELSE NULL END WHERE id=$1`,[id,status,source,override,track]);
@@ -107,6 +107,7 @@ export async function applyVerifiedCarrierEvent(input:CarrierEvent){
   let applied=false,reason='';
   const track=tracking(input.trackingNumber,row.tracking_number);
   if(row.status!=='paid'||row.payment_status!=='paid')reason='Событие не применено: заказ не оплачен или требует проверки.';
+  else if(['supplier_pending','supplier_paid'].includes(row.allocation_state))reason='Событие не применено: товары ещё не выделены с нашего склада.';
   else if(at.getTime()<new Date(row.created_at).getTime()||(row.carrier_updated_at&&at.getTime()<=new Date(row.carrier_updated_at).getTime())||states.indexOf(status)<states.indexOf(row.carrier_status??'quoted'))reason='Старое событие или возврат к предыдущему статусу проигнорирован.';
   else if(['shipped','delivered'].includes(status)&&!track)reason='Событие не применено: нет трек-номера.';
   else{

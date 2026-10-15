@@ -27,7 +27,7 @@ export async function toOrder(c:PoolClient,row:Record<string,any>):Promise<Order
  const payable=row.status==='awaiting_payment'&&row.delivery_status==='quoted'&&row.expires_at&&new Date(row.expires_at).getTime()>Date.now();
  const paymentAction={provider,pending:Boolean(pending),confirmationUrl:pending&&payable?payment.provider_confirmation_url:null,canCheck:Boolean(pending&&(payment.provider_id||payable)),message:pending?(payment.provider_last_error?'Статус оплаты требует повторной проверки. Новый платёж не создавайте.':'Ожидаем подтверждение тестовой оплаты ЮKassa.'):null};
  const shippingCostRubles=row.shipping_cost_rubles===null?null:safeMoney(row.shipping_cost_rubles),productTotalRubles=safeMoney(row.product_total_rubles);
- return{deliveryDeadline:row.delivery_deadline??null,checkoutPolicyVersion:row.checkout_policy_version??null,confirmation,paymentAction,id:row.id,number:row.number,kind:row.kind,status:row.status,paymentStatus:row.payment_status,deliveryStatus:row.delivery_status,createdAt:iso(row.created_at)!,expiresAt:iso(row.expires_at),customer:{name:row.customer_name,phone:row.customer_phone,email:row.customer_email},delivery:row.delivery_snapshot,lines:row.items_snapshot,productTotalRubles,shippingCostRubles,totalRubles:shippingCostRubles===null?null:sumRubles([productTotalRubles,shippingCostRubles]),shippingReason:row.shipping_reason,shippingVersion:row.shipping_version,terms:row.terms,canPay:Boolean(row.status==='awaiting_payment'&&row.delivery_status==='quoted'&&row.expires_at&&new Date(row.expires_at).getTime()>Date.now()),canCancel:['open','preorder_pending','awaiting_payment'].includes(row.status),reviewReason:row.review_reason,trackingNumber:row.tracking_number??null,deliverySource:row.delivery_source??'checkout',deliveryOverride:row.delivery_override??false,deliveredAt:iso(row.delivered_at),events:events.map(e=>({type:e.event_type,at:iso(e.created_at)!,note:e.note}))};
+ return{allocationState:row.allocation_state,supplierConfirmedAt:iso(row.supplier_confirmed_at),waitingForStock:row.allocation_state==='supplier_paid',deliveryDeadline:row.delivery_deadline??null,checkoutPolicyVersion:row.checkout_policy_version??null,confirmation,paymentAction,id:row.id,number:row.number,kind:row.kind,status:row.status,paymentStatus:row.payment_status,deliveryStatus:row.delivery_status,createdAt:iso(row.created_at)!,expiresAt:iso(row.expires_at),customer:{name:row.customer_name,phone:row.customer_phone,email:row.customer_email},delivery:row.delivery_snapshot,lines:row.items_snapshot,productTotalRubles,shippingCostRubles,totalRubles:shippingCostRubles===null?null:sumRubles([productTotalRubles,shippingCostRubles]),shippingReason:row.shipping_reason,shippingVersion:row.shipping_version,terms:row.terms,canPay:Boolean(row.status==='awaiting_payment'&&row.delivery_status==='quoted'&&row.expires_at&&new Date(row.expires_at).getTime()>Date.now()),canCancel:['open','preorder_pending','awaiting_payment'].includes(row.status),reviewReason:row.review_reason,trackingNumber:row.tracking_number??null,deliverySource:row.delivery_source??'checkout',deliveryOverride:row.delivery_override??false,deliveredAt:iso(row.delivered_at),events:events.map(e=>({type:e.event_type,at:iso(e.created_at)!,note:e.note}))};
 }
 export const getOrder=(session:ShopSession,id:string)=>transaction(async c=>toOrder(c,await orderRow(c,uuid(id),session)),false);
 export async function listOrders(session?:ShopSession){return transaction(async c=>{const rows=await c.query(`SELECT *,delivery_deadline::text AS delivery_deadline FROM ar_orders ${session?'WHERE session_id=$1 OR ($2::text IS NOT NULL AND customer_email=$2)':''} ORDER BY created_at DESC LIMIT 100`,session?[session.id,session.email]:[]);const orders:OrderView[]=[];for(const r of rows.rows)orders.push(await toOrder(c,r));return orders;},false);}
@@ -41,17 +41,19 @@ export async function stockMove(c:PoolClient,orderId:string|null,need:Map<string
  }
 }
 export async function releaseAllocation(c:PoolClient,row:Record<string,any>,reason:string,actor:string|null=null){
+ if(row.allocation_state==='supplier_pending'){await c.query("UPDATE ar_orders SET allocation_state='released' WHERE id=$1",[row.id]);row.allocation_state='released';return;}
  if(!['reserved','debited'].includes(row.allocation_state))return;
  const need=await componentNeeds(c,row.id);await lockStock(c,need);
  await stockMove(c,row.id,need,`release:${row.id}`,row.allocation_state==='debited'?1:0,row.allocation_state==='reserved'?-1:0,reason,actor);
  await c.query("UPDATE ar_orders SET allocation_state='released' WHERE id=$1",[row.id]);row.allocation_state='released';
 }
 export async function expireLocked(c:PoolClient,row:Record<string,any>){
- if(!row.expires_at||new Date(row.expires_at).getTime()>Date.now()||!['reserved','debited'].includes(row.allocation_state))return false;
+ if(!row.expires_at||new Date(row.expires_at).getTime()>Date.now()||!['reserved','debited','supplier_pending'].includes(row.allocation_state))return false;
+ const supplierPending=row.allocation_state==='supplier_pending';
  await releaseAllocation(c,row,'Истёк срок оплаты');
  const status=row.status==='manual_review'?'manual_review':'expired';
  await c.query('UPDATE ar_orders SET status=$2 WHERE id=$1',[row.id,status]);row.status=status;
- await event(c,row.id,'expired','Срок оплаты истёк. Остаток освобождён один раз.');return true;
+ await event(c,row.id,'expired',supplierPending?'Срок оплаты истёк. Заказ закрыт без движения склада.':'Срок оплаты истёк. Остаток освобождён один раз.');return true;
 }
 export async function checkout(session:ShopSession,body:Record<string,unknown>){
  const quoteId=uuid(body.quoteId),version=integer(body.cartVersion,'Версия корзины'),confirmation=verifyCheckoutConfirmation(body.confirmation);
@@ -114,17 +116,41 @@ export async function quoteShipping(actor:{id:string},body:Record<string,unknown
 }
 export async function confirmPreorder(actor:{id:string},body:Record<string,unknown>){
  const id=uuid(body.orderId),terms=text(body.terms,'Срок и условия',3,1000),deadline=body.deliveryDeadline??null;
- await transaction(c=>idempotent(c,`confirm:${actor.id}`,body.idempotencyKey,{id,terms,deadline},async()=>{
+ if(body.supplierConfirmed!==undefined&&typeof body.supplierConfirmed!=='boolean')throw new StoreError('SUPPLIER_CONFIRMATION','Подтвердите наличие у поставщика явной отметкой.');
+ const supplierConfirmed=body.supplierConfirmed===true;
+ await transaction(c=>idempotent(c,`confirm:${actor.id}`,body.idempotencyKey,{id,terms,deadline,...(supplierConfirmed?{supplierConfirmed:true}:{})},async()=>{
   const row=await orderRow(c,id,undefined,true);
   if(row.kind!=='preorder'||row.status!=='preorder_pending')throw new StoreError('ORDER_STATE','Этот предзаказ уже обработан.',409);
   if(row.delivery_status!=='quoted'||row.shipping_cost_rubles===null)throw new StoreError('DELIVERY_PENDING','Сначала уточните стоимость доставки.',409);
   const agreedDeadline=row.checkout_policy_version?checkedDeadline(deadline):null;
+  if(supplierConfirmed){
+   await c.query("UPDATE ar_orders SET allocation_state='supplier_pending',supplier_confirmed_at=now(),supplier_confirmed_by=$4,status='awaiting_payment',terms=$2,delivery_deadline=$3,shipping_version=shipping_version+1,expires_at=now()+interval '30 minutes' WHERE id=$1",[id,terms,agreedDeadline,actor.id]);
+   await event(c,id,'supplier_confirmed','Менеджер подтвердил наличие у поставщика, срок и условия. Оплата доступна 30 минут. Товары на нашем складе не резервируются и не списываются. '+(agreedDeadline?'Получение не позднее '+agreedDeadline+'. ':'')+terms,actor.id);
+   await enqueueOrderMail(c,id,'ready',`order:${id}:confirmed`);return{id};
+  }
   const need=await componentNeeds(c,id),stocks=await lockStock(c,need);
   if(stocks.some(s=>s.on_hand-s.reserved<(need.get(s.sku_id)??0))||stocks.length!==need.size)throw new StoreError('INSUFFICIENT_STOCK','Для подтверждения нужны все составляющие в необходимом количестве.',409);
   await stockMove(c,id,need,`confirm:${id}`,-1,0,'Подтверждение предзаказа',actor.id);
   await c.query("UPDATE ar_orders SET allocation_state='debited',status='awaiting_payment',terms=$2,delivery_deadline=$3,shipping_version=shipping_version+1,expires_at=now()+interval '30 minutes' WHERE id=$1",[id,terms,agreedDeadline]);
   await event(c,id,'preorder_confirmed','Менеджер подтвердил срок и условия. Оплата доступна 30 минут. '+(agreedDeadline?'Получение не позднее '+agreedDeadline+'. ':'')+terms,actor.id);
   await enqueueOrderMail(c,id,'ready',`order:${id}:confirmed`);
+  return{id};
+ }));return transaction(async c=>toOrder(c,await orderRow(c,id)),false);
+}
+// Arrival is a separate stock receipt. This command allocates existing physical stock only.
+export async function allocateOrderStock(actor:{id:string},body:Record<string,unknown>){
+ const id=uuid(body.orderId);
+ await transaction(c=>idempotent(c,`allocate-stock:${actor.id}`,body.idempotencyKey,{id},async()=>{
+  const row=await orderRow(c,id,undefined,true);
+  if(row.status!=='paid'||row.payment_status!=='paid'||!row.supplier_confirmed_at)throw new StoreError('ORDER_STATE','Выделение товаров доступно для оплаченного заказа, подтверждённого у поставщика.',409);
+  if((await c.query("SELECT 1 FROM ar_yookassa_refunds WHERE order_id=$1 AND state<>'canceled' LIMIT 1",[id])).rowCount)throw new StoreError('ORDER_STATE','По заказу есть возврат или проверка возврата. Сначала завершите разбор.',409);
+  if(row.allocation_state==='settled')return{id};
+  if(row.allocation_state!=='supplier_paid')throw new StoreError('ORDER_STATE','Этот заказ сейчас не ожидает выделения товаров.',409);
+  const need=await componentNeeds(c,id),stocks=await lockStock(c,need);
+  if(!need.size||stocks.length!==need.size||stocks.some(s=>s.on_hand-s.reserved<(need.get(s.sku_id)??0)))throw new StoreError('INSUFFICIENT_STOCK','Для сборки нужен весь состав. Внесите фактический приход недостающих товаров на склад.',409);
+  await stockMove(c,id,need,`supplier-allocation:${id}`,-1,0,'Выделение поступивших товаров оплаченному заказу',actor.id);
+  await c.query("UPDATE ar_orders SET allocation_state='settled' WHERE id=$1",[id]);
+  await event(c,id,'stock_allocated','Весь состав выделен с нашего склада. Заказ доступен для сборки и отправки.',actor.id);
   return{id};
  }));return transaction(async c=>toOrder(c,await orderRow(c,id)),false);
 }
@@ -136,6 +162,6 @@ export async function receiveStock(actor:{id:string},body:Record<string,unknown>
  }));
 }
 export async function stockList(){return{items:(await query('SELECT s.id,s.article,s.name,coalesce(st.on_hand,0) on_hand,coalesce(st.reserved,0) reserved FROM ar_skus s LEFT JOIN ar_stock st ON st.sku_id=s.id ORDER BY s.article')).rows.map(r=>({skuId:r.id,article:r.article,name:r.name,onHand:r.on_hand,reserved:r.reserved,available:r.on_hand-r.reserved}))};}
-export async function expireDueOrders(){const rows=(await query("SELECT id FROM ar_orders WHERE expires_at<=now() AND allocation_state IN('reserved','debited') ORDER BY expires_at LIMIT 200")).rows;let count=0;for(const r of rows){const expired=await transaction(async c=>expireLocked(c,await orderRow(c,r.id,undefined,true)));if(expired)count++;}return count;}
+export async function expireDueOrders(){const rows=(await query("SELECT id FROM ar_orders WHERE expires_at<=now() AND allocation_state IN('reserved','debited','supplier_pending') ORDER BY expires_at LIMIT 200")).rows;let count=0;for(const r of rows){const expired=await transaction(async c=>expireLocked(c,await orderRow(c,r.id,undefined,true)));if(expired)count++;}return count;}
 
 function checkedDeadline(value:unknown){if(!validDate(value)||value<moscowDate(Date.now()+PAYMENT_WINDOW_MS))throw new StoreError('DELIVERY_DEADLINE','Укажите согласованную дату получения не раньше окончания срока оплаты.');return value;}

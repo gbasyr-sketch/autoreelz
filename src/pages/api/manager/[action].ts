@@ -6,7 +6,7 @@ import type{APIRoute}from'astro';
 import{sessionFor,json,failure,peer}from'../../../server/http';
 import{staff,readBody}from'../../../server/security';
 import{staffLogin,staffLogout}from'../../../server/auth';
-import{stockList,quoteShipping,confirmPreorder,receiveStock}from'../../../server/orders';
+import{stockList,quoteShipping,confirmPreorder,allocateOrderStock,receiveStock}from'../../../server/orders';
 import{query}from'../../../server/db';
 import{iso}from'../../../server/errors';
 import{requireTestEnvironment}from'../../../server/config';
@@ -41,6 +41,7 @@ export const POST:APIRoute=async ctx=>{try{
  switch(ctx.params.action){
   case'shipping':return json(await quoteShipping(actor,body));
   case'confirm':return json(await confirmPreorder(actor,body));
+  case'allocate-stock':await allocateOrderStock(actor,body);return json(await managerOrder(uuid(body.orderId)));
   case'stock':return json(await receiveStock(actor,body));
   case'note':return json(await addNote(actor,body));
   case'stock-adjust':return json(await adjustStock(actor,body));

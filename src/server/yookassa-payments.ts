@@ -30,7 +30,7 @@ export function createYooPayments(makeClient:()=>Client=sandboxClient){
    const providerId=payment.provider_id??observedProviderId;
    if(!providerId){
     await expireLocked(c,order);
-    const closed=order.status!=='awaiting_payment'||!['reserved','debited'].includes(order.allocation_state);
+    const closed=order.status!=='awaiting_payment'||!['reserved','debited','supplier_pending'].includes(order.allocation_state);
     const tooOld=payment.provider_requested_at&&Date.now()-new Date(payment.provider_requested_at).getTime()>=23*3600_000;
     if(closed||tooOld){await c.query("UPDATE ar_payments SET provider_last_error=$2,provider_next_check_at=now()+interval '1 day' WHERE id=$1",[id,closed?'ORDER_CLOSED':'IDEMPOTENCE_WINDOW_EXPIRED']);return{state:'closed' as const};}
    }

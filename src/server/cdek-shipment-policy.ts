@@ -17,6 +17,7 @@ export type ShipmentConfig=NonNullable<ReturnType<typeof shipmentConfig>>;
 export function requireShipmentConfig(){const c=shipmentConfig();if(!c)throw new StoreError('CDEK_DISABLED','Создание отправлений СДЭК пока отключено.',503);return c;}
 export function canShip(row:Record<string,any>){
  if(row.status!=='paid'||row.payment_status!=='paid')throw new StoreError('CDEK_PAYMENT','Отправление доступно после подтверждённой оплаты.',409);
+ if(['supplier_pending','supplier_paid'].includes(row.allocation_state))throw new StoreError('STOCK_REQUIRED','Сначала внесите приход и выделите весь состав заказа с нашего склада.',409);
  if(!['quoted','packing'].includes(row.delivery_status))throw new StoreError('CDEK_ALREADY_SENT','Заказ уже отмечен отправленным или полученным. Проверьте существующую накладную.',409);
  if(row.tracking_number)throw new StoreError('CDEK_EXISTING_TRACK','У заказа уже есть трек-номер. Проверьте его, прежде чем создавать новое отправление.',409);
 }

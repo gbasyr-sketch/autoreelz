@@ -46,14 +46,14 @@ export async function settlePayment(c:PoolClient,input:PaymentEvent,provider:Pay
    const paidAt=input.paidAt?Date.parse(input.paidAt):NaN;
    const timely=provider==='yookassa-sandbox'&&Number.isFinite(paidAt)&&paidAt>=new Date(current.created_at).getTime()&&paidAt<=Date.now()+60_000&&order.expires_at&&paidAt<=new Date(order.expires_at).getTime();
    if(!timely)await expireLocked(c,order);
-   if(order.status==='paid'||order.status!=='awaiting_payment'||!['reserved','debited'].includes(order.allocation_state)){
+   if(order.status==='paid'||order.status!=='awaiting_payment'||!['reserved','debited','supplier_pending'].includes(order.allocation_state)){
     await c.query("UPDATE ar_payments SET status='review' WHERE id=$1",[paymentId]);
     await c.query("UPDATE ar_orders SET status='manual_review',payment_status='review',review_reason=$2 WHERE id=$1",[order.id,timely?'Платёж совершён в срок, подтверждение получено позже. Требуется проверить исполнение заказа; своевременная оплата не отменяется.':'Оплата получена после закрытия заказа или её своевременность не подтверждена. Требуется ручная проверка.']);
     await orderEvent(c,order.id,'late_payment','Запоздалая или повторная оплата: автоматического списания и отправки нет.');outcome='review';
    }else{
     if(order.allocation_state==='reserved')await stockMove(c,order.id,need,`paid:${order.id}`,-1,-1,'Оплата обычного заказа');
     await c.query("UPDATE ar_payments SET status='succeeded' WHERE id=$1",[paymentId]);
-    await c.query("UPDATE ar_orders SET status='paid',payment_status='paid',allocation_state='settled' WHERE id=$1",[order.id]);
+    await c.query("UPDATE ar_orders SET status='paid',payment_status='paid',allocation_state=CASE WHEN allocation_state='supplier_pending' THEN 'supplier_paid' ELSE 'settled' END WHERE id=$1",[order.id]);
     await orderEvent(c,order.id,'paid','Тестовая оплата получена. Повторного списания компонентов нет.');
     await enqueueOrderMail(c,order.id,'paid',`order:${order.id}:paid`);outcome='paid';
    }
@@ -73,7 +73,7 @@ export async function initiatePayment(session:ShopSession,body:Record<string,unk
   if(order.delivery_status!=='quoted'||order.shipping_cost_rubles===null)throw new StoreError('DELIVERY_PENDING','Сначала менеджер должен уточнить доставку.',409);
   if(order.checkout_policy_version&&!order.delivery_deadline)throw new StoreError('DELIVERY_DEADLINE','Сначала согласуйте дату получения.',409);
   if(order.shipping_version!==version)throw new StoreError('TOTAL_CHANGED','Итоговая сумма изменилась. Просмотрите её заново.',409);
-  if(order.status!=='awaiting_payment'||!order.expires_at||!['reserved','debited'].includes(order.allocation_state))throw new StoreError('PAYMENT_CLOSED','Оплата этого заказа сейчас недоступна.',409);
+  if(order.status!=='awaiting_payment'||!order.expires_at||!['reserved','debited','supplier_pending'].includes(order.allocation_state))throw new StoreError('PAYMENT_CLOSED','Оплата этого заказа сейчас недоступна.',409);
   const existing=(await c.query("SELECT * FROM ar_payments WHERE order_id=$1 AND status='pending'",[id])).rows[0];
   if(existing){if(existing.provider!==selected)throw new StoreError('PAYMENT_PROVIDER_CHANGED','Провайдер оплаты изменён. Обратитесь к менеджеру.',409);return{orderId:id,paymentId:existing.id,amountRubles:safeMoney(existing.amount_rubles)};}
   const amount=sumRubles([order.product_total_rubles,order.shipping_cost_rubles]);
@@ -81,7 +81,7 @@ export async function initiatePayment(session:ShopSession,body:Record<string,unk
   const payment=(await c.query('INSERT INTO ar_payments(order_id,amount_rubles,method,shipping_version,provider,provider_shop_id,provider_return_url,receipt_snapshot) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id',[id,amount,method,version,selected,config?.shopId??null,config?config.returnOrigin+'/orders/'+id:null,receipt])).rows[0];
   await c.query("UPDATE ar_orders SET payment_status='pending' WHERE id=$1",[id]);return{orderId:id,paymentId:payment.id,amountRubles:amount};
  }));
- if('expired'in result&&result.expired)throw new StoreError('EXPIRED','Срок оплаты истёк. Остатки освобождены.',409);
+ if('expired'in result&&result.expired)throw new StoreError('EXPIRED','Срок оплаты истёк. Заказ закрыт.',409);
  return result;
 }
 export async function payOrder(session:ShopSession,body:Record<string,unknown>){

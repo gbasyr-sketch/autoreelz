@@ -58,3 +58,5 @@
 [data-combined-checkout] .checkout-confirmations p,[data-combined-checkout] .confirmation-choice{font-size:12px;line-height:1.7}
 [data-combined-checkout] .checkout-confirmations details{min-width:0;overflow-wrap:anywhere}
 [data-combined-checkout] .checkout-confirmations summary{font-size:13px}
+
+.supplier-confirmation{display:flex;align-items:start;gap:12px;min-height:44px;font-size:13px;line-height:1.6;cursor:pointer}.supplier-confirmation input{width:20px;height:20px;flex:none;margin-top:2px;accent-color:var(--red)}.supplier-stock-panel{grid-column:1/-1}.supplier-stock-panel .button,.manager-order-actions .button{min-height:44px}

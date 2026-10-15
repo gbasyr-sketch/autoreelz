@@ -24,11 +24,11 @@ test('YooKassa lifecycle on an isolated PostgreSQL clone',{skip:process.env.AR_Y
   const id=url.split('/').at(-1)!;gets.push(id);return remote.has(id)?Response.json(remote.get(id)):Response.json({},404);
  }));
  async function session(){const jar=new Map<string,string>();return security.getSession({cookies:{get:(n:string)=>jar.has(n)?{value:jar.get(n)}:undefined,set:(n:string,v:string)=>jar.set(n,v)}} as never);}
- async function fixture(preorder=false){
+ async function fixture(preorder=false,supplier=false){
   const product=key(),sku=key(),s=await session();await q("INSERT INTO ar_products(id,name,slug,category_id,status,is_demo) VALUES($1,'QA gateway product',$2,'00000000-0000-4000-8000-000000000001','published',true)",[product,'qa-'+product]);await q("INSERT INTO ar_skus(id,product_id,article,name,price_rubles,status) VALUES($1,$2,$3,'QA card option','100.01','published')",[sku,product,'QA-'+sku]);await q('INSERT INTO ar_stock(sku_id,on_hand,reserved) VALUES($1,$2,0)',[sku,preorder?0:3]);
   const c=await cart.changeCart(s,{productId:product,skuId:sku,quantity:1,mode:'add',cartVersion:0,idempotencyKey:key()});const quote=await cart.createQuote(s,{cartVersion:c.version,customer:{name:'QA',phone:'+79990000000',email:'qa-gateway@example.invalid'},delivery:{method:'pickup_point',city:'QA City',address:'QA Address'}});let o=(await orders.checkout(s,{confirmation:{accepted:true,version:testOrderTerms.version},quoteId:quote.id,cartVersion:c.version,idempotencyKey:key()})).orders[0]!;
   o=await orders.quoteShipping(actor,{orderId:o.id,costRubles:'40.20',note:'QA shipping',deliveryDeadline:'2099-12-31',idempotencyKey:key()});
-  if(preorder){assert.deepEqual(await one('SELECT on_hand,reserved FROM ar_stock WHERE sku_id=$1',[sku]),{on_hand:0,reserved:0});await orders.receiveStock(actor,{skuId:sku,quantity:1,reason:'QA receipt',idempotencyKey:key()});o=await orders.confirmPreorder(actor,{orderId:o.id,terms:'QA test terms',deliveryDeadline:'2099-12-31',idempotencyKey:key()});}
+  if(preorder){assert.deepEqual(await one('SELECT on_hand,reserved FROM ar_stock WHERE sku_id=$1',[sku]),{on_hand:0,reserved:0});if(!supplier)await orders.receiveStock(actor,{skuId:sku,quantity:1,reason:'QA receipt',idempotencyKey:key()});o=await orders.confirmPreorder(actor,{orderId:o.id,terms:'QA test terms',deliveryDeadline:'2099-12-31',...(supplier?{supplierConfirmed:true}:{}),idempotencyKey:key()});}
   const body={orderId:o.id,shippingVersion:o.shippingVersion,method:'card',idempotencyKey:key()},p=await payments.initiatePayment(s,body);assert.ok('paymentId'in p&&p.paymentId);return{s,o,sku,body,pid:(p as any).paymentId as string};
  }
  const due=(id:string)=>q("UPDATE ar_payments SET provider_next_check_at=now()-interval '1 second' WHERE id=$1",[id]);
@@ -44,6 +44,9 @@ test('YooKassa lifecycle on an isolated PostgreSQL clone',{skip:process.env.AR_Y
  });
  await check('callback body cannot declare success; authenticated provider state settles once',async()=>{
   const f=await fixture();await service.process(f.pid);const p=await lookup(f.pid);await service.webhook(callback(p.provider_id));assert.equal((await orders.getOrder(f.s,f.o.id)).status,'awaiting_payment');succeed(p.provider_id);await service.webhook(callback(p.provider_id));await service.webhook(callback(p.provider_id));const o=await orders.getOrder(f.s,f.o.id);assert.equal(o.status,'paid');assert.equal(o.totalRubles,'140.21');assert.equal(o.paymentAction?.confirmationUrl,null);assert.deepEqual(await one('SELECT on_hand,reserved FROM ar_stock WHERE sku_id=$1',[f.sku]),{on_hand:2,reserved:0});
+ });
+ await check('supplier-confirmed payment can POST and settle without warehouse stock; repeated provider success never debits',async()=>{
+  const f=await fixture(true,true);assert.equal(f.o.allocationState,'supplier_pending');await service.process(f.pid);const p=await lookup(f.pid);assert.ok(p.provider_id);succeed(p.provider_id);await service.webhook(callback(p.provider_id));await service.webhook(callback(p.provider_id));const paid=await orders.getOrder(f.s,f.o.id);assert.equal(paid.status,'paid');assert.equal(paid.allocationState,'supplier_paid');assert.equal(paid.waitingForStock,true);assert.deepEqual(await one('SELECT on_hand,reserved FROM ar_stock WHERE sku_id=$1',[f.sku]),{on_hand:0,reserved:0});assert.equal(Number((await one('SELECT count(*) n FROM ar_stock_movements WHERE order_id=$1',[f.o.id])).n),0);
  });
  await check('a correctly signed simulation event cannot settle a YooKassa attempt',async()=>{
   const f=await fixture(),event=testPaymentAdapter.event({id:f.pid,amountRubles:'140.21'});await assert.rejects(payments.applyPaymentEvent(event.event,event.signature),{code:'PAYMENT_PROVIDER_MISMATCH'});assert.equal((await lookup(f.pid)).status,'pending');
@@ -70,5 +73,5 @@ test('YooKassa lifecycle on an isolated PostgreSQL clone',{skip:process.env.AR_Y
   const f=await fixture();let unblock!:()=>void,entered!:()=>void;const started=new Promise<void>(r=>entered=r),hold=new Promise<void>(r=>unblock=r);let first=true;pausePost=async()=>{if(first){first=false;entered();await hold;}};
   const slow=service.process(f.pid);await started;const p=await lookup(f.pid);succeed(byKey.get(p.provider_key)!);await q("UPDATE ar_payments SET provider_lease_until=now()-interval '1 second' WHERE id=$1",[f.pid]);await service.process(f.pid);unblock();await slow;pausePost=null;assert.equal((await lookup(f.pid)).provider_status,'succeeded');assert.equal((await orders.getOrder(f.s,f.o.id)).status,'paid');
  });
- report.passed=report.checks.length===11&&report.checks.every(c=>c.passed);
+ report.passed=report.checks.length===12&&report.checks.every(c=>c.passed);
 });

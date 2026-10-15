@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "isolated": true,
+  "externalCalls": 0,
+  "checks": [
+    "combined page shows decoded product photos and form at 1440/768/375/812px",
+    "changing quantity invalidates review and consent, preserves contact and address, recalculates",
+    "late quote response after a cart edit cannot restore obsolete confirmation",
+    "mixed basket creates one unpaid manager-pending order, no stock reserve",
+    "manager confirmation opens one payment and browser settlement does not debit twice",
+    "all available basket immediately opens payment with a full reserve and one delivery"
+  ],
+  "cleanup": true
+}

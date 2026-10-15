@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-15",
+  "recipientFileFilled": true,
+  "recipientFormatChecked": true,
+  "privateFilesPrepared": 4,
+  "privateContactsOnlyInIgnoredFiles": true,
+  "privateFileMode": "0600",
+  "privateDirectoryMode": "0700",
+  "documentLinksChecked": true,
+  "publishedReturnsPageChanged": false,
+  "messagesSent": 0,
+  "serverChanged": false,
+  "realRefunds": 0,
+  "legalReferencesReviewed": [
+    "https://www.consultant.ru/document/cons_doc_LAW_305/1525b1a2f037db240c8e6a749619f86e53857f13/",
+    "https://www.consultant.ru/document/cons_doc_LAW_305/76ae101b731ecc22467fd9f1f14cb9e2b8799026/",
+    "https://www.consultant.ru/document/cons_doc_LAW_305/00616d1e160d7ff7ac8d5a6a8e4525fb75e3b486/",
+    "https://zpp.rospotrebnadzor.ru/news/federal/574244",
+    "https://www.consultant.ru/document/cons_doc_LAW_526704/"
+  ],
+  "remainingAppWork": [
+    "partial item/amount refunds",
+    "refund after completed carrier waybill without deleting history",
+    "physical acceptance and one-time inventory receipt",
+    "resolution of order review"
+  ],
+  "passed": true
+}

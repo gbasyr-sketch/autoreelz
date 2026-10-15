@@ -49,6 +49,7 @@
 - Главная, товарные демоотзывы и статьи: [homepage-content.md](homepage-content.md).
 - Торговые контракты: [stage-4-contracts.md](stage-4-contracts.md), [stage-5-contracts.md](stage-5-contracts.md). Это базовые контракты этапов; актуальные изменения checkout и провайдеров перечислены в architecture.md и следующих документах.
 - Объединённая корзина/оформление и один заказ: [контракт15.10](combined-checkout.md), опубликовано; смешанный состав целиком подтверждает менеджер, наличие — обычное оформление.
+- Приём возвратов: [инструкция покупателю, приёмка, склад и деньги](returns-procedure.md); индивидуальные контакты только в private/returns.
 - Возвраты оплаты: [полный тестовый возврат из manager](payment-refunds.md), миграция025, опубликовано15.10. [Передача данных чеков](yookassa-receipts.md); [план «Чеков от ЮKassa»](yookassa-receipts-plan.md): ИП/УСН6%/безНДС, подключение услуги уточняется.
 - ЮKassa: [yookassa.md](yookassa.md), [yookassa-checkout-contract.md](yookassa-checkout-contract.md).
 - Отправления СДЭК в manager: [очередь, накладные PDF, статусы и отмена](cdek-shipments.md), миграция024; опубликовано14.10 в тестовом режиме.

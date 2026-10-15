@@ -1,0 +1,143 @@
+{
+  "date": "2026-10-15",
+  "releaseCandidate": "ba4029c0366f9cb17a0dd744da71295dd7883e48",
+  "basedOnPublishedRevision": "6ff750c02bfdce8e929611c095d1215d0d2deeae",
+  "imageId": "sha256:4d62589a42455d2e73e689cdc4a4a411bf7abe600bc13b4241196bf0fb9bb2b3",
+  "deployed": false,
+  "migrationsChanged": false,
+  "schema": "001-033 retained",
+  "configurationChanged": false,
+  "tradeDataChanged": false,
+  "upgrades": {
+    "sharp": [
+      "0.35.4",
+      "0.35.5"
+    ],
+    "http-cache-semantics": [
+      "4.2.0",
+      "4.3.0"
+    ],
+    "smol-toml": [
+      "1.8.0",
+      "1.9.1"
+    ],
+    "source-map-js": [
+      "1.2.1",
+      "1.2.2"
+    ]
+  },
+  "unchanged": {
+    "quill": "2.0.3",
+    "astro": "7.3.3",
+    "adapter": "11.1.6",
+    "node": "24.21.0",
+    "payment": "yookassa-sandbox",
+    "receipts": "disabled",
+    "storeMode": "staging",
+    "indexing": false,
+    "shipments": "test"
+  },
+  "auditAfterAllDependencies": {
+    "info": 0,
+    "low": 1,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 1
+  },
+  "quillMitigation": {
+    "upstreamPatchedVersion": null,
+    "warningRetained": true,
+    "fullEntryImported": false,
+    "formulaVideoIncluded": false,
+    "supportedFormats": 10,
+    "serverHtmlSanitizationRetained": true,
+    "cveRegressionPassed": true
+  },
+  "verification": {
+    "cleanNpmCi": true,
+    "check": {
+      "errors": 0,
+      "warnings": 0,
+      "hints": 0
+    },
+    "build": true,
+    "unit": {
+      "passed": 207,
+      "skipped": 8,
+      "failed": 0
+    },
+    "trade": {
+      "passed": 67,
+      "skipped": 0,
+      "failed": 0
+    },
+    "returnIntakeDatabase": {
+      "passed": 13,
+      "failed": 0
+    },
+    "contentDatabase": {
+      "passed": 11,
+      "failed": 0
+    },
+    "freshInstallMediaAndHtml": {
+      "passed": 18,
+      "failed": 0
+    },
+    "httpImageSeoIndexing": {
+      "passedGroups": 7
+    },
+    "editorModuleGraph": true,
+    "browser": {
+      "tool": "CUA",
+      "backend": "real local APIs + synthetic database and CMS authorization fixture",
+      "widths": [
+        1280,
+        375
+      ],
+      "checks": [
+        "login",
+        "formatting",
+        "headings/lists/links",
+        "inline image alt/width",
+        "preview",
+        "draft/save/reload",
+        "synthetic publication/public rendering",
+        "no horizontal overflow"
+      ],
+      "paidCalls": 0
+    },
+    "linuxImageSmoke": {
+      "passed": true,
+      "versions": {
+        "sharp": "0.35.5",
+        "http-cache-semantics": "4.3.0",
+        "smol-toml": "1.9.1",
+        "source-map-js": "1.2.2",
+        "quill": "2.0.3"
+      },
+      "rsvg": "2.63.2",
+      "os": "ID=alpine",
+      "image": {
+        "width": 160,
+        "height": 107,
+        "format": "webp",
+        "bytes": 170
+      }
+    }
+  },
+  "limitations": [
+    "Quill low advisory remains without a patched upstream release",
+    "http-cache-semantics advisory is disputed upstream; warning removal is not proof of fixing the disputed scenario",
+    "legacy auth integration requires unavailable local Docker",
+    "legacy social integration has stale favorites DTO expectation and missing deliveryDeadline; that exploratory run was not successful",
+    "no live payments/mail/shipments/AI requests",
+    "public post-deployment smoke awaits separate deployment authorization"
+  ],
+  "cleanup": {
+    "qaDatabasesDropped": true,
+    "previewProcessesStopped": true,
+    "isolatedLinuxContainerRemoved": true,
+    "managedWorktreeCodeMerged": true
+  }
+}

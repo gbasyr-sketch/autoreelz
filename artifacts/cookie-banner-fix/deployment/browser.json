@@ -1,0 +1,74 @@
+{
+  "passed": true,
+  "candidate": false,
+  "api": "mocked",
+  "checks": [
+    {
+      "width": 320,
+      "height": 720,
+      "keyboardTabSteps": 0,
+      "rotationChecked": false,
+      "purchaseClickable": true,
+      "noticeAboveFixedBars": true,
+      "errorMessageLayout": true,
+      "dismissal": true,
+      "settingsFocus": true
+    },
+    {
+      "width": 375,
+      "height": 900,
+      "keyboardTabSteps": 85,
+      "rotationChecked": true,
+      "purchaseClickable": true,
+      "noticeAboveFixedBars": true,
+      "errorMessageLayout": true,
+      "dismissal": true,
+      "settingsFocus": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "keyboardTabSteps": 0,
+      "rotationChecked": false,
+      "purchaseClickable": true,
+      "noticeAboveFixedBars": true,
+      "errorMessageLayout": true,
+      "dismissal": true,
+      "settingsFocus": true
+    },
+    {
+      "width": 600,
+      "height": 375,
+      "keyboardTabSteps": 0,
+      "rotationChecked": false,
+      "purchaseClickable": true,
+      "noticeAboveFixedBars": true,
+      "errorMessageLayout": true,
+      "dismissal": true,
+      "settingsFocus": true
+    },
+    {
+      "width": 812,
+      "height": 375,
+      "keyboardTabSteps": 0,
+      "rotationChecked": false,
+      "purchaseClickable": false,
+      "noticeAboveFixedBars": true,
+      "errorMessageLayout": true,
+      "dismissal": true,
+      "settingsFocus": true
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "keyboardTabSteps": 0,
+      "rotationChecked": false,
+      "purchaseClickable": false,
+      "noticeAboveFixedBars": true,
+      "errorMessageLayout": true,
+      "dismissal": true,
+      "settingsFocus": true
+    }
+  ],
+  "errors": []
+}

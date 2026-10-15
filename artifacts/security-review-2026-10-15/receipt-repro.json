@@ -1,0 +1,29 @@
+{
+  "reproduced": true,
+  "scope": "canceled payment only",
+  "isolatedSyntheticDatabase": true,
+  "externalCalls": 0,
+  "transport": "injected mock; global fetch blocked",
+  "clock": "Date.now advanced 4 days for reconciliation only",
+  "before": {
+    "status": "failed",
+    "provider_status": "canceled",
+    "receipt_registration": null,
+    "receipt_last_error": "RECEIPT_STATUS_MISSING"
+  },
+  "after": {
+    "status": "failed",
+    "provider_status": "canceled",
+    "receipt_registration": null,
+    "receipt_last_error": "RECEIPT_OVERDUE"
+  },
+  "events": [
+    {
+      "event_type": "receipt_attention",
+      "note": "Чек не подтверждён в течение трёх дней. Обратитесь в поддержку ЮKassa; новый платёж не создавайте."
+    }
+  ],
+  "stockUnchanged": true,
+  "reconciliationPostCount": 0,
+  "refundCanceledTested": false
+}

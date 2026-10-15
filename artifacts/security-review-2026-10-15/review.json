@@ -1,0 +1,115 @@
+{
+  "reviewedAt": "2026-10-15 Europe/Moscow",
+  "revision": "ff922ef27b8fe3aed612ff6e1c0494c8c8ed8a7f",
+  "mode": "read-only production; local synthetic tests",
+  "productionActions": [
+    "GET /health to verify revision",
+    "Read only nginx and bound Caddy forwarding/security directives over SSH"
+  ],
+  "productionDatabaseAccess": false,
+  "realPaymentCalls": 0,
+  "realMailCalls": 0,
+  "productionChanges": 0,
+  "runtimeSourceChanges": 0,
+  "findings": [
+    {
+      "id": "B25",
+      "priority": "P1",
+      "category": "security / availability",
+      "title": "Общий IP прокси объединяет лимиты независимых посетителей",
+      "file": "infra/release/Caddyfile.ispmanager",
+      "start": 46,
+      "end": 50,
+      "details": "Caddy без trusted_proxies заменяет X-Forwarded-For адресом nginx/сетевого шлюза. Astro использует первый XFF и игнорирует X-Real-IP. Все внешние посетители получают один ключ IP-лимита: staff login 10/10мин, OTP 20/час, shipping API 60/мин. Один посетитель способен временно исчерпать лимит для остальных; это отказ доступности, не обход авторизации.",
+      "evidence": [
+        "Read-only production nginx/Caddy configuration",
+        "proxy-ip-repro.json: actual installed Astro createRequest, 2 synthetic visitors, same clientAddress",
+        "https://github.com/caddyserver/caddy/blob/v2.11.4/modules/caddyhttp/reverseproxy/reverseproxy.go#L822",
+        "https://caddyserver.com/docs/caddyfile/directives/reverse_proxy#defaults"
+      ],
+      "fix": "Настроить проверенную цепочку реального IP от DDoS-Guard/nginx к Caddy и приложению; доверять только известным прокси и санитизировать входящий XFF. Просто trusted_proxies поверх текущего append XFF небезопасен: Astro доверяет левому элементу.",
+      "limitation": "Caddy integration binary и активная попытка исчерпания production лимита не запускались. Вывод основан на фактическом конфиге, исходнике pinned Caddy и локальном Astro-тесте."
+    },
+    {
+      "id": "B26",
+      "priority": "P2",
+      "category": "code / fiscal status",
+      "title": "Отменённая неоплаченная попытка порождает ложную тревогу о чеке",
+      "file": "src/server/yookassa-receipts.ts",
+      "start": 27,
+      "end": 28,
+      "details": "Сверка выбирает canceled payments с receipt_snapshot и ожидает регистрацию чека. После 3 дней отсутствующий receipt_registration превращается в RECEIPT_OVERDUE/receipt_attention, хотя операция canceled и списания не было.",
+      "evidence": [
+        "receipt-repro.json: production payment lifecycle on synthetic database, injected provider transport, clock +4 days, observed receipt_attention"
+      ],
+      "fix": "Учитывать денежный исход в отборе сверки и recordReceipt; не ожидать чек по отменённой до списания попытке. Проверить аналогичную ветку отменённых возвратов отдельно.",
+      "limitation": "Canceled refund отдельно не воспроизводился; склад в воспроизведении неизменен, внешних вызовов и POST при сверке нет."
+    },
+    {
+      "id": "B27",
+      "priority": "P2",
+      "category": "code / customer flow",
+      "title": "Личный кабинет сообщает, что реальные письма не отправляются",
+      "file": "src/pages/account.astro",
+      "start": 13,
+      "end": 14,
+      "details": "Подписи безусловные и не проверяют STORE_MODE/MAIL_PROVIDER. При рабочем SMTP покупатель видит 'Реальные письма сейчас не отправляются', хотя вход основан на доставке OTP. Аналогичная общая подпись осталась в manager/service.astro:5.",
+      "evidence": [
+        "Static source on verified published revision"
+      ],
+      "fix": "Сделать подписи соответствующими режиму и фактическому провайдеру; оставить нейтральную инструкцию получения кода в production."
+    }
+  ],
+  "coverage": [
+    "Manager/API staff permissions, Origin/Host/CSRF, OTP binding/attempts/session rotation, order ownership",
+    "Payment provider GET verification, amount/account/metadata, idempotency/lease, stock locks, refunds/closing receipts, intake/resolution",
+    "Public/private media, upload size/signature/re-encode/metadata removal, rich HTML sanitization, AI actor_id/path/budget/upstream restrictions",
+    "Production routing headers, SEO streaming, current npm dependency advisory scan"
+  ],
+  "checks": {
+    "unit": {
+      "passed": 234,
+      "skipped": 8,
+      "failed": 0
+    },
+    "tradeIntegration": {
+      "passed": 87,
+      "skipped": 0,
+      "failed": 0
+    },
+    "productionPaymentGroups": 27,
+    "seoHttp": 10,
+    "authPureSyntheticChecksReportedBySubagent": 10,
+    "contentEditorBundle": "passed: formula/video/full Quill excluded",
+    "proxyReproduction": "passed",
+    "receiptBugReproduced": true,
+    "npmAudit": {
+      "critical": 0,
+      "high": 0,
+      "moderate": 0,
+      "low": 1
+    }
+  },
+  "residuals": [
+    {
+      "subject": "Quill2.0.3",
+      "detail": "Known low GHSA-v3m3-f69x-jf25. Dangerous formats excluded and server safeRichHtml retained. No exploitable app path demonstrated; upstream patched version absent in advisory.",
+      "source": "https://github.com/advisories/GHSA-v3m3-f69x-jf25"
+    },
+    {
+      "subject": "Session storage growth",
+      "detail": "Cookie-less public GET/404 creates persistent session+cart; no app cleanup found. Capacity impact not measured; plan retention/pruning without touching order history."
+    }
+  ],
+  "limitations": [
+    "Not a full penetration test, container/OS vulnerability scan, or load test",
+    "Actual production Directus policies, live provider cabinets and gateway runtime configuration not audited",
+    "Three original integration suites (auth/content/social) not re-run on database; auth checked with synthetic mocked functions and source",
+    "No guarantee of absence of undiscovered vulnerabilities"
+  ],
+  "sitemapStatus": {
+    "google": "submitted by owner",
+    "yandex": "pending per owner"
+  },
+  "testsData": "Only synthetic temporary databases, removed by harness cleanup; production data untouched"
+}

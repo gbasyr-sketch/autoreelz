@@ -1,9 +1,9 @@
 # Следующая сессия
 
-**Где остановились.** Индексация открыта по поручению владельца: appff922ef/001–036. SEO_INDEXING_ENABLED=true, общий noindex edge снят; исправлен конфликт HTTP/meta потокового SSR. Cookies B24, manager и очистка витрины сохранены.
+**Где остановились.** Appff922ef/001–036, индексация открыта. Code/security review завершено без изменений runtime: B25/P1 общий IP rate-limit, B26/P2 ложная тревога чека canceled payment, B27/P2 устаревшие почтовые подписи. [Отчёт](../artifacts/security-review-2026-10-15/review.json). Sitemap Google добавлен владельцем; Яндекс пока нет.
 
-**Что проверено.** Check/build,12unit,10 production SSR на отдельной QA-БД. Все71 URL sitemap200/canonical/robots/JSON-LD,13 служебных/ошибочных маршрутов и10 bot-UA GET прошли. [Отчёт](../artifacts/seo-indexing/http.json). Backup env/config/DB читаем; изменены только RELEASE_IMAGE/SEO_INDEXING_ENABLED, heartbeat после старта. Sitemap владелец отправляет сам: https://autoreelz.ru/sitemap.xml. Фактическая индексация/внешние валидаторы не подтверждены.
+**Что проверено.** Review:234unit/8skip,87 trade integration,27 production payment groups,10 SEO HTTP; внешние платежи/письма заменены mock. B25 подтверждён конфигом/исходником Caddy и synthetic Astro; B26 воспроизведён на удалённой после теста QA-БД. Npm audit1known low Quill, high/moderate/critical0. Предыдущие71 URL sitemap открыты, служебные закрыты. Фактическая индексация/внешние валидаторы ещё не подтверждены.
 
 **Что не трогать.** Не возвращать общий noindex без поручения. Сохранить001–036, live ЮKassa/чеки/СДЭК, SMTP all-new/cutoff/worker-only пароль и ИИ-бюджеты/историю. Image-worker staging. Старый env/БД не восстанавливать. Первую накладную и возврат контрольного заказа не повторять; приватные данные не коммитить.
 
-**Следующий шаг.** Владелец добавляет sitemap в Google/Яндекс, затем проверка обработки и Rich Results/URL Inspection. Ручной iPhone/Safari и фактическая доставка/получение/закрывающий чек — отдельно. См. launch.md; ПД/РКН закрыты владельцем.
+**Следующий шаг.** По следующему поручению исправить B25, затем B26/B27; review не является разрешением менять production. Владелец добавляет sitemap в Яндекс; далее обработка Google/Яндекс и Rich Results/URL Inspection. Ручной iPhone/Safari и доставка/получение/закрывающий чек — отдельно. См. launch.md; ПД/РКН закрыты владельцем.

@@ -1,0 +1,20 @@
+{
+  "synthetic": true,
+  "externalCalls": 0,
+  "productionRequests": 0,
+  "astroVersion": "7.3.3",
+  "postCaddyHeaderSimulation": true,
+  "distinctOriginalVisitors": 2,
+  "observedClientAddresses": [
+    "172.20.0.1",
+    "172.20.0.1"
+  ],
+  "sameRateLimitKey": true,
+  "blindTrustOfAppendedHeaderWouldUseLeftmostSpoof": "203.0.113.42",
+  "caddyBinaryIntegrationRun": false,
+  "caddyEvidence": "https://github.com/caddyserver/caddy/blob/v2.11.4/modules/caddyhttp/reverseproxy/reverseproxy.go#L822",
+  "productionConfigReadOnly": {
+    "nginx": "X-Forwarded-For $proxy_add_x_forwarded_for; X-Real-IP $remote_addr",
+    "caddy": "no trusted_proxies; fixed X-Forwarded-Host and X-Forwarded-Proto"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "healthy": true,
+  "sha": "10eb2447bac03283e0bf6e942c9bc360dafabc83",
+  "changedTablesAfterBrowser": [
+    "ar_cart_lines",
+    "ar_command_results"
+  ],
+  "cleanup": {
+    "id": 1,
+    "last_run_at": "2026-10-15T22:29:15.880152+00:00",
+    "deleted_sessions": 0,
+    "deleted_carts": 0,
+    "total_deleted_sessions": 0
+  },
+  "migrationCount": 37,
+  "heartbeatFresh": true,
+  "tradeDataUnchangedAfterBrowser": true,
+  "cleanupManuallyInvoked": false
+}

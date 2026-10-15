@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "sha": "10eb2447bac03283e0bf6e942c9bc360dafabc83",
+  "surface": "Codex in-app browser, real published UI/API",
+  "checks": [
+    "Product page and add-to-cart before deployment",
+    "Existing guest cookie and cart persisted across deployment",
+    "Cart quantity changed1→2→1; totals updated5000→10000→5000",
+    "Checkout recipient/delivery form loaded",
+    "CDEK city lookup and pickup list loaded",
+    "Pickup selection and single-item estimate succeeded:427.50RUB; total5427.50RUB",
+    "Two-item composition showed manager-quote fallback; payment unavailable until delivery confirmed",
+    "Control item removed via UI; empty cart confirmed"
+  ],
+  "ordersCreated": 0,
+  "paymentCommands": 0,
+  "mailCommands": 0,
+  "cleanupManuallyInvoked": false,
+  "screenshot": "Private workstation only; not in Git",
+  "limitations": [
+    "No final production checkout/payment submission; full order lifecycle previously tested with synthetic data.",
+    "Production rate exhaustion was not deliberately triggered; boundaries/concurrency were tested in isolated PostgreSQL/HTTP."
+  ]
+}

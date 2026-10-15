@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "sha": "10eb2447bac03283e0bf6e942c9bc360dafabc83",
+  "checks": [
+    {
+      "route": "/",
+      "status": 200
+    },
+    {
+      "route": "/catalog",
+      "status": 200
+    },
+    {
+      "route": "/product/deflektory-amg-vaz-2107-chernyy-glyanets",
+      "status": 200
+    },
+    {
+      "route": "/cart",
+      "status": 200
+    },
+    {
+      "route": "/checkout",
+      "status": 200
+    },
+    {
+      "route": "/account",
+      "status": 200
+    },
+    {
+      "route": "/api/commerce/cart",
+      "status": 200
+    },
+    {
+      "route": "/api/manager/orders",
+      "status": 401
+    },
+    {
+      "route": "/cms/users/me",
+      "status": 401
+    },
+    {
+      "route": "/robots.txt",
+      "status": 200
+    },
+    {
+      "route": "/sitemap.xml",
+      "status": 200
+    },
+    {
+      "route": "/cookies",
+      "status": 404
+    }
+  ],
+  "sessionPreserved": true,
+  "requests": "GET only; one fresh anonymous session, no checkout/pay/OTP commands"
+}

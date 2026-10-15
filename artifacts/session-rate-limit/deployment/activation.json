@@ -1,0 +1,35 @@
+{
+  "published": true,
+  "sha": "10eb2447bac03283e0bf6e942c9bc360dafabc83",
+  "image": "sha256:b10a5b31ef394effc460380e966f05de416e9966393293dd6fea6623a74b98a9",
+  "previous": "dc6e42d3c7a41cc5df79fd2f436321cc9acd3ab4",
+  "health": {
+    "ok": true,
+    "revision": "10eb2447bac03283e0bf6e942c9bc360dafabc83"
+  },
+  "backup": "/srv/autoreelz2026/shared/session-rate-10eb2447bac0",
+  "dumpVerified": true,
+  "envChangedKeys": [
+    "RELEASE_IMAGE"
+  ],
+  "runtimeChangedKeys": [
+    "APP_REVISION"
+  ],
+  "migrationCount": 37,
+  "migrationChecksumsUnchanged": true,
+  "protectedCatalogUnchanged": true,
+  "otherContainersUnchanged": true,
+  "workerStartedAt": "2026-10-15T22:37:27.142825802Z",
+  "heartbeat": {
+    "id": "3a5bd7e7-bacf-4d5a-b074-b92afb24285f",
+    "name": "commerce",
+    "last_run_at": "2026-10-15T22:37:27.677345+00:00",
+    "last_error": null
+  },
+  "protectedHistoryTables": 73,
+  "protectedHistoryUnchanged": true,
+  "cleanupPreserved": true,
+  "cleanupManuallyInvoked": false,
+  "cleanupDeletedDuringRelease": 0,
+  "migrationApplied": false
+}

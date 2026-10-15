@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-10-15T17:28:46.405458+00:00",
+  "appSha": "7efc5201a811b700f683fd7c29e3fe1cfc012360",
+  "paymentsVerified": 1,
+  "results": [
+    {
+      "flow": "smart",
+      "providerMethod": "sbp",
+      "checks": {
+        "liveAccountMatches": true,
+        "identityMatches": true,
+        "amountMatches": true,
+        "providerPaid": true,
+        "sitePaid": true,
+        "fiscalRegistrationSucceeded": true,
+        "onePaidEvent": true,
+        "receiptRecipientMatches": true
+      },
+      "passed": true
+    }
+  ],
+  "receiptDeliveryConfirmedByOwner": true,
+  "readOnlyProviderRequests": 1,
+  "monetaryRequests": 0,
+  "passed": true
+}

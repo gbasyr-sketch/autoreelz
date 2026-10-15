@@ -1,0 +1,13 @@
+{
+  "reproduced": true,
+  "viewport": {
+    "width": 375,
+    "height": 900
+  },
+  "target": ".mobile-purchase [data-add-product]",
+  "cover": ".privacy-banner",
+  "beforeDismissal": "Focused button center and label obscured by cookie banner",
+  "afterDismissal": "85 Tab steps completed without observed occlusion",
+  "dismissal": "Actual necessary-cookies button; no analytics consent",
+  "rawScreenshots": "private only"
+}

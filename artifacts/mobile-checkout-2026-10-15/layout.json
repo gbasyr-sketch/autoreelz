@@ -1,0 +1,252 @@
+{
+  "timestamp": "2026-10-15T20:20:54.818Z",
+  "base": "https://autoreelz.ru",
+  "browser": "153.0.8010.12",
+  "checks": [
+    {
+      "name": "320px / layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "320px /catalog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "320px /product/kryshka-avariyki-lada-priora-2007-2018 layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "320px /cart layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "320px /account layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "320px /favorites layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "320px /blog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "320px /cars layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "320px reduced motion",
+      "passed": true
+    },
+    {
+      "name": "320px no uncaught JS errors",
+      "passed": true
+    },
+    {
+      "name": "375px / layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /catalog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /product/kryshka-avariyki-lada-priora-2007-2018 layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /cart layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /account layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /favorites layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /blog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px /cars layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "375px reduced motion",
+      "passed": true
+    },
+    {
+      "name": "#menu-dialog focus trap, Escape, restore",
+      "passed": true
+    },
+    {
+      "name": "#search-dialog focus trap, Escape, restore",
+      "passed": true
+    },
+    {
+      "name": "mobile catalog filter dialog Escape restores opener",
+      "passed": true
+    },
+    {
+      "name": "empty search, favorites and cart explain state",
+      "passed": true
+    },
+    {
+      "name": "email invalid form is rejected locally",
+      "passed": true
+    },
+    {
+      "name": "keyboard focus remains visible above sticky navigation",
+      "passed": false,
+      "error": "/product/kryshka-avariyki-lada-priora-2007-2018 keyboard step 58\n\ntrue !== false\n"
+    },
+    {
+      "name": "skip link keyboard focus visible",
+      "passed": true
+    },
+    {
+      "name": "375px no uncaught JS errors",
+      "passed": true
+    },
+    {
+      "name": "768px / layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /catalog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /product/kryshka-avariyki-lada-priora-2007-2018 layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /cart layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /account layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /favorites layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /blog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px /cars layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "768px reduced motion",
+      "passed": true
+    },
+    {
+      "name": "768px no uncaught JS errors",
+      "passed": true
+    },
+    {
+      "name": "812px / layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "812px /catalog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "812px /product/kryshka-avariyki-lada-priora-2007-2018 layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "812px /cart layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "812px /account layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "812px /favorites layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "812px /blog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "812px /cars layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "812px reduced motion",
+      "passed": true
+    },
+    {
+      "name": "812px no uncaught JS errors",
+      "passed": true
+    },
+    {
+      "name": "1440px / layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /catalog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /product/kryshka-avariyki-lada-priora-2007-2018 layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /cart layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /account layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /favorites layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /blog layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px /cars layout and semantics",
+      "passed": true
+    },
+    {
+      "name": "1440px reduced motion",
+      "passed": true
+    },
+    {
+      "name": "1440px no uncaught JS errors",
+      "passed": true
+    },
+    {
+      "name": "slow modules do not flash the mobile sidebar or shift catalog results",
+      "passed": true
+    },
+    {
+      "name": "no-JS catalog retains native search and filters",
+      "passed": true
+    }
+  ],
+  "errors": [
+    "keyboard focus remains visible above sticky navigation: /product/kryshka-avariyki-lada-priora-2007-2018 keyboard step 58\n\ntrue !== false\n"
+  ],
+  "limits": [
+    "No screen-reader or physical-device audit; browser keyboard and DOM checks only.",
+    "Main viewport checks block non-GET requests; no orders, payments or messages."
+  ],
+  "passed": false
+}

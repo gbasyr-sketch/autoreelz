@@ -1,0 +1,38 @@
+{
+  "checks": [
+    {
+      "name": "rapid edits on two lines are serialized; latest quantity and focus survive delayed responses",
+      "passed": true
+    },
+    {
+      "name": "pending edits block review; removal cancels its unsent draft and invalid quantities cannot proceed",
+      "passed": true
+    },
+    {
+      "name": "failed save has explicit retry and cannot silently proceed to checkout",
+      "passed": true
+    },
+    {
+      "name": "a competing cart version is reloaded without overwriting the other tab",
+      "passed": true
+    },
+    {
+      "name": "English browser receives Russian required, minlength and email messages",
+      "passed": true
+    },
+    {
+      "name": "Yandex loads automatically after city selection without consent writes; list survives SDK failure",
+      "passed": true
+    },
+    {
+      "name": "checkout requires active confirmation, stores immutable exact terms and uses server time",
+      "passed": true
+    },
+    {
+      "name": "mobile layout remains readable without the removed cookies page",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "cleanup": true
+}

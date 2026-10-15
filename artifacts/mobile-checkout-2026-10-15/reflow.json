@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "method": "640 CSS px reflow, equivalent layout width to 1280px at 200%; not real browser zoom or Dynamic Type",
+  "checks": [
+    {
+      "route": "/",
+      "overflow": false,
+      "width": 640,
+      "viewport": 640,
+      "passed": true
+    },
+    {
+      "route": "/catalog",
+      "overflow": false,
+      "width": 640,
+      "viewport": 640,
+      "passed": true
+    },
+    {
+      "route": "/product/kryshka-avariyki-lada-priora-2007-2018",
+      "overflow": false,
+      "width": 640,
+      "viewport": 640,
+      "passed": true
+    },
+    {
+      "route": "/cart",
+      "overflow": false,
+      "width": 640,
+      "viewport": 640,
+      "passed": true
+    },
+    {
+      "route": "/account",
+      "overflow": false,
+      "width": 640,
+      "viewport": 640,
+      "passed": true
+    }
+  ],
+  "errors": []
+}

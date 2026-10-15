@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "appSha": "7002a87486dff59a9e55563cfc40dc59b85a17a5",
+  "realCart": true,
+  "realCdek": true,
+  "syntheticContact": true,
+  "ordersCreated": 0,
+  "monetaryRequests": 0,
+  "messagesSent": 0,
+  "checks": [
+    "real product added, one cart line",
+    "empty form rejected locally",
+    "real city, pickup point and delivery estimate",
+    "live quote, one group, explicit consent required; no order submitted",
+    "filled review at 320/375/390 and landscape 812x375",
+    "edit preserves contact and pickup point",
+    "quantity change invalidates review and retains contact",
+    "cart quantity survives reload"
+  ],
+  "blocked": [],
+  "errors": [],
+  "contactAfterReload": "cleared",
+  "cartCleaned": true
+}

@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "isolated": true,
+  "migrationSha256": "554be230822c991f7ddcf89bc24f15dc6d2826799ca4b517a4e92e98c5c88429",
+  "externalCalls": 0,
+  "checks": [
+    "real checkout/payment/dispatch; exact single-plus-bundle physical refund closes once across keys/operators, without stock, PSP, mail or allocation side effects",
+    "resolution audit and immutable closure intent cannot be deleted or rewritten",
+    "later receipt reopens review, stale revision rejects, cumulative remaining kit plus shipping closes full return with held goods acknowledged",
+    "full refund with every returned item held outside sale closes without inventing warehouse credit",
+    "received but uninspected parcels block closure even when money was refunded",
+    "queued, pending, uncertain and attention financial outcomes cannot be closed",
+    "missing provider confirmation, opaque selection, unmatched physical components and financial selection amount mismatch block closure",
+    "direct database inserts reject pending inspection, unmatched physical units, incorrect amount, forged summary and stale snapshot",
+    "SQL NULL cannot bypass validation: missing/null shipping and missing/null/noncanonical line quantity or price reject direct insertion",
+    "separate later shipping refund reopens closed review via actual queue command; pending outcome blocks and confirmed result closes remaining balance",
+    "unresolved extra payment and multiple successful payments block closure; failed attempt from fixture does not",
+    "manual delivery cannot replace confirmed completed carrier delivery",
+    "concurrent new parcel and closure serialize on order; new work never stays hidden behind closed status",
+    "production writes and old-key replay disabled before validation, history readable, zero external calls"
+  ]
+}

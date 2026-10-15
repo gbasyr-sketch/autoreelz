@@ -1,0 +1,13 @@
+{
+  "sha": "6ff750c02bfdce8e929611c095d1215d0d2deeae",
+  "previousSha": "4301d0c69c06979c234e0cb09781fa7dfaec0cdd",
+  "archiveSha256": "b8290048234856631f49899f52c55f89437323a9012f485ddbd852f052ae5ef6",
+  "archiveBytes": 95415235,
+  "existingMigrationChecksumsMatch": true,
+  "missingMigrations": [
+    "033_return_intake.sql"
+  ],
+  "excludedUncommitted": [
+    "docs/product-entry-guide.md"
+  ]
+}

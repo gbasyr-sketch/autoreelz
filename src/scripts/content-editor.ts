@@ -1,4 +1,4 @@
-import Quill from 'quill';import 'quill/dist/quill.snow.css';
+import Quill from './content-quill';import 'quill/dist/quill.snow.css';
 import {managerPage,managerDirty,node} from './manager-page';
 import {commerceCommand,CommerceError,getSession} from './commerce';
 import {productImageLibrary} from './product-image-library';

@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "path": "/_astro/return-intake.YMRWg86N.js",
+      "status": 200,
+      "sha256": "3020852dc6afd785117670941fad5a1fe508fbb4ba40c427e4e4df1f91d83cd0",
+      "newIntakeControlsPresent": true
+    },
+    {
+      "path": "/manager/orders/00000000-0000-4000-8000-000000000001",
+      "status": 200,
+      "inlineIntakeCss": true,
+      "cssSha256": "c03e3aa4d91402d12e64a5a977b05751824499d6edd3286bda229dc0fd4e200c"
+    }
+  ]
+}

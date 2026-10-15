@@ -1,0 +1,57 @@
+{
+  "checkedAt": "2026-10-15T11:48:16.385536+00:00",
+  "appSha": "6ff750c02bfdce8e929611c095d1215d0d2deeae",
+  "previousAppSha": "4301d0c69c06979c234e0cb09781fa7dfaec0cdd",
+  "imageId": "sha256:fe2538e624f6f0d7d9a3e3aa4354d4859d59f368a3def56b60fb1f94dd5783cd",
+  "migrations": "001–033",
+  "appliedNow": [
+    {
+      "name": "033_return_intake.sql",
+      "sha256": "b73f6d7545451b9d163bf89e1d0fffa308bf2fb95cd42dd974af5c914f0254d5"
+    }
+  ],
+  "backup": "/srv/autoreelz2026/backups/before-return-intake-20261015T113732Z.dump",
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-return-intake-20261015T113732Z",
+  "checks": {
+    "existingDataPreserved": true,
+    "newJournalTablesEmpty": true,
+    "otherEnvPreserved": true,
+    "protectedContainersPreserved": true,
+    "sameApplicationImage": true,
+    "webAndWorkerHealthy": true,
+    "imageWorkerRunning": true,
+    "oldMigrationsPreserved": true,
+    "all33MigrationsMatchSource": true,
+    "smtpPasswordWorkerOnly": true,
+    "http": true,
+    "redirect": true,
+    "publishedAssets": true,
+    "runtimeReadOnly": true,
+    "backupReadable": true
+  },
+  "httpChecks": 30,
+  "ordersRead": 6,
+  "receiptsCreated": 0,
+  "inspectionsCreated": 0,
+  "stockChanges": 0,
+  "paymentsCreated": 0,
+  "refundsCreated": 0,
+  "messagesSent": 0,
+  "config": {
+    "APP_REVISION": "6ff750c02bfdce8e929611c095d1215d0d2deeae",
+    "STORE_MODE": "staging",
+    "PAYMENT_PROVIDER": "yookassa-sandbox",
+    "YOOKASSA_RECEIPTS_MODE": "disabled",
+    "SEO_INDEXING_ENABLED": "false",
+    "CDEK_SHIPMENTS_MODE": "test",
+    "CDEK_SHIPMENTS_ALLOW_LIVE": "false",
+    "PICKUP_MAP_PROVIDER": "osm",
+    "METRIKA_ENABLED": "false",
+    "MAIL_PROVIDER": "timeweb-smtp",
+    "MAIL_ALLOWED_RECIPIENTS": "sales@autoreelz.ru",
+    "MAIL_OWNER_RECIPIENT": "sales@autoreelz.ru",
+    "MAIL_RECIPIENT_POLICY": "all-new",
+    "MAIL_NEW_MESSAGES_FROM": "2026-10-14T23:37:31.373Z"
+  },
+  "passed": true
+}

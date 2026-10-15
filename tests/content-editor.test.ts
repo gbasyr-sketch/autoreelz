@@ -1,5 +1,18 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import {randomUUID} from 'node:crypto';
-import {contentHtml,safeRichHtml,contentImageIds,previewContentHtml,richContentText} from '../src/server/rich-content.ts';import {normalizeContent} from '../src/server/content-editor.ts';import {emptyContent} from '../src/lib/content-editor.ts';
+import {contentHtml,safeRichHtml,contentImageIds,previewContentHtml,richContentText} from '../src/server/rich-content.ts';import {normalizeContent,previewContent} from '../src/server/content-editor.ts';import {emptyContent} from '../src/lib/content-editor.ts';
+
+test('CVE-2025-15056 formula/video exports stay inert through draft, preview and public HTML',async()=>{
+ // These are the exported HTML shapes from the advisory, not trusted editor input.
+ const body='<p>Before</p><span></span><img src=x onerror="alert(1)"><a href="https://example.invalid" onmouseover="alert(2)">video</a><p>After</p>';
+ const input={...emptyContent(),title:'Security regression',body};
+ const normalized=normalizeContent(input);
+ const preview=await previewContent('article',input);
+ for(const html of [normalized.body,preview.html,contentHtml(body,'html')]){
+  assert.doesNotMatch(html,/<img|onerror|onmouseover|<iframe|<script/);
+  assert.match(html,/<p>Before<\/p>/);assert.match(html,/<p>After<\/p>/);
+  assert.match(html,/<a href="https:\/\/example.invalid" target="_blank" rel="noopener noreferrer">video<\/a>/);
+ }
+});
 test('legacy page/article content remains escaped, with existing headings, URLs and line breaks',()=>{const input='## Заголовок\n\nТекст <script>alert(1)</script>\nСтрока https://auto.ru/test';const article=contentHtml(input,'plain','article');assert.ok(article.includes('<h2>Заголовок</h2>'));assert.ok(article.includes('&lt;script&gt;'));assert.ok(article.includes('<br>'));assert.ok(article.includes('href="https://auto.ru/test"'));assert.ok(contentHtml(input,'plain','page').startsWith('<p>## Заголовок</p>'));});
 test('rich content allows formatting but rejects scripts, handlers, unsafe links, CSS, embeds and remote images',()=>{const id=randomUUID();const html=safeRichHtml(`<h2>Название</h2><p class="ql-align-center evil" style="text-align:center;color:red;position:fixed" onclick="bad()"><strong>Текст</strong></p><script>alert(1)</script><svg onload="alert(2)"><text>SVG</text></svg><iframe src="https://evil.invalid"></iframe><a href="jav&#x61;script:alert(3)">Ссылка</a><a href="//evil.invalid">Другая</a><img src="https://evil.invalid/x.png"><img src="data:image/png,x"><img src="/media/${id}" alt="Описание &quot; тест" width="50%" onerror="bad()">`);assert.ok(html.includes('ql-align-center'));assert.ok(html.includes('<strong>Текст</strong>'));assert.ok(html.includes('width="50%"'));for(const word of ['onclick','onerror','<script','<iframe','<svg','javascript:','evil.invalid','position:','color:','data:image'])assert.equal(html.includes(word),false,word);assert.deepEqual(contentImageIds(html),[id]);assert.ok(previewContentHtml(html).includes('/api/manager/product-image?id='+id));});
 test('Quill image URLs normalize to public UUID paths, preserving alt and size without allowing attribute injection',()=>{const id=randomUUID();const html=safeRichHtml(`<img src="/api/manager/product-image?id=${id}" alt="&quot; onerror=&quot;alert(1)" width="99"/><a href='https://example.test/&quot; onclick=&quot;bad()'>link</a>`);assert.ok(html.includes('/media/'+id));assert.ok(html.includes('alt="&quot; onerror=&quot;alert(1)"'));assert.equal(/\swidth=/.test(html),false);assert.equal(html.includes('<script'),false);assert.equal(safeRichHtml('<img src="/media/not-an-id">'),'');});

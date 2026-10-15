@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "isolated": true,
+  "externalCalls": 0,
+  "checks": [
+    "concurrent identical requests return one partial refund; another intent blocked while unresolved",
+    "lost reply reuses immutable partial amount/key/receipt; original whole payment is verified",
+    "same-priced second unit may be returned once; full remaining receipt excludes earlier units; payment cannot be over-refunded",
+    "database payment lock and budget trigger reject direct over-refund even beyond application checks",
+    "fiscal reconciliation verifies original payment amount and remains separate from financial success",
+    "confirmed provider cancellation releases quantities/budget only for a new explicit command",
+    "attention reserves money and units; no new-key workaround",
+    "manual delivered flag cannot bypass guard; verified carrier GET unlocks refund without changing shipment/history",
+    "allocation/receipt/terminal result immutable; least privilege and physical stock untouched",
+    "legacy full request and saved command hash survive upgrade; legacy receipt stays full and never replays as partial",
+    "production remains closed"
+  ]
+}

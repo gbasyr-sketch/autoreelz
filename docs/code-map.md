@@ -46,7 +46,7 @@
 | Владелец/CRM | [management.ts](../src/server/management.ts), `src/pages/manager/`, `src/scripts/owner-tools.ts` | Роли, stock-команды, причины, заметки, override доставки |
 | Дашборд владельца | [dashboard.ts](../src/server/dashboard.ts), `src/lib/dashboard.ts`, `src/scripts/dashboard.ts`, `src/layouts/ManagerLayout.astro`, `src/styles/dashboard.css` | Подтверждённые тестовые оплаты, даты МСК, повторы, роли, устаревшие ответы и автообновление; [контракт](dashboard.md) |
 | Страницы/блог | [content.ts](../src/server/content.ts), `src/lib/content.ts`, `src/pages/info/`, `src/pages/blog/` | Публикация, slug/редирект, экранирование, только разрешённые видео |
-| Редактор страниц/статей | `src/server/content-editor.ts`, `src/server/rich-content.ts`, `src/scripts/content-editor.ts`, `src/scripts/content-list.ts`, `/manager/content/`, миграция019 | Quill/санитизация, отдельные черновики, конфликтCMS, alt/ширина фото, публикация медиа, архив/восстановление; [контракт](content-editor.md) |
+| Редактор страниц/статей | `src/server/content-editor.ts`, `src/server/rich-content.ts`, `src/scripts/content-editor.ts`, `src/scripts/content-quill.ts`, `src/scripts/content-list.ts`, `/manager/content/`, миграция019 | Quill/санитизация, отдельные черновики, конфликтCMS, alt/ширина фото, публикация медиа, архив/восстановление; `tests/content-editor-bundle.mjs` исключает formula/video; [контракт](content-editor.md), [зависимости](dependency-security.md) |
 | Отзывы | [social.ts](../src/server/social.ts), `social-photos.ts`, `src/components/Reviews.astro` | Только полученный заказ, модерация, приватность исходников/неодобренных фото |
 | Генератор текстов | [description-generation.ts](../src/server/description-generation.ts), `adapters/description.ts` | Preview/Apply, изменённые исходные данные, ручной title. Сейчас имитатор |
 | Настоящая генерация в форме товара | [product-ai.ts](../src/server/product-ai.ts), `adapters/ai-text.ts`, `adapters/ai-text-prompt.ts`, `adapters/ai-gateway.ts`, `services/ai-gateway/server.py`, `src/scripts/product-ai.ts`, `src/lib/ai-text.ts`, миграция013 | Общий бюджет, резерв до внешнего вызова, повторы/неопределённость, вход/CSRF, whitelist фактов, Luna/Sol, правки/история/восстановление заметок, применение только в форму; [контракт](ai-text-generation.md) |
@@ -68,3 +68,5 @@
 Точный смысл DTO — в `src/lib/commerce-types.ts`, `catalog-types.ts`, `management-types.ts`, `social-types.ts`; реальная схема — последовательность миграций. `cms/schema.snapshot.json` не содержит рабочих данных и не заменяет миграции/backup.
 
 - Главная, демонстрационные товарные отзывы и статьи: [homepage-content.md](homepage-content.md).
+
+Завершение разбора возврата034: `src/server/return-resolution-policy.ts` (сверка), `return-resolution.ts` (транзакция/снимок/история), `src/pages/api/manager/return-resolution.ts`, DTO `src/lib/return-resolution.ts`, отдельные `src/scripts/return-resolution.ts`/CSS. [Контракт](return-resolution.md).

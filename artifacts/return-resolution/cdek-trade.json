@@ -1,0 +1,54 @@
+{
+  "checks": [
+    {
+      "name": "server resolves point identity and snapshots actual rate; checkout and repeats never call CDEK under SQL locks",
+      "passed": true
+    },
+    {
+      "name": "unknown package and multiple units need a packing rule; no guessed dimension or tariff",
+      "passed": true
+    },
+    {
+      "name": "mixed order has one combined packing quote and never reserves available lines early",
+      "passed": true
+    },
+    {
+      "name": "provider failure keeps total unknown and manager can complete shipping safely",
+      "passed": true
+    },
+    {
+      "name": "manual address stays manual even when the API works",
+      "passed": true
+    },
+    {
+      "name": "invalid city or wrong-city point cannot become a paid delivery quote",
+      "passed": true
+    },
+    {
+      "name": "no cart/stock locks during carrier request; price changes during network invalidate the quote",
+      "passed": true
+    },
+    {
+      "name": "package changes after a quote force review without reserving anything",
+      "passed": true
+    },
+    {
+      "name": "stock repartition or origin changes invalidate confirmed rates",
+      "passed": true
+    },
+    {
+      "name": "expired and foreign-session quotes are rejected",
+      "passed": true
+    },
+    {
+      "name": "pickup preview requires no contacts, persists no checkout quote and reserves no stock",
+      "passed": true
+    },
+    {
+      "name": "mixed preview requires a common packing rule and charges one delivery",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "cleanup": true
+}

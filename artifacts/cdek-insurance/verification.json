@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-15",
+  "published": false,
+  "schemaChanges": false,
+  "check": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "build": true,
+  "unit": {
+    "passed": 235,
+    "skipped": 8,
+    "failed": 0
+  },
+  "focusedUnit": 21,
+  "databaseGroups": 15,
+  "dispatchGroups": 8,
+  "qaCleanup": true,
+  "liveAdapterCalculatorChecks": 2,
+  "realShipments": 0,
+  "realPayments": 0,
+  "externalMessages": 0,
+  "browserRetested": false,
+  "privateLiveEvidence": "private/cdek-insurance/live-adapter.json"
+}

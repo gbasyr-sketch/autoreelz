@@ -6,7 +6,7 @@ import {randomUUID as key} from 'node:crypto';
 import {createTransport} from 'nodemailer';
 import {createImageDatabase,imageEnvironment} from './helpers/ai-image-qa.mjs';
 
-const output='private/order-dispatch-e2e',report={passed:false,isolated:true,externalCalls:0,checks:[],cleanup:false};
+const output=process.env.AR_DISPATCH_OUTPUT??'private/order-dispatch-e2e',report={passed:false,isolated:true,externalCalls:0,checks:[],cleanup:false};
 const qa=await createImageDatabase('ar_qa_ai_images_dispatch_e2e_'+key().replaceAll('-','').slice(0,12));
 Object.assign(process.env,imageEnvironment(qa.database,output),{
  SHIPPING_PROVIDER:'cdek',PAYMENT_PROVIDER:'simulation',MAIL_PROVIDER:'timeweb-smtp',
@@ -38,7 +38,7 @@ const directory=createCdekClient({clientId:'fixture',clientSecret:'fixture-secre
  if(u.pathname.endsWith('/oauth/token'))return Response.json({access_token:'fixture',token_type:'bearer',expires_in:3600});
  if(u.pathname.endsWith('/location/cities'))return Response.json([{code:44,country_code:'RU',city:'QA город'}]);
  if(u.pathname.endsWith('/deliverypoints')){const code=u.searchParams.get('code');return Response.json([{code,name:'QA ПВЗ',type:'PVZ',is_handout:true,is_reception:true,location:{city_code:code==='MKHCH13'?442:44,country_code:'RU',city:'QA город',address:'QA адрес'}}]);}
- if(u.pathname.endsWith('/calculator/tariff'))return Response.json({total_sum:590.15,currency:'RUB',period_min:2,period_max:4});
+ if(u.pathname.endsWith('/calculator/tariff'))return Response.json({services:[{code:'INSURANCE',total_sum:50.15}],total_sum:590.15,currency:'RUB',period_min:2,period_max:4});
  throw Error('Unexpected mocked directory request');
 });
 const shipping=createCdekShipping(()=>directory);
@@ -168,5 +168,5 @@ try{
 }catch(error){report.error=String(error.stack||error);console.error(report.error);process.exitCode=1;}
 finally{
  globalThis.fetch=originalFetch;await db.getPool().end();await qa.close(true);report.cleanup=true;
- await fs.mkdir('artifacts/order-dispatch-e2e',{recursive:true});await fs.writeFile('artifacts/order-dispatch-e2e/verification.json',JSON.stringify(report,null,2)+'\n');
+ const reportDir=process.env.AR_DISPATCH_REPORT??'artifacts/order-dispatch-e2e';await fs.mkdir(reportDir,{recursive:true});await fs.writeFile(reportDir+'/verification.json',JSON.stringify(report,null,2)+'\n');
 }

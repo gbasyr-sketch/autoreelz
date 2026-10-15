@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "isolated": true,
+  "externalCalls": 0,
+  "checks": [
+    "ordinary: real cart/quote/checkout, one order and guarded manager confirmation",
+    "ordinary: simulation payment settles once, stock and payment MIME queued exactly once",
+    "ordinary: one carrier job and PDF, full declared merchandise value; no premature shipped mail",
+    "ordinary: handover simulation creates one tracking MIME mail; PDF/dispatch never debit stock again",
+    "mixed: real cart/quote/checkout, one order and guarded manager confirmation",
+    "mixed: simulation payment settles once, stock and payment MIME queued exactly once",
+    "mixed: one carrier job and PDF, full declared merchandise value; no premature shipped mail",
+    "mixed: handover simulation creates one tracking MIME mail; PDF/dispatch never debit stock again"
+  ],
+  "cleanup": true,
+  "scenarios": 2,
+  "customerMessages": 7,
+  "carrierCreateCalls": 2,
+  "pdfJobs": 2,
+  "realPayments": 0,
+  "realShipments": 0,
+  "actualSmtpMessages": 0,
+  "mimeMessages": 14,
+  "paymentProvider": "simulation",
+  "carrierTransport": "in-memory fixed-host fixture",
+  "mailTransport": "Nodemailer streamTransport",
+  "integrationLayer": "real domain commands and PostgreSQL, no browser/HTTP claim"
+}

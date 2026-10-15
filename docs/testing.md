@@ -186,3 +186,7 @@ CMS-наборы `cms-browser`, `content-browser`, `stage6-cms-*`, schema/permis
 ## Рабочая ЮKassa и закрывающие чеки15.10.2026
 
 `tests/commerce-production.test.ts`, `tests/yookassa-live.test.ts` — policy/протокол; `tests/yookassa-production-database.mjs` — synthetic001–035, подменённый транспорт и полный цикл до закрытия разбора возврата; `tests/yookassa-production-browser.mjs` — mockAPI1440/375. Node24.21.0. Реальные платежи/фискализация/SMTP не выполняются. Контракт и команды — [yookassa-production.md](yookassa-production.md), результат — artifacts/yookassa-production/local.json.
+
+## Страховка СДЭК15.10
+
+`node --test tests/cdek.test.ts tests/cdek-shipments.test.ts`; `AR_QA_NATIVE=1 AR_CDEK_TESTS=1 AR_CDEK_OUTPUT=artifacts/cdek-insurance node --test --test-concurrency=1 tests/cdek-checkout.test.ts` —15DB-групп, только синтетические данные/транспорт. `AR_DISPATCH_OUTPUT=private/cdek-insurance/dispatch AR_DISPATCH_REPORT=artifacts/cdek-insurance/dispatch node tests/order-dispatch-e2e.mjs` —8 групп с имитацией внешних границ. Обновлённый калькулятор отдельно проверен рабочим API без отправлений; эти запросы не входят в автоматические тесты. [Контракт](cdek-checkout-contract.md).

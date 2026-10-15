@@ -24,7 +24,7 @@ export function createCdekShipping(makeClient:()=>Client=cdekClient){
     const[origin,destination]=await Promise.all([client.getPoint(config.fromPoint,pack),delivery.method==='pickup_point'?client.getPoint(delivery.pointCode!,pack):null]);
     if(!origin?.reception||origin.cityCode!==config.fromCity)throw new CdekError('ORIGIN_PACKAGE');
     if(delivery.method==='pickup_point'&&(!destination?.handout||destination.cityCode!==delivery.cityCode))throw new CdekError('POINT_PACKAGE');
-    const carrier=await client.quote({fromCity:config.fromCity,fromPoint:config.fromPoint,cityCode:delivery.cityCode!,pointCode:delivery.pointCode,address:delivery.address,method:delivery.method,pack});
+    const carrier=await client.quote({fromCity:config.fromCity,fromPoint:config.fromPoint,cityCode:delivery.cityCode!,pointCode:delivery.pointCode,address:delivery.address,method:delivery.method,pack,declaredValueRubles:group.productTotalRubles});
     shipping={status:'quoted',costRubles:carrier.costRubles,label:'СДЭК — '+carrier.tariffName,reason:null,packageSnapshot:pack,provider:'cdek',carrier};
    }catch(e){if(!(e instanceof CdekError)&&!(e instanceof StoreError&&e.code==='SHIPPING_SETUP'))throw e;const reason=e instanceof CdekError&&['ORIGIN_PACKAGE','POINT_PACKAGE'].includes(e.code)?'Выбранный пункт не подтвердил приём этой упаковки. Стоимость и пункт уточнит менеджер.':'СДЭК не подтвердил тариф. Стоимость доставки уточнит менеджер до оплаты.';shipping={...pendingShipping(reason,pack),provider:'manual'};}
    return{...group,shipping,totalRubles:shipping.costRubles===null?null:sumRubles([group.productTotalRubles,shipping.costRubles])};

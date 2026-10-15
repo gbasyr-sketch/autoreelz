@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "isolated": true,
+  "externalCalls": 0,
+  "checks": [
+    "snapshot atomic with payment; concurrent initiate; immutable price/body",
+    "lost response retries identical receipt/key with order and fiscal snapshot guards",
+    "money settles before receipt; terminal-payment GET and concurrent checks emit once",
+    "full refund with original receipt; fiscal failure distinct from refund success; stock untouched",
+    "overdue alert with no POST; later successful receipt still reconciles",
+    "unconfirmed supplier order cannot be paid",
+    "existing non-fiscal sandbox remains compatible",
+    "production remains blocked"
+  ]
+}

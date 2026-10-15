@@ -4,7 +4,8 @@ import {query,transaction} from './db.ts';
 import {StoreError,uuid,text,iso} from './errors.ts';
 import {requireTestEnvironment} from './config.ts';
 import {paymentProvider,sandboxClient,sandboxConfig} from './payment-policy.ts';
-import {idempotent} from './security.ts';
+import {idempotent,canonical} from './security.ts';
+import {refundBalance,planRefund,refundShipmentBlock,refundUnresolved} from './refund-plan.ts';
 import {orderRow,event} from './orders.ts';
 import type {RefundWorkspace} from '../lib/payment-refunds.ts';
 import {YooKassaError,type ExpectedRefund,type SandboxRefund} from './adapters/yookassa-sandbox.ts';
@@ -12,29 +13,44 @@ const active=['queued','pending','uncertain'];
 function enabled(){requireTestEnvironment();if(paymentProvider()!=='yookassa-sandbox')throw new StoreError('REFUND_DISABLED','Тестовые возвраты ЮKassa не включены.',503);}
 export async function refundWorkspace(orderId:string):Promise<RefundWorkspace>{
  const id=uuid(orderId);return transaction(async c=>{
-  await orderRow(c,id);
-  const payments=(await c.query("SELECT id,amount_rubles FROM ar_payments WHERE order_id=$1 AND provider='yookassa-sandbox' AND status IN('succeeded','review') AND provider_status='succeeded' AND provider_id IS NOT NULL ORDER BY created_at,id",[id])).rows;
+  const order=await orderRow(c,id);
+  const payments=(await c.query("SELECT * FROM ar_payments WHERE order_id=$1 AND provider='yookassa-sandbox' AND status IN('succeeded','review') AND provider_status='succeeded' AND provider_id IS NOT NULL ORDER BY created_at,id",[id])).rows;
   const refunds=(await c.query('SELECT * FROM ar_yookassa_refunds WHERE order_id=$1 ORDER BY created_at,id',[id])).rows;
+  const shipments=(await c.query('SELECT state,carrier_code,provider_uuid,carrier_at FROM ar_cdek_shipments WHERE order_id=$1',[id])).rows;
+  const carrierBlock=refundShipmentBlock(shipments);
   let available=true;try{enabled();}catch{available=false;}
-  return{enabled:available,payments:payments.map(p=>({id:p.id,amountRubles:p.amount_rubles,canRefund:available&&!refunds.some(r=>r.payment_id===p.id)})),refunds:refunds.map(r=>({id:r.id,paymentId:r.payment_id,amountRubles:r.amount_rubles,state:r.state,reason:r.reason,createdAt:iso(r.created_at)!,providerId:r.provider_id}))};
+  return{enabled:available,payments:payments.map(p=>{
+   const balance=refundBalance(order,p,refunds),unresolved=refunds.some(r=>r.payment_id===p.id&&refundUnresolved(r.state));
+   return{...balance,canRefund:available&&balance.canRefund&&!carrierBlock,
+    blockReason:!available?'Тестовые возвраты не включены.':unresolved?'Предыдущий возврат ещё обрабатывается или требует сверки.':carrierBlock};
+  }),refunds:refunds.map(r=>({id:r.id,paymentId:r.payment_id,amountRubles:r.amount_rubles,state:r.state,reason:r.reason,createdAt:iso(r.created_at)!,providerId:r.provider_id,selection:r.selection_snapshot}))};
  },false);
 }
 export async function queueRefund(actor:{id:string},body:Record<string,unknown>){
  enabled();const orderId=uuid(body.orderId),paymentId=uuid(body.paymentId),reason=text(body.reason,'Причина возврата',3,500);
- if(body.confirmed!==true)throw new StoreError('REFUND_CONFIRMATION','Подтвердите полный возврат платежа.');
+ if(body.confirmed!==true)throw new StoreError('REFUND_CONFIRMATION','Подтвердите состав и сумму возврата.');
  const config=sandboxConfig();
- return transaction(c=>idempotent(c,`yookassa-refund:${actor.id}`,body.idempotencyKey,{orderId,paymentId,reason,amount:body.amountRubles,confirmed:true},async()=>{
-  await orderRow(c,orderId,undefined,true);
+ const legacy=body.mode===undefined&&body.lines===undefined&&body.shippingRubles===undefined;
+ const command={orderId,paymentId,reason,amount:body.amountRubles,confirmed:true,...(legacy?{}:{mode:body.mode??'full',lines:body.lines??null,shipping:body.shippingRubles??null})};
+ return transaction(c=>idempotent(c,`yookassa-refund:${actor.id}`,body.idempotencyKey,command,async()=>{
+  const order=await orderRow(c,orderId,undefined,true);
   const p=(await c.query("SELECT * FROM ar_payments WHERE id=$1 AND order_id=$2 FOR UPDATE",[paymentId,orderId])).rows[0];
   if(!p||p.provider!=='yookassa-sandbox'||!['succeeded','review'].includes(p.status)||p.provider_status!=='succeeded'||!p.provider_id||p.provider_shop_id!==config.shopId)throw new StoreError('REFUND_PAYMENT','Подтверждённый тестовый платёж не найден.',409);
-  if(body.amountRubles!==p.amount_rubles)throw new StoreError('REFUND_AMOUNT','Сумма не совпадает с полным платежом. Обновите заказ.',409);
-  const previous=(await c.query('SELECT id FROM ar_yookassa_refunds WHERE payment_id=$1',[paymentId])).rows[0];if(previous)return{id:previous.id};
-  // Serialize with fulfillment and shipment creation via the same order lock.
-  const shipment=(await c.query("SELECT 1 FROM ar_cdek_shipments WHERE order_id=$1 AND state NOT IN('rejected','cancelled')",[orderId])).rowCount;
-  if(shipment)throw new StoreError('REFUND_SHIPMENT','Сначала отмените накладную СДЭК или завершите разбор отправления.',409);
-  const id=randomUUID();await c.query('INSERT INTO ar_yookassa_refunds(id,order_id,payment_id,provider_payment_id,shop_id,amount_rubles,provider_key,reason,actor_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[id,orderId,paymentId,p.provider_id,config.shopId,p.amount_rubles,randomUUID(),reason,actor.id]);
+  const history=(await c.query('SELECT * FROM ar_yookassa_refunds WHERE payment_id=$1 ORDER BY created_at,id',[paymentId])).rows;
+  const previous=history.find(r=>refundUnresolved(r.state));
+  if(previous){
+   // Different click keys may refer to the same still-open command, never to another refund.
+   const plan=planRefund(order,p,history.filter(r=>r.id!==previous.id),body);
+   if(previous.reason===reason&&previous.amount_rubles===plan.amountRubles&&(!previous.selection_snapshot||canonical(previous.selection_snapshot)===canonical(plan.selection)))return{id:previous.id};
+   throw new StoreError('REFUND_BUSY','Предыдущий возврат ещё обрабатывается или требует сверки.',409);
+  }
+  const plan=planRefund(order,p,history,body);
+  const shipments=(await c.query("SELECT state,carrier_code,provider_uuid,carrier_at FROM ar_cdek_shipments WHERE order_id=$1",[orderId])).rows;
+  const blocked=refundShipmentBlock(shipments);if(blocked)throw new StoreError('REFUND_SHIPMENT',blocked,409);
+  const id=randomUUID();await c.query(`INSERT INTO ar_yookassa_refunds(id,order_id,payment_id,provider_payment_id,shop_id,amount_rubles,provider_key,reason,actor_id,payment_amount_rubles,selection_snapshot,receipt_snapshot)
+   VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`,[id,orderId,paymentId,p.provider_id,config.shopId,plan.amountRubles,randomUUID(),reason,actor.id,plan.paymentAmountRubles,JSON.stringify(plan.selection),plan.receipt?JSON.stringify(plan.receipt):null]);
   await c.query("UPDATE ar_orders SET status='manual_review',payment_status='review',review_reason='Запрошен возврат платежа. Проверьте результат возврата и фактическое движение товара.' WHERE id=$1",[orderId]);
-  await event(c,orderId,'refund_requested',`Запрошен полный тестовый возврат ${p.amount_rubles} ₽. Причина: ${reason}`,actor.id);
+  await event(c,orderId,'refund_requested',`Запрошен тестовый возврат ${plan.amountRubles} ₽. Причина: ${reason}`,actor.id);
   return{id};
  }));
 }
@@ -52,10 +68,10 @@ export function createYooRefunds(makeClient=sandboxClient){
    }
    await c.query("UPDATE ar_yookassa_refunds SET lease_id=$2,lease_until=now()+interval '90 seconds',requested_at=CASE WHEN provider_id IS NULL THEN coalesce(requested_at,now()) ELSE requested_at END WHERE id=$1",[id,lease]);return r;
   });if(!claim)return;
-  const original=(await query('SELECT receipt_snapshot FROM ar_payments WHERE id=$1',[claim.payment_id])).rows[0];
-  const wanted:ExpectedRefund={orderId:claim.order_id,internalPaymentId:claim.payment_id,providerPaymentId:claim.provider_payment_id,internalRefundId:id,amountRubles:claim.amount_rubles};
+  const original=(await query('SELECT receipt_snapshot,amount_rubles FROM ar_payments WHERE id=$1',[claim.payment_id])).rows[0];
+  const wanted:ExpectedRefund={orderId:claim.order_id,internalPaymentId:claim.payment_id,providerPaymentId:claim.provider_payment_id,internalRefundId:id,amountRubles:claim.amount_rubles,paymentAmountRubles:claim.payment_amount_rubles??original.amount_rubles};
   let result:SandboxRefund;
-  try{const client=makeClient();result=claim.provider_id?await client.getRefund(claim.provider_id,wanted):await client.createRefund({...wanted,idempotenceKey:claim.provider_key,...(original?.receipt_snapshot?{receipt:original.receipt_snapshot}:{})});}
+  try{const client=makeClient();result=claim.provider_id?await client.getRefund(claim.provider_id,wanted):await client.createRefund({...wanted,idempotenceKey:claim.provider_key,...((claim.receipt_snapshot??(!claim.selection_snapshot?original?.receipt_snapshot:null))?{receipt:claim.receipt_snapshot??original.receipt_snapshot}:{})});}
   catch(e){
    const code=e instanceof YooKassaError?e.code:'PROVIDER_UNAVAILABLE';
    const retry=['PAYMENT_OUTCOME_UNKNOWN','PROVIDER_UNAVAILABLE'].includes(code);

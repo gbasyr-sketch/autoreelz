@@ -41,8 +41,8 @@ export function createYooReceipts(makeClient=sandboxClient){
     let status:ReceiptRegistration|undefined;
     if(source==='payment')status=(await client.getPayment(row.provider_id,wanted)).receiptRegistration;
     else{
-     const p=(await query('SELECT provider_id FROM ar_payments WHERE id=$1',[row.payment_id])).rows[0];
-     status=(await client.getRefund(row.provider_id,{...wanted,providerPaymentId:p.provider_id,internalRefundId:row.id})).receiptRegistration;
+     const p=(await query('SELECT provider_id,amount_rubles FROM ar_payments WHERE id=$1',[row.payment_id])).rows[0];
+     status=(await client.getRefund(row.provider_id,{...wanted,paymentAmountRubles:p.amount_rubles,providerPaymentId:p.provider_id,internalRefundId:row.id})).receiptRegistration;
     }
     await transaction(async c=>{await orderRow(c,row.order_id,undefined,true);await recordReceipt(c,source,row.id,status);});
    }catch{

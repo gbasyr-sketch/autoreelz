@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-15",
+  "baseSourceSha": "42f3a86",
+  "migrationPrepared": "031_partial_refunds.sql",
+  "appliedOnlyInSyntheticQa": true,
+  "published": false,
+  "isolatedWorktree": true,
+  "check": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "build": true,
+  "unit": {
+    "passed": 194,
+    "skipped": 8,
+    "failed": 0
+  },
+  "tradeDatabaseTests": 67,
+  "newDatabaseGroups": 11,
+  "legacyRefundDatabaseGroups": 10,
+  "receiptDatabaseGroups": 8,
+  "cdekDatabaseGroups": 9,
+  "orderDispatchGroups": 8,
+  "browserScenarios": 4,
+  "viewports": [
+    1440,
+    375
+  ],
+  "externalPaymentCalls": 0,
+  "realPayments": 0,
+  "realRefunds": 0,
+  "actualSmtpMessages": 0,
+  "carrierShipmentsCreated": 0,
+  "qaDatabasesRemoved": true,
+  "previewServersStopped": true,
+  "independentReview": "No P1/P2 findings",
+  "scope": [
+    "whole remaining payment",
+    "selected whole item quantities including bundles",
+    "shipping as one whole service",
+    "refund after verified completed CDEK shipment",
+    "immutable refund receipt subset",
+    "no automatic physical stock return"
+  ],
+  "passed": true
+}

@@ -28,6 +28,7 @@ assert.equal(env.POSTGRES_DB,'autoreelz2026_new');
   if(!(await owner.query("SELECT 1 FROM information_schema.columns WHERE table_name='ar_payments' AND column_name='receipt_snapshot'")).rowCount)await owner.query(readFileSync('migrations/028_yookassa_receipts.sql','utf8'));
   if(!(await owner.query("SELECT 1 FROM information_schema.columns WHERE table_name='ar_mail_outbox' AND column_name='provider'")).rowCount)await owner.query(readFileSync('migrations/029_smtp_mail.sql','utf8'));
   if(!(await owner.query("SELECT 1 FROM information_schema.columns WHERE table_name='ar_mail_outbox' AND column_name='html_body'")).rowCount)await owner.query(readFileSync('migrations/030_mail_html_templates.sql','utf8'));
+  if(!(await owner.query("SELECT 1 FROM information_schema.columns WHERE table_name='ar_yookassa_refunds' AND column_name='selection_snapshot'")).rowCount)await owner.query(readFileSync('migrations/031_partial_refunds.sql','utf8'));
   if(!(await owner.query("SELECT 1 FROM information_schema.columns WHERE table_name='ar_orders' AND column_name='supplier_confirmed_at'")).rowCount)await owner.query(readFileSync('migrations/032_supplier_preorders.sql','utf8'));
   return{database,owner,query:(statement,params=[])=>owner.query(statement,params),async close(){await owner.end();sql(`DROP DATABASE ${database} WITH (FORCE);`,env.POSTGRES_DB);}};
  }catch(error){if(owner)await owner.end();if(created)sql(`DROP DATABASE ${database} WITH (FORCE);`,env.POSTGRES_DB);throw error;}

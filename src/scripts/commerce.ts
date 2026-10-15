@@ -43,8 +43,9 @@ export function getSession(fresh=false){if(fresh)sessionPromise=null;if(!session
 export async function commerceGet<T>(path:string,options:RequestInit={}){await getSession();return request<T>(path,options);}
 // Keep the same key if the outcome is unknown, including an explicit retry after a network error.
 const pendingCommands=new Map<string,string>();
-export async function commerceCommand<T>(path:string,body:object):Promise<T>{
- const session=await getSession();const fingerprint=path+JSON.stringify(body);const idempotencyKey=pendingCommands.get(fingerprint)??crypto.randomUUID();pendingCommands.set(fingerprint,idempotencyKey);
+export async function commerceCommand<T>(path:string,body:object,explicitKey?:string):Promise<T>{
+ if(explicitKey!==undefined&&!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(explicitKey))throw new CommerceError('Некорректный ключ команды.',400,'INVALID_COMMAND_KEY');
+ const session=await getSession();const fingerprint=path+JSON.stringify(body);const idempotencyKey=explicitKey??pendingCommands.get(fingerprint)??crypto.randomUUID();pendingCommands.set(fingerprint,idempotencyKey);
  try{const result=await request<T>(path,{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':session.csrfToken},body:JSON.stringify({...body,idempotencyKey})});pendingCommands.delete(fingerprint);return result;}
  catch(error){if(error instanceof CommerceError&&error.status>0&&error.status<500)pendingCommands.delete(fingerprint);throw error;}
 }

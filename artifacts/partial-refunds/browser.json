@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "mockProvider": true,
+  "api": {
+    "anonymous401": true,
+    "role403": true,
+    "csrf403": true,
+    "origin403": true,
+    "noStore": true,
+    "cms": "isolated stub; real staff guard"
+  },
+  "viewports": [
+    {
+      "width": 1440,
+      "mode": "full",
+      "passed": true,
+      "exactAmount": true,
+      "doubleClickBlocked": true,
+      "sameRetryKeyAcrossReload": true,
+      "storageRemovalFailureSafe": false,
+      "unknownRefreshBlocked": true,
+      "confirmationReset": true,
+      "reloadRestoresRemaining": true,
+      "historySelection": true,
+      "blockReason": true,
+      "textEscaped": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "mode": "partial",
+      "passed": true,
+      "exactAmount": true,
+      "doubleClickBlocked": true,
+      "sameRetryKeyAcrossReload": true,
+      "storageRemovalFailureSafe": false,
+      "unknownRefreshBlocked": true,
+      "confirmationReset": true,
+      "reloadRestoresRemaining": true,
+      "historySelection": true,
+      "blockReason": true,
+      "textEscaped": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "mode": "full",
+      "passed": true,
+      "exactAmount": true,
+      "doubleClickBlocked": true,
+      "sameRetryKeyAcrossReload": true,
+      "storageRemovalFailureSafe": false,
+      "unknownRefreshBlocked": true,
+      "confirmationReset": true,
+      "reloadRestoresRemaining": true,
+      "historySelection": true,
+      "blockReason": true,
+      "textEscaped": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "mode": "partial",
+      "passed": true,
+      "exactAmount": true,
+      "doubleClickBlocked": true,
+      "sameRetryKeyAcrossReload": true,
+      "storageRemovalFailureSafe": true,
+      "unknownRefreshBlocked": true,
+      "confirmationReset": true,
+      "reloadRestoresRemaining": true,
+      "historySelection": true,
+      "blockReason": true,
+      "textEscaped": true,
+      "noOverflow": true
+    }
+  ]
+}

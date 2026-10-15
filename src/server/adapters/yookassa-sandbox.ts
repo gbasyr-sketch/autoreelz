@@ -13,7 +13,7 @@ function object(value:unknown):ObjectValue {if(!value||typeof value!=='object'||
 export interface ExpectedPayment {orderId:string;internalPaymentId:string;amountRubles:string}
 export interface SandboxPayment {id:string;status:'pending'|'waiting_for_capture'|'succeeded'|'canceled';paid:boolean;amountRubles:string;confirmationUrl:string|null;paidAt?:string;test:true;receiptRegistration?:ReceiptRegistration}
 export interface SandboxConfig {shopId:string;secretKey:string;returnOrigin:string}
-export interface ExpectedRefund extends ExpectedPayment {providerPaymentId:string;internalRefundId:string}
+export interface ExpectedRefund extends ExpectedPayment {providerPaymentId:string;internalRefundId:string;paymentAmountRubles?:string}
 export interface SandboxRefund {id:string;paymentId:string;status:'pending'|'succeeded'|'canceled';amountRubles:string;receiptRegistration?:ReceiptRegistration}
 type Transport=(url:string,init:RequestInit)=>Promise<Response>;
 function registration(value:unknown):ReceiptRegistration|undefined {if(value===undefined)return undefined;if(typeof value!=='string'||!['pending','succeeded','canceled'].includes(value))return undefined;return value as ReceiptRegistration;}
@@ -69,7 +69,12 @@ export function createYooKassaSandbox(config:SandboxConfig,transport:Transport=f
   // Never trust callback status/amount, redirects, or a made-up HMAC. Read provider state.
   return getPayment(wanted.providerPaymentId,wanted);
  }
- function refundExpected(input:ExpectedRefund){expected(input);if(!uuid.test(input.providerPaymentId)||!uuid.test(input.internalRefundId))reject('INVALID_PAYMENT_REFERENCE');}
+ function refundExpected(input:ExpectedRefund){
+  expected(input);if(!uuid.test(input.providerPaymentId)||!uuid.test(input.internalRefundId))reject('INVALID_PAYMENT_REFERENCE');
+  const total=input.paymentAmountRubles??input.amountRubles;expected({...input,amountRubles:total});
+  if(compareRubles(input.amountRubles,total)>0||input.amountRubles!==total&&compareRubles(input.amountRubles,'1.00')<0)reject('INVALID_REFUND_AMOUNT');
+ }
+ const originalPayment=(input:ExpectedRefund)=>({...input,amountRubles:input.paymentAmountRubles??input.amountRubles});
  function normalizeRefund(raw:ObjectValue,input:ExpectedRefund,id?:string):SandboxRefund{
   if(!uuid.test(raw.id)||id&&raw.id!==id||raw.payment_id!==input.providerPaymentId)reject('REFUND_IDENTITY_MISMATCH');
   if(raw.amount?.currency!=='RUB'||raw.amount?.value!==input.amountRubles)reject('REFUND_FACTS_MISMATCH');
@@ -81,15 +86,16 @@ export function createYooKassaSandbox(config:SandboxConfig,transport:Transport=f
   refundExpected(input);if(!uuid.test(input.idempotenceKey))reject('IDEMPOTENCE_KEY_REQUIRED');
   const receipt=input.receipt?validatePaymentReceipt(input.receipt,input.amountRubles):undefined;
   const shop=await checkShop();if(shop.fiscalizationEnabled!==Boolean(receipt))reject('RECEIPT_SETUP_REQUIRED');
-  const payment=await getPayment(input.providerPaymentId,input);
+  const payment=await getPayment(input.providerPaymentId,originalPayment(input));
   if(payment.status!=='succeeded'||!payment.paid)reject('REFUND_PAYMENT_NOT_SUCCEEDED');
-  // Full refund only. Retrying uses exactly the same body/key even after the provider accepted it.
-  return normalizeRefund(await request('/refunds','POST',{payment_id:input.providerPaymentId,amount:{value:input.amountRubles,currency:'RUB'},description:'AUTO REELZ refund '+input.internalRefundId},input.idempotenceKey),input);
+  // Full original refunds reuse the payment receipt; partial refunds send their immutable subset.
+  const partial=input.amountRubles!==(input.paymentAmountRubles??input.amountRubles);
+  return normalizeRefund(await request('/refunds','POST',{payment_id:input.providerPaymentId,amount:{value:input.amountRubles,currency:'RUB'},...(partial&&receipt?{receipt}:{}),description:'AUTO REELZ refund '+input.internalRefundId},input.idempotenceKey),input);
  }
  async function getRefund(id:string,input:ExpectedRefund){
   refundExpected(input);if(!uuid.test(id))reject('INVALID_PROVIDER_ID');
   // Refund objects have no test/account fields; verify the associated payment first.
-  await getPayment(input.providerPaymentId,input);
+  await getPayment(input.providerPaymentId,originalPayment(input));
   return normalizeRefund(await request('/refunds/'+id),input,id);
  }
  return{checkShop,createPayment,getPayment,verifyNotification,createRefund,getRefund};

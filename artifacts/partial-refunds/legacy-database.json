@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "isolated": true,
+  "externalCalls": 0,
+  "checks": [
+    "amount/confirmation/idempotency/concurrency and fulfillment block",
+    "lost response and process restart reuse immutable key/body",
+    "callback is a hint; concurrent GET settles once",
+    "late payment refund and network outside SQL; lease prevents parallel POST",
+    "expired idempotence window never sends new POST",
+    "mismatched provider facts require manual review",
+    "provider cancellation is not success",
+    "active shipment blocks refund",
+    "immutable request, least privilege, stock and allocation preserved",
+    "production closed; history readable"
+  ]
+}

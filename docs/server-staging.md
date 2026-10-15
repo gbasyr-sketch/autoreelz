@@ -9,6 +9,7 @@
 - Новый Linux-пользователь: `autoreelz2026`, UID1018; дом `/srv/autoreelz2026`.
 - Только наш rootless Docker: проект `autoreelz2026-release`, socket `/run/user/1018/docker.sock`. Системный Docker, ISPmanager и другие сайты не менять.
 - Релизы: `/srv/autoreelz2026/releases/<полный-SHA>`; архивы: `incoming/`; рабочий env: `shared/bootstrap/server.env`.
+- Подтверждения поисковых сервисов: Google `google031b679d17a8feda.html` и Яндекс `yandex_77486fc3808f1fc9.html` хранятся в `/srv/autoreelz2026/public/verification`, отдаются точными маршрутами edge и сохраняются при выпуске/откате. Актуальный путь bind-mounted Caddyfile брать из inspect edge: он может относиться к более старому релизу, чем app SHA.15.10 добавлен только маршрут Яндекса; [публикация/backup](../artifacts/webmaster/publication.json).
 - Каталог/заказы: БД `autoreelz2026_new`. Серверная БД авторитетна и не заменяется локальной.
 - Фото CMS: том `autoreelz2026-release_uploads`, физически `/srv/autoreelz2026/.local/share/docker/volumes/autoreelz2026-release_uploads/_data`; новые фото обычно добавлять через CMS.
 - Тур: `/srv/autoreelz2026/public/muzey/`, доступен через `/muzey/`. Не включать его большие файлы в Git/образ web.

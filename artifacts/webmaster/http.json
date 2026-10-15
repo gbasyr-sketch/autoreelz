@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-15",
+  "url": "https://autoreelz.ru/yandex_77486fc3808f1fc9.html",
+  "sha256": "c3f7604b1dc5425a316577006db6b2011eb2d1d83dfb78ddb330ac84ed0a4e7c",
+  "checks": [
+    {
+      "agent": "browser",
+      "status": 200,
+      "exactContent": true,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "agent": "YandexWebmaster",
+      "status": 200,
+      "exactContent": true,
+      "contentType": "text/html; charset=utf-8"
+    }
+  ],
+  "google": {
+    "status": 200
+  },
+  "health": {
+    "ok": true,
+    "revision": "6a84aca06a4392983e281d0ba53605dd9f04da03"
+  },
+  "home": {
+    "status": 200,
+    "noindex": true
+  },
+  "confirmationPendingOwner": true
+}

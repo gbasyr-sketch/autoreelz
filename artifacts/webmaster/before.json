@@ -1,0 +1,38 @@
+{
+  "appSha": "6a84aca06a4392983e281d0ba53605dd9f04da03",
+  "edgeConfig": "/srv/autoreelz2026/releases/954721a126870322e69bc6a3184917a80748e69c/infra/release/Caddyfile.ispmanager",
+  "edgeConfigSha256": "5b6d3ce68dd5b60ab863e3b2dd2d9616f9bcc5cb433889f8cdb28ca2dd8623e6",
+  "verificationDirectoryExists": true,
+  "googleFilePresent": true,
+  "yandexFileExists": false,
+  "containers": {
+    "autoreelz2026-release-web-1": {
+      "id": "bb6d85db2386e7ccca6ae608f321d68dfe6c54fb2f4772087b83968c692d3042",
+      "startedAt": "2026-10-15T00:31:00.310196944Z"
+    },
+    "autoreelz2026-release-image-worker-1": {
+      "id": "ca2555f2676771cada42bc156cb8c256bf9941125e04dbfd910bd819a8db4c18",
+      "startedAt": "2026-10-15T00:31:00.571646926Z"
+    },
+    "autoreelz2026-release-worker-1": {
+      "id": "502c4257fb3c1304128e61ae00c419b5ed05165117b9bb6d020f97c07ff6f8ef",
+      "startedAt": "2026-10-15T00:31:00.741403855Z"
+    },
+    "autoreelz2026-release-edge-1": {
+      "id": "9d8c8974aa6e59e3a9bd6a5c162d39e5567c33d0ee793fc6a8ecac2c41c3ef38",
+      "startedAt": "2026-10-14T19:02:48.07763938Z"
+    },
+    "autoreelz2026-release-background-1": {
+      "id": "7bfa481425a90cc851fab221e42ea5cf03fc3e024a151d7b637b4f476b91847c",
+      "startedAt": "2026-09-30T15:14:09.306572603Z"
+    },
+    "autoreelz2026-release-cms-1": {
+      "id": "7da34b36aa472d8b0279478a7ec3c53bdb7124e8fad06e3b1e20730d4e3c77a8",
+      "startedAt": "2026-09-23T17:02:33.846890768Z"
+    },
+    "autoreelz2026-release-db-1": {
+      "id": "c81ff315e46cac586372b6c0b8c399b5a13e9fd0266966612034c9588f93760d",
+      "startedAt": "2026-09-23T15:16:27.816123898Z"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "appSha": "6a84aca06a4392983e281d0ba53605dd9f04da03",
+  "file": "yandex_77486fc3808f1fc9.html",
+  "fileSha256": "c3f7604b1dc5425a316577006db6b2011eb2d1d83dfb78ddb330ac84ed0a4e7c",
+  "edgeConfig": "/srv/autoreelz2026/releases/954721a126870322e69bc6a3184917a80748e69c/infra/release/Caddyfile.ispmanager",
+  "configSha256": "b5027aed0b70a4fa2a90e1ef7f3ad58d19700fbaf3ddd93b69b1a2a133bf5022",
+  "backup": "/srv/autoreelz2026/backups/webmaster-20261015/Caddyfile.before-yandex",
+  "configValidated": true,
+  "originHttp200": true,
+  "restartedServices": [
+    "edge"
+  ],
+  "otherServicesUnchanged": true,
+  "indexingConfigurationChanged": false,
+  "webmasterConfirmation": "owner will verify manually",
+  "sourceCommit": "cd2554826a27946e684e09715a3a9614b907aab5"
+}

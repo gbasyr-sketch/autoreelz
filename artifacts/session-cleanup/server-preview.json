@@ -1,0 +1,11 @@
+{
+  "readOnly": true,
+  "migrationApplied": false,
+  "policy": "anonymous, expired over30days, untouched empty cart, no history",
+  "counts": {
+    "sessions": 68466,
+    "carts": 68466,
+    "expiredSessions": 0,
+    "eligibleSessions": 0
+  }
+}

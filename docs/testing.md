@@ -204,3 +204,7 @@ CMS-наборы `cms-browser`, `content-browser`, `stage6-cms-*`, schema/permis
 ## PageSpeed: ресурсы витрины16.10
 
 После build: `node tests/storefront-performance-http.mjs` — отдельная синтетическая QA-БД, настоящий SSR главной/каталога/товара/оформления; Leaflet CSS только в оформлении, два preload совпадают с CSS-шрифтами, sizes галереи. `node --test tests/responsive-images.test.ts`, check/build/npm test. Cookies — существующий candidate harness. Сравнение публичного HTML с локальными ассетами/mockAPI и задержкой шрифтов700мс: private/pagespeed-fix/compare.mjs, home.mjs; это локальная диагностика, не PSI production. [Результат](../artifacts/pagespeed-fix/verification.json).
+
+## Очистка сессий037
+
+`node tests/session-cleanup-database.mjs` — native изолированная синтетическая БД001–037: фильтр/граница30дней, все защищённые связи и снимки таблиц, rollback, сохранение корзины при параллельной записи/продлении сессии, запрет stale-snapshot, узкие права, новые restrictive/cascade FK, лимит200 и конкурентные/повторные вызовы, новый визит по удалённой expired cookie. Реальных внешних вызовов нет. `AR_QA_NATIVE=1 AR_COMMERCE_TESTS=1 node --test tests/commerce.test.ts` — торговая регрессия; check/build/npm test. [Результат](../artifacts/session-cleanup/database.json), контракт в [operations.md](operations.md). Preview сервера — только SELECT по тому же фильтру, без миграции/удаления.

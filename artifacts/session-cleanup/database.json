@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "checks": [
+    "preview is read-only and excludes every protected relation",
+    "expired untouched empty visit removed; active/recent/customer/nonempty/versioned sessions and all history byte-identical",
+    "database hourly schedule survives subsequent callers",
+    "rollback restores both parents and run state",
+    "concurrent cart mutation skipped; committed cart line retained",
+    "concurrent session renewal retained",
+    "grace-period boundary retained",
+    "stale snapshot isolation rejected",
+    "application has narrow function permission, no direct parent delete or schedule reset",
+    "PUBLIC cannot execute privileged cleanup",
+    "new restrictive FK fails closed with cart/session rollback",
+    "unexpected cascading relation prevents deletion of future history",
+    "200-row batch cap and concurrent/repeated calls do not double-delete",
+    "orders/payments/events/consents/commands remain byte-identical after all batches",
+    "expired deleted cookie receives fresh session/cart; active visitor still works",
+    "missing schedule fails closed instead of running every tick"
+  ],
+  "historyTablesCompared": 75
+}

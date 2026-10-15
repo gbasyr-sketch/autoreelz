@@ -1,0 +1,23 @@
+{
+  "published": false,
+  "migrationAppliedToProduction": false,
+  "migration": "037_session_cleanup.sql",
+  "policy": {
+    "anonymousOnly": true,
+    "expiredGraceDays": 30,
+    "untouchedEmptyCartOnly": true,
+    "preserveAllHistory": true,
+    "maxPairsPerHour": 200
+  },
+  "checks": {
+    "typecheck": "0 errors/warnings/hints",
+    "build": true,
+    "unitPassed": 234,
+    "unitSkipped": 8,
+    "commerceTestsPassed": 38,
+    "cleanupDatabaseChecks": 16,
+    "historyTablesCompared": 75
+  },
+  "productionActions": "SELECT aggregate preview only; no DELETE, migration or deployment",
+  "remaining": "Separate migration/deployment and post-release preview/state verification"
+}

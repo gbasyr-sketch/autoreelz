@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-15",
+  "mockOnly": true,
+  "mailTypes": 5,
+  "newOrderScenarios": 2,
+  "viewports": [
+    320,
+    375,
+    "desktop default"
+  ],
+  "horizontalOverflow": false,
+  "brandLogo": "original inverse SVG embedded from public/brand",
+  "personalDataCopied": false,
+  "messagesSent": 0,
+  "serverChanged": false,
+  "emailClientCompatibilityTested": false
+}

@@ -12,7 +12,7 @@ services:
   web:
     environment:
       STORE_MODE: ${STORE_MODE:-staging}
-      SEO_INDEXING_ENABLED: 'false'
+      SEO_INDEXING_ENABLED: ${SEO_INDEXING_ENABLED:-false}
   worker:
     environment:
       STORE_MODE: ${STORE_MODE:-staging}

@@ -54,10 +54,10 @@ export function createYooPayments(makeClient:()=>Client=sandboxClient){
    await orderRow(c,payment.order_id,undefined,true);
    const current=(await c.query('SELECT * FROM ar_payments WHERE id=$1 FOR UPDATE',[id])).rows[0];
    if(current.provider_id&&current.provider_id!==result.id)throw new StoreError('PAYMENT_IDENTITY_MISMATCH','Платёж не совпадает.',409);
-   if(current.receipt_snapshot)await recordReceipt(c,'payment',id,result.receiptRegistration);
-   if(['succeeded','review'].includes(current.status))return;
    // An older pending response must never regress a terminal payment.
    const status=terminal(current.provider_status)&&!terminal(result.status)?current.provider_status:result.status;
+   if(current.receipt_snapshot)await recordReceipt(c,'payment',id,result.receiptRegistration,status);
+   if(['succeeded','review'].includes(current.status))return;
    await c.query(`UPDATE ar_payments SET provider_id=$2,provider_status=$3,
     provider_confirmation_url=CASE WHEN $4::boolean THEN NULL ELSE $5 END,provider_checked_at=now(),provider_last_error=NULL,
     provider_next_check_at=now()+interval '15 seconds',provider_paid_at=coalesce(provider_paid_at,$7),

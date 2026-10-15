@@ -55,11 +55,11 @@ for n in range(30):
  except Exception:
   if n==29:raise
   time.sleep(.2)
-a=req('127.0.0.2','192.0.2.10','203.0.113.77, 10.0.0.1');b=req('127.0.0.2','198.51.100.20','203.0.113.77')
+a=req('127.0.0.2','203.0.113.77','203.0.113.77, 192.0.2.10');b=req('127.0.0.2','203.0.113.77','203.0.113.77, 198.51.100.20')
 assert a['ip']==a['xff']=='192.0.2.10';assert b['ip']==b['xff']=='198.51.100.20';checks.append('trusted proxy yields two distinct visitors; forged XFF removed')
 direct=req('127.0.0.1','203.0.113.9','203.0.113.10');assert direct['ip']==direct['xff']=='127.0.0.1';checks.append('direct untrusted client cannot spoof X-Real-IP or XFF')
-v6=req('127.0.0.2','2001:db8::10','203.0.113.77');assert v6['ip']=='2001:db8::10';checks.append('IPv6 visitor preserved as one address')
-invalid=req('127.0.0.2','not-an-ip','203.0.113.77');assert invalid['ip']=='127.0.0.2';checks.append('invalid real IP falls back to TCP peer')
-webhook=req('127.0.0.2','192.0.2.10','203.0.113.77','/api/payments/yookassa');assert webhook['ip']=='192.0.2.10';checks.append('exact webhook proxy uses the same normalized IP; synthetic echo only')
+v6=req('127.0.0.2','203.0.113.77','203.0.113.77, 2001:db8::10');assert v6['ip']=='2001:db8::10';checks.append('IPv6 visitor preserved as one address')
+invalid=req('127.0.0.2','203.0.113.77','203.0.113.77, not-an-ip');assert invalid['ip']=='127.0.0.2';checks.append('invalid last forwarded IP falls back to TCP peer')
+webhook=req('127.0.0.2','203.0.113.77','203.0.113.77, 192.0.2.10','/api/payments/yookassa');assert webhook['ip']=='192.0.2.10';checks.append('exact webhook proxy uses the same normalized IP; synthetic echo only')
 print(json.dumps({'passed':True,'synthetic':True,'productionDatabaseAccess':False,'paymentCalls':0,'checks':checks}))
 PY

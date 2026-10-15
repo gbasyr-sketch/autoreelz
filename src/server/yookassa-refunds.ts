@@ -91,7 +91,7 @@ export function createYooRefunds(makeClient=sandboxClient){
    if(current.lease_id!==lease||!active.includes(current.state))return;
    if(current.provider_id&&current.provider_id!==result.id)throw new StoreError('REFUND_IDENTITY','Возврат не совпадает.',409);
    await c.query("UPDATE ar_yookassa_refunds SET provider_id=$2,state=$3,checked_at=now(),last_error=NULL,lease_id=NULL,lease_until=NULL,next_check_at=now()+interval '30 seconds' WHERE id=$1",[id,result.id,result.status]);
-   if(original?.receipt_snapshot)await recordReceipt(c,'refund',id,result.receiptRegistration);
+   if(original?.receipt_snapshot)await recordReceipt(c,'refund',id,result.receiptRegistration,result.status);
    if(result.status!=='pending')await event(c,claim.order_id,'refund_'+result.status,result.status==='succeeded'?`ЮKassa подтвердила ${paymentProvider()==='yookassa-sandbox'?'тестовый ':''}возврат ${claim.amount_rubles} ₽. Возврат товара на склад оформляется отдельно.`:'ЮKassa отменила возврат. Требуется ручная проверка.');
   });
  }

@@ -8,10 +8,13 @@ import type {ReceiptRegistration} from './yookassa-receipt-snapshot.ts';
 type Source='payment'|'refund';
 const table=(source:Source)=>source==='payment'?'ar_payments':'ar_yookassa_refunds';
 // The payment/refund result is never inferred from its fiscal status.
-export async function recordReceipt(c:PoolClient,source:Source,id:string,status:ReceiptRegistration|undefined){
+export async function recordReceipt(c:PoolClient,source:Source,id:string,status:ReceiptRegistration|undefined,moneyStatus:'pending'|'waiting_for_capture'|'succeeded'|'canceled'){
+ // No money moved on cancellation. A missing fiscal status is only an error
+ // after successful settlement, never while a customer is still paying.
+ if(moneyStatus==='canceled'||(!status&&moneyStatus!=='succeeded'))return;
  const name=table(source),r=(await c.query(`SELECT * FROM ${name} WHERE id=$1 FOR UPDATE`,[id])).rows[0];
  if(!r||['succeeded','canceled'].includes(r.receipt_registration))return;
- const previous=r.receipt_registration,overdue=(!status||status==='pending')&&Date.now()-new Date(r.created_at).getTime()>=3*86400000;
+ const previous=r.receipt_registration,overdue=moneyStatus==='succeeded'&&(!status||status==='pending')&&Date.now()-new Date(r.created_at).getTime()>=3*86400000;
  const error=overdue?'RECEIPT_OVERDUE':status===undefined?'RECEIPT_STATUS_MISSING':null;
  if(overdue&&r.receipt_last_error!=='RECEIPT_OVERDUE')await event(c,r.order_id,'receipt_attention','Чек не подтверждён в течение трёх дней. Обратитесь в поддержку ЮKassa; новый платёж не создавайте.');
  await c.query(`UPDATE ${name} SET receipt_registration=$2,receipt_checked_at=now(),receipt_last_error=$3,receipt_next_check_at=now()+CASE WHEN $4 THEN interval '1 day' ELSE interval '1 minute' END WHERE id=$1`,[id,status??previous,error,overdue]);
@@ -24,12 +27,12 @@ export function createYooReceipts(makeClient=sandboxClient){
   requirePaymentEnvironment();const cfg=sandboxConfig();
   const rows=(await query(`
    SELECT 'payment' AS source,p.id,p.order_id,p.id AS payment_id,p.provider_id,p.provider_shop_id AS shop_id,p.amount_rubles,p.created_at
-    FROM ar_payments p WHERE p.provider='${paymentProvider()}' AND p.receipt_snapshot IS NOT NULL AND p.provider_id IS NOT NULL AND p.provider_status IN('succeeded','canceled')
+    FROM ar_payments p WHERE p.provider='${paymentProvider()}' AND p.receipt_snapshot IS NOT NULL AND p.provider_id IS NOT NULL AND p.provider_status='succeeded'
     AND p.receipt_next_check_at<=now() AND (p.receipt_registration IS NULL OR p.receipt_registration='pending')
    UNION ALL
    SELECT 'refund',r.id,r.order_id,r.payment_id,r.provider_id::text,r.shop_id,r.amount_rubles,r.created_at
     FROM ar_yookassa_refunds r JOIN ar_payments p ON p.id=r.payment_id
-    WHERE p.provider='${paymentProvider()}' AND p.receipt_snapshot IS NOT NULL AND r.provider_id IS NOT NULL AND r.state IN('succeeded','canceled')
+    WHERE p.provider='${paymentProvider()}' AND p.receipt_snapshot IS NOT NULL AND r.provider_id IS NOT NULL AND r.state='succeeded'
     AND r.receipt_next_check_at<=now() AND (r.receipt_registration IS NULL OR r.receipt_registration='pending')
    ORDER BY created_at LIMIT 4`)).rows;
   for(const row of rows){
@@ -44,7 +47,7 @@ export function createYooReceipts(makeClient=sandboxClient){
      const p=(await query('SELECT provider_id,amount_rubles FROM ar_payments WHERE id=$1',[row.payment_id])).rows[0];
      status=(await client.getRefund(row.provider_id,{...wanted,paymentAmountRubles:p.amount_rubles,providerPaymentId:p.provider_id,internalRefundId:row.id})).receiptRegistration;
     }
-    await transaction(async c=>{await orderRow(c,row.order_id,undefined,true);await recordReceipt(c,source,row.id,status);});
+    await transaction(async c=>{await orderRow(c,row.order_id,undefined,true);await recordReceipt(c,source,row.id,status,'succeeded');});
    }catch{
     await query(`UPDATE ${name} SET receipt_last_error='RECEIPT_CHECK_UNAVAILABLE',receipt_next_check_at=now()+interval '1 minute' WHERE id=$1 AND (receipt_registration IS NULL OR receipt_registration='pending')`,[row.id]);
    }

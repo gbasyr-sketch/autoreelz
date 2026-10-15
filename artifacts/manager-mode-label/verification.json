@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "mode": "production",
+      "path": "/manager/orders",
+      "passed": true
+    },
+    {
+      "mode": "production",
+      "path": "/manager/orders/00000000-0000-4000-8000-000000000001",
+      "passed": true
+    },
+    {
+      "mode": "staging",
+      "path": "/manager/orders",
+      "passed": true
+    },
+    {
+      "mode": "staging",
+      "path": "/manager/orders/00000000-0000-4000-8000-000000000001",
+      "passed": true
+    }
+  ],
+  "syntheticDatabaseRemoved": true,
+  "externalOperations": 0
+}

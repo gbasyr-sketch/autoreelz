@@ -1,0 +1,52 @@
+{
+  "checkedAt": "2026-10-15T14:53:43.611660+00:00",
+  "method": "GET",
+  "endpoint": "https://api.yookassa.ru/v3/me",
+  "providerRequests": 1,
+  "account": {
+    "httpStatus": 200,
+    "accountIdMatches": true,
+    "isLiveStore": true,
+    "storeStatus": "enabled",
+    "bankCardAvailable": true,
+    "sbpAvailable": true,
+    "fiscalizationEnabled": true,
+    "fiscalizationModernEnabled": true,
+    "fiscalizationLegacyEnabled": true,
+    "fiscalizationProvider": "yoo_receipt",
+    "expectedReceiptService": true,
+    "sellerMatchesPublishedRequisites": true,
+    "currentAdapterLegacyFlagCompatible": true
+  },
+  "siteChecks": {
+    "serverEnvByteIdentical": true,
+    "webContainerUnchanged": true,
+    "runtimeModesUnchanged": true,
+    "noindexPreserved": true,
+    "sameRevision": true
+  },
+  "siteConfig": {
+    "APP_REVISION": "bf6adb6d0112cb34f52a724e48456036de7eecbb",
+    "STORE_MODE": "staging",
+    "PAYMENT_PROVIDER": "yookassa-sandbox",
+    "YOOKASSA_RECEIPTS_MODE": "disabled",
+    "YOOKASSA_LIVE_OPERATIONS_ENABLED": "false",
+    "SEO_INDEXING_ENABLED": "false",
+    "CDEK_SHIPMENTS_MODE": "test",
+    "CDEK_SHIPMENTS_ALLOW_LIVE": "false"
+  },
+  "credentialsStored": "local private file only; no credentials in report or server configuration",
+  "operationsCreated": {
+    "payments": 0,
+    "refunds": 0,
+    "fiscalDocuments": 0,
+    "orders": 0,
+    "mailMessages": 0
+  },
+  "passed": true,
+  "limitations": [
+    "Account configuration verified; no actual receipt registration or delivery tested",
+    "No working keys copied into server env; no live operations enabled",
+    "Webhook settings in merchant dashboard were not checked"
+  ]
+}

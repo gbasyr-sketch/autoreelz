@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "carouselReady": true,
+      "h1": "AUTO REELZ — детали автомобильного интерьера и готовые комплекты",
+      "noindex": "noindex,follow",
+      "path": "/",
+      "scrollWidth": 1440,
+      "width": 1440
+    },
+    {
+      "path": "/catalog",
+      "scrollWidth": 375,
+      "visibleImages": [
+        {
+          "currentSrc": "https://autoreelz.ru/media/13e8ba95-8503-4393-8dc5-34383b307a22?w=320",
+          "loaded": true
+        },
+        {
+          "currentSrc": "https://autoreelz.ru/media/59277722-ded0-4390-b5e0-0acbe0f665af?w=320",
+          "loaded": true
+        }
+      ],
+      "width": 375
+    },
+    {
+      "mainImage": [
+        {
+          "currentSrc": "https://autoreelz.ru/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=480",
+          "loaded": true
+        }
+      ],
+      "path": "/product/blok-otopitelya-granta-i-kalina-s-podsvetkoy-teplo-sverhu",
+      "scrollWidth": 375,
+      "width": 375
+    },
+    {
+      "originalLoaded": true,
+      "originalSources": [
+        "/media/74f1033c-8ab5-4e87-8bc0-1e3b11f6a7aa"
+      ],
+      "path": "/product/blok-otopitelya-granta-i-kalina-s-podsvetkoy-teplo-sverhu",
+      "zoomOpened": true
+    },
+    {
+      "emptyCart": true,
+      "path": "/cart",
+      "scrollWidth": 375,
+      "testModeNotice": true,
+      "width": 375
+    },
+    {
+      "path": "/cart",
+      "cookiesDialogShowsAnalyticsDisabled": true
+    },
+    {
+      "editorScript": [
+        "https://autoreelz.ru/_astro/edit.astro_astro_type_script_index_0_lang.B6QAXt1r.js"
+      ],
+      "loginVisible": true,
+      "path": "/manager/content/edit",
+      "scrollWidth": 375,
+      "width": 375
+    }
+  ],
+  "ordersCreated": 0,
+  "paymentsCreated": 0,
+  "consoleDiagnostics": {
+    "count": 2,
+    "messages": [
+      "Quill: alt is not a separately registered format",
+      "Quill: width is not a separately registered format"
+    ],
+    "preExistingConfiguration": true,
+    "functionalRegressionObserved": false,
+    "followup": "B23"
+  }
+}

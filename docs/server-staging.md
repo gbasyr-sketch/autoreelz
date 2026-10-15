@@ -232,3 +232,11 @@ NL-шлюз обновлён с точечной копией предыдуще
 По отдельному поручению выпущен6ff750c, применена только033 после читаемого DB-only backup.30HTTP,302 /orders→/account, JS/встроенный CSS и read-only workspace6заказов/права приложения подтверждены без реальных приёмок и складских операций. Журнал пуст, прежние данные/env/cutoff и БД/CMS/edge/background сохранены. Все001–033 checksums совпали; web/worker/image-worker используют один образ. [Итог/backup/env-backup](../artifacts/return-intake/deployment/final.json), [контракт](return-intake.md). Режимы остаются sandbox/disabled-чеки/staging/noindex/test-СДЭК.
 
 Журнал append-only и приход атомарны; после отката кода нельзя сбрасывать on_hand/историю или повторять приход вручную. Старый интерфейс не показывает033, новая обработка должна учитывать журнал. Сохранять совместимость с031/032 и все применённые001–033, не откатывать БД целиком.
+
+## Зависимости безопасности опубликованы15.10.2026
+
+По отдельному поручению включёнba4029c0366f9cb17a0dd744da71295dd7883e48, проверенный образsha256:4d62589a42455d2e73e689cdc4a4a411bf7abe600bc13b4241196bf0fb9bb2b3. В момент этого переключения прежний app6ff750c/001–033 сохранён как совместимый откат; миграций/SQL данных не было. Перед переключением — читаемый DB-only backup и копия env0600. Заменён только RELEASE_IMAGE, перезапущены только web/worker/image-worker. Runtime-env кроме APP_REVISION,69 защищённых таблиц и БД/CMS/edge/background сохранены. [Итог/backup/env-backup](../artifacts/dependency-security/deployment/final.json), [контракт](dependency-security.md).
+
+42HTTP, публичный Chromium1440/375, SHA256 JS редактора/приёмки, read-only6заказов/права033 и WebP прошли. Web/worker healthy; yookassa-sandbox/чеки disabled/staging/noindex/test-СДЭК/SMTP all-new/cutoff и пароль только worker прежние. Новый платёж/заказ/письмо/приёмка не создавались.
+
+Затем параллельно опубликован67c1d92 с034, который включаетba4029c. На итоговой версии повторены42HTTP и read-only проверки пакетов/режимов/SHA256 JS — [результат](../artifacts/dependency-security/deployment/successor.json). После034 нельзя механически возвращать старую схему/образ: совместимость отката проверять заново, историю/данные/env сохранять.

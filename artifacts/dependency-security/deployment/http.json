@@ -1,0 +1,1414 @@
+{
+  "checkedAt": "2026-10-15T12:14:15.576643+00:00",
+  "targetSha": "ba4029c0366f9cb17a0dd744da71295dd7883e48",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Детали автомобильного интерьера · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Детали автомобильного интерьера AUTO REELZ: консоли, блоки отопителя, воздуховоды, рамки под магнитолы и готовые комплекты. Выбор исполнения и проверка совместимости с автомобилем.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Детали автомобильного интерьера · AUTO REELZ",
+        "og:description": "Детали автомобильного интерьера AUTO REELZ: консоли, блоки отопителя, воздуховоды, рамки под магнитолы и готовые комплекты. Выбор исполнения и проверка совместимости с автомобилем.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/",
+        "og:image": "https://autoreelz.ru/images/social-default.jpg",
+        "og:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Детали автомобильного интерьера · AUTO REELZ",
+        "twitter:description": "Детали автомобильного интерьера AUTO REELZ: консоли, блоки отопителя, воздуховоды, рамки под магнитолы и готовые комплекты. Выбор исполнения и проверка совместимости с автомобилем.",
+        "twitter:image": "https://autoreelz.ru/images/social-default.jpg",
+        "twitter:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "csrf-token": "IO0EP-wWjaqa4rSdgZPsKbSCn5g01IKGVyznwXU6cMM",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/images/placeholder-kit.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/media/13e8ba95-8503-4393-8dc5-34383b307a22",
+          "srcset": "/media/13e8ba95-8503-4393-8dc5-34383b307a22?w=160 160w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=320 320w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=480 480w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=640 640w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=960 960w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=1280 1280w",
+          "sizes": "(max-width: 700px) 90vw, 600px"
+        },
+        {
+          "src": "/media/bad3073e-c59d-4c6a-a11a-5815be1b49dc",
+          "srcset": "/media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=160 160w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=320 320w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=480 480w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=640 640w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=960 960w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=1280 1280w",
+          "sizes": "(max-width: 600px) 45vw, 320px"
+        },
+        {
+          "src": "/media/13e8ba95-8503-4393-8dc5-34383b307a22",
+          "srcset": "/media/13e8ba95-8503-4393-8dc5-34383b307a22?w=160 160w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=320 320w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=480 480w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=640 640w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=960 960w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=1280 1280w",
+          "sizes": "(max-width: 600px) 45vw, 320px"
+        },
+        {
+          "src": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f",
+          "srcset": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=160 160w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=320 320w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=480 480w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=640 640w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=960 960w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=1280 1280w",
+          "sizes": "(max-width: 600px) 45vw, 320px"
+        },
+        {
+          "src": "/media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737",
+          "srcset": "/media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=160 160w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=320 320w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=480 480w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=640 640w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=960 960w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=1280 1280w",
+          "sizes": "(max-width: 600px) 45vw, 320px"
+        },
+        {
+          "src": "/media/59277722-ded0-4390-b5e0-0acbe0f665af",
+          "srcset": "/media/59277722-ded0-4390-b5e0-0acbe0f665af?w=160 160w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=320 320w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=480 480w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=640 640w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=960 960w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=1280 1280w",
+          "sizes": "(max-width: 600px) 45vw, 320px"
+        },
+        {
+          "src": "/media/b1623cae-dd4f-4cb9-943c-25511cab8c3f",
+          "srcset": "/media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=160 160w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=320 320w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=480 480w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=640 640w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=960 960w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=1280 1280w",
+          "sizes": "(max-width: 600px) 45vw, 320px"
+        },
+        {
+          "src": "/media/13e8ba95-8503-4393-8dc5-34383b307a22",
+          "srcset": "/media/13e8ba95-8503-4393-8dc5-34383b307a22?w=160 160w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=320 320w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=480 480w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=640 640w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=960 960w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/59277722-ded0-4390-b5e0-0acbe0f665af",
+          "srcset": "/media/59277722-ded0-4390-b5e0-0acbe0f665af?w=160 160w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=320 320w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=480 480w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=640 640w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=960 960w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/bad3073e-c59d-4c6a-a11a-5815be1b49dc",
+          "srcset": "/media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=160 160w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=320 320w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=480 480w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=640 640w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=960 960w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/b1623cae-dd4f-4cb9-943c-25511cab8c3f",
+          "srcset": "/media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=160 160w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=320 320w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=480 480w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=640 640w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=960 960w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/245a9f0c-57c9-4906-8bf9-d157b43d185c",
+          "srcset": "/media/245a9f0c-57c9-4906-8bf9-d157b43d185c?w=160 160w, /media/245a9f0c-57c9-4906-8bf9-d157b43d185c?w=320 320w, /media/245a9f0c-57c9-4906-8bf9-d157b43d185c?w=480 480w, /media/245a9f0c-57c9-4906-8bf9-d157b43d185c?w=640 640w, /media/245a9f0c-57c9-4906-8bf9-d157b43d185c?w=960 960w, /media/245a9f0c-57c9-4906-8bf9-d157b43d185c?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f",
+          "srcset": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=160 160w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=320 320w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=480 480w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=640 640w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=960 960w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737",
+          "srcset": "/media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=160 160w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=320 320w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=480 480w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=640 640w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=960 960w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/94a6993f-c13e-4c89-bdd6-7245066ab697",
+          "srcset": "/media/94a6993f-c13e-4c89-bdd6-7245066ab697?w=160 160w, /media/94a6993f-c13e-4c89-bdd6-7245066ab697?w=320 320w, /media/94a6993f-c13e-4c89-bdd6-7245066ab697?w=480 480w, /media/94a6993f-c13e-4c89-bdd6-7245066ab697?w=640 640w, /media/94a6993f-c13e-4c89-bdd6-7245066ab697?w=960 960w, /media/94a6993f-c13e-4c89-bdd6-7245066ab697?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/brand/logo-inverse.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/images/home-about-heater.webp",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/media/40821287-4a46-5286-adbf-2642a0d3943c",
+          "srcset": "/media/40821287-4a46-5286-adbf-2642a0d3943c?w=160 160w, /media/40821287-4a46-5286-adbf-2642a0d3943c?w=320 320w, /media/40821287-4a46-5286-adbf-2642a0d3943c?w=480 480w, /media/40821287-4a46-5286-adbf-2642a0d3943c?w=640 640w, /media/40821287-4a46-5286-adbf-2642a0d3943c?w=960 960w, /media/40821287-4a46-5286-adbf-2642a0d3943c?w=1280 1280w",
+          "sizes": "(max-width: 600px) 85vw, 400px"
+        },
+        {
+          "src": "/media/c0903a97-beca-5f5d-a92d-d8ecba138a79",
+          "srcset": "/media/c0903a97-beca-5f5d-a92d-d8ecba138a79?w=160 160w, /media/c0903a97-beca-5f5d-a92d-d8ecba138a79?w=320 320w, /media/c0903a97-beca-5f5d-a92d-d8ecba138a79?w=480 480w, /media/c0903a97-beca-5f5d-a92d-d8ecba138a79?w=640 640w, /media/c0903a97-beca-5f5d-a92d-d8ecba138a79?w=960 960w, /media/c0903a97-beca-5f5d-a92d-d8ecba138a79?w=1280 1280w",
+          "sizes": "(max-width: 600px) 85vw, 400px"
+        },
+        {
+          "src": "/media/a2b8706a-aa75-41de-a9cf-5dfa4d763315",
+          "srcset": "/media/a2b8706a-aa75-41de-a9cf-5dfa4d763315?w=160 160w, /media/a2b8706a-aa75-41de-a9cf-5dfa4d763315?w=320 320w, /media/a2b8706a-aa75-41de-a9cf-5dfa4d763315?w=480 480w, /media/a2b8706a-aa75-41de-a9cf-5dfa4d763315?w=640 640w, /media/a2b8706a-aa75-41de-a9cf-5dfa4d763315?w=960 960w, /media/a2b8706a-aa75-41de-a9cf-5dfa4d763315?w=1280 1280w",
+          "sizes": "(max-width: 600px) 85vw, 400px"
+        },
+        {
+          "src": "/media/7440efa0-9168-5dc4-a906-01355d96c25c",
+          "srcset": "/media/7440efa0-9168-5dc4-a906-01355d96c25c?w=160 160w, /media/7440efa0-9168-5dc4-a906-01355d96c25c?w=320 320w, /media/7440efa0-9168-5dc4-a906-01355d96c25c?w=480 480w, /media/7440efa0-9168-5dc4-a906-01355d96c25c?w=640 640w, /media/7440efa0-9168-5dc4-a906-01355d96c25c?w=960 960w, /media/7440efa0-9168-5dc4-a906-01355d96c25c?w=1280 1280w",
+          "sizes": "(max-width: 600px) 85vw, 400px"
+        },
+        {
+          "src": "/media/90975b1f-b421-52f1-a583-cadd4845fffa",
+          "srcset": "/media/90975b1f-b421-52f1-a583-cadd4845fffa?w=160 160w, /media/90975b1f-b421-52f1-a583-cadd4845fffa?w=320 320w, /media/90975b1f-b421-52f1-a583-cadd4845fffa?w=480 480w, /media/90975b1f-b421-52f1-a583-cadd4845fffa?w=640 640w, /media/90975b1f-b421-52f1-a583-cadd4845fffa?w=960 960w, /media/90975b1f-b421-52f1-a583-cadd4845fffa?w=1280 1280w",
+          "sizes": "(max-width: 600px) 85vw, 400px"
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ],
+      "noindexBoth": true,
+      "social": true,
+      "responsive": true
+    },
+    {
+      "path": "/health",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "revision": "ba4029c0366f9cb17a0dd744da71295dd7883e48"
+    },
+    {
+      "path": "/catalog",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Каталог деталей · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Каталог AUTO REELZ: детали интерьера и готовые комплекты. Подбор, фильтры и варианты исполнения.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Каталог деталей · AUTO REELZ",
+        "og:description": "Каталог AUTO REELZ: детали интерьера и готовые комплекты. Подбор, фильтры и варианты исполнения.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/catalog",
+        "og:image": "https://autoreelz.ru/images/social-default.jpg",
+        "og:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Каталог деталей · AUTO REELZ",
+        "twitter:description": "Каталог AUTO REELZ: детали интерьера и готовые комплекты. Подбор, фильтры и варианты исполнения.",
+        "twitter:image": "https://autoreelz.ru/images/social-default.jpg",
+        "twitter:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "csrf-token": "Q4YLlaAS7XVS8Tn6GVbL8zMkrW4H-f9Iw8CYZEWro6I",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/media/13e8ba95-8503-4393-8dc5-34383b307a22",
+          "srcset": "/media/13e8ba95-8503-4393-8dc5-34383b307a22?w=160 160w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=320 320w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=480 480w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=640 640w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=960 960w, /media/13e8ba95-8503-4393-8dc5-34383b307a22?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/59277722-ded0-4390-b5e0-0acbe0f665af",
+          "srcset": "/media/59277722-ded0-4390-b5e0-0acbe0f665af?w=160 160w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=320 320w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=480 480w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=640 640w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=960 960w, /media/59277722-ded0-4390-b5e0-0acbe0f665af?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/bad3073e-c59d-4c6a-a11a-5815be1b49dc",
+          "srcset": "/media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=160 160w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=320 320w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=480 480w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=640 640w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=960 960w, /media/bad3073e-c59d-4c6a-a11a-5815be1b49dc?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/94a6993f-c13e-4c89-bdd6-7245066ab697",
+          "srcset": "/media/94a6993f-c13e-4c89-bdd6-7245066ab697?w=160 160w, /media/94a6993f-c13e-4c89-bdd6-7245066ab697?w=320 320w, /media/94a6993f-c13e-4c89-bdd6-7245066ab697?w=480 480w, /media/94a6993f-c13e-4c89-bdd6-7245066ab697?w=640 640w, /media/94a6993f-c13e-4c89-bdd6-7245066ab697?w=960 960w, /media/94a6993f-c13e-4c89-bdd6-7245066ab697?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/a51331e0-2556-4895-b168-7905f854bc82",
+          "srcset": "/media/a51331e0-2556-4895-b168-7905f854bc82?w=160 160w, /media/a51331e0-2556-4895-b168-7905f854bc82?w=320 320w, /media/a51331e0-2556-4895-b168-7905f854bc82?w=480 480w, /media/a51331e0-2556-4895-b168-7905f854bc82?w=640 640w, /media/a51331e0-2556-4895-b168-7905f854bc82?w=960 960w, /media/a51331e0-2556-4895-b168-7905f854bc82?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/b1623cae-dd4f-4cb9-943c-25511cab8c3f",
+          "srcset": "/media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=160 160w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=320 320w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=480 480w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=640 640w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=960 960w, /media/b1623cae-dd4f-4cb9-943c-25511cab8c3f?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/e24ae2b9-5efa-4196-84d0-86bc33eeddb2",
+          "srcset": "/media/e24ae2b9-5efa-4196-84d0-86bc33eeddb2?w=160 160w, /media/e24ae2b9-5efa-4196-84d0-86bc33eeddb2?w=320 320w, /media/e24ae2b9-5efa-4196-84d0-86bc33eeddb2?w=480 480w, /media/e24ae2b9-5efa-4196-84d0-86bc33eeddb2?w=640 640w, /media/e24ae2b9-5efa-4196-84d0-86bc33eeddb2?w=960 960w, /media/e24ae2b9-5efa-4196-84d0-86bc33eeddb2?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/4c197fed-d1bd-4a44-8c0c-c18e67250142",
+          "srcset": "/media/4c197fed-d1bd-4a44-8c0c-c18e67250142?w=160 160w, /media/4c197fed-d1bd-4a44-8c0c-c18e67250142?w=320 320w, /media/4c197fed-d1bd-4a44-8c0c-c18e67250142?w=480 480w, /media/4c197fed-d1bd-4a44-8c0c-c18e67250142?w=640 640w, /media/4c197fed-d1bd-4a44-8c0c-c18e67250142?w=960 960w, /media/4c197fed-d1bd-4a44-8c0c-c18e67250142?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/3a9d6b43-8465-4a77-9204-d670ef4feee7",
+          "srcset": "/media/3a9d6b43-8465-4a77-9204-d670ef4feee7?w=160 160w, /media/3a9d6b43-8465-4a77-9204-d670ef4feee7?w=320 320w, /media/3a9d6b43-8465-4a77-9204-d670ef4feee7?w=480 480w, /media/3a9d6b43-8465-4a77-9204-d670ef4feee7?w=640 640w, /media/3a9d6b43-8465-4a77-9204-d670ef4feee7?w=960 960w, /media/3a9d6b43-8465-4a77-9204-d670ef4feee7?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/b4a3de64-7408-48ad-8a41-1416024aceda",
+          "srcset": "/media/b4a3de64-7408-48ad-8a41-1416024aceda?w=160 160w, /media/b4a3de64-7408-48ad-8a41-1416024aceda?w=320 320w, /media/b4a3de64-7408-48ad-8a41-1416024aceda?w=480 480w, /media/b4a3de64-7408-48ad-8a41-1416024aceda?w=640 640w, /media/b4a3de64-7408-48ad-8a41-1416024aceda?w=960 960w, /media/b4a3de64-7408-48ad-8a41-1416024aceda?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/245a9f0c-57c9-4906-8bf9-d157b43d185c",
+          "srcset": "/media/245a9f0c-57c9-4906-8bf9-d157b43d185c?w=160 160w, /media/245a9f0c-57c9-4906-8bf9-d157b43d185c?w=320 320w, /media/245a9f0c-57c9-4906-8bf9-d157b43d185c?w=480 480w, /media/245a9f0c-57c9-4906-8bf9-d157b43d185c?w=640 640w, /media/245a9f0c-57c9-4906-8bf9-d157b43d185c?w=960 960w, /media/245a9f0c-57c9-4906-8bf9-d157b43d185c?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/6675e74a-f914-4b0c-a144-ec96cad0ef7e",
+          "srcset": "/media/6675e74a-f914-4b0c-a144-ec96cad0ef7e?w=160 160w, /media/6675e74a-f914-4b0c-a144-ec96cad0ef7e?w=320 320w, /media/6675e74a-f914-4b0c-a144-ec96cad0ef7e?w=480 480w, /media/6675e74a-f914-4b0c-a144-ec96cad0ef7e?w=640 640w, /media/6675e74a-f914-4b0c-a144-ec96cad0ef7e?w=960 960w, /media/6675e74a-f914-4b0c-a144-ec96cad0ef7e?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ],
+      "noindexBoth": true,
+      "social": true,
+      "responsive": true
+    },
+    {
+      "path": "/catalog?page=2",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Каталог деталей · AUTO REELZ — страница 2",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Каталог AUTO REELZ: детали интерьера и готовые комплекты. Подбор, фильтры и варианты исполнения. Страница 2.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Каталог деталей · AUTO REELZ — страница 2",
+        "og:description": "Каталог AUTO REELZ: детали интерьера и готовые комплекты. Подбор, фильтры и варианты исполнения. Страница 2.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/catalog?page=2",
+        "og:image": "https://autoreelz.ru/images/social-default.jpg",
+        "og:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Каталог деталей · AUTO REELZ — страница 2",
+        "twitter:description": "Каталог AUTO REELZ: детали интерьера и готовые комплекты. Подбор, фильтры и варианты исполнения. Страница 2.",
+        "twitter:image": "https://autoreelz.ru/images/social-default.jpg",
+        "twitter:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "csrf-token": "A40fwEsZZQnELZB9aE1s_Y62rKfOKP_rpZiuNy0GGg4",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/media/fa60f826-1b65-404b-b2b4-7e002ac531d1",
+          "srcset": "/media/fa60f826-1b65-404b-b2b4-7e002ac531d1?w=160 160w, /media/fa60f826-1b65-404b-b2b4-7e002ac531d1?w=320 320w, /media/fa60f826-1b65-404b-b2b4-7e002ac531d1?w=480 480w, /media/fa60f826-1b65-404b-b2b4-7e002ac531d1?w=640 640w, /media/fa60f826-1b65-404b-b2b4-7e002ac531d1?w=960 960w, /media/fa60f826-1b65-404b-b2b4-7e002ac531d1?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/2bebea16-6028-4fd0-a65d-6e5ced63f06e",
+          "srcset": "/media/2bebea16-6028-4fd0-a65d-6e5ced63f06e?w=160 160w, /media/2bebea16-6028-4fd0-a65d-6e5ced63f06e?w=320 320w, /media/2bebea16-6028-4fd0-a65d-6e5ced63f06e?w=480 480w, /media/2bebea16-6028-4fd0-a65d-6e5ced63f06e?w=640 640w, /media/2bebea16-6028-4fd0-a65d-6e5ced63f06e?w=960 960w, /media/2bebea16-6028-4fd0-a65d-6e5ced63f06e?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/2187bbd2-aae4-455f-af45-b9c0e11d8b27",
+          "srcset": "/media/2187bbd2-aae4-455f-af45-b9c0e11d8b27?w=160 160w, /media/2187bbd2-aae4-455f-af45-b9c0e11d8b27?w=320 320w, /media/2187bbd2-aae4-455f-af45-b9c0e11d8b27?w=480 480w, /media/2187bbd2-aae4-455f-af45-b9c0e11d8b27?w=640 640w, /media/2187bbd2-aae4-455f-af45-b9c0e11d8b27?w=960 960w, /media/2187bbd2-aae4-455f-af45-b9c0e11d8b27?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/2f72773c-9a9a-4ba1-bf93-b44d7ec1364e",
+          "srcset": "/media/2f72773c-9a9a-4ba1-bf93-b44d7ec1364e?w=160 160w, /media/2f72773c-9a9a-4ba1-bf93-b44d7ec1364e?w=320 320w, /media/2f72773c-9a9a-4ba1-bf93-b44d7ec1364e?w=480 480w, /media/2f72773c-9a9a-4ba1-bf93-b44d7ec1364e?w=640 640w, /media/2f72773c-9a9a-4ba1-bf93-b44d7ec1364e?w=960 960w, /media/2f72773c-9a9a-4ba1-bf93-b44d7ec1364e?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/5700411b-dbdf-4da3-be93-9d13bf971889",
+          "srcset": "/media/5700411b-dbdf-4da3-be93-9d13bf971889?w=160 160w, /media/5700411b-dbdf-4da3-be93-9d13bf971889?w=320 320w, /media/5700411b-dbdf-4da3-be93-9d13bf971889?w=480 480w, /media/5700411b-dbdf-4da3-be93-9d13bf971889?w=640 640w, /media/5700411b-dbdf-4da3-be93-9d13bf971889?w=960 960w, /media/5700411b-dbdf-4da3-be93-9d13bf971889?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/2568397f-835c-4458-ab04-138096875bc1",
+          "srcset": "/media/2568397f-835c-4458-ab04-138096875bc1?w=160 160w, /media/2568397f-835c-4458-ab04-138096875bc1?w=320 320w, /media/2568397f-835c-4458-ab04-138096875bc1?w=480 480w, /media/2568397f-835c-4458-ab04-138096875bc1?w=640 640w, /media/2568397f-835c-4458-ab04-138096875bc1?w=960 960w, /media/2568397f-835c-4458-ab04-138096875bc1?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/257cfb4f-cf6f-4d17-88f5-eefecc49899d",
+          "srcset": "/media/257cfb4f-cf6f-4d17-88f5-eefecc49899d?w=160 160w, /media/257cfb4f-cf6f-4d17-88f5-eefecc49899d?w=320 320w, /media/257cfb4f-cf6f-4d17-88f5-eefecc49899d?w=480 480w, /media/257cfb4f-cf6f-4d17-88f5-eefecc49899d?w=640 640w, /media/257cfb4f-cf6f-4d17-88f5-eefecc49899d?w=960 960w, /media/257cfb4f-cf6f-4d17-88f5-eefecc49899d?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/6dee071b-2702-4734-941e-2db380045589",
+          "srcset": "/media/6dee071b-2702-4734-941e-2db380045589?w=160 160w, /media/6dee071b-2702-4734-941e-2db380045589?w=320 320w, /media/6dee071b-2702-4734-941e-2db380045589?w=480 480w, /media/6dee071b-2702-4734-941e-2db380045589?w=640 640w, /media/6dee071b-2702-4734-941e-2db380045589?w=960 960w, /media/6dee071b-2702-4734-941e-2db380045589?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f",
+          "srcset": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=160 160w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=320 320w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=480 480w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=640 640w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=960 960w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737",
+          "srcset": "/media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=160 160w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=320 320w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=480 480w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=640 640w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=960 960w, /media/b271eb8b-a8b0-47dd-acfc-3c3ddb038737?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/a3806329-c491-4854-b9cb-bee796f4f852",
+          "srcset": "/media/a3806329-c491-4854-b9cb-bee796f4f852?w=160 160w, /media/a3806329-c491-4854-b9cb-bee796f4f852?w=320 320w, /media/a3806329-c491-4854-b9cb-bee796f4f852?w=480 480w, /media/a3806329-c491-4854-b9cb-bee796f4f852?w=640 640w, /media/a3806329-c491-4854-b9cb-bee796f4f852?w=960 960w, /media/a3806329-c491-4854-b9cb-bee796f4f852?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27",
+          "srcset": "/media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27?w=160 160w, /media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27?w=320 320w, /media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27?w=480 480w, /media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27?w=640 640w, /media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27?w=960 960w, /media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ],
+      "noindexBoth": true,
+      "social": true,
+      "responsive": true
+    },
+    {
+      "path": "/product/blok-otopitelya-granta-i-kalina-s-podsvetkoy-teplo-sverhu",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Блок отопителя Гранта и Калина с подсветкой — тепло сверху",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Блок отопителя Гранта и Калина с подсветкой — тепло сверху. Исполнения с зелёной, синей, белой и красной подсветкой; для Lada GRANTA и KALINA.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Блок отопителя Гранта и Калина с подсветкой — тепло сверху",
+        "og:description": "Блок отопителя Гранта и Калина с подсветкой — тепло сверху. Исполнения с зелёной, синей, белой и красной подсветкой; для Lada GRANTA и KALINA.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/product/blok-otopitelya-granta-i-kalina-s-podsvetkoy-teplo-sverhu",
+        "og:image": "https://autoreelz.ru/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f",
+        "og:image:alt": "Блок отопителя Гранта и Калина с подсветкой — тепло сверху",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Блок отопителя Гранта и Калина с подсветкой — тепло сверху",
+        "twitter:description": "Блок отопителя Гранта и Калина с подсветкой — тепло сверху. Исполнения с зелёной, синей, белой и красной подсветкой; для Lada GRANTA и KALINA.",
+        "twitter:image": "https://autoreelz.ru/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f",
+        "twitter:image:alt": "Блок отопителя Гранта и Калина с подсветкой — тепло сверху",
+        "csrf-token": "2BCMSbXtmpLv2hH_9lOLHtrXlNon4j-cillupgIlA4U",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f",
+          "srcset": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=160 160w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=320 320w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=480 480w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=640 640w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=960 960w, /media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=1280 1280w",
+          "sizes": "(max-width: 1000px) calc(100vw - 32px), 640px"
+        },
+        {
+          "src": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f",
+          "srcset": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=160 160w",
+          "sizes": "64px"
+        },
+        {
+          "src": "/media/74f1033c-8ab5-4e87-8bc0-1e3b11f6a7aa",
+          "srcset": "/media/74f1033c-8ab5-4e87-8bc0-1e3b11f6a7aa?w=160 160w",
+          "sizes": "64px"
+        },
+        {
+          "src": "/media/61702159-67c1-5d10-a6c5-83420675a601",
+          "srcset": "/media/61702159-67c1-5d10-a6c5-83420675a601?w=160 160w",
+          "sizes": "64px"
+        },
+        {
+          "src": "/media/dd128d7d-efe4-53e4-ab73-d094ef80017a",
+          "srcset": "/media/dd128d7d-efe4-53e4-ab73-d094ef80017a?w=160 160w",
+          "sizes": "64px"
+        },
+        {
+          "src": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f",
+          "srcset": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=160 160w",
+          "sizes": "64px"
+        },
+        {
+          "src": "/media/74f1033c-8ab5-4e87-8bc0-1e3b11f6a7aa",
+          "srcset": "/media/74f1033c-8ab5-4e87-8bc0-1e3b11f6a7aa?w=160 160w",
+          "sizes": "64px"
+        },
+        {
+          "src": "/media/61702159-67c1-5d10-a6c5-83420675a601",
+          "srcset": "/media/61702159-67c1-5d10-a6c5-83420675a601?w=160 160w",
+          "sizes": "64px"
+        },
+        {
+          "src": "/media/dd128d7d-efe4-53e4-ab73-d094ef80017a",
+          "srcset": "/media/dd128d7d-efe4-53e4-ab73-d094ef80017a?w=160 160w",
+          "sizes": "64px"
+        },
+        {
+          "src": "/media/49a572f9-d1a2-44c8-965f-0d3f6f99b179",
+          "srcset": "/media/49a572f9-d1a2-44c8-965f-0d3f6f99b179?w=160 160w, /media/49a572f9-d1a2-44c8-965f-0d3f6f99b179?w=320 320w, /media/49a572f9-d1a2-44c8-965f-0d3f6f99b179?w=480 480w, /media/49a572f9-d1a2-44c8-965f-0d3f6f99b179?w=640 640w, /media/49a572f9-d1a2-44c8-965f-0d3f6f99b179?w=960 960w, /media/49a572f9-d1a2-44c8-965f-0d3f6f99b179?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27",
+          "srcset": "/media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27?w=160 160w, /media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27?w=320 320w, /media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27?w=480 480w, /media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27?w=640 640w, /media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27?w=960 960w, /media/3f8432a8-9d0b-4aca-81a7-6f1c96fbaf27?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/44937d05-3585-4935-b6c9-922312193128",
+          "srcset": "/media/44937d05-3585-4935-b6c9-922312193128?w=160 160w, /media/44937d05-3585-4935-b6c9-922312193128?w=320 320w, /media/44937d05-3585-4935-b6c9-922312193128?w=480 480w, /media/44937d05-3585-4935-b6c9-922312193128?w=640 640w, /media/44937d05-3585-4935-b6c9-922312193128?w=960 960w, /media/44937d05-3585-4935-b6c9-922312193128?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": "/media/95d06d01-cb8b-4692-b584-d5c035c04ac0",
+          "srcset": "/media/95d06d01-cb8b-4692-b584-d5c035c04ac0?w=160 160w, /media/95d06d01-cb8b-4692-b584-d5c035c04ac0?w=320 320w, /media/95d06d01-cb8b-4692-b584-d5c035c04ac0?w=480 480w, /media/95d06d01-cb8b-4692-b584-d5c035c04ac0?w=640 640w, /media/95d06d01-cb8b-4692-b584-d5c035c04ac0?w=960 960w, /media/95d06d01-cb8b-4692-b584-d5c035c04ac0?w=1280 1280w",
+          "sizes": "(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px"
+        },
+        {
+          "src": null,
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/Reviews.astro_astro_type_script_index_0_lang.gSkeBg2B.js",
+        "/_astro/_slug_.astro_astro_type_script_index_0_lang.BPErdxME.js",
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ],
+      "noindexBoth": true,
+      "social": true,
+      "responsive": true
+    },
+    {
+      "path": "/blog/obnovlenie-konsoli-priora-plan",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Обновление консоли Приоры: что проверить до покупки деталей · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Совместимость, состав набора и объём работ: краткий план подготовки к изменению центральной части салона.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Обновление консоли Приоры: что проверить до покупки деталей · AUTO REELZ",
+        "og:description": "Совместимость, состав набора и объём работ: краткий план подготовки к изменению центральной части салона.",
+        "og:type": "article",
+        "og:url": "https://autoreelz.ru/blog/obnovlenie-konsoli-priora-plan",
+        "og:image": "https://autoreelz.ru/media/40821287-4a46-5286-adbf-2642a0d3943c",
+        "og:image:alt": "Обновление консоли Приоры: что проверить до покупки деталей",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Обновление консоли Приоры: что проверить до покупки деталей · AUTO REELZ",
+        "twitter:description": "Совместимость, состав набора и объём работ: краткий план подготовки к изменению центральной части салона.",
+        "twitter:image": "https://autoreelz.ru/media/40821287-4a46-5286-adbf-2642a0d3943c",
+        "twitter:image:alt": "Обновление консоли Приоры: что проверить до покупки деталей",
+        "csrf-token": "QCYwCjDTe8Q1GAjoXtoYPAClyIRVERx7aGyssD2xw8c",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/media/40821287-4a46-5286-adbf-2642a0d3943c",
+          "srcset": "/media/40821287-4a46-5286-adbf-2642a0d3943c?w=160 160w, /media/40821287-4a46-5286-adbf-2642a0d3943c?w=320 320w, /media/40821287-4a46-5286-adbf-2642a0d3943c?w=480 480w, /media/40821287-4a46-5286-adbf-2642a0d3943c?w=640 640w, /media/40821287-4a46-5286-adbf-2642a0d3943c?w=960 960w, /media/40821287-4a46-5286-adbf-2642a0d3943c?w=1280 1280w",
+          "sizes": "(max-width: 1000px) 90vw, 960px"
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ],
+      "noindexBoth": true
+    },
+    {
+      "path": "/cart",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Оформление заказа · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "AUTO REELZ: детали автомобильного интерьера.",
+        "csrf-token": "VwQuxcyDhRFB5nCmP6Kqq1FE69MIfzHKaEX1fmqNzys",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/CheckoutPage.astro_astro_type_script_index_0_lang.2_BVCwVQ.js",
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ],
+      "noindexBoth": true
+    },
+    {
+      "path": "/checkout",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Оформление заказа · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "AUTO REELZ: детали автомобильного интерьера.",
+        "csrf-token": "CvWM8J4eN4Digt0oCO2olCvouCCv03xUhqdAw5x9flM",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/CheckoutPage.astro_astro_type_script_index_0_lang.2_BVCwVQ.js",
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ],
+      "noindexBoth": true
+    },
+    {
+      "path": "/account",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Личный кабинет · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "AUTO REELZ: детали автомобильного интерьера.",
+        "csrf-token": "y3XOltmzD3AifSRXTi1GImQw4FqPFv6aHi6-C3F4amM",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/account.astro_astro_type_script_index_0_lang.2_BVCwVQ.js",
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ],
+      "noindexBoth": true
+    },
+    {
+      "path": "/manager/content/edit?kind=page",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Редактор материала · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,nofollow,noarchive",
+        "csrf-token": "lkItXzNUjBLgIg1nk7GXPO5I8SnCf9uTHuDXW9IBCQg"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": null,
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": null,
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/ManagerLogout.astro_astro_type_script_index_0_lang.Cb1_TPM0.js",
+        "/_astro/edit.astro_astro_type_script_index_0_lang.B6QAXt1r.js"
+      ]
+    },
+    {
+      "path": "/api/manager/orders",
+      "status": 401,
+      "expected": 401,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true
+    },
+    {
+      "path": "/api/manager/return-intake?orderId=00000000-0000-4000-8000-000000000001",
+      "status": 401,
+      "expected": 401,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true
+    },
+    {
+      "path": "/api/manager/payment-refunds?orderId=00000000-0000-4000-8000-000000000001",
+      "status": 401,
+      "expected": 401,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true
+    },
+    {
+      "path": "/api/manager/cdek-shipments?orderId=00000000-0000-4000-8000-000000000001",
+      "status": 401,
+      "expected": 401,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true
+    },
+    {
+      "path": "/api/manager/content-editor?kind=page&id=00000000-0000-4000-8000-000000000001",
+      "status": 401,
+      "expected": 401,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true
+    },
+    {
+      "path": "/api/manager/mail-status",
+      "status": 401,
+      "expected": 401,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true
+    },
+    {
+      "path": "/api/privacy",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "analyticsEnabled": false,
+      "counterId": null
+    },
+    {
+      "path": "/cms/users/me",
+      "status": 401,
+      "expected": 401,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": false
+    },
+    {
+      "path": "/muzey/",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": false,
+      "title": "Музей Верховного Суда РД\r\n\r\n",
+      "meta": {
+        "": "text/html;charset=UTF-8",
+        "viewport": "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0",
+        "apple-mobile-web-app-capable": "yes",
+        "apple-mobile-web-app-status-bar-style": "black",
+        "og:title": "Музей Верховного Суда РД\r\n\r\n",
+        "og:description": "Музей Верховного Суда Республики Дагестан\r\n",
+        "mobile-web-app-capable": "yes",
+        "og:image": "preview.jpg"
+      },
+      "images": [],
+      "scripts": [
+        "pano2vr_player.js?ts=42116874",
+        "skin.js?ts=42116874"
+      ]
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "closed": true
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "empty": true
+    },
+    {
+      "path": "/feed.yml",
+      "status": 503,
+      "expected": 503,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true
+    },
+    {
+      "path": "/cookies",
+      "status": 404,
+      "expected": 404,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Страница не найдена · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "AUTO REELZ: детали автомобильного интерьера.",
+        "csrf-token": "kkvMjj2w6nQbqrGNGgf5v_Rw4ToMJr9TgxycLf6HynQ",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ]
+    },
+    {
+      "path": "/release-missing-dependency-security",
+      "status": 404,
+      "expected": 404,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Страница не найдена · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "AUTO REELZ: детали автомобильного интерьера.",
+        "csrf-token": "IwgWKJmeiPDEOTASgtuJvqp1UjDePgkYcBay6JTf2yY",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ]
+    },
+    {
+      "path": "/catalog?page=99999",
+      "status": 404,
+      "expected": 404,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Каталог деталей · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Каталог AUTO REELZ: детали интерьера и готовые комплекты. Подбор, фильтры и варианты исполнения.",
+        "csrf-token": "uC4CTuyy536M96aXaiERsuXXACAv0ktc-5cdFHI7wOE",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ]
+    },
+    {
+      "path": "/google031b679d17a8feda.html",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": false,
+      "title": "",
+      "meta": {},
+      "images": [],
+      "scripts": []
+    },
+    {
+      "path": "/yandex_77486fc3808f1fc9.html",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": false,
+      "title": "",
+      "meta": {
+        "": "text/html; charset=UTF-8"
+      },
+      "images": [],
+      "scripts": []
+    },
+    {
+      "path": "/images/social-default.jpg",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": false
+    },
+    {
+      "path": "/info/contacts",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Контакты",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Способы связи и сведения о продавце готовятся к публикации.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Контакты",
+        "og:description": "Способы связи и сведения о продавце готовятся к публикации.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/info/contacts",
+        "og:image": "https://autoreelz.ru/images/social-default.jpg",
+        "og:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Контакты",
+        "twitter:description": "Способы связи и сведения о продавце готовятся к публикации.",
+        "twitter:image": "https://autoreelz.ru/images/social-default.jpg",
+        "twitter:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "csrf-token": "TlzsT7G-zKzerpa4EKMzZBZEoM0-p1I84tWNXOi8Uhg",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ]
+    },
+    {
+      "path": "/info/delivery",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Доставка и оплата",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Обычный заказ и предзаказ оформляются отдельно. У каждого — свой расчёт доставки.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Доставка и оплата",
+        "og:description": "Обычный заказ и предзаказ оформляются отдельно. У каждого — свой расчёт доставки.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/info/delivery",
+        "og:image": "https://autoreelz.ru/images/social-default.jpg",
+        "og:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Доставка и оплата",
+        "twitter:description": "Обычный заказ и предзаказ оформляются отдельно. У каждого — свой расчёт доставки.",
+        "twitter:image": "https://autoreelz.ru/images/social-default.jpg",
+        "twitter:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "csrf-token": "oEhT_UFYCS3Z3g6WbUkHd7Y1ZFi_g7R2p-RemUKGo6M",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ]
+    },
+    {
+      "path": "/info/returns",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Возврат",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Проект страницы: порядок обращения будет подтверждён до начала продаж.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Возврат",
+        "og:description": "Проект страницы: порядок обращения будет подтверждён до начала продаж.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/info/returns",
+        "og:image": "https://autoreelz.ru/images/social-default.jpg",
+        "og:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Возврат",
+        "twitter:description": "Проект страницы: порядок обращения будет подтверждён до начала продаж.",
+        "twitter:image": "https://autoreelz.ru/images/social-default.jpg",
+        "twitter:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "csrf-token": "65nKCAf1RXWKwslZkr_oMPcOggCY9ewp3QnycpTjZIs",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ]
+    },
+    {
+      "path": "/info/warranty",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Гарантии",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Проект страницы: подтверждённые условия указываются для конкретных товаров.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Гарантии",
+        "og:description": "Проект страницы: подтверждённые условия указываются для конкретных товаров.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/info/warranty",
+        "og:image": "https://autoreelz.ru/images/social-default.jpg",
+        "og:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Гарантии",
+        "twitter:description": "Проект страницы: подтверждённые условия указываются для конкретных товаров.",
+        "twitter:image": "https://autoreelz.ru/images/social-default.jpg",
+        "twitter:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "csrf-token": "cXXbUUecu4pDrzPM8f2fZNrhRr52qUcG9BCkQ4iP1aU",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ]
+    },
+    {
+      "path": "/info/offer",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Публичная оферта · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Условия оформления, оплаты, доставки и возврата покупок в AUTO REELZ.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Публичная оферта · AUTO REELZ",
+        "og:description": "Условия оформления, оплаты, доставки и возврата покупок в AUTO REELZ.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/info/offer",
+        "og:image": "https://autoreelz.ru/images/social-default.jpg",
+        "og:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Публичная оферта · AUTO REELZ",
+        "twitter:description": "Условия оформления, оплаты, доставки и возврата покупок в AUTO REELZ.",
+        "twitter:image": "https://autoreelz.ru/images/social-default.jpg",
+        "twitter:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "csrf-token": "2sebRffFg2cUDNh_81hq9uiseNP2_ACxPlbDIpqGuzA",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ]
+    },
+    {
+      "path": "/info/personal-data",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Политика обработки персональных данных",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Проект документа; требует заполнения и проверки перед началом продаж.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Политика обработки персональных данных",
+        "og:description": "Проект документа; требует заполнения и проверки перед началом продаж.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/info/personal-data",
+        "og:image": "https://autoreelz.ru/images/social-default.jpg",
+        "og:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Политика обработки персональных данных",
+        "twitter:description": "Проект документа; требует заполнения и проверки перед началом продаж.",
+        "twitter:image": "https://autoreelz.ru/images/social-default.jpg",
+        "twitter:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "csrf-token": "Un_RPJaQRCvh210za3Fr8Abrh3qOB4GN13eJOA41hkc",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ]
+    },
+    {
+      "path": "/info/privacy",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Политика конфиденциальности",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Проект политики для подготовки магазина к реальному запуску.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Политика конфиденциальности",
+        "og:description": "Проект политики для подготовки магазина к реальному запуску.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/info/privacy",
+        "og:image": "https://autoreelz.ru/images/social-default.jpg",
+        "og:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Политика конфиденциальности",
+        "twitter:description": "Проект политики для подготовки магазина к реальному запуску.",
+        "twitter:image": "https://autoreelz.ru/images/social-default.jpg",
+        "twitter:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "csrf-token": "wZP__bvpcPCUbSYYEabJ1-Ts2dZzkwemKcKaKs3RM-c",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ],
+      "noindexBoth": true
+    },
+    {
+      "path": "/info/analytics-consent",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Согласие на аналитику · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Отдельное добровольное согласие на использование Яндекс.Метрики.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Согласие на аналитику · AUTO REELZ",
+        "og:description": "Отдельное добровольное согласие на использование Яндекс.Метрики.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/info/analytics-consent",
+        "og:image": "https://autoreelz.ru/images/social-default.jpg",
+        "og:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Согласие на аналитику · AUTO REELZ",
+        "twitter:description": "Отдельное добровольное согласие на использование Яндекс.Метрики.",
+        "twitter:image": "https://autoreelz.ru/images/social-default.jpg",
+        "twitter:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "csrf-token": "g278mGtc2TE9s3Kd00hvBp6JaSHWKFnYW_SAfrIkL-w",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ]
+    },
+    {
+      "path": "/info/review-consent",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "robotsHeader": "noindex, nofollow, noarchive",
+      "noStore": true,
+      "title": "Публикация отзывов · AUTO REELZ",
+      "meta": {
+        "": "",
+        "viewport": "width=device-width,initial-scale=1",
+        "robots": "noindex,follow",
+        "description": "Правила публикации отзывов, фотографий и отдельного согласия автора.",
+        "og:locale": "ru_RU",
+        "og:site_name": "AUTO REELZ",
+        "og:title": "Публикация отзывов · AUTO REELZ",
+        "og:description": "Правила публикации отзывов, фотографий и отдельного согласия автора.",
+        "og:type": "website",
+        "og:url": "https://autoreelz.ru/info/review-consent",
+        "og:image": "https://autoreelz.ru/images/social-default.jpg",
+        "og:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Публикация отзывов · AUTO REELZ",
+        "twitter:description": "Правила публикации отзывов, фотографий и отдельного согласия автора.",
+        "twitter:image": "https://autoreelz.ru/images/social-default.jpg",
+        "twitter:image:alt": "AUTO REELZ — детали автомобильного интерьера",
+        "csrf-token": "_P0uU6N0wQK4__mwvUR8FxgZaKUx6p61f95ptBoEoow",
+        "theme-color": "#CB181A"
+      },
+      "images": [
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        },
+        {
+          "src": "/brand/logo.svg",
+          "srcset": null,
+          "sizes": null
+        }
+      ],
+      "scripts": [
+        "/_astro/PrivacyControls.astro_astro_type_script_index_0_lang.DzjvkNr9.js",
+        "/_astro/StoreLayout.astro_astro_type_script_index_0_lang.vHYImkra.js"
+      ]
+    },
+    {
+      "path": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "bytes": 153484,
+      "sha256": "8561d7c55658423d797ac933ec3d90e3dfc11d04d92e4685aa1ccd2cc3736a53",
+      "contentType": "image/webp"
+    },
+    {
+      "path": "/media/18935cda-c4a8-4f46-a3b9-ba07f6bb083f?w=320",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "bytes": 17524,
+      "sha256": "dcea5c92c28c6a5a8348c85229e50775c480c513dac39aa2cd3b7dfdd890f055",
+      "contentType": "image/webp"
+    },
+    {
+      "url": "https://autoreelz.ru/orders",
+      "status": 302,
+      "location": "/account",
+      "passed": true
+    },
+    {
+      "url": "http://autoreelz.ru/",
+      "status": 301,
+      "location": "https://autoreelz.ru/",
+      "passed": true
+    },
+    {
+      "url": "https://www.autoreelz.ru/",
+      "status": 301,
+      "location": "https://autoreelz.ru/",
+      "passed": true
+    }
+  ],
+  "requestCount": 42,
+  "passed": true,
+  "businessOperationsCreated": 0
+}

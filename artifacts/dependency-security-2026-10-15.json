@@ -3,7 +3,7 @@
   "releaseCandidate": "ba4029c0366f9cb17a0dd744da71295dd7883e48",
   "basedOnPublishedRevision": "6ff750c02bfdce8e929611c095d1215d0d2deeae",
   "imageId": "sha256:4d62589a42455d2e73e689cdc4a4a411bf7abe600bc13b4241196bf0fb9bb2b3",
-  "deployed": false,
+  "deployed": true,
   "migrationsChanged": false,
   "schema": "001-033 retained",
   "configurationChanged": false,
@@ -132,12 +132,13 @@
     "legacy auth integration requires unavailable local Docker",
     "legacy social integration has stale favorites DTO expectation and missing deliveryDeadline; that exploratory run was not successful",
     "no live payments/mail/shipments/AI requests",
-    "public post-deployment smoke awaits separate deployment authorization"
+    "Public verification was read-only; no new payment or order was created"
   ],
   "cleanup": {
     "qaDatabasesDropped": true,
     "previewProcessesStopped": true,
     "isolatedLinuxContainerRemoved": true,
     "managedWorktreeCodeMerged": true
-  }
+  },
+  "deploymentEvidence": "dependency-security/deployment/final.json"
 }

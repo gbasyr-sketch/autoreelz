@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "readOnly": true,
+  "revision": "ba4029c0366f9cb17a0dd744da71295dd7883e48",
+  "config": {
+    "STORE_MODE": "staging",
+    "SEO_INDEXING_ENABLED": "false",
+    "PAYMENT_PROVIDER": "yookassa-sandbox",
+    "YOOKASSA_RECEIPTS_MODE": "disabled",
+    "CDEK_SHIPMENTS_MODE": "test",
+    "CDEK_SHIPMENTS_ALLOW_LIVE": "false",
+    "METRIKA_ENABLED": "false"
+  },
+  "packages": {
+    "sharp": "0.35.5",
+    "http-cache-semantics": "4.3.0",
+    "smol-toml": "1.9.1",
+    "source-map-js": "1.2.2",
+    "quill": "2.0.3"
+  },
+  "rsvg": "2.63.2",
+  "assets": [
+    {
+      "path": "/_astro/edit.astro_astro_type_script_index_0_lang.B6QAXt1r.js",
+      "sha256": "9afa9ade5a8a38ba837eb011c0765f3573f68426602715f586cea26cc9208795"
+    },
+    {
+      "path": "/_astro/return-intake.YMRWg86N.js",
+      "sha256": "3020852dc6afd785117670941fad5a1fe508fbb4ba40c427e4e4df1f91d83cd0"
+    }
+  ],
+  "photo": {
+    "width": 320,
+    "height": 213,
+    "alpha": true,
+    "format": "webp"
+  },
+  "ordersRead": 6,
+  "rights": [
+    {
+      "table": "ar_return_receipts",
+      "read": true,
+      "insert": true,
+      "update": false,
+      "delete": false
+    },
+    {
+      "table": "ar_return_receipt_lines",
+      "read": true,
+      "insert": true,
+      "update": false,
+      "delete": false
+    },
+    {
+      "table": "ar_return_inspections",
+      "read": true,
+      "insert": true,
+      "update": false,
+      "delete": false
+    },
+    {
+      "table": "ar_return_inspection_lines",
+      "read": true,
+      "insert": true,
+      "update": false,
+      "delete": false
+    }
+  ],
+  "externalCalls": 0,
+  "businessOperationsCreated": 0
+}

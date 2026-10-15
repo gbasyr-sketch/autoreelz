@@ -1,0 +1,25 @@
+{
+  "publishedRequestedRevision": "ba4029c0366f9cb17a0dd744da71295dd7883e48",
+  "currentPublishedRevision": "67c1d928c04be6511458c2607e389426fad76d1f",
+  "currentSchema": "001-034",
+  "reason": "Subsequent parallel return-resolution release retains dependency fixes",
+  "dependencyCommitIsAncestor": true,
+  "httpPassed": true,
+  "httpRequests": 42,
+  "runtimePassed": true,
+  "testModeAndNoindexPreserved": true,
+  "assets": [
+    {
+      "path": "/_astro/edit.astro_astro_type_script_index_0_lang.D0MreNMi.js",
+      "status": 200,
+      "matchesCurrentImage": true
+    },
+    {
+      "path": "/_astro/return-intake.BqvemN3d.js",
+      "status": 200,
+      "matchesCurrentImage": true
+    }
+  ],
+  "newBusinessOperationsCreated": 0,
+  "passed": true
+}

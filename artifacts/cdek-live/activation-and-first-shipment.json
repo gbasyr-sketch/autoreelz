@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-15",
+  "appSha": "a92995bd7b51d6dea0071b9b34697f76c74f41fe",
+  "schema": "001-036",
+  "activation": {
+    "passed": true,
+    "changedFields": [
+      "CDEK_SHIPMENTS_MODE",
+      "CDEK_SHIPMENTS_ALLOW_LIVE"
+    ],
+    "onlyWebWorkerRestarted": true,
+    "otherSettingsPreserved": true,
+    "workerHeartbeatAfterRestart": true,
+    "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-cdek-live-20261015T192653Z"
+  },
+  "shipment": {
+    "singleAuthorizedLiveShipment": true,
+    "state": "ready",
+    "carrierStatus": "CREATED",
+    "orderDeliveryStatus": "packing",
+    "providerIdentityAndPayloadVerified": true,
+    "stockUnchanged": true,
+    "pdfReady": true,
+    "pdfPages": 1,
+    "pdfVisuallyVerified": true
+  },
+  "privateEvidence": "private/cdek-live-10011",
+  "passed": true
+}

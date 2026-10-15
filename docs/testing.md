@@ -158,3 +158,7 @@ CMS-наборы `cms-browser`, `content-browser`, `stage6-cms-*`, schema/permis
 ## SMTP Timeweb15.10.2026
 
 `node --test tests/mail.test.ts`, `node tests/mail-database.mjs`: синтетическая PostgreSQL001–029 через native helper, подменённый транспорт, без внешних писем/ключей. Регрессии commerce/management/yookassa запускать с AR_QA_NATIVE=1 и профильными флагами, --test-concurrency=1. Проверка настоящего SMTP verify не отправляет письма; send разрешается отдельно на конкретный адрес, секреты только private/server.env. [Контракт](mail.md).
+
+## HTML-письма15.10.2026
+
+`node --test tests/mail-templates.test.ts`; `node tests/mail-html-database.mjs`; `node tests/mail-database.mjs`. Базы только синтетические native001–030, транспорт подменён. Реальные5 samples только по прямому поручению владельца, через устойчивые ключи без создания заказов/платежей/OTP. MIME и скриншоты в private. [Контракт](mail-html.md).

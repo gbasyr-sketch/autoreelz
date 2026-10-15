@@ -1,4 +1,4 @@
-import {enqueueMail,enqueueOwnerMail,enqueueDeliveryMail} from './mail.ts';
+import {enqueueMail,enqueueOwnerMail,enqueueDeliveryMail,enqueueOrderMail} from './mail.ts';
 import {validDate,moscowDate,PAYMENT_WINDOW_MS} from '../lib/delivery-deadline.ts';
 import {verifyCheckoutConfirmation} from './confirmations.ts';
 import{paymentProvider}from'./payment-policy.ts';
@@ -76,7 +76,7 @@ export async function checkout(session:ShopSession,body:Record<string,unknown>){
    const need=requirements(group.lines);for(const[id,quantity]of need)await c.query('INSERT INTO ar_order_components(order_id,sku_id,quantity) VALUES($1,$2,$3)',[order.id,id,quantity]);
    if(ready)await stockMove(c,order.id,need,`reserve:${order.id}`,0,1,'Резерв обычного заказа');
    await event(c,order.id,'created',ready?'Обычный заказ: резерв и оплата на 30 минут.':ordinary?'Сумма или дата получения уточняются. До согласования товары не резервируются.':'В заказе есть предзаказ: весь состав ожидает подтверждения менеджером, компоненты не резервируются до подтверждения.');
-   await outbox(c,input.customer.email,`AUTO REELZ — заказ ${order.number}`,`Тестовое подтверждение ${order.number}. ${ordinary?'Обычный заказ.':'Предзаказ без немедленной оплаты.'} Откройте «Мои заказы» и войдите по коду на email.`, `order:${order.id}:created`);
+   await enqueueOrderMail(c,order.id,'created',`order:${order.id}:created`);
    orderIds.push(order.id);
   }
   await c.query('DELETE FROM ar_cart_lines WHERE cart_id=$1',[cart.id]);await c.query('UPDATE ar_carts SET version=version+1 WHERE id=$1',[cart.id]);return{orderIds};
@@ -106,7 +106,8 @@ export async function quoteShipping(actor:{id:string},body:Record<string,unknown
    await stockMove(c,id,need,`reserve:${id}`,0,1,'Резерв после согласования доставки',actor.id);
   }
   await c.query("UPDATE ar_orders SET shipping_cost_rubles=$2,shipping_reason=$3,shipping_version=shipping_version+1,delivery_status='quoted',delivery_deadline=$4,status=CASE WHEN kind='ordinary' THEN 'awaiting_payment' ELSE status END,allocation_state=CASE WHEN kind='ordinary' AND allocation_state='none' THEN 'reserved' ELSE allocation_state END,expires_at=CASE WHEN kind='ordinary' THEN now()+interval '30 minutes' ELSE expires_at END WHERE id=$1",[id,cost,note,agreedDeadline]);
-  await event(c,id,'shipping_quoted','Доставка согласована. '+(agreedDeadline?'Получение не позднее '+agreedDeadline+'. ':'')+note,actor.id);return{id};
+  await event(c,id,'shipping_quoted','Доставка согласована. '+(agreedDeadline?'Получение не позднее '+agreedDeadline+'. ':'')+note,actor.id);
+  if(row.kind==='ordinary')await enqueueOrderMail(c,id,'ready',`order:${id}:shipping:${row.shipping_version+1}`);return{id};
  }));
  if('expired'in result&&result.expired)throw new StoreError('EXPIRED','Срок резерва истёк. Покупателю нужно оформить заказ заново.',409);
  return transaction(async c=>toOrder(c,await orderRow(c,id)),false);
@@ -123,7 +124,7 @@ export async function confirmPreorder(actor:{id:string},body:Record<string,unkno
   await stockMove(c,id,need,`confirm:${id}`,-1,0,'Подтверждение предзаказа',actor.id);
   await c.query("UPDATE ar_orders SET allocation_state='debited',status='awaiting_payment',terms=$2,delivery_deadline=$3,shipping_version=shipping_version+1,expires_at=now()+interval '30 minutes' WHERE id=$1",[id,terms,agreedDeadline]);
   await event(c,id,'preorder_confirmed','Менеджер подтвердил срок и условия. Оплата доступна 30 минут. '+(agreedDeadline?'Получение не позднее '+agreedDeadline+'. ':'')+terms,actor.id);
-  await outbox(c,row.customer_email,`AUTO REELZ — предзаказ ${row.number} подтверждён`,`Тестовое письмо. ${terms} Срок оплаты — 30 минут с момента подтверждения. Откройте «Мои заказы».`,`order:${id}:confirmed`);
+  await enqueueOrderMail(c,id,'ready',`order:${id}:confirmed`);
   return{id};
  }));return transaction(async c=>toOrder(c,await orderRow(c,id)),false);
 }

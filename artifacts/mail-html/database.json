@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "isolated": true,
+  "externalCalls": 0,
+  "checks": [
+    "created mail reads checkout snapshot, pending shipping has no payment link",
+    "manual quote sends one ready mail with NEW total/deadline/expiry; created HTML unchanged",
+    "payment settles as before; paid mail is compact and honestly test-only",
+    "shipped event sends tracking HTML; no extra stock movement",
+    "preorder quote alone never requests payment; confirmation uses updated row exactly once"
+  ]
+}

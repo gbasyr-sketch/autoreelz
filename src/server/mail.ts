@@ -1,16 +1,19 @@
+import {appConfig} from './config.ts';
+import {renderOrderMail,type RenderedMail,type OrderMailKind} from './mail-templates.ts';
 import {randomUUID} from 'node:crypto';
 import type {PoolClient} from 'pg';
 import {query,transaction} from './db.ts';
-import {email} from './errors.ts';
+import {email,StoreError} from './errors.ts';
 import {mailProvider,mailRecipientAllowed,ownerMailRecipient,mailMessageIsNew} from './mail-policy.ts';
 import {createTimewebMail,mailError} from './adapters/timeweb-mail.ts';
 
-export async function enqueueMail(c:PoolClient,input:{recipient:string;subject:string;body:string;key:string;kind?:'customer'|'login'|'owner'|'probe';expiresAt?:string;notificationId?:string;challengeId?:string}){
+export async function enqueueMail(c:PoolClient,input:{recipient:string;subject:string;body:string;key:string;kind?:'customer'|'login'|'owner'|'probe';expiresAt?:string;notificationId?:string;challengeId?:string;rendered?:RenderedMail}){
+ if(input.rendered&&(input.subject!==input.rendered.subject||input.body!==input.rendered.body))throw new StoreError('MAIL_TEMPLATE_MISMATCH','Текст и оформление письма не совпадают.',409);
  const recipient=email(input.recipient),provider=mailProvider();
  const blocked=provider==='timeweb-smtp'&&!mailRecipientAllowed(recipient);
- const result=await c.query(`INSERT INTO ar_mail_outbox(recipient,subject,body,deduplication_key,provider,kind,expires_at,notification_id,status,last_error,challenge_id)
- VALUES($1,$2,$3,$4,$5,$6,coalesce($7::timestamptz,now()+interval '1 day'),$8,$9,$10,$11) ON CONFLICT(deduplication_key) DO NOTHING RETURNING id`,
- [recipient,input.subject,input.body,input.key,provider,input.kind??'customer',input.expiresAt??null,input.notificationId??null,blocked?'blocked':'pending',blocked?'MAIL_RECIPIENT_BLOCKED':null,input.challengeId??null]);
+ const result=await c.query(`INSERT INTO ar_mail_outbox(recipient,subject,body,deduplication_key,provider,kind,expires_at,notification_id,status,last_error,challenge_id,html_body,template_version,inline_assets)
+ VALUES($1,$2,$3,$4,$5,$6,coalesce($7::timestamptz,now()+interval '1 day'),$8,$9,$10,$11,$12,$13,$14) ON CONFLICT(deduplication_key) DO NOTHING RETURNING id`,
+ [recipient,input.subject,input.body,input.key,provider,input.kind??'customer',input.expiresAt??null,input.notificationId??null,blocked?'blocked':'pending',blocked?'MAIL_RECIPIENT_BLOCKED':null,input.challengeId??null,input.rendered?.html??null,input.rendered?.version??null,JSON.stringify(input.rendered?.assets??[])]);
  if(blocked&&input.notificationId)await c.query("UPDATE ar_owner_notifications SET status='failed',last_error='Адрес не разрешён для тестовой отправки.' WHERE id=$1",[input.notificationId]);
  return result.rows[0]?.id as string|undefined;
 }
@@ -76,6 +79,14 @@ export async function mailStatus(){
 export async function enqueueDeliveryMail(c:PoolClient,orderId:string,eventId:string,type:string){
  const labels:Record<string,string>={shipped:'Заказ отправлен',delivered:'Получение заказа подтверждено',cancelled:'Заказ отменён'};
  if(!labels[type])return;
+ if(type==='shipped'){await enqueueOrderMail(c,orderId,'shipped',`delivery:${eventId}`);return;}
  const row=(await c.query('SELECT number,customer_email,tracking_number FROM ar_orders WHERE id=$1',[orderId])).rows[0];
  await enqueueMail(c,{recipient:row.customer_email,subject:`AUTO REELZ — ${labels[type]} ${row.number}`,body:`Тестовое уведомление AUTO REELZ. ${labels[type]}: ${row.number}.${type==='shipped'&&row.tracking_number?`\nТрек-номер: ${row.tracking_number}`:''}\n\nПодробности заказа: https://autoreelz.ru/orders/${orderId}`,key:`delivery:${eventId}`});
+}
+
+export async function enqueueOrderMail(c:PoolClient,orderId:string,kind:OrderMailKind,key:string){
+ const order=(await c.query('SELECT *,delivery_deadline::text AS delivery_deadline FROM ar_orders WHERE id=$1',[orderId])).rows[0];
+ const rendered=renderOrderMail(kind,order,{test:appConfig().mode!=='production'});
+ const expiresAt=['created','ready'].includes(kind)&&order.status==='awaiting_payment'&&order.expires_at?new Date(order.expires_at).toISOString():undefined;
+ return enqueueMail(c,{recipient:order.customer_email,subject:rendered.subject,body:rendered.body,key,rendered,expiresAt});
 }

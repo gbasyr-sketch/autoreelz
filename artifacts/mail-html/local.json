@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "runtime": "Node24.21.0",
+  "newTemplateUnitTests": 4,
+  "unitPassed": 187,
+  "unitSkipped": 8,
+  "queueDatabaseGroups": 15,
+  "orderTemplateDatabaseGroups": 5,
+  "commerceManagerPaymentRegressionTests": 70,
+  "browser": {
+    "width": 320,
+    "templates": 5,
+    "overflow": false,
+    "embeddedLogoLoaded": true
+  },
+  "externalMessagesSentDuringLocalTests": 0
+}

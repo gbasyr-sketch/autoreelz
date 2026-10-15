@@ -1,3 +1,4 @@
+import {enqueueOrderMail} from './mail.ts';
 import {buildPaymentReceipt} from './yookassa-receipt-snapshot.ts';
 import type{PoolClient}from'pg';
 import{paymentProvider,sandboxConfig,receiptMode,type PaymentProvider}from'./payment-policy.ts';
@@ -8,7 +9,7 @@ import{StoreError,uuid,integer,text}from'./errors.ts';
 import{idempotent,canonical,hash,sign,equal}from'./security.ts';
 import{requireTestEnvironment}from'./config.ts';
 import{testPaymentAdapter,type PaymentEvent}from'./adapters/payment.ts';
-import{orderRow,getOrder,expireLocked,componentNeeds,stockMove,event as orderEvent,outbox}from'./orders.ts';
+import{orderRow,getOrder,expireLocked,componentNeeds,stockMove,event as orderEvent}from'./orders.ts';
 import{safeMoney,lockStock}from'./pricing.ts';
 
 export async function applyPaymentEvent(input:PaymentEvent,signature:string){
@@ -54,7 +55,7 @@ export async function settlePayment(c:PoolClient,input:PaymentEvent,provider:Pay
     await c.query("UPDATE ar_payments SET status='succeeded' WHERE id=$1",[paymentId]);
     await c.query("UPDATE ar_orders SET status='paid',payment_status='paid',allocation_state='settled' WHERE id=$1",[order.id]);
     await orderEvent(c,order.id,'paid','Тестовая оплата получена. Повторного списания компонентов нет.');
-    await outbox(c,order.customer_email,`AUTO REELZ — оплата ${order.number}`,`Тестовая оплата заказа ${order.number} прошла. Реальные деньги не списывались.`,`order:${order.id}:paid`);outcome='paid';
+    await enqueueOrderMail(c,order.id,'paid',`order:${order.id}:paid`);outcome='paid';
    }
   }
   await c.query('INSERT INTO ar_payment_events(provider_event_id,payment_id,payload_hash,outcome) VALUES($1,$2,$3,$4)',[eventId,paymentId,payloadHash,outcome]);

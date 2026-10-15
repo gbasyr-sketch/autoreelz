@@ -1,7 +1,7 @@
 import {createTransport,type SMTPTransportOptions,type SendMailOptions} from 'nodemailer';
 import {MAIL_SENDER,smtpPassword,mailRecipientAllowed,mailMessageIsNew} from '../mail-policy.ts';
 import {StoreError,email} from '../errors.ts';
-export interface SmtpMessage {recipient:string;subject:string;body:string;message_id:string;created_at:string|Date}
+export interface SmtpMessage {recipient:string;subject:string;body:string;message_id:string;created_at:string|Date;html_body?:string|null;template_version?:string|null;inline_assets?:{cid:string;contentType:string;filename:string;base64:string}[]}
 export class MailSendError extends Error {
  readonly state:'retry'|'failed'|'uncertain';readonly code:string;
  constructor(state:'retry'|'failed'|'uncertain',code:string){super(code);this.state=state;this.code=code;}
@@ -25,8 +25,11 @@ export function timewebMessage(input:SmtpMessage):SendMailOptions {
  if(!mailMessageIsNew(input.created_at))throw new MailSendError('failed','MAIL_BEFORE_ACTIVATION');
  if(!mailRecipientAllowed(to))throw new MailSendError('failed','MAIL_RECIPIENT_BLOCKED');
  if(!input.subject||input.subject.length>200||/[\r\n\0]/.test(input.subject)||!input.body||Buffer.byteLength(input.body)>65536||!/^<ar-[a-f0-9-]{36}@autoreelz\.ru>$/.test(input.message_id))throw new MailSendError('failed','MAIL_INVALID_MESSAGE');
+ const assets=input.inline_assets??[];
+ if(input.html_body&&(Buffer.byteLength(input.html_body)>196608||!input.template_version))throw new MailSendError('failed','MAIL_INVALID_HTML');
+ if(!Array.isArray(assets)||assets.length>1||assets.some(a=>a.cid!=='autoreelz-logo-v1'||a.contentType!=='image/png'||a.filename!=='autoreelz-logo.png'||typeof a.base64!=='string'||a.base64.length>131072||!/^[A-Za-z0-9+/]+={0,2}$/.test(a.base64)||Buffer.from(a.base64,'base64').subarray(0,8).toString('hex')!=='89504e470d0a1a0a'))throw new MailSendError('failed','MAIL_INVALID_ASSETS');
  const date=new Date(input.created_at);if(!Number.isFinite(date.getTime()))throw new MailSendError('failed','MAIL_INVALID_MESSAGE');
- return{from:{name:'AUTO REELZ',address:MAIL_SENDER},replyTo:MAIL_SENDER,to:{address:to,name:''},envelope:{from:MAIL_SENDER,to:[to]},subject:input.subject,text:input.body,messageId:input.message_id,date,disableFileAccess:true,disableUrlAccess:true};
+ return{from:{name:'AUTO REELZ',address:MAIL_SENDER},replyTo:MAIL_SENDER,to:{address:to,name:''},envelope:{from:MAIL_SENDER,to:[to]},subject:input.subject,text:input.body,...(input.html_body?{html:input.html_body,attachments:assets.map(a=>({filename:a.filename,content:Buffer.from(a.base64,'base64'),cid:a.cid,contentType:a.contentType,contentDisposition:'inline' as const}))}:{}),messageId:input.message_id,date,disableFileAccess:true,disableUrlAccess:true};
 }
 interface MailTransport {verify():Promise<unknown>;sendMail(options:SendMailOptions):Promise<{accepted:unknown[];rejected:unknown[]}>;close():void}
 export function createTimewebMail(makeTransport:(options:SMTPTransportOptions)=>MailTransport=options=>createTransport(options)){

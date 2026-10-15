@@ -1,0 +1,194 @@
+{
+  "checkedAt": "2026-10-15T15:13:02.560357+00:00",
+  "scope": "Install live credentials only; preserve sandbox and noindex; no real monetary operations",
+  "appSha": "bf6adb6d0112cb34f52a724e48456036de7eecbb",
+  "image": "sha256:d52d0392cb9556b7b3f48e741660b67baef01d176fd40eaeb099fa04d1cec18a",
+  "migrations": "001-035",
+  "changedEnvFields": [
+    "YOOKASSA_LIVE_SHOP_ID",
+    "YOOKASSA_LIVE_SECRET_KEY"
+  ],
+  "credentialValuesOmitted": true,
+  "sourceMode": "0600; Git ignored",
+  "serverEnvMode": "0600",
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-live-key-install-20261015T150917Z",
+  "transferFileRemoved": true,
+  "recreatedServices": [
+    "web",
+    "worker"
+  ],
+  "checks": {
+    "flagsPreserved": true,
+    "otherEnvPreserved": true,
+    "runtimeEnvExceptNewKeysPreserved": true,
+    "appImagesAndRevisionPreserved": true,
+    "otherContainersPreserved": true,
+    "migrationsPreserved": true,
+    "protectedDataPreserved": true,
+    "liveKeysWebWorkerOnly": true,
+    "smtpPasswordWorkerOnly": true,
+    "webWorkerHealthy": true,
+    "workerRecent": true
+  },
+  "protectedTables": 70,
+  "changedProtectedTables": [],
+  "preservedConfig": {
+    "APP_REVISION": "bf6adb6d0112cb34f52a724e48456036de7eecbb",
+    "STORE_MODE": "staging",
+    "PAYMENT_PROVIDER": "yookassa-sandbox",
+    "YOOKASSA_RECEIPTS_MODE": "disabled",
+    "SEO_INDEXING_ENABLED": "false",
+    "CDEK_SHIPMENTS_MODE": "test",
+    "CDEK_SHIPMENTS_ALLOW_LIVE": "false",
+    "PICKUP_MAP_PROVIDER": "osm",
+    "METRIKA_ENABLED": "false",
+    "MAIL_PROVIDER": "timeweb-smtp",
+    "MAIL_RECIPIENT_POLICY": "all-new",
+    "MAIL_NEW_MESSAGES_FROM": "2026-10-14T23:37:31.373Z",
+    "YOOKASSA_LIVE_OPERATIONS_ENABLED": "false"
+  },
+  "runtime": [
+    {
+      "revision": "bf6adb6d0112cb34f52a724e48456036de7eecbb",
+      "readOnly": true,
+      "checks": [
+        "actual runtime keeps sandbox, receipts disabled, live opt-in false, staging/noindex, carrier test and mail cutoff",
+        "migration035 actual schema, application permissions, empty receipt queue and existing order/refund/resolution workspaces verified",
+        "live payment/refund/fiscal commands fail before network with opt-in false; every paused monetary loop returns zero"
+      ],
+      "ordersRead": 6,
+      "permissions": {
+        "read": true,
+        "insert": true,
+        "update": true,
+        "delete": false
+      },
+      "passed": true,
+      "externalCalls": 0,
+      "paymentsCreated": 0,
+      "refundsCreated": 0,
+      "receiptsCreated": 0,
+      "messagesSent": 0
+    },
+    {
+      "type": "installed-live-credentials-account-check",
+      "httpStatus": 200,
+      "accountIdMatches": true,
+      "isLiveStore": true,
+      "enabled": true,
+      "bankCard": true,
+      "sbp": true,
+      "fiscalizationEnabled": true,
+      "provider": "yoo_receipt",
+      "actualModes": {
+        "STORE_MODE": "staging",
+        "PAYMENT_PROVIDER": "yookassa-sandbox",
+        "YOOKASSA_RECEIPTS_MODE": "disabled",
+        "YOOKASSA_LIVE_OPERATIONS_ENABLED": "false",
+        "SEO_INDEXING_ENABLED": "false",
+        "CDEK_SHIPMENTS_MODE": "test"
+      },
+      "readOnlyAccountRequests": 1,
+      "monetaryRequests": 0,
+      "passed": true
+    }
+  ],
+  "http": {
+    "checkedAt": "2026-10-15T15:10:50.105955+00:00",
+    "passed": true,
+    "checks": [
+      {
+        "path": "/health",
+        "status": 200,
+        "passed": true,
+        "revision": "bf6adb6d0112cb34f52a724e48456036de7eecbb"
+      },
+      {
+        "path": "/",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/catalog",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/cart",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/checkout",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/account",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/api/privacy",
+        "status": 200,
+        "passed": true,
+        "analyticsEnabled": false
+      },
+      {
+        "path": "/api/manager/orders",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/api/manager/payment-refunds?orderId=00000000-0000-4000-8000-000000000001",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/api/manager/closing-receipts?orderId=00000000-0000-4000-8000-000000000001",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/robots.txt",
+        "status": 200,
+        "passed": true,
+        "closed": true
+      },
+      {
+        "path": "/sitemap.xml",
+        "status": 200,
+        "passed": true,
+        "empty": true
+      },
+      {
+        "path": "/feed.yml",
+        "status": 503,
+        "passed": true
+      },
+      {
+        "path": "/cms/users/me",
+        "status": 401,
+        "passed": true
+      }
+    ],
+    "businessOperationsCreated": 0
+  },
+  "accountReadOnlyRequests": 1,
+  "monetaryRequests": 0,
+  "paymentsCreated": 0,
+  "refundsCreated": 0,
+  "receiptsCreated": 0,
+  "ordersCreated": 0,
+  "messagesSent": 0,
+  "limitations": [
+    "Saved live webhook settings were verified earlier; actual live notification delivery is not yet proven.",
+    "Real payment, refund and fiscal receipt registration/delivery remain untested and disabled."
+  ],
+  "passed": true
+}

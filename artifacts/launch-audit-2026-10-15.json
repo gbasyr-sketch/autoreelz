@@ -1,0 +1,179 @@
+{
+  "date": "2026-10-15",
+  "scope": "read-only launch audit; no trade operations; no configuration or deployment changes",
+  "revision": "4301d0c69c06979c234e0cb09781fa7dfaec0cdd",
+  "pages": {
+    "count": 124,
+    "status200": 124,
+    "productPaths": 34,
+    "missingTitle": 0,
+    "missingDescription": 0,
+    "wrongH1Count": 0,
+    "missingOgImage": 0,
+    "missingAlt": 0
+  },
+  "images": {
+    "count": 281,
+    "head200": 281
+  },
+  "probes": [
+    {
+      "path": "/health",
+      "status": 200
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200
+    },
+    {
+      "path": "/feed.yml",
+      "status": 503
+    },
+    {
+      "path": "/cart",
+      "status": 200
+    },
+    {
+      "path": "/account",
+      "status": 200
+    },
+    {
+      "path": "/api/privacy",
+      "status": 200
+    },
+    {
+      "path": "/api/manager/orders",
+      "status": 401
+    },
+    {
+      "path": "/api/manager/backup-status",
+      "status": 401
+    },
+    {
+      "path": "/cms/users/me",
+      "status": 401
+    },
+    {
+      "path": "/audit-missing-20261015",
+      "status": 404
+    },
+    {
+      "path": "/product/audit-missing-20261015",
+      "status": 404
+    },
+    {
+      "path": "/catalog?page=99999",
+      "status": 404
+    },
+    {
+      "path": "/google031b679d17a8feda.html",
+      "status": 200
+    },
+    {
+      "path": "/yandex_77486fc3808f1fc9.html",
+      "status": 200
+    }
+  ],
+  "tls": {
+    "valid": true,
+    "notAfter": "Nov 20 15:40:43 2026 GMT"
+  },
+  "indexing": "closed intentionally at application and edge",
+  "privacy": {
+    "enabled": false,
+    "counterId": null,
+    "browserDialogVerified": true
+  },
+  "responsive": {
+    "browser": "Chromium",
+    "width": 375,
+    "paths": [
+      "/",
+      "/catalog",
+      "/product/blok-otopitelya-granta-i-kalina-s-podsvetkoy-teplo-sverhu",
+      "/cart",
+      "/info/privacy"
+    ],
+    "horizontalOverflow": false
+  },
+  "runtime": {
+    "mode": "staging",
+    "payment": "yookassa-sandbox",
+    "receipts": "disabled",
+    "shipments": "test",
+    "mail": "timeweb-smtp",
+    "workerAgeSeconds": 5,
+    "workerHasError": false,
+    "os": "Alpine",
+    "sharp": "0.35.4",
+    "rsvg": "2.62.91"
+  },
+  "backups": {
+    "state": "ok",
+    "scheduled": true,
+    "enabledTimers": 3,
+    "capturedAt": "2026-10-15T11:17:19.297704+00:00",
+    "uploadedAt": "2026-10-15T11:27:26.171052+00:00",
+    "revision": "4301d0c69c06979c234e0cb09781fa7dfaec0cdd",
+    "lastVerifiedAt": "2026-10-14T15:24:07.962756+00:00"
+  },
+  "npmAudit": {
+    "counts": {
+      "info": 0,
+      "low": 1,
+      "moderate": 1,
+      "high": 3,
+      "critical": 0,
+      "total": 5
+    },
+    "packages": {
+      "http-cache-semantics": {
+        "severity": "high",
+        "range": "<=4.2.0",
+        "direct": false
+      },
+      "quill": {
+        "severity": "low",
+        "range": "=2.0.3",
+        "direct": true
+      },
+      "sharp": {
+        "severity": "high",
+        "range": "<0.35.5",
+        "direct": true
+      },
+      "smol-toml": {
+        "severity": "moderate",
+        "range": "<=1.8.0",
+        "direct": false
+      },
+      "source-map-js": {
+        "severity": "high",
+        "range": "1.0.0 - 1.2.1",
+        "direct": false
+      }
+    },
+    "manifestMatchesRunningRevision": true,
+    "exploitabilityNotDemonstrated": true
+  },
+  "performanceEvidence": "seo-improvements/deployment/mobile-lab.json",
+  "parallelLocalWork": {
+    "returnIntakeMigration": "033",
+    "published": false,
+    "evidence": "return-intake/local.json"
+  },
+  "limitations": [
+    "not a full 66-item transcript or supplied checklist",
+    "no live checkout/payment/mail/shipment",
+    "no full WCAG audit",
+    "no Firefox/WebKit or physical-device acceptance",
+    "no field INP or load test",
+    "no container/OS vulnerability scan or pentest",
+    "no clean-VPS restore",
+    "no external validator or search-console access"
+  ]
+}

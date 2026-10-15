@@ -1,0 +1,194 @@
+{
+  "checkedAt": "2026-10-15T15:50:39.682571+00:00",
+  "scope": "Owner authorized live payments for the entire site; noindex preserved; no control payment/refund performed",
+  "appSha": "bf6adb6d0112cb34f52a724e48456036de7eecbb",
+  "image": "sha256:d52d0392cb9556b7b3f48e741660b67baef01d176fd40eaeb099fa04d1cec18a",
+  "composeConfigCommit": "204defb5f4e4014577b4e2c1b9c519ce6e306fa3",
+  "composeConfigSha256": "7186300fa0b3b2b737c28d743ed9f10bc9616284df84a4cc2779cefd28bba4c8",
+  "migrations": "001-035",
+  "changedEnvFields": [
+    "STORE_MODE",
+    "PAYMENT_PROVIDER",
+    "YOOKASSA_RECEIPTS_MODE",
+    "YOOKASSA_LIVE_OPERATIONS_ENABLED"
+  ],
+  "preservedConfig": {
+    "APP_REVISION": "bf6adb6d0112cb34f52a724e48456036de7eecbb",
+    "STORE_MODE": "production",
+    "PAYMENT_PROVIDER": "yookassa-live",
+    "YOOKASSA_RECEIPTS_MODE": "yookassa",
+    "SEO_INDEXING_ENABLED": "false",
+    "CDEK_SHIPMENTS_MODE": "test",
+    "CDEK_SHIPMENTS_ALLOW_LIVE": "false",
+    "PICKUP_MAP_PROVIDER": "osm",
+    "METRIKA_ENABLED": "false",
+    "MAIL_PROVIDER": "timeweb-smtp",
+    "MAIL_RECIPIENT_POLICY": "all-new",
+    "MAIL_NEW_MESSAGES_FROM": "2026-10-14T23:37:31.373Z",
+    "YOOKASSA_LIVE_OPERATIONS_ENABLED": "true"
+  },
+  "checks": {
+    "flagsLive": true,
+    "noindexPreserved": true,
+    "otherConfigPreserved": true,
+    "otherEnvPreserved": true,
+    "runtimeExceptFourFlagsPreserved": true,
+    "appImagesAndRevisionPreserved": true,
+    "otherContainersPreserved": true,
+    "migrationsPreserved": true,
+    "protectedDataPreserved": true,
+    "webWorkerHealthy": true,
+    "workerRecent": true
+  },
+  "protectedTables": 70,
+  "changedProtectedTables": [],
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-live-activation-20261015T154951Z",
+  "composeBackup": "/srv/autoreelz2026/shared/yookassa-live-activation-20261015/ispmanager.before.yaml",
+  "envMode": "0600",
+  "recreatedServices": [
+    "web",
+    "worker"
+  ],
+  "noImageRebuild": true,
+  "noMigrationsApplied": true,
+  "preflight": {
+    "passed": true,
+    "processLocalProductionPreflight": true,
+    "liveAccount": true,
+    "card": true,
+    "sbp": true,
+    "fiscalization": true,
+    "readOnlyRequests": 1,
+    "monetaryRequests": 0
+  },
+  "runtime": {
+    "revision": "bf6adb6d0112cb34f52a724e48456036de7eecbb",
+    "readOnly": true,
+    "ordersRead": 6,
+    "historicalSandboxPaymentsIgnored": 5,
+    "liveRecords": {
+      "payments": 0,
+      "refunds": 0,
+      "closing_receipts": 0
+    },
+    "liveConfigEnabled": true,
+    "noindexPreserved": true,
+    "testSimulatorsBlocked": true,
+    "liveWorkspacesAvailable": true,
+    "historicalSandboxIsolated": true,
+    "emergencyPauseVerified": true,
+    "externalCalls": 0,
+    "monetaryRequests": 0,
+    "passed": true
+  },
+  "http": {
+    "checkedAt": "2026-10-15T15:50:51.509515+00:00",
+    "checks": [
+      {
+        "path": "/health",
+        "status": 200,
+        "passed": true,
+        "revision": "bf6adb6d0112cb34f52a724e48456036de7eecbb"
+      },
+      {
+        "path": "/",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/catalog",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/cart",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/checkout",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/account",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/api/privacy",
+        "status": 200,
+        "passed": true,
+        "analyticsEnabled": false
+      },
+      {
+        "path": "/api/manager/orders",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/api/manager/payment-refunds?orderId=00000000-0000-4000-8000-000000000001",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/api/manager/closing-receipt?orderId=00000000-0000-4000-8000-000000000001",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/robots.txt",
+        "status": 200,
+        "passed": true,
+        "closed": true
+      },
+      {
+        "path": "/sitemap.xml",
+        "status": 200,
+        "passed": true,
+        "empty": true
+      },
+      {
+        "path": "/feed.yml",
+        "status": 503,
+        "passed": true
+      },
+      {
+        "path": "/cms/users/me",
+        "status": 401,
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "readOnly": true,
+    "monetaryRequests": 0
+  },
+  "localUnitTests": {
+    "passed": 25,
+    "failed": 0,
+    "skipped": 0,
+    "files": [
+      "commerce-production.test.ts",
+      "yookassa-live.test.ts",
+      "seo.test.ts"
+    ]
+  },
+  "accountReadOnlyRequests": 1,
+  "monetaryRequestsByOperator": 0,
+  "livePaymentsAtVerification": 0,
+  "refundsCreatedByOperator": 0,
+  "receiptsCreatedByOperator": 0,
+  "ordersCreatedByOperator": 0,
+  "messagesSentByOperator": 0,
+  "limitations": [
+    "Live payment, webhook delivery and fiscal receipt registration/delivery still await an actual control purchase.",
+    "CDEK live shipments remain disabled; this activation does not enable live shipment creation."
+  ],
+  "emergencyStop": "Keep production/live provider/receipt mode and history; set only YOOKASSA_LIVE_OPERATIONS_ENABLED=false, recreate web and worker, then reconcile in live mode after repair. Do not restore a full pre-activation env or DB over new live orders.",
+  "passed": true
+}

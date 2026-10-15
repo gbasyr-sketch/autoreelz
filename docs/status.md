@@ -1,6 +1,8 @@
 # Текущее состояние AUTO REELZ
 
-Текущий опубликованный app**bf6adb6d0112cb34f52a724e48456036de7eecbb/001–035**. Рабочая интеграция ЮKassa размещена, рабочие ключи установлены в web/commerce-worker без активации. Приём денег остаётся тестовым, чеки отключены, live opt-in=false и noindex сохранены. [Итог выпуска](../artifacts/yookassa-production/deployment/final.json), [установка ключей](../artifacts/yookassa-live-key-install-2026-10-15.json).
+Текущий опубликованный app**bf6adb6d0112cb34f52a724e48456036de7eecbb/001–035**. **Рабочая оплата и чеки ЮKassa включены на всём сайте** по прямому поручению владельца15.10; production/yookassa-live/чеки yookassa/live opt-in=true. **Noindex сохранён** на приложении и edge. [Активация](../artifacts/yookassa-live-activation-2026-10-15.json), [контракт](yookassa-production.md).
+
+15.10 в18:50МСК завершена активация без пересборки: образ и001–035 прежние, конфигурация Compose из204defb позволяет выбрать STORE_MODE для web/worker через env (по умолчанию staging), web noindex остаётся жёстко false. Изменены только четыре поля режима, пересозданы только web/worker; image-worker и остальные контейнеры/настройки/секреты/70 защищённых таблиц сохранены. Перед переключением создана приватная копия env/Compose, серверный read-only GET/me подтвердил рабочий магазин/карту/СБП/фискализацию.25 профильных unit,14HTTP и runtime-проверка live-конфигурации/аварийной паузы прошли.5 старых sandbox-платежей изолированы от live. Контрольных заказов/платежей/возвратов/чеков/писем не создавали; настоящая доставка уведомлений/регистрация и доставка чеков ещё не проверены. СДЭК live-отправления не включены. Останавливать деньги отдельным opt-in=false, сохраняя live-контур/историю; полный старый env или БД поверх новых заказов не восстанавливать.
 
 15.10 в18:13МСК завершена разрешённая установка только двух live-полей в server.env0600 с приватной резервной копией. Пересозданы только web/worker на прежнем образе; остальные env/runtime-поля, контейнеры,001–035 и70 защищённых таблиц сохранены. Серверный GET/me200 подтвердил установленный рабочий магазин/карту/СБП/фискализацию yoo_receipt. Проверены блокировки денежных команд до сети и14HTTP/noindex, web/worker healthy. Настоящих платежей/возвратов/чеков/заказов/писем0; временный файл переноса удалён. Фактическая доставка HTTP-уведомлений и настоящих чеков ещё не проверена. Подробности и откат — [контракт](yookassa-production.md#рабочие-ключи-установлены-без-активации15102026).
 
@@ -118,8 +120,8 @@ Check0/0/0, build успешен;178 unit/8skip,66 DB-проверок торг�
 | Image ID | `sha256:d52d0392cb9556b7b3f48e741660b67baef01d176fd40eaeb099fa04d1cec18a` |
 | Рабочая ветка | `codex/stage7-launch-prep` |
 | Этап | 0–6 приняты локально; этап 7 продолжается |
-| Режим | `STORE_MODE=staging`, `SEO_INDEXING_ENABLED=false` |
-| Провайдеры | `PAYMENT_PROVIDER=yookassa-sandbox`, `SHIPPING_PROVIDER=cdek`, `PICKUP_MAP_PROVIDER=osm`; отправления `CDEK_SHIPMENTS_MODE=test`, live выключен |
+| Режим | Web/commerce-worker `STORE_MODE=production`, `SEO_INDEXING_ENABLED=false`; image-worker сохраняет staging |
+| Провайдеры | `PAYMENT_PROVIDER=yookassa-live`, `YOOKASSA_RECEIPTS_MODE=yookassa`, `YOOKASSA_LIVE_OPERATIONS_ENABLED=true`; `SHIPPING_PROVIDER=cdek`, `PICKUP_MAP_PROVIDER=osm`; отправления остаются test/live выключен, production блокирует создание тестовых накладных |
 | Почта | `MAIL_PROVIDER=timeweb-smtp`, отправитель/получатель владельца `sales@autoreelz.ru`, новые письма любым адресатам после фиксированной границы |
 | Генерация | Тексты: GPT-6 Luna / GPT-6.1 Sol через NL, $10/месяц, пока Luna по умолчанию; изображения: Sunburst через отдельный NL-маршрут, разовый пилот, выделено$4.756348; актуальный остаток в студии |
 | БД | Применены001–035; исходники после применения неизменяемы |

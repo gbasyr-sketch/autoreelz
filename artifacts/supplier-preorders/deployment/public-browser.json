@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "syntheticApi": true,
+  "externalCalls": 0,
+  "viewports": [
+    {
+      "width": 1440,
+      "explicitSupplierConsent": true,
+      "confirmPayload": true,
+      "paidWaitingForStock": true,
+      "insufficientStockKeepsWaiting": true,
+      "sameKeyUnknownRetry": true,
+      "settledAllowsPacking": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "explicitSupplierConsent": true,
+      "confirmPayload": true,
+      "paidWaitingForStock": true,
+      "insufficientStockKeepsWaiting": true,
+      "sameKeyUnknownRetry": true,
+      "settledAllowsPacking": true,
+      "noOverflow": true
+    }
+  ],
+  "publishedAssets": true,
+  "sourceSha": "42f3a86d8d7f7cba00638d1eb16a37bdb6f8fa78",
+  "commands": "synthetic API responses; no business mutations",
+  "ordersCreated": 0,
+  "paymentsCreated": 0,
+  "messagesCreated": 0
+}

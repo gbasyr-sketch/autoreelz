@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "action": "confirm",
+      "status": 401,
+      "protected": true
+    },
+    {
+      "action": "allocate-stock",
+      "status": 401,
+      "protected": true
+    }
+  ],
+  "ordersCreated": 0,
+  "messagesCreated": 0
+}

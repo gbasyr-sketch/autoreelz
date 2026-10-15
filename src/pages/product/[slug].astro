@@ -14,6 +14,7 @@ import Reviews from '../../components/Reviews.astro';
 import {getReviews} from '../../server/social';
 import {demoProductReviews} from '../../lib/home';
 import {setting} from '../../server/config';
+const production=setting('STORE_MODE','local-test')==='production';
 import {getCatalog} from '../../server/catalog';
 import {money,productHref} from '../../lib/format';
 import {multiplyRubles} from '../../lib/money';
@@ -83,7 +84,7 @@ const demoReviews=product?demoProductReviews(catalog,setting('STORE_MODE','local
       <div class="buy-box"><div class="price-row"><strong data-price-rubles={offer.priceRubles}>{money(offer.priceRubles)}</strong><span class:list={['stock',offer.available===0&&'preorder']}>{`${offer.available>0?'В наличии':'Предзаказ'}${product.isDemo?' · демо':''}`}</span></div>
         {offer.available===0&&<p class="preorder-explanation">{product.kind==='bundle'?'Одного из компонентов нет в наличии. Весь комплект оформляется как предзаказ.':'Товара пока нет в наличии.'} Без немедленной оплаты: сначала менеджер подтверждает срок и условия.</p>}
         <div class="buy-row"><div class="quantity js-only"><button type="button" data-quantity="-1" aria-label="Уменьшить количество">−</button><input id="product-quantity" type="number" min="1" max="99" step="1" value="1" aria-label="Количество"/><button type="button" data-quantity="1" aria-label="Увеличить количество">+</button></div><button class="button buy-button js-only" data-add-product={product.id} data-sku-id={variant?.id}><span data-add-label>{offer.available>0?'В корзину':'В предзаказ'}</span><Icon name="cart"/></button></div>
-        <p id="quantity-error" class="field-error" role="alert" hidden></p><p class="purchase-note">Тестовая покупка. Оплата и доставка — имитация.</p>
+        <p id="quantity-error" class="field-error" role="alert" hidden></p><p class="purchase-note">{production?'Оплата заказа — через ЮKassa. Электронный чек отправляется на email.':'Тестовая покупка. Оплата и доставка — имитация.'}</p>
         <p class="delivery-line"><Icon name="box" size={19}/><a href="/info/delivery">СДЭК по России · стоимость при оформлении</a></p>
       </div>
     </section>

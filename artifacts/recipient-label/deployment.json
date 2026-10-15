@@ -1,0 +1,73 @@
+{
+  "appSha": "452791b78fab8cf7a63e6a7f7a63e54f70464e1b",
+  "previousAppSha": "7efc5201a811b700f683fd7c29e3fe1cfc012360",
+  "image": "sha256:a4aec6338e98f600ba61388187d43e16d4148a65b513b2ec25ea7f9ae09380ae",
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-recipient-label-20261015T185900Z",
+  "changedEnvFields": [
+    "RELEASE_IMAGE"
+  ],
+  "runtimeConfigPreserved": true,
+  "otherContainersPreserved": true,
+  "migrationsUnchanged": 36,
+  "workerHeartbeatAfterRestart": true,
+  "passed": true,
+  "public": {
+    "checks": [
+      {
+        "path": "/health",
+        "status": 200,
+        "passed": true,
+        "revision": "452791b78fab8cf7a63e6a7f7a63e54f70464e1b"
+      },
+      {
+        "path": "/cart",
+        "status": 200,
+        "passed": true,
+        "labelPresent": true,
+        "oldLabelAbsent": true,
+        "noindex": true
+      },
+      {
+        "path": "/checkout",
+        "status": 200,
+        "passed": true,
+        "labelPresent": true,
+        "oldLabelAbsent": true,
+        "noindex": true
+      },
+      {
+        "path": "/",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/cms/users/me",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/api/manager/orders",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/muzey/",
+        "status": 200,
+        "passed": true
+      },
+      {
+        "path": "/cookies",
+        "status": 404,
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "readOnly": true
+  },
+  "scope": "Только подпись ФИО получателя; страховка СДЭК не включена",
+  "codeDiffFiles": [
+    "src/components/CheckoutPage.astro"
+  ],
+  "monetaryRequests": 0
+}

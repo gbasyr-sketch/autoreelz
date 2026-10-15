@@ -1,0 +1,61 @@
+{
+  "restorationVerified": true,
+  "strictCompositeRunPassed": false,
+  "reasonCompositeDidNotPass": "Concurrent separate PageSpeed deployment changed production identity/env while isolated restore ran; the recovery runner has no production deployment or database mutation path.",
+  "backupRevision": "37fb0ec31b2f2fa2277d9ef6ab6eeb5410570a45",
+  "snapshotTime": "2026-10-16T00:17:49.659805827+03:00",
+  "files": 4528,
+  "tables": 111,
+  "migrations": 36,
+  "applicationBuiltFromRestoredSource": true,
+  "applicationChecks": {
+    "routes": 7,
+    "health": true,
+    "catalog": true,
+    "product": true,
+    "photo": true,
+    "noindex": true
+  },
+  "isolation": {
+    "databaseAndAppNoExternalNetwork": true,
+    "publishedPorts": false,
+    "cmsOrWorkersStarted": false,
+    "productionCredentialsPassedToApp": false
+  },
+  "cleanup": {
+    "testContainersAndVolumesRemoved": true,
+    "decryptedScratchRemoved": true
+  },
+  "concurrentRelease": {
+    "revision": "84bf5554bf07a27a73e26f98a965342ad2d7f9fe",
+    "previous": "37fb0ec31b2f2fa2277d9ef6ab6eeb5410570a45",
+    "envChangedKeys": [
+      "RELEASE_IMAGE"
+    ],
+    "workerStartedAt": "2026-10-15T21:46:11.77951953Z",
+    "evidence": "../pagespeed-fix/deployment/activation.json"
+  },
+  "durationsSeconds": {
+    "initialFullReadCheckAttempt": 592.7,
+    "successfulRestoreAttempt": 391.0,
+    "successfulAttemptOffsitePhase": 327.6,
+    "note": "Second run reused the full repository read check for the exact same snapshot; these are drill timings, not a promised clean-VPS RTO."
+  },
+  "failureDetectionTests": {
+    "backupRunnerUnitPassed": 13,
+    "statusUnitPassed": 3,
+    "syntheticStatusTransitionsPassed": 5
+  },
+  "externalAlerts": {
+    "configured": false,
+    "deliveryTestPerformed": false,
+    "ownerChoice": "Inspect and record gap only; do not configure or send messages"
+  },
+  "limitations": [
+    "Same host, isolated containers; new VPS/OS provisioning and DNS/TLS switch not exercised",
+    "Licensed Directus and workers intentionally not started",
+    "External monitoring/alert delivery remain missing",
+    "Snapshot belongs to 37fb0ec; concurrent 84bf555 release is outside this recovery point"
+  ],
+  "productionChangesByThisTask": false
+}

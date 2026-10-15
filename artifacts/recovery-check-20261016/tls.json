@@ -1,0 +1,10 @@
+{
+  "tlsVerified": true,
+  "externalExpiryAlertConfigured": false,
+  "inspectionOnly": true,
+  "edgeNotAfter": "2026-11-20T15:40:43+00:00",
+  "originNotAfter": "2027-03-10T15:35:24+00:00",
+  "originCertificateAutoRenewalShownByOwner": true,
+  "edgeAutoRenewalVerified": false,
+  "originReplacementInstallationVerified": false
+}

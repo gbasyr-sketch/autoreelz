@@ -1,0 +1,75 @@
+{
+  "syntheticStateChecksPassed": true,
+  "states": {
+    "healthy": {
+      "configured": true,
+      "state": "ok",
+      "scheduled": true,
+      "lastSuccessAt": "2026-10-15T21:26:34.637Z",
+      "lastVerifiedAt": "2026-10-14T21:26:44.637Z",
+      "lastLocalAt": null,
+      "uploadedAt": null,
+      "bytes": null,
+      "stale": false,
+      "verificationDue": false,
+      "message": "Внешняя копия сохранена, восстановление проверено."
+    },
+    "stale": {
+      "configured": true,
+      "state": "ok",
+      "scheduled": true,
+      "lastSuccessAt": "2026-10-15T18:26:44.637Z",
+      "lastVerifiedAt": "2026-10-14T21:26:44.637Z",
+      "lastLocalAt": null,
+      "uploadedAt": null,
+      "bytes": null,
+      "stale": true,
+      "verificationDue": false,
+      "message": "Свежая внешняя копия отсутствует. Требуется проверка администратора."
+    },
+    "failure": {
+      "configured": true,
+      "state": "error",
+      "scheduled": true,
+      "lastSuccessAt": "2026-10-15T21:26:34.637Z",
+      "lastVerifiedAt": "2026-10-14T21:26:44.637Z",
+      "lastLocalAt": null,
+      "uploadedAt": null,
+      "bytes": null,
+      "stale": false,
+      "verificationDue": true,
+      "message": "Не совпали контрольные суммы восстановленных файлов."
+    },
+    "uploadRecoveredButRestoreFailed": {
+      "configured": true,
+      "state": "ok",
+      "scheduled": true,
+      "lastSuccessAt": "2026-10-15T21:26:34.637Z",
+      "lastVerifiedAt": "2026-10-14T21:26:44.637Z",
+      "lastLocalAt": null,
+      "uploadedAt": null,
+      "bytes": null,
+      "stale": false,
+      "verificationDue": true,
+      "message": "Копия сохранена. Требуется проверка восстановления."
+    },
+    "fullyRecovered": {
+      "configured": true,
+      "state": "ok",
+      "scheduled": true,
+      "lastSuccessAt": "2026-10-15T21:26:34.637Z",
+      "lastVerifiedAt": "2026-10-15T21:26:43.637Z",
+      "lastLocalAt": null,
+      "uploadedAt": null,
+      "bytes": null,
+      "stale": false,
+      "verificationDue": false,
+      "message": "Внешняя копия сохранена, восстановление проверено."
+    }
+  },
+  "existingExternalAlertSender": false,
+  "existingExternalWebsiteMonitor": false,
+  "deliveryTestPerformed": false,
+  "ownerChoice": "Only inspect and record gap; do not configure or send notifications",
+  "productionStatusChanged": false
+}

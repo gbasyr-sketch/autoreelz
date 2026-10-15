@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "mode": "production",
+      "path": "/product/kryshka-avariyki-lada-priora-2007-2018",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "mode": "production",
+      "path": "/cart",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "mode": "production",
+      "path": "/checkout",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/",
+      "passed": true
+    }
+  ],
+  "realOrdersCreated": 0,
+  "monetaryRequests": 0
+}

@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "path": "/api/commerce/cart",
+      "status": 403,
+      "passed": true
+    },
+    {
+      "path": "/api/commerce/cart",
+      "status": 403,
+      "passed": true
+    },
+    {
+      "path": "/api/commerce/cart",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "path": "/api/commerce/delivery-estimate",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "path": "/api/commerce/quote",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "path": "/api/commerce/checkout",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "path": "/api/commerce/pay",
+      "status": 403,
+      "passed": true
+    },
+    {
+      "path": "/api/commerce/payment-event",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/api/commerce/payment-status",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "path": "/api/commerce/cancel",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "path": "/api/auth/request",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "path": "/api/auth/verify",
+      "status": 400,
+      "passed": true
+    }
+  ],
+  "invalidCommandsOnly": true,
+  "ordersCreated": 0,
+  "paymentsCreated": 0,
+  "refundsCreated": 0,
+  "receiptsCreated": 0,
+  "messagesSent": 0
+}

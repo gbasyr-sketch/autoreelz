@@ -1,0 +1,19 @@
+{
+  "base": "https://autoreelz.ru",
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "width": 768,
+      "passed": true
+    },
+    {
+      "width": 375,
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

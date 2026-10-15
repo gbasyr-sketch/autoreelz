@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-10-15T15:02:36.749220+00:00",
+  "source": "owner-provided screenshot of saved merchant dashboard settings",
+  "shopMatchesPreviouslyVerifiedAccount": true,
+  "callbackUrl": "https://autoreelz.ru/api/payments/yookassa",
+  "selectedEvents": [
+    "payment.succeeded",
+    "payment.canceled",
+    "refund.succeeded"
+  ],
+  "configurationMatchesPublishedHandler": true,
+  "waitingForCaptureRequiredForCurrentImmediateCapture": false,
+  "actualLiveDeliveryVerified": false,
+  "siteConfigurationChanged": false,
+  "paymentsCreated": 0,
+  "refundsCreated": 0,
+  "fiscalDocumentsCreated": 0,
+  "screenshotPublishedInGit": false
+}

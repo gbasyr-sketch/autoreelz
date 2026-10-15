@@ -4,7 +4,7 @@ import{sessionFor,json,failure,peer}from'../../../server/http';
 import{shippingRateLimit}from'../../../server/shipping-rate-limit';
 import{shippingProvider}from'../../../server/shipping-policy';
 import{readBody,jsonBody}from'../../../server/security';
-import{requireTestEnvironment,appConfig}from'../../../server/config';
+import{requireCommerceEnvironment,requireTestEnvironment,appConfig}from'../../../server/config';
 import{StoreError}from'../../../server/errors';
 import{getCart,changeCart,createQuote,estimateDelivery}from'../../../server/cart';
 import{checkout,getOrder,listOrders,cancelOrder}from'../../../server/orders';
@@ -21,8 +21,10 @@ export const GET:APIRoute=async ctx=>{try{
  }
 }catch(e){return failure(e);}};
 export const POST:APIRoute=async ctx=>{try{
- requireTestEnvironment();
+ requireCommerceEnvironment();
  if(ctx.params.action==='payment-event'){
+  if(appConfig().mode==='production')return json({error:{code:'NOT_FOUND',message:'Действие не найдено.'}},404);
+  requireTestEnvironment();
   if(ctx.url.host!==new URL(appConfig().origin).host)throw new StoreError('ORIGIN','Источник запроса не разрешён.',403);
   const event=await jsonBody(ctx.request);return json(await applyPaymentEvent(event as unknown as PaymentEvent,ctx.request.headers.get('X-Payment-Signature')??''));
  }

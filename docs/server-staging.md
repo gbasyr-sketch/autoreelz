@@ -240,3 +240,9 @@ NL-шлюз обновлён с точечной копией предыдуще
 42HTTP, публичный Chromium1440/375, SHA256 JS редактора/приёмки, read-only6заказов/права033 и WebP прошли. Web/worker healthy; yookassa-sandbox/чеки disabled/staging/noindex/test-СДЭК/SMTP all-new/cutoff и пароль только worker прежние. Новый платёж/заказ/письмо/приёмка не создавались.
 
 Затем параллельно опубликован67c1d92 с034, который включаетba4029c. На итоговой версии повторены42HTTP и read-only проверки пакетов/режимов/SHA256 JS — [результат](../artifacts/dependency-security/deployment/successor.json). После034 нельзя механически возвращать старую схему/образ: совместимость отката проверять заново, историю/данные/env сохранять.
+
+## ЮKassa production-код с выключенными реальными операциями15.10.2026
+
+По прямому поручению владельца выпущенbf6adb6d0112cb34f52a724e48456036de7eecbb/035 после читаемого DB-only backup. Применена только035;001–034 checksums неизменны. Из env заменён только RELEASE_IMAGE; новые live-поля Docker получают безопасные defaults, live opt-in=false. Sandbox/чеки disabled/staging/noindex/test-СДЭК/SMTP cutoff/ключи/бюджеты сохранены. Web/worker/image-worker используют один образ; БД/CMS/edge/background не пересозданы. [Итог/backup/env-backup](../artifacts/yookassa-production/deployment/final.json), [контракт](yookassa-production.md).
+
+32 HTTP+302 и публичный UI1440/375 с настоящей временной сессией прошли, сессия отозвана. Runtime проверил6 существующих заказов/права035/пустую очередь, денежные/фискальные live-команды и paused worker заблокированы до сети. Для повторного выпуска брать текущий SHA из health;035 не повторять. После появления035 job/full_payment-return откат только на совместимый обработчик с сохранением истории. Реальные ключи/платежи/чеки включаются отдельно.

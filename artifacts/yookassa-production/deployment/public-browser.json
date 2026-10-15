@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "revision": "bf6adb6d0112cb34f52a724e48456036de7eecbb",
+  "realApiReadOnly": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "receiptSubmissionDisabled": true
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "receiptSubmissionDisabled": true
+    }
+  ],
+  "csrfRejected": true,
+  "paymentsStillSandbox": true,
+  "sessionRevoked": true
+}

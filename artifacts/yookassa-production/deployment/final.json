@@ -1,0 +1,61 @@
+{
+  "checkedAt": "2026-10-15T14:34:10.459283+00:00",
+  "appSha": "bf6adb6d0112cb34f52a724e48456036de7eecbb",
+  "previousAppSha": "67c1d928c04be6511458c2607e389426fad76d1f",
+  "imageId": "sha256:d52d0392cb9556b7b3f48e741660b67baef01d176fd40eaeb099fa04d1cec18a",
+  "migrations": "001\u2013035",
+  "appliedNow": [
+    {
+      "name": "035_yookassa_production.sql",
+      "sha256": "42ffbadd5cc31a4479e3e15aa489b746bbfc9174ef1e5bb193e4ce0df4217287"
+    }
+  ],
+  "backup": "/srv/autoreelz2026/backups/before-yookassa-production-20261015T143116Z.dump",
+  "backupReadable": true,
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-yookassa-production-20261015T143116Z",
+  "config": {
+    "APP_REVISION": "bf6adb6d0112cb34f52a724e48456036de7eecbb",
+    "STORE_MODE": "staging",
+    "PAYMENT_PROVIDER": "yookassa-sandbox",
+    "YOOKASSA_RECEIPTS_MODE": "disabled",
+    "SEO_INDEXING_ENABLED": "false",
+    "CDEK_SHIPMENTS_MODE": "test",
+    "CDEK_SHIPMENTS_ALLOW_LIVE": "false",
+    "PICKUP_MAP_PROVIDER": "osm",
+    "METRIKA_ENABLED": "false",
+    "MAIL_PROVIDER": "timeweb-smtp",
+    "MAIL_ALLOWED_RECIPIENTS": "sales@autoreelz.ru",
+    "MAIL_OWNER_RECIPIENT": "sales@autoreelz.ru",
+    "MAIL_RECIPIENT_POLICY": "all-new",
+    "MAIL_NEW_MESSAGES_FROM": "2026-10-14T23:37:31.373Z",
+    "YOOKASSA_LIVE_OPERATIONS_ENABLED": "false"
+  },
+  "protectedTablesCompared": 69,
+  "checks": {
+    "protectedDataPreserved": true,
+    "carrierPollingMetadataOnlyMayChange": true,
+    "otherEnvPreserved": true,
+    "onlyReleaseImageChanged": true,
+    "protectedContainersPreserved": true,
+    "sameImageForApplications": true,
+    "webHealthy": true,
+    "workerHealthy": true,
+    "imageWorkerRunning": true,
+    "existingMigrationChecksumsPreserved": true,
+    "allMigrationChecksumsMatch": true,
+    "smtpPasswordWorkerOnly": true,
+    "liveOptInDisabled": true,
+    "newReceiptQueueEmpty": true,
+    "http": true,
+    "runtimeReadOnly": true,
+    "publicBrowser": true,
+    "sessionRevoked": true
+  },
+  "httpChecks": 32,
+  "ordersCreated": 0,
+  "paymentsCreated": 0,
+  "refundsCreated": 0,
+  "receiptsCreated": 0,
+  "messagesSent": 0,
+  "passed": true
+}

@@ -54,7 +54,8 @@
 - Приёмка на склад после осмотра: [033, посылки, физические SKU и однократный приход](return-intake.md), опубликовано в тестовом режиме.
 - Приём возвратов: [инструкция покупателю, приёмка, склад и деньги](returns-procedure.md); индивидуальные контакты только в private/returns.
 - Частичные возвраты: [031, остаток/товары/чек и завершённый СДЭК](partial-refunds.md), опубликовано в тестовом режиме.
-- Возвраты оплаты: [полный тестовый возврат из manager](payment-refunds.md), миграция025, опубликовано15.10. [Передача данных чеков](yookassa-receipts.md); [план «Чеков от ЮKassa»](yookassa-receipts-plan.md): ИП/УСН6%/безНДС, подключение услуги уточняется.
+- Рабочая ЮKassa и закрывающие чеки: [live-контур/выдача/возвраты и предохранители](yookassa-production.md), опубликовано035; на сервере sandbox/чеки disabled/live opt-in=false.
+- Возвраты оплаты: [полный тестовый возврат из manager](payment-refunds.md), миграция025, опубликовано15.10. [Передача данных чеков](yookassa-receipts.md); [план «Чеков от ЮKassa»](yookassa-receipts-plan.md): ИП/УСН6%/безНДС, услуга подтверждена экраном15.10; реальная активация сайта отдельно.
 - ЮKassa: [yookassa.md](yookassa.md), [yookassa-checkout-contract.md](yookassa-checkout-contract.md).
 - Отправления СДЭК в manager: [очередь, накладные PDF, статусы и отмена](cdek-shipments.md), миграция024; опубликовано14.10 в тестовом режиме.
 - СДЭК/карта: [cdek.md](cdek.md), [cdek-checkout-contract.md](cdek-checkout-contract.md).

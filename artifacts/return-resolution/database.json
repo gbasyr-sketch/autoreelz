@@ -1,6 +1,7 @@
 {
   "passed": true,
   "isolated": true,
+  "migrationSha256": "554be230822c991f7ddcf89bc24f15dc6d2826799ca4b517a4e92e98c5c88429",
   "externalCalls": 0,
   "checks": [
     "real checkout/payment/dispatch; exact single-plus-bundle physical refund closes once across keys/operators, without stock, PSP, mail or allocation side effects",

@@ -1,4 +1,4 @@
-import assert from 'node:assert/strict';import fs from 'node:fs/promises';import {randomUUID as key} from 'node:crypto';
+import assert from 'node:assert/strict';import fs from 'node:fs/promises';import {randomUUID as key,createHash} from 'node:crypto';
 import {createImageDatabase,imageEnvironment} from './helpers/ai-image-qa.mjs';
 const qa=await createImageDatabase('ar_qa_ai_images_return_resolution_'+key().replaceAll('-','').slice(0,12));
 Object.assign(process.env,imageEnvironment(qa.database,'private/return-resolution/qa'),{MAIL_PROVIDER:'simulation',MAIL_OWNER_RECIPIENT:'',PAYMENT_PROVIDER:'simulation',SHIPPING_PROVIDER:'simulation',YOOKASSA_SHOP_ID:'123456',YOOKASSA_SECRET_KEY:'qa-secret-not-real-00000'});
@@ -124,5 +124,5 @@ try{
  if(outcomes[0].status==='rejected')assert.ok(['RETURN_RESOLUTION_STALE','RETURN_RESOLUTION_BLOCKED'].includes(outcomes[0].reason.code));
  checks.push('concurrent new parcel and closure serialize on order; new work never stays hidden behind closed status');
  process.env.STORE_MODE='production';await assert.rejects(closeReturnResolution(actor,await command(carrier)),/Test adapters are available only/);await assert.rejects(closeReturnResolution(actor,{}),/Test adapters are available only/);await assert.rejects(closeReturnResolution(actor,body),/Test adapters are available only/);assert.equal((await returnResolutionWorkspace(carrier.orderId)).enabled,false);assert.equal((await returnResolutionWorkspace(f.orderId)).history.length,2);assert.equal(externalCalls,0);checks.push('production writes and old-key replay disabled before validation, history readable, zero external calls');
- await fs.mkdir('artifacts/return-resolution',{recursive:true});await fs.writeFile('artifacts/return-resolution/database.json',JSON.stringify({passed:true,isolated:true,externalCalls,checks},null,2)+'\n');console.log(JSON.stringify({passed:true,checks}));
+ await fs.mkdir('artifacts/return-resolution',{recursive:true});await fs.writeFile('artifacts/return-resolution/database.json',JSON.stringify({passed:true,isolated:true,migrationSha256:createHash('sha256').update(await fs.readFile('migrations/034_return_resolution.sql')).digest('hex'),externalCalls,checks},null,2)+'\n');console.log(JSON.stringify({passed:true,checks}));
 }finally{globalThis.fetch=originalFetch;await getPool().end();await qa.close(true);}

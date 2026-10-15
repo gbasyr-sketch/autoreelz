@@ -1,0 +1,417 @@
+{
+  "checkedAt": "2026-10-15T16:20:50.458342+00:00",
+  "scope": "Prepare chosen real control purchase; repair production HTTP/checkout/worker blockers; retain noindex; no order/payment submission",
+  "appSha": "0ddcd28e1b88342d903b008a917796d31a938d5e",
+  "image": "sha256:c6322978415923f05aa9ae45706c5b790e85a4d1d41d2c69f99415b253c790f7",
+  "schema": "001-035",
+  "deployments": [
+    {
+      "sha": "fbd2aaaab68ff24f444effa89b4d1f23b93639a4",
+      "purpose": "Conditional payment labels; carrier queue recovery"
+    },
+    {
+      "sha": "83d01571f53540a8632dd2ba40f6e34b98d5fa8b",
+      "purpose": "Production commerce/auth HTTP guards"
+    },
+    {
+      "sha": "0ddcd28e1b88342d903b008a917796d31a938d5e",
+      "purpose": "Remove fictional-contact advice; verify HTTP behind approved HTTPS proxy"
+    }
+  ],
+  "finalDeployment": {
+    "checkedAt": "2026-10-15T16:20:50.458342+00:00",
+    "deployed": true,
+    "appSha": "0ddcd28e1b88342d903b008a917796d31a938d5e",
+    "previousAppSha": "83d01571f53540a8632dd2ba40f6e34b98d5fa8b",
+    "image": "sha256:c6322978415923f05aa9ae45706c5b790e85a4d1d41d2c69f99415b253c790f7",
+    "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-live-ui-20261015T162031Z",
+    "changedEnvFields": [
+      "RELEASE_IMAGE"
+    ],
+    "migrationsApplied": 0,
+    "checks": {
+      "appRevision": true,
+      "runtimeChangesLimitedToDeclaredFields": true,
+      "envOnlyImageChanged": true,
+      "configPreserved": true,
+      "migrationsPreserved": true,
+      "protectedDataPreserved": true,
+      "otherContainersPreserved": true,
+      "appContainersUseVerifiedImage": true,
+      "healthy": true,
+      "workerRecent": true
+    },
+    "protectedTables": 70,
+    "changedTables": [],
+    "config": {
+      "APP_REVISION": "0ddcd28e1b88342d903b008a917796d31a938d5e",
+      "STORE_MODE": "production",
+      "PAYMENT_PROVIDER": "yookassa-live",
+      "YOOKASSA_RECEIPTS_MODE": "yookassa",
+      "SEO_INDEXING_ENABLED": "false",
+      "CDEK_SHIPMENTS_MODE": "disabled",
+      "CDEK_SHIPMENTS_ALLOW_LIVE": "false",
+      "PICKUP_MAP_PROVIDER": "osm",
+      "METRIKA_ENABLED": "false",
+      "MAIL_PROVIDER": "timeweb-smtp",
+      "MAIL_RECIPIENT_POLICY": "all-new",
+      "MAIL_NEW_MESSAGES_FROM": "2026-10-14T23:37:31.373Z",
+      "YOOKASSA_LIVE_OPERATIONS_ENABLED": "true"
+    },
+    "passed": true
+  },
+  "workerRecovery": {
+    "fixedAt": "2026-10-15T16:05:32.430111+00:00",
+    "appSha": "fbd2aaaab68ff24f444effa89b4d1f23b93639a4",
+    "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-carrier-queue-disable-20261015T160520Z",
+    "changedEnvFields": [
+      "CDEK_SHIPMENTS_MODE"
+    ],
+    "cdekShipmentMode": "disabled",
+    "liveShipmentsRemainDisabled": true,
+    "shippingCalculatorPreserved": true,
+    "testCredentialsAndHistoryPreserved": true,
+    "freshFullWorkerCycleAfterRestart": true,
+    "webWorkerHealthy": true,
+    "passed": true
+  },
+  "workerFinal": {
+    "heartbeatAfterContainerStart": true,
+    "heartbeatAgeSeconds": 2,
+    "recent": true,
+    "noLastError": true,
+    "containerHealthy": true,
+    "passed": true
+  },
+  "localChecks": {
+    "astroErrors": 0,
+    "astroWarnings": 0,
+    "astroHints": 0,
+    "buildPassed": true,
+    "profileUnitPassed": 25
+  },
+  "ssrModes": {
+    "production": true,
+    "staging": true,
+    "pagesPerMode": 3
+  },
+  "previewHttpGuards": {
+    "passed": true,
+    "checks": [
+      {
+        "path": "/api/commerce/cart",
+        "status": 403,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/cart",
+        "status": 403,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/cart",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/delivery-estimate",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/quote",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/checkout",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/pay",
+        "status": 403,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/payment-event",
+        "status": 404,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/payment-status",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/cancel",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/auth/request",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/auth/verify",
+        "status": 400,
+        "passed": true
+      }
+    ],
+    "invalidCommandsOnly": true,
+    "ordersCreated": 0,
+    "paymentsCreated": 0,
+    "refundsCreated": 0,
+    "receiptsCreated": 0,
+    "messagesSent": 0
+  },
+  "publicHttpGuards": {
+    "passed": true,
+    "checks": [
+      {
+        "path": "/api/commerce/cart",
+        "status": 403,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/cart",
+        "status": 403,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/cart",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/delivery-estimate",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/quote",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/checkout",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/pay",
+        "status": 403,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/payment-event",
+        "status": 404,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/payment-status",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/cancel",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/auth/request",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/auth/verify",
+        "status": 400,
+        "passed": true
+      }
+    ],
+    "invalidCommandsOnly": true,
+    "ordersCreated": 0,
+    "paymentsCreated": 0,
+    "refundsCreated": 0,
+    "receiptsCreated": 0,
+    "messagesSent": 0
+  },
+  "publicGet": {
+    "checkedAt": "2026-10-15T16:21:23.788740+00:00",
+    "checks": [
+      {
+        "path": "/health",
+        "status": 200,
+        "passed": true,
+        "revision": "0ddcd28e1b88342d903b008a917796d31a938d5e"
+      },
+      {
+        "path": "/product/kryshka-avariyki-lada-priora-2007-2018",
+        "status": 200,
+        "passed": true
+      },
+      {
+        "path": "/",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/catalog",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/cart",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/checkout",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/account",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/api/privacy",
+        "status": 200,
+        "passed": true,
+        "analyticsEnabled": false
+      },
+      {
+        "path": "/api/manager/orders",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/api/manager/payment-refunds?orderId=00000000-0000-4000-8000-000000000001",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/api/manager/closing-receipt?orderId=00000000-0000-4000-8000-000000000001",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/robots.txt",
+        "status": 200,
+        "passed": true,
+        "closed": true
+      },
+      {
+        "path": "/sitemap.xml",
+        "status": 200,
+        "passed": true,
+        "empty": true
+      },
+      {
+        "path": "/feed.yml",
+        "status": 503,
+        "passed": true
+      },
+      {
+        "path": "/cms/users/me",
+        "status": 401,
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "readOnly": true,
+    "monetaryRequests": 0
+  },
+  "runtime": {
+    "revision": "0ddcd28e1b88342d903b008a917796d31a938d5e",
+    "readOnly": true,
+    "ordersRead": 6,
+    "historicalSandboxPaymentsIgnored": 5,
+    "liveRecords": {
+      "payments": 0,
+      "refunds": 0,
+      "closing_receipts": 0
+    },
+    "liveConfigEnabled": true,
+    "noindexPreserved": true,
+    "testSimulatorsBlocked": true,
+    "liveWorkspacesAvailable": true,
+    "historicalSandboxIsolated": true,
+    "emergencyPauseVerified": true,
+    "externalCalls": 0,
+    "monetaryRequests": 0,
+    "passed": true
+  },
+  "publicBrowserUI": {
+    "passed": true,
+    "appSha": "fbd2aaaab68ff24f444effa89b4d1f23b93639a4",
+    "readOnly": true,
+    "viewports": [
+      {
+        "width": 1440,
+        "page": "product",
+        "noindex": true,
+        "noFalseTestClaims": true,
+        "noOverflow": true,
+        "passed": true
+      },
+      {
+        "width": 1440,
+        "page": "checkout",
+        "noindex": true,
+        "noFalseTestClaims": true,
+        "noOverflow": true,
+        "passed": true
+      },
+      {
+        "width": 375,
+        "page": "product",
+        "noindex": true,
+        "noFalseTestClaims": true,
+        "noOverflow": true,
+        "passed": true
+      },
+      {
+        "width": 375,
+        "page": "checkout",
+        "noindex": true,
+        "noFalseTestClaims": true,
+        "noOverflow": true,
+        "passed": true
+      }
+    ],
+    "nonGetApiCalls": 0
+  },
+  "preparedPurchase": {
+    "productPath": "/product/kryshka-avariyki-lada-priora-2007-2018",
+    "quantity": 1,
+    "productTotalRubles": "300.00",
+    "shippingTotalRubles": null,
+    "emailProvided": true,
+    "emailValueOmitted": true,
+    "visibleBrowserTab": "6",
+    "cartAddedThroughActualBrowser": true,
+    "recipientAndDeliveryNotInvented": true,
+    "termsNotAcceptedByOperator": true,
+    "orderNotSubmitted": true
+  },
+  "screenshots": "Private only; not included in Git",
+  "monetaryRequestsByOperator": 0,
+  "ordersCreatedByOperator": 0,
+  "paymentsCreatedByOperator": 0,
+  "refundsCreatedByOperator": 0,
+  "receiptsCreatedByOperator": 0,
+  "messagesSentByOperator": 0,
+  "limitations": [
+    "Real payment, webhook delivery and fiscal receipt registration/delivery await the user purchase.",
+    "Live CDEK shipments remain disabled; shipping calculation remains configured."
+  ],
+  "passed": true
+}

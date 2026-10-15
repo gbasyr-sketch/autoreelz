@@ -20,6 +20,8 @@
 
 ## Безопасное начало — только чтение
 
+После активации production15.10 накладные сохранять `CDEK_SHIPMENTS_MODE=disabled`, `CDEK_SHIPMENTS_ALLOW_LIVE=false` до отдельного допуска. Режим test в production запрещён и прерывает workerTick перед heartbeat; он не является безопасной работающей конфигурацией worker. `SHIPPING_PROVIDER=cdek`/калькулятор/тестовые ключи/историю при отключении накладных не менять. После каждого перезапуска подтвердить last_run_at строго позже State.StartedAt нового worker, а не только healthy или возраст старой отметки. [Разбор и результат](../artifacts/yookassa-live-ui-2026-10-15.json).
+
 На рабочем компьютере из корня репозитория:
 
 ```sh

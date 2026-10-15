@@ -16,12 +16,14 @@
   "managerCommandAccepted": true,
   "temporaryManagerSessionRevoked": true,
   "providerAndSiteVerified": true,
-  "buyerFundsReceiptConfirmed": null,
-  "buyerRefundEmailConfirmed": null,
+  "buyerFundsReceiptConfirmed": true,
+  "buyerRefundEmailConfirmed": true,
   "noindexPreserved": true,
   "applicationConfigurationChanged": false,
   "stockOperationsPerformed": false,
-  "completion": "Provider and site complete; buyer receipt confirmation pending",
+  "completion": "Provider, site and buyer confirmed full refund and receipt delivery",
   "technicalChecksPassed": true,
-  "endToEndConfirmed": false
+  "endToEndConfirmed": true,
+  "buyerConfirmationDate": "2026-10-15",
+  "buyerConfirmationSource": "Explicit user confirmation in chat"
 }

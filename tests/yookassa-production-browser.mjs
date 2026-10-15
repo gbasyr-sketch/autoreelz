@@ -15,6 +15,7 @@ try{
    if(url.pathname==='/api/commerce/session')return reply({id:order.id,csrfToken:'qa',email:null,expiresAt:'2030-01-01T00:00:00Z'});
    if(url.pathname==='/api/manager/access')return reply({ok:true});if(url.pathname==='/api/manager/order'||url.pathname==='/api/commerce/order')return reply(order);
    if(url.pathname==='/api/manager/cdek-shipments')return reply({enabled:false,reason:'QA',shipments:[]});
+   if(url.pathname==='/api/manager/return-resolution')return reply({enabled:false,canClose:false,reason:'QA',orderId:order.id,revision:'a'.repeat(64),summary:null,history:[]});
    if(url.pathname==='/api/manager/return-intake')return reply({enabled:false,canReceive:false,reason:'QA',orderId:order.id,lines:[],receipts:[]});
    if(url.pathname==='/api/manager/payment-refunds')return reply({enabled:true,payments:[{id:paymentId,amountRubles:'2000.00',refundedRubles:'0.00',reservedRubles:'0.00',remainingRubles:'2000.00',shippingRemainingRubles:'200.00',canRefund:true,partialAvailable:true,blockReason:null,lines:[]}],refunds:[]});
    if(url.pathname==='/api/manager/closing-receipt'){

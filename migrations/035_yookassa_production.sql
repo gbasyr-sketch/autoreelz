@@ -65,3 +65,47 @@ END $$;
 CREATE TRIGGER ar_refund_closing_guard BEFORE INSERT ON ar_yookassa_refunds FOR EACH ROW EXECUTE FUNCTION ar_refund_closing_guard();
 ALTER TABLE ar_payments ADD COLUMN closing_discovery_at timestamptz NOT NULL DEFAULT now(),
  ADD COLUMN closing_discovery_error text;
+
+-- Extend the immutable 034 review contract to authenticated live payments as well.
+CREATE OR REPLACE FUNCTION ar_return_resolution_guard() RETURNS trigger LANGUAGE plpgsql AS $$
+DECLARE current_snapshot jsonb; o ar_orders%ROWTYPE; payment ar_payments%ROWTYPE; amount numeric; received bigint; restocked bigint; held bigint;
+BEGIN
+ SELECT * INTO o FROM ar_orders WHERE id=NEW.order_id FOR UPDATE;
+ current_snapshot:=ar_return_resolution_snapshot(NEW.order_id);
+ IF current_snapshot IS DISTINCT FROM NEW.snapshot OR NEW.revision<>encode(sha256(convert_to(current_snapshot::text,'UTF8')),'hex') THEN RAISE EXCEPTION 'Return resolution snapshot is stale'; END IF;
+ IF o.status NOT IN('manual_review','return_closed') OR o.allocation_state<>'settled' OR o.delivery_status NOT IN('shipped','delivered') THEN RAISE EXCEPTION 'Return resolution order requires review'; END IF;
+ IF NOT EXISTS(SELECT 1 FROM ar_return_receipts WHERE order_id=o.id) OR EXISTS(SELECT 1 FROM ar_return_receipts r LEFT JOIN ar_return_inspections i ON i.receipt_id=r.id WHERE r.order_id=o.id AND i.id IS NULL) THEN RAISE EXCEPTION 'Return resolution requires every inspection'; END IF;
+ IF (SELECT count(*) FROM ar_payments WHERE order_id=o.id AND status='succeeded')<>1 OR EXISTS(SELECT 1 FROM ar_payments WHERE order_id=o.id AND status NOT IN('succeeded','failed')) THEN RAISE EXCEPTION 'Return resolution payment is unresolved'; END IF;
+ SELECT * INTO payment FROM ar_payments WHERE order_id=o.id AND status='succeeded';
+ IF payment.provider NOT IN('yookassa-sandbox','yookassa-live') OR payment.provider_status IS DISTINCT FROM 'succeeded' OR payment.provider_id IS NULL OR payment.currency<>'RUB' OR payment.shipping_version<>o.shipping_version OR payment.amount_rubles<>o.product_total_rubles+o.shipping_cost_rubles THEN RAISE EXCEPTION 'Return resolution payment mismatch'; END IF;
+ IF NOT EXISTS(SELECT 1 FROM ar_yookassa_refunds WHERE order_id=o.id AND state='succeeded') OR EXISTS(SELECT 1 FROM ar_yookassa_refunds WHERE order_id=o.id AND (state NOT IN('succeeded','canceled') OR (state='succeeded' AND (payment_id<>payment.id OR provider_payment_id::text<>payment.provider_id OR shop_id IS DISTINCT FROM payment.provider_shop_id OR provider_id IS NULL OR checked_at IS NULL OR selection_snapshot IS NULL OR selection_snapshot->>'opaque' IS DISTINCT FROM 'false' OR payment_amount_rubles IS DISTINCT FROM payment.amount_rubles)))) THEN RAISE EXCEPTION 'Return resolution refund is unresolved'; END IF;
+ IF EXISTS(SELECT 1 FROM ar_cdek_shipments WHERE order_id=o.id AND state NOT IN('rejected','cancelled') AND (state='ready' AND carrier_code IN('DELIVERED','POSTOMAT_RECEIVED') AND provider_uuid IS NOT NULL AND carrier_at IS NOT NULL) IS NOT TRUE) THEN RAISE EXCEPTION 'Return resolution carrier is unresolved'; END IF;
+ -- Missing JSON fields must fail explicitly: SQL NULL is not a valid reconciliation.
+ IF EXISTS(SELECT 1 FROM ar_yookassa_refunds r WHERE r.order_id=o.id AND r.state='succeeded' AND
+  ((jsonb_typeof(r.selection_snapshot)='object' AND r.selection_snapshot->'version'='1'::jsonb AND r.selection_snapshot->'opaque'='false'::jsonb AND r.selection_snapshot->>'mode' IN('full','partial') AND jsonb_typeof(r.selection_snapshot->'lines')='array' AND jsonb_typeof(r.selection_snapshot->'shippingRubles')='string' AND r.selection_snapshot->>'shippingRubles'~'^[0-9]+\.[0-9]{2}$') IS NOT TRUE)) THEN RAISE EXCEPTION 'Return resolution selection shape mismatch'; END IF;
+ IF EXISTS(SELECT 1 FROM ar_yookassa_refunds r CROSS JOIN LATERAL jsonb_array_elements(r.selection_snapshot->'lines') line WHERE r.order_id=o.id AND r.state='succeeded' AND
+  ((jsonb_typeof(line)='object' AND jsonb_typeof(line->'lineIndex')='number' AND line->>'lineIndex'~'^[0-9]+$' AND jsonb_typeof(line->'quantity')='number' AND line->>'quantity'~'^[1-9][0-9]*$' AND jsonb_typeof(line->'unitPriceRubles')='string' AND line->>'unitPriceRubles'~'^[0-9]+\.[0-9]{2}$') IS NOT TRUE)) THEN RAISE EXCEPTION 'Return resolution line shape mismatch'; END IF;
+ IF EXISTS(SELECT 1 FROM ar_yookassa_refunds r CROSS JOIN LATERAL jsonb_array_elements(r.selection_snapshot->'lines') line WHERE r.order_id=o.id AND r.state='succeeded' GROUP BY r.id,line->>'lineIndex' HAVING count(*)>1) THEN RAISE EXCEPTION 'Return resolution duplicate line'; END IF;
+ -- Financial lines must retain the purchase price and a whole bounded purchased quantity.
+ IF EXISTS(SELECT 1 FROM ar_yookassa_refunds r CROSS JOIN LATERAL jsonb_array_elements(r.selection_snapshot->'lines') line
+  WHERE r.order_id=o.id AND r.state='succeeded' AND ((line->>'lineIndex')::int<0 OR o.items_snapshot->((line->>'lineIndex')::int) IS NULL OR (line->>'quantity')::numeric<1 OR (line->>'quantity')::numeric<>trunc((line->>'quantity')::numeric) OR (line->>'unitPriceRubles')::numeric<>(o.items_snapshot->((line->>'lineIndex')::int)->>'unitPriceRubles')::numeric))
+ OR EXISTS(SELECT 1 FROM ar_yookassa_refunds r CROSS JOIN LATERAL jsonb_array_elements(r.selection_snapshot->'lines') line WHERE r.order_id=o.id AND r.state='succeeded' GROUP BY line->>'lineIndex' HAVING sum((line->>'quantity')::numeric)>(o.items_snapshot->((line->>'lineIndex')::int)->>'quantity')::numeric)
+ THEN RAISE EXCEPTION 'Return resolution purchased lines mismatch'; END IF;
+ IF EXISTS(SELECT 1 FROM ar_return_receipt_lines l JOIN ar_order_components c ON c.order_id=l.order_id AND c.sku_id=l.sku_id WHERE l.order_id=o.id GROUP BY l.sku_id,c.quantity HAVING sum(l.quantity)>least(c.quantity,coalesce((SELECT greatest(0,-sum(m.stock_delta)) FROM ar_stock_movements m WHERE m.order_id=o.id AND m.sku_id=l.sku_id AND m.operation_key NOT LIKE 'return-intake:%'),0))) THEN RAISE EXCEPTION 'Return resolution issued quantity mismatch'; END IF;
+ IF EXISTS(SELECT 1 FROM ar_yookassa_refunds r WHERE r.order_id=o.id AND r.state='succeeded' AND (r.selection_snapshot->>'shippingRubles')::numeric NOT IN(0,o.shipping_cost_rubles)) OR (SELECT coalesce(sum((selection_snapshot->>'shippingRubles')::numeric),0) FROM ar_yookassa_refunds WHERE order_id=o.id AND state='succeeded')>o.shipping_cost_rubles THEN RAISE EXCEPTION 'Return resolution shipping mismatch'; END IF;
+ IF EXISTS(WITH purchased AS (SELECT component->>'skuId' sku,sum((item->>'quantity')::bigint*(component->>'quantity')::bigint) quantity FROM jsonb_array_elements(o.items_snapshot) item CROSS JOIN LATERAL jsonb_array_elements(item->'components') component GROUP BY component->>'skuId'), allocated AS (SELECT sku_id::text sku,quantity FROM ar_order_components WHERE order_id=o.id) SELECT 1 FROM purchased FULL JOIN allocated USING(sku) WHERE purchased.quantity IS DISTINCT FROM allocated.quantity) THEN RAISE EXCEPTION 'Return resolution purchase components mismatch'; END IF;
+ IF (SELECT sum((item->>'quantity')::numeric*(item->>'unitPriceRubles')::numeric) FROM jsonb_array_elements(o.items_snapshot) item) IS DISTINCT FROM o.product_total_rubles THEN RAISE EXCEPTION 'Return resolution purchase amount mismatch'; END IF;
+ -- Compare cumulative physical SKU quantities, expanding purchased bundle components.
+ IF EXISTS(WITH financial AS (
+  SELECT component->>'skuId' sku,sum((line->>'quantity')::bigint*(component->>'quantity')::bigint) quantity
+  FROM ar_yookassa_refunds r CROSS JOIN LATERAL jsonb_array_elements(r.selection_snapshot->'lines') line
+  CROSS JOIN LATERAL jsonb_array_elements(o.items_snapshot->((line->>'lineIndex')::int)->'components') component
+  WHERE r.order_id=o.id AND r.state='succeeded' GROUP BY component->>'skuId'
+ ), physical AS (SELECT sku_id::text sku,sum(quantity) quantity FROM ar_return_receipt_lines WHERE order_id=o.id GROUP BY sku_id)
+ SELECT 1 FROM financial FULL JOIN physical USING(sku) WHERE financial.quantity IS DISTINCT FROM physical.quantity) THEN RAISE EXCEPTION 'Return resolution physical financial mismatch'; END IF;
+ IF EXISTS(SELECT 1 FROM ar_yookassa_refunds r WHERE r.order_id=o.id AND r.state='succeeded' AND r.amount_rubles<>coalesce((SELECT sum((line->>'quantity')::numeric*(line->>'unitPriceRubles')::numeric) FROM jsonb_array_elements(r.selection_snapshot->'lines') line),0)+(r.selection_snapshot->>'shippingRubles')::numeric) THEN RAISE EXCEPTION 'Return resolution refund amount mismatch'; END IF;
+ SELECT sum(amount_rubles) INTO amount FROM ar_yookassa_refunds WHERE order_id=o.id AND state='succeeded';
+ SELECT sum((x->>'received')::bigint),sum((x->>'restocked')::bigint),sum((x->>'held')::bigint) INTO received,restocked,held FROM jsonb_array_elements(current_snapshot->'physical') x;
+ IF amount>payment.amount_rubles OR NEW.summary IS DISTINCT FROM jsonb_build_object('kind',CASE WHEN amount=payment.amount_rubles THEN 'full' ELSE 'partial' END,'paymentAmountRubles',payment.amount_rubles::text,'refundedRubles',amount::numeric(16,2)::text,'remainingRubles',(payment.amount_rubles-amount)::numeric(16,2)::text,'receivedQuantity',received,'restockedQuantity',restocked,'heldQuantity',held) THEN RAISE EXCEPTION 'Return resolution summary mismatch'; END IF;
+ RETURN NEW;
+END $$;

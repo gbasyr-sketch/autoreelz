@@ -27,7 +27,7 @@ export async function returnResolutionWorkspace(orderId:string):Promise<ReturnRe
   const order=await orderRow(c,id),state=await current(c,order),records=await history(c,id);let enabled=true;
   try{requireCommerceEnvironment();}catch{enabled=false;}
   const closed=order.status==='return_closed'&&records.some(r=>r.id)&&!!(await c.query('SELECT 1 FROM ar_return_resolutions WHERE order_id=$1 AND revision=$2',[id,state.revision])).rowCount;
-  return{orderId:id,enabled,canClose:enabled&&!closed&&!state.reason,reason:!enabled?'Завершение разбора доступно в текущем режиме.':closed?'Текущий разбор завершён. Новые посылки и возвраты денег потребуют новой сверки.':state.reason,revision:state.revision,summary:state.summary,history:records};
+  return{orderId:id,enabled,canClose:enabled&&!closed&&!state.reason,reason:!enabled?'Завершение разбора недоступно в текущем режиме.':closed?'Текущий разбор завершён. Новые посылки и возвраты денег потребуют новой сверки.':state.reason,revision:state.revision,summary:state.summary,history:records};
  });
 }
 export async function closeReturnResolution(actor:{id:string},body:Record<string,unknown>){

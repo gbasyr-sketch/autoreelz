@@ -16,7 +16,7 @@ export function resolutionPlan(order:Row,payments:Row[],refunds:Row[],physical:R
  const successful=payments.filter(p=>p.status==='succeeded');
  if(successful.length!==1||payments.some(p=>!['succeeded','failed'].includes(p.status)))fail('Оплаты заказа требуют сверки: нужен один подтверждённый платёж без незавершённых или спорных оплат.');
  const payment=successful[0];
- if(payment.provider!=='yookassa-sandbox'||payment.provider_status!=='succeeded'||!payment.provider_id||payment.currency!=='RUB'||payment.shipping_version!==order.shipping_version)fail('Исходная тестовая оплата не подтверждена или не совпадает с заказом.');
+ if(!['yookassa-sandbox','yookassa-live'].includes(payment.provider)||payment.provider_status!=='succeeded'||!payment.provider_id||payment.currency!=='RUB'||payment.shipping_version!==order.shipping_version)fail('Исходная оплата не подтверждена или не совпадает с заказом.');
  if(refunds.some(r=>refundUnresolved(r.state)||!['succeeded','canceled'].includes(r.state)))fail('Дождитесь подтверждения всех возвратов денег. Неопределённые результаты требуют сверки.');
  const returned=refunds.filter(r=>r.state==='succeeded');if(!returned.length)fail('Нет подтверждённого возврата денег за полученные товары.');
  const raw=order.items_snapshot;

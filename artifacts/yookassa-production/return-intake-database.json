@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "isolated": true,
+  "externalCalls": 0,
+  "checks": [
+    "real checkout/payment/dispatch yields snapshot physical SKU capacity; later bundle edits do not change it",
+    "reception credits no stock; same parcel across keys/operators is registered once",
+    "duplicate parcel edits, excess quantities and foreign SKU cannot inflate reception",
+    "one inspection atomically credits approved physical SKU once; held components and existing reservations stay unchanged",
+    "later partial parcels share a bounded budget; all-held inspection never adds saleable stock",
+    "reception/inspection do not send mail, refund money, change payment facts or close order review",
+    "journal is append-only for app and immutable even to ordinary owner UPDATE",
+    "committed receipts, inspections and return stock operations reject late INSERT or rewrite",
+    "failure on second physical SKU rolls back inspection and first credit; same request safely retries after rollback",
+    "physical processing works during separate financial review and preserves both reviewed and paid payment states",
+    "unpaid/reserved, unshipped and supplier-paid unallocated goods cannot produce returned stock",
+    "database budget and deferred inspection/stock coupling reject direct bypass outside application validation",
+    "noncanonical production origin is closed; history remains readable and external calls stay zero",
+    "canonical production permits explicit return inspection exactly once without money or external calls"
+  ]
+}

@@ -12,7 +12,6 @@ import Icon from '../../components/Icon.astro';
 import FavoriteButton from '../../components/FavoriteButton.astro';
 import Reviews from '../../components/Reviews.astro';
 import {getReviews} from '../../server/social';
-import {demoProductReviews} from '../../lib/home';
 import {setting} from '../../server/config';
 const production=setting('STORE_MODE','local-test')==='production';
 import {getCatalog} from '../../server/catalog';
@@ -51,7 +50,6 @@ const fitmentLabel=fitment==='compatible'?'Совместимость подтв
 const reviews=product&&offer&&Astro.locals.shopSession?await getReviews(Astro.locals.shopSession,product.id):null;
 const suggestions=product&&offer?productSuggestions(catalog,product,offer,vehicle&&!fitmentError?{vehicleId:vehicle.id,versionId:version?.id,year:Number(year),ac}:undefined):{manual:false,items:[]};
 const vehicleParams=new URLSearchParams();if(vehicle&&!fitmentError)for(const key of ['vehicle','version','year','ac']){const value=Astro.url.searchParams.get(key);if(value)vehicleParams.set(key,value);}
-const demoReviews=product?demoProductReviews(catalog,setting('STORE_MODE','local-test')).filter(r=>r.productSlug===product.slug):[];
 ---
 <StoreLayout catalog={catalog} description={product?.metaDescription} title={product&&offer?(product.seoTitle??product.name):'Товар не найден'} active="product">
 <main id="main" class="container product-page" data-viewed-product={product&&offer&&!product.isDemo?product.id:undefined} data-viewed-sku={variant?.id}>
@@ -93,7 +91,7 @@ const demoReviews=product?demoProductReviews(catalog,setting('STORE_MODE','local
   <div class="product-details-layout"><section class="product-description"><section id="description"><h2>Описание</h2>{textParagraphs(product.description).map(paragraph=><p>{paragraph}</p>)}</section><section id="specifications"><h2>{product.kind==='bundle'?'Что входит в комплект':'Характеристики'}</h2>
     {componentRows?<><ul class="bundle-components">{componentRows.map(c=><li><a href={productHref(c.product,c.variant)}><img src={c.variant.image} width="720" height="480" loading="lazy" alt=""/><span>{c.product.name}<small>{c.variant.label} · {c.quantity} шт.</small></span></a><b>{money(multiplyRubles(c.variant.priceRubles,c.quantity))}</b></li>)}</ul><p class="bundle-price-note">Цена: сумма компонентов минус {((product.discountBps??0)/100)}% скидки комплекта. Остаток общий с отдельными деталями.</p></>:<dl class="spec-list">{Object.entries(variant?.attributes??product.attributes).map(([key,value])=><div><dt>{attributeDefinitions[key]?.label??key}</dt><dd>{attributeLabel(key,value)}</dd></div>)}<div><dt>Совместимость</dt><dd>{vehicle?fitmentLabel:'Укажите автомобиль для проверки'}</dd></div>{product.isDemo&&<div><dt>Данные товара</dt><dd>Демонстрационные</dd></div>}</dl>}
   </section><section id="delivery"><h2>Доставка и предзаказ</h2><p>Отправление из Махачкалы по России: СДЭК до пункта выдачи или курьером. Доставка обычного заказа и предзаказа рассчитывается отдельно. При отсутствии расчёта стоимость уточнит менеджер до оплаты.</p></section></section><aside class="product-help"><Icon name="car"/><h2>Сначала — точный подбор</h2><p>Проверяем модель, год выпуска и наличие кондиционера. Если сведений недостаточно, совместимость уточняется.</p><a href="#compatibility">Указать автомобиль <Icon name="arrow" size={17}/></a></aside></div>
-  {reviews&&<Reviews productId={product.id} view={reviews} demoReviews={demoReviews} authenticated={Boolean(Astro.locals.shopSession?.email)}/>}</div>
+  {reviews&&<Reviews productId={product.id} view={reviews} authenticated={Boolean(Astro.locals.shopSession?.email)}/>}</div>
   {suggestions.items.length>0&&<ProductCarousel title={suggestions.manual?'Рекомендуем':'Похожие товары'} id="product-suggestions">{suggestions.items.map(({product,offer,fitment})=><ProductCard product={product} offer={offer} fitment={fitment} catalog={catalog} vehicleQuery={vehicleParams.toString()}/>)}</ProductCarousel>}
   <ProductCarousel title="Вы смотрели" id="recent-products" recent/>
   <aside class="mobile-purchase js-only" aria-label="Действие покупки"><div><strong>{money(offer.priceRubles)}</strong><small>{offer.available>0?(product.isDemo?'Демонстрационная цена':'Выбранное исполнение'):'Предзаказ · без оплаты'}</small></div><button class="button" data-add-product={product.id} data-sku-id={variant?.id}><span data-add-label>{offer.available>0?'В корзину':'В предзаказ'}</span><Icon name="arrow" size={18}/></button></aside>

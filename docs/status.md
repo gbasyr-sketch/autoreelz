@@ -4,6 +4,8 @@
 
 15.10 после035 обновлены [приоритеты запуска](launch.md): P0 — рабочие подключения/приёмка денег и чеков, live-СДЭК и процедуры ПД; P1 — материалы/браузеры/эксплуатация/поиск; P2 — Метрика и улучшения. Прямые GET в17:38МСК подтвердили этот app, noindex/Disallow/пустой sitemap/выключенную аналитику и оставшиеся демоблоки. Копии ok/scheduled, свежий npm audit0high/0moderate/1low. [Сверка](../artifacts/launch-priorities-2026-10-15.json). Это только обновление списка: сервер/данные/режимы не менялись.
 
+Для подключения рабочего магазина подготовлен локальный private/yookassa-live.env: пустой шаблон,0600/ignore проверены. [Порядок передачи и проверки](yookassa-production.md#доступы-для-первой-проверки). Ключи не получены, GET/me рабочего магазина не выполнялся; сервер/платежи/чеки/noindex не переключались.
+
 ## Интеграция ЮKassa опубликована15.10.2026, реальные операции выключены
 
 По отдельному поручению владельца опубликован app**bf6adb6d0112cb34f52a724e48456036de7eecbb**, image**sha256:d52d0392cb9556b7b3f48e741660b67baef01d176fd40eaeb099fa04d1cec18a**, применена только035 после читаемого DB-only backup. Услуга «Чеки от ЮKassa» рабочего магазина подтверждена экраном владельца. Код live-карты/СБП, полных/частичных возвратов и закрывающих чеков размещён, но фактические настройки сохраняют `STORE_MODE=staging`, `PAYMENT_PROVIDER=yookassa-sandbox`, `YOOKASSA_RECEIPTS_MODE=disabled`, `YOOKASSA_LIVE_OPERATIONS_ENABLED=false`, test-СДЭК и noindex. Рабочие ключи не добавлялись. [Итог/backup/env-backup](../artifacts/yookassa-production/deployment/final.json), [контракт](yookassa-production.md).

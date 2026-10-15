@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-15",
+  "sourceSha": "42f3a86d8d7f7cba00638d1eb16a37bdb6f8fa78",
+  "source": "git archive of committed source; unrelated pending partial refunds excluded",
+  "published": false,
+  "migration": "032_supplier_preorders.sql",
+  "dependsOnUncommitted031": false,
+  "check": {"errors": 0, "warnings": 0, "hints": 0},
+  "build": "passed; existing YooKassa static/dynamic import bundling warning",
+  "unit": {"passed": 187, "skippedIntegrationSuites": 8, "failed": 0},
+  "tradeDatabaseRegression": {"passed": 67, "failed": 0, "skipped": 0},
+  "supplierDatabaseGroups": 7,
+  "browser": {"viewports": [1440, 375], "syntheticApi": true, "realCompiledClient": true, "passed": true},
+  "externalCalls": 0,
+  "smtpMessagesSent": 0,
+  "realPaymentsCreated": 0,
+  "screenshots": "private/supplier-preorders/browser; excluded from Git"
+}

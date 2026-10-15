@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "syntheticApi": true,
+  "externalCalls": 0,
+  "viewports": [
+    {
+      "width": 1440,
+      "explicitSupplierConsent": true,
+      "confirmPayload": true,
+      "paidWaitingForStock": true,
+      "insufficientStockKeepsWaiting": true,
+      "sameKeyUnknownRetry": true,
+      "settledAllowsPacking": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "explicitSupplierConsent": true,
+      "confirmPayload": true,
+      "paidWaitingForStock": true,
+      "insufficientStockKeepsWaiting": true,
+      "sameKeyUnknownRetry": true,
+      "settledAllowsPacking": true,
+      "noOverflow": true
+    }
+  ]
+}

@@ -11,11 +11,11 @@ services:
     networks: [frontend, backend]
   web:
     environment:
-      STORE_MODE: staging
+      STORE_MODE: ${STORE_MODE:-staging}
       SEO_INDEXING_ENABLED: 'false'
   worker:
     environment:
-      STORE_MODE: staging
+      STORE_MODE: ${STORE_MODE:-staging}
   image-worker:
     environment:
       STORE_MODE: staging

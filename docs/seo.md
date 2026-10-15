@@ -1,5 +1,11 @@
 # SEO: правила и проверка этапа 6
 
+## Индексация открыта 15.10.2026
+
+По прямому поручению владельца включён production SEO-флаг и снят общий noindex edge. При полном обходе выявлено противоречие: потоковый SSR возвращал Response раньше, чем StoreLayout задавал locals.seoIndexable, и middleware добавлял ложный HTTP noindex. Appff922ef устраняет зависимость от позднего locals: HTML использует robots meta, ошибки/API/служебные не-HTML ответы сохраняют HTTP noindex; robots/sitemap доступны без него. CMS и /muzey/ закрыты отдельными правилами edge. Локальная среда по-прежнему закрыта.
+
+Pinned Node24.21.0: check/build,12 SEO unit и10 HTTP-проверок изолированного production SSR. Рабочий sitemap содержит71 URL; итоговый обход — [http.json](../artifacts/seo-indexing/http.json). Владелец выбрал самостоятельно добавить `https://autoreelz.ru/sitemap.xml` в Google Search Console и Яндекс.Вебмастер; агент не отправлял его. Фактическая обработка поисковиками и внешний Rich Results Test отдельно, не подтверждены HTTP-проверкой. Старые записи ниже о закрытой индексации относятся к подготовке.
+
 ## Исправления пяти пунктов — опубликованы 15.10.2026
 
 По отдельному поручению владельца опубликован app4301d0c, применена правка двух SEO-title после читаемого backup. **Индексация не включалась**. [Выпуск и сохранность данных](../artifacts/seo-improvements/deployment/final.json), [26 HTTP-проверок](../artifacts/seo-improvements/deployment/http.json). Локальная подготовка и проверки — [отчёт](../artifacts/seo-improvements/local.json).

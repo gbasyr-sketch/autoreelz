@@ -1,0 +1,1126 @@
+{
+  "app_revision": "ff922ef27b8fe3aed612ff6e1c0494c8c8ed8a7f",
+  "sitemap_count": 71,
+  "unique_count": 71,
+  "public": [
+    {
+      "url": "https://autoreelz.ru/",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/"
+      ],
+      "schema_count": 0,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/blog",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/blog"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/blog/category/installation",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/blog/category/installation"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/blog/category/selections",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/blog/category/selections"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/blog/kak-podobrat-detal-interiera",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/blog/kak-podobrat-detal-interiera"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/blog/kak-vybrat-pvz-sdek",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/blog/kak-vybrat-pvz-sdek"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/blog/matovaya-ili-glyantsevaya-poverhnost",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/blog/matovaya-ili-glyantsevaya-poverhnost"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/blog/nalichie-i-predzakaz",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/blog/nalichie-i-predzakaz"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/blog/obnovlenie-konsoli-priora-plan",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/blog/obnovlenie-konsoli-priora-plan"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/blog/otdelnaya-detal-ili-komplekt",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/blog/otdelnaya-detal-ili-komplekt"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/blog/priora-1-v-stile-priora-2-video",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/blog/priora-1-v-stile-priora-2-video"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/blog/vybor-tsveta-podsvetki",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/blog/vybor-tsveta-podsvetki"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?category=consoles",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?category=consoles"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?category=controls",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?category=controls"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?category=gear-knobs",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?category=gear-knobs"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?category=heaters",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?category=heaters"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?category=interior",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?category=interior"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?category=interior&page=2",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?category=interior&page=2"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?category=interior&page=3",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?category=interior&page=3"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?category=mirror-trims",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?category=mirror-trims"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?category=radio-frames",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?category=radio-frames"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?category=ramki-nomernogo-znaka",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?category=ramki-nomernogo-znaka"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?category=vents",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?category=vents"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?page=2",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?page=2"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/catalog?page=3",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/catalog?page=3"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/info/about",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/info/about"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/info/analytics-consent",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/info/analytics-consent"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/info/contacts",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/info/contacts"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/info/delivery",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/info/delivery"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/info/offer",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/info/offer"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/info/personal-data",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/info/personal-data"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/info/privacy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/info/privacy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/info/returns",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/info/returns"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/info/review-consent",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/info/review-consent"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/info/warranty",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/info/warranty"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/blok-otopitelya-granta-i-kalina-s-podsvetkoy-holod-sverhu",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/blok-otopitelya-granta-i-kalina-s-podsvetkoy-holod-sverhu"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/blok-otopitelya-granta-i-kalina-s-podsvetkoy-teplo-sverhu",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/blok-otopitelya-granta-i-kalina-s-podsvetkoy-teplo-sverhu"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/blok-otopitelya-lada-priora-1-s-podsvetkoy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/blok-otopitelya-lada-priora-1-s-podsvetkoy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/blok-otopitelya-vaz-2113-2114-2115-s-podsvetkoy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/blok-otopitelya-vaz-2113-2114-2115-s-podsvetkoy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/deflektory-amg-vaz-2107-chernyy-glyanets",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/deflektory-amg-vaz-2107-chernyy-glyanets"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/deflektory-amg-vaz-2107-glyanets-hrom",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/deflektory-amg-vaz-2107-glyanets-hrom"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/deflektory-amg-vaz-2107-matovyy-chernyy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/deflektory-amg-vaz-2107-matovyy-chernyy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/deflektory-amg-vaz-2107-matovyy-hrom",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/deflektory-amg-vaz-2107-matovyy-hrom"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/konsol-panel-na-vaz-2114-pod-9-dyuymov-chernyy-glyanets",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/konsol-panel-na-vaz-2114-pod-9-dyuymov-chernyy-glyanets"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/konsol-panel-na-vaz-2114-pod-9-dyuymov-chernyy-matovyy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/konsol-panel-na-vaz-2114-pod-9-dyuymov-chernyy-matovyy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/konsol-panel-na-vaz-2114-pod-9-dyuymov-seryy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/konsol-panel-na-vaz-2114-pod-9-dyuymov-seryy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/konsol-priora-1-v-stile-priora-2-chernyy-glyanets",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/konsol-priora-1-v-stile-priora-2-chernyy-glyanets"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/konsol-priora-1-v-stile-priora-2-matovyy-chernyy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/konsol-priora-1-v-stile-priora-2-matovyy-chernyy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/kozyrek-pod-planshet-9-dyuymov-v-stile-priora-2-dlya-priora-1-chernyy-glyanets",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/kozyrek-pod-planshet-9-dyuymov-v-stile-priora-2-dlya-priora-1-chernyy-glyanets"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/kozyrek-pod-planshet-9-dyuymov-v-stile-priora-2-dlya-priora-1-chernyy-matovyy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/kozyrek-pod-planshet-9-dyuymov-v-stile-priora-2-dlya-priora-1-chernyy-matovyy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/kryshka-avariyki-lada-priora-2007-2018",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/kryshka-avariyki-lada-priora-2007-2018"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/led-panel-otopitelya-vaz-2110-2112-s-podsvetkoy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/led-panel-otopitelya-vaz-2110-2112-s-podsvetkoy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/magnitnaya-ramka-konkurent",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/magnitnaya-ramka-konkurent"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/multimedia-dlya-android-magnitoly-priora-kalina-chernyy-glyanets",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/multimedia-dlya-android-magnitoly-priora-kalina-chernyy-glyanets"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/multimedia-dlya-android-magnitoly-priora-kalina-chernyy-matovyy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/multimedia-dlya-android-magnitoly-priora-kalina-chernyy-matovyy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/nakladka-podstakannik-dlya-priora-1-chernyy-glyanets",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/nakladka-podstakannik-dlya-priora-1-chernyy-glyanets"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/nakladka-podstakannik-dlya-priora-1-chernyy-matovyy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/nakladka-podstakannik-dlya-priora-1-chernyy-matovyy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/ramka-kozyrek-na-panel-priora-1-chernyy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/ramka-kozyrek-na-panel-priora-1-chernyy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/ramka-kozyrek-na-panel-priora-1-chernyy-matovyy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/ramka-kozyrek-na-panel-priora-1-chernyy-matovyy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/ramka-pod-androyd-na-gazel-biznes-chernyy-glyanets",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/ramka-pod-androyd-na-gazel-biznes-chernyy-glyanets"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/ramka-pod-androyd-na-gazel-biznes-chernyy-matovyy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/ramka-pod-androyd-na-gazel-biznes-chernyy-matovyy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/ramka-pod-androyd-na-gazel-biznes-seryy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/ramka-pod-androyd-na-gazel-biznes-seryy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/ruchka-kpp-s-podsvetkoy-pod-rezbovoy-shtok",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/ruchka-kpp-s-podsvetkoy-pod-rezbovoy-shtok"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/ruchka-kpp-v-stile-vesta-s-podsvetkoy-pod-pryamougolnyy-shtok",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/ruchka-kpp-v-stile-vesta-s-podsvetkoy-pod-pryamougolnyy-shtok"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/sopla-vozduhovodov-amg-dlya-gazel-biznes-s-podsvetkoy",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/sopla-vozduhovodov-amg-dlya-gazel-biznes-s-podsvetkoy"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/sopla-vozduhovodov-amg-dlya-priora-1-s-podsvetkoy-chernyy-glyanets",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/sopla-vozduhovodov-amg-dlya-priora-1-s-podsvetkoy-chernyy-glyanets"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/sopla-vozduhovodov-amg-dlya-priora-1-s-podsvetkoy-hrom",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/sopla-vozduhovodov-amg-dlya-priora-1-s-podsvetkoy-hrom"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/sopla-vozduhovodov-amg-dlya-priora-2-s-podsvetkoy-hrom",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/sopla-vozduhovodov-amg-dlya-priora-2-s-podsvetkoy-hrom"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/ugolki-zerkal-priora-s-podsvetkoy-chernyy-glyanets",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/ugolki-zerkal-priora-s-podsvetkoy-chernyy-glyanets"
+      ],
+      "schema_count": 1,
+      "problems": []
+    },
+    {
+      "url": "https://autoreelz.ru/product/ugolki-zerkal-priora-s-podsvetkoy-hrom",
+      "status": 200,
+      "robots": [
+        "index,follow"
+      ],
+      "header": null,
+      "canonical": [
+        "https://autoreelz.ru/product/ugolki-zerkal-priora-s-podsvetkoy-hrom"
+      ],
+      "schema_count": 1,
+      "problems": []
+    }
+  ],
+  "private": [
+    {
+      "path": "/cart",
+      "status": 200,
+      "final_url": "https://autoreelz.ru/cart",
+      "header": null,
+      "meta": [
+        "noindex,follow"
+      ],
+      "protected": true
+    },
+    {
+      "path": "/checkout",
+      "status": 200,
+      "final_url": "https://autoreelz.ru/checkout",
+      "header": null,
+      "meta": [
+        "noindex,follow"
+      ],
+      "protected": true
+    },
+    {
+      "path": "/account",
+      "status": 200,
+      "final_url": "https://autoreelz.ru/account",
+      "header": null,
+      "meta": [
+        "noindex,follow"
+      ],
+      "protected": true
+    },
+    {
+      "path": "/manager",
+      "status": 200,
+      "final_url": "https://autoreelz.ru/manager",
+      "header": null,
+      "meta": [
+        "noindex,nofollow,noarchive"
+      ],
+      "protected": true
+    },
+    {
+      "path": "/orders",
+      "status": 200,
+      "final_url": "https://autoreelz.ru/account",
+      "header": null,
+      "meta": [
+        "noindex,follow"
+      ],
+      "protected": true
+    },
+    {
+      "path": "/favorites",
+      "status": 200,
+      "final_url": "https://autoreelz.ru/favorites",
+      "header": null,
+      "meta": [
+        "noindex,follow"
+      ],
+      "protected": true
+    },
+    {
+      "path": "/catalog?q=test",
+      "status": 200,
+      "final_url": "https://autoreelz.ru/catalog?q=test",
+      "header": null,
+      "meta": [
+        "noindex,follow"
+      ],
+      "protected": true
+    },
+    {
+      "path": "/catalog?sort=price-asc",
+      "status": 200,
+      "final_url": "https://autoreelz.ru/catalog?sort=price-asc",
+      "header": null,
+      "meta": [
+        "noindex,follow"
+      ],
+      "protected": true
+    },
+    {
+      "path": "/cars",
+      "status": 200,
+      "final_url": "https://autoreelz.ru/cars",
+      "header": null,
+      "meta": [
+        "noindex,follow"
+      ],
+      "protected": true
+    },
+    {
+      "path": "/cms/admin",
+      "status": 200,
+      "final_url": "https://autoreelz.ru/cms/admin",
+      "header": "noindex, nofollow, noarchive",
+      "meta": [],
+      "protected": true
+    },
+    {
+      "path": "/muzey/",
+      "status": 200,
+      "final_url": "https://autoreelz.ru/muzey/",
+      "header": "noindex, nofollow, noarchive",
+      "meta": [],
+      "protected": true
+    },
+    {
+      "path": "/product/seo-check-nonexistent",
+      "status": 404,
+      "final_url": "https://autoreelz.ru/product/seo-check-nonexistent",
+      "header": "noindex, follow",
+      "meta": [
+        "noindex,follow"
+      ],
+      "protected": true
+    },
+    {
+      "path": "/blog/how-selection-works",
+      "status": 404,
+      "final_url": "https://autoreelz.ru/blog/how-selection-works",
+      "header": "noindex, follow",
+      "meta": [
+        "noindex,follow"
+      ],
+      "protected": true
+    }
+  ],
+  "bots": [
+    {
+      "ua": "Googlebot",
+      "path": "/",
+      "status": 200,
+      "header": null
+    },
+    {
+      "ua": "Googlebot",
+      "path": "/catalog",
+      "status": 200,
+      "header": null
+    },
+    {
+      "ua": "Googlebot",
+      "path": "/product/blok-otopitelya-granta-i-kalina-s-podsvetkoy-holod-sverhu",
+      "status": 200,
+      "header": null
+    },
+    {
+      "ua": "Googlebot",
+      "path": "/robots.txt",
+      "status": 200,
+      "header": null
+    },
+    {
+      "ua": "Googlebot",
+      "path": "/sitemap.xml",
+      "status": 200,
+      "header": null
+    },
+    {
+      "ua": "YandexBot",
+      "path": "/",
+      "status": 200,
+      "header": null
+    },
+    {
+      "ua": "YandexBot",
+      "path": "/catalog",
+      "status": 200,
+      "header": null
+    },
+    {
+      "ua": "YandexBot",
+      "path": "/product/blok-otopitelya-granta-i-kalina-s-podsvetkoy-holod-sverhu",
+      "status": 200,
+      "header": null
+    },
+    {
+      "ua": "YandexBot",
+      "path": "/robots.txt",
+      "status": 200,
+      "header": null
+    },
+    {
+      "ua": "YandexBot",
+      "path": "/sitemap.xml",
+      "status": 200,
+      "header": null
+    }
+  ],
+  "robots": "User-agent: *\nAllow: /\nSitemap: https://autoreelz.ru/sitemap.xml\n",
+  "limitations": [
+    "Bot User-Agent requests do not prove actual search crawler access",
+    "External Rich Results validation and actual indexing not confirmed",
+    "Sitemap submissions delegated to owner at their request"
+  ]
+}

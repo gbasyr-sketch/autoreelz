@@ -1,0 +1,59 @@
+{
+  "sha": "84bf5554bf07a27a73e26f98a965342ad2d7f9fe",
+  "passed": true,
+  "requests": "GET only",
+  "checks": [
+    {
+      "route": "/",
+      "status": 200,
+      "stylesheets": 2,
+      "mapCss": false
+    },
+    {
+      "route": "/catalog",
+      "status": 200,
+      "stylesheets": 2,
+      "mapCss": false
+    },
+    {
+      "route": "/product/deflektory-amg-vaz-2107-matovyy-hrom",
+      "status": 200,
+      "stylesheets": 2,
+      "mapCss": false
+    },
+    {
+      "route": "/cart",
+      "status": 200,
+      "stylesheets": 3,
+      "mapCss": true
+    },
+    {
+      "route": "/account",
+      "status": 200
+    },
+    {
+      "route": "/cms/users/me",
+      "status": 401
+    },
+    {
+      "route": "/api/manager/orders",
+      "status": 401
+    },
+    {
+      "route": "/cookies",
+      "status": 404
+    },
+    {
+      "route": "/robots.txt",
+      "status": 200
+    },
+    {
+      "route": "/sitemap.xml",
+      "status": 200
+    },
+    {
+      "route": "/muzey/",
+      "status": 200
+    }
+  ]
+}

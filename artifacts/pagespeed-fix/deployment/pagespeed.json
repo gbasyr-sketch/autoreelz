@@ -1,0 +1,214 @@
+{
+  "source": "PageSpeed Insights UI, Lighthouse13.5.0",
+  "beforeTimeMoscow": "2026-10-16 00:28",
+  "afterTimeMoscow": "2026-10-16 00:46",
+  "fieldData": "insufficient",
+  "pages": [
+    {
+      "page": "home",
+      "beforeUrl": "https://pagespeed.web.dev/analysis/https-autoreelz-ru/6fvg3l9xo9?form_factor=mobile",
+      "afterUrl": "https://pagespeed.web.dev/analysis/https-autoreelz-ru/mp8vdok8ow?form_factor=mobile",
+      "beforeMobile": {
+        "performance": 95,
+        "fcpSeconds": 1.7,
+        "lcpSeconds": 2.4,
+        "cls": 0,
+        "speedIndexSeconds": 4.1,
+        "tbtMs": 0,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "afterMobile": {
+        "performance": 97,
+        "fcpSeconds": 1.5,
+        "lcpSeconds": 2.1,
+        "cls": 0,
+        "speedIndexSeconds": 4.0,
+        "tbtMs": 0,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "beforeDesktop": {
+        "performance": 100,
+        "fcpSeconds": 0.4,
+        "lcpSeconds": 0.4,
+        "cls": 0.001,
+        "speedIndexSeconds": 0.4,
+        "tbtMs": 0,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "afterDesktop": {
+        "performance": 100,
+        "fcpSeconds": 0.3,
+        "lcpSeconds": 0.4,
+        "cls": 0,
+        "speedIndexSeconds": 0.6,
+        "tbtMs": 0,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100
+      },
+      "mobileImageOpportunityKiB": [
+        341,
+        111
+      ],
+      "mobileRenderBlockingOpportunityMs": [
+        1040,
+        740
+      ]
+    },
+    {
+      "page": "catalog",
+      "beforeUrl": "https://pagespeed.web.dev/analysis/https-autoreelz-ru-catalog/o1t3j5ubv7?form_factor=mobile",
+      "afterUrl": "https://pagespeed.web.dev/analysis/https-autoreelz-ru-catalog/65ye7nk4gr?form_factor=mobile",
+      "beforeMobile": {
+        "performance": 99,
+        "fcpSeconds": 1.4,
+        "lcpSeconds": 1.9,
+        "cls": 0.007,
+        "speedIndexSeconds": 1.7,
+        "tbtMs": 0,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "afterMobile": {
+        "performance": 99,
+        "fcpSeconds": 1.1,
+        "lcpSeconds": 1.8,
+        "cls": 0.001,
+        "speedIndexSeconds": 1.2,
+        "tbtMs": 0,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "beforeDesktop": {
+        "performance": 100,
+        "fcpSeconds": 0.3,
+        "lcpSeconds": 0.4,
+        "cls": 0.001,
+        "speedIndexSeconds": 0.4,
+        "tbtMs": 0,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "afterDesktop": {
+        "performance": 100,
+        "fcpSeconds": 0.3,
+        "lcpSeconds": 0.4,
+        "cls": 0,
+        "speedIndexSeconds": 0.4,
+        "tbtMs": 0,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "mobileImageOpportunityKiB": [
+        60,
+        60
+      ],
+      "mobileRenderBlockingOpportunityMs": [
+        880,
+        430
+      ]
+    },
+    {
+      "page": "product",
+      "beforeUrl": "https://pagespeed.web.dev/analysis/https-autoreelz-ru-product-deflektory-amg-vaz-2107-matovyy-hrom/vp3vd207x3?form_factor=mobile",
+      "afterUrl": "https://pagespeed.web.dev/analysis/https-autoreelz-ru-product-deflektory-amg-vaz-2107-matovyy-hrom/ogaqc3v3n5?form_factor=mobile",
+      "beforeMobile": {
+        "performance": 92,
+        "fcpSeconds": 1.7,
+        "lcpSeconds": 2.3,
+        "cls": 0.149,
+        "speedIndexSeconds": 1.8,
+        "tbtMs": 0,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "afterMobile": {
+        "performance": 98,
+        "fcpSeconds": 1.4,
+        "lcpSeconds": 2.4,
+        "cls": 0,
+        "speedIndexSeconds": 1.4,
+        "tbtMs": 0,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "beforeDesktop": {
+        "performance": 100,
+        "fcpSeconds": 0.4,
+        "lcpSeconds": 0.4,
+        "cls": 0.022,
+        "speedIndexSeconds": 0.4,
+        "tbtMs": 0,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "afterDesktop": {
+        "performance": 100,
+        "fcpSeconds": 0.4,
+        "lcpSeconds": 0.5,
+        "cls": 0,
+        "speedIndexSeconds": 0.4,
+        "tbtMs": 0,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "mobileImageOpportunityKiB": [
+        92,
+        92
+      ],
+      "mobileRenderBlockingOpportunityMs": [
+        750,
+        580
+      ]
+    }
+  ],
+  "homeDesktopIssue": "First run: two image ERR_TIMED_OUT. Both direct GET200 in0.54/0.55s; repeated PSI no console errors, bestPractices100. Preserve initial run as variability evidence.",
+  "limitations": [
+    "Single runs vary; not statistical proof of speed gain",
+    "Image/render-blocking values are opportunities, not measured savings",
+    "Product mobile LCP increased2.3 to2.4seconds despite improved CLS and score"
+  ],
+  "homeRepeat": {
+    "url": "https://pagespeed.web.dev/analysis/https-autoreelz-ru/i68e65ycrz?form_factor=mobile",
+    "timeMoscow": "2026-10-16 00:47",
+    "mobile": {
+      "performance": 99,
+      "fcpSeconds": 1.3,
+      "lcpSeconds": 1.9,
+      "cls": 0,
+      "speedIndexSeconds": 1.3,
+      "tbtMs": 0,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100
+    },
+    "desktop": {
+      "performance": 100,
+      "fcpSeconds": 0.3,
+      "lcpSeconds": 0.4,
+      "cls": 0,
+      "speedIndexSeconds": 0.4,
+      "tbtMs": 0,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100
+    },
+    "mobileImageOpportunityKiB": 111,
+    "mobileRenderBlockingOpportunityMs": 600,
+    "consoleErrorsReproduced": false
+  }
+}

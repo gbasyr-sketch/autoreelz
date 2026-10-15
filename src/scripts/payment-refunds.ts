@@ -6,7 +6,7 @@ const api='/api/manager/payment-refunds';
 function node<K extends keyof HTMLElementTagNameMap>(tag:K,text='',className=''){const n=document.createElement(tag);n.textContent=text;n.className=className;return n;}
 type SavedIntent={payload:RefundIntent;key:string};
 type RefundIntent={orderId:string;paymentId:string;amountRubles:string;reason:string;confirmed:true;mode:'full'|'partial';lines:{lineIndex:number;quantity:number}[];shippingRubles:string};
-export async function appendPaymentRefunds(card:HTMLElement,orderId:string,onQueued:()=>Promise<void>){
+export async function appendPaymentRefunds(card:HTMLElement,orderId:string,onQueued:()=>Promise<void>,live=false){
  const section=node('section','','refund-panel');section.dataset.refunds='';section.append(node('h2','Возврат оплаты'));
  const feedback=node('p','','notice');feedback.setAttribute('role','status');feedback.hidden=true;const content=node('div','','refund-content');section.append(feedback,content);card.append(section);
  let pending=false,uncertain=false,dataEnabled=false;
@@ -17,7 +17,7 @@ export async function appendPaymentRefunds(card:HTMLElement,orderId:string,onQue
  async function load(){
   if(pending||uncertain)return;
   const data=await commerceGet<RefundWorkspace>(api+'?orderId='+orderId);dataEnabled=data.enabled;content.replaceChildren();
-  content.append(node('p','Тестовая ЮKassa: реальные деньги не возвращаются. Можно вернуть весь доступный остаток или выбранные товары и доставку. После запроса заказ остаётся на ручной проверке. Приёмка товара и приход на склад выполняются отдельно.','field-help'));
+  content.append(node('p',(live?'ЮKassa: возврат реальных денежных средств. ':'Тестовая ЮKassa: реальные деньги не возвращаются. ')+'Можно вернуть весь доступный остаток или выбранные товары и доставку. После запроса заказ остаётся на ручной проверке. Приёмка товара и приход на склад выполняются отдельно.','field-help'));
   for(const r of data.refunds){
    const item=node('div','','notice refund-history');item.append(node('strong',`${formatRubles(r.amountRubles)} · ${refundLabels[r.state]}`),node('p',r.reason));
    if(r.selection){const selection=r.selection,payment=data.payments.find(p=>p.id===r.paymentId);item.append(node('p',selection.mode==='full'?'Весь доступный остаток платежа':'Частичный возврат','field-help'));
@@ -35,7 +35,7 @@ export async function appendPaymentRefunds(card:HTMLElement,orderId:string,onQue
  }
  function renderPayment(p:RefundPayment){
   const payment=node('div','','refund-payment');payment.dataset.refundPayment=p.id;
-  payment.append(node('h3','Тестовый платёж'));
+  payment.append(node('h3',live?'Платёж ЮKassa':'Тестовый платёж'));
   const summary=node('dl','','refund-balances');for(const[label,value]of [['Оплачено',p.amountRubles],['Возвращено',p.refundedRubles],['В обработке',p.reservedRubles],['Доступно к возврату',p.remainingRubles]]){const row=node('div');row.append(node('dt',label!),node('dd',formatRubles(value!)));summary.append(row);}payment.append(summary);
   if(p.blockReason)payment.append(node('p',p.blockReason,'notice warning'));
   content.append(payment);if(!dataEnabled||(!p.canRefund&&saved?.payload.paymentId!==p.id))return;
@@ -47,7 +47,7 @@ export async function appendPaymentRefunds(card:HTMLElement,orderId:string,onQue
   const total=node('p','','refund-total');total.setAttribute('aria-live','polite');const validation=node('p','','field-help');validation.setAttribute('role','status');
   const label=node('label','Причина возврата','field'),reason=node('textarea');reason.name='refundReason';reason.required=true;reason.minLength=3;reason.maxLength=500;reason.rows=2;label.append(reason);
   const consent=node('label','','confirmation-choice'),check=node('input'),consentText=node('span');check.type='checkbox';check.required=true;check.name='refundConfirmed';consent.append(check,consentText);
-  const submit=node('button','Вернуть тестовый платёж','button-secondary');submit.type='submit';form.append(modeLabel,composition,total,validation,label,consent,submit);payment.append(form);
+  const submit=node('button',live?'Вернуть платёж':'Вернуть тестовый платёж','button-secondary');submit.type='submit';form.append(modeLabel,composition,total,validation,label,consent,submit);payment.append(form);
   let intent:RefundIntent|null=null,intentKey:string|undefined,valid=false;
   function selection(){
    const selected:{lineIndex:number;quantity:number}[]=[];let shippingRubles='0.00',amountRubles=p.remainingRubles;
@@ -77,7 +77,7 @@ export async function appendPaymentRefunds(card:HTMLElement,orderId:string,onQue
    void(async()=>{
     try{await commerceCommand(api,intent!,intentKey);}catch(error){
      pending=false;const definite=error instanceof CommerceError&&error.status>0&&error.status<500;uncertain=!definite;showError(error);
-     if(definite&&clearSaved()){intent=null;delete section.dataset.refundUncertain;freeze(false);update(true);submit.textContent='Вернуть тестовый платёж';}
+     if(definite&&clearSaved()){intent=null;delete section.dataset.refundUncertain;freeze(false);update(true);submit.textContent=live?'Вернуть платёж':'Вернуть тестовый платёж';}
      else{uncertain=true;section.dataset.refundUncertain='';submit.disabled=false;submit.textContent='Повторить тот же запрос';feedback.textContent+=definite?' Браузер не смог очистить локальную запись запроса. Поля зафиксированы: повторите тот же запрос; новый возврат пока недоступен.':' Поля зафиксированы. Повторите тот же запрос, чтобы уточнить результат; новый возврат пока недоступен.';}
      form.removeAttribute('aria-busy');return;
     }

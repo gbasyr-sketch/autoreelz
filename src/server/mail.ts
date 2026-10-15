@@ -1,4 +1,4 @@
-import {appConfig} from './config.ts';
+import {appConfig,requireCommerceEnvironment} from './config.ts';
 import {renderOrderMail,type RenderedMail,type OrderMailKind} from './mail-templates.ts';
 import {randomUUID} from 'node:crypto';
 import type {PoolClient} from 'pg';
@@ -14,7 +14,7 @@ export async function enqueueMail(c:PoolClient,input:{recipient:string;subject:s
  const result=await c.query(`INSERT INTO ar_mail_outbox(recipient,subject,body,deduplication_key,provider,kind,expires_at,notification_id,status,last_error,challenge_id,html_body,template_version,inline_assets)
  VALUES($1,$2,$3,$4,$5,$6,coalesce($7::timestamptz,now()+interval '1 day'),$8,$9,$10,$11,$12,$13,$14) ON CONFLICT(deduplication_key) DO NOTHING RETURNING id`,
  [recipient,input.subject,input.body,input.key,provider,input.kind??'customer',input.expiresAt??null,input.notificationId??null,blocked?'blocked':'pending',blocked?'MAIL_RECIPIENT_BLOCKED':null,input.challengeId??null,input.rendered?.html??null,input.rendered?.version??null,JSON.stringify(input.rendered?.assets??[])]);
- if(blocked&&input.notificationId)await c.query("UPDATE ar_owner_notifications SET status='failed',last_error='Адрес не разрешён для тестовой отправки.' WHERE id=$1",[input.notificationId]);
+ if(blocked&&input.notificationId)await c.query("UPDATE ar_owner_notifications SET status='failed',last_error='Адрес не разрешён для отправки.' WHERE id=$1",[input.notificationId]);
  return result.rows[0]?.id as string|undefined;
 }
 export async function enqueueOwnerMail(c:PoolClient,eventId:string,orderId:string,type:string){
@@ -23,8 +23,8 @@ export async function enqueueOwnerMail(c:PoolClient,eventId:string,orderId:strin
  const notices=(await c.query("SELECT id,subject FROM ar_owner_notifications WHERE event_key=$1 AND channel='email'",[eventId])).rows;
  for(const notice of notices){
   if(!recipient){await c.query("UPDATE ar_owner_notifications SET status='failed',last_error='Получатель email не настроен.' WHERE id=$1",[notice.id]);continue;}
-  const titles:Record<string,string>={created:'Новый заказ',paid:'Тестовая оплата подтверждена',preorder_confirmed:'Предзаказ подтверждён',cancelled:'Заказ отменён',late_payment:'Поздняя оплата — нужна проверка',payment_review:'Оплата требует проверки',shipped:'Заказ отправлен',delivered:'Заказ получен'};
-  await enqueueMail(c,{recipient,subject:notice.subject,body:`${titles[type]??'Событие заказа'}.\n\nТестовый магазин AUTO REELZ.\nПодробности: https://autoreelz.ru/manager/orders/${orderId}`,key:'owner:'+notice.id,kind:'owner',notificationId:notice.id});
+  const titles:Record<string,string>={created:'Новый заказ',paid:appConfig().mode==='production'?'Оплата подтверждена':'Тестовая оплата подтверждена',preorder_confirmed:'Предзаказ подтверждён',cancelled:'Заказ отменён',late_payment:'Поздняя оплата — нужна проверка',payment_review:'Оплата требует проверки',shipped:'Заказ отправлен',delivered:'Заказ получен'};
+  await enqueueMail(c,{recipient,subject:notice.subject,body:`${titles[type]??'Событие заказа'}.\n\n${appConfig().mode==='production'?'Магазин':'Тестовый магазин'} AUTO REELZ.\nПодробности: https://autoreelz.ru/manager/orders/${orderId}`,key:'owner:'+notice.id,kind:'owner',notificationId:notice.id});
  }
 }
 async function updateOwner(c:PoolClient,row:Record<string,any>,status:string,error:string|null=null){
@@ -32,12 +32,13 @@ async function updateOwner(c:PoolClient,row:Record<string,any>,status:string,err
 }
 export function createMailWorker(makeClient=createTimewebMail){
  async function tick(){
+  requireCommerceEnvironment();mailProvider();
   // An abandoned send is uncertain: SMTP has no idempotent delivery API.
   await transaction(async c=>{
    const stale=(await c.query("UPDATE ar_mail_outbox SET status='uncertain',last_error='SMTP_LEASE_EXPIRED',lease_id=NULL,lease_until=NULL WHERE provider='timeweb-smtp' AND status='sending' AND lease_until<=now() RETURNING *")).rows;
    for(const row of stale)await updateOwner(c,row,'uncertain','Исход SMTP неизвестен. Автоматического повтора нет.');
   });
-  const simulated=await transaction(async c=>{const rows=(await c.query("SELECT id FROM ar_mail_outbox WHERE provider='simulation' AND status='pending' ORDER BY created_at FOR UPDATE SKIP LOCKED LIMIT 100")).rows;for(const row of rows)await c.query("UPDATE ar_mail_outbox SET status='delivered',delivered_at=now() WHERE id=$1",[row.id]);return rows.length;});
+  const simulated=appConfig().mode==='production'?0:await transaction(async c=>{const rows=(await c.query("SELECT id FROM ar_mail_outbox WHERE provider='simulation' AND status='pending' ORDER BY created_at FOR UPDATE SKIP LOCKED LIMIT 100")).rows;for(const row of rows)await c.query("UPDATE ar_mail_outbox SET status='delivered',delivered_at=now() WHERE id=$1",[row.id]);return rows.length;});
   if(mailProvider()!=='timeweb-smtp')return simulated;
   let processed=0;
   for(let i=0;i<1;i++){
@@ -81,7 +82,7 @@ export async function enqueueDeliveryMail(c:PoolClient,orderId:string,eventId:st
  if(!labels[type])return;
  if(type==='shipped'){await enqueueOrderMail(c,orderId,'shipped',`delivery:${eventId}`);return;}
  const row=(await c.query('SELECT number,customer_email,tracking_number FROM ar_orders WHERE id=$1',[orderId])).rows[0];
- await enqueueMail(c,{recipient:row.customer_email,subject:`AUTO REELZ — ${labels[type]} ${row.number}`,body:`Тестовое уведомление AUTO REELZ. ${labels[type]}: ${row.number}.${type==='shipped'&&row.tracking_number?`\nТрек-номер: ${row.tracking_number}`:''}\n\nПодробности заказа: https://autoreelz.ru/orders/${orderId}`,key:`delivery:${eventId}`});
+ await enqueueMail(c,{recipient:row.customer_email,subject:`AUTO REELZ — ${labels[type]} ${row.number}`,body:`${appConfig().mode==='production'?'Уведомление':'Тестовое уведомление'} AUTO REELZ. ${labels[type]}: ${row.number}.${type==='shipped'&&row.tracking_number?`\nТрек-номер: ${row.tracking_number}`:''}\n\nПодробности заказа: https://autoreelz.ru/orders/${orderId}`,key:`delivery:${eventId}`});
 }
 
 export async function enqueueOrderMail(c:PoolClient,orderId:string,kind:OrderMailKind,key:string){

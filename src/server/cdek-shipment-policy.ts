@@ -1,4 +1,4 @@
-import {appConfig,setting} from './config.ts';
+import {appConfig,setting,requireCommerceEnvironment,requireTestEnvironment} from './config.ts';
 import {StoreError,integer} from './errors.ts';
 import {hash,canonical} from './security.ts';
 import {rubles,sumRubles,multiplyRubles} from '../lib/money.ts';
@@ -8,6 +8,7 @@ export function shipmentConfig(){
  const mode=setting('CDEK_SHIPMENTS_MODE','disabled') as ShipmentMode;
  if(!['disabled','test','live'].includes(mode))throw new StoreError('CDEK_SETUP','Неизвестный режим отправлений.',503);
  if(mode==='disabled')return null;
+ if(mode==='test')requireTestEnvironment();else requireCommerceEnvironment();
  if(mode==='live'&&(appConfig().mode!=='production'||setting('CDEK_SHIPMENTS_ALLOW_LIVE')!=='true'))throw new StoreError('CDEK_LIVE_DISABLED','Реальные отправления ещё не включены.',503);
  const clientId=setting(mode==='test'?'CDEK_TEST_CLIENT_ID':'CDEK_CLIENT_ID'),clientSecret=setting(mode==='test'?'CDEK_TEST_CLIENT_SECRET':'CDEK_CLIENT_SECRET'),fromPoint=(mode==='test'?setting('CDEK_TEST_FROM_PVZ'):'')||setting('CDEK_FROM_PVZ');
  if(!clientId||!clientSecret||!/^[-\w]{1,64}$/.test(fromPoint))throw new StoreError('CDEK_SETUP','Настройте отдельный доступ к отправлениям СДЭК и пункт отправления.',503);

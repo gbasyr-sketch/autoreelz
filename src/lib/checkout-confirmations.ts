@@ -17,3 +17,5 @@ export const testOrderTerms = {
  offer:retailOffer,
 };
 export interface CheckoutConfirmation {version:string;title:string;label:string;labelParts?:ConfirmationLabelPart[];body:string;offer?:{version:string;sha256:string;title:string;body:string}}
+
+export const productionOrderTerms={...testOrderTerms,version:'retail-order-2026-10-15-v1-'+retailOffer.sha256.slice(0,12),title:'Условия оформления заказа',body:'Все товары корзины оформляются одним заказом с общей доставкой и оплатой. Если хотя бы одной позиции не хватает, весь заказ ожидает подтверждения менеджером до оплаты. Стоимость доставки и предельная дата получения согласуются до оплаты. После подтверждения условий на оплату отводится 30 минут. Оплата подтверждённого наличия у поставщика возможна до прихода на наш склад; сборка и отправка начнутся после поступления и выделения всего состава. Редакция публичной оферты сохраняется вместе с заказом. Подтверждение оформления и ознакомление с политикой не являются согласием на рекламу, аналитику или публикацию отзывов.'};

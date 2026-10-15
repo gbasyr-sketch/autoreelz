@@ -20,3 +20,9 @@ export function isTestEnvironment(mode:string,origin:string){
  }catch{return false;}
 }
 export function requireTestEnvironment(){const c=appConfig();if(!isTestEnvironment(c.mode,c.origin))throw new Error('Test adapters are available only in the local or approved HTTPS staging environment');}
+
+/** Commerce mutations use configured deployment identity, never the incoming request origin. */
+export function isCommerceEnvironment(mode:string,origin:string){
+ return isTestEnvironment(mode,origin)||(mode==='production'&&origin==='https://autoreelz.ru');
+}
+export function requireCommerceEnvironment(){const c=appConfig();if(!isCommerceEnvironment(c.mode,c.origin))throw new Error('Commerce is available only in the local, approved staging or production environment');}

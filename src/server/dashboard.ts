@@ -1,7 +1,7 @@
 import {withProductThumbnails} from './manager-product-thumbnails.ts';
 import type {PoolClient} from 'pg';
 import {transaction} from './db.ts';
-import {requireTestEnvironment} from './config.ts';
+import {requireCommerceEnvironment,appConfig} from './config.ts';
 import {StoreError,iso} from './errors.ts';
 import {dashboardWindow,dashboardPeriod,dashboardFilter,paymentSummary,type DashboardData,type DashboardFilter,type PaidDay} from '../lib/dashboard.ts';
 import {rubles} from '../lib/money.ts';
@@ -21,7 +21,7 @@ export const dashboardOrderFilters:Record<DashboardFilter,string>={all:'true',or
 const filters=dashboardOrderFilters;
 export async function readDashboard(c:PoolClient,period:ReturnType<typeof dashboardPeriod>,filter:DashboardFilter,now=new Date()):Promise<DashboardData>{
  const window=dashboardWindow(period,now);
- const payments=(await c.query<PaidDay>(dashboardPaidSql,[window.from,window.until])).rows;
+ const payments=(await c.query<PaidDay>(appConfig().mode==='production'?dashboardPaidSql.replace("p.provider IN('simulation','yookassa-sandbox')","p.provider='yookassa-live'"):dashboardPaidSql,[window.from,window.until])).rows;
  const totals=paymentSummary(payments,window.days);
  const q=(await c.query(`SELECT count(*) FILTER(WHERE ${filters.packing}) packing,count(*) FILTER(WHERE ${filters.quote}) quote,
  count(*) FILTER(WHERE ${filters.confirm}) confirm,count(*) FILTER(WHERE ${filters.review}) review,
@@ -34,10 +34,10 @@ export async function readDashboard(c:PoolClient,period:ReturnType<typeof dashbo
  const bundles=(await c.query(`SELECT p.id,p.name,CASE WHEN count(b.id)=0 THEN NULL WHEN bool_or(s.id IS NULL OR s.status<>'published' OR component.status<>'published') THEN 0 ELSE min(floor(greatest(coalesce(st.on_hand-st.reserved,0),0)::numeric/b.quantity))::integer END available
  FROM ar_products p LEFT JOIN ar_bundle_components b ON b.bundle_id=p.id LEFT JOIN ar_skus s ON s.id=b.sku_id LEFT JOIN ar_products component ON component.id=s.product_id LEFT JOIN ar_stock st ON st.sku_id=s.id
  WHERE p.kind='bundle' AND p.status<>'archived' AND NOT p.is_demo GROUP BY p.id,p.name ORDER BY p.name,p.id`)).rows;
- return{generatedAt:now.toISOString(),period,filter,from:window.from,testOnly:true,metrics:{...totals.metrics,inWork:Number(q.in_work)},series:totals.series,tasks:{packing:Number(q.packing),quote:Number(q.quote),confirm:Number(q.confirm),review:Number(q.review),reviews},orders,orderCount,stock,quality,bundles};
+ return{generatedAt:now.toISOString(),period,filter,from:window.from,testOnly:appConfig().mode!=='production',metrics:{...totals.metrics,inWork:Number(q.in_work)},series:totals.series,tasks:{packing:Number(q.packing),quote:Number(q.quote),confirm:Number(q.confirm),review:Number(q.review),reviews},orders,orderCount,stock,quality,bundles};
 }
 export async function getDashboard(params:URLSearchParams){
- requireTestEnvironment();let period,filter;try{period=dashboardPeriod(params.get('period'));filter=dashboardFilter(params.get('filter'));}catch{throw new StoreError('DASHBOARD_FILTER','Выберите период и фильтр из списка.');}
+ requireCommerceEnvironment();let period,filter;try{period=dashboardPeriod(params.get('period'));filter=dashboardFilter(params.get('filter'));}catch{throw new StoreError('DASHBOARD_FILTER','Выберите период и фильтр из списка.');}
  return transaction(c=>readDashboard(c,period,filter));
 }
 

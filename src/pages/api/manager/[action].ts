@@ -9,7 +9,7 @@ import{staffLogin,staffLogout}from'../../../server/auth';
 import{stockList,quoteShipping,confirmPreorder,allocateOrderStock,receiveStock}from'../../../server/orders';
 import{query}from'../../../server/db';
 import{iso}from'../../../server/errors';
-import{requireTestEnvironment}from'../../../server/config';
+import{requireCommerceEnvironment,requireTestEnvironment}from'../../../server/config';
 import{getDashboard,managerCatalogReadiness}from'../../../server/dashboard';
 import{listManagerOrders,managerInventory,managerStockHistory}from'../../../server/manager-workspace';
 import{uuid}from'../../../server/errors';
@@ -34,8 +34,8 @@ export const GET:APIRoute=async ctx=>{try{
 }catch(e){return failure(e);}};
 export const POST:APIRoute=async ctx=>{try{
  const session=await sessionFor(ctx),body=await readBody(ctx.request,session,ctx.params.action==='apply-description'?49152:16384);
+ requireCommerceEnvironment();
  if(ctx.params.action==='logout'){const{cookie}=await staffLogout(ctx.request);return json({ok:true},200,{'Set-Cookie':cookie});}
- requireTestEnvironment();
  if(ctx.params.action==='login'){const{cookie}=await staffLogin(session,body.email,body.password,peer(ctx));return json({ok:true},200,{'Set-Cookie':cookie});}
  const actor=await staff(ctx.request);
  switch(ctx.params.action){
@@ -48,7 +48,7 @@ export const POST:APIRoute=async ctx=>{try{
   case'order-cancel':return json(await cancelByManager(actor,body));
   case'fulfillment':return json(await fulfill(actor,body));
   case'delivery-override':return json(await overrideDelivery(actor,body));
-  case'carrier-test':return json(await simulateCarrier(actor,body));
+  case'carrier-test':requireTestEnvironment();return json(await simulateCarrier(actor,body));
   case'notification-retry':return json(await retryNotification(actor,body));
   case'generate':return json(await generateDescription(actor,body));
   case'apply-description':return json(await applyDescription(actor,body));

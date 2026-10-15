@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "isolated": true,
+  "externalCalls": 0,
+  "checks": [
+    "live opt-in disabled blocks direct mutations before transport; paused background payment/refund/fiscal/discovery loops return zero",
+    "sandbox shop/payment response cannot settle a live order",
+    "live payment and fiscal receipt settle once; exact stock and one money event",
+    "live webhook treats callback as hint, verifies provider GET and settles only confirmed money exactly once",
+    "SBP is stored and sent through the actual live protocol",
+    "unknown payment POST retries identical immutable body and idempotence key",
+    "manager delivered status alone never automatically queues fiscal closing receipt",
+    "explicit manager receipt confirmation queues once without network and freezes full-payment/prepayment snapshot",
+    "closing receipt dispatch lease excludes concurrent POST; GET reconciliation completes once",
+    "closing receipt excludes previously refunded quantities and uses exact remaining payment",
+    "post-closing partial refund transmits full_payment fiscal items",
+    "whole post-closing refund forces explicit full_payment receipt",
+    "unknown closing receipt retries same key/body before idempotence expiry",
+    "expired unknown closing request becomes attention without unsafe new POST",
+    "closing waits without network for succeeded refund fiscal pending, then resumes after verified refund receipt",
+    "failed refund fiscal receipt blocks closing and escalates to attention without dispatch",
+    "verified carrier delivery requires closing before refund even if manager overrides order back to shipped",
+    "discovery backs off ten full-refunded/blocked rows and queues eleventh valid carrier delivery without starvation",
+    "production cart/createQuote/checkout forbids shipping simulation, falls back to manual without CDEK setup, freezes production offer and awaits agreed delivery before payment",
+    "historical sandbox payment cannot dispatch through the live provider even with the same shop ID",
+    "live process and all reconciliation selectors skip historical sandbox payment/refund/closing queues without network",
+    "no SMTP worker, external message or real provider call executed"
+  ]
+}

@@ -1,7 +1,7 @@
 import type {PoolClient} from 'pg';
 import {query,transaction} from './db.ts';
-import {paymentProvider,sandboxClient,sandboxConfig} from './payment-policy.ts';
-import {requireTestEnvironment} from './config.ts';
+import {paymentProvider,sandboxClient,sandboxConfig,isYooKassa,liveOperationsPaused,requirePaymentEnvironment} from './payment-policy.ts';
+
 import {orderRow,event} from './orders.ts';
 import type {ReceiptRegistration} from './yookassa-receipt-snapshot.ts';
 
@@ -20,16 +20,16 @@ export async function recordReceipt(c:PoolClient,source:Source,id:string,status:
 
 export function createYooReceipts(makeClient=sandboxClient){
  async function reconcile(){
-  if(paymentProvider()!=='yookassa-sandbox')return 0;
-  requireTestEnvironment();const cfg=sandboxConfig();
+  if(!isYooKassa()||liveOperationsPaused())return 0;
+  requirePaymentEnvironment();const cfg=sandboxConfig();
   const rows=(await query(`
    SELECT 'payment' AS source,p.id,p.order_id,p.id AS payment_id,p.provider_id,p.provider_shop_id AS shop_id,p.amount_rubles,p.created_at
-    FROM ar_payments p WHERE p.receipt_snapshot IS NOT NULL AND p.provider_id IS NOT NULL AND p.provider_status IN('succeeded','canceled')
+    FROM ar_payments p WHERE p.provider='${paymentProvider()}' AND p.receipt_snapshot IS NOT NULL AND p.provider_id IS NOT NULL AND p.provider_status IN('succeeded','canceled')
     AND p.receipt_next_check_at<=now() AND (p.receipt_registration IS NULL OR p.receipt_registration='pending')
    UNION ALL
    SELECT 'refund',r.id,r.order_id,r.payment_id,r.provider_id::text,r.shop_id,r.amount_rubles,r.created_at
     FROM ar_yookassa_refunds r JOIN ar_payments p ON p.id=r.payment_id
-    WHERE p.receipt_snapshot IS NOT NULL AND r.provider_id IS NOT NULL AND r.state IN('succeeded','canceled')
+    WHERE p.provider='${paymentProvider()}' AND p.receipt_snapshot IS NOT NULL AND r.provider_id IS NOT NULL AND r.state IN('succeeded','canceled')
     AND r.receipt_next_check_at<=now() AND (r.receipt_registration IS NULL OR r.receipt_registration='pending')
    ORDER BY created_at LIMIT 4`)).rows;
   for(const row of rows){

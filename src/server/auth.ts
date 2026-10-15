@@ -6,7 +6,7 @@ import type {APIContext} from 'astro';
 import type {PoolClient} from 'pg';
 import type {ShopSession} from '../lib/commerce-types.ts';
 import {transaction} from './db.ts';
-import {appConfig,requireTestEnvironment} from './config.ts';
+import {appConfig,requireCommerceEnvironment} from './config.ts';
 import {COOKIE,equal,getSession,hash,setSessionCookie,sign} from './security.ts';
 import {StoreError,email,iso,uuid} from './errors.ts';
 
@@ -28,7 +28,7 @@ async function takeRate(client:PoolClient,key:string,limit:number,seconds:number
 }
 
 export async function requestCode(session:ShopSession,emailInput:unknown,ip:string):Promise<{challengeId:string;expiresAt:string}>{
- requireTestEnvironment();
+ requireCommerceEnvironment();
  const address=email(emailInput);requireMailRecipient(address);const challengeId=randomUUID(),code=String(randomInt(0,1000000)).padStart(6,'0');
  const ipHash=sign(`ip:${ip}`);
  return transaction(async client=>{
@@ -84,7 +84,7 @@ export async function logout(ctx:CookieContext,session:ShopSession):Promise<{ok:
 }
 
 export async function staffLogin(session:ShopSession,emailInput:unknown,passwordInput:unknown,ip:string):Promise<{cookie:string}>{
- const address=email(emailInput);
+ requireCommerceEnvironment();const address=email(emailInput);
  if(typeof passwordInput!=='string'||passwordInput.length<1||passwordInput.length>512)throw new StoreError('INVALID_INPUT','Укажите пароль сотрудника.');
  await transaction(async client=>{
   await lockSession(client,session);

@@ -2,22 +2,22 @@ import {recordReceipt} from './yookassa-receipts.ts';
 import {randomUUID} from 'node:crypto';
 import {query,transaction} from './db.ts';
 import {StoreError,uuid} from './errors.ts';
-import {requireTestEnvironment} from './config.ts';
-import {paymentProvider,sandboxClient,sandboxConfig,receiptMode} from './payment-policy.ts';
+
+import {paymentProvider,sandboxClient,sandboxConfig,receiptMode,isYooKassa,liveOperationsPaused,requirePaymentEnvironment} from './payment-policy.ts';
 import {orderRow,getOrder,expireLocked} from './orders.ts';
 import {settlePayment} from './payments.ts';
 import type {ShopSession} from '../lib/commerce-types.ts';
-import type {SandboxPayment,createYooKassaSandbox} from './adapters/yookassa-sandbox.ts';
+import type {YooKassaPayment,createYooKassa} from './adapters/yookassa-sandbox.ts';
 import {YooKassaError} from './adapters/yookassa-sandbox.ts';
-type Client=ReturnType<typeof createYooKassaSandbox>;
+type Client=ReturnType<typeof createYooKassa>;
 const terminal=(status:string)=>status==='succeeded'||status==='canceled';
 const allowedErrors=new Set(['PAYMENT_OUTCOME_UNKNOWN','PROVIDER_UNAVAILABLE','INVALID_PROVIDER_RESPONSE','PROVIDER_AUTH_FAILED','PROVIDER_REQUEST_REJECTED','NOT_EXPECTED_TEST_SHOP','TEST_CARD_NOT_ENABLED','RECEIPT_SETUP_REQUIRED','PAYMENT_IDENTITY_MISMATCH','PAYMENT_FACTS_MISMATCH','UNSAFE_CONFIRMATION_URL','MISSING_CONFIRMATION_URL']);
 export function createYooPayments(makeClient:()=>Client=sandboxClient){
- function enabled(){requireTestEnvironment();if(paymentProvider()!=='yookassa-sandbox')throw new StoreError('PAYMENT_DISABLED','Тестовая ЮKassa не включена.',503);}
- async function preflight(){enabled();const client=makeClient();try{const shop=await client.checkShop();if(shop.fiscalizationEnabled!==(receiptMode()==='yookassa'))throw new YooKassaError('RECEIPT_SETUP_REQUIRED');}catch{throw new StoreError('PAYMENT_SETUP','Тестовый магазин ЮKassa пока недоступен. Обратитесь к менеджеру.',503);}}
+ function enabled(){requirePaymentEnvironment();if(!isYooKassa())throw new StoreError('PAYMENT_DISABLED','ЮKassa не включена.',503);}
+ async function preflight(){enabled();const client=makeClient();try{const shop=await client.checkShop();if(shop.fiscalizationEnabled!==(receiptMode()==='yookassa'))throw new YooKassaError('RECEIPT_SETUP_REQUIRED');}catch{throw new StoreError('PAYMENT_SETUP','ЮKassa пока недоступна. Обратитесь к менеджеру.',503);}}
  async function process(id:string,observedProviderId?:string):Promise<'done'|'waiting'|'closed'|'busy'>{
   enabled();id=uuid(id);if(observedProviderId)observedProviderId=uuid(observedProviderId);
-  const initial=(await query('SELECT order_id FROM ar_payments WHERE id=$1 AND provider=\'yookassa-sandbox\'',[id])).rows[0];if(!initial)return'closed';
+  const initial=(await query(`SELECT order_id FROM ar_payments WHERE id=$1 AND provider='${paymentProvider()}'`,[id])).rows[0];if(!initial)return'closed';
   const lease=randomUUID(),config=sandboxConfig();
   const claim=await transaction(async c=>{
    const order=await orderRow(c,initial.order_id,undefined,true);
@@ -41,10 +41,10 @@ export function createYooPayments(makeClient:()=>Client=sandboxClient){
   });
   if(claim.state!=='claimed')return claim.state;
   const payment=claim.payment,wanted={orderId:payment.order_id,internalPaymentId:id,amountRubles:payment.amount_rubles};
-  let result:SandboxPayment;
+  let result:YooKassaPayment<boolean>;
   try{
    const client=makeClient();
-   result=claim.providerId?await client.getPayment(claim.providerId,wanted):await client.createPayment({...wanted,idempotenceKey:payment.provider_key,returnUrl:payment.provider_return_url,...(payment.receipt_snapshot?{receipt:payment.receipt_snapshot}:{})});
+   result=claim.providerId?await client.getPayment(claim.providerId,wanted):await client.createPayment({...wanted,idempotenceKey:payment.provider_key,method:payment.method,returnUrl:payment.provider_return_url,...(payment.receipt_snapshot?{receipt:payment.receipt_snapshot}:{})});
   }catch(error){
    const code=error instanceof YooKassaError&&allowedErrors.has(error.code)?error.code:'PROVIDER_UNAVAILABLE';
    await query("UPDATE ar_payments SET provider_last_error=$3,provider_lease_id=NULL,provider_lease_until=NULL,provider_next_check_at=now()+interval '30 seconds' WHERE id=$1 AND provider_lease_id=$2",[id,lease,code]);
@@ -64,29 +64,29 @@ export function createYooPayments(makeClient:()=>Client=sandboxClient){
     provider_lease_id=CASE WHEN provider_lease_id=$6 THEN NULL ELSE provider_lease_id END,
     provider_lease_until=CASE WHEN provider_lease_id=$6 THEN NULL ELSE provider_lease_until END WHERE id=$1`,
    [id,result.id,status,terminal(status),result.confirmationUrl,lease,result.paidAt??null]);
-   if(terminal(result.status))await settlePayment(c,{eventId:`yookassa:${result.id}:${result.status}`,paymentId:id,amountRubles:result.amountRubles,currency:'RUB',status:result.status==='succeeded'?'succeeded':'failed',...(result.paidAt?{paidAt:result.paidAt}:{})},'yookassa-sandbox');
+   if(terminal(result.status))await settlePayment(c,{eventId:`yookassa:${result.id}:${result.status}`,paymentId:id,amountRubles:result.amountRubles,currency:'RUB',status:result.status==='succeeded'?'succeeded':'failed',...(result.paidAt?{paidAt:result.paidAt}:{})},paymentProvider());
   });
   return'done';
  }
  async function refresh(session:ShopSession,orderId:string){
   enabled();await getOrder(session,uuid(orderId));
-  const row=(await query("SELECT id FROM ar_payments WHERE order_id=$1 AND provider='yookassa-sandbox' AND status='pending' ORDER BY created_at DESC,id DESC LIMIT 1",[orderId])).rows[0];
+  const row=(await query(`SELECT id FROM ar_payments WHERE order_id=$1 AND provider='${paymentProvider()}' AND status='pending' ORDER BY created_at DESC,id DESC LIMIT 1`,[orderId])).rows[0];
   if(row)await process(row.id);return getOrder(session,orderId);
  }
  async function webhook(body:unknown){
   enabled();const data=body as {type?:unknown;event?:unknown;object?:{id?:unknown;metadata?:{autoreelz_payment_id?:unknown}}};
   if(data?.type!=='notification'||!['payment.succeeded','payment.canceled','payment.waiting_for_capture'].includes(String(data.event)))throw new StoreError('WEBHOOK_EVENT','Неподдерживаемое уведомление.');
-  const providerId=uuid(data.object?.id);let row=(await query("SELECT id FROM ar_payments WHERE provider='yookassa-sandbox' AND provider_id=$1",[providerId])).rows[0];
+  const providerId=uuid(data.object?.id);let row=(await query(`SELECT id FROM ar_payments WHERE provider='${paymentProvider()}' AND provider_id=$1`,[providerId])).rows[0];
   if(!row&&typeof data.object?.metadata?.autoreelz_payment_id==='string'){
    let hint;try{hint=uuid(data.object.metadata.autoreelz_payment_id);}catch{return{ok:true};}
-   row=(await query("SELECT id FROM ar_payments WHERE id=$1 AND provider='yookassa-sandbox' AND provider_id IS NULL",[hint])).rows[0];
+   row=(await query(`SELECT id FROM ar_payments WHERE id=$1 AND provider='${paymentProvider()}' AND provider_id IS NULL`,[hint])).rows[0];
   }
   if(row){const result=await process(row.id,providerId);if(result==='busy')throw new StoreError('PAYMENT_BUSY','Проверка выполняется. Повторите уведомление.',503);}
   return{ok:true};
  }
  async function reconcile(){
-  if(paymentProvider()!=='yookassa-sandbox')return 0;
-  const rows=(await query(`SELECT id FROM ar_payments WHERE provider='yookassa-sandbox' AND status='pending'
+  if(!isYooKassa()||liveOperationsPaused())return 0;
+  const rows=(await query(`SELECT id FROM ar_payments WHERE provider='${paymentProvider()}' AND status='pending'
    AND provider_next_check_at<=now() AND (provider_lease_until IS NULL OR provider_lease_until<=now()) ORDER BY provider_next_check_at LIMIT 2`)).rows;
   await Promise.allSettled(rows.map(r=>process(r.id)));return rows.length;
  }

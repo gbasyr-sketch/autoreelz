@@ -1,7 +1,7 @@
 import{sendLocalOwnerNotification}from'./adapters/owner-notification.ts';
 import type {OwnerNotification} from '../lib/management-types.ts';
 import {transaction,query} from './db.ts';
-import {requireTestEnvironment} from './config.ts';
+import {requireCommerceEnvironment,requireTestEnvironment} from './config.ts';
 import {StoreError,uuid,iso} from './errors.ts';
 import {idempotent} from './security.ts';
 export async function ownerNotifications():Promise<OwnerNotification[]>{
@@ -21,12 +21,13 @@ export async function deliverOwnerNotifications(fail=false){
  });
 }
 export async function retryNotification(actor:{id:string},body:Record<string,unknown>){
- requireTestEnvironment();const id=uuid(body.notificationId);
+ requireCommerceEnvironment();const id=uuid(body.notificationId);
  return transaction(c=>idempotent(c,`notification-retry:${actor.id}`,body.idempotencyKey,{id},async()=>{
   const row=(await c.query('SELECT * FROM ar_owner_notifications WHERE id=$1 FOR UPDATE',[id])).rows[0];
   if(!row)throw new StoreError('NOT_FOUND','Уведомление не найдено.',404);
   if(row.status!=='failed')return{ok:true};
-  const mail=(await c.query("SELECT id,status,attempts,expires_at FROM ar_mail_outbox WHERE notification_id=$1 FOR UPDATE",[id])).rows[0];
+  const mail=(await c.query("SELECT id,provider,status,attempts,expires_at FROM ar_mail_outbox WHERE notification_id=$1 FOR UPDATE",[id])).rows[0];
+  if(!mail||mail.provider!=='timeweb-smtp')requireTestEnvironment();
   if(mail){
    if(mail.status==='uncertain')throw new StoreError('MAIL_REVIEW','Исход отправки неизвестен. Сначала проверьте письмо в почтовом кабинете.',409);
    if(mail.status!=='failed'||mail.attempts>=3||new Date(mail.expires_at).getTime()<=Date.now())throw new StoreError('MAIL_RETRY_CLOSED','Повторная отправка недоступна. Требуется ручная проверка.',409);

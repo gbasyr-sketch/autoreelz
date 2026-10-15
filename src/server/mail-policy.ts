@@ -1,10 +1,11 @@
 import {readFileSync} from 'node:fs';
-import {setting,requireTestEnvironment} from './config.ts';
+import {setting,appConfig,requireCommerceEnvironment} from './config.ts';
 import {email,StoreError} from './errors.ts';
 export const MAIL_SENDER='sales@autoreelz.ru';
 export function mailProvider(){
  const value=setting('MAIL_PROVIDER','simulation');
  if(value!=='simulation'&&value!=='timeweb-smtp')throw new StoreError('MAIL_CONFIG','Неверная настройка почты.',503);
+ if(value==='simulation'&&appConfig().mode==='production')throw new StoreError('MAIL_SIMULATION_DISABLED','Имитация отправки писем недоступна в рабочем магазине.',503);
  return value;
 }
 export function mailRecipientPolicy(){
@@ -24,13 +25,13 @@ export function mailMessageIsNew(createdAt:string|Date){
  return Number.isFinite(at)&&(cutoff===null||at>=cutoff);
 }
 export function mailRecipientAllowed(recipient:string){
- requireTestEnvironment();const address=email(recipient);
+ requireCommerceEnvironment();const address=email(recipient);
  if(mailRecipientPolicy()==='all-new'){mailCutoff();return true;}
  const allowed=setting('MAIL_ALLOWED_RECIPIENTS').split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
  return allowed.includes(address);
 }
 export function requireMailRecipient(recipient:string){
- if(mailProvider()==='timeweb-smtp'&&!mailRecipientAllowed(recipient))throw new StoreError('MAIL_TEST_RECIPIENT','В тестовом магазине письма доступны только на согласованные адреса.',403);
+ if(mailProvider()==='timeweb-smtp'&&!mailRecipientAllowed(recipient))throw new StoreError('MAIL_TEST_RECIPIENT','Отправка писем доступна только на согласованные адреса.',403);
 }
 export function ownerMailRecipient(){const value=setting('MAIL_OWNER_RECIPIENT').trim();return value?email(value):null;}
 export function smtpPassword(){

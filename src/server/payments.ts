@@ -1,7 +1,7 @@
 import {enqueueOrderMail} from './mail.ts';
 import {buildPaymentReceipt} from './yookassa-receipt-snapshot.ts';
 import type{PoolClient}from'pg';
-import{paymentProvider,sandboxConfig,receiptMode,type PaymentProvider}from'./payment-policy.ts';
+import{paymentProvider,sandboxConfig,receiptMode,isYooKassa,requirePaymentEnvironment,type PaymentProvider}from'./payment-policy.ts';
 import{sumRubles}from'./pricing.ts';
 import type{ShopSession}from'../lib/commerce-types.ts';
 import{transaction}from'./db.ts';
@@ -36,7 +36,7 @@ export async function settlePayment(c:PoolClient,input:PaymentEvent,provider:Pay
    await c.query("UPDATE ar_payments SET status='failed' WHERE id=$1",[paymentId]);
    const anotherPending=(await c.query("SELECT 1 FROM ar_payments WHERE order_id=$1 AND id<>$2 AND status='pending'",[order.id,paymentId])).rowCount;
    if(order.status!=='paid'&&order.status!=='manual_review'&&!anotherPending)await c.query("UPDATE ar_orders SET payment_status='failed' WHERE id=$1",[order.id]);
-   await orderEvent(c,order.id,'payment_failed','Тестовая оплата не прошла.');outcome='failed';
+   await orderEvent(c,order.id,'payment_failed',provider==='simulation'||provider==='yookassa-sandbox'?'Тестовая оплата не прошла.':'Оплата не прошла.');outcome='failed';
   }else if(input.currency!=='RUB'||amount!==safeMoney(current.amount_rubles)||amount!==sumRubles([order.product_total_rubles,order.shipping_cost_rubles??'0.00'])||order.shipping_version!==current.shipping_version){
    await c.query("UPDATE ar_payments SET status='review' WHERE id=$1",[paymentId]);
    await c.query("UPDATE ar_orders SET status='manual_review',payment_status='review',review_reason='Сумма, валюта или версия доставки не совпадает с заказом.' WHERE id=$1",[order.id]);
@@ -44,7 +44,7 @@ export async function settlePayment(c:PoolClient,input:PaymentEvent,provider:Pay
   }else{
    const need=await componentNeeds(c,order.id);await lockStock(c,need);
    const paidAt=input.paidAt?Date.parse(input.paidAt):NaN;
-   const timely=provider==='yookassa-sandbox'&&Number.isFinite(paidAt)&&paidAt>=new Date(current.created_at).getTime()&&paidAt<=Date.now()+60_000&&order.expires_at&&paidAt<=new Date(order.expires_at).getTime();
+   const timely=provider!=='simulation'&&Number.isFinite(paidAt)&&paidAt>=new Date(current.created_at).getTime()&&paidAt<=Date.now()+60_000&&order.expires_at&&paidAt<=new Date(order.expires_at).getTime();
    if(!timely)await expireLocked(c,order);
    if(order.status==='paid'||order.status!=='awaiting_payment'||!['reserved','debited','supplier_pending'].includes(order.allocation_state)){
     await c.query("UPDATE ar_payments SET status='review' WHERE id=$1",[paymentId]);
@@ -54,7 +54,7 @@ export async function settlePayment(c:PoolClient,input:PaymentEvent,provider:Pay
     if(order.allocation_state==='reserved')await stockMove(c,order.id,need,`paid:${order.id}`,-1,-1,'Оплата обычного заказа');
     await c.query("UPDATE ar_payments SET status='succeeded' WHERE id=$1",[paymentId]);
     await c.query("UPDATE ar_orders SET status='paid',payment_status='paid',allocation_state=CASE WHEN allocation_state='supplier_pending' THEN 'supplier_paid' ELSE 'settled' END WHERE id=$1",[order.id]);
-    await orderEvent(c,order.id,'paid','Тестовая оплата получена. Повторного списания компонентов нет.');
+    await orderEvent(c,order.id,'paid',provider==='yookassa-live'?'Оплата получена. Повторного списания компонентов нет.':'Тестовая оплата получена. Повторного списания компонентов нет.');
     await enqueueOrderMail(c,order.id,'paid',`order:${order.id}:paid`);outcome='paid';
    }
   }
@@ -62,9 +62,9 @@ export async function settlePayment(c:PoolClient,input:PaymentEvent,provider:Pay
   return{orderId:order.id,outcome};
 }
 export async function initiatePayment(session:ShopSession,body:Record<string,unknown>){
- requireTestEnvironment();const id=uuid(body.orderId),version=integer(body.shippingVersion,'Версия доставки');
+ requirePaymentEnvironment();const id=uuid(body.orderId),version=integer(body.shippingVersion,'Версия доставки');
  const method=String(body.method);if(!['card','sbp'].includes(method))throw new StoreError('PAYMENT_METHOD','Выберите карту или СБП.');
- const selected=paymentProvider(),config=selected==='yookassa-sandbox'?sandboxConfig():null;
+ const selected=paymentProvider(),config=selected!=='simulation'?sandboxConfig():null;
  if(selected==='yookassa-sandbox'&&method!=='card')throw new StoreError('PAYMENT_METHOD','В тестовом магазине ЮKassa доступна банковская карта.');
  const result=await transaction(c=>idempotent(c,`pay:${session.id}`,body.idempotencyKey,{id,version,method},async()=>{
   const order=await orderRow(c,id,session,true);
@@ -77,7 +77,7 @@ export async function initiatePayment(session:ShopSession,body:Record<string,unk
   const existing=(await c.query("SELECT * FROM ar_payments WHERE order_id=$1 AND status='pending'",[id])).rows[0];
   if(existing){if(existing.provider!==selected)throw new StoreError('PAYMENT_PROVIDER_CHANGED','Провайдер оплаты изменён. Обратитесь к менеджеру.',409);return{orderId:id,paymentId:existing.id,amountRubles:safeMoney(existing.amount_rubles)};}
   const amount=sumRubles([order.product_total_rubles,order.shipping_cost_rubles]);
-  const receipt=selected==='yookassa-sandbox'&&receiptMode()==='yookassa'?buildPaymentReceipt(order,amount):null;
+  const receipt=selected!=='simulation'&&receiptMode()==='yookassa'?buildPaymentReceipt(order,amount):null;
   const payment=(await c.query('INSERT INTO ar_payments(order_id,amount_rubles,method,shipping_version,provider,provider_shop_id,provider_return_url,receipt_snapshot) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id',[id,amount,method,version,selected,config?.shopId??null,config?config.returnOrigin+'/orders/'+id:null,receipt])).rows[0];
   await c.query("UPDATE ar_orders SET payment_status='pending' WHERE id=$1",[id]);return{orderId:id,paymentId:payment.id,amountRubles:amount};
  }));
@@ -85,10 +85,10 @@ export async function initiatePayment(session:ShopSession,body:Record<string,unk
  return result;
 }
 export async function payOrder(session:ShopSession,body:Record<string,unknown>){
- if(paymentProvider()==='yookassa-sandbox'){await getOrder(session,uuid(body.orderId));const {yooPayments}=await import('./yookassa-payments.ts');await yooPayments.preflight();}
+ if(isYooKassa()){await getOrder(session,uuid(body.orderId));const {yooPayments}=await import('./yookassa-payments.ts');await yooPayments.preflight();}
  const payment=await initiatePayment(session,body);
  if('paymentId'in payment&&payment.paymentId){
-  if(paymentProvider()==='yookassa-sandbox'){const {yooPayments}=await import('./yookassa-payments.ts');await yooPayments.process(payment.paymentId);return getOrder(session,payment.orderId);}
+  if(isYooKassa()){const {yooPayments}=await import('./yookassa-payments.ts');await yooPayments.process(payment.paymentId);return getOrder(session,payment.orderId);}
   const{event,signature}=testPaymentAdapter.event({id:payment.paymentId,amountRubles:payment.amountRubles!});await applyPaymentEvent(event,signature);}
  return getOrder(session,payment.orderId);
 }

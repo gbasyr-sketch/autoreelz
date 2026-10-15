@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "mockProvider": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "passed": true,
+      "liveCardAndSbp": true,
+      "liveRefundLabels": true,
+      "receiptConfirmation": true,
+      "doubleClickBlocked": true,
+      "retryKeyAcrossReload": true,
+      "separateReceiptStatus": true,
+      "knownReceiptReconciliation": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "passed": true,
+      "liveCardAndSbp": true,
+      "liveRefundLabels": true,
+      "receiptConfirmation": true,
+      "doubleClickBlocked": true,
+      "retryKeyAcrossReload": true,
+      "separateReceiptStatus": true,
+      "knownReceiptReconciliation": true,
+      "noOverflow": true
+    }
+  ]
+}

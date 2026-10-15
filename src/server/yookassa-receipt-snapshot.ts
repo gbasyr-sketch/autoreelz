@@ -5,7 +5,7 @@ import {StoreError} from './errors.ts';
 export type ReceiptRegistration='pending'|'succeeded'|'canceled';
 export interface ReceiptItem {
  description:string;quantity:string;amount:{value:string;currency:'RUB'};
- vat_code:1;payment_mode:'full_prepayment';payment_subject:'commodity'|'service';measure:'piece';
+ vat_code:1;payment_mode:'full_prepayment'|'full_payment';payment_subject:'commodity'|'service';measure:'piece';
 }
 export interface PaymentReceipt {customer:{email:string};items:ReceiptItem[];internet:true;timezone:3}
 const invalid=():never=>{throw new StoreError('RECEIPT_SNAPSHOT','Не удалось подготовить чек. Проверьте состав заказа и email.',409);};
@@ -15,13 +15,13 @@ function description(value:string){
  if(!clean||/[\u0000-\u001f\u007f]/u.test(clean))return invalid();
  return Array.from(clean).slice(0,128).join('');
 }
-export function validatePaymentReceipt(value:unknown,total:string):PaymentReceipt {
+export function validatePaymentReceipt(value:unknown,total:string,mode:'full_prepayment'|'full_payment'='full_prepayment'):PaymentReceipt {
  const r=value as PaymentReceipt;
  if(!r||typeof r.customer?.email!=='string'||r.customer.email.length>254||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.customer.email)||r.internet!==true||r.timezone!==3||!Array.isArray(r.items)||!r.items.length||r.items.length>80)return invalid();
  const items=r.items.map(i=>{
-  if(!i||typeof i.description!=='string'||description(i.description)!==i.description||typeof i.quantity!=='string'||!/^\d+$/.test(i.quantity)||!Number.isSafeInteger(Number(i.quantity))||Number(i.quantity)<=0||i.amount?.currency!=='RUB'||i.vat_code!==1||i.payment_mode!=='full_prepayment'||!['commodity','service'].includes(i.payment_subject)||i.measure!=='piece')return invalid();
+  if(!i||typeof i.description!=='string'||description(i.description)!==i.description||typeof i.quantity!=='string'||!/^\d+$/.test(i.quantity)||!Number.isSafeInteger(Number(i.quantity))||Number(i.quantity)<=0||i.amount?.currency!=='RUB'||i.vat_code!==1||i.payment_mode!==mode||!['commodity','service'].includes(i.payment_subject)||i.measure!=='piece')return invalid();
   const amount=money(i.amount.value);if(compareRubles(amount,'0.00')<=0)return invalid();
-  return{description:i.description,quantity:i.quantity,amount:{value:amount,currency:'RUB' as const},vat_code:1 as const,payment_mode:'full_prepayment' as const,payment_subject:i.payment_subject,measure:'piece' as const};
+  return{description:i.description,quantity:i.quantity,amount:{value:amount,currency:'RUB' as const},vat_code:1 as const,payment_mode:mode,payment_subject:i.payment_subject,measure:'piece' as const};
  });
  if(sumRubles(items.map(i=>multiplyRubles(i.amount.value,Number(i.quantity))))!==money(total))return invalid();
  // Rebuild the wire object: no caller-supplied arbitrary fiscal fields.

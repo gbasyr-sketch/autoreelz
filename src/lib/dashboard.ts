@@ -6,7 +6,7 @@ export interface DashboardOrder {id:string;number:string;kind:string;status:stri
 export interface DashboardStock {skuId:string;productId:string;article:string;name:string;productName:string;status:string;onHand:number;reserved:number;available:number}
 export interface DashboardQuality {id:string;name:string;status:string;issues:string[]}
 export interface DashboardData {
- generatedAt:string;period:DashboardPeriod;filter:DashboardFilter;from:string;testOnly:true;
+ generatedAt:string;period:DashboardPeriod;filter:DashboardFilter;from:string;testOnly:boolean;
  metrics:{productRubles:Rubles;shippingRubles:Rubles;paidOrders:number;averageRubles:Rubles;ordinary:number;preorder:number;inWork:number};
  series:{day:string;productRubles:Rubles;shippingRubles:Rubles;orders:number}[];
  tasks:{packing:number;quote:number;confirm:number;review:number;reviews:number};

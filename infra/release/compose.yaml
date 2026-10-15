@@ -17,6 +17,10 @@ x-app-env: &app-env
   YOOKASSA_RECEIPTS_MODE: ${YOOKASSA_RECEIPTS_MODE:-disabled}
   YOOKASSA_SHOP_ID: ${YOOKASSA_SHOP_ID:-}
   YOOKASSA_SECRET_KEY: ${YOOKASSA_SECRET_KEY:-}
+x-live-yookassa-env: &live-yookassa-env
+  YOOKASSA_LIVE_OPERATIONS_ENABLED: ${YOOKASSA_LIVE_OPERATIONS_ENABLED:-false}
+  YOOKASSA_LIVE_SHOP_ID: ${YOOKASSA_LIVE_SHOP_ID:-}
+  YOOKASSA_LIVE_SECRET_KEY: ${YOOKASSA_LIVE_SECRET_KEY:-}
 x-cdek-shipments-env: &cdek-shipments-env
   CDEK_SHIPMENTS_MODE: ${CDEK_SHIPMENTS_MODE:-disabled}
   CDEK_SHIPMENTS_ALLOW_LIVE: ${CDEK_SHIPMENTS_ALLOW_LIVE:-false}
@@ -45,7 +49,7 @@ services:
     mem_limit: 1g
     cpus: 2
     environment:
-      <<: [*app-env, *cdek-shipments-env]
+      <<: [*app-env, *cdek-shipments-env, *live-yookassa-env]
       CMS_INTERNAL_URL: http://cms:8055
       BACKGROUND_REMOVAL_URL: ${BACKGROUND_REMOVAL_URL:-}
       AI_TEXT_PROVIDER: ${AI_TEXT_PROVIDER:-disabled}
@@ -109,7 +113,7 @@ services:
     init: true
     environment:
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
-      <<: [*app-env, *cdek-shipments-env]
+      <<: [*app-env, *cdek-shipments-env, *live-yookassa-env]
     read_only: true
     tmpfs: [/tmp]
     networks: [backend]

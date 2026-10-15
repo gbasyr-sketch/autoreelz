@@ -1,7 +1,7 @@
 import type {PoolClient} from 'pg';
 import {randomUUID} from 'node:crypto';
 import {transaction} from './db.ts';
-import {requireTestEnvironment} from './config.ts';
+import {requireCommerceEnvironment} from './config.ts';
 import {StoreError,uuid,multilineText,iso} from './errors.ts';
 import {canonical,idempotent} from './security.ts';
 import {orderRow,stockMove} from './orders.ts';
@@ -32,7 +32,7 @@ async function history(c:PoolClient,id:string):Promise<ReturnReceipt[]>{
 export async function returnIntakeWorkspace(orderId:string):Promise<ReturnIntakeWorkspace>{
  const id=uuid(orderId);return transaction(async c=>{
   const order=await orderRow(c,id);let enabled=true,reason=returnEligibility(order),lines:ReturnIntakeWorkspace['lines']=[];
-  try{requireTestEnvironment();}catch{enabled=false;reason='Приёмка сейчас доступна только в тестовом режиме.';}
+  try{requireCommerceEnvironment();}catch{enabled=false;reason='Приёмка сейчас недоступна.';}
   try{lines=await basis(c,order);}catch(e){if(!(e instanceof StoreError))throw e;reason='Снимок состава или история склада требуют сверки. Новая приёмка пока недоступна.';}
   const canReceive=enabled&&!reason&&lines.some(l=>l.remainingQuantity>0);
   if(!reason&&!canReceive)reason='Все доступные к возврату товары уже зарегистрированы. Незавершённые проверки показаны ниже.';
@@ -44,7 +44,7 @@ async function review(c:PoolClient,orderId:string){
  await c.query("UPDATE ar_orders SET status='manual_review',review_reason=coalesce(nullif(review_reason,''),'Получены возвращённые товары. Заказ находится на проверке.') WHERE id=$1",[orderId]);
 }
 export async function receiveReturn(actor:{id:string},body:Record<string,unknown>){
- requireTestEnvironment();confirmed(body);const orderId=uuid(body.orderId),trackingNumber=returnReference(body.trackingNumber),note=multilineText(body.note,'Примечание при приёмке',3,1000),lines=receiveLines(body.lines);
+ requireCommerceEnvironment();confirmed(body);const orderId=uuid(body.orderId),trackingNumber=returnReference(body.trackingNumber),note=multilineText(body.note,'Примечание при приёмке',3,1000),lines=receiveLines(body.lines);
  return transaction(c=>idempotent(c,scope+'receive:'+actor.id,body.idempotencyKey,{orderId,trackingNumber:trackingNumber.toUpperCase(),note,lines,confirmed:true},async()=>{
   const order=await orderRow(c,orderId,undefined,true);
   const existing=(await c.query("SELECT id,note FROM ar_return_receipts WHERE order_id=$1 AND upper(regexp_replace(btrim(tracking_number),'[[:space:]]+',' ','g'))=upper($2)",[orderId,trackingNumber])).rows[0];
@@ -63,7 +63,7 @@ export async function receiveReturn(actor:{id:string},body:Record<string,unknown
  }),false);
 }
 export async function inspectReturn(actor:{id:string},body:Record<string,unknown>){
- requireTestEnvironment();confirmed(body);const orderId=uuid(body.orderId),receiptId=uuid(body.receiptId),note=multilineText(body.note,'Результат проверки',3,1000);
+ requireCommerceEnvironment();confirmed(body);const orderId=uuid(body.orderId),receiptId=uuid(body.receiptId),note=multilineText(body.note,'Результат проверки',3,1000);
  return transaction(async c=>{
   // Order lock serializes receipts/inspections and all existing trade commands. No locks on immutable journal rows.
   const order=await orderRow(c,orderId,undefined,true);

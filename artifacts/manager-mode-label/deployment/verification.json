@@ -1,0 +1,45 @@
+{
+  "checkedAt": "2026-10-15T20:30:59.098396+00:00",
+  "deployed": true,
+  "appSha": "caf5cf277923fec722096c591debc5708e1e227c",
+  "previousAppSha": "7002a87486dff59a9e55563cfc40dc59b85a17a5",
+  "image": "sha256:0b799a3250500df459912f366c84c669dd5f37dd3194cb4c6da95ccab1bc058f",
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-manager-mode-20261015T203034Z",
+  "changedEnvFields": [
+    "RELEASE_IMAGE"
+  ],
+  "migrationsApplied": 0,
+  "dbBackup": "/srv/autoreelz2026/backups/before-manager-mode-20261015T203034Z.dump",
+  "dbBackupReadable": true,
+  "workerHeartbeatAfterRestart": true,
+  "checks": {
+    "appRevision": true,
+    "runtimeChangesLimitedToDeclaredFields": true,
+    "envOnlyImageChanged": true,
+    "configPreserved": true,
+    "migrationsPreserved": true,
+    "protectedDataPreserved": true,
+    "otherContainersPreserved": true,
+    "appContainersUseVerifiedImage": true,
+    "healthy": true,
+    "workerRecent": true
+  },
+  "protectedTables": 70,
+  "changedTables": [],
+  "config": {
+    "APP_REVISION": "caf5cf277923fec722096c591debc5708e1e227c",
+    "STORE_MODE": "production",
+    "PAYMENT_PROVIDER": "yookassa-live",
+    "YOOKASSA_RECEIPTS_MODE": "yookassa",
+    "SEO_INDEXING_ENABLED": "false",
+    "CDEK_SHIPMENTS_MODE": "live",
+    "CDEK_SHIPMENTS_ALLOW_LIVE": "true",
+    "PICKUP_MAP_PROVIDER": "osm",
+    "METRIKA_ENABLED": "false",
+    "MAIL_PROVIDER": "timeweb-smtp",
+    "MAIL_RECIPIENT_POLICY": "all-new",
+    "MAIL_NEW_MESSAGES_FROM": "2026-10-14T23:37:31.373Z",
+    "YOOKASSA_LIVE_OPERATIONS_ENABLED": "true"
+  },
+  "passed": true
+}

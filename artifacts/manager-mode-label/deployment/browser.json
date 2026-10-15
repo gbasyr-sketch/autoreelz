@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "page": "orders",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "page": "detail",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "page": "orders",
+      "width": 375,
+      "passed": true
+    },
+    {
+      "page": "detail",
+      "width": 375,
+      "passed": true
+    }
+  ],
+  "loginLogoutOnly": true,
+  "noTradeMutations": true,
+  "sessionRevoked": true
+}

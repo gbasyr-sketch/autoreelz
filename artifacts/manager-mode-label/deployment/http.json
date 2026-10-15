@@ -1,0 +1,94 @@
+{
+  "checkedAt": "2026-10-15T20:30:59.553060+00:00",
+  "checks": [
+    {
+      "path": "/health",
+      "status": 200,
+      "passed": true,
+      "revision": "caf5cf277923fec722096c591debc5708e1e227c"
+    },
+    {
+      "path": "/product/kryshka-avariyki-lada-priora-2007-2018",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "passed": true,
+      "noindex": true
+    },
+    {
+      "path": "/catalog",
+      "status": 200,
+      "passed": true,
+      "noindex": true
+    },
+    {
+      "path": "/cart",
+      "status": 200,
+      "passed": true,
+      "noindex": true,
+      "recipientLabel": true
+    },
+    {
+      "path": "/checkout",
+      "status": 200,
+      "passed": true,
+      "noindex": true,
+      "recipientLabel": true
+    },
+    {
+      "path": "/account",
+      "status": 200,
+      "passed": true,
+      "noindex": true
+    },
+    {
+      "path": "/api/privacy",
+      "status": 200,
+      "passed": true,
+      "analyticsEnabled": false
+    },
+    {
+      "path": "/api/manager/orders",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "path": "/api/manager/payment-refunds?orderId=00000000-0000-4000-8000-000000000001",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "path": "/api/manager/closing-receipt?orderId=00000000-0000-4000-8000-000000000001",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "passed": true,
+      "closed": true
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "passed": true,
+      "empty": true
+    },
+    {
+      "path": "/feed.yml",
+      "status": 503,
+      "passed": true
+    },
+    {
+      "path": "/cms/users/me",
+      "status": 401,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "readOnly": true,
+  "monetaryRequests": 0
+}

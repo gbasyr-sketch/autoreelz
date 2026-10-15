@@ -11,7 +11,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const response = await next();
   const publicSeo=seoSettings(context.url).indexing;
   const asset=/^\/(?:_astro|fonts|images|brand|media)(?:\/|$)/.test(path);
-  if(!publicSeo||!asset)response.headers.set('X-Robots-Tag',publicSeo&&context.locals.seoIndexable&&response.status<400?'index, follow':'noindex, follow');
+  // Astro can return a streaming HTML response before a nested layout sets locals.
+  // In production HTML, the layout's robots meta is authoritative; an unset
+  // local must not add a conflicting noindex header to an indexable document.
+  const html=response.headers.get('Content-Type')?.includes('text/html');
+  const discovery=path==='/robots.txt'||path==='/sitemap.xml';
+  if(!publicSeo||response.status>=400||(!asset&&!html&&!discovery))response.headers.set('X-Robots-Tag','noindex, follow');
+  else response.headers.delete('X-Robots-Tag');
   response.headers.set('Cache-Control',path.startsWith('/_astro/')?'public, max-age=31536000, immutable':/^\/(?:fonts|images|brand)\//.test(path)?'public, max-age=86400':'private, no-store');
   response.headers.set('X-Content-Type-Options', 'nosniff');
   return response;

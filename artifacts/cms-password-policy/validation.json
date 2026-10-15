@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "policy": "^(?=[\\s\\S]{15,128}$)(?!([\\s\\S])\\1+$)[\\s\\S]+$",
+  "checks": [
+    {
+      "label": "short",
+      "accepted": false,
+      "elapsedMs": 0.893
+    },
+    {
+      "label": "14 chars",
+      "accepted": false,
+      "elapsedMs": 0.074
+    },
+    {
+      "label": "15 chars",
+      "accepted": true,
+      "elapsedMs": 0.009
+    },
+    {
+      "label": "long phrase",
+      "accepted": true,
+      "elapsedMs": 0.008
+    },
+    {
+      "label": "unicode phrase",
+      "accepted": true,
+      "elapsedMs": 0.04
+    },
+    {
+      "label": "repeat",
+      "accepted": false,
+      "elapsedMs": 0.016
+    },
+    {
+      "label": "128 chars",
+      "accepted": true,
+      "elapsedMs": 0.012
+    },
+    {
+      "label": "129 chars",
+      "accepted": false,
+      "elapsedMs": 0.016
+    },
+    {
+      "label": "empty",
+      "accepted": false,
+      "elapsedMs": 0.03
+    },
+    {
+      "label": "oversized",
+      "accepted": false,
+      "elapsedMs": 0.502
+    }
+  ],
+  "installedValidationBodyUsed": true,
+  "noDatabaseWrites": true,
+  "loginUsesHashOnly": true
+}

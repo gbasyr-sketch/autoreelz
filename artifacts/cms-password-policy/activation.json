@@ -1,0 +1,18 @@
+{
+  "updated": true,
+  "oldSessionStillWorks": true,
+  "loginWithUnchangedPassword": true,
+  "managerPermissionsPreserved": true,
+  "policy": "^(?=[\\s\\S]{15,128}$)(?!([\\s\\S])\\1+$)[\\s\\S]+$",
+  "backup": "/srv/autoreelz2026/shared/cms-password-policy-20261016",
+  "dumpReadable": true,
+  "credentialFieldsUnchanged": true,
+  "existingSessionsPreserved": true,
+  "temporarySessionsLoggedOut": true,
+  "changedSettings": [
+    "auth_password_policy"
+  ],
+  "containersNotRestarted": true,
+  "twoFactorChanged": false,
+  "publicRegistration": false
+}

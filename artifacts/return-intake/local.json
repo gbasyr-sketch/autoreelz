@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-15",
+  "isolatedBaseSha": "166afdeed73fcaf698fbf7084481711d3b41504d",
+  "migrationPrepared": "033_return_intake.sql",
+  "published": false,
+  "schemaInQa": "001–033",
+  "check": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "build": true,
+  "unit": {
+    "passed": 206,
+    "failed": 0,
+    "skipped": 8
+  },
+  "tradeDatabaseTests": 67,
+  "newDatabaseGroups": 13,
+  "newUnitGroups": 5,
+  "refundRegressionGroups": 11,
+  "supplierRegressionGroups": 7,
+  "orderRegressionGroups": 8,
+  "browserScenarios": 4,
+  "viewports": [
+    1440,
+    375
+  ],
+  "browserStorageFailuresChecked": [
+    "read",
+    "write",
+    "remove-after-accepted"
+  ],
+  "externalCalls": 0,
+  "realStockChanged": false,
+  "realPayments": 0,
+  "messagesSent": 0,
+  "qaDatabasesRemoved": true,
+  "previewServersStopped": true,
+  "independentReview": {
+    "initialP2": "late child/movement insertion after journal commit",
+    "fixedAndRegressionTested": true,
+    "finalFindings": "No P1/P2"
+  },
+  "passed": true
+}

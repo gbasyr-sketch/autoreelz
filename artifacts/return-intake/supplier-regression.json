@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "isolated": true,
+  "externalCalls": 0,
+  "checks": [
+    "supplier confirmation opens one mixed order without warehouse movements",
+    "shipping can change before payment; payment version and deadline remain mandatory",
+    "payment waits for physical arrival and blocks every dispatch entry point",
+    "arrival allocation is atomic for the whole order and idempotent under concurrency",
+    "cancel and expiry never return supplier stock; late payment requires review",
+    "shared warehouse stock cannot be consumed by supplier and ordinary orders twice",
+    "pending and completed refunds prevent stock allocation even while the order is marked paid"
+  ]
+}

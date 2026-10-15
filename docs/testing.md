@@ -190,3 +190,7 @@ CMS-наборы `cms-browser`, `content-browser`, `stage6-cms-*`, schema/permis
 ## Страховка СДЭК15.10
 
 `node --test tests/cdek.test.ts tests/cdek-shipments.test.ts`; `AR_QA_NATIVE=1 AR_CDEK_TESTS=1 AR_CDEK_OUTPUT=artifacts/cdek-insurance node --test --test-concurrency=1 tests/cdek-checkout.test.ts` —15DB-групп, только синтетические данные/транспорт. `AR_DISPATCH_OUTPUT=private/cdek-insurance/dispatch AR_DISPATCH_REPORT=artifacts/cdek-insurance/dispatch node tests/order-dispatch-e2e.mjs` —8 групп с имитацией внешних границ. Обновлённый калькулятор отдельно проверен рабочим API без отправлений; эти запросы не входят в автоматические тесты. [Контракт](cdek-checkout-contract.md).
+
+## Cookies над мобильной покупкой15.10
+
+`tests/cookie-banner-browser.mjs`: опубликованная карточка с полностью подменёнными API,320/375/390/600×375/812×375/1440. Проверяет отступ от фиксированных панелей, доступность клика/фокуса, увеличение кнопки после добавления, длинную ошибку cookies, закрытие и возврат фокуса настроек. На375 —85 переходов Tab и смена ориентации/ширины. `AR_COOKIE_CANDIDATE=1` подставляет локальный собранный privacy-JS и только CSS правки; без флага — настоящие опубликованные ассеты. `AR_COOKIE_OUTPUT` — каталог private, `AR_CHROMIUM_EXECUTABLE` — установленный Chromium. Реальных команд корзины/согласия/платежей/писем нет.

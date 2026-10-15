@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "candidate": true,
+  "api": "mocked",
+  "checks": [
+    {
+      "width": 320,
+      "height": 720,
+      "purchaseClickable": true,
+      "noticeAboveFixedBars": true,
+      "errorMessageLayout": true,
+      "dismissal": true,
+      "settingsFocus": true
+    },
+    {
+      "width": 375,
+      "height": 900,
+      "purchaseClickable": true,
+      "noticeAboveFixedBars": true,
+      "errorMessageLayout": true,
+      "dismissal": true,
+      "settingsFocus": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "purchaseClickable": true,
+      "noticeAboveFixedBars": true,
+      "errorMessageLayout": true,
+      "dismissal": true,
+      "settingsFocus": true
+    },
+    {
+      "width": 600,
+      "height": 375,
+      "purchaseClickable": true,
+      "noticeAboveFixedBars": true,
+      "errorMessageLayout": true,
+      "dismissal": true,
+      "settingsFocus": true
+    },
+    {
+      "width": 812,
+      "height": 375,
+      "purchaseClickable": false,
+      "noticeAboveFixedBars": true,
+      "errorMessageLayout": true,
+      "dismissal": true,
+      "settingsFocus": true
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "purchaseClickable": false,
+      "noticeAboveFixedBars": true,
+      "errorMessageLayout": true,
+      "dismissal": true,
+      "settingsFocus": true
+    }
+  ],
+  "errors": [],
+  "keyboardTabSteps": 85,
+  "rotationChecked": true
+}

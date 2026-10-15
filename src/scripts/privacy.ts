@@ -6,6 +6,21 @@ if(element){
  const root=element;
  let state:PrivacyState=JSON.parse(root.dataset.state!),busy=false,active=false,loading:HTMLScriptElement|null=null,epoch=0,decisionEpoch=0,expiryTimer:ReturnType<typeof setTimeout>|undefined;
  const win=window as typeof window&{ym?:Ym},banner=root.querySelector<HTMLElement>('[data-privacy-banner]')!,dialog=root.querySelector<HTMLDialogElement>('[data-privacy-dialog]')!;
+ // Keep the notice above visible fixed shopping/navigation bars, including wrapped labels.
+ const bottomBars=[...document.querySelectorAll<HTMLElement>('.mobile-purchase,.mobile-nav')];
+ function positionBanner(){
+  let bottom=24;
+  for(const bar of bottomBars){
+   const rect=bar.getBoundingClientRect();
+   if(rect.height>0&&getComputedStyle(bar).position==='fixed')bottom=Math.max(bottom,window.innerHeight-rect.top+12);
+  }
+  banner.style.setProperty('--privacy-bottom',`${bottom}px`);
+  const clearance=banner.hidden?0:bottom+banner.getBoundingClientRect().height+12;
+  document.documentElement.style.setProperty('--privacy-clearance',`${clearance}px`);
+ }
+ const bannerLayout=new ResizeObserver(positionBanner);
+ [banner,...bottomBars].forEach(node=>bannerLayout.observe(node));
+ window.addEventListener('resize',positionBanner,{passive:true});
  let returnFocus:HTMLElement|null=null;
  function veto(){try{if(localStorage.getItem(PRIVACY_VETO)==='1')return true;}catch{}return document.cookie.split(';').some(v=>v.trim()==='ar_analytics_off=1');}
  function setVeto(value:boolean){try{value?localStorage.setItem(PRIVACY_VETO,'1'):localStorage.removeItem(PRIVACY_VETO);}catch{}document.cookie=`ar_analytics_off=${value?'1':''}; Path=/; SameSite=Lax; Max-Age=${value?15552000:0}${location.protocol==='https:'?'; Secure':''}`;}
@@ -27,7 +42,7 @@ if(element){
   };script.onerror=()=>{loading=null;script.remove();};document.head.append(script);
  }
  function armExpiry(){clearTimeout(expiryTimer);if(!state.expiresAt)return;expiryTimer=setTimeout(()=>{if(state.expiresAt&&state.expiresAt<=Date.now()){state.choice=null;stop();render();}else armExpiry();},Math.max(0,Math.min(state.expiresAt-Date.now(),86400000)));}
- function render(){if(state.expiresAt&&state.expiresAt<=Date.now()){state.choice=null;state.expiresAt=null;}banner.hidden=state.choice!==null;root.querySelector('[data-privacy-current]')!.textContent=state.choice==='accepted'&&!veto()?'Ваш выбор: аналитика разрешена.':'Ваш выбор: только необходимые cookies.';root.querySelectorAll<HTMLButtonElement>('[data-privacy-accept]').forEach(b=>b.hidden=!state.enabled);permitted()?start():stop();armExpiry();}
+ function render(){if(state.expiresAt&&state.expiresAt<=Date.now()){state.choice=null;state.expiresAt=null;}banner.hidden=state.choice!==null;positionBanner();root.querySelector('[data-privacy-current]')!.textContent=state.choice==='accepted'&&!veto()?'Ваш выбор: аналитика разрешена.':'Ваш выбор: только необходимые cookies.';root.querySelectorAll<HTMLButtonElement>('[data-privacy-accept]').forEach(b=>b.hidden=!state.enabled);permitted()?start():stop();armExpiry();}
  function message(text:string){root.querySelectorAll<HTMLElement>('[data-privacy-status]').forEach(n=>{n.textContent=text;n.hidden=!text;});}
  function close(){dialog.close();returnFocus?.focus({preventScroll:true});}
  function open(event:Event){returnFocus=event.currentTarget as HTMLElement;message('');dialog.showModal();}

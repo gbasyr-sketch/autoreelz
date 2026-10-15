@@ -1,0 +1,79 @@
+{
+  "revision": "37fb0ec31b2f2fa2277d9ef6ab6eeb5410570a45",
+  "image": "sha256:1ccbabdb25938a1f379b165c5be327c2cb2840188848ad252dc64bf61c73ca56",
+  "published": true,
+  "fixes": {
+    "B25": {
+      "fixed": true,
+      "trust": "Only confirmed DDoS-Guard ingress186.2.160.0/24; last XFF; real_ip_recursive off; overwrite outgoing XFF/XRealIP; Caddy loopback listener only",
+      "observedProviderBehavior": "External probe proved provider preserves user X-Real-IP and appends genuine client to XFF. Final configuration uses XFF, not incoming X-Real-IP.",
+      "syntheticChainPassed": true,
+      "publicTwoNetworkOriginsDistinct": true,
+      "publicSpoofedHeadersIgnored": true,
+      "temporaryProbeRemoved": true
+    },
+    "B26": {
+      "fixed": true,
+      "behavior": "Canceled payments/refunds excluded from receipt reconciliation; missing fiscal status before success produces no missing/overdue error; successful overdue receipts remain monitored.",
+      "syntheticCanceledPaymentsAndRefunds": true,
+      "syntheticStaleCallback": true,
+      "existingFinancialRecordsRewritten": false
+    },
+    "B27": {
+      "fixed": true,
+      "behavior": "Neutral OTP help in account; manager service identifies legacy simulated notification queue without claiming live SMTP is disabled.",
+      "syntheticSsrPassed": true
+    }
+  },
+  "checks": {
+    "check": "0 errors/warnings/hints",
+    "build": "passed",
+    "unitPassed": 234,
+    "unitSkipped": 8,
+    "receiptDatabaseGroups": 9,
+    "productionPaymentDatabaseGroups": 27,
+    "seoHttp": 10,
+    "mailSsrRoutes": 2,
+    "syntheticProxyChain": 5,
+    "publicHttpGet": 11
+  },
+  "preserved": {
+    "migrationCount": 36,
+    "migrationChecksumsIdentical": true,
+    "serverEnvChangedKeys": [
+      "RELEASE_IMAGE"
+    ],
+    "runtimeEnvChangedKeys": [
+      "APP_REVISION"
+    ],
+    "seoIndexing": true,
+    "livePaymentAndCdekModes": true,
+    "smtpSettings": true,
+    "aiBudgetsAndHistory": true
+  },
+  "worker": {
+    "startedAt": "2026-10-15T21:11:06.190322034Z",
+    "heartbeatAt": "2026-10-15T21:11:56.945560Z",
+    "lastError": null
+  },
+  "backup": {
+    "privateDirectory": "/srv/autoreelz2026/shared/review-fixes-20261016",
+    "dbDumpListReadable": true,
+    "envAndProxyCopies": true
+  },
+  "safety": {
+    "agentInitiatedRealPaymentCalls": 0,
+    "agentInitiatedRealRefunds": 0,
+    "agentCreatedRealOrders": 0,
+    "agentSentRealMessages": 0,
+    "businessDataMutations": 0,
+    "syntheticTemporaryDatabasesRemoved": true,
+    "publicVerification": "GET only; ordinary anonymous session creation may occur; no commerce commands",
+    "normalWorker": "Existing background processing retained, not disabled or replayed"
+  },
+  "rollback": "Use compatible prior image ff922ef only if necessary; keep new proxy configuration. Restore only RELEASE_IMAGE, never old whole env/database. Separate proxy backups allow scoped rollback.",
+  "sources": [
+    "https://www.ispmanager.ru/docs/ispmanager/nastrojka-ddos-guard",
+    "https://nginx.org/en/docs/http/ngx_http_realip_module.html"
+  ]
+}

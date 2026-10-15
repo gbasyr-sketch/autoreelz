@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "publicDdosIngress": true,
+  "trustedHeader": "last X-Forwarded-For from confirmed proxy subnet",
+  "spoofedXRealIPandXFFIgnored": true,
+  "twoNetworkOriginsDistinct": true,
+  "ipAddressesOmitted": true,
+  "syntheticProxyChainChecks": 5,
+  "paymentCalls": 0,
+  "workingDatabaseAccess": false
+}

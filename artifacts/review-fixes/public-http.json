@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "getOnly": true,
+  "businessMutations": 0,
+  "checks": [
+    {
+      "path": "/health",
+      "status": 200,
+      "robotsMeta": [],
+      "robotsHeader": "noindex, follow"
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "robotsMeta": [
+        "index,follow"
+      ],
+      "robotsHeader": null
+    },
+    {
+      "path": "/catalog",
+      "status": 200,
+      "robotsMeta": [
+        "index,follow"
+      ],
+      "robotsHeader": null
+    },
+    {
+      "path": "/account",
+      "status": 200,
+      "robotsMeta": [
+        "noindex,follow"
+      ],
+      "robotsHeader": null
+    },
+    {
+      "path": "/manager/service",
+      "status": 200,
+      "robotsMeta": [
+        "noindex,nofollow,noarchive"
+      ],
+      "robotsHeader": null
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "robotsMeta": [],
+      "robotsHeader": null
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "robotsMeta": [],
+      "robotsHeader": null
+    },
+    {
+      "path": "/api/manager/orders",
+      "status": 401,
+      "robotsMeta": [],
+      "robotsHeader": "noindex, follow"
+    },
+    {
+      "path": "/cms/users/me",
+      "status": 401,
+      "robotsMeta": [],
+      "robotsHeader": "noindex, nofollow, noarchive"
+    },
+    {
+      "path": "/google031b679d17a8feda.html",
+      "status": 200,
+      "robotsMeta": [],
+      "robotsHeader": null
+    },
+    {
+      "path": "/yandex_77486fc3808f1fc9.html",
+      "status": 200,
+      "robotsMeta": [],
+      "robotsHeader": null
+    }
+  ]
+}

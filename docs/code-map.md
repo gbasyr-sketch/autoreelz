@@ -75,3 +75,6 @@
 Рабочая ЮKassa/закрывающие чеки: `src/server/payment-policy.ts`, `yookassa-closing.ts`, `yookassa-closing-snapshot.ts`, `src/scripts/closing-receipts.ts`, API manager/closing-receipt, миграция035. Проверять разные контуры/test/account, явное получение, возвраты/снимки/lease и сохранение ключа при повторе; [контракт](yookassa-production.md).
 
 Очистка пустых анонимных визитов: `migrations/037_session_cleanup.sql` (политика/узкая функция/индексы/расписание), `src/server/session-cleanup.ts` (preview/ограниченная транзакция), `scripts/commerce-worker.ts` (независимая фоновая задача после торговли), `scripts/session-cleanup-preview.ts` (только чтение). Тесты — `tests/session-cleanup-database.mjs`; контракт — [operations.md](operations.md). Ни один торговый/исторический DELETE сюда не добавлять.
+
+
+Новые гостевые сессии: `src/server/session-rate-limit.ts`, `security.ts#getSession`, `middleware.ts`, `http.ts`; выход `auth.ts`/`src/scripts/commerce.ts`. Регламент — operations.md, проверки — testing.md (16.10). Лимит не меняет очистку037/историю корзин.

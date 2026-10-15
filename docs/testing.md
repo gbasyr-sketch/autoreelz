@@ -208,3 +208,8 @@ CMS-наборы `cms-browser`, `content-browser`, `stage6-cms-*`, schema/permis
 ## Очистка сессий037
 
 `node tests/session-cleanup-database.mjs` — native изолированная синтетическая БД001–037: фильтр/граница30дней, все защищённые связи и снимки таблиц, rollback, сохранение корзины при параллельной записи/продлении сессии, запрет stale-snapshot, узкие права, новые restrictive/cascade FK, лимит200 и конкурентные/повторные вызовы, новый визит по удалённой expired cookie. Реальных внешних вызовов нет. `AR_QA_NATIVE=1 AR_COMMERCE_TESTS=1 node --test tests/commerce.test.ts` — торговая регрессия; check/build/npm test. [Результат](../artifacts/session-cleanup/database.json), контракт в [operations.md](operations.md). Preview сервера — только SELECT по тому же фильтру, без миграции/удаления.
+
+
+## Ограничение новых сессий16.10
+
+`node --test tests/session-rate-limit.test.ts` — нормализация IP/IPv6/64/unknown и429-заголовки. `node tests/session-rate-limit-database.mjs` —11 групп на синтетической native PostgreSQL: конкуренция на границе, два окна/rollback, действующие и поддельные cookie, отдельные сети, logout при лимите, cart failure, совместимость retention. После build: `node tests/session-rate-limit-http.mjs` —5 групп настоящего Astro HTTP14381, существующие cookie открывают cart/checkout/account при отказе новым. Внешних провайдеров/писем нет, QA-БД удаляется. Регрессия: `AR_QA_NATIVE=1 AR_COMMERCE_TESTS=1 node --test tests/commerce.test.ts` и прежний cleanup DB. Pinned Node24.21.0.

@@ -256,7 +256,7 @@ async function initAccount(){
  resend.addEventListener('click',()=>void busy(resend,async()=>{await sendCode(requestedEmail);setTimeout(countdown,0);}));
  verifyForm.addEventListener('submit',event=>{event.preventDefault();const code=(verifyForm.elements.namedItem('code') as HTMLInputElement).value.trim();void busy(verifyForm,async()=>{await commerceCommand('/api/auth/verify',{challengeId,code});await getSession(true);await load();if(resendTimer)clearInterval(resendTimer);announce('Email подтверждён. Вы вошли в кабинет.');});});
  q<HTMLButtonElement>('[data-change-email]')!.addEventListener('click',()=>{challengeId='';verifyForm.reset();verifyForm.hidden=true;requestForm.hidden=false;(requestForm.elements.namedItem('email') as HTMLInputElement).focus();clearError();});
- const logout=q<HTMLButtonElement>('[data-logout]')!;logout.addEventListener('click',()=>void busy(logout,async()=>{await commerceCommand('/api/auth/logout',{});await getSession(true);requestForm.hidden=false;verifyForm.hidden=true;verifyForm.reset();await load();announce('Вы вышли из кабинета.');}));
+ const logout=q<HTMLButtonElement>('[data-logout]')!;logout.addEventListener('click',()=>void busy(logout,async()=>{await commerceCommand('/api/auth/logout',{});location.replace('/account');}));
  const reload=q<HTMLButtonElement>('[data-reload-account]')!;reload.addEventListener('click',()=>void busy(reload,load));try{await load();}catch(error){pageError(error);}finally{loading();}
 }
 

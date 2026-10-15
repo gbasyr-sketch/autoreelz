@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checks": [
+    "new guest receives session and cart atomically",
+    "12 concurrent requests at minute boundary create only one pair; rejected attempts do not consume hourly quota",
+    "valid guest and authenticated cookies bypass exhausted quota without losing cart or consuming counters",
+    "invalid and forged cookies cannot bypass quota",
+    "independent network continues creating sessions",
+    "hourly cap survives minute reset and rolls back minute consumption",
+    "logout revokes authenticated cookie successfully even with exhausted quota",
+    "after expiry both windows reset; expired cookie gets clean anonymous session",
+    "cart failure rolls back session and both rate counters, sets no cookie",
+    "unavailable adapter IP uses protected fallback bucket",
+    "prepared retention preserves all new and existing active sessions"
+  ]
+}

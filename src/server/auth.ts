@@ -9,6 +9,7 @@ import {transaction} from './db.ts';
 import {appConfig,requireCommerceEnvironment} from './config.ts';
 import {COOKIE,equal,getSession,hash,setSessionCookie,sign} from './security.ts';
 import {StoreError,email,iso,uuid} from './errors.ts';
+import {SessionCreationLimitError} from './session-rate-limit.ts';
 
 type CookieContext=Pick<APIContext,'cookies'>;
 const codeError=()=>new StoreError('LOGIN_CODE','Код неверный или больше не действует. Запросите новый код.',400);
@@ -79,7 +80,8 @@ export async function logout(ctx:CookieContext,session:ShopSession):Promise<{ok:
   await client.query('UPDATE ar_login_challenges SET consumed_at=now() WHERE session_id=$1 AND consumed_at IS NULL',[session.id]);
  });
  ctx.cookies.delete(COOKIE,{path:'/'});
- await getSession(ctx);
+ // Revocation must succeed even if this network cannot create another guest.
+ try{await getSession(ctx);}catch(error){if(!(error instanceof SessionCreationLimitError))throw error;}
  return{ok:true};
 }
 

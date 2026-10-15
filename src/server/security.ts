@@ -5,20 +5,22 @@ import type{ShopSession}from'../lib/commerce-types.ts';
 import{appConfig}from'./config.ts';
 import{query,transaction}from'./db.ts';
 import{StoreError,uuid,iso}from'./errors.ts';
+import{takeSessionCreation}from'./session-rate-limit.ts';
 export const COOKIE='autoreelz2026_shop';
 export const hash=(value:string)=>createHash('sha256').update(value).digest('hex');
 export const sign=(value:string)=>createHmac('sha256',appConfig().secret).update(value).digest('hex');
 export function canonical(value:unknown):string{if(Array.isArray(value))return '['+value.map(canonical).join(',')+']';if(value&&typeof value==='object')return '{'+Object.entries(value).sort(([a],[b])=>a.localeCompare(b)).map(([k,v])=>JSON.stringify(k)+':'+canonical(v)).join(',')+'}';return JSON.stringify(value)??'null';}
 export function equal(a:string,b:string){const x=Buffer.from(a),y=Buffer.from(b);return x.length===y.length&&timingSafeEqual(x,y);}
 export function setSessionCookie(ctx:Pick<APIContext,'cookies'>,token:string){ctx.cookies.set(COOKIE,token,{path:'/',httpOnly:true,sameSite:'lax',secure:new URL(appConfig().origin).protocol==='https:',maxAge:30*24*60*60});}
-export async function getSession(ctx:Pick<APIContext,'cookies'>):Promise<ShopSession>{
+export async function getSession(ctx:Pick<APIContext,'cookies'>&Partial<Pick<APIContext,'clientAddress'>>):Promise<ShopSession>{
  const token=ctx.cookies.get(COOKIE)?.value;
  if(token&&/^[A-Za-z0-9_-]{40,100}$/.test(token)){
   const r=await query('SELECT s.id,s.csrf_token,s.expires_at,c.email FROM ar_web_sessions s LEFT JOIN ar_customers c ON c.id=s.customer_id WHERE token_hash=$1 AND expires_at>now()',[hash(token)]);
   if(r.rows[0]){const s=r.rows[0];return{id:s.id,csrfToken:s.csrf_token,email:s.email,expiresAt:iso(s.expires_at)!};}
  }
  const newToken=randomBytes(32).toString('base64url'),csrfToken=randomBytes(32).toString('base64url');
- const session=await transaction(async c=>{const r=await c.query("INSERT INTO ar_web_sessions(token_hash,csrf_token,expires_at) VALUES($1,$2,now()+interval '30 days') RETURNING id,expires_at",[hash(newToken),csrfToken]);await c.query('INSERT INTO ar_carts(session_id) VALUES($1)',[r.rows[0].id]);return{id:r.rows[0].id,csrfToken,email:null,expiresAt:iso(r.rows[0].expires_at)!};});
+ let ip='unknown';try{ip=ctx.clientAddress??'unknown';}catch{/* Shared fail-closed bucket when the adapter has no address. */}
+ const session=await transaction(async c=>{await takeSessionCreation(c,ip,sign);const r=await c.query("INSERT INTO ar_web_sessions(token_hash,csrf_token,expires_at) VALUES($1,$2,now()+interval '30 days') RETURNING id,expires_at",[hash(newToken),csrfToken]);await c.query('INSERT INTO ar_carts(session_id) VALUES($1)',[r.rows[0].id]);return{id:r.rows[0].id,csrfToken,email:null,expiresAt:iso(r.rows[0].expires_at)!};},false);
  setSessionCookie(ctx,newToken);return session;
 }
 export async function readBody(request:Request,session:ShopSession,maxBytes=16384){

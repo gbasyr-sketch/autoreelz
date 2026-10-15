@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "published": false,
+  "scope": "New anonymous session/cart creation only; existing cookies bypass quota",
+  "limits": {
+    "perMinute": 60,
+    "perHour": 600,
+    "identity": "HMAC of IPv4 or IPv6 /64 from adapter clientAddress; missing/invalid IP uses shared unknown bucket"
+  },
+  "storage": "Existing ar_rate_limits, atomic with session/cart transaction; no new migration",
+  "checks": {
+    "astro": {
+      "errors": 0,
+      "warnings": 0,
+      "hints": 0
+    },
+    "build": true,
+    "unitPassed": 236,
+    "unitSkipped": 8,
+    "commercePassed": 38,
+    "sessionDatabaseGroups": 11,
+    "httpGroups": 5,
+    "existingCleanupGroups": 16
+  },
+  "productionChanged": false,
+  "realPayments": 0,
+  "realEmails": 0,
+  "limitations": [
+    "Shared NAT consumes a shared quota for NEW sessions only.",
+    "This does not replace edge DDoS protection or prevent distributed clients from using distinct networks.",
+    "Previously prepared migration037/cleanup remains unpublished and requires a separate release decision."
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "API, storefront and unknown paths return429/Retry-After/no-store, never503 or extra sessions",
+    "existing cookie keeps session/cart/cart page/checkout/account available at exhausted limit",
+    "CSRF protection remains enforced for existing visitor",
+    "logout succeeds over real HTTP while new sessions are blocked",
+    "health and discovery endpoints remain available without session creation"
+  ]
+}

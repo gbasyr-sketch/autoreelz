@@ -31,6 +31,7 @@ assert.equal(env.POSTGRES_DB,'autoreelz2026_new');
   if(!(await owner.query("SELECT 1 FROM information_schema.columns WHERE table_name='ar_yookassa_refunds' AND column_name='selection_snapshot'")).rowCount)await owner.query(readFileSync('migrations/031_partial_refunds.sql','utf8'));
   if(!(await owner.query("SELECT 1 FROM information_schema.columns WHERE table_name='ar_orders' AND column_name='supplier_confirmed_at'")).rowCount)await owner.query(readFileSync('migrations/032_supplier_preorders.sql','utf8'));
   if(!(await owner.query("SELECT 1 FROM information_schema.tables WHERE table_name='ar_return_receipts'")).rowCount)await owner.query(readFileSync('migrations/033_return_intake.sql','utf8'));
+  if(!(await owner.query("SELECT 1 FROM information_schema.tables WHERE table_name='ar_return_resolutions'")).rowCount)await owner.query(readFileSync('migrations/034_return_resolution.sql','utf8'));
   return{database,owner,query:(statement,params=[])=>owner.query(statement,params),async close(){await owner.end();sql(`DROP DATABASE ${database} WITH (FORCE);`,env.POSTGRES_DB);}};
  }catch(error){if(owner)await owner.end();if(created)sql(`DROP DATABASE ${database} WITH (FORCE);`,env.POSTGRES_DB);throw error;}
 }

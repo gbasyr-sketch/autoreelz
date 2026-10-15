@@ -172,3 +172,7 @@ CMS-наборы `cms-browser`, `content-browser`, `stage6-cms-*`, schema/permis
 ## HTML-письма15.10.2026
 
 `node --test tests/mail-templates.test.ts`; `node tests/mail-html-database.mjs`; `node tests/mail-database.mjs`. Базы только синтетические native001–030, транспорт подменён. Реальные5 samples только по прямому поручению владельца, через устойчивые ключи без создания заказов/платежей/OTP. MIME и скриншоты в private. [Контракт](mail-html.md).
+
+## Закрытие разбора возврата034
+
+`node --test tests/return-resolution-policy.test.ts` —8unit; `node tests/return-resolution-database.mjs` —14 групп отдельной native PostgreSQL001–034: cumulative partial/full, overlapping bundleSKU/held, idempotency/concurrency/stale, oldkey after reopen, directSQL NULL/malformedJSON/amount/composition/ledger guards, dashboard reviewfilter и production. `node tests/return-resolution-browser.mjs` после build —4 full/partial×1440/375, роли/CSRF/Origin/no-store, неизвестныйответ/reload/samekey, storagefail и stale409. Порты14371/14372, внешний fetch запрещён, снимки private. [Сводка](../artifacts/return-resolution/local.json). Регрессия:67trade,13intakeDB/11partialDB/7supplierDB/8dispatch,4intakeUI/4refundUI. Старый standalone manager-workspace DB требует отдельного QA launcher; запуск без него закрыт проверкой имени БД, не считать его пройденным.

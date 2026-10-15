@@ -35,7 +35,7 @@ export async function settlePayment(c:PoolClient,input:PaymentEvent,provider:Pay
   else if(input.status==='failed'){
    await c.query("UPDATE ar_payments SET status='failed' WHERE id=$1",[paymentId]);
    const anotherPending=(await c.query("SELECT 1 FROM ar_payments WHERE order_id=$1 AND id<>$2 AND status='pending'",[order.id,paymentId])).rowCount;
-   if(order.status!=='paid'&&order.status!=='manual_review'&&!anotherPending)await c.query("UPDATE ar_orders SET payment_status='failed' WHERE id=$1",[order.id]);
+   if(!['paid','manual_review','return_closed'].includes(order.status)&&!anotherPending)await c.query("UPDATE ar_orders SET payment_status='failed' WHERE id=$1",[order.id]);
    await orderEvent(c,order.id,'payment_failed','Тестовая оплата не прошла.');outcome='failed';
   }else if(input.currency!=='RUB'||amount!==safeMoney(current.amount_rubles)||amount!==sumRubles([order.product_total_rubles,order.shipping_cost_rubles??'0.00'])||order.shipping_version!==current.shipping_version){
    await c.query("UPDATE ar_payments SET status='review' WHERE id=$1",[paymentId]);

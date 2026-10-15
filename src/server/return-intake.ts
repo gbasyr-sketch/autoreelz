@@ -9,7 +9,7 @@ import {lockStock} from './pricing.ts';
 import {returnEligibility,returnReference,receiveLines,inspectLines,physicalReturnBasis} from './return-intake-policy.ts';
 import type {ReturnIntakeWorkspace,ReturnReceipt} from '../lib/return-intake.ts';
 const scope='return-intake:';
-async function basis(c:PoolClient,order:Record<string,any>){
+export async function returnPhysicalBasis(c:PoolClient,order:Record<string,any>){
  const id=order.id;
  const components=(await c.query('SELECT sku_id,quantity FROM ar_order_components WHERE order_id=$1 ORDER BY sku_id',[id])).rows;
  const issued=(await c.query("SELECT sku_id,greatest(0,-sum(stock_delta)) quantity FROM ar_stock_movements WHERE order_id=$1 AND operation_key NOT LIKE 'return-intake:%' GROUP BY sku_id",[id])).rows;
@@ -17,7 +17,7 @@ async function basis(c:PoolClient,order:Record<string,any>){
  const inspected=(await c.query('SELECT sku_id,sum(restock_quantity) restocked,sum(held_quantity) held FROM ar_return_inspection_lines WHERE order_id=$1 GROUP BY sku_id',[id])).rows;
  return physicalReturnBasis(order,components,issued,received,inspected);
 }
-async function history(c:PoolClient,id:string):Promise<ReturnReceipt[]>{
+export async function returnIntakeHistory(c:PoolClient,id:string):Promise<ReturnReceipt[]>{
  const receipts=(await c.query('SELECT * FROM ar_return_receipts WHERE order_id=$1 ORDER BY created_at,id',[id])).rows;
  const lines=(await c.query('SELECT * FROM ar_return_receipt_lines WHERE order_id=$1 ORDER BY sku_id',[id])).rows;
  const inspections=(await c.query('SELECT * FROM ar_return_inspections WHERE order_id=$1 ORDER BY created_at,id',[id])).rows;
@@ -33,10 +33,10 @@ export async function returnIntakeWorkspace(orderId:string):Promise<ReturnIntake
  const id=uuid(orderId);return transaction(async c=>{
   const order=await orderRow(c,id);let enabled=true,reason=returnEligibility(order),lines:ReturnIntakeWorkspace['lines']=[];
   try{requireTestEnvironment();}catch{enabled=false;reason='Приёмка сейчас доступна только в тестовом режиме.';}
-  try{lines=await basis(c,order);}catch(e){if(!(e instanceof StoreError))throw e;reason='Снимок состава или история склада требуют сверки. Новая приёмка пока недоступна.';}
+  try{lines=await returnPhysicalBasis(c,order);}catch(e){if(!(e instanceof StoreError))throw e;reason='Снимок состава или история склада требуют сверки. Новая приёмка пока недоступна.';}
   const canReceive=enabled&&!reason&&lines.some(l=>l.remainingQuantity>0);
   if(!reason&&!canReceive)reason='Все доступные к возврату товары уже зарегистрированы. Незавершённые проверки показаны ниже.';
-  return{enabled,canReceive,reason,orderId:id,lines,receipts:await history(c,id)};
+  return{enabled,canReceive,reason,orderId:id,lines,receipts:await returnIntakeHistory(c,id)};
  });
 }
 function confirmed(body:Record<string,unknown>){if(body.confirmed!==true)throw new StoreError('RETURN_CONFIRMATION','Подтвердите фактическое количество и результат операции.');}
@@ -54,7 +54,7 @@ export async function receiveReturn(actor:{id:string},body:Record<string,unknown
    throw new StoreError('RETURN_RECEIPT_EXISTS','Эта посылка уже зарегистрирована с другим составом или примечанием. Проверьте её историю.',409);
   }
   const blocked=returnEligibility(order);if(blocked)throw new StoreError('RETURN_ORDER',blocked,409);
-  const available=await basis(c,order);
+  const available=await returnPhysicalBasis(c,order);
   for(const line of lines){const current=available.find(l=>l.skuId===line.skuId);if(!current||line.quantity>current.remainingQuantity)throw new StoreError('RETURN_QUANTITY','Количество превышает оставшиеся отправленные товары этого SKU.',409);}
   if(Number((await c.query('SELECT count(*) n FROM ar_return_receipts WHERE order_id=$1',[orderId])).rows[0].n)>=100)throw new StoreError('RETURN_LIMIT','По заказу уже зарегистрировано100 посылок. Требуется отдельная сверка.',409);
   const id=randomUUID();await c.query('INSERT INTO ar_return_receipts(id,order_id,tracking_number,note,actor_id) VALUES($1,$2,$3,$4,$5)',[id,orderId,trackingNumber,note,actor.id]);
@@ -74,7 +74,7 @@ export async function inspectReturn(actor:{id:string},body:Record<string,unknown
    const old=(await c.query('SELECT id,note FROM ar_return_inspections WHERE receipt_id=$1',[receiptId])).rows[0];
    if(old){const original=(await c.query('SELECT sku_id,restock_quantity,held_quantity FROM ar_return_inspection_lines WHERE inspection_id=$1 ORDER BY sku_id',[old.id])).rows.map(l=>({skuId:l.sku_id,restockQuantity:l.restock_quantity,heldQuantity:l.held_quantity}));if(old.note===note&&canonical(original)===canonical(lines))return{id:old.id};throw new StoreError('RETURN_INSPECTED','Проверка уже завершена. Её результат и приход зафиксированы в истории.',409);}
    if(order.allocation_state!=='settled')throw new StoreError('RETURN_ORDER','История выделения товаров изменилась. Сначала сверить склад, повторный приход недоступен.',409);
-   await basis(c,order);
+   await returnPhysicalBasis(c,order);
    const id=randomUUID();await c.query('INSERT INTO ar_return_inspections(id,receipt_id,order_id,note,actor_id) VALUES($1,$2,$3,$4,$5)',[id,receiptId,orderId,note,actor.id]);
    const approved=new Map(lines.filter(l=>l.restockQuantity>0).map(l=>[l.skuId,l.restockQuantity]));
    const stocks=await lockStock(c,approved);if(stocks.some(s=>s.on_hand+(approved.get(s.sku_id)??0)>1000000))throw new StoreError('STOCK_LIMIT','Приход превышает допустимый остаток SKU. Требуется сверка склада.',409);

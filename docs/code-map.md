@@ -68,3 +68,5 @@
 Точный смысл DTO — в `src/lib/commerce-types.ts`, `catalog-types.ts`, `management-types.ts`, `social-types.ts`; реальная схема — последовательность миграций. `cms/schema.snapshot.json` не содержит рабочих данных и не заменяет миграции/backup.
 
 - Главная, демонстрационные товарные отзывы и статьи: [homepage-content.md](homepage-content.md).
+
+Завершение разбора возврата034: `src/server/return-resolution-policy.ts` (сверка), `return-resolution.ts` (транзакция/снимок/история), `src/pages/api/manager/return-resolution.ts`, DTO `src/lib/return-resolution.ts`, отдельные `src/scripts/return-resolution.ts`/CSS. [Контракт](return-resolution.md).

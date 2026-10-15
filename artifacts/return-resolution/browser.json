@@ -1,0 +1,121 @@
+{
+  "passed": true,
+  "externalCalls": 0,
+  "api": {
+    "anonymous401": true,
+    "role403": true,
+    "csrf403": true,
+    "origin403": true,
+    "noStore": true,
+    "cms": "isolated stub; real staff guard"
+  },
+  "viewports": [
+    {
+      "width": 1440,
+      "kind": "full",
+      "passed": true,
+      "summaryReadOnly": true,
+      "heldConfirmation": true,
+      "confirmationReset": true,
+      "doubleClickBlocked": true,
+      "sameRetryAcrossReload": true,
+      "changedWorkspaceRetry": true,
+      "storageRemovalFailureSafe": false,
+      "unknownRefreshBlocked": true,
+      "historyActorDateNote": true,
+      "textEscaped": true,
+      "noOverflow": true,
+      "touchTargets44px": true
+    },
+    {
+      "width": 1440,
+      "kind": "partial",
+      "passed": true,
+      "summaryReadOnly": true,
+      "heldConfirmation": true,
+      "confirmationReset": true,
+      "doubleClickBlocked": true,
+      "sameRetryAcrossReload": true,
+      "changedWorkspaceRetry": true,
+      "storageRemovalFailureSafe": false,
+      "unknownRefreshBlocked": true,
+      "historyActorDateNote": true,
+      "textEscaped": true,
+      "noOverflow": true,
+      "touchTargets44px": true
+    },
+    {
+      "width": 375,
+      "kind": "full",
+      "passed": true,
+      "summaryReadOnly": true,
+      "heldConfirmation": true,
+      "confirmationReset": true,
+      "doubleClickBlocked": true,
+      "sameRetryAcrossReload": true,
+      "changedWorkspaceRetry": true,
+      "storageRemovalFailureSafe": false,
+      "unknownRefreshBlocked": true,
+      "historyActorDateNote": true,
+      "textEscaped": true,
+      "noOverflow": true,
+      "touchTargets44px": true
+    },
+    {
+      "width": 375,
+      "kind": "partial",
+      "passed": true,
+      "summaryReadOnly": true,
+      "heldConfirmation": true,
+      "confirmationReset": true,
+      "doubleClickBlocked": true,
+      "sameRetryAcrossReload": true,
+      "changedWorkspaceRetry": true,
+      "storageRemovalFailureSafe": true,
+      "unknownRefreshBlocked": true,
+      "historyActorDateNote": true,
+      "textEscaped": true,
+      "noOverflow": true,
+      "touchTargets44px": true
+    }
+  ],
+  "storage": [
+    {
+      "mode": "read",
+      "passed": true,
+      "noPost": true,
+      "historyVisible": true
+    },
+    {
+      "mode": "write",
+      "passed": true,
+      "noPost": true,
+      "historyVisible": true
+    },
+    {
+      "mode": "malformed",
+      "passed": true,
+      "noPost": true,
+      "historyVisible": true
+    }
+  ],
+  "blocked": [
+    {
+      "reason": "Не все полученные товары проверены.",
+      "passed": true
+    },
+    {
+      "reason": "Возврат денег ещё не подтверждён.",
+      "passed": true
+    },
+    {
+      "reason": "Физический состав не совпадает с возвратом денег.",
+      "passed": true
+    },
+    {
+      "reason": "Запись недоступна в рабочем режиме.",
+      "passed": true
+    }
+  ],
+  "lateRevision": true
+}

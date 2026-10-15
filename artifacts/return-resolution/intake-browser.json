@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "externalCalls": 0,
+  "api": {
+    "anonymous401": true,
+    "role403": true,
+    "csrf403": true,
+    "origin403": true,
+    "noStore": true,
+    "cms": "isolated stub; real staff guard"
+  },
+  "viewports": [
+    {
+      "width": 1440,
+      "action": "receive",
+      "passed": true,
+      "aggregatedPhysicalSku": true,
+      "bundleSources": true,
+      "splitGoodHeld": false,
+      "doubleClickBlocked": true,
+      "sameRetryKeyAcrossReload": true,
+      "changedWorkspaceRetry": true,
+      "storageRemovalFailureSafe": false,
+      "unknownRefreshBlocked": true,
+      "confirmationReset": true,
+      "historyReadOnly": true,
+      "pendingSeparatedFromHeld": true,
+      "textEscaped": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "action": "inspect",
+      "passed": true,
+      "aggregatedPhysicalSku": true,
+      "bundleSources": true,
+      "splitGoodHeld": true,
+      "doubleClickBlocked": true,
+      "sameRetryKeyAcrossReload": true,
+      "changedWorkspaceRetry": true,
+      "storageRemovalFailureSafe": false,
+      "unknownRefreshBlocked": true,
+      "confirmationReset": true,
+      "historyReadOnly": true,
+      "pendingSeparatedFromHeld": true,
+      "textEscaped": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "action": "receive",
+      "passed": true,
+      "aggregatedPhysicalSku": true,
+      "bundleSources": true,
+      "splitGoodHeld": false,
+      "doubleClickBlocked": true,
+      "sameRetryKeyAcrossReload": true,
+      "changedWorkspaceRetry": true,
+      "storageRemovalFailureSafe": false,
+      "unknownRefreshBlocked": true,
+      "confirmationReset": true,
+      "historyReadOnly": true,
+      "pendingSeparatedFromHeld": true,
+      "textEscaped": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "action": "inspect",
+      "passed": true,
+      "aggregatedPhysicalSku": true,
+      "bundleSources": true,
+      "splitGoodHeld": true,
+      "doubleClickBlocked": true,
+      "sameRetryKeyAcrossReload": true,
+      "changedWorkspaceRetry": true,
+      "storageRemovalFailureSafe": true,
+      "unknownRefreshBlocked": true,
+      "confirmationReset": true,
+      "historyReadOnly": true,
+      "pendingSeparatedFromHeld": true,
+      "textEscaped": true,
+      "noOverflow": true
+    }
+  ],
+  "storage": [
+    {
+      "failure": "read",
+      "passed": true,
+      "noPost": true,
+      "historyVisible": true
+    },
+    {
+      "failure": "write",
+      "passed": true,
+      "noPost": true,
+      "historyVisible": true
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "scope": "isolated local test; no deployment or real transactions",
+  "sourceBase": "68f4dc012fdc18911f2ce8a0b2d823102d816ba1",
+  "migration": "034_return_resolution.sql",
+  "checks": {
+    "astroCheck": {
+      "errors": 0,
+      "warnings": 0,
+      "hints": 0
+    },
+    "build": true,
+    "unit": {
+      "passed": 215,
+      "skipped": 8
+    },
+    "tradeDatabase": 67,
+    "resolutionDatabaseGroups": 14,
+    "resolutionBrowserScenarios": 4,
+    "intakeDatabaseGroups": 13,
+    "partialRefundDatabaseGroups": 11,
+    "supplierDatabaseGroups": 7,
+    "dispatchE2eGroups": 8,
+    "intakeBrowserScenarios": 4,
+    "refundBrowserScenarios": 4,
+    "contentEditorBundle": true,
+    "independentReadOnlyReview": "no remaining P1/P2; nullable selection bypass corrected and tested"
+  },
+  "externalCallsInNewTests": 0,
+  "limitations": [
+    "No server migration or deployment",
+    "No real PSP, carrier, SMTP, stock or customer order changes",
+    "Older standalone manager-workspace DB script was not run: its dedicated AR_DATABASE_NAME guard refused an unconfigured invocation before DB access; trade suites and direct review-filter checks passed"
+  ],
+  "screenshots": "private/return-resolution/browser"
+}

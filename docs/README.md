@@ -60,6 +60,7 @@
 - СДЭК/карта: [cdek.md](cdek.md), [cdek-checkout-contract.md](cdek-checkout-contract.md).
 - Документы/cookies/аналитика: [комплект14.10 и критерии публикации](legal-publication.md), [разбор Pack24/Boxstore](legal-reference-review.md), [подготовка уведомления РКН](rkn-notification-prep.md).9 документов опубликованы15.10; [итоговая оферта](offer-finalization.md), [сроки и снимки заказа](order-terms.md). Уведомление cookies опубликовано,026. Search Console подтверждена; создание Метрики заблокировано недоступностью кабинета. Прежние [legal-and-cookies-review.md](legal-and-cookies-review.md) и [offer-draft.md](offer-draft.md) — история подготовки.
 - Готовность по разделам ролика: [аудит15.10](launch-audit-2026-10-15.md), проверенная витрина, приоритеты и ограничения.
+- Исправления зависимостей: [кандидат15.10](dependency-security.md), совместимость, Quill без опасных экспортов, проверки и граница публикации.
 - SEO: [seo.md](seo.md); оформление: [MASTER.md](../design-system/MASTER.md).
 - Лицензия: [license.md](license.md); статический тур: [muzey.md](muzey.md).
 - Версии: package.json / package-lock.json / Dockerfile / Compose — фактические pins; [versions.json](versions.json) — датированный снимок, не рекомендация автоматически обновляться.

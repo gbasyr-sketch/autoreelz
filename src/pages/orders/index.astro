@@ -1,0 +1,5 @@
+---
+// Generic order-list links in mail lead to the existing authenticated account page.
+Astro.response.headers.set('Cache-Control','no-store');
+return Astro.redirect('/account',302);
+---

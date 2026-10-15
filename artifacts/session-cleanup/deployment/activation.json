@@ -1,0 +1,42 @@
+{
+  "published": true,
+  "sha": "dc6e42d3c7a41cc5df79fd2f436321cc9acd3ab4",
+  "image": "sha256:3e78e49357523619309affa529bc08967eac36a556f97c6c11bd0f7b05cefed6",
+  "previous": "84bf5554bf07a27a73e26f98a965342ad2d7f9fe",
+  "health": {
+    "ok": true,
+    "revision": "dc6e42d3c7a41cc5df79fd2f436321cc9acd3ab4"
+  },
+  "backup": "/srv/autoreelz2026/shared/session-cleanup-dc6e42d3c7a4",
+  "dumpVerified": true,
+  "envChangedKeys": [
+    "RELEASE_IMAGE"
+  ],
+  "runtimeChangedKeys": [
+    "APP_REVISION"
+  ],
+  "migrationCount": 37,
+  "migrationChecksumsUnchanged": true,
+  "protectedHistoryUnchanged": true,
+  "protectedTableCount": 73,
+  "existingSessionsAndCartsRetained": true,
+  "automaticCleanup": {
+    "id": 1,
+    "last_run_at": "2026-10-15T22:29:15.880152+00:00",
+    "deleted_sessions": 0,
+    "deleted_carts": 0,
+    "total_deleted_sessions": 0
+  },
+  "hourlyThrottle": {
+    "deleted_sessions": 0,
+    "deleted_carts": 0,
+    "skipped": true
+  },
+  "otherContainersUnchanged": true,
+  "workerStartedAt": "2026-10-15T22:29:15.30736678Z",
+  "heartbeat": {
+    "name": "commerce",
+    "last_run_at": "2026-10-15T22:29:45.975791+00:00",
+    "last_error": null
+  }
+}

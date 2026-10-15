@@ -1,0 +1,19 @@
+{
+  "heartbeat": {
+    "name": "commerce",
+    "last_run_at": "2026-10-15T22:29:45.975791+00:00",
+    "last_error": null
+  },
+  "cleanup": {
+    "id": 1,
+    "last_run_at": "2026-10-15T22:29:15.880152+00:00",
+    "deleted_sessions": 0,
+    "deleted_carts": 0,
+    "total_deleted_sessions": 0
+  },
+  "candidateCount": 0,
+  "historyTablesUnchanged": 73,
+  "narrowPrivilegesConfirmed": true,
+  "cleanupErrors": false,
+  "containersHealthy": true
+}

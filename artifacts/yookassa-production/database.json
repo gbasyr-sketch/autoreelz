@@ -24,6 +24,7 @@
     "production cart/createQuote/checkout forbids shipping simulation, falls back to manual without CDEK setup, freezes production offer and awaits agreed delivery before payment",
     "historical sandbox payment cannot dispatch through the live provider even with the same shop ID",
     "live process and all reconciliation selectors skip historical sandbox payment/refund/closing queues without network",
+    "live payment, closing receipt, partial fiscal refund, physical receive/inspect and frozen resolution close end to end; retries add no stock, money, mail or network",
     "no SMTP worker, external message or real provider call executed"
   ]
 }

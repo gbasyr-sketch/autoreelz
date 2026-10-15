@@ -15,6 +15,8 @@ const {getPool}=await import('../src/server/db.ts');
 const {initiatePayment}=await import('../src/server/payments.ts');
 const {changeCart,createQuote}=await import('../src/server/cart.ts');
 const {checkout}=await import('../src/server/orders.ts');
+const {receiveReturn,inspectReturn}=await import('../src/server/return-intake.ts');
+const {returnResolutionWorkspace,closeReturnResolution}=await import('../src/server/return-resolution.ts');
 const {testOrderTerms,productionOrderTerms}=await import('../src/lib/checkout-confirmations.ts');
 const {createYooPayments}=await import('../src/server/yookassa-payments.ts');
 const {createYooReceipts}=await import('../src/server/yookassa-receipts.ts');
@@ -56,7 +58,7 @@ async function fixture(method='card',orderId=key()){
  await q("INSERT INTO ar_categories(id,name,slug,status) VALUES($1,'QA',$2,'published')",[category,'qa-'+category]);
  await q("INSERT INTO ar_products(id,name,slug,category_id,status) VALUES($1,'QA',$2,$3,'published')",[product,'qa-'+product,category]);
  await q("INSERT INTO ar_skus(id,product_id,article,name,price_rubles,status) VALUES($1,$2,$3,'QA','100.01','published')",[sku,product,'QA-'+sku]);
- const lines=[{productId:product,skuId:sku,name:'QA деталь',variantLabel:'Чёрная',quantity:3,unitPriceRubles:'100.01',lineTotalRubles:'300.03',article:'QA-'+sku,image:'',components:[]}];
+ const lines=[{productId:product,skuId:sku,name:'QA деталь',variantLabel:'Чёрная',quantity:3,unitPriceRubles:'100.01',lineTotalRubles:'300.03',article:'QA-'+sku,image:'',components:[{skuId:sku,name:'QA деталь',article:'QA-'+sku,quantity:1,unitPriceRubles:'100.01'}]}];
  await q("INSERT INTO ar_orders(id,batch_id,session_id,kind,status,payment_status,delivery_status,allocation_state,customer_name,customer_phone,customer_email,delivery_snapshot,items_snapshot,product_total_rubles,shipping_cost_rubles,expires_at) VALUES($1,$2,$3,'ordinary','awaiting_payment','unpaid','quoted','reserved','QA','+79990000000','qa@example.invalid','{}',$4,'300.03','10.00',now()+interval '30 minutes')",[orderId,batch,sessionId,JSON.stringify(lines)]);
  await q('INSERT INTO ar_stock(sku_id,on_hand,reserved) VALUES($1,10,3)',[sku]);
  await q('INSERT INTO ar_order_components(order_id,sku_id,quantity) VALUES($1,$2,3)',[orderId,sku]);
@@ -144,6 +146,17 @@ try{
  assert.equal((await refundRow(historicalRefundId)).state,'queued');assert.equal((await closingRow(historicalClosingId)).state,'queued');assert.equal((await paymentRow(historicalPayment.paymentId)).provider_id,null);
  checks.push('live process and all reconciliation selectors skip historical sandbox payment/refund/closing queues without network');
 
+
+ const resolvedLive=await paid(await fixture());await delivered(resolvedLive);const resolvedClosing=(await queueClosingReceipt(actor,explicitReceive(resolvedLive))).id;await closeReceipt(resolvedClosing);const resolvedRefund=await refundSettled(partial(resolvedLive));
+ assert.equal((await refundRow(resolvedRefund)).receipt_registration,'succeeded');
+ const receiveBody={orderId:resolvedLive.orderId,trackingNumber:'QA-RETURN-'+key(),note:'QA получена одна возвращённая деталь',confirmed:true,lines:[{skuId:resolvedLive.sku,quantity:1}],idempotencyKey:key()};const received=await receiveReturn(actor,receiveBody);
+ assert.deepEqual((await q('SELECT on_hand,reserved FROM ar_stock WHERE sku_id=$1',[resolvedLive.sku])).rows[0],{on_hand:7,reserved:0});
+ const inspectBody={orderId:resolvedLive.orderId,receiptId:received.id,note:'QA деталь проверена и пригодна к продаже',confirmed:true,lines:[{skuId:resolvedLive.sku,restockQuantity:1}],idempotencyKey:key()};const inspected=await inspectReturn(actor,inspectBody);
+ assert.deepEqual((await q('SELECT on_hand,reserved FROM ar_stock WHERE sku_id=$1',[resolvedLive.sku])).rows[0],{on_hand:8,reserved:0});const resolution=await returnResolutionWorkspace(resolvedLive.orderId);assert.equal(resolution.canClose,true,resolution.reason);assert.equal(resolution.summary.kind,'partial');
+ const resolutionBody={orderId:resolvedLive.orderId,revision:resolution.revision,note:'QA сверены возврат денег, чек и физическая приёмка',confirmed:true,idempotencyKey:key()};
+ const effects=async()=>({stock:(await q('SELECT * FROM ar_stock WHERE sku_id=$1',[resolvedLive.sku])).rows,movements:(await q('SELECT * FROM ar_stock_movements WHERE order_id=$1 ORDER BY id',[resolvedLive.orderId])).rows,payments:(await q('SELECT * FROM ar_payments WHERE order_id=$1 ORDER BY id',[resolvedLive.orderId])).rows,refunds:(await q('SELECT * FROM ar_yookassa_refunds WHERE order_id=$1 ORDER BY id',[resolvedLive.orderId])).rows,mail:(await q('SELECT * FROM ar_mail_outbox ORDER BY id')).rows,providerCalls:calls.length});
+ const beforeResolution=await effects(),closedLive=await closeReturnResolution(actor,resolutionBody);assert.equal((await closeReturnResolution(actor,resolutionBody)).id,closedLive.id);assert.equal((await receiveReturn(actor,receiveBody)).id,received.id);assert.equal((await inspectReturn(actor,inspectBody)).id,inspected.id);assert.deepEqual(await effects(),beforeResolution);
+ const closedOrder=(await q('SELECT status,payment_status FROM ar_orders WHERE id=$1',[resolvedLive.orderId])).rows[0];assert.deepEqual(closedOrder,{status:'return_closed',payment_status:'partially_refunded'});assert.equal((await returnResolutionWorkspace(resolvedLive.orderId)).history.length,1);await assert.rejects(q("UPDATE ar_return_resolutions SET note='QA rewrite' WHERE id=$1",[closedLive.id]),/immutable/);checks.push('live payment, closing receipt, partial fiscal refund, physical receive/inspect and frozen resolution close end to end; retries add no stock, money, mail or network');
  assert.equal((await q("SELECT count(*)::int n FROM ar_mail_outbox WHERE status IN('delivered','sending')")).rows[0].n,0);checks.push('no SMTP worker, external message or real provider call executed');
  const report={passed:true,isolated:true,externalCalls:0,checks};await fs.mkdir('artifacts/yookassa-production',{recursive:true});await fs.writeFile('artifacts/yookassa-production/database.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));
 }finally{globalThis.fetch=originalFetch;await getPool().end();await qa.close(true);}

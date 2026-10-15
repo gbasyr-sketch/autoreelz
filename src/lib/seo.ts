@@ -5,7 +5,7 @@ import {paginate} from './pagination.ts';
 import {articlePage} from './content.ts';
 export const SITE_ORIGIN='https://autoreelz.ru';
 export interface SeoSettings {indexing:boolean}
-export interface SeoResult {canonical:string|null;indexable:boolean;title?:string;description?:string;structuredData:Record<string,unknown>[]}
+export interface SeoResult {canonical:string|null;indexable:boolean;title?:string;description?:string;image?:string;imageAlt?:string;type?:'website'|'article';structuredData:Record<string,unknown>[]}
 export function indexingAllowed(input:{enabled:string;mode:string;appOrigin:string}){
  try{const url=new URL(input.appOrigin);return input.enabled==='true'&&input.mode==='production'&&url.origin===SITE_ORIGIN;}catch{return false;}
 }
@@ -44,7 +44,7 @@ export function pageSeo(url:URL,c:CatalogSnapshot,content:ContentSnapshot,settin
  const result:SeoResult={canonical:null,indexable:false,structuredData:[]};
  let eligible=false;
  const set=(p:string)=>result.canonical=absoluteUrl(p);
- if(path==='/'){set('/');eligible=true;}
+ if(path==='/'){set('/');eligible=true;result.description='Детали автомобильного интерьера AUTO REELZ: консоли, блоки отопителя, воздуховоды, рамки под магнитолы и готовые комплекты. Выбор исполнения и проверка совместимости с автомобилем.';}
  else if(path==='/catalog'){
   const data=queryCatalog(params,c),page=paginate(data.items,params.get('page'));
   if(data.error||page.invalid)return result;
@@ -52,10 +52,12 @@ export function pageSeo(url:URL,c:CatalogSnapshot,content:ContentSnapshot,settin
   const filtered=[...params.keys()].some(k=>!['category','page'].includes(k));
   set(pagePath(base,page.page));eligible=!filtered&&page.items.some(x=>realProduct(x.product,c));
   result.title=clean(data.category?.seoTitle);result.description=clean(data.category?.metaDescription)??(data.category?`${data.category.name} — каталог AUTO REELZ. Исполнения, цены и проверка совместимости.`:undefined);
+  if(page.page>1){result.title=`${result.title??((data.category?.name??'Каталог деталей')+' · AUTO REELZ')} — страница ${page.page}`;result.description=`${result.description??'Каталог AUTO REELZ: детали интерьера и готовые комплекты. Подбор, фильтры и варианты исполнения.'} Страница ${page.page}.`;}
   result.structuredData.push(breadcrumbs([{name:'Главная',path:'/'},{name:'Каталог',path:'/catalog'},...(data.category?[{name:data.category.name,path:base}]:[])]));
  }else if(path.startsWith('/product/')){
   const p=c.products.find(p=>productPath(p)===path),offer=p?c.offerFor(p,params.get('sku')):null;if(!p||!offer)return result;
   set(productPath(p));eligible=realProduct(p,c)&&[...params.keys()].every(k=>k==='sku');
+  result.image=offer.variant?.image??p.image;result.imageAlt=p.name;
   result.title=clean(p.seoTitle);result.description=clean(p.metaDescription)??snippet(p.description||`${p.name}. Исполнения, цена и совместимость в AUTO REELZ.`);
   const cat=c.categories.find(x=>x.slug===p.category),parents=cat?[...cat.ancestorSlugs,cat.slug].flatMap(slug=>{const a=c.categories.find(x=>x.slug===slug);return a?[{name:a.name,path:'/catalog?category='+a.slug}]:[]}):[];
   result.structuredData.push(breadcrumbs([{name:'Главная',path:'/'},{name:'Каталог',path:'/catalog'},...parents,{name:p.name,path:productPath(p)}]),productSchema(p,c,offer));
@@ -68,12 +70,13 @@ export function pageSeo(url:URL,c:CatalogSnapshot,content:ContentSnapshot,settin
   const matching=content.articles.filter(a=>(!cat||a.category.id===cat.id)&&(!tag||a.tags.some(t=>t.id===tag.id))),page=articlePage(matching,params.get('page'));
   if(page.error)return result;set(pagePath(path,page.page));eligible=[...params.keys()].every(k=>k==='page')&&page.items.some(a=>!a.isDemo&&clean(a.body));
   result.description=`${cat?.name??(tag?'Материалы с тегом «'+tag.name+'»':'Блог AUTO REELZ')}: статьи о подборе деталей и работе магазина.`;
+  if(page.page>1){result.title=`${cat?.name??tag?.name??'Блог'} · AUTO REELZ — страница ${page.page}`;result.description+=` Страница ${page.page}.`;}
   result.structuredData.push(breadcrumbs([{name:'Главная',path:'/'},{name:'Блог',path:'/blog'},...(cat||tag?[{name:cat?.name??tag!.name,path}]:[])]));
  }else if(path.startsWith('/blog/')){
-  const a=content.articles.find(a=>'/blog/'+a.slug===path);if(!a)return result;set(path);eligible=!a.isDemo&&Boolean(clean(a.body))&&!params.size;result.title=clean(a.seoTitle);result.description=clean(a.metaDescription)??snippet(a.excerpt||a.bodyText||a.body);
+  const a=content.articles.find(a=>'/blog/'+a.slug===path);if(!a)return result;result.type='article';result.image=a.coverUrl??undefined;result.imageAlt=a.title;set(path);eligible=!a.isDemo&&Boolean(clean(a.body))&&!params.size;result.title=clean(a.seoTitle);result.description=clean(a.metaDescription)??snippet(a.excerpt||a.bodyText||a.body);
   result.structuredData.push(breadcrumbs([{name:'Главная',path:'/'},{name:'Блог',path:'/blog'},{name:a.category.name,path:'/blog/category/'+a.category.slug},{name:a.title,path}]),articleSchema(a));
   const video=videoSchema(a);if(video)result.structuredData.push(video);
- }else if(path==='/cars'){set(path);eligible=false;}
+ }else if(path==='/cars'){set(path);eligible=false;result.description='Подбор деталей AUTO REELZ по автомобилю. Укажите модель, год выпуска и комплектацию, чтобы проверить совместимость выбранного исполнения.';}
  else if(path.startsWith('/cars/')){
   const v=c.vehicles.find(v=>'/cars/'+v.slug===path);if(!v)return result;set(path);
   // Current vehicle pages are filter tools, not editorial SEO landing pages.

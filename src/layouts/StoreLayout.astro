@@ -1,5 +1,5 @@
 ---
-import {pageSeo,safeJsonLd} from '../lib/seo';
+import {pageSeo,safeJsonLd,absoluteUrl,realImage} from '../lib/seo';
 import {seoSettings} from '../server/seo';
 import Icon from '../components/Icon.astro';
 import PrivacyControls from '../components/PrivacyControls.astro';
@@ -17,6 +17,7 @@ const seo=pageSeo(Astro.url,catalog,content,seoSettings(Astro.url));
 Astro.locals.seoIndexable=seo.indexable;
 const documentTitle=seo.title??(title.includes('AUTO REELZ')?title:title+' · AUTO REELZ');
 const documentDescription=seo.description||description;
+const socialImage=absoluteUrl(realImage(seo.image)?seo.image!:'/images/social-default.jpg');
 const csrfToken=Astro.locals.shopSession?.csrfToken;
 const query=Astro.url.searchParams.get('q')??'';
 ---
@@ -25,7 +26,15 @@ const query=Astro.url.searchParams.get('q')??'';
 <head>
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="robots" content={seo.indexable?'index,follow':'noindex,follow'}/><meta name="description" content={documentDescription}/>
-  {seo.canonical&&<link rel="canonical" href={seo.canonical}/>}
+  {seo.canonical&&<><link rel="canonical" href={seo.canonical}/>
+    <meta property="og:locale" content="ru_RU"/><meta property="og:site_name" content="AUTO REELZ"/>
+    <meta property="og:title" content={documentTitle}/><meta property="og:description" content={documentDescription}/>
+    <meta property="og:type" content={seo.type??'website'}/><meta property="og:url" content={seo.canonical}/>
+    <meta property="og:image" content={socialImage}/><meta property="og:image:alt" content={seo.imageAlt??'AUTO REELZ — детали автомобильного интерьера'}/>
+    <meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content={documentTitle}/>
+    <meta name="twitter:description" content={documentDescription}/><meta name="twitter:image" content={socialImage}/>
+    <meta name="twitter:image:alt" content={seo.imageAlt??'AUTO REELZ — детали автомобильного интерьера'}/>
+  </>}
   {seo.structuredData.length>0&&<script type="application/ld+json" set:html={safeJsonLd(seo.structuredData)}/>}
   <meta name="csrf-token" content={csrfToken??''}/><meta name="theme-color" content="#CB181A"/><title>{documentTitle}</title>
   {Astro.url.pathname === '/catalog' && <script is:inline>

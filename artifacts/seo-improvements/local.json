@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-15",
+  "scope": "Local prepared changes; public site not deployed or edited",
+  "checks": {
+    "astro": {
+      "errors": 0,
+      "warnings": 0,
+      "hints": 0
+    },
+    "build": true,
+    "unit": {
+      "passed": 201,
+      "skipped": 8
+    },
+    "httpGroups": [
+      "targeted title correction is idempotent and preserves an existing manual title",
+      "original bytes unchanged, bounded responsive width, small transfer and invalid widths rejected",
+      "parallel responsive requests keep images available",
+      "warm rendition never exposes media after its only product becomes unpublished",
+      "changing source file invalidates warm rendition",
+      "SSR responsive cards, gallery thumbnails, original zoom deferred, canonical and social metadata",
+      "private and missing pages omit social canonical data; indexing guards stay closed"
+    ],
+    "httpGroupsPassed": 7,
+    "qaCleanedUp": true,
+    "browser": {
+      "catalogWidths": [
+        375,
+        1440
+      ],
+      "galleryMobile": {
+        "secondPhotoResponsive": true,
+        "originalDeferredUntilZoom": true,
+        "dialogNavigationSync": true
+      },
+      "catalogOverflow": false,
+      "mobileCardSelectedWidth": 320
+    }
+  },
+  "realPublishedPhotoOfflineConversion": {
+    "original": 199102,
+    "originalWidth": 1536,
+    "variants": [
+      {
+        "width": 160,
+        "bytes": 6638,
+        "savedPercent": 97
+      },
+      {
+        "width": 320,
+        "bytes": 18710,
+        "savedPercent": 91
+      },
+      {
+        "width": 480,
+        "bytes": 33788,
+        "savedPercent": 83
+      },
+      {
+        "width": 640,
+        "bytes": 50678,
+        "savedPercent": 75
+      }
+    ]
+  },
+  "indexingEnabled": false,
+  "publicDataCorrectionApplied": false,
+  "titleCorrection": "scripts/data/seo-product-titles.sql; tested on synthetic database only",
+  "limitations": [
+    "No post-deployment Lighthouse or real-user Core Web Vitals",
+    "No deployment in this task",
+    "Public SKU title correction remains part of an authorized publication"
+  ]
+}

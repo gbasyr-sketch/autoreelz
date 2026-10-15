@@ -1,4 +1,5 @@
 ---
+import {responsiveImage,cardImageSizes} from '../lib/responsive-image';
 import Icon from './Icon.astro';
 import FavoriteButton from './FavoriteButton.astro';
 import {money,productHref} from '../lib/format';
@@ -14,7 +15,7 @@ const color=offer.variant?.attributes.illumination;
 ---
 <article class="product-card" data-product-id={product.id}>
   <a class:list={['card-media',placeholder&&color&&`light-${color}`]} href={href}>
-    <img src={image} width="720" height="480" loading={priority?'eager':'lazy'} fetchpriority={priority?'high':undefined} alt={media[0]?.alt||`${placeholder?'Изображение-заглушка: ':''}${product.name}`}/>
+    <img {...responsiveImage(image,cardImageSizes)} src={image} width="720" height="480" loading={priority?'eager':'lazy'} fetchpriority={priority?'high':undefined} alt={media[0]?.alt||`${placeholder?'Изображение-заглушка: ':''}${product.name}`}/>
     {placeholder&&<span class="media-label">Изображение-заглушка</span>}
     {product.kind==='bundle'&&<span class="card-badge">Фиксированный состав</span>}
   </a>

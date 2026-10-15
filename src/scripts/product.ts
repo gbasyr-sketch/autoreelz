@@ -1,3 +1,4 @@
+import {responsiveImage,productImageSizes} from '../lib/responsive-image';
 import {productVideoDialog} from './product-video';
 import {photoSwipe} from './photo-swipe';
 const quantity=document.querySelector<HTMLInputElement>('#product-quantity');
@@ -22,10 +23,11 @@ async function selectPhoto(index:number){
   const current=++sequence;stage?.setAttribute('aria-busy','true');
   if(status)status.textContent='Загружаем фотографию…';
   try{
-    const preload=new Image();preload.src=src;await preload.decode();
+    const attrs=responsiveImage(src,productImageSizes);
+    const preload=new Image();if(attrs.srcset){preload.sizes=attrs.sizes!;preload.srcset=attrs.srcset;}preload.src=src;await preload.decode();
     if(current!==sequence)return;
-    image.src=src;image.alt=alt;
-    if(enlarged){enlarged.src=src;enlarged.alt=alt;}
+    image.sizes=attrs.sizes??'';image.srcset=attrs.srcset??'';image.src=src;image.alt=alt;
+    if(enlarged){enlarged.dataset.originalSrc=src;if(dialog?.open)enlarged.src=src;enlarged.alt=alt;}
     selected=next;
     thumbs.forEach((thumb,i)=>thumb.setAttribute('aria-pressed',String(i===selected)));
     const count=`${String(selected+1).padStart(2,'0')} / ${String(thumbs.length).padStart(2,'0')}`;
@@ -41,7 +43,7 @@ dialog?.addEventListener('keydown',event=>{
   if(thumbs.length>1&&['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();void selectPhoto(requested+(event.key==='ArrowLeft'?-1:1));}
 });
 const zoom=document.querySelector<HTMLButtonElement>('[data-zoom]');
-function openPhoto(){if(dialog&&!dialog.open)dialog.showModal();}
+function openPhoto(){if(dialog&&!dialog.open){if(enlarged?.dataset.originalSrc)enlarged.src=enlarged.dataset.originalSrc;dialog.showModal();}}
 zoom?.addEventListener('click',openPhoto);
 image?.addEventListener('click',()=>{zoom?.focus({preventScroll:true});openPhoto();});
 if(thumbs.length>1){

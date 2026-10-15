@@ -1,3 +1,4 @@
+import {responsiveImage} from '../lib/responsive-image.ts';
 import sanitizeHtml from 'sanitize-html';
 import {articleBlocks,textLinks,textParagraphs} from '../lib/content.ts';
 const id='[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}';
@@ -15,7 +16,10 @@ export function safeRichHtml(body:string){return sanitizeHtml(body,{
 });}
 export function contentImageIds(body:string){return [...new Set([...safeRichHtml(body).matchAll(new RegExp(`<img\\b[^>]*\\bsrc="/media/(${id})"`,'gi'))].map(m=>m[1]!.toLowerCase()))];}
 export function contentHtml(body:string,format:string='plain',kind:'page'|'article'='article'){
- if(format==='html')return safeRichHtml(body);
+ if(format==='html')return safeRichHtml(body).replace(/<img\b[^>]*>/g,tag=>{
+  const src=tag.match(/\bsrc="([^"]+)"/)?.[1],attrs=responsiveImage(src,'(max-width: 1000px) 90vw, 960px');
+  return attrs.srcset?tag.replace(/\s*\/?>$/,` srcset="${escapeHtml(attrs.srcset)}" sizes="${escapeHtml(attrs.sizes!)}" loading="lazy" />`):tag;
+ });
  const blocks=kind==='article'?articleBlocks(body):textParagraphs(body).map(text=>({text,heading:false}));
  return blocks.map(b=>{const tag=b.heading?'h2':'p',text=kind==='article'?textLinks(b.text).map(p=>p.href?`<a href="${escapeHtml(p.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(p.text)}</a>`:escapeHtml(p.text)).join(''):escapeHtml(b.text);return`<${tag}>${text.replace(/\n/g,'<br>')}</${tag}>`;}).join('');
 }

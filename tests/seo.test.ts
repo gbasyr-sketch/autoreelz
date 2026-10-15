@@ -15,3 +15,18 @@ test('JSON-LD and XML escape hostile content and invalid XML controls',()=>{cons
 test('VideoObject requires actual video metadata; article has no fictional author',()=>{const a=fixtureContent().articles[0]!;assert.equal(videoSchema(a),null);a.video={provider:'RUTUBE',embedUrl:'https://rutube.ru/play/embed/'+'a'.repeat(32),watchUrl:'https://rutube.ru/video/'+'a'.repeat(32)};assert.equal(videoSchema(a),null);a.videoMetadata={title:'QA ролик',description:'Проверенное описание видео',thumbnailUrl:'/media/'+id(9),uploadedAt:'2026-09-20T12:00:00Z',durationSeconds:60};assert.equal(videoSchema(a)?.duration,'PT60S');assert.ok(!('author' in seo('/blog/qa-article-0').structuredData.find(x=>x['@type']==='Article')!));});
 test('YML uses stable numeric category IDs and exact RUB per SKU without guessed delivery or brands',()=>{const rows=feedOffers(c);const white=rows.find(o=>o.id===id(2000))!;assert.equal(white.price,'5300.01');assert.equal(white.available,false);assert.equal(white.categoryId,'17');const yml=renderYml(c,'QA Company & Co',new Date('2026-09-23T10:00:00Z'));assert.match(yml,/<company>QA Company &amp; Co<\/company>/);assert.match(yml,/<category id="17">/);assert.match(yml,/<currencyId>RUB<\/currencyId>/);assert.match(yml,/<offer id="a6000000-0000-4000-8000-000000002000" available="false">/);assert.ok(!/delivery-options|<vendor>|<barcode>|<oldprice>/.test(yml));assert.throws(()=>renderYml(c,''));});
 test('fixed bundles have a derived product offer and no invented SKU or rating',()=>{const p={...c.products[0]!,id:id(500),slug:'qa-kit',kind:'bundle' as const,variants:[],components:[{skuId:c.products[1]!.variants[0]!.id,quantity:2}],discountBps:1000};const catalog=fixtureCatalog();catalog.products.push(p);const offer=catalog.offerFor(p)!;const node=productSchema(p,catalog,offer) as any;assert.equal(node['@type'],'Product');assert.equal(node.offers.price,'12960.90');assert.ok(!('sku' in node));});
+test('pagination distinguishes metadata while preserving manual first-page titles and canonical policy',()=>{
+ assert.equal(seo('/catalog?category=parts').title,'Ручной заголовок категории');
+ assert.match(seo('/catalog?category=parts&page=2').title!,/Ручной заголовок категории — страница 2/);
+ assert.match(seo('/catalog?page=2').description!,/Страница 2\./);
+ assert.match(seo('/blog?page=2').title!,/страница 2/);
+ assert.match(seo('/blog/category/guides?page=2').description!,/Страница 2\./);
+ assert.equal(seo('/catalog?category=parts&page=2',false).indexable,false);
+});
+test('social data uses the selected published product and article cover; private routes have no canonical',()=>{
+ assert.equal(seo('/product/qa-product-0?sku='+id(2000)).image,'/media/'+id(9));
+ const data=fixtureContent();data.articles[0]!.coverUrl='/media/'+id(8);
+ const article=pageSeo(new URL('/blog/qa-article-0',SITE_ORIGIN),c,data,{indexing:false});
+ assert.equal(article.type,'article');assert.equal(article.image,'/media/'+id(8));assert.equal(article.indexable,false);
+ assert.equal(seo('/account').canonical,null);assert.match(seo('/').description!,/блоки отопителя/);assert.notEqual(seo('/').description,seo('/cars').description);
+});

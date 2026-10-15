@@ -5,6 +5,10 @@
 
 :8080 {
  header X-Robots-Tag "noindex, nofollow, noarchive"
+ handle /yandex_77486fc3808f1fc9.html {
+  root * /srv/static/verification
+  file_server
+ }
  handle /google031b679d17a8feda.html {
   root * /srv/static/verification
   file_server

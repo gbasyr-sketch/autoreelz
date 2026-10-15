@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "calculatorCalls": 2,
+  "fullShippingPipeline": true,
+  "insuranceConfirmed": true,
+  "policyVersionConfirmed": true,
+  "realOrdersCreated": 0,
+  "realShipmentsCreated": 0,
+  "messagesSent": 0
+}

@@ -198,3 +198,7 @@ CMS-наборы `cms-browser`, `content-browser`, `stage6-cms-*`, schema/permis
 ## Cookies над мобильной покупкой15.10
 
 `tests/cookie-banner-browser.mjs`: опубликованная карточка с полностью подменёнными API,320/375/390/600×375/812×375/1440. Проверяет отступ от фиксированных панелей, доступность клика/фокуса, увеличение кнопки после добавления, длинную ошибку cookies, закрытие и возврат фокуса настроек. На375 —85 переходов Tab и смена ориентации/ширины. `AR_COOKIE_CANDIDATE=1` подставляет локальный собранный privacy-JS и только CSS правки; без флага — настоящие опубликованные ассеты. `AR_COOKIE_OUTPUT` — каталог private, `AR_CHROMIUM_EXECUTABLE` — установленный Chromium. Реальных команд корзины/согласия/платежей/писем нет.
+
+## PageSpeed: ресурсы витрины16.10
+
+После build: `node tests/storefront-performance-http.mjs` — отдельная синтетическая QA-БД, настоящий SSR главной/каталога/товара/оформления; Leaflet CSS только в оформлении, два preload совпадают с CSS-шрифтами, sizes галереи. `node --test tests/responsive-images.test.ts`, check/build/npm test. Cookies — существующий candidate harness. Сравнение публичного HTML с локальными ассетами/mockAPI и задержкой шрифтов700мс: private/pagespeed-fix/compare.mjs, home.mjs; это локальная диагностика, не PSI production. [Результат](../artifacts/pagespeed-fix/verification.json).

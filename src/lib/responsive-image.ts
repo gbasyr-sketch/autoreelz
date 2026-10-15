@@ -10,4 +10,4 @@ export function responsiveImage(src:string|undefined,sizes:string,widths:readonl
  return{srcset:widths.map(width=>`${src}?w=${width} ${width}w`).join(', '),sizes};
 }
 export const cardImageSizes='(max-width: 600px) calc((100vw - 48px) / 2), (max-width: 1000px) 30vw, 320px';
-export const productImageSizes='(max-width: 1000px) calc(100vw - 32px), 640px';
+export const productImageSizes='(max-width: 600px) calc(100vw - 32px), (max-width: 800px) calc((100vw - 54px) / 2), (max-width: 1100px) calc((100vw - 78px) * 1.1 / 2.1), min(698px, calc((100vw - 128px) * 1.2 / 2.2))';

@@ -1,5 +1,4 @@
 import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 export interface MapPoint {code:string;address:string;workTime:string;latitude:number|null;longitude:number|null}
 export function createPickupMap(host:HTMLElement,status:HTMLElement,onChoose:(code:string)=>void){
  host.replaceChildren();const map=L.map(host,{scrollWheelZoom:false,zoomControl:false,zoomAnimation:!matchMedia('(prefers-reduced-motion: reduce)').matches,minZoom:3,maxZoom:19}).setView([42.98,47.50],11);

@@ -9,6 +9,8 @@ import type {CatalogSnapshot} from '../lib/catalog-types';
 import type {ContentSnapshot} from '../lib/content';
 import {getContent} from '../server/content';
 import '../styles/global.css';
+import bodyFont from '../../public/fonts/manrope-0.woff2?url';
+import headingFont from '../../public/fonts/manrope-2.woff2?url';
 interface Props {title:string;description?:string;active?:'home'|'catalog'|'product';catalog?:CatalogSnapshot;content?:ContentSnapshot}
 const{title,description='AUTO REELZ: детали автомобильного интерьера.',active='home'}=Astro.props;
 const catalog=Astro.props.catalog??await getCatalog();
@@ -27,6 +29,9 @@ const query=Astro.url.searchParams.get('q')??'';
 <html lang="ru">
 <head>
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <script is:inline>document.documentElement.classList.add('has-js');</script>
+  <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin/>
+  <link rel="preload" href={headingFont} as="font" type="font/woff2" crossorigin/>
   <meta name="robots" content={seo.indexable?'index,follow':'noindex,follow'}/><meta name="description" content={documentDescription}/>
   {seo.canonical&&<><link rel="canonical" href={seo.canonical}/>
     <meta property="og:locale" content="ru_RU"/><meta property="og:site_name" content="AUTO REELZ"/>

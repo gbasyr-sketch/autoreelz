@@ -1,6 +1,8 @@
 ---
 import StoreLayout from '../layouts/StoreLayout.astro';
 import '../styles/commerce.css';
+// Map styles belong to checkout, not the shared storefront script graph.
+import 'leaflet/dist/leaflet.css';
 import {shippingProvider} from '../server/shipping-policy';
 import {setting} from '../server/config';
 const production=setting('STORE_MODE','local-test')==='production';

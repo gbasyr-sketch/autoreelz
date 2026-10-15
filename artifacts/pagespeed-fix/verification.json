@@ -1,0 +1,193 @@
+{
+  "published": false,
+  "method": "Public HTML overlay with compiled local assets, mocked APIs, DPR2, font delay700ms. Separate actual SSR test on synthetic database. Not production PSI.",
+  "layout": [
+    {
+      "mode": "baseline",
+      "width": 375,
+      "cls": 0.13808058822016459,
+      "overflow": false
+    },
+    {
+      "mode": "baseline",
+      "width": 600,
+      "cls": 0.09308499864969137,
+      "overflow": false
+    },
+    {
+      "mode": "baseline",
+      "width": 768,
+      "cls": 0.0426569544160317,
+      "overflow": false
+    },
+    {
+      "mode": "baseline",
+      "width": 1440,
+      "cls": 0.01835877154733582,
+      "overflow": false
+    },
+    {
+      "mode": "candidate",
+      "width": 375,
+      "cls": 0.000599693158436214,
+      "overflow": false
+    },
+    {
+      "mode": "candidate",
+      "width": 600,
+      "cls": 0.000551198816872428,
+      "overflow": false
+    },
+    {
+      "mode": "candidate",
+      "width": 768,
+      "cls": 0.0005829379862718621,
+      "overflow": false
+    },
+    {
+      "mode": "candidate",
+      "width": 1440,
+      "cls": 0.0002989711264360425,
+      "overflow": false
+    }
+  ],
+  "images": [
+    {
+      "mode": "baseline",
+      "viewport": 375,
+      "heroWidth": "960",
+      "categoryWidth": "480"
+    },
+    {
+      "mode": "baseline",
+      "viewport": 600,
+      "heroWidth": "1280",
+      "categoryWidth": "640"
+    },
+    {
+      "mode": "baseline",
+      "viewport": 768,
+      "heroWidth": "1280",
+      "categoryWidth": "640"
+    },
+    {
+      "mode": "baseline",
+      "viewport": 1440,
+      "heroWidth": "1280",
+      "categoryWidth": "640"
+    },
+    {
+      "mode": "candidate",
+      "viewport": 375,
+      "heroWidth": "640",
+      "categoryWidth": "320"
+    },
+    {
+      "mode": "candidate",
+      "viewport": 600,
+      "heroWidth": "640",
+      "categoryWidth": "480"
+    },
+    {
+      "mode": "candidate",
+      "viewport": 768,
+      "heroWidth": "640",
+      "categoryWidth": "320"
+    },
+    {
+      "mode": "candidate",
+      "viewport": 1440,
+      "heroWidth": "960",
+      "categoryWidth": "480"
+    }
+  ],
+  "checks": {
+    "check": "0 errors/warnings/hints",
+    "build": true,
+    "unit": 234,
+    "unitSkipped": 8,
+    "responsiveImages": 5,
+    "seoHttp": 10,
+    "resourceHttp": 4,
+    "gallery": "switch/zoom/close 375/600/768/1440",
+    "cookies": {
+      "passed": true,
+      "candidate": true,
+      "api": "mocked",
+      "checks": [
+        {
+          "width": 320,
+          "height": 720,
+          "keyboardTabSteps": 0,
+          "rotationChecked": false,
+          "purchaseClickable": true,
+          "noticeAboveFixedBars": true,
+          "errorMessageLayout": true,
+          "dismissal": true,
+          "settingsFocus": true
+        },
+        {
+          "width": 375,
+          "height": 900,
+          "keyboardTabSteps": 85,
+          "rotationChecked": true,
+          "purchaseClickable": true,
+          "noticeAboveFixedBars": true,
+          "errorMessageLayout": true,
+          "dismissal": true,
+          "settingsFocus": true
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "keyboardTabSteps": 0,
+          "rotationChecked": false,
+          "purchaseClickable": true,
+          "noticeAboveFixedBars": true,
+          "errorMessageLayout": true,
+          "dismissal": true,
+          "settingsFocus": true
+        },
+        {
+          "width": 600,
+          "height": 375,
+          "keyboardTabSteps": 0,
+          "rotationChecked": false,
+          "purchaseClickable": true,
+          "noticeAboveFixedBars": true,
+          "errorMessageLayout": true,
+          "dismissal": true,
+          "settingsFocus": true
+        },
+        {
+          "width": 812,
+          "height": 375,
+          "keyboardTabSteps": 0,
+          "rotationChecked": false,
+          "purchaseClickable": false,
+          "noticeAboveFixedBars": true,
+          "errorMessageLayout": true,
+          "dismissal": true,
+          "settingsFocus": true
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "keyboardTabSteps": 0,
+          "rotationChecked": false,
+          "purchaseClickable": false,
+          "noticeAboveFixedBars": true,
+          "errorMessageLayout": true,
+          "dismissal": true,
+          "settingsFocus": true
+        }
+      ],
+      "errors": []
+    }
+  },
+  "limitations": [
+    "No deployment or new PSI scores",
+    "No physical iPhone/Safari",
+    "No real order/payment/shipping commands"
+  ]
+}

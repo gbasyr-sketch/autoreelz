@@ -63,9 +63,9 @@ export async function settlePayment(c:PoolClient,input:PaymentEvent,provider:Pay
 }
 export async function initiatePayment(session:ShopSession,body:Record<string,unknown>){
  requirePaymentEnvironment();const id=uuid(body.orderId),version=integer(body.shippingVersion,'Версия доставки');
- const method=String(body.method);if(!['card','sbp'].includes(method))throw new StoreError('PAYMENT_METHOD','Выберите карту или СБП.');
  const selected=paymentProvider(),config=selected!=='simulation'?sandboxConfig():null;
- if(selected==='yookassa-sandbox'&&method!=='card')throw new StoreError('PAYMENT_METHOD','В тестовом магазине ЮKassa доступна банковская карта.');
+ const method=String(body.method??(selected==='simulation'?'':'smart'));if(!['card','sbp','smart'].includes(method)||selected==='simulation'&&method==='smart')throw new StoreError('PAYMENT_METHOD','Способ оплаты недоступен. Обновите страницу заказа.');
+ if(selected==='yookassa-sandbox'&&!['card','smart'].includes(method))throw new StoreError('PAYMENT_METHOD','В тестовом магазине ЮKassa доступна банковская карта.');
  const result=await transaction(c=>idempotent(c,`pay:${session.id}`,body.idempotencyKey,{id,version,method},async()=>{
   const order=await orderRow(c,id,session,true);
   if(await expireLocked(c,order))return{orderId:id,expired:true};

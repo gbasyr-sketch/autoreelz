@@ -35,9 +35,9 @@ try{
   workspace.jobs[0].providerId='rt-'+randomUUID();workspace.jobs[0].state='pending';await panel.getByRole('button',{name:'Обновить состояние чеков'}).click();await panel.getByRole('button',{name:'Проверить чек в ЮKassa'}).click();await panel.getByText(/Чек полного расчёта сформирован/).waitFor();assert.equal(checks,1);
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);await panel.screenshot({path:out+'/closing-'+width+'.png'});
   order.canPay=true;order.status='awaiting_payment';order.paymentStatus='unpaid';order.deliveryStatus='quoted';await page.goto(base+'/orders/'+order.id,{waitUntil:'networkidle'});
-  const actions=page.locator('.order-actions');await actions.getByRole('button',{name:'Перейти к оплате',exact:true}).waitFor();assert.equal(await actions.locator('[value=sbp]').count(),1);assert.equal(await actions.locator('[value=card]').count(),1);assert.ok(!(await actions.innerText()).includes('тестов'));
+  const actions=page.locator('.order-actions');await actions.getByRole('button',{name:'Перейти к оплате',exact:true}).waitFor();assert.equal(await actions.getByRole('radio').count(),0);assert.equal(await actions.getByRole('button',{name:'Перейти к оплате',exact:true}).count(),1);assert.ok(!(await actions.innerText()).includes('тестов'));
   order.canPay=false;order.status='paid';order.paymentStatus='paid';await page.getByRole('button',{name:'Обновить статус',exact:true}).click();await actions.getByText('Оплата получена',{exact:true}).waitFor();assert.deepEqual(errors,[]);
-  report.viewports.push({width,passed:true,liveCardAndSbp:true,liveRefundLabels:true,receiptConfirmation:true,doubleClickBlocked:true,retryKeyAcrossReload:true,separateReceiptStatus:true,knownReceiptReconciliation:true,noOverflow:true});await context.close();
+  report.viewports.push({width,passed:true,liveSmartButton:true,liveRefundLabels:true,receiptConfirmation:true,doubleClickBlocked:true,retryKeyAcrossReload:true,separateReceiptStatus:true,knownReceiptReconciliation:true,noOverflow:true});await context.close();
  }
  report.passed=true;await fs.mkdir('artifacts/yookassa-production',{recursive:true});await fs.writeFile('artifacts/yookassa-production/browser.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));
 }finally{await browser.close();}

@@ -44,7 +44,7 @@ export function createYooKassa<T extends boolean>(config:SandboxConfig&{test:T},
   if(me.test!==config.test||me.account_id!==config.shopId)reject(config.test?'NOT_EXPECTED_TEST_SHOP':'NOT_EXPECTED_LIVE_SHOP');
   if(me.status!=='enabled'||!Array.isArray(me.payment_methods)||me.payment_methods.some((m:unknown)=>typeof m!=='string'))reject(config.test?'TEST_CARD_NOT_ENABLED':'SHOP_NOT_ENABLED');
   if(typeof me.fiscalization_enabled!=='boolean')reject('INVALID_PROVIDER_RESPONSE');
-  return{test:config.test,cardAvailable:me.payment_methods.includes('bank_card'),sbpAvailable:me.payment_methods.includes('sbp'),fiscalizationEnabled:me.fiscalization_enabled===true};
+  return{test:config.test,cardAvailable:me.payment_methods.includes('bank_card'),sbpAvailable:me.payment_methods.includes('sbp'),smartAvailable:me.payment_methods.some((method:string)=>!['b2b_sberbank','electronic_certificate'].includes(method)),fiscalizationEnabled:me.fiscalization_enabled===true};
  }
  function normalize(raw:ObjectValue,wanted:ExpectedPayment,providerId?:string):YooKassaPayment<T>{
   const amount=expected(wanted);
@@ -59,13 +59,13 @@ export function createYooKassa<T extends boolean>(config:SandboxConfig&{test:T},
   if(captured!==undefined&&(typeof captured!=='string'||!/^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$/.test(captured)||!Number.isFinite(Date.parse(captured))||Date.parse(captured)>Date.now()+60_000))reject('INVALID_PROVIDER_RESPONSE');
   return{id:raw.id,status:raw.status,paid:raw.paid,amountRubles:amount,confirmationUrl,...(receiptRegistration?{receiptRegistration}:{}),...(raw.status==='succeeded'&&captured?{paidAt:new Date(captured).toISOString()}:{}),test:config.test};
  }
- async function createPayment(input:ExpectedPayment&{idempotenceKey:string;returnUrl:string;receipt?:PaymentReceipt;method?:'card'|'sbp'}){
-  const amount=expected(input);if(input.method!==undefined&&!['card','sbp'].includes(input.method))reject('PAYMENT_METHOD_NOT_ALLOWED');if(!uuid.test(input.idempotenceKey))reject('IDEMPOTENCE_KEY_REQUIRED');
+ async function createPayment(input:ExpectedPayment&{idempotenceKey:string;returnUrl:string;receipt?:PaymentReceipt;method?:'card'|'sbp'|'smart'}){
+  const amount=expected(input);if(input.method!==undefined&&!['card','sbp','smart'].includes(input.method))reject('PAYMENT_METHOD_NOT_ALLOWED');if(!uuid.test(input.idempotenceKey))reject('IDEMPOTENCE_KEY_REQUIRED');
   const back=new URL(input.returnUrl);if(back.origin!==config.returnOrigin||back.username||back.password||back.pathname!==`/orders/${input.orderId}`||back.search||back.hash)reject('RETURN_URL_NOT_ALLOWED');
   const receipt=input.receipt?validatePaymentReceipt(input.receipt,amount):undefined;
   const shop=await checkShop();if(shop.fiscalizationEnabled!==Boolean(receipt))reject('RECEIPT_SETUP_REQUIRED');
-  if((input.method??'card')==='card'?!shop.cardAvailable:!shop.sbpAvailable)reject(config.test&&(input.method??'card')==='card'?'TEST_CARD_NOT_ENABLED':'PAYMENT_METHOD_NOT_ENABLED');
-  const raw=await request('/payments','POST',{amount:{value:amount,currency:'RUB'},capture:true,...(receipt?{receipt}:{}),payment_method_data:{type:input.method==='sbp'?'sbp':'bank_card'},confirmation:{type:'redirect',return_url:back.href},description:config.test?'AUTO REELZ — тестовая операция':'AUTO REELZ — оплата заказа',metadata:{autoreelz_order_id:input.orderId,autoreelz_payment_id:input.internalPaymentId}},input.idempotenceKey);
+  if(input.method==='smart'?!shop.smartAvailable:(input.method??'card')==='card'?!shop.cardAvailable:!shop.sbpAvailable)reject(config.test&&(input.method??'card')==='card'?'TEST_CARD_NOT_ENABLED':'PAYMENT_METHOD_NOT_ENABLED');
+  const raw=await request('/payments','POST',{amount:{value:amount,currency:'RUB'},capture:true,...(receipt?{receipt}:{}),...(input.method==='smart'?{}:{payment_method_data:{type:input.method==='sbp'?'sbp':'bank_card'}}),confirmation:{type:'redirect',return_url:back.href},description:config.test?'AUTO REELZ — тестовая операция':'AUTO REELZ — оплата заказа',metadata:{autoreelz_order_id:input.orderId,autoreelz_payment_id:input.internalPaymentId}},input.idempotenceKey);
   return normalize(raw,input);
  }
  async function getPayment(id:string,wanted:ExpectedPayment){if(!uuid.test(id))reject('INVALID_PROVIDER_ID');expected(wanted);return normalize(await request('/payments/'+id),wanted,id);}

@@ -14,7 +14,7 @@ const json=(v:unknown)=>Response.json(v);
 
 test('production strictly binds GET /me and payment test/account/metadata to expected shop',async()=>{
  const client=createYooKassa(config,async url=>json(url.endsWith('/me')?me:payment));
- assert.deepEqual(await client.checkShop(),{test:false,cardAvailable:true,sbpAvailable:true,fiscalizationEnabled:false});
+ assert.deepEqual(await client.checkShop(),{test:false,cardAvailable:true,sbpAvailable:true,smartAvailable:true,fiscalizationEnabled:false});
  assert.equal((await client.getPayment(ids.providerPaymentId,input)).test,false);
  for(const patch of [{test:true},{test:undefined},{account_id:'999'},{status:'disabled'},{payment_methods:null},{fiscalization_enabled:undefined}]){
   let posts=0;const c=createYooKassa(config,async(_url,init)=>{if(init.method==='POST')posts++;return json({...me,...patch});});

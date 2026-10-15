@@ -1,0 +1,93 @@
+{
+  "checkedAt": "2026-10-15T14:38:48.539515+00:00",
+  "revision": "bf6adb6d0112cb34f52a724e48456036de7eecbb",
+  "schema": "001-035",
+  "sameRevisionAsDeploymentEvidence": true,
+  "deploymentEvidence": "yookassa-production/deployment/final.json",
+  "requests": [
+    {
+      "path": "/health",
+      "status": 200,
+      "xRobotsTag": "noindex, nofollow, noarchive",
+      "health": {
+        "ok": true,
+        "revision": "bf6adb6d0112cb34f52a724e48456036de7eecbb"
+      }
+    },
+    {
+      "path": "/robots.txt",
+      "status": 200,
+      "xRobotsTag": "noindex, nofollow, noarchive",
+      "allDisallowed": true
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "xRobotsTag": "noindex, nofollow, noarchive",
+      "empty": true
+    },
+    {
+      "path": "/feed.yml",
+      "status": 503,
+      "xRobotsTag": "noindex, nofollow, noarchive"
+    },
+    {
+      "path": "/api/privacy",
+      "status": 200,
+      "xRobotsTag": "noindex, nofollow, noarchive",
+      "settings": {
+        "choice": null,
+        "expiresAt": null,
+        "version": "analytics-2026-10-14-v1",
+        "enabled": false,
+        "counterId": null
+      }
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "xRobotsTag": "noindex, nofollow, noarchive",
+      "testNotice": true,
+      "demoReviews": true,
+      "placeholder": true
+    }
+  ],
+  "configFromVerifiedDeployment": {
+    "STORE_MODE": "staging",
+    "PAYMENT_PROVIDER": "yookassa-sandbox",
+    "YOOKASSA_RECEIPTS_MODE": "disabled",
+    "SEO_INDEXING_ENABLED": "false",
+    "CDEK_SHIPMENTS_MODE": "test",
+    "CDEK_SHIPMENTS_ALLOW_LIVE": "false",
+    "METRIKA_ENABLED": "false",
+    "YOOKASSA_LIVE_OPERATIONS_ENABLED": "false"
+  },
+  "readOnly": true,
+  "businessOperationsCreated": 0,
+  "npmAudit": {
+    "info": 0,
+    "low": 1,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 1
+  },
+  "remainingAuditPackages": [
+    "quill"
+  ],
+  "backupStatus": {
+    "state": "ok",
+    "scheduled": true,
+    "lastLocalAt": "2026-10-15T14:17:34.019041+00:00",
+    "uploadedAt": "2026-10-15T14:22:54.019210+00:00",
+    "lastVerifiedAt": "2026-10-14T15:24:07.962756+00:00",
+    "verificationError": null,
+    "error": null
+  },
+  "limitations": [
+    "Prioritized plan based on current project contracts and published evidence",
+    "No live account/payment/fiscal/shipment operations performed",
+    "No full repeat of prior site audits or test suites",
+    "No RKN registry or processor-contract verification"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "path": "/_astro/payment-refunds.CoNVHs-M.js",
+      "status": 200,
+      "sha256": "45b87a0d52fc96fb2fbf6f0914e6f68edf5f9b07725d8e68e6a41a31c082dcac",
+      "newRefundControlsPresent": true
+    }
+  ]
+}

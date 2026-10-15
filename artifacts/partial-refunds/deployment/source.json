@@ -1,0 +1,12 @@
+{
+  "sha": "644f2c4052bcd5eb8e87d074d831d8a36af87fa8",
+  "previousSha": "42f3a86d8d7f7cba00638d1eb16a37bdb6f8fa78",
+  "archiveSha256": "f9d112075413ecd2d1521bd56509b561688e75e260484dfb80f7301fed96bc6a",
+  "existingMigrationChecksumsMatch": true,
+  "missingMigrations": [
+    "031_partial_refunds.sql"
+  ],
+  "excludedUncommitted": [
+    "docs/product-entry-guide.md"
+  ]
+}

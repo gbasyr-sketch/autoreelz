@@ -1,0 +1,134 @@
+{
+  "checkedAt": "2026-10-15T10:51:05.142028+00:00",
+  "targetSha": "644f2c4052bcd5eb8e87d074d831d8a36af87fa8",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "passed": true,
+      "noindex": true
+    },
+    {
+      "path": "/health",
+      "status": 200,
+      "passed": true,
+      "revision": "644f2c4052bcd5eb8e87d074d831d8a36af87fa8"
+    },
+    {
+      "path": "/catalog",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/checkout",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/account",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/api/manager/orders",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "path": "/api/manager/mail-status",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "path": "/api/manager/payment-refunds?orderId=00000000-0000-4000-8000-000000000001",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "path": "/api/privacy",
+      "status": 200,
+      "passed": true,
+      "analyticsEnabled": false,
+      "noStore": true
+    },
+    {
+      "path": "/cms/users/me",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "path": "/muzey/",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/google031b679d17a8feda.html",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/yandex_77486fc3808f1fc9.html",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/api/manager/cdek-shipments?orderId=00000000-0000-4000-8000-000000000001",
+      "status": 401,
+      "passed": true
+    },
+    {
+      "path": "/cookies",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "path": "/info/contacts",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/delivery",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/returns",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/warranty",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/offer",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/personal-data",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/privacy",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/analytics-consent",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "path": "/info/review-consent",
+      "status": 200,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "ordersCreated": 0,
+  "paymentsCreated": 0,
+  "fiscalDocumentsSent": 0
+}

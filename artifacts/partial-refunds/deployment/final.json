@@ -1,0 +1,57 @@
+{
+  "checkedAt": "2026-10-15T10:52:47.678145+00:00",
+  "appSha": "644f2c4052bcd5eb8e87d074d831d8a36af87fa8",
+  "previousAppSha": "42f3a86d8d7f7cba00638d1eb16a37bdb6f8fa78",
+  "imageId": "sha256:ab103a61bf0a65e8d764e4d64eedfafef826241a627b9cac19db3815991cbab1",
+  "migrations": "001–032",
+  "appliedNow": [
+    {
+      "name": "031_partial_refunds.sql",
+      "sha256": "416138f21a4bd7572f541f7620493029c8c1a7d470e60e06034c1f2524db02b7"
+    }
+  ],
+  "alreadyApplied032Preserved": true,
+  "backup": "/srv/autoreelz2026/backups/before-partial-refunds-20261015T105016Z.dump",
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-partial-refunds-20261015T105016Z",
+  "checks": {
+    "protectedDataPreserved": true,
+    "otherEnvPreserved": true,
+    "protectedContainersPreserved": true,
+    "sameImageForApplications": true,
+    "webHealthy": true,
+    "workerHealthy": true,
+    "imageWorkerRunning": true,
+    "existingMigrationChecksumsPreserved": true,
+    "allMigrationChecksumsMatch": true,
+    "all32MigrationsPresent": true,
+    "smtpPasswordWorkerOnly": true,
+    "http": true,
+    "redirect": true,
+    "publishedAssets": true,
+    "runtimeReadOnly": true,
+    "backupReadable": true
+  },
+  "httpChecks": 24,
+  "ordersCreated": 0,
+  "paymentsCreated": 0,
+  "refundsCreated": 0,
+  "shipmentsCreated": 0,
+  "messagesSent": 0,
+  "config": {
+    "APP_REVISION": "644f2c4052bcd5eb8e87d074d831d8a36af87fa8",
+    "STORE_MODE": "staging",
+    "PAYMENT_PROVIDER": "yookassa-sandbox",
+    "YOOKASSA_RECEIPTS_MODE": "disabled",
+    "SEO_INDEXING_ENABLED": "false",
+    "CDEK_SHIPMENTS_MODE": "test",
+    "CDEK_SHIPMENTS_ALLOW_LIVE": "false",
+    "PICKUP_MAP_PROVIDER": "osm",
+    "METRIKA_ENABLED": "false",
+    "MAIL_PROVIDER": "timeweb-smtp",
+    "MAIL_ALLOWED_RECIPIENTS": "sales@autoreelz.ru",
+    "MAIL_OWNER_RECIPIENT": "sales@autoreelz.ru",
+    "MAIL_RECIPIENT_POLICY": "all-new",
+    "MAIL_NEW_MESSAGES_FROM": "2026-10-14T23:37:31.373Z"
+  },
+  "passed": true
+}

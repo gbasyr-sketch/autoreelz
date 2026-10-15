@@ -1,0 +1,69 @@
+{
+  "checkedAt": "2026-10-15T11:16:32.024598+00:00",
+  "appSha": "4301d0c69c06979c234e0cb09781fa7dfaec0cdd",
+  "previousAppSha": "644f2c4052bcd5eb8e87d074d831d8a36af87fa8",
+  "imageId": "sha256:3950094a55fc5e4c5aa78b0e1ce9cf49a296647519db8511a0c29488ab3ff8d4",
+  "migrations": "001-032",
+  "backup": "/srv/autoreelz2026/backups/before-seo-20261015T111125Z.dump",
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-seo-20261015T111125Z",
+  "backupReadable": true,
+  "checks": {
+    "envPreserved": true,
+    "flagsPreserved": true,
+    "migrationsPreserved": true,
+    "protectedContainersPreserved": true,
+    "sameApplicationImage": true,
+    "webHealthy": true,
+    "workerHealthy": true,
+    "imageWorkerRunning": true,
+    "titlesCorrected": true,
+    "protectedBusinessDataPreserved": true
+  },
+  "flags": {
+    "STORE_MODE": "staging",
+    "SEO_INDEXING_ENABLED": "false",
+    "PAYMENT_PROVIDER": "yookassa-sandbox",
+    "YOOKASSA_RECEIPTS_MODE": "disabled",
+    "METRIKA_ENABLED": "false",
+    "MAIL_RECIPIENT_POLICY": "all-new",
+    "MAIL_NEW_MESSAGES_FROM": "2026-10-14T23:37:31.373Z",
+    "CDEK_SHIPMENTS_MODE": "test",
+    "CDEK_SHIPMENTS_ALLOW_LIVE": "false"
+  },
+  "changedProtectedTables": [
+    "ar_cdek_shipments"
+  ],
+  "passed": true,
+  "expectedBackgroundPollChange": {
+    "beforeCount": 1,
+    "afterCount": 1,
+    "changedFields": [
+      "next_check_at",
+      "updated_at"
+    ],
+    "dataExceptSchedulingPreserved": true
+  },
+  "targetTitlesChanged": 2,
+  "httpRequests": 26,
+  "httpChecksPassed": true,
+  "publicUi": {
+    "catalogWidths": [
+      375,
+      1440
+    ],
+    "catalogResponsiveWidthOnMobile": 320,
+    "gallerySecondPhotoWidth": 480,
+    "originalDeferredUntilZoom": true,
+    "zoomUsesOriginal": true,
+    "horizontalOverflow": false
+  },
+  "originalImageBytesPreserved": true,
+  "operationsCreated": {
+    "orders": 0,
+    "payments": 0,
+    "refunds": 0,
+    "shipments": 0,
+    "mailMessages": 0
+  },
+  "activationNote": "First compose command rejected its working directory; resumed from release directory without repeating content SQL. Old app remained healthy until successful switch."
+}

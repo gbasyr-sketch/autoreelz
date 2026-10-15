@@ -1,0 +1,91 @@
+{
+  "pages": [
+    {
+      "path": "/",
+      "before": {
+        "performance": 0.9,
+        "metrics": {
+          "first-contentful-paint": 1989.7359999999999,
+          "largest-contentful-paint": 1989.7359999999999,
+          "cumulative-layout-shift": 0.0007716810193161688,
+          "total-blocking-time": 193,
+          "speed-index": 5846.419294672374,
+          "total-byte-weight": 1669696,
+          "server-response-time": 352
+        }
+      },
+      "after": {
+        "performance": 0.91,
+        "metrics": {
+          "first-contentful-paint": 1546.046,
+          "largest-contentful-paint": 1546.046,
+          "cumulative-layout-shift": 0.0007044388058433837,
+          "total-blocking-time": 312.5000000000002,
+          "speed-index": 3880.527308126203,
+          "total-byte-weight": 464001,
+          "server-response-time": 300
+        }
+      }
+    },
+    {
+      "path": "/catalog",
+      "before": {
+        "performance": 0.84,
+        "metrics": {
+          "first-contentful-paint": 2374.993,
+          "largest-contentful-paint": 3479.993,
+          "cumulative-layout-shift": 0.001459228162132868,
+          "total-blocking-time": 94,
+          "speed-index": 4717.275218454816,
+          "total-byte-weight": 2127762,
+          "server-response-time": 353
+        }
+      },
+      "after": {
+        "performance": 0.91,
+        "metrics": {
+          "first-contentful-paint": 2177.9635,
+          "largest-contentful-paint": 2177.9635,
+          "cumulative-layout-shift": 0.001459228162132868,
+          "total-blocking-time": 82,
+          "speed-index": 6168.565953938923,
+          "total-byte-weight": 554617,
+          "server-response-time": 1233
+        }
+      }
+    },
+    {
+      "path": "/product/blok-otopitelya-granta-i-kalina-s-podsvetkoy-teplo-sverhu",
+      "before": {
+        "performance": 0.95,
+        "metrics": {
+          "first-contentful-paint": 1338.1385,
+          "largest-contentful-paint": 2333.1385,
+          "cumulative-layout-shift": 0.07349217403965154,
+          "total-blocking-time": 15,
+          "speed-index": 4234.698110975665,
+          "total-byte-weight": 1297202,
+          "server-response-time": 299
+        }
+      },
+      "after": {
+        "performance": 0.94,
+        "metrics": {
+          "first-contentful-paint": 1447.778,
+          "largest-contentful-paint": 1893.778,
+          "cumulative-layout-shift": 0.07516287527198752,
+          "total-blocking-time": 211,
+          "speed-index": 2817.9230759854436,
+          "total-byte-weight": 434072,
+          "server-response-time": 378
+        }
+      }
+    }
+  ],
+  "conditions": "Lighthouse 13.5.0, mobile 375x812 DPR2, simulate throttling, one cold-browser run per page before/after on public HTTPS; server cache and network may differ",
+  "limitations": [
+    "Single laboratory samples; no field INP or real-user percentile",
+    "Performance is not an SEO ranking guarantee"
+  ],
+  "indexingRemainsClosed": true
+}

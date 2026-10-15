@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-16",
+  "deleted_images": 89,
+  "deleted_releases": 89,
+  "deleted_archives": 71,
+  "retained_releases": [
+    "12d1845867eabf9767296bf521b8353c84f912bd",
+    "6ab6bea4f0cb16fbd2dea2c23711b3783611d017",
+    "83e160c680d1762f37c5bbccb67a439ddd9cd740",
+    "954721a126870322e69bc6a3184917a80748e69c",
+    "caf5cf277923fec722096c591debc5708e1e227c",
+    "ff922ef27b8fe3aed612ff6e1c0494c8c8ed8a7f"
+  ],
+  "free_bytes_before": 8025714688,
+  "free_bytes_after": 38327750656,
+  "runtime_env_containers_mounts_volumes_unchanged": true,
+  "disk_used_percent_after": 55,
+  "health_revision": "ff922ef27b8fe3aed612ff6e1c0494c8c8ed8a7f",
+  "http_200": [
+    "/health",
+    "/",
+    "/catalog",
+    "/robots.txt",
+    "/sitemap.xml",
+    "/manager (redirect followed)"
+  ],
+  "migration_count": 36,
+  "heartbeat_age_seconds": 4,
+  "heartbeat_error": false,
+  "remaining_images": 11,
+  "remaining_release_directories": 6
+}

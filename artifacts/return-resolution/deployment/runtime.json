@@ -1,0 +1,58 @@
+{
+  "revision": "67c1d928c04be6511458c2607e389426fad76d1f",
+  "readOnly": true,
+  "checks": [
+    "verified image retains staging/sandbox/no fiscalization/test carrier/noindex/mail cutoff",
+    "existing orders readable under app role; no automatic closures/backfill",
+    "new and existing audit journals permit SELECT/INSERT only",
+    "published reconciliation policy accepts inspected held goods and blocks unknown money outcome without writes",
+    "production mutation guards run before validation; history remains readable"
+  ],
+  "ordersRead": 6,
+  "closuresRead": 0,
+  "receiptsRead": 0,
+  "permissions": [
+    {
+      "table": "ar_return_receipts",
+      "read": true,
+      "insert": true,
+      "update": false,
+      "delete": false
+    },
+    {
+      "table": "ar_return_receipt_lines",
+      "read": true,
+      "insert": true,
+      "update": false,
+      "delete": false
+    },
+    {
+      "table": "ar_return_inspections",
+      "read": true,
+      "insert": true,
+      "update": false,
+      "delete": false
+    },
+    {
+      "table": "ar_return_inspection_lines",
+      "read": true,
+      "insert": true,
+      "update": false,
+      "delete": false
+    },
+    {
+      "table": "ar_return_resolutions",
+      "read": true,
+      "insert": true,
+      "update": false,
+      "delete": false
+    }
+  ],
+  "externalCalls": 0,
+  "stockChanges": 0,
+  "closuresCreated": 0,
+  "paymentsCreated": 0,
+  "refundsCreated": 0,
+  "messagesSent": 0,
+  "passed": true
+}

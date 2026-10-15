@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "path": "/_astro/return-resolution.DvrFhbOh.js",
+      "status": 200,
+      "newClosureUI": true
+    },
+    {
+      "path": "/manager/orders/<placeholder>",
+      "status": 200,
+      "inlineClosureAndIntakeCss": true
+    }
+  ],
+  "ordersCreated": 0,
+  "messagesSent": 0
+}

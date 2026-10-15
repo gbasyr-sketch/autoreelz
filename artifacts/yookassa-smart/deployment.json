@@ -1,0 +1,305 @@
+{
+  "checkedAt": "2026-10-15T17:14:32.215198+00:00",
+  "scope": "Owner-authorized Smart Payment release; one hosted-payment button; fiscal receipts and noindex preserved",
+  "appSha": "7efc5201a811b700f683fd7c29e3fe1cfc012360",
+  "image": "sha256:f1591fb67034e0db046a60f02e065085c2c3f6bff56bf698a7a28517ad19ca16",
+  "schema": "001-036",
+  "deployment": {
+    "checkedAt": "2026-10-15T17:14:32.215198+00:00",
+    "deployed": true,
+    "appSha": "7efc5201a811b700f683fd7c29e3fe1cfc012360",
+    "previousAppSha": "0ddcd28e1b88342d903b008a917796d31a938d5e",
+    "image": "sha256:f1591fb67034e0db046a60f02e065085c2c3f6bff56bf698a7a28517ad19ca16",
+    "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-smart-payment-20261015T171215Z",
+    "dbBackup": "/srv/autoreelz2026/backups/before-smart-payment-20261015T171215Z.dump",
+    "dbBackupReadable": true,
+    "changedEnvFields": [
+      "RELEASE_IMAGE"
+    ],
+    "migration": {
+      "name": "036_yookassa_smart_payment.sql",
+      "sha256": "2d4afdd50f2ec3ff3bbcff2c18acfe01daa4181f3a0098eee6d5ae98343dd596"
+    },
+    "migrationsApplied": 1,
+    "dataUnchangedByMigration": true,
+    "workerHeartbeatAfterRestart": true,
+    "checks": {
+      "appRevision": true,
+      "runtimeChangesLimitedToDeclaredFields": true,
+      "envOnlyImageChanged": true,
+      "configPreserved": true,
+      "priorMigrationsPreserved": true,
+      "migration036Applied": true,
+      "protectedDataPreserved": true,
+      "otherContainersPreserved": true,
+      "appContainersUseVerifiedImage": true,
+      "healthy": true,
+      "workerRecent": true
+    },
+    "protectedTables": 70,
+    "changedTables": [],
+    "config": {
+      "APP_REVISION": "7efc5201a811b700f683fd7c29e3fe1cfc012360",
+      "STORE_MODE": "production",
+      "PAYMENT_PROVIDER": "yookassa-live",
+      "YOOKASSA_RECEIPTS_MODE": "yookassa",
+      "SEO_INDEXING_ENABLED": "false",
+      "CDEK_SHIPMENTS_MODE": "disabled",
+      "CDEK_SHIPMENTS_ALLOW_LIVE": "false",
+      "PICKUP_MAP_PROVIDER": "osm",
+      "METRIKA_ENABLED": "false",
+      "MAIL_PROVIDER": "timeweb-smtp",
+      "MAIL_RECIPIENT_POLICY": "all-new",
+      "MAIL_NEW_MESSAGES_FROM": "2026-10-14T23:37:31.373Z",
+      "YOOKASSA_LIVE_OPERATIONS_ENABLED": "true"
+    },
+    "passed": true
+  },
+  "checks": {
+    "astroErrors": 0,
+    "astroWarnings": 0,
+    "astroHints": 0,
+    "buildPassed": true,
+    "unitPassed": 232,
+    "unitSkipped": 8,
+    "unitFailed": 0,
+    "profileUnitPassed": 37,
+    "tradeDatabasePassed": 67,
+    "productionDatabaseGroups": 27,
+    "previewSsrChecks": 6
+  },
+  "runtime": {
+    "revision": "7efc5201a811b700f683fd7c29e3fe1cfc012360",
+    "readOnly": true,
+    "ordersRead": 8,
+    "migration036": true,
+    "smartProtocolInDeployedImage": true,
+    "liveShopSmartAndFiscalReady": true,
+    "noindex": true,
+    "carrierCreationDisabled": true,
+    "emergencyPauseVerified": true,
+    "accountReadOnlyRequests": 1,
+    "realMonetaryRequests": 0,
+    "realOrdersCreated": 0,
+    "realRefundsCreated": 0,
+    "realReceiptsCreated": 0,
+    "messagesSent": 0,
+    "passed": true
+  },
+  "publicGet": {
+    "checkedAt": "2026-10-15T17:14:32.594640+00:00",
+    "checks": [
+      {
+        "path": "/health",
+        "status": 200,
+        "passed": true,
+        "revision": "7efc5201a811b700f683fd7c29e3fe1cfc012360"
+      },
+      {
+        "path": "/product/kryshka-avariyki-lada-priora-2007-2018",
+        "status": 200,
+        "passed": true
+      },
+      {
+        "path": "/",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/catalog",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/cart",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/checkout",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/account",
+        "status": 200,
+        "passed": true,
+        "noindex": true
+      },
+      {
+        "path": "/api/privacy",
+        "status": 200,
+        "passed": true,
+        "analyticsEnabled": false
+      },
+      {
+        "path": "/api/manager/orders",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/api/manager/payment-refunds?orderId=00000000-0000-4000-8000-000000000001",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/api/manager/closing-receipt?orderId=00000000-0000-4000-8000-000000000001",
+        "status": 401,
+        "passed": true
+      },
+      {
+        "path": "/robots.txt",
+        "status": 200,
+        "passed": true,
+        "closed": true
+      },
+      {
+        "path": "/sitemap.xml",
+        "status": 200,
+        "passed": true,
+        "empty": true
+      },
+      {
+        "path": "/feed.yml",
+        "status": 503,
+        "passed": true
+      },
+      {
+        "path": "/cms/users/me",
+        "status": 401,
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "readOnly": true,
+    "monetaryRequests": 0
+  },
+  "publicHttpGuards": {
+    "passed": true,
+    "checks": [
+      {
+        "path": "/api/commerce/cart",
+        "status": 403,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/cart",
+        "status": 403,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/cart",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/delivery-estimate",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/quote",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/checkout",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/pay",
+        "status": 403,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/payment-event",
+        "status": 404,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/payment-status",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/commerce/cancel",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/auth/request",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "path": "/api/auth/verify",
+        "status": 400,
+        "passed": true
+      }
+    ],
+    "invalidCommandsOnly": true,
+    "ordersCreated": 0,
+    "paymentsCreated": 0,
+    "refundsCreated": 0,
+    "receiptsCreated": 0,
+    "messagesSent": 0
+  },
+  "publicAssets": {
+    "passed": true,
+    "assets": [
+      {
+        "file": "commerce.BCeKdL_B.js",
+        "sha256": "4e90add2f9d97cbc0a1776ee15a5546f0b764ac0a7702a38e93d9790f1fbef06",
+        "publicMatchesImage": true
+      }
+    ]
+  },
+  "publicBrowser": {
+    "passed": true,
+    "synthetic": true,
+    "publicAssetsReal": true,
+    "externalProviderRequests": 0,
+    "checks": [
+      {
+        "width": 1440,
+        "singleSmartButton": true,
+        "noMethodRadios": true,
+        "methodChosenByProvider": true,
+        "existingPaymentContinuesWithoutNewCommand": true,
+        "sandboxSmart": true,
+        "simulationPreserved": true,
+        "noOverflow": true
+      },
+      {
+        "width": 375,
+        "singleSmartButton": true,
+        "noMethodRadios": true,
+        "methodChosenByProvider": true,
+        "existingPaymentContinuesWithoutNewCommand": true,
+        "sandboxSmart": true,
+        "simulationPreserved": true,
+        "noOverflow": true
+      }
+    ],
+    "appSha": "7efc5201a811b700f683fd7c29e3fe1cfc012360"
+  },
+  "existingAttemptsPreserved": true,
+  "providerAccountReadOnlyRequests": 2,
+  "existingProviderPaymentReadOnlyRequests": 2,
+  "realMonetaryRequestsByOperator": 0,
+  "realOrdersCreatedByOperator": 0,
+  "realRefundsCreatedByOperator": 0,
+  "realReceiptsCreatedByOperator": 0,
+  "messagesSentByOperator": 0,
+  "limitations": [
+    "Payment-method availability is controlled by the connected shop and YooKassa.",
+    "Existing card/SBP attempts retain their original URLs and method; Smart Payment applies to new smart attempts.",
+    "Real payment and fiscal receipt delivery still require a control purchase by the user."
+  ],
+  "passed": true
+}

@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "synthetic": true,
+  "externalProviderRequests": 0,
+  "checks": [
+    {
+      "width": 1440,
+      "singleSmartButton": true,
+      "noMethodRadios": true,
+      "methodChosenByProvider": true,
+      "existingPaymentContinuesWithoutNewCommand": true,
+      "sandboxSmart": true,
+      "simulationPreserved": true,
+      "noOverflow": true
+    },
+    {
+      "width": 375,
+      "singleSmartButton": true,
+      "noMethodRadios": true,
+      "methodChosenByProvider": true,
+      "existingPaymentContinuesWithoutNewCommand": true,
+      "sandboxSmart": true,
+      "simulationPreserved": true,
+      "noOverflow": true
+    }
+  ]
+}

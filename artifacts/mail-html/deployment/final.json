@@ -1,0 +1,32 @@
+{
+  "checkedAt": "2026-10-15T00:32:04.271784+00:00",
+  "appSha": "6a84aca06a4392983e281d0ba53605dd9f04da03",
+  "imageId": "sha256:0a9758d2b35381268f9460208d8d2fc318931ef1c4f83645c2dcd723d53cbe0d",
+  "migrations": "001–030",
+  "checks": {
+    "migrationRolloutPreservedExistingData": true,
+    "migrationRolloutPreservedOtherEnv": true,
+    "aliasPreservedData": true,
+    "aliasPreservedOtherEnv": true,
+    "aliasPreservedMigrations": true,
+    "protectedServicesPreserved": true,
+    "workerRecent": true,
+    "http": true,
+    "redirect": true,
+    "fiveInbox": true,
+    "fiveSmtpAccepted": true,
+    "backupReadable": true
+  },
+  "passed": true,
+  "sampleMessagesSent": 5,
+  "sampleRecipient": "sales@autoreelz.ru",
+  "additionalResends": 0,
+  "realOrdersCreated": 0,
+  "paymentsCreated": 0,
+  "authChallengesCreated": 0,
+  "paymentProvider": "yookassa-sandbox",
+  "receiptsMode": "disabled",
+  "mailCutoff": "2026-10-14T23:37:31.373Z",
+  "independentReview": "No P1/P2 findings",
+  "backup": "/srv/autoreelz2026/backups/before-mail-html-20261015T002258Z.dump"
+}

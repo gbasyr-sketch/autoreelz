@@ -1,0 +1,65 @@
+{
+  "messages": [
+    {
+      "id": "16545a3c-f791-4a35-b32f-7f28c8f0517b",
+      "subject": "[Макет 1/5] AUTO REELZ — заказ DEMO-014 оформлен",
+      "state": "delivered",
+      "messageId": "<ar-23c600a6-a0bd-45d6-8a31-6a654947f0c6@autoreelz.ru>",
+      "attempts": 1,
+      "lastError": null,
+      "acceptedAt": "2026-10-15T00:23:59.660503+00:00",
+      "htmlBytes": 7102,
+      "assets": 1,
+      "version": "2026-10-15.1"
+    },
+    {
+      "id": "401bfc46-081b-43af-a213-b8c7f9500c89",
+      "subject": "[Макет 2/5] AUTO REELZ — заказ DEMO-014 подтверждён",
+      "state": "delivered",
+      "messageId": "<ar-07f3ac20-b4da-40ec-b8c7-9ca81ef793ca@autoreelz.ru>",
+      "attempts": 1,
+      "lastError": null,
+      "acceptedAt": "2026-10-15T00:24:04.945257+00:00",
+      "htmlBytes": 6951,
+      "assets": 1,
+      "version": "2026-10-15.1"
+    },
+    {
+      "id": "49d57307-d5ee-4fe8-b6f7-b772117d919e",
+      "subject": "[Макет 4/5] AUTO REELZ — заказ DEMO-014 отправлен",
+      "state": "delivered",
+      "messageId": "<ar-0f1cb6c9-7160-4e08-bafb-5719d328d5f3@autoreelz.ru>",
+      "attempts": 1,
+      "lastError": null,
+      "acceptedAt": "2026-10-15T00:24:10.369389+00:00",
+      "htmlBytes": 3646,
+      "assets": 1,
+      "version": "2026-10-15.1"
+    },
+    {
+      "id": "95920739-5f8d-469d-92f7-acd48f394dfd",
+      "subject": "[Макет 3/5] AUTO REELZ — тестовая оплата заказа DEMO-014 получена",
+      "state": "delivered",
+      "messageId": "<ar-ec554a06-76ec-436d-8b1c-b6d536a0966b@autoreelz.ru>",
+      "attempts": 1,
+      "lastError": null,
+      "acceptedAt": "2026-10-15T00:24:15.682014+00:00",
+      "htmlBytes": 3871,
+      "assets": 1,
+      "version": "2026-10-15.1"
+    },
+    {
+      "id": "afdca4de-cc97-43e9-b2d9-12e15b4c99a4",
+      "subject": "[Макет 5/5] AUTO REELZ — код входа",
+      "state": "delivered",
+      "messageId": "<ar-ef34e023-597d-4019-862c-9a995f7fafc1@autoreelz.ru>",
+      "attempts": 1,
+      "lastError": null,
+      "acceptedAt": "2026-10-15T00:24:21.291548+00:00",
+      "htmlBytes": 2450,
+      "assets": 1,
+      "version": "2026-10-15.1"
+    }
+  ],
+  "allAccepted": true
+}

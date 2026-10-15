@@ -1,0 +1,47 @@
+[
+  {
+    "id": "16545a3c-f791-4a35-b32f-7f28c8f0517b",
+    "subject": "[Макет 1/5] AUTO REELZ — заказ DEMO-014 оформлен",
+    "status": "pending",
+    "message_id": "<ar-23c600a6-a0bd-45d6-8a31-6a654947f0c6@autoreelz.ru>",
+    "attempts": 0,
+    "template_version": "2026-10-15.1",
+    "deduplication_key": "html-samples-20261015-v1:created"
+  },
+  {
+    "id": "401bfc46-081b-43af-a213-b8c7f9500c89",
+    "subject": "[Макет 2/5] AUTO REELZ — заказ DEMO-014 подтверждён",
+    "status": "pending",
+    "message_id": "<ar-07f3ac20-b4da-40ec-b8c7-9ca81ef793ca@autoreelz.ru>",
+    "attempts": 0,
+    "template_version": "2026-10-15.1",
+    "deduplication_key": "html-samples-20261015-v1:ready"
+  },
+  {
+    "id": "49d57307-d5ee-4fe8-b6f7-b772117d919e",
+    "subject": "[Макет 4/5] AUTO REELZ — заказ DEMO-014 отправлен",
+    "status": "pending",
+    "message_id": "<ar-0f1cb6c9-7160-4e08-bafb-5719d328d5f3@autoreelz.ru>",
+    "attempts": 0,
+    "template_version": "2026-10-15.1",
+    "deduplication_key": "html-samples-20261015-v1:shipped"
+  },
+  {
+    "id": "95920739-5f8d-469d-92f7-acd48f394dfd",
+    "subject": "[Макет 3/5] AUTO REELZ — тестовая оплата заказа DEMO-014 получена",
+    "status": "pending",
+    "message_id": "<ar-ec554a06-76ec-436d-8b1c-b6d536a0966b@autoreelz.ru>",
+    "attempts": 0,
+    "template_version": "2026-10-15.1",
+    "deduplication_key": "html-samples-20261015-v1:paid"
+  },
+  {
+    "id": "afdca4de-cc97-43e9-b2d9-12e15b4c99a4",
+    "subject": "[Макет 5/5] AUTO REELZ — код входа",
+    "status": "pending",
+    "message_id": "<ar-ef34e023-597d-4019-862c-9a995f7fafc1@autoreelz.ru>",
+    "attempts": 0,
+    "template_version": "2026-10-15.1",
+    "deduplication_key": "html-samples-20261015-v1:login"
+  }
+]

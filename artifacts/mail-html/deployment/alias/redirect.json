@@ -1,0 +1,7 @@
+{
+  "path": "/orders",
+  "status": 302,
+  "location": "/account",
+  "noStore": true,
+  "passed": true
+}

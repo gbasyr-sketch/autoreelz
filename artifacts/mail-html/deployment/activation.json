@@ -1,0 +1,14 @@
+{
+  "sha": "ff1ecf81626b4784176d01c6270780ff58e2f106",
+  "previousSha": "6423b283bb929abe7bf8478c7e42ee5b8652eda2",
+  "imageId": "sha256:78140815add2a07f9084ea44c95a6d68592bd66eeda15917fb03c0ecc0739511",
+  "backup": "/srv/autoreelz2026/backups/before-mail-html-20261015T002258Z.dump",
+  "backupReadable": true,
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-mail-html-20261015T002258Z",
+  "migration": {
+    "name": "030_mail_html_templates.sql",
+    "sha256": "90406b2b809b2a3c819558f49fb08a3e9cd9e58d1fd23c46294bee2feae81826"
+  },
+  "onlyReleaseImageChanged": true,
+  "paymentsRemainTest": true
+}

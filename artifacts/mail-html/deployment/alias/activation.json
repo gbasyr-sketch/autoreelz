@@ -1,0 +1,8 @@
+{
+  "sha": "6a84aca06a4392983e281d0ba53605dd9f04da03",
+  "previousSha": "ff1ecf81626b4784176d01c6270780ff58e2f106",
+  "imageId": "sha256:0a9758d2b35381268f9460208d8d2fc318931ef1c4f83645c2dcd723d53cbe0d",
+  "envBackup": "/srv/autoreelz2026/shared/bootstrap/server.env.before-mail-alias-20261015T003054Z",
+  "migrationChanged": false,
+  "mailResent": false
+}

@@ -1,0 +1,49 @@
+{
+  "received": 5,
+  "expected": 5,
+  "allReceived": true,
+  "messages": [
+    {
+      "type": "created",
+      "subject": "[Макет 1/5] AUTO REELZ — заказ DEMO-014 оформлен",
+      "receivedInInbox": true,
+      "plainAndHtml": true,
+      "inlinePngLogo": true,
+      "messageIdMatched": true
+    },
+    {
+      "type": "ready",
+      "subject": "[Макет 2/5] AUTO REELZ — заказ DEMO-014 подтверждён",
+      "receivedInInbox": true,
+      "plainAndHtml": true,
+      "inlinePngLogo": true,
+      "messageIdMatched": true
+    },
+    {
+      "type": "shipped",
+      "subject": "[Макет 4/5] AUTO REELZ — заказ DEMO-014 отправлен",
+      "receivedInInbox": true,
+      "plainAndHtml": true,
+      "inlinePngLogo": true,
+      "messageIdMatched": true
+    },
+    {
+      "type": "paid",
+      "subject": "[Макет 3/5] AUTO REELZ — тестовая оплата заказа DEMO-014 получена",
+      "receivedInInbox": true,
+      "plainAndHtml": true,
+      "inlinePngLogo": true,
+      "messageIdMatched": true
+    },
+    {
+      "type": "login",
+      "subject": "[Макет 5/5] AUTO REELZ — код входа",
+      "receivedInInbox": true,
+      "plainAndHtml": true,
+      "inlinePngLogo": true,
+      "messageIdMatched": true
+    }
+  ],
+  "imapReadOnly": true,
+  "additionalMessagesSent": 0
+}
